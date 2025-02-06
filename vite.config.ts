@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 import { componentTagger } from "lovable-tagger";
 
+// Determine the base URL based on the environment
+const getBaseUrl = () => {
+  // Now that we're using a custom domain, we always use root path
+  return '/';
+};
+
 export default defineConfig(({ mode }) => ({
-  base: process.env.NODE_ENV === 'production' ? '/cre8tive-ai/' : '/',
+  base: './',
   server: {
     host: "::",
     port: 8080,
@@ -15,8 +21,8 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@assets': path.resolve(__dirname, './src/assets'),
+      '@': resolve(__dirname, './src'),
+      '@assets': resolve(__dirname, './src/assets'),
     },
   },
   css: {
@@ -32,21 +38,54 @@ export default defineConfig(({ mode }) => ({
     }
   },
   build: {
+    outDir: 'dist',
     assetsDir: 'assets',
+    emptyOutDir: true,
+    sourcemap: mode === 'development',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: mode === 'production',
+        drop_debugger: mode === 'production'
+      }
+    },
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+      },
       output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+        },
         assetFileNames: (assetInfo) => {
-          const name = assetInfo.name || '';
-          const ext = name.split('.').pop() || '';
-          let extType = ext;
+          if (!assetInfo.name) return 'assets/[name]-[hash][extname]';
+          const info = assetInfo.name.split('.');
+          const ext = info[info.length - 1];
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext)) {
-            extType = 'img';
+            return `assets/img/[name]-[hash][extname]`;
           }
-          return `assets/${extType}/[name]-[hash][extname]`;
+          return `assets/[name]-[hash][extname]`;
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
       },
     },
+    target: 'es2015',
+    modulePreload: {
+      polyfill: true
+    }
   },
+  preview: {
+    port: 4173,
+    strictPort: true,
+    headers: {
+      'Cache-Control': 'no-store',
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Resource-Policy': 'same-site',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'X-XSS-Protection': '1; mode=block'
+    }
+  }
 }));

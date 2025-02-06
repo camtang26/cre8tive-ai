@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { ENABLE_AUTH_FEATURES } from "../../constants/featureFlags";
+import { ASSETS } from '@/constants/assets';
+import { OptimizedImage } from '@/components/core/OptimizedImage';
 
 export const DesktopNavigation = () => {
   return (
@@ -18,12 +20,11 @@ export const DesktopNavigation = () => {
               className="flex items-center space-x-4" 
               aria-label="Go to homepage"
             >
-              <img 
-                src="/images/logo-small.jpeg" 
-                alt="Cre8tive AI Logo" 
-                className="h-14 w-auto"
-                width="56"
-                height="56"
+              <OptimizedImage
+                webpSrc={ASSETS.logos.medium.webp}
+                jpegSrc={ASSETS.logos.medium.jpeg}
+                alt="Cre8tive AI Logo"
+                className="h-10 w-auto"
               />
               <span className="text-white font-geist font-bold text-2xl tracking-[-0.02em] leading-none">
                 Cre8tive AI

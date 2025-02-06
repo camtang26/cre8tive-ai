@@ -1,33 +1,48 @@
+import { Suspense, lazy } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Analytics } from '@vercel/analytics/react';
 import { MainLayout } from "./components/layout/MainLayout";
 import { CookieConsent } from "./components/analytics/CookieConsent";
 import { ScrollToTop } from "./components/core/ScrollToTop";
-import { useEffect } from 'react';
-import { scrollAnimator } from './utils/scrollAnimations';
-import Index from "./pages/Index";
-import Studios from "./pages/Studios";
-import AdManager from "./pages/AdManager";
-import Agents from "./pages/Agents";
-import ConversationalAI from "./pages/ConversationalAI";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+import { SEO } from './components/core/SEO';
 
-const queryClient = new QueryClient();
+// Lazy load pages with loading fallback
+const Index = lazy(() => import('./pages/Index'));
+const Studios = lazy(() => import('./pages/Studios'));
+const AdManager = lazy(() => import('./pages/AdManager'));
+const Agents = lazy(() => import('./pages/Agents'));
+const ConversationalAI = lazy(() => import('./pages/ConversationalAI'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Configure QueryClient with supported options only
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+      gcTime: 10 * 60 * 1000 // 10 minutes
+    }
+  }
+});
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="loading-spinner" aria-label="Loading content" />
+  </div>
+);
 
 const App = () => {
-  useEffect(() => {
-    scrollAnimator.init();
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
+      <SEO />
       <TooltipProvider>
         <Helmet>
           {/* Security Headers */}
@@ -50,26 +65,27 @@ const App = () => {
           </script>
         </Helmet>
 
-        <BrowserRouter>
+        <Router>
           <ScrollToTop />
           <MainLayout>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/studios" element={<Studios />} />
+                <Route path="/manager" element={<AdManager />} />
+                <Route path="/agents" element={<Agents />} />
+                <Route path="/conversational" element={<ConversationalAI />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
             <Toaster />
             <Sonner />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/studios" element={<Studios />} />
-              <Route path="/ad-manager" element={<AdManager />} />
-              <Route path="/manager" element={<AdManager />} />
-              <Route path="/agents" element={<Agents />} />
-              <Route path="/conversational" element={<ConversationalAI />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
             <CookieConsent />
             <Analytics />
           </MainLayout>
-        </BrowserRouter>
+        </Router>
       </TooltipProvider>
     </QueryClientProvider>
   );

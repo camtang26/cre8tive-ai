@@ -99,7 +99,7 @@ export const AiMarketingSolutions = () => {
                   )}
                   style={{
                     '--solution-color': solution.color,
-                    boxShadow: `0 0 30px ${solution.color}25`
+                    boxShadow: '0 0 30px var(--solution-color)'
                   } as React.CSSProperties}
                 >
                   <div className="mb-6 relative group-hover:animate-pulse">

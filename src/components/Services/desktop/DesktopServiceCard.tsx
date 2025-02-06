@@ -44,8 +44,8 @@ export const DesktopServiceCard = ({
           "flex flex-col items-center justify-center text-center"
         )}
         style={{
-          '--service-color': color,
-          boxShadow: `0 0 30px ${color}25`
+          '--card-color': color,
+          boxShadow: '0 0 30px var(--card-color)'
         } as React.CSSProperties}
       >
         <div className="mb-10 relative group-hover:animate-pulse">

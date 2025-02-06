@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ScrollFade } from "../shared/ScrollFade";
+import { ASSETS } from '@/constants/assets';
+import { OptimizedImage } from '@/components/core/OptimizedImage';
 
 export const StudiosIntro = () => {
   return (
@@ -57,17 +59,32 @@ export const StudiosIntro = () => {
           <ScrollFade className="hidden md:block">
             <div className={cn(
               "relative aspect-video rounded-xl overflow-hidden",
-              "bg-black/10 backdrop-blur-sm"
+              "bg-black/10 backdrop-blur-sm",
+              "flex items-center justify-center",
+              "shadow-2xl shadow-purple-500/10"
             )}>
-              <img
-                src="/wp-content/themes/cre8tive-ai/dist/images/logo-large.jpeg"
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5" />
+              
+              <OptimizedImage
+                webpSrc={ASSETS.logos.large.webp}
+                jpegSrc={ASSETS.logos.large.jpeg}
                 alt="Cre8tive AI Studio"
-                className="h-16 w-auto mx-auto"
+                className="w-full h-full object-cover relative z-10"
+                style={{ objectPosition: 'center' }}
               />
               
-              {/* Overlay */}
+              {/* Soft glow effect */}
               <div 
-                className="absolute inset-0 bg-black/20"
+                className="absolute inset-0 opacity-30"
+                style={{
+                  background: 'radial-gradient(circle at center, rgba(168,85,247,0.2) 0%, transparent 70%)',
+                  filter: 'blur(40px)',
+                }}
+              />
+              
+              {/* Overlay for depth */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
                 aria-hidden="true"
               />
             </div>

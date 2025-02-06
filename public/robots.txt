@@ -1,4 +1,19 @@
+# Allow all crawlers
 User-agent: *
 Allow: /
 
-Sitemap: https://cre8tive.ai/sitemap.xml
+# Sitemap location
+Sitemap: https://camtang26.github.io/cre8tive-ai/sitemap.xml
+
+# Disallow crawling of development/test environments
+User-agent: *
+Disallow: /dev/
+Disallow: /staging/
+Disallow: /test/
+
+# Rate limiting for heavy crawlers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

@@ -68,8 +68,8 @@ export const MobileServiceCard = ({
             "flex flex-col items-center text-center"
           )}
           style={{
-            '--service-color': color,
-            boxShadow: `0 0 20px ${color}15`
+            '--card-color': color,
+            boxShadow: '0 0 20px var(--card-color)'
           } as React.CSSProperties}
         >
           <div className="mb-4 relative">

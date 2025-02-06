@@ -9,6 +9,7 @@ interface StepCardProps {
   Icon: LucideIcon;
   color: string;
   className?: string;
+  isActive: boolean;
 }
 
 export const StepCard = ({
@@ -19,6 +20,7 @@ export const StepCard = ({
   Icon,
   color,
   className,
+  isActive,
 }: StepCardProps) => {
   return (
     <div 
@@ -36,10 +38,13 @@ export const StepCard = ({
           "before:opacity-0 before:transition-opacity hover:before:opacity-100",
           "after:absolute after:inset-0 after:rounded-xl",
           "after:opacity-0 after:transition-opacity hover:after:opacity-100",
-          `shadow-[0_0_30px_${color}25]`
+          {
+            'shadow-[0_0_30px_var(--step-color)]': isActive
+          }
         )}
         style={{
           '--step-color': color,
+          textShadow: isActive ? '0 0 10px var(--step-color)' : 'none'
         } as React.CSSProperties}
       >
         {/* 3D Number Badge */}
