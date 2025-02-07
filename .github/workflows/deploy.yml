@@ -3,9 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
+# Trigger new deployment with updated configuration
 permissions:
   contents: write
 
