@@ -8,15 +8,17 @@ import logoLargeWebp from '@assets/logo-large.webp';
 
 // Get the base URL for assets
 const getAssetUrl = (importedPath: string): string => {
-  // In development, Vite handles the imports directly
+  // Remove any leading slash
+  const cleanPath = importedPath.replace(/^\//, '');
+  
+  // In development, return the imported path as is
   if (!import.meta.env.PROD) {
-    return importedPath;
+    return cleanPath;
   }
 
-  // In production, we need to ensure the path is relative to the base URL
-  const baseUrl = import.meta.env.BASE_URL || '/';
-  // The importedPath will already contain the correct hashed filename from Vite
-  return importedPath.startsWith('/') ? importedPath : `${baseUrl}${importedPath}`;
+  // In production, ensure we're using the correct base path
+  const baseUrl = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
+  return `${baseUrl}/${cleanPath}`;
 };
 
 // Log the asset paths in development to help with debugging
