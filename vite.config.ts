@@ -21,8 +21,7 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@assets': path.resolve(__dirname, './public/images'),
+      '@': path.resolve(__dirname, './src')
     },
   },
   css: {
@@ -81,14 +80,13 @@ export default defineConfig(({ mode }) => ({
         assetFileNames: (assetInfo) => {
           const name = assetInfo.name || '';
           const ext = name.split('.').pop() || '';
-          
-          // Keep images in a dedicated directory with original names
+          let extType = ext;
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext)) {
-            return `images/${name}`;
+            extType = 'img';
           }
-          
-          // Other assets follow the standard pattern
-          return `assets/[name]-[hash][extname]`;
+          // Keep the original filename for easier debugging
+          const fileName = name.replace(`.${ext}`, '');
+          return `assets/${extType}/${fileName}-[hash][extname]`;
         }
       }
     },

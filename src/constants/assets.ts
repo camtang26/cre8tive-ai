@@ -1,10 +1,10 @@
 // Import all logo variants
-import logoSmallJpeg from '@assets/logo-small.jpeg';
-import logoMediumJpeg from '@assets/logo-medium.jpeg';
-import logoLargeJpeg from '@assets/logo-large.jpeg';
-import logoSmallWebp from '@assets/logo-small.webp';
-import logoMediumWebp from '@assets/logo-medium.webp';
-import logoLargeWebp from '@assets/logo-large.webp';
+import logoSmallJpeg from '../assets/logo-small.jpeg';
+import logoMediumJpeg from '../assets/logo-medium.jpeg';
+import logoLargeJpeg from '../assets/logo-large.jpeg';
+import logoSmallWebp from '../assets/logo-small.webp';
+import logoMediumWebp from '../assets/logo-medium.webp';
+import logoLargeWebp from '../assets/logo-large.webp';
 
 // Get the base URL for assets
 const getAssetUrl = (importedPath: string): string => {
