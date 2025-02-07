@@ -1,16 +1,18 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 import { componentTagger } from "lovable-tagger";
 
 // Determine the base URL based on the environment
 const getBaseUrl = () => {
-  // Now that we're using a custom domain, we always use root path
+  if (process.env.NODE_ENV === 'production') {
+    return '/cre8tive-ai/';
+  }
   return '/';
 };
 
 export default defineConfig(({ mode }) => ({
-  base: './',
+  base: getBaseUrl(),
   server: {
     host: "::",
     port: 8080,
@@ -21,8 +23,8 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
-      '@assets': resolve(__dirname, './src/assets'),
+      '@': path.resolve(__dirname, './src'),
+      '@assets': path.resolve(__dirname, './src/assets'),
     },
   },
   css: {
@@ -38,9 +40,8 @@ export default defineConfig(({ mode }) => ({
     }
   },
   build: {
-    outDir: 'dist',
     assetsDir: 'assets',
-    emptyOutDir: true,
+    chunkSizeWarningLimit: 1000,
     sourcemap: mode === 'development',
     minify: 'terser',
     terserOptions: {
@@ -50,25 +51,47 @@ export default defineConfig(({ mode }) => ({
       }
     },
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-      },
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
+          'vendor': [
+            'react',
+            'react-dom',
+            'react-router-dom',
+            '@tanstack/react-query',
+            'framer-motion',
+            'three',
+            '@vimeo/player'
+          ],
+          'ui': [
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-alert-dialog',
+            '@radix-ui/react-avatar',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-label',
+            '@radix-ui/react-navigation-menu',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-select',
+            '@radix-ui/react-slot',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-toast'
+          ]
         },
+        format: 'es',
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: (assetInfo) => {
-          if (!assetInfo.name) return 'assets/[name]-[hash][extname]';
-          const info = assetInfo.name.split('.');
-          const ext = info[info.length - 1];
+          const name = assetInfo.name || '';
+          const ext = name.split('.').pop() || '';
+          let extType = ext;
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext)) {
-            return `assets/img/[name]-[hash][extname]`;
+            extType = 'img';
           }
-          return `assets/[name]-[hash][extname]`;
-        },
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        entryFileNames: 'assets/js/[name]-[hash].js',
-      },
+          // Keep the original filename for easier debugging
+          const fileName = name.replace(`.${ext}`, '');
+          return `assets/${extType}/${fileName}-[hash][extname]`;
+        }
+      }
     },
     target: 'es2015',
     modulePreload: {
