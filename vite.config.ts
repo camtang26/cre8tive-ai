@@ -5,9 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // Determine the base URL based on the environment
 const getBaseUrl = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return '/cre8tive-ai/';
-  }
+  // Now that we're using a custom domain, we always want the root path
   return '/';
 };
 
@@ -103,12 +101,26 @@ export default defineConfig(({ mode }) => ({
     strictPort: true,
     headers: {
       'Cache-Control': 'no-store',
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Resource-Policy': 'same-site',
+      'Cross-Origin-Embedder-Policy': 'unsafe-none',
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+      'Cross-Origin-Resource-Policy': 'cross-origin',
       'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'DENY',
-      'X-XSS-Protection': '1; mode=block'
+      'X-Frame-Options': 'ALLOW-FROM https://player.vimeo.com',
+      'X-XSS-Protection': '1; mode=block',
+      'Content-Security-Policy': `
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.elevenlabs.io https://*.vimeo.com https://*.vimeocdn.com https://player.vimeo.com https://f.vimeocdn.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.gpteng.co;
+        script-src-elem 'self' 'unsafe-inline' blob: https://*.elevenlabs.io https://elevenlabs.io https://*.vimeo.com https://player.vimeo.com https://f.vimeocdn.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.gpteng.co;
+        frame-src 'self' https://*.elevenlabs.io https://*.vimeo.com https://player.vimeo.com https://convai.elevenlabs.io https://f.vimeocdn.com data: blob:;
+        frame-ancestors 'self' https://player.vimeo.com https://*.vimeo.com;
+        connect-src 'self' https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io https://*.vimeo.com https://*.vimeocdn.com https://api.elevenlabs.io https://fresnel.vimeocdn.com https://f.vimeocdn.com https://www.google-analytics.com;
+        img-src 'self' data: blob: https: https://*.elevenlabs.io https://*.vimeocdn.com https://i.vimeocdn.com https://f.vimeocdn.com https://www.google-analytics.com https://storage.googleapis.com;
+        media-src 'self' blob: https://*.vimeo.com https://*.vimeocdn.com https://player.vimeo.com https://f.vimeocdn.com;
+        child-src 'self' https://*.elevenlabs.io https://*.vimeo.com blob: data:;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://f.vimeocdn.com;
+        font-src 'self' data: https: https://fonts.gstatic.com https://f.vimeocdn.com;
+        worker-src 'self' blob:;
+      `.replace(/\s+/g, ' ').trim()
     }
   }
 }));

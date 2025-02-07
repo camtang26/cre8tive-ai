@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, Youtube, Linkedin } from "lucide-react";
+import { ASSETS } from '@/constants/assets';
+import { OptimizedImage } from '@/components/core/OptimizedImage';
 
 export const Footer = () => {
   return (
@@ -20,10 +22,11 @@ export const Footer = () => {
             {/* Logo and Social Links Section */}
             <div className="space-y-2 md:space-y-4 col-span-2 md:col-span-1 flex flex-col items-start">
               <div className="flex items-center space-x-2">
-                <img 
-                  src="/images/logo-small.jpeg" 
-                  alt="Logo" 
-                  className="w-5 h-5 md:w-8 md:h-8" 
+                <OptimizedImage
+                  webpSrc={ASSETS.logos.small.webp}
+                  jpegSrc={ASSETS.logos.small.jpeg}
+                  alt="Cre8tive AI Logo"
+                  className="w-5 h-5 md:w-8 md:h-8"
                 />
                 <span className="font-geist text-white font-bold text-xs md:text-base">Cre8tive AI</span>
               </div>
@@ -98,10 +101,11 @@ export const Footer = () => {
             <div className="flex flex-col items-end col-span-2 md:col-span-1">
               <h3 className="font-geist text-white font-semibold text-xs md:text-base mb-2 md:mb-4">© 2025 Cre8tive AI</h3>
               <Link to="/" aria-label="Return to homepage">
-                <img 
-                  src="/images/logo-medium.jpeg" 
-                  alt="Footer logo" 
-                  className="w-16 md:w-32 hover:opacity-90 transition-opacity duration-300" 
+                <OptimizedImage
+                  webpSrc={ASSETS.logos.medium.webp}
+                  jpegSrc={ASSETS.logos.medium.jpeg}
+                  alt="Footer logo"
+                  className="w-16 md:w-32 hover:opacity-90 transition-opacity duration-300"
                 />
               </Link>
             </div>
