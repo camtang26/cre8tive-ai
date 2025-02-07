@@ -1,10 +1,10 @@
 // Import all logo variants
-import logoSmallJpeg from '../assets/logo-small.jpeg';
-import logoMediumJpeg from '../assets/logo-medium.jpeg';
-import logoLargeJpeg from '../assets/logo-large.jpeg';
-import logoSmallWebp from '../assets/logo-small.webp';
-import logoMediumWebp from '../assets/logo-medium.webp';
-import logoLargeWebp from '../assets/logo-large.webp';
+import logoSmallJpeg from '@assets/logo-small.jpeg';
+import logoMediumJpeg from '@assets/logo-medium.jpeg';
+import logoLargeJpeg from '@assets/logo-large.jpeg';
+import logoSmallWebp from '@assets/logo-small.webp';
+import logoMediumWebp from '@assets/logo-medium.webp';
+import logoLargeWebp from '@assets/logo-large.webp';
 
 // Get the base URL for assets
 const getAssetUrl = (importedPath: string): string => {
@@ -13,9 +13,10 @@ const getAssetUrl = (importedPath: string): string => {
     return importedPath;
   }
 
-  // In production, ensure we have clean relative paths without any leading slashes
-  // This matches the build output structure and works with the custom domain
-  return importedPath.startsWith('/') ? importedPath.slice(1) : importedPath;
+  // In production, we need to ensure the path is relative to the base URL
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  // The importedPath will already contain the correct hashed filename from Vite
+  return importedPath.startsWith('/') ? importedPath : `${baseUrl}${importedPath}`;
 };
 
 // Log the asset paths in development to help with debugging
