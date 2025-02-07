@@ -81,13 +81,14 @@ export default defineConfig(({ mode }) => ({
         assetFileNames: (assetInfo) => {
           const name = assetInfo.name || '';
           const ext = name.split('.').pop() || '';
-          let extType = ext;
+          
+          // Keep images in a dedicated directory with original names for easier debugging
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext)) {
-            extType = 'img';
+            return `images/[name][extname]`;
           }
-          // Keep the original filename for easier debugging
-          const fileName = name.replace(`.${ext}`, '');
-          return `assets/${extType}/${fileName}-[hash][extname]`;
+          
+          // Other assets follow the standard pattern
+          return `assets/[name]-[hash][extname]`;
         }
       }
     },
