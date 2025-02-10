@@ -19,7 +19,8 @@ export const Step = ({ number, title, description, Icon, color }: StepProps) => 
           "transform-gpu transition-all duration-500",
           "border border-white/10",
           "hover:border-[var(--step-color)]/30",
-          "h-[400px] w-[300px]",
+          "h-[350px] md:h-[375px] xl:h-[400px]",
+          "w-[260px] md:w-[280px] xl:w-[300px]",
           "flex flex-col items-center",
           "relative"
         )}

@@ -56,7 +56,7 @@ export const HowItWorks = () => {
             <MobileHowItWorksCarousel steps={steps} />
           </ScrollFade>
         ) : (
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center md:gap-6 lg:gap-8 xl:gap-12 max-w-[95%] lg:max-w-6xl xl:max-w-7xl mx-auto">
             {steps.map((step, index) => (
               <React.Fragment key={step.number}>
                 <ScrollFade delay={index * 100}>
