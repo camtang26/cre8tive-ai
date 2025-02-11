@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Brain, Layers, Bot, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ServiceCardProps } from "../types";
+import { useEffect, useRef } from "react";
 
 const iconMap = {
   Brain,
@@ -19,6 +20,21 @@ export const DesktopServiceCard = ({
   index 
 }: ServiceCardProps) => {
   const Icon = iconMap[icon as keyof typeof iconMap];
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const adManagerTitleHeight = document.querySelector("#desktop-service-title-1")?.clientHeight;
+    const adManagerDescriptionHeight = document.querySelector("#desktop-service-description-1")?.clientHeight;
+
+    if (titleRef.current && adManagerTitleHeight) {
+      titleRef.current.style.height = `${adManagerTitleHeight}px`;
+    }
+
+    if (descriptionRef.current && adManagerDescriptionHeight) {
+      descriptionRef.current.style.height = `${adManagerDescriptionHeight}px`;
+    }
+  }, []);
 
   return (
     <div 
@@ -34,21 +50,25 @@ export const DesktopServiceCard = ({
     >
       <div 
         className={cn(
-          "glass-morphism p-16 rounded-xl hover-glow border border-white/10",
+          "glass-morphism p-8 rounded-xl hover-glow border border-white/10",
           "bg-gradient-to-br from-black/40 via-black/20 to-transparent relative group",
           "transform-gpu transition-transform duration-500 hover:scale-105",
           "before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r",
           "before:opacity-0 before:transition-opacity hover:before:opacity-100",
           "after:absolute after:inset-0 after:rounded-xl",
           "after:opacity-0 after:transition-opacity hover:after:opacity-100",
-          "flex flex-col items-center justify-center text-center"
+          "flex flex-col items-center justify-center text-center",
+          "h-[500px]"
         )}
         style={{
           '--card-color': color,
           boxShadow: '0 0 30px var(--card-color)'
         } as React.CSSProperties}
       >
-        <div className="mb-10 relative group-hover:animate-pulse">
+        <div className={cn(
+          "relative group-hover:animate-pulse",
+          icon === "Brain" ? "mb-12" : "mb-10"
+        )}>
           <Icon 
             className={cn(
               "w-28 h-28 transition-all duration-300",
@@ -59,14 +79,25 @@ export const DesktopServiceCard = ({
           />
         </div>
         
-        <h3 
-          id={`desktop-service-title-${index}`}
-          className="text-4xl font-semibold mb-6 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent leading-tight"
+        <h3
+          ref={titleRef}
+          id={`desktop-service-title-${index}`} 
+          className={cn(
+            "text-4xl font-semibold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent leading-tight",
+            "mb-6"
+          )}
         >
           {title}
         </h3>
         
-        <p className="text-xl text-white/80 leading-relaxed mb-8">
+        <p
+          ref={descriptionRef}
+          id={`desktop-service-description-${index}`}
+          className={cn(
+            "text-xl text-white/80 leading-relaxed",
+            "mb-8"
+          )}
+        >
           {description}
         </p>
         

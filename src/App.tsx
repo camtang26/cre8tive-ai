@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Analytics } from '@vercel/analytics/react';
 import { MainLayout } from "./components/layout/MainLayout";
@@ -30,6 +30,16 @@ const App = () => {
   useEffect(() => {
     scrollAnimator.init();
     setIsClient(true);
+
+    // Handle GitHub Pages redirect
+    const params = new URLSearchParams(window.location.search);
+    const redirectPath = params.get('p');
+    if (redirectPath) {
+      // Remove the 'p' parameter and redirect to the actual path
+      params.delete('p');
+      const newUrl = '/' + redirectPath + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
+      window.history.replaceState(null, '', newUrl);
+    }
   }, []);
 
   // Get the base URL from Vite's environment

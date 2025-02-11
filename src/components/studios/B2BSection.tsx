@@ -32,7 +32,7 @@ export const B2BSection = () => {
 
         <ScrollFade delay={200}>
           <p className="text-lg md:text-xl text-white/90 text-center max-w-4xl mx-auto mb-10 md:mb-16 [text-shadow:0_0_10px_rgba(255,255,255,0.4),0_0_20px_rgba(255,255,255,0.2)]">
-            We partner with traditional media agencies to supercharge their projects with cutting-edge AI capabilities. Our B2B services are designed to enhance creativity, efficiency, and scalability for your business.
+            We partner with media agencies to supercharge their projects with cutting-edge AI capabilities. Our B2B services are designed to enhance creativity, efficiency, and scalability for your business.
           </p>
         </ScrollFade>
 

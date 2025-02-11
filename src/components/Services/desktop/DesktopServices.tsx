@@ -15,7 +15,7 @@ export const DesktopServices = ({ services }: ServicesProps) => {
   return (
     <section className="relative py-16 md:py-24 min-h-[80vh]">
       <div className="container mx-auto px-8 h-full">
-        <div className="grid grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-2 gap-8 mb-12 items-stretch">
           {services.map((service, index) => (
             <ScrollFade key={index} delay={index * 100}>
               <DesktopServiceCard

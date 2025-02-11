@@ -89,6 +89,11 @@ export default {
       },
       perspective: {
         '1000': '1000px',
+      },
+      screens: {
+        ipad: "1024px",
+        laptop: "1366px",
+        desktop: "1920px",
       }
     }
   },

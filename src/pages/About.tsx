@@ -40,9 +40,7 @@ const About = () => {
                 Our Mission
               </h2>
               <p className="text-sm md:text-xl text-white/80 leading-relaxed font-inter">
-                Our mission is to revolutionize media production through cutting-edge AI technology, 
-                delivering efficiencies leading to margin and unparalleled quality and innovation 
-                in video production and content creation.
+                Our mission is to revolutionize media production through cutting-edge AI technology, delivering efficiencies leading to (Improved) margins, unparalleled quality and innovation in video production and content creation.
               </p>
             </div>
             
