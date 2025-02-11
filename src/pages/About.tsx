@@ -92,6 +92,23 @@ const About = () => {
               </div>
             </div>
           </div>
+
+          {/* Ethical Commitment Section */}
+          <div className="mt-8 md:mt-32">
+            <div className="glass-morphism p-6 md:p-12 rounded-lg md:rounded-2xl">
+              <h2 className="text-lg md:text-3xl font-semibold text-white mb-4 md:mb-8 font-inter tracking-tight">
+                Our Ethical Commitment
+              </h2>
+              <div className="space-y-4 md:space-y-6">
+                <p className="text-sm md:text-xl text-white/80 leading-relaxed font-inter">
+                  Cre8tive AI is committed to ethical AI-driven video production that respects intellectual property rights and promotes fair, unbiased representation. We ensure that all content is created with proper licensing, permissions, and originality, avoiding unauthorized use of copyrighted material.
+                </p>
+                <p className="text-sm md:text-xl text-white/80 leading-relaxed font-inter">
+                  Additionally, our AI models are designed and trained to minimize bias, actively preventing harmful stereotypes and ensuring diverse, inclusive storytelling. We believe in harnessing AI responsibly to create content that is innovative, ethical, and equitable for all audiences.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
