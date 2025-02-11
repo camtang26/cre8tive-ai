@@ -114,7 +114,7 @@ export default defineConfig(({ mode }) => ({
         script-src-elem 'self' 'unsafe-inline' blob: https://*.elevenlabs.io https://elevenlabs.io https://*.vimeo.com https://player.vimeo.com https://f.vimeocdn.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.gpteng.co https://*.spline.design https://prod.spline.design;
         frame-src 'self' https://*.elevenlabs.io https://*.vimeo.com https://player.vimeo.com https://convai.elevenlabs.io https://f.vimeocdn.com data: blob: https://*.spline.design https://prod.spline.design;
         frame-ancestors 'self' https://player.vimeo.com https://*.vimeo.com;
-        connect-src 'self' https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io https://*.vimeo.com https://*.vimeocdn.com https://www.google-analytics.com https://api.elevenlabs.io https://*.spline.design https://prod.spline.design;
+        connect-src 'self' https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io https://*.vimeo.com https://*.vimeocdn.com https://www.google-analytics.com https://api.elevenlabs.io https://*.spline.design https://prod.spline.design https://spline.design;
         img-src 'self' data: blob: https: https://*.elevenlabs.io https://*.vimeocdn.com https://i.vimeocdn.com https://f.vimeocdn.com https://www.google-analytics.com https://storage.googleapis.com https://*.spline.design https://prod.spline.design;
         child-src 'self' https://*.elevenlabs.io https://*.vimeo.com blob: data:;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://f.vimeocdn.com https://unpkg.com https://*.spline.design https://prod.spline.design;
