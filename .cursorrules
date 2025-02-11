@@ -102,8 +102,14 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
   - Use a simplified 404.html redirect that only adds a single 'p' parameter
   - Handle the redirect parameter in App.tsx using window.history.replaceState
   - Test all routes thoroughly in preview before deployment
--- You have a python venv in ./venv. Use it.
-
+  -- You have a python venv in ./venv. Use it.
+  -- You have a python script in ./tools/llm_api.py. Use it.
+  -- You have a python script in ./tools/web_scraper.py. Use it.
+  -- You have a python script in ./tools/search_engine.py. Use it.
+  -- You have a python script in ./tools/screenshot_utils.py. Use it.
+- Simplifying the deployment architecture reduces complexity and confusion.
+- Always verify and update CSP headers to include necessary external domains.
+- Thorough local testing for form submissions and error handling is critical for a smooth user experience.
 
 ## Development Best Practices
 
@@ -135,6 +141,12 @@ If needed, you can further use the `web_scraper.py` file to scrape the web page 
 
 ## Current Task
 
+### Deploy CSP Header Updates (Current)
+[X] Remove gpteng references from App.tsx
+[ ] Commit changes
+[ ] Push to master branch
+[ ] Verify deployment on live site
+
 ### Cre8tive Website 1.1 Updates (10 Feb 2025)
 
 Setup Phase:
@@ -150,3 +162,12 @@ Planned Changes:
 Note: All changes will be made on the new branch to preserve the stable master branch.
 
 - **Note:** For future tasks, always ask for permission before creating any new file.
+
+## Implementation Updates and Lessons
+
+### Cre8tive Website 1.1 Updates
+- Removed Vercel configuration file (vercel.json) to simplify architecture.
+- Updated src/components/ContactForm.tsx to post directly to Getform.io endpoint.
+- Deleted the API proxy file (api/getform-proxy.ts).
+- Updated Content-Security-Policy in vite.config.ts to allow connection to https://getform.io.
+- Tested changes locally to verify proper functionality and deployment.
