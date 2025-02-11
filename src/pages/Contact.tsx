@@ -111,22 +111,8 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Our Ethical Commitment Section */}
-          <div className="mt-10 md:mt-20 p-4 md:p-8 rounded-xl bg-white/5 backdrop-blur-sm">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
-              Our Ethical Commitment
-            </h2>
-            <p className="text-base md:text-lg text-white/90 leading-relaxed mb-4">
-              Cre8tive AI is committed to ethical AI-driven video production that respects intellectual property rights and promotes fair, unbiased representation. We ensure that all content is created with proper licensing, permissions, and originality, avoiding unauthorized use of copyrighted 
-              material.
-            </p>
-            <p className="text-base md:text-lg text-white/90 leading-relaxed">
-              Additionally, our AI models are designed and trained to minimize bias, actively preventing harmful stereotypes and ensuring diverse, inclusive storytelling. We believe in harnessing AI responsibly to create content that is innovative, ethical, and equitable for all audiences.
-            </p>
-          </div>
-
           {/* Reinforced Call to Action */}
-          <div className="mt-10 md:mt-20 p-4 md:p-8 rounded-xl bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm">
+          <div className="mt-10 md:mt-16 p-4 md:p-8 rounded-xl bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm">
             <p className="text-base md:text-lg text-white/90 leading-relaxed">
               The future of business is here—stay ahead of the curve with AI-powered video production, autonomous AI agents, and the Cre8tive AI Ad Manager. Don't let your competitors outpace you. Contact us today to explore how we can build smarter, more efficient solutions tailored to your goals, brand, and competitive edge.
             </p>
