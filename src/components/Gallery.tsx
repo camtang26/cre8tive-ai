@@ -11,8 +11,8 @@ const videos = [
   },
   {
     id: "2",
-    videoId: "1051846744",
-    title: "RAM 30 sec Cre8tive AI Demo"
+    videoId: "1055446411",
+    title: "Kotia Skincare"
   },
   {
     id: "3",
