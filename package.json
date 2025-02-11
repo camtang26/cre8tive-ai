@@ -12,35 +12,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "reactSnap": {
-    "source": "dist",
-    "destination": "dist",
-    "include": [
-      "/",
-      "/about",
-      "/contact",
-      "/studios",
-      "/agents",
-      "/conversational-ai"
-    ],
-    "puppeteerArgs": [
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
-    ],
-    "minifyHtml": {
-      "collapseWhitespace": false,
-      "removeComments": false
-    },
-    "inlineCss": false,
-    "fixWebpackChunksIssue": false,
-    "skipThirdPartyRequests": true,
-    "waitFor": 1000,
-    "puppeteerIgnoreHTTPSErrors": true,
-    "removeBlobs": true,
-    "cacheAjaxRequests": true,
-    "http2PushManifest": false,
-    "removeScriptTags": false
-  },
   "dependencies": {
     "@fontsource/geist-sans": "^5.1.0",
     "@fontsource/inter": "^5.1.1",
@@ -140,4 +111,4 @@
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
   }
-}
+} 

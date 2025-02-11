@@ -27,12 +27,12 @@ export const AgentsHero = () => {
         <SparklesCore
           id="tsparticlesagents"
           background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
+          minSize={0.4}
+          maxSize={0.8}
+          particleDensity={isMobile ? 40 : 70}
           className="w-full h-full"
           particleColor="#FFFFFF"
-          speed={0.5}
+          speed={0.3}
         />
       </div>
 
