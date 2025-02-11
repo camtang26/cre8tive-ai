@@ -42,7 +42,7 @@ export const HowItWorks = () => {
 
   return (
     <section className="py-8 md:py-20 relative">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 laptop:px-8">
         <div className="max-w-3xl mx-auto text-center mb-4 md:mb-16">
           <ScrollFade>
             <h2 className="text-5xl md:text-6xl font-bold text-gradient mb-2 md:mb-4">
@@ -56,11 +56,11 @@ export const HowItWorks = () => {
             <MobileHowItWorksCarousel steps={steps} />
           </ScrollFade>
         ) : (
-          <div className="flex flex-col md:flex-row items-center justify-center md:gap-6 lg:gap-8 xl:gap-12 max-w-[95%] lg:max-w-6xl xl:max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center md:gap-6 laptop:gap-8 desktop:gap-12 max-w-[95%] lg:max-w-6xl desktop:max-w-7xl mx-auto">
             {steps.map((step, index) => (
               <React.Fragment key={step.number}>
                 <ScrollFade delay={index * 100}>
-                  <Step {...step} />
+                  <Step {...step} isFourth={index === 3} />
                 </ScrollFade>
                 {index < steps.length - 1 && (
                   <StepArrow key={`arrow-${index}`} />

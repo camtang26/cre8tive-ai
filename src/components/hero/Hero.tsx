@@ -85,10 +85,6 @@ export const Hero = () => {
           Cutting Edge AI Solutions For Your Business
         </p>
       </div>
-
-      <div className="fixed bottom-4 left-4 z-[9999] bg-red-500 p-2 text-white">
-        SIMPLE TEST BUTTON
-      </div>
     </section>
   );
 };

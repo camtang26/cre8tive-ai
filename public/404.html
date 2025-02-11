@@ -7,22 +7,22 @@
       // Single Page Apps for GitHub Pages
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
-      var pathSegmentsToKeep = 1;
-
       var l = window.location;
       
-      // Handle root path specially
-      if (l.pathname === '/' || l.pathname === '/cre8tive-ai' || l.pathname === '/cre8tive-ai/') {
-        l.replace(l.origin + '/cre8tive-ai/');
+      // Don't run the redirect script if we're on the home page
+      if (l.pathname === '/' || l.pathname === '') {
+        l.replace(l.origin + '/');
       } else {
-        // Get the repository name from the pathname
-        var repoName = l.pathname.split('/')[1];
-        var newPath = l.pathname.split('/').slice(pathSegmentsToKeep + 1).join('/');
+        // Remove any existing query parameters, as we'll add them back in
+        var url = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/';
         
+        // Get the path without the leading slash
+        var path = l.pathname.slice(1);
+        
+        // Redirect to the root with the path in the query
         l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          '/' + repoName + '/?/' + newPath +
-          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          url + '?p=' + encodeURIComponent(path) +
+          (l.search ? '&' + l.search.slice(1) : '') +
           l.hash
         );
       }
@@ -31,7 +31,7 @@
   <body>
     <noscript>
       <p>This page requires JavaScript to work properly. Please enable JavaScript in your browser settings.</p>
-      <p><a href="/cre8tive-ai/">Click here to go to the homepage</a></p>
+      <p><a href="/">Click here to go to the homepage</a></p>
     </noscript>
   </body>
 </html> 

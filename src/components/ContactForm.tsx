@@ -46,6 +46,8 @@ export const ContactForm = () => {
   };
 
   const onSubmit = async (data: ContactFormData) => {
+    console.log("Form onSubmit triggered", data);
+
     if (!isValid) {
       toast.error("Please fix the form errors before submitting");
       return;
@@ -65,7 +67,6 @@ export const ContactForm = () => {
         name: sanitizeInput(data.name),
         email: sanitizeInput(data.email).toLowerCase(),
         message: sanitizeInput(data.message),
-        recipient: "sales@cre8tive.ai" // Added recipient email
       };
 
       // Validate email format
@@ -74,9 +75,21 @@ export const ContactForm = () => {
         throw new Error("Invalid email format");
       }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Submit the sanitized data to Getform using a FormData object
+      const formData = new FormData();
+      formData.append("name", sanitizedData.name);
+      formData.append("email", sanitizedData.email);
+      formData.append("message", sanitizedData.message);
+
+      const response = await fetch("/api/getform-proxy", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message. Please try again.");
+      }
+
       console.log("Form submitted with sanitized data:", sanitizedData);
       toast.success("Message sent successfully!");
       reset();
@@ -90,6 +103,7 @@ export const ContactForm = () => {
 
   return (
     <form 
+      encType="multipart/form-data"
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-6 animate-fade-in"
       autoComplete="off"
@@ -145,7 +159,7 @@ export const ContactForm = () => {
 
       <Button
         type="submit"
-        disabled={isSubmitting || !isValid}
+        disabled={isSubmitting}
         className="w-full transition-all duration-300 hover:scale-105 disabled:opacity-50 bg-[#1EAEDB] hover:bg-[#0FA0CE] shadow-[0_0_15px_rgba(30,174,219,0.5)] hover:shadow-[0_0_25px_rgba(30,174,219,0.8)]"
         aria-label={isSubmitting ? "Sending message..." : "Send message"}
       >

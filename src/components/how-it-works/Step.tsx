@@ -7,20 +7,21 @@ interface StepProps {
   description: string;
   Icon: LucideIcon;
   color: string;
+  isFourth?: boolean;
 }
 
-export const Step = ({ number, title, description, Icon, color }: StepProps) => {
+export const Step = ({ number, title, description, Icon, color, isFourth }: StepProps) => {
   return (
     <div className="relative group w-full">
       <div 
         className={cn(
-          "glass-morphism p-12 rounded-xl hover-lift hover-glow",
+          "glass-morphism p-12 ipad:p-8 rounded-xl hover-lift hover-glow",
           "bg-gradient-to-br from-black/40 via-black/20 to-transparent",
           "transform-gpu transition-all duration-500",
           "border border-white/10",
           "hover:border-[var(--step-color)]/30",
-          "h-[350px] md:h-[375px] xl:h-[400px]",
-          "w-[260px] md:w-[280px] xl:w-[300px]",
+          "h-[350px] md:h-[375px] ipad:h-[310px] laptop:h-[340px] desktop:h-[400px]",
+          "w-[260px] md:w-[280px] ipad:w-[230px] laptop:w-[250px] desktop:w-[300px]",
           "flex flex-col items-center",
           "relative"
         )}
@@ -55,10 +56,16 @@ export const Step = ({ number, title, description, Icon, color }: StepProps) => 
 
         {/* Content */}
         <div className="flex flex-col items-center space-y-4 px-6">
-          <h3 className="text-2xl font-bold text-gradient text-center">
-            {title}
+          <h3 className="text-2xl ipad:text-base laptop:text-[10px] desktop:text-2xl font-bold text-gradient text-center">
+            {title === "AI Processing" ? (
+              <>
+                AI<br />Processing
+              </>
+            ) : (
+              title
+            )}
           </h3>
-          <p className="text-white/80 leading-relaxed text-center text-base">
+          <p className={`text-white/80 leading-relaxed text-center text-base ipad:text-[12px] laptop:text-[10px] desktop:text-base ${(number === 2 || title === "AI Processing") ? "desktop:mt-12" : ""}`}>
             {description}
           </p>
         </div>
