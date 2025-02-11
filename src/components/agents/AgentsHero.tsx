@@ -22,6 +22,20 @@ export const AgentsHero = () => {
         }}
       />
       
+      {/* Sparkles effect */}
+      <div className="absolute inset-0 z-10">
+        <SparklesCore
+          id="tsparticlesagents"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#FFFFFF"
+          speed={0.5}
+        />
+      </div>
+
       {/* Header and subheader */}
       <div className="relative z-20 p-8 md:p-12 max-w-6xl mx-auto -mt-24 -translate-x-0">
         <div className="flex flex-col space-y-6">
@@ -32,20 +46,6 @@ export const AgentsHero = () => {
             Cre8tive AI Autonomous Agents: Smarter Solutions for Smarter Businesses
           </p>
         </div>
-      </div>
-
-      {/* Sparkles effect */}
-      <div className="absolute inset-0 w-full h-full">
-        <SparklesCore
-          id="tsparticlesagents"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={70}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-          speed={0.8}
-        />
       </div>
     </section>
   );
