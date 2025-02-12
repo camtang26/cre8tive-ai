@@ -3,7 +3,7 @@
 import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "framer-motion";
 import { SplineSceneBasic } from "@/components/ui/splite";
-import { Spotlight } from "../ui/spotlight";
+import { Spotlight } from "@/components/ui/spotlight";
 
 export const AgentsHero = () => {
   const isMobile = useIsMobile();
