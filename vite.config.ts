@@ -111,7 +111,7 @@ export default defineConfig(({ mode }) => ({
         media-src 'self' data: blob: https://*.vimeo.com https://*.vimeocdn.com https://player.vimeo.com https://f.vimeocdn.com;
         default-src 'self';
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.elevenlabs.io https://*.vimeo.com https://*.vimeocdn.com https://player.vimeo.com https://f.vimeocdn.com https://www.googletagmanager.com https://www.google-analytics.com https://*.spline.design https://prod.spline.design https://va.vercel-scripts.com;
-        script-src-elem 'self' 'unsafe-inline' blob: https://*.elevenlabs.io https://elevenlabs.io https://*.vimeo.com https://player.vimeo.com https://f.vimeocdn.com https://www.googletagmanager.com https://www.google-analytics.com https://*.spline.design https://prod.spline.design https://va.vercel-scripts.com https://unpkg.com;
+        script-src-elem 'self' 'unsafe-inline' blob: https://*.elevenlabs.io https://elevenlabs.io https://cdn.jsdelivr.net https://www.googletagmanager.com https://*.spline.design https://prod.spline.design https://va.vercel-scripts.com https://unpkg.com;
         frame-src 'self' https://*.elevenlabs.io https://*.vimeo.com https://player.vimeo.com https://convai.elevenlabs.io https://f.vimeocdn.com data: blob: https://*.spline.design https://prod.spline.design;
         frame-ancestors 'self' https://player.vimeo.com https://*.vimeo.com;
         connect-src 'self' https://getform.io https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io https://*.vimeo.com https://*.vimeocdn.com https://www.google-analytics.com https://api.elevenlabs.io https://*.spline.design https://prod.spline.design https://spline.design https://unpkg.com;
