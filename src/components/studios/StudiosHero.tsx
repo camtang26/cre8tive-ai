@@ -40,6 +40,7 @@ export const StudiosHero = () => {
         <Button 
           size="lg"
           className="text-base md:text-lg px-6 md:px-8 py-4 md:py-6 hover-lift hover-glow bg-blue-900 text-white shadow-[0_0_10px_rgba(59,130,246,0.5),0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_15px_rgba(59,130,246,0.6),0_0_30px_rgba(59,130,246,0.4)] hover:bg-blue-800 transition-all duration-300 opacity-0 animate-[fadeIn_6s_ease-out_2s_forwards]"
+          onClick={() => window.open("https://cal.com/cameron-tang-121990/30min", "_blank")}
         >
           Get a Free Consultation
         </Button>
