@@ -11,7 +11,7 @@ export const StudiosHero = () => {
   return (
     <section 
       className="relative md:min-h-[85vh] min-h-[70vh] flex items-center justify-center overflow-hidden
-                 md:mt-0 -mt-16 bg-black md:bg-transparent"
+                 md:mt-0 -mt-12 bg-black md:bg-transparent"
       role="banner"
       aria-label="Studios hero section"
       style={{ 
@@ -27,7 +27,11 @@ export const StudiosHero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center mt-4">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 md:mb-6 text-white [text-shadow:0_0_15px_rgba(255,255,255,0.5),0_0_25px_rgba(255,255,255,0.3)] opacity-0 animate-[fadeIn_3s_ease-out_forwards]">
+        <h1 className={`font-bold mb-4 md:mb-6 text-white [text-shadow:0_0_15px_rgba(255,255,255,0.5),0_0_25px_rgba(255,255,255,0.3)] opacity-0 animate-[fadeIn_3s_ease-out_forwards] ${
+          isMobile 
+            ? 'text-6xl' 
+            : 'text-4xl md:text-6xl lg:text-7xl xl:text-8xl'
+        }`}>
           Cre8tive AI Studios
         </h1>
         

@@ -10,7 +10,7 @@ export const HeroSection = () => {
     <section 
       className={`relative flex items-center justify-center overflow-hidden ${
         isMobile 
-          ? 'min-h-[100vh] -mt-24' 
+          ? 'min-h-[100vh] -mt-12'
           : 'max-w-[2560px] mx-auto ' + // Base desktop styles
             'h-[95vh] md:min-h-[700px] ' + // Default desktop height
             '2xl:h-[85vh] 2xl:min-h-[900px] ' + // 2560x1440 specific
@@ -28,7 +28,7 @@ export const HeroSection = () => {
       
       <div className={`container mx-auto px-4 text-center relative ${
         isMobile 
-          ? 'max-w-[95%]' 
+          ? 'max-w-[90%]' // Reduced from 95% to 90% to improve centering 
           : 'max-w-[1200px] ' + // Base desktop container
             'pt-28 ' + // Default padding top
             '2xl:pt-20 2xl:max-w-[1600px] ' + // 2560x1440 specific
@@ -40,11 +40,11 @@ export const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           className={`font-extrabold text-white neon-glow ${
             isMobile 
-              ? 'text-4xl mt-2 mb-3' 
-              : 'text-5xl lg:text-2xl 2xl:text-8xl xl:text-7xl mb-6' // Slightly decreased text size for 1920x1080
+              ? 'text-5xl mt-2 mb-3 mx-auto' // Reduced from text-6xl to text-5xl and added mx-auto
+              : 'text-5xl lg:text-2xl 2xl:text-8xl xl:text-7xl mb-6'
           }`}
         >
-          Ignite Natural Conversations
+          Ignite Natural Conversation
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,7 @@ export const HeroSection = () => {
           className={`text-white/90 font-semibold max-w-3xl mx-auto neon-glow-subtle ${
             isMobile 
               ? 'text-lg mb-4 px-2 leading-snug' 
-              : 'text-xl lg:text-[0.7rem] 2xl:text-4xl xl:text-3xl mb-8' // Slightly decreased text size for 1920x1080
+              : 'text-xl lg:text-[0.7rem] 2xl:text-4xl xl:text-3xl mb-8'
           }`}
         >
           Elevate Customer Experiences and Drive Business Growth with Intelligent Conversational AI
@@ -70,19 +70,19 @@ export const HeroSection = () => {
           <div className={`mx-auto text-center ${
             isMobile 
               ? 'max-w-[95%] space-y-1' 
-              : 'max-w-2xl 2xl:max-w-3xl lg:max-w-[750px]' // Slightly decreased max-width for 1920x1080
+              : 'max-w-2xl 2xl:max-w-3xl lg:max-w-[750px]'
           }`}>
             <h3 className={`font-bold text-white neon-glow ${
               isMobile 
                 ? 'text-xl mb-2' 
-                : 'text-2xl lg:text-[0.8rem] 2xl:text-5xl xl:text-4xl mb-4' // Slightly decreased text size for 1920x1080
+                : 'text-2xl lg:text-[0.8rem] 2xl:text-5xl xl:text-4xl mb-4'
             }`}>
               Experience the Future of Conversation
             </h3>
             <p className={`text-white/80 neon-glow-subtle ${
               isMobile 
                 ? 'text-base leading-snug mb-2' 
-                : 'text-lg lg:text-[0.65rem] 2xl:text-3xl xl:text-2xl mb-6' // Slightly decreased text size for 1920x1080
+                : 'text-lg lg:text-[0.65rem] 2xl:text-3xl xl:text-2xl mb-6'
             }`}>
               Don't take our word for it – experience the power of our Conversational AI firsthand. 
               Engage with our AI agent now to see how it can transform your customer interactions.
@@ -91,10 +91,10 @@ export const HeroSection = () => {
               className={`absolute text-white/80 ${
                 isMobile 
                   ? 'bottom-[-40px] right-[20px]' 
-                  : 'bottom-[-80px] right-[80px] ' + // Default position
-                    '2xl:bottom-[-100px] 2xl:right-[100px] ' + // 2560x1440 specific
-                    'xl:bottom-[-120px] ' + // 1366x768 specific
-                    'lg:bottom-[-120px] lg:right-[60px]' // 1920x1080 specific
+                  : 'bottom-[-80px] right-[80px] ' +
+                    '2xl:bottom-[-100px] 2xl:right-[100px] ' +
+                    'xl:bottom-[-120px] ' +
+                    'lg:bottom-[-120px] lg:right-[60px]'
               }`}
               animate={{ 
                 x: [0, 10, 0],

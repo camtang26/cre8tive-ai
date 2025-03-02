@@ -40,9 +40,10 @@ export const Services = () => {
 
   return (
     <section 
-      className="py-8 md:py-24 relative overflow-hidden" 
+      className={`${isMobile ? 'pt-2 pb-6' : 'py-8 md:py-24'} relative overflow-hidden`}
       role="region" 
       aria-label="Our Services"
+      id="services"
     >
       <div 
         className="absolute inset-0 pointer-events-none"

@@ -50,9 +50,10 @@ export const MobileHero = () => {
   return (
     <Suspense fallback={<MobileLoadingSkeleton />}>
       <section 
-        className="relative w-full h-[calc(100vh-48px)] mt-[48px] flex items-center justify-center overflow-hidden touch-manipulation" 
+        className="relative w-full h-[calc(60vh)] mt-12 flex items-center justify-center overflow-hidden touch-manipulation" 
         role="banner" 
         aria-label="Hero section"
+        id="hero"
       >
         <VideoBackground
           isMuted={isMuted}
@@ -63,9 +64,11 @@ export const MobileHero = () => {
           onLoad={() => setIsLoading(false)}
         />
         
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/95" />
+        
         {!isLoading && (
           <div 
-            className="relative z-[3] flex flex-col items-center justify-center text-center space-y-6 max-w-[90vw] mx-auto px-4"
+            className="absolute z-[3] flex flex-col items-center text-center space-y-3 max-w-[90vw] mx-auto px-4 bottom-8"
             style={{ touchAction: 'manipulation' }}
           >
             <h1 className="font-inter text-6xl font-bold tracking-[-0.02em] opacity-0 animate-[fadeIn_3s_ease-out_forwards] [text-shadow:0_0_15px_rgba(0,0,0,0.5),0_0_30px_rgba(0,0,0,0.3)]">
