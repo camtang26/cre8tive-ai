@@ -27,16 +27,35 @@ export const AgentsHero = () => {
           ? 'top-[12%] left-0 w-full px-6 text-center'
           : 'top-[20%] left-[26%] text-left'
       }`}>
-        <h1 
-          className={`font-bold text-white leading-none ${
-            isMobile 
-              ? 'text-6xl'
-              : 'text-8xl md:text-9xl'
-          }`} 
-          style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2)' }}
-        >
-          AI<br/>Autonomous<br/>Agents
-        </h1>
+        {isMobile ? (
+          <div className="flex flex-col items-center">
+            <h1 
+              className="font-bold text-6xl text-white leading-tight text-center max-w-[90%] mx-auto"
+              style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2)' }}
+            >
+              AI
+            </h1>
+            <h1 
+              className="font-bold text-6xl text-white leading-tight text-center max-w-[90%] mx-auto"
+              style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2)' }}
+            >
+              Autonomous
+            </h1>
+            <h1 
+              className="font-bold text-6xl text-white leading-tight text-center max-w-[90%] mx-auto"
+              style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2)' }}
+            >
+              Agents
+            </h1>
+          </div>
+        ) : (
+          <h1 
+            className="font-bold text-8xl md:text-9xl text-white leading-none"
+            style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2)' }}
+          >
+            AI<br/>Autonomous<br/>Agents
+          </h1>
+        )}
         <p 
           className={`text-neutral-300 ${
             isMobile 
