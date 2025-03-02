@@ -171,6 +171,37 @@ Note: All changes will be made on the new branch to preserve the stable master b
 
 - **Note:** For future tasks, always ask for permission before creating any new file.
 
+### Website Codebase Exploration (Feb 2025)
+
+[X] Explore project structure
+[X] Understand website architecture
+[X] Examine key components and pages
+[X] Review configuration files
+[X] Document findings
+
+Project Overview:
+- Modern React website built with TypeScript, Vite, and Tailwind CSS
+- Uses Shadcn UI components for consistent design
+- Implements React Router for client-side routing
+- Features 3D visualizations using Spline for the Agents page
+- Deploys to GitHub Pages with custom domain (cre8tive.ai)
+- Implements strong security with comprehensive CSP headers
+- Uses framer-motion for animations
+
+Key Pages and Components:
+- Home page (Index.tsx) - Main landing page with hero, services, gallery, and contact sections
+- Agents page - Features 3D robot visualization using Spline
+- Studios page - Showcases studio services
+- AdManager page - Details the AI Ad Manager product
+- ConversationalAI page - Information about conversational AI services
+- About and Contact pages - Company information and contact form
+
+Architecture Notes:
+- Folder structure follows React best practices with components, pages, hooks, and utils
+- GitHub Actions workflow automatically deploys to GitHub Pages on push to master
+- Custom SPA routing solution for GitHub Pages using 404.html redirect
+- Optimized build configuration with code splitting for better performance
+
 # Robot Design Requirements Note
 - When implementing the robot design based on the design at https://21st.dev/serafimcloud/splite/default:
   * Do NOT change the current layout/design of the header and sub-header text in the Agent page hero section.
