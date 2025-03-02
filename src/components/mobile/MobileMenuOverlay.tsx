@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { ENABLE_AUTH_FEATURES } from "../../constants/featureFlags";
+import { X } from "lucide-react";
 
 export const MobileMenuOverlay = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
@@ -9,8 +10,24 @@ export const MobileMenuOverlay = ({ isOpen, onClose }: { isOpen: boolean; onClos
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
+      {/* Close button */}
+      <button 
+        onClick={onClose}
+        className="absolute top-4 right-4 p-2 z-50 text-white hover:text-white/80 transition-colors"
+        aria-label="Close menu"
+      >
+        <X className="w-6 h-6" />
+      </button>
+
       <div className="container mx-auto px-4 py-8">
-        <nav className="flex flex-col space-y-6">
+        <nav className="flex flex-col space-y-6 mt-8">
+          <Link 
+            to="/" 
+            className="text-white/90 hover:text-white transition-colors font-geist text-2xl font-medium tracking-[-0.02em]"
+            onClick={onClose}
+          >
+            Home
+          </Link>
           <Link 
             to="/studios" 
             className="text-white/90 hover:text-white transition-colors font-geist text-2xl font-medium tracking-[-0.02em]"
