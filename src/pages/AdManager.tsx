@@ -5,8 +5,11 @@ import { Benefits } from "@/components/benefits/Benefits";
 import { ConceptToCreation } from "@/components/concept-to-creation/ConceptToCreation";
 import { ContactCTA } from "@/components/shared/ContactCTA";
 import { FadeIn } from "@/components/shared/FadeIn";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const AdManager = () => {
+  const isMobile = useIsMobile();
+
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       <div 
@@ -38,7 +41,11 @@ const AdManager = () => {
         >
           <div className="container mx-auto max-w-7xl">
             <div className="text-center space-y-6 md:space-y-10">
-              <h1 className="text-5xl sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-8xl font-bold text-gradient opacity-0 animate-[fadeIn_3s_ease-out_0.5s_forwards] neon-glow">
+              <h1 className={`font-bold text-gradient opacity-0 animate-[fadeIn_3s_ease-out_0.5s_forwards] neon-glow ${
+                isMobile
+                  ? 'text-6xl'
+                  : 'text-5xl sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-8xl'
+              }`}>
                 Cre8tive AI Ad Manager
               </h1>
               

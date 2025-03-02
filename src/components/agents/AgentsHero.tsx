@@ -12,7 +12,7 @@ export const AgentsHero = () => {
     <section
       className={`relative w-screen overflow-hidden bg-black ${
         isMobile 
-          ? 'h-[100vh] -mt-16'
+          ? 'h-[100vh] -mt-12'
           : 'h-screen'
       }`}
       role="banner"
@@ -52,7 +52,7 @@ export const AgentsHero = () => {
       {/* Robot Visual */}
       <div className={`absolute ${
         isMobile 
-          ? 'top-[45%] left-0 w-full h-[55%]'
+          ? 'top-[54%] left-0 w-full h-[55%]'
           : 'right-12 w-1/2 h-full'
       }`}>
         <SplineSceneBasic />
