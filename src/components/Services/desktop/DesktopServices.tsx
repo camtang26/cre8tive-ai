@@ -31,7 +31,7 @@ export const DesktopServices = ({ services }: ServicesProps) => {
           <Button
             size="lg"
             className="font-inter text-lg sm:text-xl md:text-2xl font-semibold bg-[#1EAEDB] hover:bg-[#0FA0CE] text-white px-5 sm:px-7 py-3 sm:py-4 h-auto transition-all duration-300 transform hover:scale-105 shadow-[0_0_15px_rgba(30,174,219,0.5),0_0_30px_rgba(30,174,219,0.3)] hover:shadow-[0_0_20px_rgba(30,174,219,0.6),0_0_40px_rgba(30,174,219,0.4)] active:scale-95 tracking-[-0.01em] w-full sm:w-auto scale-95 !cursor-pointer mx-auto"
-            onClick={() => window.open('https://calendly.com/cameron-eae/30min', '_blank')}
+            onClick={() => window.open('https://cal.com/cameron-tang-121990/30min', '_blank')}
             aria-label="Book free consultation"
           >
             Get a Free Consultation
