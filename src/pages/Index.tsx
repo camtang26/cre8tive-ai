@@ -77,7 +77,7 @@ const Index = () => {
                   </h3>
                   <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed mb-4 sm:mb-6 md:mb-8 neon-glow-subtle">
                     Reach out today to discover how Cre8tive AI's customized solutions—from AI-powered video production 
-                    to autonomous AI agents and the Cre8tive AI Ad Manager—can streamline your operations, boost efficiency, 
+                    to autonomous AI agents and the Cre8tive AI Studios AI Engine—can streamline your operations, boost efficiency, 
                     and give you a competitive edge.
                   </p>
                   <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed neon-glow-subtle">

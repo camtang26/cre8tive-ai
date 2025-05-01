@@ -13,9 +13,9 @@ const services: ServiceData[] = [
   },
   {
     icon: "Layers",
-    title: "Ad Manager",
-    description: "Instantly create professional video ad storyboards with Cre8tive AI Ad Manager. Transform your ideas into production-ready plans in minutes.",
-    link: "/manager",
+    title: "Cre8tive AI Studios AI Engine",
+    description: "Instantly create professional video ad storyboards with Cre8tive AI Cre8tive AI Studios AI Engine. Transform your ideas into production-ready plans in minutes.",
+    link: "/studios-engine",
     color: "#F87171"
   },
   {

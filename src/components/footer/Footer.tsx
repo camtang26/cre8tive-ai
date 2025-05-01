@@ -27,7 +27,7 @@ export const Footer = () => {
             <div className="flex flex-col gap-2">
               <h3 className="text-white font-medium mb-2">Services</h3>
               <Link to="/studios" className="text-white/70 hover:text-white text-sm">Cre8tive AI Studios</Link>
-              <Link to="/manager" className="text-white/70 hover:text-white text-sm">Ad Manager</Link>
+              <Link to="/studios-engine" className="text-white/70 hover:text-white text-sm">CS AI Engine</Link>
               <Link to="/agents" className="text-white/70 hover:text-white text-sm">AI Agents</Link>
               <Link to="/conversational" className="text-white/70 hover:text-white text-sm">Conversational AI</Link>
             </div>

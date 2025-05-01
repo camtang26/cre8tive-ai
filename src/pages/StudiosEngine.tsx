@@ -46,7 +46,7 @@ const AdManager = () => {
                   ? 'text-6xl'
                   : 'text-5xl sm:text-[3.5rem] md:text-6xl lg:text-7xl xl:text-8xl'
               }`}>
-                Cre8tive AI Ad Manager
+                Cre8tive AI Studios AI Engine
               </h1>
               
               <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl text-white/90 font-semibold opacity-0 animate-[fadeIn_3s_ease-out_1s_forwards] max-w-5xl mx-auto neon-glow-subtle px-2 md:px-0">
@@ -123,7 +123,7 @@ const AdManager = () => {
               </div>
               
               <p className="text-base sm:text-lg md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed sm:leading-tight md:leading-relaxed opacity-0 animate-[fadeIn_3s_ease-out_1.5s_forwards] px-3 md:px-4 neon-glow-subtle">
-                Transform your advertising process with the Cre8tive AI Ad Manager—a state-of-the-art platform that takes your product and brand from concept to storyboard in minutes. Whether you're a client or a digital marketing agency, our tool empowers you to develop stunning, professional creatives with ease, ready for production by our Cre8tive AI Studio Team.
+                Transform your advertising process with the Cre8tive AI Studios AI Engine—a state-of-the-art platform that takes your product and brand from concept to storyboard in minutes. Whether you're a client or a digital marketing agency, our tool empowers you to develop stunning, professional creatives with ease, ready for production by our Cre8tive AI Studio Team.
               </p>
 
               <div className="opacity-0 animate-[fadeIn_6s_ease-out_2s_forwards]">
