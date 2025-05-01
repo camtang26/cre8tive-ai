@@ -36,11 +36,11 @@ export const MobileMenuOverlay = ({ isOpen, onClose }: { isOpen: boolean; onClos
             Cre8tive AI Studios
           </Link>
           <Link 
-            to="/manager" 
+            to="/studios-engine" 
             className="text-white/90 hover:text-white transition-colors font-geist text-2xl font-medium tracking-[-0.02em]"
             onClick={onClose}
           >
-            Ad Manager
+            CS AI Engine
           </Link>
           <Link 
             to="/agents" 

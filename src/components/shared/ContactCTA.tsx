@@ -29,7 +29,7 @@ export const ContactCTA = () => {
           <ScrollFade delay={200}>
             <p className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed mb-3 md:mb-8 neon-glow">
               Reach out today to discover how Cre8tive AI's customized solutions—from AI-powered video production 
-              to autonomous AI agents and the Cre8tive AI Ad Manager—can streamline your operations, boost efficiency, 
+              to autonomous AI agents and the Cre8tive AI Studios AI Engine—can streamline your operations, boost efficiency, 
               and give you a competitive edge.
             </p>
           </ScrollFade>

@@ -114,7 +114,7 @@ const Contact = () => {
           {/* Reinforced Call to Action */}
           <div className="mt-10 md:mt-16 p-4 md:p-8 rounded-xl bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm">
             <p className="text-base md:text-lg text-white/90 leading-relaxed">
-              The future of business is here—stay ahead of the curve with AI-powered video production, autonomous AI agents, and the Cre8tive AI Ad Manager. Don't let your competitors outpace you. Contact us today to explore how we can build smarter, more efficient solutions tailored to your goals, brand, and competitive edge.
+              The future of business is here—stay ahead of the curve with AI-powered video production, autonomous AI agents, and the Cre8tive AI Studios AI Engine. Don't let your competitors outpace you. Contact us today to explore how we can build smarter, more efficient solutions tailored to your goals, brand, and competitive edge.
             </p>
           </div>
         </div>

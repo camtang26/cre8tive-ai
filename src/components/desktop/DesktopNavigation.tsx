@@ -43,11 +43,11 @@ export const DesktopNavigation = () => {
                 Cre8tive AI Studios
               </Link>
               <Link 
-                to="/manager" 
+                to="/studios-engine" 
                 className="text-white/90 hover:text-white transition-colors font-geist text-lg font-medium tracking-[-0.01em] flex items-center h-full"
                 role="menuitem"
               >
-                Ad Manager
+                CS AI Engine
               </Link>
               <Link 
                 to="/agents" 

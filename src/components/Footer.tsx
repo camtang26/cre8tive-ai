@@ -68,8 +68,8 @@ export const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/manager" className="font-geist text-xs md:text-base text-white/70 hover:text-white transition-colors duration-300">
-                    Ad Manager
+                  <Link to="/studios-engine" className="font-geist text-xs md:text-base text-white/70 hover:text-white transition-colors duration-300">
+                    CS AI Engine
                   </Link>
                 </li>
                 <li>
