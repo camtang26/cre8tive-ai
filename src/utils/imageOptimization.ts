@@ -34,7 +34,6 @@ export const generateBlurDataUrl = async (src: string) => {
     const base64 = Buffer.from(buffer).toString('base64');
     return `data:image/jpeg;base64,${base64}`;
   } catch (error) {
-    console.error('Error generating blur data URL:', error);
     return undefined;
   }
 };

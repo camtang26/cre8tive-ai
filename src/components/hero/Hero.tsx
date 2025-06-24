@@ -19,12 +19,10 @@ export const Hero = () => {
   }, [isMobile]);
 
   const handleReady = () => {
-    console.log("Video is ready");
     setIsLoaded(true);
   };
 
   const handleError = (error: Error) => {
-    console.error("Hero video error:", error);
     toast({
       title: "Video Error",
       description: "There was an error loading the video. Please refresh the page.",

@@ -39,7 +39,6 @@ export const MobileHero = () => {
       });
     },
     onSwipeRight: () => {
-      console.log('Swiped right');
       toast.info("Swipe right: Previous section", {
         position: "bottom-center",
         duration: 1500

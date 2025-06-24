@@ -36,7 +36,6 @@ const services: ServiceData[] = [
 
 export const Services = () => {
   const isMobile = useIsMobile();
-  console.log('Services component rendered, isMobile:', isMobile);
 
   return (
     <section 

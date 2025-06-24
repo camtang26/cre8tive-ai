@@ -18,9 +18,6 @@ export class ScrollErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.warn('Scroll Error:', error);
-    console.warn('Error Info:', errorInfo);
-    
     // Fallback to native scroll behavior
     window.history.scrollRestoration = 'auto';
   }

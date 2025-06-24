@@ -21,14 +21,7 @@ const getAssetUrl = (importedPath: string): string => {
 
 // Log the asset paths in development to help with debugging
 if (!import.meta.env.PROD) {
-  console.log('Asset paths:', {
-    smallJpeg: logoSmallJpeg,
-    mediumJpeg: logoMediumJpeg,
-    largeJpeg: logoLargeJpeg,
-    smallWebp: logoSmallWebp,
-    mediumWebp: logoMediumWebp,
-    largeWebp: logoLargeWebp
-  });
+  // Asset paths logging removed
 }
 
 export const ASSETS = {

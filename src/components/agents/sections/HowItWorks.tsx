@@ -7,7 +7,7 @@ interface StepProps {
   number: number;
   title: string;
   description: string;
-  Icon: any;
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
   color: string;
 }
 

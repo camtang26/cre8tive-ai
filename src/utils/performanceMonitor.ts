@@ -2,13 +2,16 @@ export const measurePerformance = (componentName: string) => {
   const start = performance.now();
   return () => {
     const end = performance.now();
-    console.log(`${componentName} render time: ${end - start}ms`);
+    // Performance measurement removed
   };
 };
 
-export const debounceRender = (fn: Function, delay: number) => {
+export const debounceRender = <T extends unknown[]>(
+  fn: (...args: T) => void,
+  delay: number
+) => {
   let timeoutId: NodeJS.Timeout;
-  return (...args: any[]) => {
+  return (...args: T) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn(...args), delay);
   };

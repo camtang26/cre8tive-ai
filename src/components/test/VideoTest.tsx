@@ -65,17 +65,10 @@ export const VideoTest = () => {
             </div>
           }
           onError={(error) => {
-            console.log('Video error details:', {
-              testCase,
-              error: error.currentTarget.error,
-              timestamp: new Date().toISOString()
-            });
+            // Video error handling
           }}
           onLoad={() => {
-            console.log('Video loaded successfully:', {
-              testCase,
-              timestamp: new Date().toISOString()
-            });
+            // Video loaded successfully
           }}
         />
       </CardContent>

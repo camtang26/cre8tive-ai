@@ -46,7 +46,6 @@ export const ContactForm = () => {
   };
 
   const onSubmit = async (data: ContactFormData) => {
-    console.log("Form onSubmit triggered", data);
 
     if (!isValid) {
       toast.error("Please fix the form errors before submitting");
@@ -81,10 +80,12 @@ export const ContactForm = () => {
       formData.append("email", sanitizedData.email);
       formData.append("message", sanitizedData.message);
 
-      const endpointEnv = import.meta.env.VITE_GETFORM_ENDPOINT;
-      const getformUrl = (endpointEnv && endpointEnv !== "undefined") ? endpointEnv : "https://getform.io/f/bzywlpya";
-      const tokenEnv = import.meta.env.VITE_GETFORM_TOKEN;
-      const getformToken = (tokenEnv && tokenEnv !== "undefined") ? tokenEnv : "tg2J6KHgPYeUXYfYcTRdFkCtLYeKgu6CjSlyfwCCgzkyYIj72i3njepH16GP";
+      const getformUrl = import.meta.env.VITE_GETFORM_ENDPOINT;
+      const getformToken = import.meta.env.VITE_GETFORM_TOKEN;
+
+      if (!getformUrl || !getformToken) {
+        throw new Error("Contact form configuration is missing. Please contact support.");
+      }
       const response = await fetch(getformUrl, {
         method: "POST",
         headers: {
@@ -97,11 +98,11 @@ export const ContactForm = () => {
         throw new Error("Failed to send message. Please try again.");
       }
 
-      console.log("Form submitted with sanitized data:", sanitizedData);
+
       toast.success("Message sent successfully!");
       reset();
     } catch (error) {
-      console.error("Form submission error:", error);
+
       toast.error(error instanceof Error ? error.message : "Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);

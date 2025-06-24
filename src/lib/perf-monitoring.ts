@@ -60,7 +60,7 @@ const collectMetrics = (): PerfData => {
   };
 
   if (metrics.drawCalls > DRAW_CALLS_WARNING_THRESHOLD) {
-    console.warn(`High draw calls detected: ${metrics.drawCalls} (threshold: ${DRAW_CALLS_WARNING_THRESHOLD})`);
+    // High draw calls warning removed
   }
 
   return metrics;
@@ -72,7 +72,7 @@ export const perf = {
     if (!isDev) return;
     stats?.end();
     if (isMonitoring) {
-      console.table(collectMetrics());
+      collectMetrics();
     }
   },
   init: initPerfMonitor

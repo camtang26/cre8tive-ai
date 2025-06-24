@@ -72,17 +72,14 @@ const VimeoPlayer = forwardRef<VimeoPlayerHandle, VimeoPlayerProps>(
 
       player.ready()
         .then(() => {
-          console.log('Vimeo player ready');
           onReady?.();
           player.setVolume(muted ? 0 : 1);
         })
         .catch((error) => {
-          console.error('Vimeo player error:', error);
           onError?.(error);
         });
 
       return () => {
-        console.log('Cleaning up Vimeo player');
         player.destroy();
         playerRef.current = null;
       };
@@ -90,28 +87,13 @@ const VimeoPlayer = forwardRef<VimeoPlayerHandle, VimeoPlayerProps>(
 
     useImperativeHandle(ref, () => ({
       play: async () => {
-        try {
-          await playerRef.current?.play();
-        } catch (error) {
-          console.error('Error playing video:', error);
-          throw error;
-        }
+        await playerRef.current?.play();
       },
       pause: async () => {
-        try {
-          await playerRef.current?.pause();
-        } catch (error) {
-          console.error('Error pausing video:', error);
-          throw error;
-        }
+        await playerRef.current?.pause();
       },
       setMuted: async (muted: boolean) => {
-        try {
-          await playerRef.current?.setVolume(muted ? 0 : 1);
-        } catch (error) {
-          console.error('Error setting volume:', error);
-          throw error;
-        }
+        await playerRef.current?.setVolume(muted ? 0 : 1);
       }
     }), []);
 

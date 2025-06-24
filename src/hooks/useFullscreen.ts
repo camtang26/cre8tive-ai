@@ -25,7 +25,7 @@ export const useFullscreen = (elementRef?: React.RefObject<HTMLElement>) => {
         await screenfull.toggle();
       }
     } catch (error) {
-      console.error('Failed to toggle fullscreen:', error);
+      // Failed to toggle fullscreen
     }
   };
 

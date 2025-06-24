@@ -25,9 +25,6 @@ class ScrollAnimator {
         
         element.classList.add('animate');
         this.observer.unobserve(element);
-        
-        // Log for debugging
-        console.log('Element animated:', element);
       }
     });
   }
@@ -40,7 +37,6 @@ class ScrollAnimator {
     document.querySelectorAll('.fade-in').forEach(element => {
       this.observer.observe(element);
     });
-    console.log('ScrollAnimator initialized');
   }
 }
 

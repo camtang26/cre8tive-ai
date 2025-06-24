@@ -25,13 +25,11 @@ const VimeoPlayer = ({
   const { toast } = useToast();
 
   const handleReady = () => {
-    console.log("Vimeo player is ready");
     setIsLoaded(true);
     onReady?.();
   };
 
   const handleError = (error: Error) => {
-    console.error("Vimeo player error:", error);
     toast({
       title: "Video Loading Issue",
       description: "Failed to load the video. Please refresh the page.",

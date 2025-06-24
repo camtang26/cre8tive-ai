@@ -32,7 +32,6 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [src]);
 
   const handleError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-    console.error('Video playback error:', e);
     const videoElement = e.currentTarget;
     
     // Get specific error message if available

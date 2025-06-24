@@ -20,7 +20,6 @@ const VideoGalleryItem = ({ videoId, title, isActive, onActivate }: VideoGallery
   const { trackEvent } = useAnalytics();
 
   const handleError = (error: Error) => {
-    console.error(`Video ${videoId} error:`, error);
     setHasError(true);
     trackEvent({
       action: 'error',

@@ -28,14 +28,12 @@ export const VideoBackground = ({
   const { toast } = useToast();
 
   const handleReady = () => {
-    console.log("Video is ready");
     setIsLoaded(true);
     setLoadError(null);
     onLoad?.();
   };
 
   const handleError = (error: Error) => {
-    console.error("Video error:", error);
     setLoadError("Failed to load video");
     toast({
       title: "Video Loading Issue",
