@@ -8,19 +8,27 @@ import { Analytics } from '@vercel/analytics/react';
 import { MainLayout } from "./components/layout/MainLayout";
 import { CookieConsent } from "./components/analytics/CookieConsent";
 import { ScrollToTop } from "./components/core/ScrollToTop";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { scrollAnimator } from './utils/scrollAnimations';
-import Index from "./pages/Index";
-import Studios from "./pages/Studios";
-import StudiosEngine from "./pages/StudiosEngine";
-import Agents from "./pages/Agents";
-import ConversationalAI from "./pages/ConversationalAI";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
 import { SEO } from './components/core/SEO';
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import { VideoTest } from './components/test/VideoTest';
+import { prefetchCriticalRoutes } from './utils/routePrefetch';
+
+// Eager load the home page for better initial performance
+import Index from "./pages/Index";
+
+// Lazy load all other pages
+const Studios = lazy(() => import("./pages/Studios"));
+const StudiosEngine = lazy(() => import("./pages/StudiosEngine"));
+const Agents = lazy(() => import("./pages/Agents"));
+const ConversationalAI = lazy(() => import("./pages/ConversationalAI"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const VideoTest = lazy(() => import('./components/test/VideoTest').then(module => ({ default: module.VideoTest })));
+
+// Loading component
+import { PageLoader } from './components/core/PageLoader';
 
 const queryClient = new QueryClient();
 
@@ -40,6 +48,9 @@ const App = () => {
       const newUrl = '/' + redirectPath + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
       window.history.replaceState(null, '', newUrl);
     }
+    
+    // Prefetch critical routes after initial load
+    prefetchCriticalRoutes();
   }, []);
 
   // Get the base URL from Vite's environment
@@ -75,21 +86,23 @@ const App = () => {
           <MainLayout>
             <Toaster />
             <Sonner />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/studios" element={<Studios />} />
-              <Route path="/studios-engine" element={<StudiosEngine />} />
-              {/* Keep the old /manager path redirecting for now, or remove if not needed */}
-              {/* <Route path="/manager" element={<Navigate to="/studios-engine" replace />} /> */}
-              {/* Or just update both to point to the new component if both paths should work */}
-               <Route path="/manager" element={<StudiosEngine />} />
-              <Route path="/agents" element={<Agents />} />
-              <Route path="/conversational" element={<ConversationalAI />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/test/video" element={<VideoTest />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/studios" element={<Studios />} />
+                <Route path="/studios-engine" element={<StudiosEngine />} />
+                {/* Keep the old /manager path redirecting for now, or remove if not needed */}
+                {/* <Route path="/manager" element={<Navigate to="/studios-engine" replace />} /> */}
+                {/* Or just update both to point to the new component if both paths should work */}
+                 <Route path="/manager" element={<StudiosEngine />} />
+                <Route path="/agents" element={<Agents />} />
+                <Route path="/conversational" element={<ConversationalAI />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/test/video" element={<VideoTest />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
             <CookieConsent />
             <Analytics />
           </MainLayout>

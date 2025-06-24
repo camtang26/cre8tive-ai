@@ -50,30 +50,43 @@ export default defineConfig(({ mode }) => ({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor': [
-            'react',
-            'react-dom',
-            'react-router-dom',
-            '@tanstack/react-query',
-            'framer-motion',
-            'three',
-            '@vimeo/player'
-          ],
-          'ui': [
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-alert-dialog',
-            '@radix-ui/react-avatar',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-label',
-            '@radix-ui/react-navigation-menu',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-select',
-            '@radix-ui/react-slot',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-toast'
-          ]
+        manualChunks: (id) => {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            if (id.includes('@radix-ui')) {
+              return 'ui-vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'animation-vendor';
+            }
+            if (id.includes('three') || id.includes('@splinetool')) {
+              return '3d-vendor';
+            }
+            if (id.includes('@vimeo/player') || id.includes('elevenlabs')) {
+              return 'media-vendor';
+            }
+            return 'vendor';
+          }
+          
+          // Route-based chunks
+          if (id.includes('src/pages/Studios')) {
+            return 'page-studios';
+          }
+          if (id.includes('src/pages/Agents')) {
+            return 'page-agents';
+          }
+          if (id.includes('src/pages/ConversationalAI')) {
+            return 'page-conversational';
+          }
+          if (id.includes('src/pages/About')) {
+            return 'page-about';
+          }
+          if (id.includes('src/pages/Contact')) {
+            return 'page-contact';
+          }
         },
         format: 'es',
         entryFileNames: 'assets/[name].[hash].js',

@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { ENABLE_AUTH_FEATURES } from "../../constants/featureFlags";
 import { ASSETS } from '@/constants/assets';
 import { OptimizedImage } from '@/components/core/OptimizedImage';
+import { prefetchOnHover } from '@/utils/routePrefetch';
 
 export const DesktopNavigation = () => {
   return (
@@ -39,6 +40,7 @@ export const DesktopNavigation = () => {
                 to="/studios" 
                 className="text-white/90 hover:text-white transition-colors font-geist text-lg font-medium tracking-[-0.01em] flex items-center h-full"
                 role="menuitem"
+                onMouseEnter={() => prefetchOnHover('/studios')}
               >
                 Cre8tive AI Studios
               </Link>
@@ -46,6 +48,7 @@ export const DesktopNavigation = () => {
                 to="/studios-engine" 
                 className="text-white/90 hover:text-white transition-colors font-geist text-lg font-medium tracking-[-0.01em] flex items-center h-full"
                 role="menuitem"
+                onMouseEnter={() => prefetchOnHover('/studios-engine')}
               >
                 CS AI Engine
               </Link>
@@ -53,6 +56,7 @@ export const DesktopNavigation = () => {
                 to="/agents" 
                 className="text-white/90 hover:text-white transition-colors font-geist text-lg font-medium tracking-[-0.01em] flex items-center h-full"
                 role="menuitem"
+                onMouseEnter={() => prefetchOnHover('/agents')}
               >
                 AI Agents
               </Link>
@@ -60,6 +64,7 @@ export const DesktopNavigation = () => {
                 to="/conversational" 
                 className="text-white/90 hover:text-white transition-colors font-geist text-lg font-medium tracking-[-0.01em] flex items-center h-full"
                 role="menuitem"
+                onMouseEnter={() => prefetchOnHover('/conversational')}
               >
                 Conversational AI Agents
               </Link>
@@ -67,6 +72,7 @@ export const DesktopNavigation = () => {
                 to="/about" 
                 className="text-white/90 hover:text-white transition-colors font-geist text-lg font-medium tracking-[-0.01em] flex items-center h-full"
                 role="menuitem"
+                onMouseEnter={() => prefetchOnHover('/about')}
               >
                 About Us
               </Link>
@@ -74,6 +80,7 @@ export const DesktopNavigation = () => {
                 to="/contact" 
                 className="text-white/90 hover:text-white transition-colors font-geist text-lg font-medium tracking-[-0.01em] flex items-center h-full"
                 role="menuitem"
+                onMouseEnter={() => prefetchOnHover('/contact')}
               >
                 Contact
               </Link>
