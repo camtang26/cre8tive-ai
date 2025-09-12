@@ -18,6 +18,7 @@ import ConversationalAI from "./pages/ConversationalAI";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { SEO } from './components/core/SEO';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { VideoTest } from './components/test/VideoTest';
@@ -87,6 +88,7 @@ const App = () => {
               <Route path="/conversational" element={<ConversationalAI />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/test/video" element={<VideoTest />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

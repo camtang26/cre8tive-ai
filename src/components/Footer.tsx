@@ -94,6 +94,11 @@ export const Footer = () => {
                     Contact Us
                   </Link>
                 </li>
+                <li>
+                  <Link to="/privacy" className="font-geist text-xs md:text-base text-white/70 hover:text-white transition-colors duration-300">
+                    Privacy Policy
+                  </Link>
+                </li>
               </ul>
             </nav>
 
