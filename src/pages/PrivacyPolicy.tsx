@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import { ScrollFade } from "@/components/shared/ScrollFade";
 import { useEffect } from "react";
 
 const PrivacyPolicy = () => {
@@ -18,10 +17,9 @@ const PrivacyPolicy = () => {
         <link rel="canonical" href="https://cre8tive.ai/privacy" />
       </Helmet>
       
-      <div className="min-h-screen bg-[#111111] pt-24 pb-16">
+      <div className="min-h-screen bg-[#111111] pt-36 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
-          <ScrollFade>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-8 font-geist">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gradient mb-8 font-geist">
               Privacy Policy
             </h1>
             
@@ -227,7 +225,6 @@ const PrivacyPolicy = () => {
                 </ul>
               </section>
             </div>
-          </ScrollFade>
         </div>
       </div>
     </>
