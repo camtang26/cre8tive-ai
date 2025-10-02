@@ -2,7 +2,8 @@ import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
 import { Gallery } from "@/components/Gallery";
-import { QuoteCard } from "@/components/quotes/QuoteCard";
+import { CinematicQuote } from "@/components/quotes/CinematicQuote";
+import { StatsBar } from "@/components/shared/StatsBar";
 import { ContactForm } from "@/components/ContactForm";
 import { ScrollFade } from "@/components/shared/ScrollFade";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -38,20 +39,25 @@ const Index = () => {
             <Hero />
           </div>
           
+          {/* Stats Bar */}
+          <ScrollFade>
+            <StatsBar />
+          </ScrollFade>
+
+          {/* Services */}
           <div ref={servicesRef}>
             <ScrollFade>
               <Services />
             </ScrollFade>
           </div>
-          
+
+          {/* Cinematic Quote */}
           <ScrollFade delay={100}>
-            <div className="container mx-auto px-4 py-2 sm:py-4 md:py-8">
-              <QuoteCard
-                quote="The question isn't whether AI will transform your business, but when and how."
-                author="Satya Nadella"
-                title="CEO of Microsoft"
-              />
-            </div>
+            <CinematicQuote
+              quote="The question isn't whether AI will transform your business, but when and how."
+              author="Satya Nadella"
+              title="CEO of Microsoft"
+            />
           </ScrollFade>
           
           <div ref={galleryRef}>

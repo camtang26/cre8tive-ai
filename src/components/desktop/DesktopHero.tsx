@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { VideoBackground } from "../hero/VideoBackground";
-import { HeroContent } from "../hero/HeroContent";
+import { HeroContentBold } from "../hero/HeroContentBold";
 
 export const DesktopHero = () => {
   const [isMuted, setIsMuted] = useState(true);
@@ -11,7 +11,7 @@ export const DesktopHero = () => {
 
   return (
     <section
-      className="relative w-full aspect-video flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
       role="banner"
       aria-label="Hero section"
     >
@@ -24,15 +24,15 @@ export const DesktopHero = () => {
         priority={true}
       />
 
-      {/* Enhanced Animated Gradient Mesh - Modern Depth */}
+      {/* Dark Overlay for Better Text Contrast */}
       <div
-        className="absolute inset-0 gradient-mesh-animated opacity-40 pointer-events-none z-[1]"
+        className="absolute inset-0 bg-black/40 pointer-events-none z-[1]"
         aria-hidden="true"
       />
 
-      {/* Stronger Mesh for Visual Pop */}
+      {/* Enhanced Animated Gradient Mesh - Modern Depth */}
       <div
-        className="absolute inset-0 gradient-mesh-strong opacity-20 pointer-events-none z-[1]"
+        className="absolute inset-0 gradient-mesh-animated opacity-30 pointer-events-none z-[1]"
         aria-hidden="true"
       />
 
@@ -40,12 +40,12 @@ export const DesktopHero = () => {
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: 'radial-gradient(circle at center, transparent 0%, rgba(5,5,10,0.7) 100%)'
+          background: 'radial-gradient(circle at center, transparent 0%, rgba(5,5,10,0.6) 100%)'
         }}
         aria-hidden="true"
       />
 
-      <HeroContent />
+      <HeroContentBold />
     </section>
   );
 };

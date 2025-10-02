@@ -1,6 +1,6 @@
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileServices } from "./mobile/MobileServices";
-import { DesktopServices } from "./desktop/DesktopServices";
+import { DesktopServicesBold } from "./desktop/DesktopServicesBold";
 import { ServiceData } from "./types";
 
 const services: ServiceData[] = [
@@ -56,7 +56,7 @@ export const Services = () => {
       {isMobile ? (
         <MobileServices services={services} />
       ) : (
-        <DesktopServices services={services} />
+        <DesktopServicesBold services={services} />
       )}
     </section>
   );
