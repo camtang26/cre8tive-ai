@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "./ui/button";
+import { GradientButton } from "./ui/gradient-button";
 import { toast } from "sonner";
 import { FormField } from "./contact/FormField";
 import DOMPurify from "dompurify";
+import { Send } from "lucide-react";
 
 interface ContactFormData {
   name: string;
@@ -164,14 +165,17 @@ export const ContactForm = () => {
         isTextarea
       />
 
-      <Button
+      <GradientButton
         type="submit"
         disabled={isSubmitting}
-        className="w-full transition-all duration-300 hover:scale-105 disabled:opacity-50 bg-[#1EAEDB] hover:bg-[#0FA0CE] shadow-[0_0_15px_rgba(30,174,219,0.5)] hover:shadow-[0_0_25px_rgba(30,174,219,0.8)]"
+        loading={isSubmitting}
+        className="w-full"
+        size="lg"
+        icon={<Send className="w-5 h-5" />}
         aria-label={isSubmitting ? "Sending message..." : "Send message"}
       >
         {isSubmitting ? "Sending..." : "Send Message"}
-      </Button>
+      </GradientButton>
     </form>
   );
 };

@@ -61,9 +61,9 @@ export const StudiosIntro = () => {
               "relative aspect-video rounded-xl overflow-hidden",
               "bg-black/10 backdrop-blur-sm",
               "flex items-center justify-center",
-              "shadow-2xl shadow-purple-500/10"
+              "shadow-2xl shadow-blue-500/10"
             )}>
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5" />
               
               <OptimizedImage
                 webpSrc={ASSETS.logos.large.webp}

@@ -25,9 +25,9 @@ const testimonials: Testimonial[] = [
 
 export const Testimonials = () => {
   const brandColors = {
-    blue: "#0EA5E9",
-    orange: "#F97316",
-    green: "#10B981"
+    blue: "#60A5FA",    // Blue-400
+    cyan: "#22D3EE",    // Cyan-400
+    teal: "#14B8A6"     // Teal-500
   };
 
   return (
@@ -42,12 +42,12 @@ export const Testimonials = () => {
       />
       
       {/* Brand Color Accents */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none opacity-30"
         style={{
-          background: 
-            'radial-gradient(circle at 30% 20%, rgba(14,165,233,0.15) 0%, transparent 50%), ' +
-            'radial-gradient(circle at 70% 80%, rgba(249,115,22,0.15) 0%, transparent 50%)',
+          background:
+            'radial-gradient(circle at 30% 20%, rgba(96,165,250,0.15) 0%, transparent 50%), ' +
+            'radial-gradient(circle at 70% 80%, rgba(34,211,238,0.15) 0%, transparent 50%)',
           filter: 'blur(120px)',
           zIndex: 1
         }}

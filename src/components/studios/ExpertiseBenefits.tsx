@@ -6,9 +6,9 @@ import { ScrollFade } from "@/components/shared/ScrollFade";
 
 export const ExpertiseBenefits = () => {
   const brandColors = {
-    blue: "#0EA5E9",    // Ocean blue
-    orange: "#F97316",  // Bright orange
-    green: "#10B981"    // Bright green
+    blue: "#60A5FA",    // Blue-400
+    cyan: "#22D3EE",    // Cyan-400
+    teal: "#14B8A6"     // Teal-500
   };
 
   const benefits = [
@@ -22,13 +22,13 @@ export const ExpertiseBenefits = () => {
       icon: DollarSign,
       title: "Cost-Effectiveness",
       description: "Traditional video production often involves large crews, expensive equipment, and lengthy post-production. Cre8tive AI Studios cuts out these unnecessary costs, making high-quality video production accessible to all businesses.",
-      color: brandColors.orange
+      color: brandColors.cyan
     },
     {
       icon: Layers,
       title: "Scalability & Flexibility",
       description: "Need videos for different platforms or campaigns? AI video production lets you scale your content creation easily. Adapt your videos for various formats and languages, reaching a wider audience without extra effort or expense.",
-      color: brandColors.green
+      color: brandColors.teal
     },
     {
       icon: Shield,

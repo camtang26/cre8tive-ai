@@ -1,31 +1,12 @@
 import { Navigation } from "@/components/Navigation";
+import { PageLayout } from "@/components/layouts/PageLayout";
 
 const About = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-black relative overflow-hidden">
-      {/* Main Gradient Background */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at center, #000000 0%, #000000 75%, #0D0D1D 100%)',
-          opacity: 0.95
-        }}
-      />
-      
-      {/* Brand Color Accents */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-30"
-        style={{
-          background: 
-            'radial-gradient(circle at 20% 20%, rgba(155,135,245,0.15) 0%, transparent 40%), ' +
-            'radial-gradient(circle at 80% 80%, rgba(217,70,239,0.15) 0%, transparent 40%)',
-          filter: 'blur(120px)'
-        }}
-      />
-
+    <PageLayout>
       <Navigation />
-      
-      <main className="relative flex-grow container mx-auto px-3 md:px-10 pt-24 md:pt-40 pb-8 md:pb-32 z-10">
+
+      <main className="flex-grow container mx-auto px-3 md:px-10 pt-24 md:pt-40 pb-8 md:pb-32">
         <div className="max-w-7xl mx-auto">
           {/* Headline with gradient text */}
           <h1 className="text-3xl md:text-6xl lg:text-7xl font-extrabold text-center mb-6 md:mb-24 font-inter tracking-tight">
@@ -111,7 +92,7 @@ const About = () => {
           </div>
         </div>
       </main>
-    </div>
+    </PageLayout>
   );
 };
 

@@ -29,7 +29,7 @@ export const AiMarketingSolutions = () => {
         "Ensure no opportunity is missed with constant monitoring"
       ],
       Icon: MessageSquare,
-      color: "#F87171" // red-400
+      color: "#22D3EE" // cyan-400
     },
     {
       title: "AI Content Generation",
@@ -41,7 +41,7 @@ export const AiMarketingSolutions = () => {
         "Drive results with targeted content strategies"
       ],
       Icon: Text,
-      color: "#C084FC" // purple-400
+      color: "#14B8A6" // teal-500
     },
     {
       title: "AI Social Media Management",
@@ -53,7 +53,7 @@ export const AiMarketingSolutions = () => {
         "Maximize reach and impact across platforms"
       ],
       Icon: Share2,
-      color: "#4ADE80" // green-400
+      color: "#3B82F6" // blue-500
     }
   ];
 

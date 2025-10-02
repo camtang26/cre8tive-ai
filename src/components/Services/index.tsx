@@ -16,21 +16,21 @@ const services: ServiceData[] = [
     title: "Cre8tive AI Studios AI Engine",
     description: "Instantly create professional video ad storyboards with Cre8tive AI Cre8tive AI Studios AI Engine. Transform your ideas into production-ready plans in minutes.",
     link: "/studios-engine",
-    color: "#F87171"
+    color: "#22D3EE"
   },
   {
     icon: "Bot",
     title: "AI Agents",
     description: "Supercharge your marketing with Cre8tive AI Agents. Automate key tasks, from customer service to content creation, for maximum impact.",
     link: "/agents",
-    color: "#C084FC"
+    color: "#14B8A6"
   },
   {
     icon: "Phone",
     title: "Conversational AI",
     description: "Revolutionize customer communication with Cre8tive AI Conversational AI. Our AI agents make and receive calls using real phone numbers, providing 24/7 support.",
     link: "/conversational",
-    color: "#4ADE80"
+    color: "#3B82F6"
   }
 ];
 

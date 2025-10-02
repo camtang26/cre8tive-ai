@@ -18,26 +18,222 @@
 
 @layer base {
   :root {
-    --background: 0 0% 7%;
+    /* Premium Dark Background System - Near Pure Black */
+    --background: 0 0% 2%;              /* #050505 - Near pure black */
+    --background-secondary: 0 0% 4%;    /* #0A0A0A - Slightly lighter */
+    --background-tertiary: 0 0% 8%;     /* #141414 - Subtle depth */
+
     --foreground: 0 0% 100%;
-    --card: 0 0% 7%;
+    --card: 0 0% 3%;                    /* Slightly lighter than background */
     --card-foreground: 0 0% 100%;
-    --popover: 0 0% 7%;
+    --popover: 0 0% 2%;
     --popover-foreground: 0 0% 100%;
-    --primary: 252 80% 75%;
+
+    /* Professional Blue Color System - PRIMARY COLORS */
+    --primary-dark: 221 83% 17%;        /* #0A1628 - Deep navy */
+    --primary: 221 83% 53%;             /* #1E40AF - Royal blue */
+    --primary-bright: 217 91% 60%;      /* #3B82F6 - Electric blue */
+    --primary-light: 213 94% 68%;       /* #60A5FA - Sky blue */
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 4% 16%;
+
+    /* Cyan/Teal - Secondary Colors */
+    --secondary: 189 94% 43%;           /* #06B6D4 - Bright cyan */
+    --secondary-light: 186 94% 54%;     /* #22D3EE - Light cyan */
+    --teal: 172 66% 50%;                /* #14B8A6 - Teal */
     --secondary-foreground: 0 0% 100%;
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
-    --accent: 240 4% 16%;
+
+    /* Accent Colors - Warm Tones */
+    --accent: 38 92% 50%;               /* #F59E0B - Amber */
+    --accent-orange: 27 96% 61%;        /* #FB923C - Orange */
     --accent-foreground: 0 0% 100%;
+
+    /* Success/Growth */
+    --emerald: 160 84% 39%;             /* #10B981 - Emerald */
+    --emerald-light: 156 72% 67%;       /* #34D399 - Light emerald */
+
+    /* Brand Colors - MINIMAL USAGE (logo only) */
+    --brand-purple: 258 90% 66%;        /* #8B5CF6 - Electric violet (LOGO ONLY) */
+    --brand-pink: 330 81% 60%;          /* #EC4899 - Hot pink (LOGO ONLY) */
+
+    /* Utility Colors */
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 16% 65%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 100%;
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 240 5% 84%;
+
+    /* Modern Border & Input Styles */
+    --border: 217 32% 17%;
+    --border-glass: 0 0% 100% / 0.1;    /* For glassmorphism */
+    --input: 217 32% 17%;
+    --ring: 217 91% 60%;                /* Blue ring */
     --radius: 0.75rem;
+
+    /* Premium Glass Effect Variables - Multi-Level System */
+    --glass-bg: rgba(255, 255, 255, 0.01);
+    --glass-bg-light: rgba(255, 255, 255, 0.03);
+    --glass-bg-medium: rgba(255, 255, 255, 0.05);
+    --glass-bg-heavy: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-border-subtle: rgba(255, 255, 255, 0.08);
+    --glass-border-strong: rgba(255, 255, 255, 0.15);
+    --glass-hover: rgba(255, 255, 255, 0.03);
+
+    /* Animation Timing System */
+    --duration-instant: 100ms;
+    --duration-snappy: 200ms;
+    --duration-smooth: 400ms;
+    --duration-cinematic: 800ms;
+    --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* 3D Depth Shadow System */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+    --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.3);
+    --shadow-glow-cyan: 0 0 20px rgba(6, 182, 212, 0.3);
+    --shadow-glow-teal: 0 0 20px rgba(20, 184, 166, 0.3);
+  }
+
+  /* Professional Gradient Definitions */
+  .gradient-primary {
+    background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #60A5FA 100%);
+  }
+
+  .gradient-secondary {
+    background: linear-gradient(135deg, #06B6D4 0%, #14B8A6 100%);
+  }
+
+  .gradient-accent {
+    background: linear-gradient(135deg, #F59E0B 0%, #FB923C 100%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 30%, #06B6D4 70%, #14B8A6 100%);
+  }
+
+  /* Professional Text Gradient - PRIMARY (Blue/Cyan) */
+  .gradient-text {
+    background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #14B8A6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Alias for consistency */
+  .text-gradient {
+    background: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #14B8A6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Brand Gradient - ONLY for logo contexts */
+  .gradient-brand {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Premium Gradient Mesh Background - Subtle Blue Tones */
+  .gradient-mesh {
+    background-image:
+      radial-gradient(at 27% 37%, hsla(217, 91%, 60%, 0.04) 0px, transparent 50%),
+      radial-gradient(at 97% 21%, hsla(189, 94%, 43%, 0.04) 0px, transparent 50%),
+      radial-gradient(at 52% 99%, hsla(172, 66%, 50%, 0.04) 0px, transparent 50%),
+      radial-gradient(at 10% 29%, hsla(221, 83%, 53%, 0.04) 0px, transparent 50%),
+      radial-gradient(at 97% 96%, hsla(160, 84%, 39%, 0.03) 0px, transparent 50%);
+  }
+
+  /* Enhanced Gradient Mesh - Stronger for Depth */
+  .gradient-mesh-strong {
+    background-image:
+      radial-gradient(at 20% 30%, hsla(217, 91%, 60%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 70%, hsla(189, 94%, 43%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 40% 90%, hsla(172, 66%, 50%, 0.1) 0px, transparent 50%);
+  }
+
+  /* Animated Shimmer Gradient - For Buttons/CTAs */
+  .gradient-shimmer {
+    background: linear-gradient(
+      90deg,
+      #1E40AF 0%,
+      #3B82F6 25%,
+      #06B6D4 50%,
+      #3B82F6 75%,
+      #1E40AF 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+  }
+
+  /* Animated Mesh Background - Slow Moving */
+  .gradient-mesh-animated {
+    background:
+      radial-gradient(circle at 20% 50%, hsla(217, 91%, 60%, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, hsla(189, 94%, 43%, 0.1) 0%, transparent 50%);
+    background-size: 200% 200%;
+    animation: meshMove 15s ease-in-out infinite;
+  }
+
+  @keyframes meshMove {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Glassmorphism Utility Classes - Multi-Level */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-card-light {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border-subtle);
+  }
+
+  .glass-card-medium {
+    background: var(--glass-bg-medium);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border-subtle);
+  }
+
+  .glass-card-heavy {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border-strong);
+  }
+
+  .glass-card-hover {
+    background: var(--glass-hover);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Glass Card with Glow Effect */
+  .glass-card-glow {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border-subtle);
+    box-shadow: var(--shadow-glow-blue);
   }
 }
 

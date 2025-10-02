@@ -37,34 +37,52 @@ export const DesktopServiceCard = ({
   }, []);
 
   return (
-    <div 
+    <div
       className={cn(
         "relative perspective-1000 w-full",
         "animate-fade-in"
       )}
-      style={{ 
+      style={{
         animationDelay: `${index * 100}ms`,
       }}
       role="article"
       aria-labelledby={`desktop-service-title-${index}`}
     >
-      <div 
+      <div
         className={cn(
-          "glass-morphism p-8 rounded-xl hover-glow border border-white/10",
-          "bg-gradient-to-br from-black/40 via-black/20 to-transparent relative group",
-          "transform-gpu transition-transform duration-500 hover:scale-105",
-          "before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r",
-          "before:opacity-0 before:transition-opacity hover:before:opacity-100",
-          "after:absolute after:inset-0 after:rounded-xl",
-          "after:opacity-0 after:transition-opacity hover:after:opacity-100",
+          "relative p-8 rounded-2xl overflow-hidden group",
+          "backdrop-blur-xl bg-white/[0.03] border border-white/10",
+          "transform-gpu transition-all duration-500",
+          "hover:-translate-y-2 hover:shadow-2xl",
           "flex flex-col items-center justify-center text-center",
           "h-[500px]"
         )}
         style={{
           '--card-color': color,
-          boxShadow: '0 0 30px var(--card-color)'
         } as React.CSSProperties}
       >
+        {/* Gradient Border Effect on Hover */}
+        <div
+          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: `linear-gradient(135deg, ${color}40 0%, transparent 50%, ${color}40 100%)`,
+            padding: '1px',
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude'
+          }}
+        />
+
+        {/* Glow Effect on Hover */}
+        <div
+          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at center, ${color}30 0%, transparent 70%)`
+          }}
+        />
+
+        {/* Card Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full">
         <div className={cn(
           "relative group-hover:animate-pulse",
           icon === "Brain" ? "mb-12" : "mb-10"
@@ -101,24 +119,26 @@ export const DesktopServiceCard = ({
           {description}
         </p>
         
-        <Link 
+        <Link
           to={link}
           className={cn(
-            "inline-flex items-center justify-center",
+            "inline-flex items-center justify-center gap-2",
+            "px-6 py-3 rounded-full",
+            "bg-white/5 hover:bg-white/10 border border-white/20",
             "text-white/90 hover:text-white",
-            "relative overflow-hidden group transition-all duration-300 text-lg",
-            "after:content-[''] after:absolute after:bottom-0 after:left-0",
-            "after:w-full after:h-[1px]",
-            "after:bg-gradient-to-r after:from-white/0 after:via-white/70 after:to-white/0",
-            "after:origin-left after:scale-x-0 hover:after:scale-x-100",
-            "after:transition-transform after:duration-300",
-            "cursor-pointer py-2 px-4",
-            "z-10" // Ensure link is above any other elements
+            "transition-all duration-300 text-lg font-medium",
+            "group/link backdrop-blur-sm",
+            "hover:border-white/40 hover:shadow-lg"
           )}
+          style={{
+            boxShadow: `0 0 20px ${color}30`
+          }}
           aria-label={`Learn more about ${title}`}
         >
           Learn More
+          <span className="transition-transform duration-300 group-hover/link:translate-x-1">→</span>
         </Link>
+        </div>
       </div>
     </div>
   );

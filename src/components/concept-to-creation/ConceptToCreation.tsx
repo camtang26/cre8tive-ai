@@ -13,25 +13,25 @@ const steps = [
     title: "AI-Powered Storyboard Generation",
     description: "Watch your ideas take shape in minutes. Our AI engine analyzes your input and instantly generates a storyboard, complete with suggested scenes, visuals, and even dialogue or narration.",
     Icon: Layers,
-    color: "#F87171" // red-400
+    color: "#22D3EE" // cyan-400
   },
   {
     title: "Style Selection & Refinement",
     description: "Take control of your creative. Choose from a range of pre-designed visual styles or customize every detail of your storyboard. Tweak scenes, add notes, and collaborate with your team or clients.",
     Icon: Palette,
-    color: "#C084FC" // purple-400
+    color: "#14B8A6" // teal-500
   },
   {
     title: "Seamless Handoff to Production",
     description: "From digital blueprint to polished masterpiece. Once you're happy with your storyboard, it's seamlessly handed off to our expert studio team. We'll bring your vision to life with professional video production.",
     Icon: Send,
-    color: "#34D399" // emerald-400
+    color: "#3B82F6" // blue-500
   },
   {
     title: "Broadcast-Ready Results",
     description: "Your vision, expertly crafted. The result is a high-quality, professionally produced video ad that's ready to captivate your audience. With Cre8tive AI, you get the speed and efficiency of AI-powered concepting.",
     Icon: Video,
-    color: "#4ADE80" // green-400
+    color: "#06B6D4" // cyan-500
   }
 ];
 
