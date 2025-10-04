@@ -11,7 +11,7 @@ export const DesktopHero = () => {
 
   return (
     <section
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-screen pt-20 pb-12 flex items-center justify-center overflow-hidden"
       role="banner"
       aria-label="Hero section"
     >

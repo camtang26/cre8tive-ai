@@ -3,7 +3,6 @@ import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
 import { Gallery } from "@/components/Gallery";
 import { CinematicQuote } from "@/components/quotes/CinematicQuote";
-import { StatsBar } from "@/components/shared/StatsBar";
 import { ContactForm } from "@/components/ContactForm";
 import { ScrollFade } from "@/components/shared/ScrollFade";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -38,11 +37,6 @@ const Index = () => {
           <div ref={heroRef}>
             <Hero />
           </div>
-          
-          {/* Stats Bar */}
-          <ScrollFade>
-            <StatsBar />
-          </ScrollFade>
 
           {/* Services */}
           <div ref={servicesRef}>

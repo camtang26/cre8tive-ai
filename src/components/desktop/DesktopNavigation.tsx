@@ -72,8 +72,8 @@ export const DesktopNavigation = () => {
                 }`}
                 role="menuitem"
               >
-                CS AI Engine
-                <span className={`absolute bottom-6 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transform origin-left transition-transform duration-300 ${
+                AI Briefing Engine
+                <span className={`absolute bottom-6 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transform origin-left transition-transform duration-300 ${
                   isActive('/studios-engine') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                 }`} />
               </Link>

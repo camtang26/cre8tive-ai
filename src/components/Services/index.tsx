@@ -39,20 +39,12 @@ export const Services = () => {
   console.log('Services component rendered, isMobile:', isMobile);
 
   return (
-    <section 
-      className={`${isMobile ? 'pt-2 pb-6' : 'py-8 md:py-24'} relative overflow-hidden`}
-      role="region" 
+    <section
+      className={`${isMobile ? 'py-12' : 'py-16 md:py-24 lg:py-32'} relative overflow-hidden`}
+      role="region"
       aria-label="Our Services"
       id="services"
     >
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at center, #000000 0%, #000000 85%, #0D0D1D 100%)',
-        }}
-        aria-hidden="true"
-      />
-      
       {isMobile ? (
         <MobileServices services={services} />
       ) : (

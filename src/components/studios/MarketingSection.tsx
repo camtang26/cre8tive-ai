@@ -43,13 +43,6 @@ export const MarketingSection = () => {
 
   return (
     <section className="py-24 relative overflow-hidden">
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at center, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.98) 75%, rgba(13,13,29,0.99) 100%)',
-        }}
-      />
-      
       <div className="container relative z-10 mx-auto px-4">
         <ScrollFade>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mt-8 sm:mt-0 mb-12 md:mb-16 text-white [text-shadow:0_0_10px_rgba(255,255,255,0.4),0_0_20px_rgba(255,255,255,0.2)]">

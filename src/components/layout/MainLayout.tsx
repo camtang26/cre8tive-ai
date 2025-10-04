@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigation } from '../Navigation';
 import { Footer } from '../Footer';
+import { FloatingCallButton } from '../shared/FloatingCallButton';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       </main>
 
       <Footer />
+      <FloatingCallButton />
       <elevenlabs-convai agent-id="lQXvJFg8zSqlerOKPXm6"></elevenlabs-convai>
     </div>
   );

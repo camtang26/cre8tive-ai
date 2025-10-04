@@ -25,68 +25,37 @@ const Enhanced3DCard = ({ service, index, isFeatured }: CardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), {
-    damping: 20,
-    stiffness: 200,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), {
-    damping: 20,
-    stiffness: 200,
-  });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    mouseX.set((e.clientX - centerX) / (rect.width / 2));
-    mouseY.set((e.clientY - centerY) / (rect.height / 2));
-  };
-
   const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
     setIsHovered(false);
   };
+
+  // Enhanced shadow for depth & elevation effect
+  const shadowStyle = isHovered
+    ? `0 25px 50px ${service.color}35, 0 0 40px ${service.color}50`
+    : '0 8px 20px rgba(0, 0, 0, 0.3)';
 
   return (
     <motion.div
       ref={cardRef}
-      onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={() => setIsHovered(true)}
       style={{
         transformStyle: "preserve-3d",
-        rotateX: isHovered ? rotateX : 0,
-        rotateY: isHovered ? rotateY : 0,
       }}
-      whileHover={{ scale: 1.02, z: 50 }}
-      className={`relative h-full ${isFeatured ? "md:col-span-2 md:row-span-2" : ""}`}
+      whileHover={{
+        scale: 1.02,
+        y: -12,
+        transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] }
+      }}
+      className="relative h-full"
     >
-      {/* Animated Border Gradient */}
-      <motion.div
-        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `linear-gradient(135deg, ${service.color}40, transparent 60%)`,
-          filter: 'blur(20px)',
-        }}
-        animate={isHovered ? {
-          rotate: [0, 360],
-        } : {}}
-        transition={{
-          duration: 10,
-          repeat: isHovered ? Infinity : 0,
-          ease: "linear",
-        }}
-      />
 
       <div
         className="glass-card-medium p-8 md:p-10 rounded-3xl h-full flex flex-col group relative overflow-hidden"
         style={{
           transform: 'translateZ(20px)',
+          boxShadow: shadowStyle,
+          transition: 'box-shadow 0.4s ease',
         }}
       >
         {/* Particle Effects */}
@@ -164,7 +133,7 @@ const Enhanced3DCard = ({ service, index, isFeatured }: CardProps) => {
 
         {/* Title with Gradient on Hover */}
         <h3
-          className={`${isFeatured ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'} font-black text-white mb-4 transition-all duration-smooth relative z-10`}
+          className="text-2xl md:text-3xl font-black text-white mb-4 transition-all duration-smooth relative z-10"
           style={{
             transform: 'translateZ(30px)',
             backgroundImage: isHovered
@@ -180,7 +149,7 @@ const Enhanced3DCard = ({ service, index, isFeatured }: CardProps) => {
 
         {/* Description */}
         <p
-          className={`text-white/70 ${isFeatured ? 'text-xl md:text-2xl' : 'text-base md:text-lg'} leading-relaxed mb-6 flex-grow relative z-10`}
+          className="text-white/70 text-base md:text-lg leading-relaxed mb-6 flex-grow relative z-10"
           style={{
             transform: 'translateZ(20px)',
           }}
@@ -225,7 +194,7 @@ export const DesktopServicesBold = ({ services }: ServicesProps) => {
   const { ref, isInView } = useScrollAnimation({ margin: "-150px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden">
+    <section ref={ref} className="relative py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-10" style={{
         backgroundImage: `
@@ -244,12 +213,12 @@ export const DesktopServicesBold = ({ services }: ServicesProps) => {
           className="text-center mb-20"
         >
           <motion.div
-            className="inline-block px-6 py-2 rounded-full glass-card-light mb-6"
+            className="inline-block px-8 py-3 rounded-full glass-card-light mb-6"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2 }}
           >
-            <span className="text-cyan-400 font-bold text-sm tracking-wider uppercase">
+            <span className="text-cyan-400 font-bold text-base md:text-lg tracking-wider uppercase">
               Our Solutions
             </span>
           </motion.div>
@@ -267,13 +236,13 @@ export const DesktopServicesBold = ({ services }: ServicesProps) => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 auto-rows-[minmax(350px,auto)] mb-20"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 auto-rows-[minmax(400px,auto)] mb-20"
           style={{
             perspective: '1000px',
           }}
         >
           {services.map((service, index) => {
-            const isFeatured = index === 0;
+            const isFeatured = false; // All cards same size
             return (
               <Enhanced3DCard
                 key={index}
