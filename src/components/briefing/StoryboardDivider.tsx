@@ -8,12 +8,12 @@ export const StoryboardDivider = () => {
           {/* Storyboard Frame 1 */}
           <div
             className="relative w-16 h-12 md:w-24 md:h-16 rounded border-2 flex items-center justify-center"
-            style={{ borderColor: `${briefingColors.purple.DEFAULT}60` }}
+            style={{ borderColor: `${briefingColors.indigo.DEFAULT}60` }}
           >
             <div
               className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded text-xs font-bold"
               style={{
-                background: briefingColors.purple.DEFAULT,
+                background: briefingColors.indigo.DEFAULT,
                 color: 'white'
               }}
             >
@@ -25,18 +25,18 @@ export const StoryboardDivider = () => {
           {/* Connecting Line */}
           <div
             className="h-0.5 w-8 md:w-16"
-            style={{ background: `linear-gradient(90deg, ${briefingColors.purple.DEFAULT}, ${briefingColors.green.DEFAULT})` }}
+            style={{ background: `linear-gradient(90deg, ${briefingColors.indigo.DEFAULT}, ${briefingColors.cyan.DEFAULT})` }}
           />
 
           {/* Storyboard Frame 2 */}
           <div
             className="relative w-16 h-12 md:w-24 md:h-16 rounded border-2 flex items-center justify-center"
-            style={{ borderColor: `${briefingColors.green.DEFAULT}60` }}
+            style={{ borderColor: `${briefingColors.cyan.DEFAULT}60` }}
           >
             <div
               className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded text-xs font-bold"
               style={{
-                background: briefingColors.green.DEFAULT,
+                background: briefingColors.cyan.DEFAULT,
                 color: 'white'
               }}
             >
@@ -48,18 +48,18 @@ export const StoryboardDivider = () => {
           {/* Connecting Line */}
           <div
             className="h-0.5 w-8 md:w-16"
-            style={{ background: `linear-gradient(90deg, ${briefingColors.green.DEFAULT}, ${briefingColors.pink.DEFAULT})` }}
+            style={{ background: `linear-gradient(90deg, ${briefingColors.cyan.DEFAULT}, ${briefingColors.fuchsia.DEFAULT})` }}
           />
 
           {/* Storyboard Frame 3 */}
           <div
             className="relative w-16 h-12 md:w-24 md:h-16 rounded border-2 flex items-center justify-center"
-            style={{ borderColor: `${briefingColors.pink.DEFAULT}60` }}
+            style={{ borderColor: `${briefingColors.fuchsia.DEFAULT}60` }}
           >
             <div
               className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded text-xs font-bold"
               style={{
-                background: briefingColors.pink.DEFAULT,
+                background: briefingColors.fuchsia.DEFAULT,
                 color: 'white'
               }}
             >

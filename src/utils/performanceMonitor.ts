@@ -6,9 +6,12 @@ export const measurePerformance = (componentName: string) => {
   };
 };
 
-export const debounceRender = (fn: Function, delay: number) => {
+export const debounceRender = <T extends unknown[]>(
+  fn: (...args: T) => void,
+  delay: number
+) => {
   let timeoutId: NodeJS.Timeout;
-  return (...args: any[]) => {
+  return (...args: T) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn(...args), delay);
   };

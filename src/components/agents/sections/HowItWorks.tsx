@@ -7,7 +7,7 @@ interface StepProps {
   number: number;
   title: string;
   description: string;
-  Icon: any;
+  Icon: React.ComponentType<{ className?: string }>;
   color: string;
 }
 

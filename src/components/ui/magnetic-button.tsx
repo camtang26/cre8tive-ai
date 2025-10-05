@@ -7,7 +7,9 @@ interface MagneticButtonProps {
   className?: string;
   strength?: number;
   as?: "button" | "a" | "div";
-  [key: string]: any;
+  onClick?: () => void;
+  href?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 export const MagneticButton = ({
@@ -46,7 +48,7 @@ export const MagneticButton = ({
 
   return (
     <motion.div
-      ref={ref as any}
+      ref={ref as React.Ref<HTMLDivElement>}
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}

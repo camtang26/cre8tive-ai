@@ -1,0 +1,60 @@
+{
+  "plan_file": "codex/PLAN.md",
+  "steps": [
+    {
+      "step_id": "S1",
+      "title": "Research GSAP ScrollTrigger Patterns (RAG Required)",
+      "status": "done",
+      "notes": ""
+    },
+    {
+      "step_id": "S2",
+      "title": "Fix Hero Section Dark Theme",
+      "status": "in_progress",
+      "notes": "Invalidated 2025-10-05 18:57 NZDT - gradient still not showing for user"
+    },
+    {
+      "step_id": "S3",
+      "title": "Fix Section Backgrounds (Replace Pure Black)",
+      "status": "done",
+      "notes": ""
+    },
+    {
+      "step_id": "S4",
+      "title": "Update Color Palette Constants",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "step_id": "S5",
+      "title": "Implement GSAP ScrollTrigger for Visual Styles Gallery",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "step_id": "S6",
+      "title": "Implement GSAP Timeline for Storyboard Section",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "step_id": "S7",
+      "title": "Test in Chrome DevTools MCP",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "step_id": "S8",
+      "title": "Run Quality Gates",
+      "status": "pending",
+      "notes": ""
+    },
+    {
+      "step_id": "S9",
+      "title": "Update Documentation",
+      "status": "pending",
+      "notes": ""
+    }
+  ],
+  "updated": "2025-10-05T16:15:59.294795+00:00"
+}

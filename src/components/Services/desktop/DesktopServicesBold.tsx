@@ -14,8 +14,15 @@ const iconMap = {
   Phone
 };
 
+interface Service {
+  title: string;
+  icon: string;
+  description: string;
+  features?: string[];
+}
+
 interface CardProps {
-  service: any;
+  service: Service;
   index: number;
   isFeatured: boolean;
 }

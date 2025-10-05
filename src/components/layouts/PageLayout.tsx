@@ -2,25 +2,35 @@ import { ReactNode } from "react";
 
 interface PageLayoutProps {
   children: ReactNode;
-  variant?: "default" | "minimal";
+  variant?: "default" | "minimal" | "custom";
 }
 
 /**
  * Unified page layout component for consistent, seamless design
  * Provides single background system across all pages
  * NO per-section backgrounds - ensures smooth, professional appearance
+ *
+ * Variants:
+ * - "default": Unified black background with subtle gradients (Home, Studios)
+ * - "minimal": Minimal background (reserved)
+ * - "custom": No backgrounds - page defines its own theme (Briefing Engine)
  */
 export const PageLayout = ({ children, variant = "default" }: PageLayoutProps) => {
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Layer 1: Pure Black Base */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: '#000000',
-        }}
-        aria-hidden="true"
-      />
+    <div className={`min-h-screen relative overflow-hidden ${variant !== "custom" ? "bg-black" : ""}`}>
+      {/* Only render background layers for default/minimal variants */}
+      {variant !== "custom" && (
+        <>
+          {/* Layer 1: Pure Black Base */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: '#000000',
+            }}
+            aria-hidden="true"
+          />
+        </>
+      )}
 
       {variant === "default" && (
         <>

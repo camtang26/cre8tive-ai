@@ -8,25 +8,35 @@ import { VisualStylesGallery } from "@/components/briefing/VisualStylesGallery";
 import { BriefingCTA } from "@/components/briefing/BriefingCTA";
 import { FadeIn } from "@/components/shared/FadeIn";
 
-// Brand Colors for AI Briefing Engine
+// Brand Colors for AI Briefing Engine - Dark Tech/Creative Hybrid Palette
 export const briefingColors = {
-  purple: {
-    light: "#A855F7",  // Purple 500
-    DEFAULT: "#9333EA", // Purple 600
-    dark: "#7C3AED"     // Purple 700
+  // Deep Indigo - AI Intelligence & Strategic Thinking
+  indigo: {
+    from: "#6366F1",    // Indigo-500 (gradient start, lighter glow)
+    DEFAULT: "#4F46E5", // Indigo-600 (primary UI)
+    to: "#4338CA"       // Indigo-700 (gradient end, deeper)
   },
-  green: {
-    light: "#84CC16",   // Lime 500
-    DEFAULT: "#65A30D", // Lime 600
-    dark: "#4D7C0F"     // Lime 700
+  // Dark Cyan - Tech Success & Processing
+  cyan: {
+    from: "#06B6D4",    // Cyan-500 (neon tech accents)
+    DEFAULT: "#0891B2", // Cyan-600 (primary success)
+    to: "#0E7490"       // Cyan-700 (deeper flow)
   },
-  pink: {
-    light: "#F472B6",   // Pink 400
-    DEFAULT: "#EC4899", // Pink 500
-    dark: "#DB2777"     // Pink 600
+  // Deep Fuchsia - Creative Energy & Artistic Expression
+  fuchsia: {
+    from: "#D946EF",    // Fuchsia-500 (bright creative burst)
+    DEFAULT: "#C026D3", // Fuchsia-600 (primary creative)
+    to: "#A21CAF"       // Fuchsia-700 (deeper magenta)
   },
+  // Deep Orange - Brand Accent & Speed
   orange: {
-    DEFAULT: "#F97316", // Orange 500 (brand consistency)
+    DEFAULT: "#EA580C", // Orange-600 (Studios consistency)
+  },
+  // Holographic/Neon Accents (Tech Elements)
+  holographic: {
+    glow: "#818CF8",     // Indigo-400 (neon glows, particle effects)
+    emerald: "#34D399",  // Emerald-400 (success indicators)
+    cyan: "#22D3EE"      // Cyan-400 (tech flow lines)
   }
 };
 
@@ -35,29 +45,40 @@ const BriefingEngine = () => {
 
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: true }}>
-      <PageLayout>
-        <Helmet>
-          <title>AI Briefing Engine | Transform Ideas to Storyboards in Minutes | Cre8tive AI</title>
-          <meta
-            name="description"
-            content="AI-powered briefing platform for agencies and brands. Create professional storyboards with 8 visual styles. From brief to PDF in minutes."
-          />
-          <meta property="og:title" content="AI Briefing Engine | Cre8tive AI" />
-          <meta
-            property="og:description"
-            content="Transform your brand brief into professional storyboards in minutes using AI. Choose from 8 visual styles."
-          />
-        </Helmet>
+      <div className="relative min-h-screen bg-transparent">
+        {/* Unified Page Background - Briefing Engine BLACK-CENTRIC with Indigo Hints */}
+        {/* Matches Studios black-centric approach: 95%+ black, subtle color hints */}
+        <div
+          className="fixed inset-0 pointer-events-none z-0"
+          style={{
+            background: `
+              radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 40%),
+              radial-gradient(circle at 80% 70%, rgba(192, 38, 211, 0.05) 0%, transparent 40%),
+              linear-gradient(to bottom, rgba(0,0,0,0.98) 0%, rgba(10,10,22,0.99) 100%)
+            `
+          }}
+        />
 
-        <Navigation />
+        <PageLayout variant="custom">
+          <Helmet>
+            <title>AI Briefing Engine | Transform Ideas to Storyboards in Minutes | Cre8tive AI</title>
+            <meta
+              name="description"
+              content="AI-powered briefing platform for agencies and brands. Create professional storyboards with 9 visual styles. From brief to PDF in minutes."
+            />
+            <meta property="og:title" content="AI Briefing Engine | Cre8tive AI" />
+            <meta
+              property="og:description"
+              content="Transform your brand brief into professional storyboards in minutes using AI. Choose from 9 visual styles."
+            />
+          </Helmet>
 
-        <main className="pt-20">
-          {/* Hero Section - Temporary placeholder, will be replaced with BriefingHero */}
+          <Navigation />
+
+          <main className="pt-20">
+          {/* Hero Section with Dark Aesthetic */}
           <section
             className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-10 md:py-20 px-4 mb-8 md:mb-16"
-            style={{
-              background: `linear-gradient(135deg, ${briefingColors.purple.dark} 0%, ${briefingColors.purple.DEFAULT} 50%, ${briefingColors.pink.DEFAULT} 100%)`
-            }}
             aria-label="Hero section"
           >
             <div className="container mx-auto max-w-7xl">
@@ -82,9 +103,9 @@ const BriefingEngine = () => {
                   <button
                     className="px-10 py-4 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105"
                     style={{
-                      background: `linear-gradient(135deg, ${briefingColors.purple.DEFAULT}, ${briefingColors.pink.DEFAULT})`,
+                      background: `linear-gradient(135deg, ${briefingColors.indigo.DEFAULT}, ${briefingColors.fuchsia.DEFAULT})`,
                       color: 'white',
-                      boxShadow: `0 0 20px ${briefingColors.green.DEFAULT}50`
+                      boxShadow: `0 0 20px ${briefingColors.cyan.DEFAULT}50`
                     }}
                   >
                     Start Your Brief
@@ -93,7 +114,7 @@ const BriefingEngine = () => {
                   <button
                     className="px-10 py-4 rounded-xl font-bold text-xl border-2 text-white transition-all duration-300 transform hover:scale-105"
                     style={{
-                      borderColor: briefingColors.green.DEFAULT,
+                      borderColor: briefingColors.cyan.DEFAULT,
                       background: 'transparent'
                     }}
                   >
@@ -107,7 +128,7 @@ const BriefingEngine = () => {
                     className="relative h-48 w-full max-w-4xl mx-auto rounded-2xl backdrop-blur-sm p-8 border"
                     style={{
                       background: 'rgba(255, 255, 255, 0.05)',
-                      borderColor: `${briefingColors.green.DEFAULT}40`
+                      borderColor: `${briefingColors.holographic.glow}40`
                     }}
                   >
                     <div className="text-white/60 text-center">
@@ -128,14 +149,19 @@ const BriefingEngine = () => {
 
           <StoryboardDivider />
 
-          {/* Placeholder: BriefingProcessFlow coming soon */}
-          <section className="py-16 px-4">
+          {/* Placeholder: BriefingProcessFlow with subtle dark gradient */}
+          <section
+            className="py-16 px-4"
+            style={{
+              background: `radial-gradient(circle at center, rgba(67, 56, 202, 0.03) 0%, transparent 70%)`
+            }}
+          >
             <div className="container mx-auto max-w-7xl">
               <div
                 className="p-8 rounded-2xl border text-center"
                 style={{
-                  background: 'rgba(132, 204, 22, 0.05)',
-                  borderColor: `${briefingColors.green.DEFAULT}40`
+                  background: 'rgba(26, 26, 46, 0.4)',
+                  borderColor: `${briefingColors.indigo.to}40`
                 }}
               >
                 <h2 className="text-4xl font-black text-white mb-4">Briefing Process Flow</h2>
@@ -155,7 +181,8 @@ const BriefingEngine = () => {
             <BriefingCTA />
           </FadeIn>
         </main>
-      </PageLayout>
+        </PageLayout>
+      </div>
     </ReactLenis>
   );
 };

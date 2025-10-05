@@ -1,90 +1,183 @@
+import { useEffect, useRef } from "react";
 import { StyleCard } from "./StyleCard";
 import { briefingColors } from "@/pages/BriefingEngine";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from 'lenis/react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const visualStyles = [
   {
     id: 1,
-    name: "Minimalistic & Modern",
-    description: "Clean lines, white space, geometric precision",
-    gradient: "linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)",
+    name: "Minimalist",
+    description: "Clean lines, white space, elegant simplicity",
+    imagePath: "/briefing-engine/visual-styles/Minimalist.webp",
     textColor: "#333333"
   },
   {
     id: 2,
     name: "Bold & Vibrant",
     description: "Saturated colors, high contrast, energetic compositions",
-    gradient: "linear-gradient(135deg, #ff6b6b 0%, #ffd93d 50%, #6bcf7f 100%)",
+    imagePath: "/briefing-engine/visual-styles/BoldVibrant.webp",
     textColor: "#ffffff"
   },
   {
     id: 3,
-    name: "Cinematic & Dramatic",
-    description: "Dark moody tones, film noir, dramatic lighting",
-    gradient: "linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%)",
+    name: "Cinematic",
+    description: "Epic cosmic scenes, dramatic lighting, Hollywood feel",
+    imagePath: "/briefing-engine/visual-styles/CinematicDramatic.webp",
     textColor: "#ffffff"
   },
   {
     id: 4,
     name: "Playful & Animated",
-    description: "Bouncy shapes, bright colors, cartoon-like energy",
-    gradient: "linear-gradient(135deg, #ff9ff3 0%, #ffd480 50%, #a8e6cf 100%)",
+    description: "3D whimsy, soft pastels, dreamlike charm",
+    imagePath: "/briefing-engine/visual-styles/Playfulanimated.webp",
     textColor: "#333333"
   },
   {
     id: 5,
-    name: "Futuristic & Tech-Driven",
-    description: "Neon blues, holographic effects, digital circuits",
-    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)",
+    name: "Futuristic",
+    description: "Neon cyberpunk, holographic platforms, tech-driven",
+    imagePath: "/briefing-engine/visual-styles/Futuristic.webp",
     textColor: "#ffffff"
   },
   {
     id: 6,
     name: "Retro & Vintage",
-    description: "Warm sepia, 70s aesthetic, nostalgic vibes",
-    gradient: "linear-gradient(135deg, #d4a574 0%, #e8c4a0 50%, #f5deb3 100%)",
+    description: "Warm golden tones, timeless nostalgia, wood aesthetics",
+    imagePath: "/briefing-engine/visual-styles/RetroVintage.webp",
     textColor: "#5a3e2b"
   },
   {
     id: 7,
-    name: "Documentary & Realistic",
-    description: "Neutral tones, photographic quality, authentic feel",
-    gradient: "linear-gradient(135deg, #8b9a91 0%, #a8b5a7 100%)",
+    name: "Documentary",
+    description: "Photorealistic, natural lighting, authentic storytelling",
+    imagePath: "/briefing-engine/visual-styles/DocumentaryRealistic.webp",
     textColor: "#ffffff"
   },
   {
     id: 8,
-    name: "Abstract & Artistic",
-    description: "Paint splashes, creative chaos, artistic expression",
-    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 33%, #ffd93d 66%, #6bcf7f 100%)",
+    name: "Artistic Abstract",
+    description: "Liquid marble swirls, creative fluidity, artistic expression",
+    imagePath: "/briefing-engine/visual-styles/ArtisticAbstract.webp",
+    textColor: "#ffffff"
+  },
+  {
+    id: 9,
+    name: "2D Vector",
+    description: "Flat design, geometric shapes, modern illustration",
+    imagePath: "/briefing-engine/visual-styles/2dVector.webp",
     textColor: "#ffffff"
   }
 ];
 
 export const VisualStylesGallery = () => {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  // Sync Lenis with ScrollTrigger
+  const lenis = useLenis(({ scroll }) => {
+    ScrollTrigger.update();
+  });
+
+  useEffect(() => {
+    console.log('[VisualStylesGallery] useEffect running, gsap loaded:', typeof gsap !== 'undefined');
+    console.log('[VisualStylesGallery] ScrollTrigger loaded:', typeof ScrollTrigger !== 'undefined');
+    console.log('[VisualStylesGallery] Lenis instance:', lenis);
+
+    // Wait for next frame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      // Animate header on scroll
+      if (headerRef.current) {
+        console.log('[VisualStylesGallery] Animating header');
+        gsap.fromTo(
+          headerRef.current.children,
+          {
+            opacity: 0,
+            y: 30
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 80%",
+              end: "top 50%",
+              toggleActions: "play none none none",
+              markers: true  // Debug markers
+            }
+          }
+        );
+      }
+
+      // Animate cards with stagger
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll(".style-card");
+        console.log('[VisualStylesGallery] Found cards:', cards.length);
+
+        gsap.fromTo(
+          cards,
+          {
+            opacity: 0,
+            y: 50,
+            scale: 0.9
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: {
+              amount: 0.6,
+              from: "start"
+            },
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 75%",
+              end: "top 25%",
+              toggleActions: "play none none none",
+              markers: true  // Debug markers
+            }
+          }
+        );
+      }
+
+      // Force ScrollTrigger refresh after setup
+      ScrollTrigger.refresh();
+    });
+
+    return () => {
+      console.log('[VisualStylesGallary] Cleanup: killing ScrollTriggers');
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [lenis]);
+
   return (
     <section className="py-20 px-4" id="visual-styles">
       <div className="container mx-auto max-w-7xl">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div ref={headerRef} className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl xl:text-7xl font-black tracking-tighter leading-none text-white mb-6">
             Choose Your Creative Style
           </h2>
           <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto">
-            8 Stunning Visual Styles to Bring Your Storyboard to Life
-          </p>
-          <p className="text-sm text-white/40 mt-4 italic">
-            Placeholder visuals - awaiting actual style example assets
+            9 Stunning Visual Styles to Bring Your Storyboard to Life
           </p>
         </div>
 
-        {/* 8-Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        {/* 9-Card Grid (3x3 layout on large screens) */}
+        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {visualStyles.map((style, index) => (
             <StyleCard
               key={style.id}
               name={style.name}
               description={style.description}
-              gradient={style.gradient}
+              imagePath={style.imagePath}
               textColor={style.textColor}
               delay={index * 0.1}
             />
@@ -95,8 +188,8 @@ export const VisualStylesGallery = () => {
         <div
           className="mt-12 p-6 rounded-xl border text-center"
           style={{
-            background: `${briefingColors.purple.DEFAULT}10`,
-            borderColor: `${briefingColors.purple.DEFAULT}40`
+            background: `${briefingColors.indigo.DEFAULT}10`,
+            borderColor: `${briefingColors.indigo.DEFAULT}40`
           }}
         >
           <p className="text-white/80 text-lg">

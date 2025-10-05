@@ -7,7 +7,7 @@ export const BriefingCTA = () => {
     <section
       className="relative py-24 px-4 overflow-hidden"
       style={{
-        background: `linear-gradient(135deg, ${briefingColors.purple.dark} 0%, ${briefingColors.purple.DEFAULT} 50%, ${briefingColors.pink.DEFAULT} 100%)`
+        background: `linear-gradient(135deg, ${briefingColors.indigo.to} 0%, ${briefingColors.indigo.DEFAULT} 50%, ${briefingColors.fuchsia.DEFAULT} 100%)`
       }}
     >
       {/* Floating Storyboard Frames Background */}
@@ -65,9 +65,9 @@ export const BriefingCTA = () => {
             <button
               className="group px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
               style={{
-                background: `linear-gradient(135deg, ${briefingColors.green.DEFAULT}, ${briefingColors.green.light})`,
+                background: `linear-gradient(135deg, ${briefingColors.cyan.DEFAULT}, ${briefingColors.cyan.from})`,
                 color: 'white',
-                boxShadow: `0 10px 30px ${briefingColors.green.DEFAULT}40`
+                boxShadow: `0 10px 30px ${briefingColors.cyan.DEFAULT}40`
               }}
             >
               Start Your First Brief
@@ -96,14 +96,14 @@ export const BriefingCTA = () => {
             <div className="flex items-center gap-2">
               <div
                 className="w-2 h-2 rounded-full"
-                style={{ background: briefingColors.green.DEFAULT }}
+                style={{ background: briefingColors.cyan.DEFAULT }}
               />
-              <span>8 Visual Styles</span>
+              <span>9 Visual Styles</span>
             </div>
             <div className="flex items-center gap-2">
               <div
                 className="w-2 h-2 rounded-full"
-                style={{ background: briefingColors.pink.DEFAULT }}
+                style={{ background: briefingColors.fuchsia.DEFAULT }}
               />
               <span>PDF Delivery</span>
             </div>
