@@ -1,0 +1,28 @@
+{
+  "commands": {
+    "npm run lint --if-present": {
+      "label": "npm run lint --if-present",
+      "cmd": [
+        "npm",
+        "run",
+        "lint",
+        "--if-present"
+      ],
+      "returncode": 0,
+      "output": "> vite_react_shadcn_ts@0.0.0 lint\n> eslint .\n\n\n/home/cameronai/projects/cre8tive-website-1006/src/components/how-it-works/mobile/MobileHowItWorksCarousel.tsx\n  74:6  warning  React Hook useEffect has a missing dependency: 'handleTouchMove'. Either include it or remove the dependency array  react-hooks/exhaustive-deps\n\n/home/cameronai/projects/cre8tive-website-1006/src/components/studios/AnimatedBackground.tsx\n  117:20  warning  The ref value 'containerRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'containerRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps\n\n/home/cameronai/projects/cre8tive-website-1006/src/components/ui/badge.tsx\n  36:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components\n\n/home/cameronai/projects/cre8tive-website-1006/src/components/ui/button.tsx\n  56:18  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between compo",
+      "ran_at": "2025-10-06T05:27:18.236838Z"
+    },
+    "npm run test --if-present": {
+      "label": "npm run test --if-present",
+      "cmd": [
+        "npm",
+        "run",
+        "test",
+        "--if-present"
+      ],
+      "returncode": 0,
+      "output": "",
+      "ran_at": "2025-10-06T05:27:18.447563Z"
+    }
+  }
+}

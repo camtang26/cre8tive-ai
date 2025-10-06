@@ -1,0 +1,28 @@
+{
+  "commands": {
+    "npm run lint --if-present": {
+      "label": "npm run lint --if-present",
+      "cmd": [
+        "npm",
+        "run",
+        "lint",
+        "--if-present"
+      ],
+      "returncode": 127,
+      "output": "> vite_react_shadcn_ts@0.0.0 lint\n> eslint .\nsh: 1: eslint: not found",
+      "ran_at": "2025-10-05T19:54:24.547257Z"
+    },
+    "npm run test --if-present": {
+      "label": "npm run test --if-present",
+      "cmd": [
+        "npm",
+        "run",
+        "test",
+        "--if-present"
+      ],
+      "returncode": 0,
+      "output": "",
+      "ran_at": "2025-10-05T19:54:24.701048Z"
+    }
+  }
+}

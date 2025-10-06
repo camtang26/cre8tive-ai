@@ -1,6 +1,6 @@
 # Architecture
 
-**Last Updated:** 2025-10-04
+**Last Updated:** 2025-10-06
 **Reverse-Engineered:** From existing codebase analysis
 **Project:** Cre8tive AI Marketing Website
 
@@ -50,7 +50,12 @@ This is a **modern single-page application (SPA)** built as a static marketing w
 - **Fonts:**
   - @fontsource/geist-sans 5.1.0
   - @fontsource/inter 5.1.1
-- **Animations:** Framer Motion 12.4.2 (scroll animations, page transitions, interactions)
+- **Animations:**
+  - Framer Motion 12.4.2 (micro-interactions, page transitions)
+  - GSAP 3.13.0 + @gsap/react 2.1.2 (scroll-driven timelines, complex sequences)
+    - ScrollTrigger plugin (scroll-linked animations, parallax, pinning)
+  - Lenis 1.3.11 (smooth scroll with momentum, ~7kb gzipped)
+  - Combined animation strategy: Framer Motion for UI micro-interactions, GSAP for cinematic scroll experiences
 
 ### 3D & Interactive Media
 - **3D Graphics:** Three.js 0.173.0 (capability present, limited usage)
@@ -166,6 +171,48 @@ This is a **modern single-page application (SPA)** built as a static marketing w
 
 ---
 
+## Detailed Architecture Documentation
+
+**For comprehensive architecture guidance, see:**
+
+### Frontend Architecture
+**📄 [docs/architecture/frontend-architecture.md](./docs/architecture/frontend-architecture.md)**
+
+Complete frontend specification including:
+- Component design patterns & templates (TypeScript + JSDoc + a11y)
+- State management (React Hooks, React Query, React Hook Form + Zod)
+- Styling system (Tailwind + Shadcn/UI + Briefing Engine color palette)
+- Accessibility standards (WCAG AA patterns, semantic HTML, ARIA, keyboard nav)
+- Performance optimization (code splitting, image optimization, pre-rendering)
+- Type safety patterns (current relaxed config + recommended strict config)
+- File organization (feature-based structure with naming conventions)
+
+**Key Resources:**
+- Component Template Checklist (12-point checklist for consistent components)
+- Briefing Engine Color Palette (prevents color drift from Studios/Homepage)
+- Responsive Design Patterns (mobile-first Tailwind breakpoints)
+- Frontend Pre-Commit Checklist (for AI agents and developers)
+
+### Animation Architecture
+**📄 [docs/architecture/animation-patterns.md](./docs/architecture/animation-patterns.md)**
+
+Animation strategy for GSAP + Lenis + Framer Motion integration:
+- **Library Decision Tree** - When to use GSAP vs Lenis vs Framer Motion
+- **GSAP ScrollTrigger Patterns** - Basic trigger, scrub, parallax, stagger, timelines
+- **Lenis Integration** - Global setup, React Router integration, performance config
+- **React Cleanup Patterns** - `gsap.context()` with `useEffect` cleanup (prevents memory leaks)
+- **Performance Optimization** - GPU acceleration, 60fps budget, RAIL model
+- **Accessibility** - `prefers-reduced-motion` detection and implementation
+- **Common Pitfalls** - 5 mistakes with solutions (nesting ScrollTriggers, missing cleanup, etc.)
+
+**Key Resources:**
+- 5 Production-Ready GSAP Patterns (with TypeScript examples)
+- Complete Component Example (VisualStylesGallery with all patterns)
+- Performance Budget Guidelines (RAIL model, 60fps target)
+- Memory Leak Prevention (React cleanup patterns)
+
+---
+
 ## Project Structure
 
 ```
@@ -257,8 +304,18 @@ This is a **modern single-page application (SPA)** built as a static marketing w
 │   ├── index.css            # Global styles (Tailwind imports)
 │   └── vite-env.d.ts        # Vite environment types
 │
+├── docs/                      # Project documentation
+│   ├── architecture/         # Architecture specifications
+│   │   ├── frontend-architecture.md  # Frontend patterns & standards
+│   │   └── animation-patterns.md     # GSAP + Lenis + Framer Motion guide
+│   ├── context/              # Context documents
+│   ├── qa/                   # QA reports
+│   └── stories/              # User stories (BMad workflow)
+│
 ├── codex/                     # Development documentation
-│   └── _MEMO.md             # Working memory and decisions
+│   ├── _MEMO.md             # Working memory and decisions
+│   ├── PLAN.md              # Task breakdown and roadmap
+│   └── REPORT.md            # Handoff summaries
 │
 ├── .github/                   # GitHub configuration
 │   └── workflows/
@@ -411,8 +468,41 @@ This is a **modern single-page application (SPA)** built as a static marketing w
 - useOptimizedAnimation: Performance-optimized animations
 - useParallax: Parallax scroll effects
 - useMagneticHover: Magnetic button hover interactions
-**Dependencies:** React, Framer Motion
+**Responsibilities:** Provide composable animation and interaction logic aligned with PLAN.md requirements
+**Dependencies:** React, Framer Motion, (future) GSAP helpers
 **Tests:** None
+
+### 11. Briefing Engine Feature Stack (Phase 1–10 Roadmap)
+**Purpose:** Deliver the AI Briefing Engine relaunch with bespoke storytelling, motion, and conversion surfaces.
+**Location:** `src/pages/BriefingEngine.tsx`, `src/components/briefing/*`
+**Key Components:**
+- BriefingHero.tsx — split-screen hero with deep black/indigo gradient and dual CTAs
+- BriefToStoryboardAnimation.tsx — animates brief inputs transforming into storyboard frames
+- VisualStylesGallery.tsx & StyleCard.tsx — eight-style grid with GSAP ScrollTrigger stagger reveals
+- BriefingProcessFlow.tsx & ProcessStepCard.tsx — four-step Define → Style → AI Processing → Review timeline
+- WorkflowTransformation.tsx & TransformationValueCard.tsx — traditional vs AI comparison with value props
+- AudienceBenefits.tsx & BenefitCard.tsx — storyboard-framed messaging for Agencies and Brands
+- StoryboardDivider.tsx — cinematic dividers carrying storyboard motif
+- BriefingCTA.tsx — holographic CTA slab with booking + sample download paths
+- BriefingTransformationTimeline.tsx (planned) — GSAP timeline articulation of the briefing workflow
+**Responsibilities:**
+- Maintain the dark indigo/cyan/fuchsia palette and holographic accents defined in PLAN.md
+- Orchestrate Lenis-powered smooth scrolling with GSAP ScrollTrigger timelines (60fps target)
+- Respect accessibility (WCAG AA contrast, prefers-reduced-motion fallbacks, keyboardable controls)
+- Coordinate asset loading for nine visual style images and storyboard frames
+**Dependencies:** GSAP 3.x, ScrollTrigger plugin, Lenis, Framer Motion, Tailwind CSS gradients, Vite asset pipeline
+**Tests:** Planned (visual regression + animation smoke tests TBD)
+
+### 12. Studios Platform-Native Module (Planned)
+**Purpose:** Future Studios page section showcasing platform-native aspect ratio delivery.
+**Location:** `src/components/studios/platform-native/*` (new directory)
+**Key Components (planned):** PlatformNativeSection.tsx, AspectRatioBranch.tsx, AspectRatioCard.tsx, PlatformIcon.tsx, NativeValueCard.tsx
+**Responsibilities:**
+- Visual branching diagram from master concept to 16:9 / 9:16 / 1:1 / 21:9 / 4:3 / 2:3 outputs
+- Animated draw-on-scroll connectors, pulsing platform icons, and hover-responsive cards
+- Pricing transparency callout and "No lazy crops" storytelling copy
+**Dependencies:** GSAP ScrollTrigger, Framer Motion, SVG icon set, Tailwind custom utilities
+**Status:** Essential scope defined in PLAN.md; implementation queued post-Briefing Engine relaunch
 
 ---
 

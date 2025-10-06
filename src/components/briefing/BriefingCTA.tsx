@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { briefingColors } from "@/pages/BriefingEngine";
+import { briefingPalette } from "@/components/briefing/palette";
 import { ArrowRight } from "lucide-react";
 
 export const BriefingCTA = () => {
@@ -7,7 +7,7 @@ export const BriefingCTA = () => {
     <section
       className="relative py-24 px-4 overflow-hidden"
       style={{
-        background: `linear-gradient(135deg, ${briefingColors.indigo.to} 0%, ${briefingColors.indigo.DEFAULT} 50%, ${briefingColors.fuchsia.DEFAULT} 100%)`
+        background: `linear-gradient(135deg, ${briefingPalette.indigo.to} 0%, ${briefingPalette.indigo.DEFAULT} 50%, ${briefingPalette.fuchsia.DEFAULT} 100%)`
       }}
     >
       {/* Floating Storyboard Frames Background */}
@@ -65,9 +65,9 @@ export const BriefingCTA = () => {
             <button
               className="group px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
               style={{
-                background: `linear-gradient(135deg, ${briefingColors.cyan.DEFAULT}, ${briefingColors.cyan.from})`,
+                background: `linear-gradient(135deg, ${briefingPalette.indigo.DEFAULT}, ${briefingPalette.cyan.glow})`,
                 color: 'white',
-                boxShadow: `0 10px 30px ${briefingColors.cyan.DEFAULT}40`
+                boxShadow: `0 10px 30px ${briefingPalette.indigo.DEFAULT}40`
               }}
             >
               Start Your First Brief
@@ -77,7 +77,7 @@ export const BriefingCTA = () => {
             <button
               className="px-10 py-5 rounded-xl font-bold text-xl border-2 text-white transition-all duration-300 transform hover:scale-105 hover:bg-white/10"
               style={{
-                borderColor: 'white',
+                borderColor: briefingPalette.indigo.DEFAULT,
                 background: 'transparent'
               }}
             >
@@ -96,21 +96,21 @@ export const BriefingCTA = () => {
             <div className="flex items-center gap-2">
               <div
                 className="w-2 h-2 rounded-full"
-                style={{ background: briefingColors.cyan.DEFAULT }}
+                style={{ background: briefingPalette.cyan.glow }}
               />
               <span>9 Visual Styles</span>
             </div>
             <div className="flex items-center gap-2">
               <div
                 className="w-2 h-2 rounded-full"
-                style={{ background: briefingColors.fuchsia.DEFAULT }}
+                style={{ background: briefingPalette.fuchsia.DEFAULT }}
               />
               <span>PDF Delivery</span>
             </div>
             <div className="flex items-center gap-2">
               <div
                 className="w-2 h-2 rounded-full"
-                style={{ background: briefingColors.orange.DEFAULT }}
+                style={{ background: briefingPalette.orange.DEFAULT }}
               />
               <span>Studios Integration</span>
             </div>

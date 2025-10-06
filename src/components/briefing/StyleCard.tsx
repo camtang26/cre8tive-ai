@@ -6,10 +6,10 @@ interface StyleCardProps {
   description: string;
   imagePath: string;
   textColor: string;
-  delay?: number;
+  accent: string;
 }
 
-export const StyleCard = ({ name, description, imagePath, textColor, delay = 0 }: StyleCardProps) => {
+export const StyleCard = ({ name, description, imagePath, textColor, accent }: StyleCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -20,16 +20,14 @@ export const StyleCard = ({ name, description, imagePath, textColor, delay = 0 }
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      {/* Card Container */}
       <div
-        className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl bg-gray-900"
+        className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl"
         style={{
           boxShadow: isHovered
-            ? `0 25px 50px -12px rgba(79, 70, 229, 0.4)`
-            : `0 10px 30px -10px rgba(0, 0, 0, 0.3)`
+            ? `0 25px 60px -20px ${accent}70`
+            : "0 10px 30px -12px rgba(4, 5, 15, 0.55)"
         }}
       >
-        {/* Image */}
         <img
           src={imagePath}
           alt={`${name} visual style example`}
@@ -37,21 +35,21 @@ export const StyleCard = ({ name, description, imagePath, textColor, delay = 0 }
           loading="lazy"
         />
 
-        {/* Subtle Name Overlay (bottom) */}
         <div
           className="absolute bottom-0 left-0 right-0 p-4"
           style={{
-            background: 'linear-gradient(to top, rgba(15, 15, 30, 0.9), transparent)'
+            background: `linear-gradient(0deg, ${accent}40 0%, transparent 80%)`
           }}
         >
-          <p className="text-sm font-bold text-white">{name}</p>
+          <p className="text-sm font-bold text-white" style={{ color: textColor }}>
+            {name}
+          </p>
         </div>
 
-        {/* Hover Overlay with Description */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center p-6 backdrop-blur-md"
           style={{
-            background: 'linear-gradient(135deg, rgba(26, 26, 46, 0.92), rgba(15, 15, 30, 0.95))'
+            background: `linear-gradient(135deg, rgba(26, 26, 46, 0.92), rgba(15, 15, 30, 0.95))`
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
@@ -68,10 +66,9 @@ export const StyleCard = ({ name, description, imagePath, textColor, delay = 0 }
         </motion.div>
       </div>
 
-      {/* Glow Effect on Hover */}
       <div
         className="absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10"
-        style={{ background: 'linear-gradient(135deg, #4F46E5, #C026D3)' }}
+        style={{ background: `linear-gradient(135deg, ${accent}, ${accent}40)` }}
       />
     </motion.div>
   );

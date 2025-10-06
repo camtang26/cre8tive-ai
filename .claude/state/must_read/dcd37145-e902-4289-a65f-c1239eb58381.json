@@ -1,0 +1,70 @@
+{
+  "session_id": "dcd37145-e902-4289-a65f-c1239eb58381",
+  "generated_at": "2025-10-06T02:39:43.803589Z",
+  "docs": [
+    {
+      "label": "Global CLAUDE.md",
+      "path": "/home/cameronai/.claude/CLAUDE.md",
+      "lines": 69,
+      "skim_hint": null,
+      "ack": true,
+      "last_read": "2025-10-06T02:40:15.446574Z"
+    },
+    {
+      "label": "Project CLAUDE.md",
+      "path": "/home/cameronai/projects/cre8tive-website-1006/CLAUDE.md",
+      "lines": 246,
+      "skim_hint": null,
+      "ack": true,
+      "last_read": "2025-10-06T02:41:18.985267Z"
+    },
+    {
+      "label": "SPEC.md",
+      "path": "/home/cameronai/projects/cre8tive-website-1006/SPEC.md",
+      "lines": 292,
+      "skim_hint": null,
+      "ack": true,
+      "last_read": "2025-10-06T02:44:26.147033Z"
+    },
+    {
+      "label": "ARCHITECTURE.md",
+      "path": "/home/cameronai/projects/cre8tive-website-1006/ARCHITECTURE.md",
+      "lines": 916,
+      "skim_hint": "Architecture, System Overview, Tech Stack, Language & Runtime, Frontend Framework, UI & Styling",
+      "ack": true,
+      "last_read": "2025-10-06T02:40:17.523942Z"
+    },
+    {
+      "label": "README.md",
+      "path": "/home/cameronai/projects/cre8tive-website-1006/README.md",
+      "lines": 341,
+      "skim_hint": null,
+      "ack": true,
+      "last_read": "2025-10-06T02:40:15.448222Z"
+    },
+    {
+      "label": "CONTRIBUTING.md",
+      "path": "/home/cameronai/projects/cre8tive-website-1006/CONTRIBUTING.md",
+      "lines": 814,
+      "skim_hint": "Contributing Guidelines, Table of Contents, Development Setup, Prerequisites, Installation, Clone the repository",
+      "ack": true,
+      "last_read": "2025-10-06T02:40:15.535059Z"
+    },
+    {
+      "label": "/codex/_MEMO.md",
+      "path": "/home/cameronai/projects/cre8tive-website-1006/codex/_MEMO.md",
+      "lines": 535,
+      "skim_hint": "Focus Anchors, Commands, Impact Set, Decisions, Open Questions, Next Steps",
+      "ack": true,
+      "last_read": "2025-10-06T02:40:17.730743Z"
+    },
+    {
+      "label": "/codex/PLAN.md",
+      "path": "/home/cameronai/projects/cre8tive-website-1006/codex/PLAN.md",
+      "lines": 2017,
+      "skim_hint": "AI Briefing Engine Page Redesign Plan, Executive Summary, Product Understanding, What It Does, Target Audience, Core Value Props",
+      "ack": true,
+      "last_read": "2025-10-06T02:40:17.767548Z"
+    }
+  ]
+}

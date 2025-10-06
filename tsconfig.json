@@ -9,11 +9,11 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "noImplicitAny": false,
+    "noImplicitAny": true,           // ✅ ENABLED: Require explicit types (incremental strict mode)
     "noUnusedParameters": false,
     "skipLibCheck": true,
     "allowJs": true,
     "noUnusedLocals": false,
-    "strictNullChecks": false
+    "strictNullChecks": false        // Future: Enable after noImplicitAny is stable
   }
 }

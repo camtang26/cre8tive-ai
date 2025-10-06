@@ -10,8 +10,8 @@
     {
       "step_id": "S2",
       "title": "Fix Hero Section Dark Theme",
-      "status": "in_progress",
-      "notes": "Invalidated 2025-10-05 18:57 NZDT - gradient still not showing for user"
+      "status": "done",
+      "notes": ""
     },
     {
       "step_id": "S3",
@@ -22,13 +22,13 @@
     {
       "step_id": "S4",
       "title": "Update Color Palette Constants",
-      "status": "pending",
+      "status": "done",
       "notes": ""
     },
     {
       "step_id": "S5",
       "title": "Implement GSAP ScrollTrigger for Visual Styles Gallery",
-      "status": "pending",
+      "status": "done",
       "notes": ""
     },
     {
@@ -56,5 +56,5 @@
       "notes": ""
     }
   ],
-  "updated": "2025-10-05T16:15:59.294795+00:00"
+  "updated": "2025-10-05T20:44:05.666638+00:00"
 }

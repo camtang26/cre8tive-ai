@@ -1,16 +1,19 @@
 # Focus Anchors
 
-- Branch: `design/modern-refresh-2025-10-02`
-- **Current Work:** S2 - Fix hero section dark theme (Restarted 2025-10-06 05:15 NZDT after invalidation)
-- **AI Briefing Engine Phase 1 IN PROGRESS** (Rework Required)
-- FAILED FIRST ATTEMPT: Colors too bright, no GSAP, pure black sections
-- Current task: Create unique dark theme for Briefing Engine (not copy Studios/Home)
-- Each page needs mini-theme: Home (video+vignette), Studios (orange/teal particles), Briefing (indigo/purple transformation theme)
-- Must use RAG knowledge base for GSAP patterns
-- Must follow TDD approach
+- Branch: `feat/story-1.3-ac8-revert`
+- **Current Work:** Architecture documentation complete — Ready for Briefing Engine Phase 1 implementation
+- **AI Briefing Engine Phase 1 READY** (Architecture docs in place)
+- Architecture sprint deliverables: frontend-architecture.md, animation-patterns.md, palette.ts, hooks, Prettier config, TypeScript strict mode enabled
+- Briefing Engine theme codified: black-first gradient + indigo/cyan/fuchsia accents (prevents color drift)
+- GSAP + Lenis + Framer Motion patterns documented with 5 production-ready examples
+- React cleanup patterns documented (prevents memory leaks)
+- Accessibility patterns (WCAG AA, prefers-reduced-motion)
+- Build validated ✅ | Lint validated ✅
 
-- 2025-10-06 05:15 NZDT — Codex starting S2 (Fix hero section dark theme gradient rework)
-- 2025-10-05 21:53 NZDT — Codex starting S4 (Update color palette constants for CTA/divider) (Paused 2025-10-06 05:15 NZDT while S2 is reworked)
+- 2025-10-06 10:15 NZDT — Codex prepping S6 (Storyboard GSAP timeline + canvas particles)
+- 2025-10-06 08:50 NZDT — Codex starting S5 (Visual styles ScrollTrigger + detail panel) (Complete)
+- 2025-10-06 05:15 NZDT — Codex starting S2 (Fix hero section dark theme gradient rework) (Complete)
+- 2025-10-05 21:53 NZDT — Codex starting S4 (Update color palette constants for CTA/divider) (Complete)
 
 # Commands
 
@@ -47,6 +50,29 @@ npm run preview          # Preview production build on port 4173
 - 2 modified config files (base.css, tailwind.config.ts)
 
 # Decisions
+
+**2025-10-06 13:30 NZDT: Architecture Documentation Sprint Complete ✅**
+- **Created:** `docs/architecture/frontend-architecture.md` (26KB, 670 lines) — Complete frontend spec with component patterns, state management, styling, accessibility, performance
+- **Created:** `docs/architecture/animation-patterns.md` (24KB, 580 lines) — GSAP + Lenis + Framer Motion integration guide with 5 production patterns
+- **Created:** `src/components/briefing/palette.ts` — Briefing Engine color constants (prevents color drift from Studios/Homepage)
+- **Created:** `src/hooks/usePrefersReducedMotion.ts` — Accessibility hook for prefers-reduced-motion detection
+- **Created:** `src/hooks/useScrollTriggerAnimation.ts` — Generic GSAP ScrollTrigger hook with automatic cleanup and reduced-motion support
+- **Created:** `.prettierrc` — Formatter config (no semi, double quotes, 2 spaces, trailing commas)
+- **Enabled:** TypeScript `noImplicitAny: true` (incremental strict mode, full strict mode deferred)
+- **Updated:** ARCHITECTURE.md with links to new docs (lines 174-213)
+- **Validation:** Build passed ✅ | Lint passed (11 warnings, 0 errors) ✅
+- **RAG Sources Used:** GSAP official docs, Lenis tech docs, DevDreaming tutorial, Web.dev RAIL model, Chrome DevTools memory profiling
+- **Architect:** Winston (BMad architect agent)
+- **Deliverables:** Ready for Briefing Engine Phase 1 implementation
+
+**2025-10-06 09:23 NZDT: S1 RAG Research — GSAP + Lenis Guidance**
+- Reviewed GSAP ScrollTrigger docs for scrub/pin setups and container animations to drive multi-panel sequences smoothly.
+- Pulled Lenis README notes on anchor handling, touch prevention, and limitations (no CSS scroll-snap, Safari FPS cap) to bake into smooth-scroll implementation.
+- Flagged need to respect prefers-reduced-motion and tie ScrollTrigger updates to Lenis raf loop for accessibility + performance.
+
+**2025-10-06 07:56 NZDT: Core Docs Synced to PLAN**
+- Updated SPEC, ARCHITECTURE, README, and CONTRIBUTING to encode AI Briefing Engine roadmap + platform-native future section.
+- Added success metrics, component stack callouts, GSAP/Lenis guidelines, and palette guardrails for upcoming implementation.
 
 **2025-10-06 05:20 NZDT: S2 Gradient Fix Complete ✅**
 - **SUCCESS:** Black-centric gradient now matches Studios approach

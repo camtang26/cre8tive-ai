@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { StyleCard } from "./StyleCard";
-import { briefingColors } from "@/pages/BriefingEngine";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from 'lenis/react';
@@ -188,8 +187,8 @@ export const VisualStylesGallery = () => {
         <div
           className="mt-12 p-6 rounded-xl border text-center"
           style={{
-            background: `${briefingColors.indigo.DEFAULT}10`,
-            borderColor: `${briefingColors.indigo.DEFAULT}40`
+            background: '#4F46E510',
+            borderColor: '#4F46E540'
           }}
         >
           <p className="text-white/80 text-lg">

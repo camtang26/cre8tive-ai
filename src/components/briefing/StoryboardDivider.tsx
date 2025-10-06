@@ -1,72 +1,48 @@
-import { briefingColors } from "@/pages/BriefingEngine";
+import { briefingPalette } from "@/components/briefing/palette";
 
-export const StoryboardDivider = () => {
+interface StoryboardDividerProps {
+  sceneNumbers?: number[];
+}
+
+export const StoryboardDivider = ({ sceneNumbers = [1, 2, 3] }: StoryboardDividerProps) => {
+  // Color rotation based on scene number
+  const getColorForScene = (index: number) => {
+    const colors = [
+      briefingPalette.indigo.DEFAULT,
+      briefingPalette.cyan.DEFAULT,
+      briefingPalette.fuchsia.DEFAULT,
+    ];
+    return colors[index % colors.length];
+  };
+
+  // Only show the number of frames based on the sceneNumbers array length
+  const visibleScenes = sceneNumbers.slice(0, 3);
+
   return (
-    <div className="w-full py-12 px-4 overflow-hidden">
-      <div className="container mx-auto max-w-7xl">
-        <div className="flex items-center justify-center gap-4 md:gap-6">
-          {/* Storyboard Frame 1 */}
-          <div
-            className="relative w-16 h-12 md:w-24 md:h-16 rounded border-2 flex items-center justify-center"
-            style={{ borderColor: `${briefingColors.indigo.DEFAULT}60` }}
-          >
+    <div className="w-full py-8 px-4 overflow-hidden">
+      <div className="container mx-auto max-w-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {visibleScenes.map((num, index) => (
             <div
-              className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded text-xs font-bold"
-              style={{
-                background: briefingColors.indigo.DEFAULT,
-                color: 'white'
-              }}
+              key={`${num}-${index}`}
+              className="relative aspect-video border-2 rounded flex items-center justify-center"
+              style={{ borderColor: `${getColorForScene(index)}60` }}
             >
-              S1
+              <div
+                className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded text-xs font-bold"
+                style={{
+                  background: getColorForScene(index),
+                  color: 'white'
+                }}
+              >
+                S{num}
+              </div>
+              <div
+                className="w-2/3 h-2/3 rounded"
+                style={{ background: briefingPalette.neutrals.panel }}
+              />
             </div>
-            <div className="w-8 h-6 md:w-12 md:h-8 bg-white/5 rounded" />
-          </div>
-
-          {/* Connecting Line */}
-          <div
-            className="h-0.5 w-8 md:w-16"
-            style={{ background: `linear-gradient(90deg, ${briefingColors.indigo.DEFAULT}, ${briefingColors.cyan.DEFAULT})` }}
-          />
-
-          {/* Storyboard Frame 2 */}
-          <div
-            className="relative w-16 h-12 md:w-24 md:h-16 rounded border-2 flex items-center justify-center"
-            style={{ borderColor: `${briefingColors.cyan.DEFAULT}60` }}
-          >
-            <div
-              className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded text-xs font-bold"
-              style={{
-                background: briefingColors.cyan.DEFAULT,
-                color: 'white'
-              }}
-            >
-              S2
-            </div>
-            <div className="w-8 h-6 md:w-12 md:h-8 bg-white/5 rounded" />
-          </div>
-
-          {/* Connecting Line */}
-          <div
-            className="h-0.5 w-8 md:w-16"
-            style={{ background: `linear-gradient(90deg, ${briefingColors.cyan.DEFAULT}, ${briefingColors.fuchsia.DEFAULT})` }}
-          />
-
-          {/* Storyboard Frame 3 */}
-          <div
-            className="relative w-16 h-12 md:w-24 md:h-16 rounded border-2 flex items-center justify-center"
-            style={{ borderColor: `${briefingColors.fuchsia.DEFAULT}60` }}
-          >
-            <div
-              className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-2 py-0.5 rounded text-xs font-bold"
-              style={{
-                background: briefingColors.fuchsia.DEFAULT,
-                color: 'white'
-              }}
-            >
-              S3
-            </div>
-            <div className="w-8 h-6 md:w-12 md:h-8 bg-white/5 rounded" />
-          </div>
+          ))}
         </div>
       </div>
     </div>

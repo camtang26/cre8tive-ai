@@ -1,6 +1,6 @@
 # Cre8tive AI - Marketing Website Specification
 
-**Last Updated:** 2025-10-04
+**Last Updated:** 2025-10-06
 **Status:** Reverse-engineered from existing codebase
 **Project Type:** B2B Marketing Website
 
@@ -50,12 +50,18 @@ Dedicated page promoting video production capabilities:
 - Client testimonials
 - Call-to-action for consultations (Cal.com integration)
 
-### 3. **Studios Engine - AI Content Creation Platform**
-Page for AI-powered content creation engine (formerly "Ad Manager"):
-- Platform capabilities overview
-- Benefits for content automation
-- Integration information
-- Use case demonstrations
+### 3. **AI Briefing Engine – Creative Brief Transformation Platform**
+Flagship product page that turns brand briefs into production-ready storyboards:
+- Hero section with deep black/indigo gradient, dual CTAs, and briefing-to-storyboard animation
+- Visual Styles Gallery showcasing eight core looks (Minimalistic, Bold & Vibrant, Cinematic, Playful, Futuristic, Retro, Documentary, Abstract) with motion reveals
+- Briefing Process Flow timeline outlining Define → Style → AI Processing → Review handoff
+- Workflow Transformation comparison (traditional vs AI) emphasizing speed, consistency, creative freedom, and Studios integration
+- Audience Benefits split for Agencies vs Brands with storyboard frame aesthetic
+- Storyboard CTA with holographic accents guiding to booking or sample download
+- GSAP ScrollTrigger + Lenis animation layer with 60fps target and prefers-reduced-motion support
+- Accessibility guardrails: WCAG AA contrast, black-first gradient palette, keyboard-friendly interactions
+
+**Implementation Phases:** Hero redesign, Visual Styles, Process Flow, Transformation, Benefits, Dividers & CTA, Page assembly, Polish & Animations, Testing & Validation (see PLAN.md for full brief).
 
 ### 4. **Agents - Autonomous AI Marketing Agents**
 Service page for AI agents offering:
@@ -116,6 +122,14 @@ Legal compliance page:
 - Parallax effects
 - Loading states and performance optimization
 
+### 10. **Studios – Platform-Native Excellence Section (Upcoming)**
+Planned differentiation module for the Studios page to champion platform-native delivery:
+- Branching diagram that remaps a master concept into 16:9, 9:16, 1:1, 21:9, 4:3, and 2:3 aspect ratios with bespoke compositions
+- GSAP/Framer Motion animation stack (draw-on-scroll lines, staggered cards, platform icon micro-interactions)
+- Value props reinforcing Native Optimization, No Lazy Crops, Maximum Impact, and Platform Expertise
+- Pricing transparency callout for multi-platform production tiers
+- Component set: PlatformNativeSection, AspectRatioBranch, AspectRatioCard, PlatformIcon, NativeValueCard (see PLAN.md)
+
 **Security:**
 - Content Security Policy (CSP) headers
 - XSS protection headers
@@ -148,8 +162,15 @@ Legal compliance page:
    - Service page → contact conversion
    - Target: [undefined - needs business input]
 
+4. **AI Briefing Engine Performance:**
+   - Hero CTA click-through rate and sample download conversions
+   - Visual Styles Gallery engagement (scroll depth, hover/click analytics)
+   - Briefing Process completion rate (Define → Handoff)
+   - Target: baseline to be defined after launch MVP
+
 ### Secondary Metrics:
 - **Traffic:** Organic search visitors, referral traffic
+- **Briefing Page Interaction:** Scroll depth to Visual Styles Gallery, animation smoothness (60fps target), CTA engagement heatmaps
 - **SEO Performance:** Keyword rankings for "AI video production", "AI marketing agents", "conversational AI"
 - **Technical Performance:** Core Web Vitals (LCP, FID, CLS), Lighthouse scores
 - **Mobile Usage:** Mobile vs desktop traffic split
@@ -232,9 +253,13 @@ Legal compliance page:
 
 ### Business & Strategy:
 1. **Lead Volume Targets:** What are the monthly lead generation goals?
-2. **Pricing Transparency:** Should pricing information be public on the website?
+2. **Pricing Transparency:** Should pricing information be public on the website (and how granular for multi-platform packages)?
 3. **Content Strategy:** Is a blog or resources section planned for SEO and thought leadership?
 4. **Case Studies:** Should detailed case studies be added beyond gallery examples?
+5. **Route Naming:** Keep `/studios-engine` for SEO continuity or shift to `/briefing-engine` for clarity?
+6. **Visual Style Assets:** Should gallery cards use bespoke renders or actual platform outputs?
+7. **Interactive Demo:** Does the hero need a live brief input demo in Phase 1 or a future iteration?
+8. **Product Access CTA:** Should the page drive direct signup, contact/demo request, or both?
 
 ### Technical:
 1. **Test Coverage:** What level of automated testing is desired? (currently none)
@@ -242,6 +267,7 @@ Legal compliance page:
 3. **Form Backend:** Is getform.io the long-term solution, or should a custom backend be built?
 4. **3D Elements:** The InteractiveRobot component references suggest 3D characters - is this feature active or planned?
 5. **Localization:** Any plans for multi-language support in the future?
+6. **Animation Architecture:** Should GSAP ScrollTrigger timelines live per component or in a shared controller for Briefing Engine and future sections?
 
 ### Analytics & Optimization:
 1. **GTM Configuration:** Google Tag Manager ID appears to be a placeholder (GTM-XXXXXXX) - needs real ID?

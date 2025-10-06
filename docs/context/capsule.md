@@ -1,4 +1,4 @@
-<!-- Generated 2025-10-05T18:00:02.125676Z -->
+<!-- Generated 2025-10-05T19:00:01.244948Z -->
 # Project Capsule
 
 ## Snapshot (auto-summarize at session start)
@@ -24,9 +24,9 @@
 - REPORT: codex/REPORT.md
 
 ## Recent Decisions
+- Updated SPEC, ARCHITECTURE, README, and CONTRIBUTING to encode AI Briefing Engine roadmap + platform-native future section.
+- Added success metrics, component stack callouts, GSAP/Lenis guidelines, and palette guardrails for upcoming implementation.
 - **SUCCESS:** Black-centric gradient now matches Studios approach
-- Changed radial gradient opacity: 0.15/0.12 → **0.06/0.05** (barely visible color hints)
-- Changed base gradient: rgba(28,22,55) → **rgba(10,10,22,0.99)** (deeper black, 0.98→0.99 opacity)
 
 ## Next Experiments
 - Created: 2025-10-05 17:03 NZDT

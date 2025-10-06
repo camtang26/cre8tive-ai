@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-**Last Updated:** 2025-10-04
+**Last Updated:** 2025-10-06
 **Based On:** Codebase analysis and discovered patterns
 
 Welcome to the Cre8tive AI website project! This document outlines coding conventions, development workflows, and quality standards for contributing to this codebase.
@@ -10,15 +10,16 @@ Welcome to the Cre8tive AI website project! This document outlines coding conven
 ## Table of Contents
 
 1. [Development Setup](#development-setup)
-2. [Code Conventions](#code-conventions)
-3. [TypeScript Guidelines](#typescript-guidelines)
-4. [React & Component Guidelines](#react--component-guidelines)
-5. [Styling Guidelines](#styling-guidelines)
-6. [File Organization](#file-organization)
-7. [Testing Standards](#testing-standards)
-8. [Git Workflow](#git-workflow)
-9. [Pull Request Process](#pull-request-process)
-10. [Quality Gates](#quality-gates)
+2. [Plan Alignment](#plan-alignment)
+3. [Code Conventions](#code-conventions)
+4. [TypeScript Guidelines](#typescript-guidelines)
+5. [React & Component Guidelines](#react--component-guidelines)
+6. [Styling Guidelines](#styling-guidelines)
+7. [File Organization](#file-organization)
+8. [Testing Standards](#testing-standards)
+9. [Git Workflow](#git-workflow)
+10. [Pull Request Process](#pull-request-process)
+11. [Quality Gates](#quality-gates)
 
 ---
 
@@ -58,6 +59,13 @@ The development server will run on **http://localhost:8080**.
 | `npm run deploy` | Deploy to GitHub Pages (automated via CI) |
 
 ---
+
+## Plan Alignment
+
+- Review `codex/PLAN.md` before starting work; the AI Briefing Engine roadmap (Phases 1–10) is the current source of truth.
+- Capture task claims, decisions, and learnings in `codex/_MEMO.md` as you progress through each phase.
+- Preserve the unique Briefing Engine theme (black-first gradient, indigo/cyan/fuchsia accents, storyboard motifs) and avoid copying Studios/Home colours.
+- Document any scope updates or design deviations back into `PLAN.md`, SPEC, and ARCHITECTURE so the docs stay synchronized.
 
 ## Code Conventions
 
@@ -313,6 +321,14 @@ const onSubmit = async (data: FormData) => {
 
 **No Error Boundaries observed** in analyzed code (recommended to add).
 
+### AI Briefing Engine Components (Current Focus)
+- Build and evolve components in `src/components/briefing/*` per PLAN.md phases (hero, gallery, process flow, transformation, benefits, CTA)
+- Register GSAP/ScrollTrigger once per component, clean up on unmount, and gate animations behind `prefers-reduced-motion`
+- Drive smooth scrolling via Lenis; keep a non-Lenis fallback path for accessibility testing
+- Source visual assets from `public/briefing-engine/visual-styles` and `public/briefing-engine/storyboard` (ensure WebP + alt text)
+- Maintain the dark indigo/cyan/fuchsia palette; avoid reusing homepage/studios gradients
+- Document component-specific decisions back into `codex/_MEMO.md` and `ARCHITECTURE.md` when behavior changes
+
 ---
 
 ## Styling Guidelines
@@ -390,19 +406,17 @@ const buttonVariants = cva(
 
 ### Animations
 
-**Use Framer Motion** for animations:
+- Use **Framer Motion** for micro-interactions (hover lifts, button feedback, small fades).
+- Use **GSAP 3 + ScrollTrigger** for section timelines (hero pinning, gallery stagger, process connectors). Register the plugin once, kill timelines on unmount, and guard behind `prefers-reduced-motion`.
+- Drive smooth scrolling with **Lenis**; expose a toggle or fallback when validating accessibility.
+- Target 60fps. Profile long timelines in Chrome DevTools → Performance after each major change.
+- Log animation decisions and performance findings in `codex/_MEMO.md`.
 
-```typescript
-import { motion } from "framer-motion"
-
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5 }}
->
-  Content
-</motion.div>
-```
+### Briefing Engine Palette & Motifs
+- Palette: black-first gradient base with indigo (#4F46E5), cyan (#0891B2), fuchsia (#C026D3), orange accent (#EA580C), holographic glows (#818CF8/#22D3EE/#34D399)
+- Motifs: storyboard frames, briefing forms, transformation timeline, holographic dividers — keep them consistent across hero, galleries, dividers, CTA
+- Typography: headings `font-black` with tight tracking, max width ~4xl per PLAN.md
+- Avoid reusing Studios/Home gradients; the Briefing Engine must feel distinct
 
 **Discovered Animation Patterns:**
 - Scroll-triggered fades (FadeIn, ScrollFade components)
@@ -444,6 +458,8 @@ src/components/
     ├── FadeIn.tsx
     └── StatsBar.tsx
 ```
+- `briefing/` — AI Briefing Engine components (BriefingHero, VisualStylesGallery, ProcessFlow, WorkflowTransformation, AudienceBenefits, StoryboardDivider, BriefingCTA)
+- `studios/platform-native/` — planned Platform-Native Excellence module (AspectRatioBranch, AspectRatioCard, PlatformIcon, NativeValueCard)
 
 #### Pages
 
@@ -575,6 +591,14 @@ describe("ContactForm", () => {
 - **Unit/Integration:** Vitest + React Testing Library
 - **E2E:** Playwright
 - **Coverage Target:** 70%+ for critical paths
+
+### AI Briefing Engine Validation Checklist
+- Verify hero gradient renders with black-first base and subtle indigo/fuchsia glow on calibrated monitor
+- Confirm Visual Styles Gallery loads all assets, triggers GSAP stagger, and honors prefers-reduced-motion
+- Step through Briefing Process Flow and Workflow Transformation animations; ensure connectors align across breakpoints
+- Validate Lenis scrolling + ScrollTrigger interplay on Chrome, Safari, Firefox, and mobile simulators
+- Run accessibility pass: keyboard navigation, focus outlines, color contrast, aria labels for animated elements
+- Capture performance traces (Chrome Performance panel) to confirm 60fps target during scroll
 
 ---
 
