@@ -21,7 +21,8 @@
       "/contact",
       "/studios",
       "/agents",
-      "/conversational-ai"
+      "/conversational-ai",
+      "/analytics"
     ],
     "puppeteerArgs": [
       "--no-sandbox",

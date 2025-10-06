@@ -19,6 +19,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import AnalyticsPage from "./pages/Analytics";
 import { SEO } from './components/core/SEO';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { VideoTest } from './components/test/VideoTest';
@@ -89,6 +90,7 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
               <Route path="/test/video" element={<VideoTest />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
