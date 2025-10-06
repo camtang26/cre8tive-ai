@@ -19,21 +19,21 @@ const steps = [
     title: "AI Processing",
     description: "Our AI analyzes your input and generates creative concepts and storyboards.",
     Icon: Layers,
-    color: "#F87171" // red-400
+    color: "#22D3EE" // cyan-400
   },
   {
     number: 3,
     title: "Review & Refine",
     description: "Review the generated concepts and make refinements as needed.",
     Icon: Target,
-    color: "#C084FC" // purple-400
+    color: "#14B8A6" // teal-500
   },
   {
     number: 4,
     title: "Production Ready",
     description: "Receive production-ready storyboards to send off to our team for production, or for use by your own creative team.",
     Icon: Rocket,
-    color: "#4ADE80" // green-400
+    color: "#3B82F6" // blue-500
   }
 ];
 

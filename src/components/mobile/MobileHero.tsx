@@ -49,9 +49,9 @@ export const MobileHero = () => {
 
   return (
     <Suspense fallback={<MobileLoadingSkeleton />}>
-      <section 
-        className="relative w-full h-[calc(60vh)] mt-12 flex items-center justify-center overflow-hidden touch-manipulation" 
-        role="banner" 
+      <section
+        className="relative w-full h-[calc(85vh)] mt-12 flex items-center justify-center overflow-hidden touch-manipulation"
+        role="banner"
         aria-label="Hero section"
         id="hero"
       >
@@ -67,16 +67,16 @@ export const MobileHero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/95" />
         
         {!isLoading && (
-          <div 
-            className="absolute z-[3] flex flex-col items-center text-center space-y-3 max-w-[90vw] mx-auto px-4 bottom-8"
+          <div
+            className="absolute z-[3] flex flex-col items-center justify-center text-center space-y-4 max-w-[90vw] mx-auto px-6 inset-0"
             style={{ touchAction: 'manipulation' }}
           >
-            <h1 className="font-inter text-6xl font-bold tracking-[-0.02em] opacity-0 animate-[fadeIn_3s_ease-out_forwards] [text-shadow:0_0_15px_rgba(0,0,0,0.5),0_0_30px_rgba(0,0,0,0.3)]">
+            <h1 className="font-geist text-5xl sm:text-6xl font-black tracking-[-0.02em] opacity-0 animate-[fadeIn_3s_ease-out_forwards] [text-shadow:0_0_15px_rgba(0,0,0,0.5),0_0_30px_rgba(0,0,0,0.3)]">
               <span className="text-white inline-block transition-transform duration-300">
                 Cre8tive AI
               </span>
             </h1>
-            <p className="font-inter text-3xl font-medium tracking-[-0.01em] text-white/90 opacity-0 animate-[fadeIn_3s_ease-out_forwards] [text-shadow:0_0_10px_rgba(0,0,0,0.5),0_0_20px_rgba(0,0,0,0.3)]">
+            <p className="font-geist text-xl sm:text-2xl font-medium tracking-[-0.01em] text-white/90 opacity-0 animate-[fadeIn_3s_ease-out_forwards] [text-shadow:0_0_10px_rgba(0,0,0,0.5),0_0_20px_rgba(0,0,0,0.3)]">
               Cutting Edge AI Solutions For Your Business
             </p>
           </div>

@@ -21,43 +21,53 @@ export const AgentsHero = () => {
       {/* Spotlight covering entire hero section */}
       <Spotlight className="absolute inset-0 z-5" />
 
-      {/* Header/Subheader Text */}
+      {/* Header/Subheader Text - Enhanced with Gradient */}
       <div className={`absolute z-20 ${
-        isMobile 
+        isMobile
           ? 'top-[12%] left-0 w-full px-6 text-center'
           : 'top-[20%] left-[26%] text-left'
       }`}>
-        <h1 
-          className={`font-bold text-white leading-none ${
-            isMobile 
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className={`font-black leading-extra-tight ${
+            isMobile
               ? 'text-6xl mx-auto text-center'
               : 'text-8xl md:text-9xl'
-          }`} 
-          style={{ 
-            textShadow: '0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2)',
+          }`}
+          style={{
             ...(isMobile ? { maxWidth: '80%', margin: '0 auto' } : {})
           }}
         >
           {isMobile ? (
             <>
-              <div>AI</div>
-              <div style={{ marginRight: '15%' }}>Autonomous</div>
-              <div>Agents</div>
+              <div className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">AI</div>
+              <div className="bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent" style={{ marginRight: '15%' }}>Autonomous</div>
+              <div className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">Agents</div>
             </>
           ) : (
-            <>AI<br/>Autonomous<br/>Agents</>
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+              AI<br/>Autonomous<br/>Agents
+            </span>
           )}
-        </h1>
-        <p 
-          className={`text-neutral-300 ${
-            isMobile 
-              ? 'mt-6 text-2xl mx-auto'
-              : 'mt-8 text-4xl md:text-5xl max-w-lg'
-          }`} 
-          style={{ textShadow: '0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 255, 255, 0.1)' }}
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className={`text-white/90 font-semibold ${
+            isMobile
+              ? 'mt-6 text-xl mx-auto'
+              : 'mt-8 text-3xl md:text-4xl max-w-2xl'
+          }`}
         >
-          Cre8tive AI Autonomous Agents: Smarter Solutions for Smarter Businesses
-        </p>
+          Smarter{" "}
+          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            Solutions
+          </span>{" "}
+          for Smarter Businesses
+        </motion.p>
       </div>
 
       {/* Robot Visual */}

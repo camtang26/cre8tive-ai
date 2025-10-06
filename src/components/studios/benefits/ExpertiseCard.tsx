@@ -11,10 +11,10 @@ interface ExpertiseCardProps {
 
 export const ExpertiseCard = ({ icon: Icon, title, description, index }: ExpertiseCardProps) => {
   const iconColors = [
-    { color: "#8B5CF6", glow: "drop-shadow-[0_0_10px_rgba(139,92,246,0.7)]" }, // Vivid Purple
-    { color: "#D946EF", glow: "drop-shadow-[0_0_10px_rgba(217,70,239,0.7)]" }, // Magenta Pink
-    { color: "#F97316", glow: "drop-shadow-[0_0_10px_rgba(249,115,22,0.7)]" }, // Bright Orange
-    { color: "#0EA5E9", glow: "drop-shadow-[0_0_10px_rgba(14,165,233,0.7)]" }, // Ocean Blue
+    { color: "#60A5FA", glow: "drop-shadow-[0_0_10px_rgba(96,165,250,0.7)]" }, // Blue-400
+    { color: "#22D3EE", glow: "drop-shadow-[0_0_10px_rgba(34,211,238,0.7)]" }, // Cyan-400
+    { color: "#14B8A6", glow: "drop-shadow-[0_0_10px_rgba(20,184,166,0.7)]" }, // Teal-500
+    { color: "#3B82F6", glow: "drop-shadow-[0_0_10px_rgba(59,130,246,0.7)]" }, // Blue-500
   ];
 
   const currentColor = iconColors[index % iconColors.length];

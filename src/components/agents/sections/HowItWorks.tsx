@@ -7,7 +7,7 @@ interface StepProps {
   number: number;
   title: string;
   description: string;
-  Icon: any;
+  Icon: React.ComponentType<{ className?: string }>;
   color: string;
 }
 
@@ -87,21 +87,21 @@ const steps = [
     title: "Custom AI Team Design",
     description: "Our experts design and configure a specialized team of AI agents tailored to your needs. We carefully select and optimize each agent's capabilities - from CRM and content creation to social media management and customer service - ensuring your unique challenges are met with precision.",
     Icon: Users,
-    color: "#F87171" // red-400
+    color: "#22D3EE" // cyan-400
   },
   {
     number: 3,
     title: "Precision Configuration",
     description: "We meticulously configure each AI agent's parameters and autonomy levels to align with your business processes. Our team ensures seamless integration with your existing workflows, striking the perfect balance between automation and human oversight.",
     Icon: Sliders,
-    color: "#C084FC" // purple-400
+    color: "#14B8A6" // teal-500
   },
   {
     number: 4,
     title: "Continuous Optimization",
     description: "We actively monitor your AI team's performance through advanced analytics and real-time dashboards. Our experts continuously fine-tune and optimize your system, ensuring maximum impact and ROI while adapting to evolving market conditions and business needs.",
     Icon: Target,
-    color: "#4ADE80" // green-400
+    color: "#3B82F6" // blue-500
   }
 ];
 

@@ -7,7 +7,7 @@ interface FormFieldProps {
   label: string;
   type?: string;
   placeholder: string;
-  register: UseFormRegister<any>;
+  register: UseFormRegister<Record<string, unknown>>;
   rules: RegisterOptions;
   error?: FieldError;
   isTextarea?: boolean;

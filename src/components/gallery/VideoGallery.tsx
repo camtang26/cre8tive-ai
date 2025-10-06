@@ -12,7 +12,7 @@ export const VideoGallery = ({ videos }: { videos: VideoItem[] }) => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
       {videos.map((video, index) => (
         <ScrollFade key={video.id} delay={index * 100}>
           <VideoGalleryItem

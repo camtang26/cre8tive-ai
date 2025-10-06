@@ -14,19 +14,19 @@ const clientBenefits = [
     icon: HandshakeIcon,
     title: "Increased Creative Control",
     description: "Actively participate in the creative process and ensure your vision is accurately captured.",
-    color: "#F87171" // red-400
+    color: "#22D3EE" // cyan-400
   },
   {
     icon: DollarSign,
     title: "Reduced Pre-Production Costs",
     description: "Streamline the initial stages of ad creation, minimizing costly back-and-forth.",
-    color: "#34D399" // green-400
+    color: "#14B8A6" // teal-500
   },
   {
     icon: MessageSquare,
     title: "Clear Communication & Collaboration",
     description: "Facilitate seamless communication and collaboration with the Cre8tive AI Studio team.",
-    color: "#A78BFA" // purple-400
+    color: "#3B82F6" // blue-500
   }
 ];
 
@@ -41,19 +41,19 @@ const agencyBenefits = [
     icon: Network,
     title: "Enhanced Collaboration",
     description: "Facilitate seamless collaboration with clients on ad concepts.",
-    color: "#F87171" // red-400
+    color: "#22D3EE" // cyan-400
   },
   {
     icon: TrendingUp,
     title: "Increased Team Productivity",
     description: "Free up your team to focus on high-value tasks, such as final production and optimization.",
-    color: "#34D399" // green-400
+    color: "#14B8A6" // teal-500
   },
   {
     icon: Scale,
     title: "Scalable Solution",
     description: "Manage multiple ad campaigns simultaneously with ease.",
-    color: "#A78BFA" // purple-400
+    color: "#3B82F6" // blue-500
   }
 ];
 
