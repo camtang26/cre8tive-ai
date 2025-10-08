@@ -1,0 +1,607 @@
+{
+  "documents": ["03-trend-opportunity-insights", "04-technical-capability-insights"],
+  "analysis_date": "2025-10-09",
+  "claims": [
+    {
+      "id": "claim-001",
+      "document": "03",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 9",
+      "statement": "[Both]: 16 insights (34%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-002",
+      "document": "03",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 10",
+      "statement": "[Studios]: 18 insights (38%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-003",
+      "document": "03",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 11",
+      "statement": "[Briefing Engine]: 10 insights (21%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-004",
+      "document": "03",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 12",
+      "statement": "[General]: 3 insights (6%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-005",
+      "document": "03",
+      "type": "strategic",
+      "location": "Technology Evolution, line 17",
+      "statement": "Pixel Congruency Theory - Potential industry standard for AI visual quality",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-006",
+      "document": "03",
+      "type": "strategic",
+      "location": "Technology Evolution, line 18",
+      "statement": "Multi-Model Orchestration - 12-18 month competitive advantage window",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Timeframe claim requires market research or expert analysis"
+    },
+    {
+      "id": "claim-007",
+      "document": "03",
+      "type": "strategic",
+      "location": "Technology Evolution, line 19",
+      "statement": "Prompt Engineering Specialization - Maturing from basic to specialized expertise",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-008",
+      "document": "03",
+      "type": "strategic",
+      "location": "Technology Evolution, line 20",
+      "statement": "AI-Aware Workflows - New discipline emerging",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-009",
+      "document": "03",
+      "type": "strategic",
+      "location": "Market Dynamics, line 23",
+      "statement": "AI Commodity vs. Craft Split - Market bifurcating (12-24 months)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Timeframe prediction requires market trend data"
+    },
+    {
+      "id": "claim-010",
+      "document": "03",
+      "type": "strategic",
+      "location": "Market Dynamics, line 24",
+      "statement": "Enterprise Adoption Acceleration - 6-18 months to mainstream",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Adoption timeline requires enterprise market research"
+    },
+    {
+      "id": "claim-011",
+      "document": "03",
+      "type": "strategic",
+      "location": "Market Dynamics, line 25",
+      "statement": "Productization of Services - Hybrid product-service models",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-012",
+      "document": "03",
+      "type": "strategic",
+      "location": "Market Dynamics, line 26",
+      "statement": "AI-Native Agency Category - Distinct from traditional studios adding AI",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-013",
+      "document": "03",
+      "type": "strategic",
+      "location": "Business Model Innovation, line 29",
+      "statement": "Hybrid Product-Service - SaaS + premium services model",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-014",
+      "document": "03",
+      "type": "strategic",
+      "location": "Business Model Innovation, line 30",
+      "statement": "Creator Economy Integration - Large TAM, viral potential",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "TAM size claim requires market sizing data"
+    },
+    {
+      "id": "claim-015",
+      "document": "03",
+      "type": "strategic",
+      "location": "Business Model Innovation, line 31",
+      "statement": "Just-In-Time Production - On-demand rapid turnaround",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-016",
+      "document": "03",
+      "type": "strategic",
+      "location": "Business Model Innovation, line 32",
+      "statement": "White-Label Services - B2B2C partnerships with agencies",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-017",
+      "document": "03",
+      "type": "strategic",
+      "location": "Strategic Opportunities, line 35",
+      "statement": "Translation Layer - Bridge between business needs and AI inputs",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-018",
+      "document": "03",
+      "type": "aspirational",
+      "location": "Strategic Opportunities, line 36",
+      "statement": "Quality Certification - Establish industry standards",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Future capability/goal, not current state"
+    },
+    {
+      "id": "claim-019",
+      "document": "03",
+      "type": "aspirational",
+      "location": "Strategic Opportunities, line 37",
+      "statement": "Platform Partnerships - Adobe, Figma integrations",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Future partnership opportunities, not current integrations"
+    },
+    {
+      "id": "claim-020",
+      "document": "03",
+      "type": "strategic",
+      "location": "Strategic Opportunities, line 38",
+      "statement": "Vertical Specialization - Real estate, e-commerce, healthcare",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-021",
+      "document": "03",
+      "type": "strategic",
+      "location": "Critical Time Windows, line 41",
+      "statement": "0-6 months: Category positioning, Briefing Engine launch, quality framework",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Strategic planning timeline"
+    },
+    {
+      "id": "claim-022",
+      "document": "03",
+      "type": "strategic",
+      "location": "Critical Time Windows, line 42",
+      "statement": "6-12 months: Multi-model advantage window, prosumer market emergence",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Market timing prediction requires trend analysis"
+    },
+    {
+      "id": "claim-023",
+      "document": "03",
+      "type": "strategic",
+      "location": "Critical Time Windows, line 43",
+      "statement": "12-18 months: Model commoditization begins, first-mover advantage peaks",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Market evolution prediction requires industry analysis"
+    },
+    {
+      "id": "claim-024",
+      "document": "03",
+      "type": "strategic",
+      "location": "Critical Time Windows, line 44",
+      "statement": "18-24+ months: Market maturation, consolidation, vertical opportunities",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Long-term market prediction requires validation"
+    },
+    {
+      "id": "claim-025",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 9",
+      "statement": "[Briefing Engine]: 15 insights (32%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-026",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 10",
+      "statement": "[Studios]: 18 insights (38%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-027",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 11",
+      "statement": "[Both]: 10 insights (21%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-028",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Tag Distribution, line 12",
+      "statement": "[General]: 4 insights (9%)",
+      "evidence_required": true,
+      "current_evidence": "Derived from document's own content analysis",
+      "confidence": "high"
+    },
+    {
+      "id": "claim-029",
+      "document": "04",
+      "type": "factual",
+      "location": "AI Platform Architecture, line 17",
+      "statement": "Multi-Modal Integration - Text-to-image, text-to-video, voice synthesis",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Current capability claim requiring demonstration"
+    },
+    {
+      "id": "claim-030",
+      "document": "04",
+      "type": "quantitative",
+      "location": "AI Platform Architecture, line 18",
+      "statement": "Real-Time Briefing Engine - Sub-60-second generation",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Performance metric requiring benchmarking data"
+    },
+    {
+      "id": "claim-031",
+      "document": "04",
+      "type": "factual",
+      "location": "AI Platform Architecture, line 19",
+      "statement": "Automated Pipeline - Full workflow automation from brief to delivery",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Current capability requiring technical documentation"
+    },
+    {
+      "id": "claim-032",
+      "document": "04",
+      "type": "factual",
+      "location": "AI Platform Architecture, line 20",
+      "statement": "Scripted Editing - DaVinci Resolve automation (Python/Lua)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Technical implementation requiring code/process documentation"
+    },
+    {
+      "id": "claim-033",
+      "document": "04",
+      "type": "factual",
+      "location": "AI Model Specialization, line 23",
+      "statement": "Custom Fine-Tuning - Brand-specific model training",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Current capability requiring demonstration/case studies"
+    },
+    {
+      "id": "claim-034",
+      "document": "04",
+      "type": "factual",
+      "location": "AI Model Specialization, line 24",
+      "statement": "Director Nodes - Role-specific AI optimization",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Technical architecture requiring documentation"
+    },
+    {
+      "id": "claim-035",
+      "document": "04",
+      "type": "factual",
+      "location": "AI Model Specialization, line 25",
+      "statement": "Voice Cloning - Custom brand voice synthesis",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Current capability requiring demonstration"
+    },
+    {
+      "id": "claim-036",
+      "document": "04",
+      "type": "factual",
+      "location": "Process Sophistication, line 28",
+      "statement": "Intelligent Forms - AI-optimized prompting design",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Product feature requiring demonstration/documentation"
+    },
+    {
+      "id": "claim-037",
+      "document": "04",
+      "type": "factual",
+      "location": "Process Sophistication, line 29",
+      "statement": "Multi-Stage QA - Automated quality checks throughout pipeline",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Process capability requiring documentation"
+    },
+    {
+      "id": "claim-038",
+      "document": "04",
+      "type": "factual",
+      "location": "Process Sophistication, line 30",
+      "statement": "Professional Brief Framework - Industry-standard output",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Output quality claim requiring examples/samples"
+    },
+    {
+      "id": "claim-039",
+      "document": "04",
+      "type": "factual",
+      "location": "Process Sophistication, line 31",
+      "statement": "Detailed Storyboards - Frame-by-frame with timing",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Output capability requiring sample deliverables"
+    },
+    {
+      "id": "claim-040",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Creative Production, lines 34-42",
+      "statement": "Eight Visual Styles: Photorealistic product showcases, Abstract/conceptual, Character animation, Data visualization, Cinematic documentary, Motion graphics, Live action hybrid, 3D product renders",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Capability inventory requiring portfolio examples"
+    },
+    {
+      "id": "claim-041",
+      "document": "04",
+      "type": "factual",
+      "location": "Creative Production, line 44",
+      "statement": "Technology-Style Matching - Strategic AI model selection per style",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Process methodology requiring documentation"
+    },
+    {
+      "id": "claim-042",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Technical Differentiation, line 47",
+      "statement": "Speed Advantage - Days/hours vs. weeks/months",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Comparative performance claim requiring benchmarks"
+    },
+    {
+      "id": "claim-043",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Technical Differentiation, line 48",
+      "statement": "Scalable Production - 100+ videos/month capacity",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Production capacity claim requiring operational data"
+    },
+    {
+      "id": "claim-044",
+      "document": "04",
+      "type": "quantitative",
+      "location": "Technical Differentiation, line 49",
+      "statement": "Cost Efficiency - 50% reduction through automation",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Cost savings claim requiring financial analysis/case studies"
+    },
+    {
+      "id": "claim-045",
+      "document": "04",
+      "type": "factual",
+      "location": "Technical Differentiation, line 50",
+      "statement": "Personalization at Scale - AI-driven customization",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Capability claim requiring demonstration/examples"
+    },
+    {
+      "id": "claim-046",
+      "document": "04",
+      "type": "factual",
+      "location": "Platform Integration, line 53",
+      "statement": "Multi-Channel Distribution - YouTube, LinkedIn, Instagram, etc.",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Distribution capability requiring platform integration documentation"
+    },
+    {
+      "id": "claim-047",
+      "document": "04",
+      "type": "factual",
+      "location": "Platform Integration, line 54",
+      "statement": "Platform Optimization - Automated format adaptation",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Technical capability requiring demonstration"
+    },
+    {
+      "id": "claim-048",
+      "document": "04",
+      "type": "factual",
+      "location": "Platform Integration, line 55",
+      "statement": "Analytics Integration - Performance tracking and ROI",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Product feature requiring dashboard/reporting examples"
+    },
+    {
+      "id": "claim-049",
+      "document": "04",
+      "type": "factual",
+      "location": "Platform Integration, line 56",
+      "statement": "Automated Versioning - A/B testing, localization",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Technical capability requiring process documentation"
+    },
+    {
+      "id": "claim-050",
+      "document": "04",
+      "type": "factual",
+      "location": "Platform Integration, line 57",
+      "statement": "Asset Management - Organized archive and repurposing",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "System capability requiring platform documentation"
+    },
+    {
+      "id": "claim-051",
+      "document": "04",
+      "type": "factual",
+      "location": "Technology Stack, line 60",
+      "statement": "AI Models: Runway ML, Stable Diffusion XL, Midjourney, Claude/GPT-4, ElevenLabs, Whisper",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Technology inventory requiring verification of active integrations"
+    },
+    {
+      "id": "claim-052",
+      "document": "04",
+      "type": "factual",
+      "location": "Technology Stack, line 61",
+      "statement": "Production: DaVinci Resolve, Python/Lua automation",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Production pipeline requiring technical documentation"
+    },
+    {
+      "id": "claim-053",
+      "document": "04",
+      "type": "factual",
+      "location": "Technology Stack, line 62",
+      "statement": "Distribution: Multi-platform optimization",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null,
+      "notes": "Distribution capability requiring process documentation"
+    }
+  ],
+  "summary": {
+    "total_claims": 53,
+    "by_type": {
+      "factual": 25,
+      "quantitative": 12,
+      "strategic": 14,
+      "aspirational": 2
+    },
+    "by_document": {
+      "03-trend-opportunity-insights": 24,
+      "04-technical-capability-insights": 29
+    },
+    "evidence_status": {
+      "has_evidence": 8,
+      "needs_evidence": 45,
+      "no_evidence_required": 0
+    },
+    "priority_validation_areas": [
+      "Performance metrics (sub-60s generation, 100+ videos/month)",
+      "Cost efficiency claims (50% reduction)",
+      "Speed comparisons (days/hours vs weeks/months)",
+      "Market timing predictions (12-18 month windows)",
+      "Technical capabilities (automation, integrations, AI models)",
+      "Production capacity and scalability claims"
+    ]
+  },
+  "methodology": {
+    "parsing_approach": "Line-by-line systematic review of both documents",
+    "classification_criteria": {
+      "factual": "Claims about current capabilities, processes, or technical features requiring direct demonstration",
+      "quantitative": "Specific numbers, percentages, timeframes, or measurable metrics requiring data sources",
+      "strategic": "Market insights, trends, opportunities, and positioning recommendations that may be inferred from analysis",
+      "aspirational": "Future capabilities, planned features, or roadmap items not yet implemented"
+    },
+    "confidence_levels": "Applied to quantitative metrics based on source documentation (high = self-derived, null = requires external validation)"
+  }
+}

@@ -3,7 +3,6 @@ import { PageLayout } from "@/components/layouts/PageLayout";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet";
 import { ReactLenis } from "lenis/react";
-import { StoryboardDivider } from "@/components/briefing/StoryboardDivider";
 import { VisualStylesGallery } from "@/components/briefing/VisualStylesGallery";
 import { BriefingCTA } from "@/components/briefing/BriefingCTA";
 import { FadeIn } from "@/components/shared/FadeIn";
@@ -12,7 +11,6 @@ import { AudienceBenefits } from "@/components/briefing/AudienceBenefits";
 import { BriefingProcessFlow } from "@/components/briefing/BriefingProcessFlow";
 import { WorkflowTransformation } from "@/components/briefing/WorkflowTransformation";
 import { briefingPalette } from "@/components/briefing/palette";
-import { useReducedMotion } from "framer-motion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -20,19 +18,9 @@ gsap.registerPlugin(useGSAP);
 
 const BriefingEngine = () => {
   const isMobile = useIsMobile();
-  const prefersReducedMotion = useReducedMotion();
 
   // Hero GSAP staggered entrance animation using useGSAP for proper React integration
   useGSAP(() => {
-    if (prefersReducedMotion) {
-      // Skip animation, just show elements
-      gsap.set(['.hero-headline', '.hero-subhead', '.hero-description', '.hero-ctas'], {
-        opacity: 1,
-        scale: 1,
-        y: 0
-      });
-      return;
-    }
 
     console.log('[BriefingEngine Hero] useGSAP fired');
 
@@ -128,7 +116,7 @@ const BriefingEngine = () => {
         },
         '-=0.5'
       );
-  }, { dependencies: [prefersReducedMotion] }); // useGSAP handles cleanup automatically
+  }); // useGSAP handles cleanup automatically
 
   const page = (
     <div className="relative min-h-screen bg-transparent">
@@ -220,21 +208,13 @@ const BriefingEngine = () => {
           {/* Transformation Animation - OUTSIDE hero section to prevent blue bar bleed */}
           <BriefToStoryboardAnimation />
 
-          <StoryboardDivider />
-
           <FadeIn>
             <VisualStylesGallery />
           </FadeIn>
 
-          <StoryboardDivider />
-
           <BriefingProcessFlow />
 
-          <StoryboardDivider />
-
           <WorkflowTransformation />
-
-          <StoryboardDivider />
 
           <AudienceBenefits />
 
@@ -246,10 +226,7 @@ const BriefingEngine = () => {
       </div>
   );
 
-  if (prefersReducedMotion) {
-    return page;
-  }
-
+  // ALWAYS render with Lenis - no reduced motion exceptions per client requirements
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: true }}>
       {page}

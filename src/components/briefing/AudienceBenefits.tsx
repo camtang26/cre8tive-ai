@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Building2, Rocket, Sparkles, Users2, Workflow, Zap } from "lucide-react";
 import { BenefitCard } from "./BenefitCard";
 import { briefingPalette } from "./palette";
-import { StoryboardDivider } from "./StoryboardDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,27 +58,104 @@ const brandBenefits = [
 export const AudienceBenefits = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [userType, setUserType] = useState<'agency' | 'brand'>('agency');
+  const [isAnimating, setIsAnimating] = useState(false);
 
+  // Initial scroll-triggered entrance animation
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>(".audience-benefit-card");
-      gsap.from(cards, {
-        opacity: 0,
-        y: 40,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%"
+
+      console.log('[AudienceBenefits] Initial: Found cards:', cards.length);
+
+      if (cards.length === 0) return;
+
+      // Initial entrance from scroll
+      gsap.fromTo(cards,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            once: true
+          }
         }
-      });
+      );
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
+
+  // Toggle animation handler
+  const handleToggle = (newType: 'agency' | 'brand') => {
+    if (newType === userType || isAnimating) return;
+
+    setIsAnimating(true);
+
+    // Get current and next panels
+    const currentPanel = document.querySelector(`.${userType}-panel`);
+    const nextPanel = document.querySelector(`.${newType}-panel`);
+
+    if (!currentPanel || !nextPanel) {
+      setUserType(newType);
+      setIsAnimating(false);
+      return;
+    }
+
+    console.log('[AudienceBenefits] Toggle animation:', userType, '→', newType);
+
+    // Create choreographed timeline
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsAnimating(false);
+        console.log('[AudienceBenefits] Toggle complete');
+      }
+    });
+
+    // Step 1: Exit current panel (fade out, slide out, scale down)
+    const currentCards = currentPanel.querySelectorAll('.audience-benefit-card');
+    tl.to(currentCards, {
+      opacity: 0,
+      x: userType === 'agency' ? -30 : 30,
+      scale: 0.95,
+      duration: 0.3,
+      stagger: 0.03,
+      ease: "power2.in",
+      onComplete: () => {
+        gsap.set(currentPanel, { display: 'none' });
+      }
+    });
+
+    // Step 2: Prepare next panel (set initial hidden state)
+    const nextCards = nextPanel.querySelectorAll('.audience-benefit-card');
+    tl.set(nextPanel, { display: 'flex' }, "<");
+    tl.set(nextCards, {
+      opacity: 0,
+      x: newType === 'agency' ? 30 : -30,
+      scale: 0.95
+    }, "<");
+
+    // Step 3: Update state in the middle of animation
+    tl.call(() => {
+      setUserType(newType);
+    });
+
+    // Step 4: Enter new panel (slide in, fade in, scale up with overshoot)
+    tl.to(nextCards, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      duration: 0.5,
+      stagger: 0.05,
+      ease: "back.out(1.7)", // Slight overshoot for premium feel
+    }, "+=0.05"); // Small pause before entrance
+  };
 
   return (
     <section ref={sectionRef} className="relative isolate mx-auto max-w-[1600px] px-4 py-24 md:px-12">
@@ -94,26 +170,28 @@ export const AudienceBenefits = () => {
             Every stakeholder gets a dedicated storyboard lane. Agencies orchestrate multi-client pipelines while in-house teams launch campaigns with pixel-perfect consistency.
           </p>
 
-          {/* Toggle Switch */}
-          <div className="mt-8 flex justify-center md:justify-start">
-            <div className="inline-flex items-center p-1 rounded-full bg-white/10 border border-white/20">
+          {/* Premium Toggle Switch - Centered */}
+          <div className="mt-8 flex justify-center">
+            <div className="inline-flex items-center p-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
               <button
-                onClick={() => setUserType('agency')}
-                className={`px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 ${
+                onClick={() => handleToggle('agency')}
+                disabled={isAnimating}
+                className={`px-8 py-4 rounded-full font-bold text-base transition-all duration-300 ${
                   userType === 'agency'
-                    ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-cyan-500/30'
                     : 'text-white/60 hover:text-white/80'
-                }`}
+                } ${isAnimating ? 'pointer-events-none' : ''}`}
               >
                 I'm an Agency
               </button>
               <button
-                onClick={() => setUserType('brand')}
-                className={`px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 ${
+                onClick={() => handleToggle('brand')}
+                disabled={isAnimating}
+                className={`px-8 py-4 rounded-full font-bold text-base transition-all duration-300 ${
                   userType === 'brand'
-                    ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white shadow-lg shadow-fuchsia-500/30'
                     : 'text-white/60 hover:text-white/80'
-                }`}
+                } ${isAnimating ? 'pointer-events-none' : ''}`}
               >
                 I'm a Brand
               </button>
@@ -121,37 +199,37 @@ export const AudienceBenefits = () => {
           </div>
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-2">
-          <div className={`flex flex-col gap-6 transition-opacity duration-500 ${
-            userType === 'agency' ? 'opacity-100' : 'opacity-40'
-          }`}>
-            <div className="flex items-center justify-between rounded-2xl border border-white/12 bg-white/5 px-6 py-4 text-sm uppercase tracking-[0.45em] text-white/60">
-              <span>For Agencies</span>
-              <span className="text-white/30">Storyboard Lane</span>
-            </div>
-            {agencyBenefits.map((benefit) => (
-              <div key={benefit.badge} className="audience-benefit-card">
-                <BenefitCard {...benefit} />
+        {/* Single Column Layout - Centered with Max Width */}
+        <div className="relative flex justify-center">
+          <div className="w-full max-w-3xl">
+            {/* Agency Panel */}
+            <div className={`agency-panel flex-col gap-6 ${userType === 'agency' ? 'flex' : 'hidden'}`}>
+              <div className="flex items-center justify-between rounded-2xl border border-white/12 bg-white/5 px-6 py-4 text-sm uppercase tracking-[0.45em] text-white/60 backdrop-blur-sm">
+                <span>For Agencies</span>
+                <span className="text-white/30">Storyboard Lane</span>
               </div>
-            ))}
-          </div>
-          <div className={`flex flex-col gap-6 transition-opacity duration-500 ${
-            userType === 'brand' ? 'opacity-100' : 'opacity-40'
-          }`}>
-            <div className="flex items-center justify-between rounded-2xl border border-white/12 bg-white/5 px-6 py-4 text-sm uppercase tracking-[0.45em] text-white/60">
-              <span>For Brands</span>
-              <span className="text-white/30">Storyboard Lane</span>
+              {agencyBenefits.map((benefit) => (
+                <div key={benefit.badge} className="audience-benefit-card">
+                  <BenefitCard {...benefit} />
+                </div>
+              ))}
             </div>
-            {brandBenefits.map((benefit) => (
-              <div key={benefit.badge} className="audience-benefit-card">
-                <BenefitCard {...benefit} />
+
+            {/* Brand Panel */}
+            <div className={`brand-panel flex-col gap-6 ${userType === 'brand' ? 'flex' : 'hidden'}`}>
+              <div className="flex items-center justify-between rounded-2xl border border-white/12 bg-white/5 px-6 py-4 text-sm uppercase tracking-[0.45em] text-white/60 backdrop-blur-sm">
+                <span>For Brands</span>
+                <span className="text-white/30">Storyboard Lane</span>
               </div>
-            ))}
+              {brandBenefits.map((benefit) => (
+                <div key={benefit.badge} className="audience-benefit-card">
+                  <BenefitCard {...benefit} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
-      <StoryboardDivider className="mt-20 opacity-60" accentColor={briefingPalette.holographic.cyan} />
     </section>
   );
 };

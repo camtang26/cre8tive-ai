@@ -41,7 +41,12 @@ export const StyleCard = ({ name, description, imagePath, textColor, accent }: S
             background: `linear-gradient(0deg, ${accent}40 0%, transparent 80%)`
           }}
         >
-          <p className="text-sm font-bold text-white" style={{ color: textColor }}>
+          <p
+            className="text-lg md:text-xl font-extrabold tracking-wider uppercase text-white"
+            style={{
+              textShadow: '0 2px 8px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9)'
+            }}
+          >
             {name}
           </p>
         </div>

@@ -1,0 +1,332 @@
+{
+  "document": "05-quantitative-insights.md",
+  "extraction_date": "2025-10-09",
+  "metrics_inventory": [
+    {
+      "id": "metric-001",
+      "statement": "28 total insights extracted",
+      "location": "line 4",
+      "context": "Overall volume of quantitative insights from Gemini transcript analysis",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-002",
+      "statement": "8 insights (29%) tagged [Briefing Engine]",
+      "location": "line 9",
+      "context": "Distribution of insights across product categories",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-003",
+      "statement": "12 insights (43%) tagged [Studios]",
+      "location": "line 10",
+      "context": "Distribution of insights across product categories",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-004",
+      "statement": "6 insights (21%) tagged [Both]",
+      "location": "line 11",
+      "context": "Distribution of insights across product categories",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-005",
+      "statement": "2 insights (7%) tagged [General]",
+      "location": "line 12",
+      "context": "Distribution of insights across product categories",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-006",
+      "statement": "80% brief creation reduction",
+      "location": "line 17",
+      "context": "Time efficiency claim for Briefing Engine - hours/days reduced to minutes",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-007",
+      "statement": "2-3 days to minutes",
+      "location": "line 18",
+      "context": "Storyboard turnaround time improvement for Briefing Engine",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-008",
+      "statement": "10x faster than traditional",
+      "location": "line 19",
+      "context": "Production timeline advantage compared to traditional methods (Both products)",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-009",
+      "statement": "70% fewer revisions",
+      "location": "line 20",
+      "context": "First-draft accuracy improvement for Studios",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-010",
+      "statement": "50+ concurrent briefs",
+      "location": "line 21",
+      "context": "Platform capacity for Briefing Engine",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-011",
+      "statement": "100+ videos per month",
+      "location": "line 22",
+      "context": "Production scale capability for Studios",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-012",
+      "statement": "50% production cost reduction",
+      "location": "line 25",
+      "context": "Cost savings for Studios vs. traditional agencies",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-013",
+      "statement": "90% brief cost savings",
+      "location": "line 26",
+      "context": "Cost savings for Briefing Engine vs. manual consulting",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-014",
+      "statement": "3-month ROI payback",
+      "location": "line 27",
+      "context": "Average customer return period for both products",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-015",
+      "statement": "$8,000-13,000 savings per video",
+      "location": "line 28",
+      "context": "Per-video cost advantage for Studios",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-016",
+      "statement": "95% client satisfaction",
+      "location": "line 31",
+      "context": "Consistently high ratings for both products",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-017",
+      "statement": "4.8/5 star rating",
+      "location": "line 32",
+      "context": "Average rating across 200+ projects for both products",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-018",
+      "statement": "200+ projects",
+      "location": "line 32",
+      "context": "Volume of projects contributing to 4.8/5 star rating",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-019",
+      "statement": "60% first-draft approval",
+      "location": "line 33",
+      "context": "Studios first-draft approval rate vs. 20-30% industry average",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-020",
+      "statement": "20-30% industry average first-draft approval",
+      "location": "line 33",
+      "context": "Industry benchmark for first-draft approval rates",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-021",
+      "statement": "3x better than templates",
+      "location": "line 34",
+      "context": "Quality perception for Studios vs. template-based solutions",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-022",
+      "statement": "92% brand consistency",
+      "location": "line 35",
+      "context": "Cross-asset alignment for both products",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-023",
+      "statement": "8.5% landing page conversion",
+      "location": "line 38",
+      "context": "Landing page conversion rate vs. 2-3% industry average (General)",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-024",
+      "statement": "2-3% industry average landing page conversion",
+      "location": "line 38",
+      "context": "Industry benchmark for landing page conversion rates",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-025",
+      "statement": "35% demo-to-paid conversion",
+      "location": "line 39",
+      "context": "High trial conversion rate for both products",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-026",
+      "statement": "85% video completion rate",
+      "location": "line 40",
+      "context": "Studios video completion rate vs. 40-50% industry average",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-027",
+      "statement": "40-50% industry average video completion rate",
+      "location": "line 40",
+      "context": "Industry benchmark for video completion rates",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-028",
+      "statement": "12% social share rate",
+      "location": "line 41",
+      "context": "Studios social share rate - 3x typical branded content",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-029",
+      "statement": "3x typical branded content social share rate",
+      "location": "line 41",
+      "context": "Multiplier showing Studios performance vs. typical branded content",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-030",
+      "statement": "10x speed advantage",
+      "location": "line 44",
+      "context": "Both products vs. agencies (competitive positioning)",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-031",
+      "statement": "5x quality + 3x speed",
+      "location": "line 45",
+      "context": "Studios vs. templates (competitive positioning)",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-032",
+      "statement": "88% annual retention",
+      "location": "line 46",
+      "context": "Customer loyalty for both products",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-033",
+      "statement": "NPS 72",
+      "location": "line 47",
+      "context": "World-class Net Promoter Score for both products (>50 is excellent)",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-034",
+      "statement": "NPS >50 is excellent",
+      "location": "line 47",
+      "context": "Industry benchmark for Net Promoter Score excellence threshold",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-035",
+      "statement": "99.9% platform uptime",
+      "location": "line 50",
+      "context": "Reliability SLA for Briefing Engine",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-036",
+      "statement": "2-4 hour HD render time",
+      "location": "line 51",
+      "context": "Studios HD render time vs. 8-12 hours traditional",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-037",
+      "statement": "8-12 hours traditional render time",
+      "location": "line 51",
+      "context": "Industry benchmark for traditional HD render time",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-038",
+      "statement": "3-project learning curve",
+      "location": "line 52",
+      "context": "AI preference optimization timeframe for Studios",
+      "current_source": null,
+      "confidence": null
+    },
+    {
+      "id": "metric-039",
+      "statement": "40% storage reduction",
+      "location": "line 53",
+      "context": "Through AI compression for Studios",
+      "current_source": null,
+      "confidence": null
+    }
+  ],
+  "summary": {
+    "total_metrics": 39,
+    "breakdown": {
+      "efficiency_metrics": 11,
+      "cost_metrics": 5,
+      "quality_metrics": 8,
+      "conversion_metrics": 8,
+      "competitive_metrics": 4,
+      "operational_metrics": 3
+    },
+    "industry_benchmarks_captured": 6,
+    "unique_value_propositions": 14,
+    "analysis_notes": "Document contains 39 distinct metrics including industry benchmarks. Several metrics appear multiple times (e.g., '10x faster' in line 19, 44, 60). High-Impact Marketing Metrics section (lines 56-71) primarily summarizes metrics from earlier sections with minimal new quantitative data."
+  }
+}

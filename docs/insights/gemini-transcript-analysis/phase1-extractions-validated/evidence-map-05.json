@@ -1,0 +1,473 @@
+{
+  "document": "05-quantitative-insights.md",
+  "evidence_search_date": "2025-10-09",
+  "search_methodology": "Comprehensive keyword and pattern search across all 4 transcript parts using multiple search strategies",
+  "total_metrics": 39,
+  "evidence_found_count": 5,
+  "evidence_partial_count": 4,
+  "no_evidence_count": 30,
+  "confidence_distribution": {
+    "VALIDATED": 0,
+    "INFERRED": 4,
+    "STRATEGIC": 35,
+    "ASPIRATIONAL": 0
+  },
+  "source_type_distribution": {
+    "T": 4,
+    "PA": 0,
+    "IND": 1,
+    "A-EST": 34,
+    "UNVERIFIABLE": 0
+  },
+  "evidence_mapping": [
+    {
+      "claim_id": "metric-001",
+      "claim": "28 total insights extracted",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "This is a meta-metric about the document itself, counting insights extracted by the analyst. Not a claim from the transcript.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-002",
+      "claim": "8 insights (29%) tagged [Briefing Engine]",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Meta-metric about document categorization, not from transcript.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-003",
+      "claim": "12 insights (43%) tagged [Studios]",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Meta-metric about document categorization, not from transcript.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-004",
+      "claim": "6 insights (21%) tagged [Both]",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Meta-metric about document categorization, not from transcript.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-005",
+      "claim": "2 insights (7%) tagged [General]",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Meta-metric about document categorization, not from transcript.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-006",
+      "claim": "80% brief creation reduction",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "No specific percentage found in transcript. Analyst-calculated estimate based on qualitative time improvement discussions.",
+      "source_type_hint": "A-EST",
+      "note": "Transcript discusses time savings qualitatively but never states '80%'"
+    },
+    {
+      "claim_id": "metric-007",
+      "claim": "2-3 days to minutes",
+      "evidence_found": true,
+      "confidence": "INFERRED",
+      "quotes": [
+        {
+          "text": "In the old world, a process like this takes days... even weeks. It's slow, it's expensive, and it's complicated.",
+          "source": "Part 1 - Concept and Brief",
+          "speaker": "AI Creative Director",
+          "context": "Discussing traditional briefing/storyboard process vs. AI solution",
+          "line_number": 379
+        },
+        {
+          "text": "Go from a simple brief to a stunning, original commercial concept in minutes. No meetings. No months of waiting. Just pure, creative power.",
+          "source": "Part 1 - Concept and Brief",
+          "speaker": "AI Creative Director",
+          "context": "Describing the AI platform's speed advantage",
+          "line_number": 111
+        },
+        {
+          "text": "Go from idea to a full storyboard & script in minutes with our AI Briefing Engine.",
+          "source": "Part 4 - Deployment Marketing",
+          "speaker": "AI Creative Director",
+          "context": "LinkedIn ad copy describing product capability",
+          "line_number": 1044
+        },
+        {
+          "text": "MINUTES. NOT WEEKS.",
+          "source": "Part 1 - Concept and Brief",
+          "speaker": "AI Creative Director",
+          "context": "Proposed on-screen text for ad",
+          "line_number": 387
+        }
+      ],
+      "confidence_rationale": "Multiple references to 'days' and 'weeks' for traditional process, and 'minutes' for AI solution. Specific '2-3 days' appears to be analyst interpretation of 'days' mentions.",
+      "source_type_hint": "T"
+    },
+    {
+      "claim_id": "metric-008",
+      "claim": "10x faster than traditional",
+      "evidence_found": true,
+      "confidence": "INFERRED",
+      "quotes": [
+        {
+          "text": "For too long, world-class video production has been reserved for brands with massive budgets and months to spare. The creative process was slow, complex, and expensive.",
+          "source": "Part 4 - Deployment Marketing",
+          "speaker": "AI Creative Director",
+          "context": "LinkedIn ad copy contrasting traditional vs AI production",
+          "line_number": 1038
+        },
+        {
+          "text": "This 90-second spot was produced through our hybrid 'AI + Expert Studio' model, going from a simple brief to this final master in a fraction of the time of a traditional production.",
+          "source": "Part 4 - Deployment Marketing",
+          "speaker": "AI Creative Director",
+          "context": "LinkedIn organic post describing production speed",
+          "line_number": 1471
+        },
+        {
+          "text": "You think you need a massive budget... a huge production crew... and months of meetings just to get started.",
+          "source": "Part 1 - Concept and Brief",
+          "speaker": "AI Creative Director",
+          "context": "Describing traditional production barriers",
+          "line_number": 174
+        }
+      ],
+      "confidence_rationale": "Qualitative evidence of significant speed advantage ('fraction of the time', 'months' vs implied days/weeks), but specific '10x' multiplier not stated. Analyst-calculated from qualitative descriptions.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-009",
+      "claim": "70% fewer revisions",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "No discussion of revision rates in transcript. This is likely from product analytics or analyst estimate.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-010",
+      "claim": "50+ concurrent briefs",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Platform capacity claim not discussed in transcript. Likely from product specs or analyst estimate.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-011",
+      "claim": "100+ videos per month",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Production scale capability not mentioned in transcript. Likely from business metrics or analyst projection.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-012",
+      "claim": "50% production cost reduction",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "No specific cost reduction percentage in transcript. General cost savings discussed qualitatively but never quantified.",
+      "source_type_hint": "A-EST",
+      "note": "Budget discussion exists but is qualitative: 'without the cinematic budget', 'massive budgets', but no percentages"
+    },
+    {
+      "claim_id": "metric-013",
+      "claim": "90% brief cost savings",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "No specific percentage found. Analyst estimate based on qualitative cost advantage discussions.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-014",
+      "claim": "3-month ROI payback",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "ROI timelines not discussed in transcript. Strategic business metric.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-015",
+      "claim": "$8,000-13,000 savings per video",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "No specific dollar amounts mentioned in transcript. Cost savings discussed only qualitatively.",
+      "source_type_hint": "A-EST",
+      "note": "User mentions budget will be 'fuck all' but this is internal complaint, not a product claim"
+    },
+    {
+      "claim_id": "metric-016",
+      "claim": "95% client satisfaction",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Customer satisfaction metrics not discussed in transcript. Would require product analytics or surveys.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-017",
+      "claim": "4.8/5 star rating",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Rating data not in transcript. Would come from review platforms or internal metrics.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-018",
+      "claim": "200+ projects",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Project volume not discussed in transcript. Business metric from internal tracking.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-019",
+      "claim": "60% first-draft approval",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Approval rates not discussed in transcript. Product analytics metric.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-020",
+      "claim": "20-30% industry average first-draft approval",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Industry benchmark not mentioned in transcript. Would require external research/citation.",
+      "source_type_hint": "IND"
+    },
+    {
+      "claim_id": "metric-021",
+      "claim": "3x better than templates",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Template comparison not discussed in transcript. Analyst estimate.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-022",
+      "claim": "92% brand consistency",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Brand consistency metrics not in transcript. Would require product analytics.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-023",
+      "claim": "8.5% landing page conversion",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Conversion rate data not in transcript. Product analytics metric.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-024",
+      "claim": "2-3% industry average landing page conversion",
+      "evidence_found": true,
+      "confidence": "INFERRED",
+      "quotes": [
+        {
+          "text": "76% of viewers skip ads",
+          "source": "Part 1 - Concept and Brief",
+          "speaker": "AI Creative Director",
+          "context": "Hook strategy explanation - citing industry stat about YouTube ad skipping",
+          "line_number": 72
+        }
+      ],
+      "confidence_rationale": "Only one industry benchmark found (76% skip rate). The 2-3% conversion benchmark is not in transcript and would need citation.",
+      "source_type_hint": "IND",
+      "note": "76% skip rate is actually an industry stat mentioned, not about their product. Conversion benchmarks not mentioned."
+    },
+    {
+      "claim_id": "metric-025",
+      "claim": "35% demo-to-paid conversion",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Sales conversion metrics not in transcript. Business analytics data.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-026",
+      "claim": "85% video completion rate",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Video engagement metrics not discussed in transcript.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-027",
+      "claim": "40-50% industry average video completion rate",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Industry benchmark not in transcript. Would require external research.",
+      "source_type_hint": "IND"
+    },
+    {
+      "claim_id": "metric-028",
+      "claim": "12% social share rate",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Social sharing metrics not in transcript. Product analytics data.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-029",
+      "claim": "3x typical branded content social share rate",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Industry comparison not mentioned in transcript. Would require benchmark research.",
+      "source_type_hint": "IND"
+    },
+    {
+      "claim_id": "metric-030",
+      "claim": "10x speed advantage",
+      "evidence_found": true,
+      "confidence": "INFERRED",
+      "quotes": [
+        {
+          "text": "In the old world, a process like this takes days... even weeks. It's slow, it's expensive, and it's complicated.",
+          "source": "Part 1 - Concept and Brief",
+          "speaker": "AI Creative Director",
+          "context": "Traditional vs AI process comparison",
+          "line_number": 379
+        },
+        {
+          "text": "Go from idea to a plan in minutes, not weeks.",
+          "source": "Part 1 - Concept and Brief",
+          "speaker": "AI Creative Director",
+          "context": "Ad voiceover describing speed advantage",
+          "line_number": 177
+        }
+      ],
+      "confidence_rationale": "Qualitative speed advantage clear ('minutes' vs 'weeks'), but specific '10x' multiplier is analyst calculation. Rough math: weeks (14-21 days) vs minutes (<1 day) could support 10x+ claim.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-031",
+      "claim": "5x quality + 3x speed",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Combined quality/speed multipliers not stated in transcript. Analyst synthesis.",
+      "source_type_hint": "A-EST"
+    },
+    {
+      "claim_id": "metric-032",
+      "claim": "88% annual retention",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Customer retention data not in transcript. Business analytics metric.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-033",
+      "claim": "NPS 72",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Net Promoter Score not mentioned in transcript. Customer survey data.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-034",
+      "claim": "NPS >50 is excellent",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "NPS benchmark not in transcript. Industry standard knowledge.",
+      "source_type_hint": "IND"
+    },
+    {
+      "claim_id": "metric-035",
+      "claim": "99.9% platform uptime",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Technical performance metrics not discussed in transcript. System monitoring data.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-036",
+      "claim": "2-4 hour HD render time",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Render times not discussed in transcript. Technical specification data.",
+      "source_type_hint": "A-EST",
+      "note": "Quality discussion exists (720p, 4K, upscaling) but not render times"
+    },
+    {
+      "claim_id": "metric-037",
+      "claim": "8-12 hours traditional render time",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Traditional render times not mentioned. Industry benchmark estimate.",
+      "source_type_hint": "IND"
+    },
+    {
+      "claim_id": "metric-038",
+      "claim": "3-project learning curve",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Onboarding/learning metrics not in transcript. User analytics data.",
+      "source_type_hint": "PA"
+    },
+    {
+      "claim_id": "metric-039",
+      "claim": "40% storage reduction",
+      "evidence_found": false,
+      "confidence": "STRATEGIC",
+      "quotes": [],
+      "confidence_rationale": "Storage optimization not discussed in transcript. Technical spec or analyst estimate.",
+      "source_type_hint": "A-EST"
+    }
+  ],
+  "summary": {
+    "key_findings": [
+      "Only 4 metrics have any transcript evidence, all requiring inference from qualitative statements",
+      "The single VALIDATED industry stat (76% ad skip rate) is about viewer behavior, not the product",
+      "Most specific numbers (percentages, dollar amounts, ratings) appear to be analyst estimates",
+      "Time comparisons are well-supported qualitatively but lack specific quantification in transcript",
+      "Cost savings discussed but never quantified with percentages or dollar amounts",
+      "No product performance data (uptime, render times, conversion rates) found in transcript",
+      "No customer satisfaction metrics (ratings, NPS, retention) found in transcript"
+    ],
+    "validation_recommendation": "Phase 3 should focus on obtaining product analytics data, customer survey results, and industry benchmark citations to validate the 35 STRATEGIC metrics that have no transcript evidence.",
+    "high_risk_claims": [
+      "metric-015: $8,000-13,000 savings (specific dollar range with no source)",
+      "metric-016: 95% client satisfaction (very high percentage, needs survey data)",
+      "metric-017: 4.8/5 star rating (specific rating, needs review data)",
+      "metric-023: 8.5% landing page conversion (above industry average, needs analytics)",
+      "metric-033: NPS 72 (specific score, needs survey methodology)"
+    ]
+  }
+}
