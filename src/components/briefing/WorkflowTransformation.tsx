@@ -36,7 +36,7 @@ const workflows = [
       "Final approval"
     ],
     width: "100%", // AC2: Full container width
-    animationDuration: 4, // AC2: 4s slow crawl
+    animationDuration: 3, // AC2: 3s slow crawl (reduced from 4s)
     easing: "power1.inOut", // AC2: Slow, steady
     color: "gray",
   },
@@ -105,7 +105,7 @@ export const WorkflowTransformation = () => {
         return
       }
 
-      // AC3: Master timeline orchestrates 8-step sequence (~9 seconds total)
+      // AC3: Master timeline orchestrates 8-step sequence (~7.4 seconds total)
       const masterTL = gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -122,12 +122,12 @@ export const WorkflowTransformation = () => {
         ease: "back.out(2)"
       })
 
-      // Step 2: Number counter animation (2s) - AC1
+      // Step 2: Number counter animation (1.6s) - AC1
       // Use proxy object for reliable counter animation (GSAP best practice)
       const counterObj = { value: 1 }
       masterTL.to(counterObj, {
         value: 60,
-        duration: 2,
+        duration: 1.6,
         ease: "power2.out",
         snap: { value: 1 }, // AC1: Snap to integers
         onUpdate: () => {
@@ -135,11 +135,11 @@ export const WorkflowTransformation = () => {
         }
       }, "<0.3") // Start 0.3s after stat reveal begins
 
-      // Step 3: Traditional bar slow crawl (4s) - AC2
+      // Step 3: Traditional bar slow crawl (3s) - AC2
       masterTL.to(traditionalBar, {
         scaleX: 1,
         transformOrigin: "left center",
-        duration: 4,
+        duration: 3,
         ease: "power1.inOut"
       }, ">") // Start after counter completes
 
@@ -150,11 +150,11 @@ export const WorkflowTransformation = () => {
           y: 0,
           duration: 0.6,
           ease: "power2.out"
-        }, "<3.5") // Start 3.5s into the 4s bar animation
+        }, "<2.5") // Start 2.5s into the 3s bar animation
       }
 
-      // Step 5: DRAMATIC PAUSE (0.5s) - AC3: Let slow process sink in
-      masterTL.add(() => {}, "+=0.5")
+      // Step 5: DRAMATIC PAUSE (0.3s) - AC3: Let slow process sink in
+      masterTL.add(() => {}, "+=0.3")
 
       // Step 6: AI bar FAST zoom (0.8s with overshoot) - AC2
       masterTL.to(aiBar, {
@@ -348,12 +348,12 @@ export const WorkflowTransformation = () => {
             pointer-events: none;
           }
         `}</style>
-        <div className="mt-16 space-y-12 max-w-6xl mx-auto">
+        <div className="mt-12 space-y-6 max-w-6xl mx-auto">
           {workflows.map((workflow, index) => (
             <div key={workflow.name} className="relative">
               {/* Workflow Name */}
-              <div className="mb-6 text-left">
-                <h3 className="text-2xl md:text-3xl font-bold text-white">
+              <div className="mb-4 text-left">
+                <h3 className="text-xl md:text-2xl font-bold text-white">
                   {workflow.name}
                 </h3>
               </div>
@@ -361,7 +361,7 @@ export const WorkflowTransformation = () => {
               {/* Timeline Bar Container - AC2: Proportional width */}
               <div className="relative">
                 {/* Bar Background */}
-                <div className="relative h-16 md:h-20 rounded-2xl bg-white/5 overflow-hidden">
+                <div className="relative h-12 md:h-14 rounded-2xl bg-white/5 overflow-hidden">
                   <div
                     className={`timeline-bar-3d absolute inset-y-0 left-0 rounded-2xl ${index === 0 ? 'traditional-bar' : 'ai-bar'}`}
                     style={{
@@ -381,7 +381,7 @@ export const WorkflowTransformation = () => {
 
                 {/* Duration Label - AC2: HERO ELEMENT (not badge) */}
                 <div
-                  className={`mt-6 ${index === 0 ? 'traditional-label' : 'ai-label'}`}
+                  className={`mt-4 ${index === 0 ? 'traditional-label' : 'ai-label'}`}
                   style={{
                     willChange: "transform, opacity", // AC6: GPU optimization
                     opacity: 0, // Initial hidden for GSAP animation
@@ -389,7 +389,7 @@ export const WorkflowTransformation = () => {
                   }}
                 >
                   <p
-                    className="text-4xl md:text-5xl font-black tracking-tighter"
+                    className="text-3xl md:text-4xl font-black tracking-tighter"
                     style={{
                       color: workflow.color === "indigo"
                         ? briefingPalette.colors.cyan
@@ -401,11 +401,11 @@ export const WorkflowTransformation = () => {
                 </div>
 
                 {/* Stages */}
-                <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+                <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
                   {workflow.stages.map((stage, stageIndex) => (
                     <span
                       key={stageIndex}
-                      className="text-sm md:text-base px-4 py-2 rounded-lg bg-white/5 text-white/60 border border-white/10"
+                      className="text-xs md:text-sm px-3 py-1.5 rounded-lg bg-white/5 text-white/60 border border-white/10"
                     >
                       {stage}
                     </span>
