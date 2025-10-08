@@ -589,7 +589,7 @@ export const BriefToStoryboardAnimation = () => {
                   <div className="absolute inset-0 pointer-events-none rounded-[28px] border border-white/8 mix-blend-screen" aria-hidden />
                   <div className="relative z-10 h-full px-8 py-3 md:px-12 md:py-5 lg:px-16 lg:py-6">
                     <div className="grid h-full items-stretch gap-4 md:gap-5 md:grid-cols-[1.1fr_0.9fr]">
-                      <div className="flex flex-col justify-between gap-3 md:gap-3">
+                      <div className="flex flex-col justify-start gap-20 md:gap-20">
                         <div className="space-y-5">
                           <div
                             ref={heroLabelRef}
@@ -668,7 +668,7 @@ export const BriefToStoryboardAnimation = () => {
                         <a
                           ref={heroPrimaryCtaRef}
                           href="/contact"
-                          className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE] px-8 py-4 text-[15px] font-bold uppercase tracking-[0.3em] text-white shadow-[0_32px_120px_-60px_rgba(99,102,241,0.9)] transition-transform duration-300 group-hover:-translate-y-0.5 w-max"
+                          className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE] px-8 py-4 text-[15px] font-bold uppercase tracking-[0.3em] text-white shadow-[0_32px_120px_-60px_rgba(99,102,241,0.9)] transition-transform duration-300 group-hover:-translate-y-0.5 w-max -mt-3"
                           style={{textShadow: '0 2px 8px rgba(0,0,0,0.3)'}}
                         >
                           Start Your First Brief
@@ -792,12 +792,12 @@ export const BriefToStoryboardAnimation = () => {
                   <h4 className="text-[30px] font-black tracking-tight text-white md:text-[36px]">Curate Signature Look</h4>
                 </div>
 
-                <div className="w-full max-w-[1400px] overflow-hidden rounded-[30px] border border-white/12 bg-white/8 shadow-[0_55px_180px_-120px_rgba(34,211,238,0.55)]">
-                  <div className="flex h-[380px] gap-[14px] px-[10px] md:h-[420px] md:gap-[18px] md:px-[14px]">
+                <div className="w-full max-w-[1400px] overflow-hidden rounded-[30px] translate-x-[6px] border border-white/12 bg-white/8 shadow-[0_55px_180px_-120px_rgba(34,211,238,0.55)]">
+                  <div className="flex h-[380px] gap-[2px] px-[10px] md:h-[420px] md:gap-[2px] md:px-[14px]">
                     {visualStyles.map((style, index) => (
                       <div
                         key={style.name}
-                        className="relative flex-1 min-w-[165px] border-r border-white/12 last:border-r-0"
+                        className="relative flex-1 min-w-[155px] border-r border-white/12 last:border-r-0"
                         ref={(el) => {
                           if (el) {
                             styleCardRefs.current[index] = el
@@ -810,8 +810,8 @@ export const BriefToStoryboardAnimation = () => {
                           loading="lazy"
                           className="h-full w-full object-cover object-center"
                         />
-                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/65 via-black/20 to-transparent px-6 pt-[220px]">
-                          <span className="text-center text-[14px] font-black uppercase tracking-[0.2em] text-white drop-shadow-[0_28px_60px_rgba(0,0,0,0.65)]">
+                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/65 via-black/20 to-transparent px-10 pt-[220px]">
+                          <span className="text-center text-[15px] font-black uppercase tracking-[0.2em] text-white drop-shadow-[0_28px_60px_rgba(0,0,0,0.65)]">
                             {style.name}
                           </span>
                         </div>
@@ -826,7 +826,7 @@ export const BriefToStoryboardAnimation = () => {
                 className="absolute inset-0 flex flex-col items-center justify-center gap-8 rounded-[26px] border border-white/14 bg-[rgba(10,10,22,0.97)] p-8 opacity-0 md:flex-row md:items-center md:gap-12"
               >
                 <div className="flex w-full flex-1 items-center justify-end">
-                  <div className="grid h-full max-h-[332px] w-full max-w-[980px] grid-cols-3 gap-6 self-center md:max-h-[340px] md:translate-y-[-32px] md:translate-x-[18px]">
+                  <div className="grid h-full max-h-[332px] w-full max-w-[980px] grid-cols-3 gap-6 self-center md:max-h-[340px] md:translate-y-[-55px] md:translate-x-[18px]">
                     {storyboardFrames.map((src, index) => (
                       <div
                         key={src}
@@ -873,7 +873,7 @@ export const BriefToStoryboardAnimation = () => {
                     PDF boards land in the client inbox and Cre8tive AI Studios with shot notes, aspect ratios, and delivery specs ready to shoot.
                   </p>
                 </div>
-                <div className="w-full max-w-[680px] overflow-hidden rounded-3xl border border-white/12 shadow-[0_55px_190px_-110px_rgba(234,88,12,0.6)]">
+                <div className="w-full max-w-[780px] translate-x-[12px] overflow-hidden rounded-3xl border border-white/12 shadow-[0_55px_190px_-110px_rgba(234,88,12,0.6)]">
                   <img
                     ref={pdfMockupRef}
                     src="/briefing-engine/storyboard/SB-Mockup.webp"
