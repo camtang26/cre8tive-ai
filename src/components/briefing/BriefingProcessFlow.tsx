@@ -46,29 +46,54 @@ export function BriefingProcessFlow() {
 
   // GSAP Stagger Animation on Scroll (Pattern 1: Basic Scroll-Triggered Animation)
   useEffect(() => {
+    console.log('[ProcessFlow] useEffect fired')
+
     if (prefersReducedMotion) {
       // Skip animation for users with prefers-reduced-motion
       gsap.set(".process-step", { opacity: 1, y: 0 })
       return
     }
 
-    const ctx = gsap.context(() => {
-      gsap.from(".process-step", {
-        opacity: 0,
-        y: 60,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      })
-    }, containerRef)
+    // Wait for next frame to ensure DOM is ready
+    const rafId = requestAnimationFrame(() => {
+      const cards = document.querySelectorAll('.process-step')
+      console.log('[ProcessFlow] Found process-step cards:', cards.length)
 
-    // CRITICAL: Cleanup to prevent memory leaks
-    return () => ctx.revert()
+      if (cards.length === 0) {
+        console.warn('[ProcessFlow] No .process-step elements found, skipping animation')
+        return
+      }
+
+      const ctx = gsap.context(() => {
+        console.log('[ProcessFlow] Starting GSAP animation...')
+
+        gsap.fromTo(".process-step",
+          {
+            opacity: 0,
+            y: 60
+          },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.2,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        )
+      }, containerRef)
+
+      // CRITICAL: Cleanup to prevent memory leaks
+      return () => ctx.revert()
+    })
+
+    return () => {
+      cancelAnimationFrame(rafId)
+    }
   }, [prefersReducedMotion])
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Building2, Rocket, Sparkles, Users2, Workflow, Zap } from "lucide-react";
@@ -58,6 +58,7 @@ const brandBenefits = [
 
 export const AudienceBenefits = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const [userType, setUserType] = useState<'agency' | 'brand'>('agency');
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -92,10 +93,38 @@ export const AudienceBenefits = () => {
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
             Every stakeholder gets a dedicated storyboard lane. Agencies orchestrate multi-client pipelines while in-house teams launch campaigns with pixel-perfect consistency.
           </p>
+
+          {/* Toggle Switch */}
+          <div className="mt-8 flex justify-center md:justify-start">
+            <div className="inline-flex items-center p-1 rounded-full bg-white/10 border border-white/20">
+              <button
+                onClick={() => setUserType('agency')}
+                className={`px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 ${
+                  userType === 'agency'
+                    ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg'
+                    : 'text-white/60 hover:text-white/80'
+                }`}
+              >
+                I'm an Agency
+              </button>
+              <button
+                onClick={() => setUserType('brand')}
+                className={`px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 ${
+                  userType === 'brand'
+                    ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white shadow-lg'
+                    : 'text-white/60 hover:text-white/80'
+                }`}
+              >
+                I'm a Brand
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="flex flex-col gap-6">
+          <div className={`flex flex-col gap-6 transition-opacity duration-500 ${
+            userType === 'agency' ? 'opacity-100' : 'opacity-40'
+          }`}>
             <div className="flex items-center justify-between rounded-2xl border border-white/12 bg-white/5 px-6 py-4 text-sm uppercase tracking-[0.45em] text-white/60">
               <span>For Agencies</span>
               <span className="text-white/30">Storyboard Lane</span>
@@ -106,7 +135,9 @@ export const AudienceBenefits = () => {
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-6">
+          <div className={`flex flex-col gap-6 transition-opacity duration-500 ${
+            userType === 'brand' ? 'opacity-100' : 'opacity-40'
+          }`}>
             <div className="flex items-center justify-between rounded-2xl border border-white/12 bg-white/5 px-6 py-4 text-sm uppercase tracking-[0.45em] text-white/60">
               <span>For Brands</span>
               <span className="text-white/30">Storyboard Lane</span>

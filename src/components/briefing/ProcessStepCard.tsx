@@ -69,8 +69,11 @@ export function ProcessStepCard({
             }}
           >
             <Icon
-              className="w-10 h-10"
-              style={{ color: accentHex }}
+              className="w-12 h-12"
+              style={{
+                color: accentHex,
+                filter: `drop-shadow(0 0 12px ${accentHex}80) drop-shadow(0 0 24px ${accentHex}40)`
+              }}
               strokeWidth={2}
             />
           </div>

@@ -797,7 +797,7 @@ export const BriefToStoryboardAnimation = () => {
                     {visualStyles.map((style, index) => (
                       <div
                         key={style.name}
-                        className="relative flex-1 min-w-[155px] border-r border-white/12 last:border-r-0"
+                        className="relative flex-1 min-w-[150px] border-r border-white/12 last:border-r-0"
                         ref={(el) => {
                           if (el) {
                             styleCardRefs.current[index] = el

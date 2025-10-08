@@ -13,10 +13,122 @@ import { BriefingProcessFlow } from "@/components/briefing/BriefingProcessFlow";
 import { WorkflowTransformation } from "@/components/briefing/WorkflowTransformation";
 import { briefingPalette } from "@/components/briefing/palette";
 import { useReducedMotion } from "framer-motion";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
 
 const BriefingEngine = () => {
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
+
+  // Hero GSAP staggered entrance animation using useGSAP for proper React integration
+  useGSAP(() => {
+    if (prefersReducedMotion) {
+      // Skip animation, just show elements
+      gsap.set(['.hero-headline', '.hero-subhead', '.hero-description', '.hero-ctas'], {
+        opacity: 1,
+        scale: 1,
+        y: 0
+      });
+      return;
+    }
+
+    console.log('[BriefingEngine Hero] useGSAP fired');
+
+    // Verify elements exist before animating
+    const headline = document.querySelector('.hero-headline');
+    const subhead = document.querySelector('.hero-subhead');
+    const description = document.querySelector('.hero-description');
+    const ctas = document.querySelector('.hero-ctas');
+
+    console.log('[BriefingEngine Hero] Elements found:', {
+      headline: !!headline,
+      subhead: !!subhead,
+      description: !!description,
+      ctas: !!ctas
+    });
+
+    if (!headline || !subhead || !description || !ctas) {
+      console.warn('[BriefingEngine Hero] Missing elements, skipping animation');
+      // Set visible anyway so content shows
+      gsap.set([headline, subhead, description, ctas], { opacity: 1, scale: 1, y: 0 });
+      return;
+    }
+
+    console.log('[BriefingEngine Hero] Starting PREMIUM GSAP animation...');
+
+    // PREMIUM staggered entrance - inspired by Vercel/Linear
+    const heroTL = gsap.timeline({
+      delay: 0.5, // Build anticipation
+      onComplete: () => console.log('[BriefingEngine Hero] Animation complete!')
+    });
+
+    heroTL
+      // Headline: DRAMATIC entrance with elastic bounce
+      .fromTo('.hero-headline',
+        {
+          opacity: 0,
+          scale: 0.85,
+          y: 80,
+          rotationX: -15 // Slight 3D tilt
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          rotationX: 0,
+          duration: 1.4,
+          ease: 'back.out(1.4)' // Overshoot for premium feel
+        }
+      )
+      // Subhead: Delay for sequential reveal
+      .fromTo('.hero-subhead',
+        {
+          opacity: 0,
+          scale: 0.9,
+          y: 60
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out' // Smoother than power2
+        },
+        '-=0.8' // Small overlap for flow, not simultaneous
+      )
+      // Description: Gentle entrance
+      .fromTo('.hero-description',
+        {
+          opacity: 0,
+          y: 40
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: 'power2.out'
+        },
+        '-=0.7'
+      )
+      // CTAs: Pop in with bounce
+      .fromTo('.hero-ctas',
+        {
+          opacity: 0,
+          scale: 0.8,
+          y: 30
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'back.out(1.2)' // Slight bounce for interactivity cue
+        },
+        '-=0.5'
+      );
+  }, { dependencies: [prefersReducedMotion] }); // useGSAP handles cleanup automatically
 
   const page = (
     <div className="relative min-h-screen bg-transparent">
@@ -57,23 +169,29 @@ const BriefingEngine = () => {
           >
             <div className="mx-auto w-full max-w-[1680px] px-4 sm:px-6 lg:px-12">
               <div className="text-center space-y-8 md:space-y-12 lg:space-y-14">
-                <h1 className={`font-black tracking-tighter leading-none text-white opacity-0 animate-[fadeIn_1s_ease-out_0.3s_forwards] ${
+                <h1 className={`hero-headline font-black tracking-tighter leading-none ${
                   isMobile
                     ? 'text-5xl'
-                    : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl'
-                }`}>
+                    : 'text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[120px]'
+                } bg-clip-text text-transparent bg-gradient-to-r`}
+                style={{
+                  backgroundImage: `linear-gradient(135deg, ${briefingPalette.indigo.DEFAULT} 0%, ${briefingPalette.cyan.DEFAULT} 50%, ${briefingPalette.fuchsia.DEFAULT} 100%)`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  filter: `drop-shadow(0 0 40px ${briefingPalette.indigo.DEFAULT}40) drop-shadow(0 0 20px ${briefingPalette.cyan.DEFAULT}40)`
+                }}>
                   AI Briefing Engine
                 </h1>
 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-white/90 font-semibold opacity-0 animate-[fadeIn_1s_ease-out_0.6s_forwards] max-w-5xl mx-auto px-2 md:px-0">
+                <h2 className="hero-subhead text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-white/90 font-semibold max-w-5xl mx-auto px-2 md:px-0">
                   From Brand Brief to Professional Storyboard in Minutes
                 </h2>
 
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed opacity-0 animate-[fadeIn_1s_ease-out_0.9s_forwards] px-3 md:px-4">
+                <p className="hero-description text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed px-3 md:px-4">
                   AI-powered briefing platform that transforms your brand vision into production-ready storyboards. Choose from 9 visual styles, delivered as professional PDFs.
                 </p>
 
-                <div className="opacity-0 animate-[fadeIn_1s_ease-out_1.2s_forwards] flex gap-4 justify-center flex-wrap">
+                <div className="hero-ctas flex gap-4 justify-center flex-wrap">
                   <button
                     className="px-10 py-4 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105"
                     style={{

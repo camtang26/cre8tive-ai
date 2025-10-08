@@ -1,0 +1,281 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.9</storyId>
+    <title>Build AudienceBenefits Interactive Mode Toggle (PREMIUM)</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-1.9.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>visitor (agency or brand)</asA>
+    <iWant>to interactively explore benefits specific to my user type through a premium mode toggle</iWant>
+    <soThat>I can deeply engage with the platform's value proposition for my persona in a memorable, differentiated way</soThat>
+    <tasks>
+      <phase name="Phase 1: Foundation Components">
+        <task>Create BenefitCard component with premium design (AC4)</task>
+        <task>Film strip border aesthetic (reference FilmStripDivider)</task>
+        <task>Glassmorphic styling with backdrop-blur</task>
+        <task>Icon + title + description layout</task>
+        <task>Framer Motion hover effects (lift + glow)</task>
+        <task>GPU optimizations (will-change, translateZ)</task>
+        <task>Create ModeToggle component (AC1)</task>
+        <task>Radix UI Toggle primitive integration</task>
+        <task>Pill-shaped container with glassmorphism</task>
+        <task>Sliding indicator with GSAP animation</task>
+        <task>Keyboard accessibility (Tab, Enter, Space)</task>
+        <task>Glow effects for active state</task>
+      </phase>
+      <phase name="Phase 2: Layout & State Management">
+        <task>Create AudienceBenefits parent component (AC7, AC8)</task>
+        <task>Section header "Who Benefits"</task>
+        <task>ModeToggle integration</task>
+        <task>BenefitsStage container</task>
+        <task>State management (useState for mode)</task>
+        <task>localStorage persistence</task>
+        <task>URL param support (?mode=brand)</task>
+        <task>Create AgencyBenefitsPanel (AC5)</task>
+        <task>3 benefit cards with cyan accent</task>
+        <task>Content: Scale Clients, Fast Onboarding, Productivity</task>
+        <task>3-column grid (desktop), single column (mobile)</task>
+        <task>Create BrandBenefitsPanel (AC6)</task>
+        <task>3 benefit cards with fuchsia accent</task>
+        <task>Content: Campaign Speed, Brand Consistency, Quality</task>
+        <task>3-column grid (desktop), single column (mobile)</task>
+      </phase>
+      <phase name="Phase 3: GSAP Flip & Orchestration">
+        <task>Implement GSAP Flip state transitions (AC2)</task>
+        <task>Register Flip plugin</task>
+        <task>Flip.getState() before mode change</task>
+        <task>Flip.from() after React re-render</task>
+        <task>isAnimating flag to prevent spam</task>
+        <task>Absolute positioning during transition</task>
+        <task>Implement orchestrated exit/enter animations (AC3)</task>
+        <task>Exit phase: Fade + scale down current cards (0-300ms)</task>
+        <task>Color transition: Gradient shift on container (300-600ms)</task>
+        <task>Enter phase: Fade + scale + translateY new cards (600-900ms)</task>
+        <task>Stagger timing (0.05s exit, 0.08s enter)</task>
+        <task>Timeline coordination with Flip</task>
+        <task>React cleanup with gsap.context() (AC8)</task>
+        <task>Context scoping for all animations</task>
+        <task>ctx.revert() in useEffect cleanup</task>
+        <task>Verify no memory leaks on unmount</task>
+      </phase>
+      <phase name="Phase 4: Testing & Validation">
+        <task>Performance validation (AC8)</task>
+        <task>Chrome DevTools Performance tab (60fps target)</task>
+        <task>Verify GPU acceleration (transform + opacity only)</task>
+        <task>Test rapid toggle clicks (debouncing)</task>
+        <task>Memory profiling (no leaks after unmount)</task>
+        <task>Browser testing</task>
+        <task>Chrome/Edge (Chromium)</task>
+        <task>Firefox</task>
+        <task>Safari</task>
+        <task>Mobile Safari (iOS)</task>
+        <task>Mobile Chrome (Android)</task>
+        <task>Integration Verification</task>
+        <task>IV1: Film strip pattern consistency with FilmStripDivider</task>
+        <task>IV2: Glassmorphism matches existing components</task>
+        <task>IV3: Color system (cyan-600, fuchsia-600) consistency</task>
+        <task>IV4: Icon library (Lucide React) usage</task>
+        <task>IV5: GSAP cleanup pattern matches project standards</task>
+      </phase>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1" title="Interactive Mode Toggle Control">
+      <requirement>ModeToggle component with pill-shaped design (Radix UI primitive + custom styling)</requirement>
+      <requirement>Two modes: "For Agencies" (cyan) | "For Brands" (fuchsia)</requirement>
+      <requirement>Sliding indicator animates with GSAP between modes (0.4s, power2.inOut)</requirement>
+      <requirement>Glassmorphic background: `backdrop-blur-md bg-slate-900/60 border border-slate-700/30`</requirement>
+      <requirement>Active mode glows in accent color (box-shadow with accent-400)</requirement>
+      <requirement>Keyboard accessible: Tab to focus, Enter/Space to toggle</requirement>
+      <requirement>Initial mode: 'agency' (default), persists to localStorage</requirement>
+      <requirement>URL param support: `?mode=brand` sets initial mode (optional deep linking)</requirement>
+    </criterion>
+    <criterion id="AC2" title="GSAP Flip State Transitions">
+      <requirement>Mode toggle triggers GSAP Flip plugin for smooth state transitions</requirement>
+      <requirement>Flip.getState() records current panel state before React re-render</requirement>
+      <requirement>Flip.from() animates to new state (0.6s duration, power2.inOut ease)</requirement>
+      <requirement>Prevents toggle spam: `isAnimating` flag blocks clicks during transition</requirement>
+      <requirement>Absolute positioning during Flip to prevent layout shift</requirement>
+    </criterion>
+    <criterion id="AC3" title="Orchestrated Exit/Enter Animations">
+      <requirement>Exit Phase (0-300ms): Current mode's 3 benefit cards fade out (opacity: 1 → 0)</requirement>
+      <requirement>Exit Phase: Subtle scale down (scale: 1 → 0.95)</requirement>
+      <requirement>Exit Phase: Stagger: 0.05s per card (top to bottom), Easing: power2.in</requirement>
+      <requirement>Color Transition (300-600ms): Container gradient shifts from old accent to new accent</requirement>
+      <requirement>Color Transition: CSS custom properties animated: `--accent-from`, `--accent-to`</requirement>
+      <requirement>Color Transition: Background gradient: `linear-gradient(135deg, var(--accent-from), var(--accent-to))`</requirement>
+      <requirement>Enter Phase (600-900ms): New mode's 3 cards fade in (opacity: 0 → 1)</requirement>
+      <requirement>Enter Phase: Scale up (scale: 0.95 → 1) + translateY (-30px → 0)</requirement>
+      <requirement>Enter Phase: Stagger: 0.08s per card (creates cascading reveal)</requirement>
+      <requirement>Enter Phase: Easing: back.out(1.2) for subtle overshoot, clearProps: 'all' to reset inline styles</requirement>
+    </criterion>
+    <criterion id="AC4" title="BenefitCard Premium Design">
+      <requirement>Film strip border aesthetic (reference FilmStripDivider pattern)</requirement>
+      <requirement>Glassmorphic card: `backdrop-blur-lg bg-slate-800/40 border border-slate-700/50`</requirement>
+      <requirement>Icon: Lucide React, 48px, colored in accent (cyan-500 or fuchsia-500)</requirement>
+      <requirement>Typography: Title: `text-2xl font-bold text-white`, Description: `text-base text-slate-300 leading-relaxed`</requirement>
+      <requirement>Hover effect (Framer Motion): Lift: `translateY(-4px)`, Glow: `box-shadow: 0 8px 32px ${accentColor}40` (accent with 25% opacity)</requirement>
+      <requirement>Hover effect: Transition: spring physics (stiffness: 300, damping: 20)</requirement>
+      <requirement>GPU-optimized: `will-change: transform, opacity; transform: translateZ(0)`</requirement>
+    </criterion>
+    <criterion id="AC5" title="Agency Benefits Content (Cyan Accent #0891B2)">
+      <requirement>Scale Multiple Clients - Icon: Building (Lucide) - Description: "Manage 10+ brands with consistent quality and automated brief-to-storyboard workflows"</requirement>
+      <requirement>Faster Client Onboarding - Icon: Users (Lucide) - Description: "From client brief to approved storyboard in minutes, not days. Impress stakeholders instantly."</requirement>
+      <requirement>Increased Team Productivity - Icon: TrendingUp (Lucide) - Description: "Free your creatives for strategy and ideation. Let AI handle the storyboard production grind."</requirement>
+    </criterion>
+    <criterion id="AC6" title="Brand Benefits Content (Fuchsia Accent #C026D3)">
+      <requirement>Speed to Campaign Launch - Icon: Rocket (Lucide) - Description: "Launch campaigns weeks faster with AI-generated storyboards in 8 visual styles"</requirement>
+      <requirement>Stay On Brand, Always - Icon: Bookmark (Lucide) - Description: "AI trained on your brand guidelines ensures every frame aligns with your identity"</requirement>
+      <requirement>Professional Results - Icon: Award (Lucide) - Description: "Studio-quality storyboards without the studio budget or timeline. Agency-level work, in-house."</requirement>
+    </criterion>
+    <criterion id="AC7" title="Layout & Responsiveness">
+      <requirement>Section header: "Who Benefits" (H2, centered, mb-12)</requirement>
+      <requirement>ModeToggle: Centered below header, mb-16</requirement>
+      <requirement>BenefitsStage: Container for both panels (single-focus, only active visible)</requirement>
+      <requirement>Desktop (1024px+): 3-column grid for cards, max-width: 1200px</requirement>
+      <requirement>Mobile (<1024px): Single column, cards stack vertically</requirement>
+      <requirement>Container: Gradient background shifts based on active mode</requirement>
+      <requirement>Panel switching: No horizontal scroll, clean state replacement</requirement>
+    </criterion>
+    <criterion id="AC8" title="React Integration & Performance">
+      <requirement>Use `gsap.context()` for animation scoping, `ctx.revert()` in cleanup</requirement>
+      <requirement>Flip plugin registered: `gsap.registerPlugin(Flip)`</requirement>
+      <requirement>Both panels always in DOM (required for Flip), visibility toggled via state</requirement>
+      <requirement>State: `const [mode, setMode] = useState<'agency' | 'brand'>('agency')`</requirement>
+      <requirement>localStorage: Save/restore mode preference across sessions</requirement>
+      <requirement>Performance budget: 60fps during transitions (Chrome DevTools validation)</requirement>
+      <requirement>GPU acceleration: transform + opacity only, no layout-thrashing properties</requirement>
+      <requirement>Memory: No ScrollTrigger needed (user-initiated interaction, not scroll-driven)</requirement>
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-1.9.md" title="Technical Specification: AudienceBenefits Interactive Mode Toggle (Story 1.9)" section="Complete Spec">
+        <snippet>Comprehensive technical specification defining GSAP Flip plugin implementation, premium animation patterns, component hierarchy, data models, NFRs (performance, security, reliability), and traceability mapping. Key sections: Flip pattern examples, orchestrated timeline (0.9s), TypeScript interfaces, performance budget (60fps), accessibility requirements.</snippet>
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md" title="Animation Patterns & Best Practices" section="GSAP Context Cleanup">
+        <snippet>Critical pattern for React integration: `gsap.context()` with `useEffect` cleanup prevents memory leaks. Pattern: `const ctx = gsap.context(() => { animations }, ref); return () => ctx.revert()`. Also covers GPU acceleration (transform + opacity only), performance budget (60fps RAIL model), and common pitfalls (nesting ScrollTriggers, forgetting cleanup).</snippet>
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/ARCHITECTURE.md" title="Project Architecture" section="Animation Architecture">
+        <snippet>GSAP + Lenis + Framer Motion integration strategy. Library segregation: GSAP for state transitions (Flip) and timelines, Framer Motion for card hover effects. Existing dependencies confirmed: gsap@3.13.0, @gsap/react@2.1.2, framer-motion@12.4.2, lucide-react@0.462.0, @radix-ui/react-toggle@1.1.0 all installed.</snippet>
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/prd/prd.md" title="AI Briefing Engine Page Redesign - PRD" section="Color Palette">
+        <snippet>Briefing Engine unique palette (distinct from Homepage blue, Studios orange): Dark Indigo #4F46E5, Cyan #0891B2, Fuchsia #C026D3. Glassmorphism patterns: backdrop-blur-md, bg-opacity-10. Typography: font-black, tracking-tighter, leading-none. Spacing rhythm: gap-8, gap-16, gap-24.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/studios/FilmStripDivider.tsx" kind="component" symbol="FilmStripDivider" lines="1-55">
+        <reason>Reference pattern for film strip border aesthetic (AC4). Uses sprocket holes (12 per side), orange accent borders, gradient backgrounds. BenefitCard should adapt this visual language to card borders (mini sprocket holes, accent-colored borders instead of full divider).</reason>
+      </artifact>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/ui/toggle.tsx" kind="component" symbol="Toggle" lines="29-43">
+        <reason>Radix UI Toggle primitive wrapper (AC1). Base component for ModeToggle. Uses CVA for variant styling, forwardRef pattern, accessibility built-in. ModeToggle will extend this with custom pill-shaped container, sliding indicator, and GSAP animations.</reason>
+      </artifact>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/AudienceBenefits.tsx" kind="component" symbol="AudienceBenefits" lines="59-157">
+        <reason>EXISTING implementation with BASIC toggle (lines 100-121). IMPORTANT: This component needs SIGNIFICANT upgrade. Current: Simple CSS opacity fade, basic button toggle, no GSAP Flip, both panels always visible. Story 1.9 requires: GSAP Flip state transitions, Radix Toggle primitive, orchestrated exit/enter animations, single-focus display. Plan to REPLACE or heavily refactor this component.</reason>
+      </artifact>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BenefitCard.tsx" kind="component" symbol="BenefitCard" lines="1-48">
+        <reason>EXISTING basic benefit card. Current: Simple glassmorphic styling, gradient accent on hover, basic layout (badge + icon + title + description). Story 1.9 requires: Add film strip border aesthetic (inspired by FilmStripDivider), Framer Motion hover effects (lift + glow with spring physics), GPU optimizations (will-change, translateZ). Plan to ENHANCE this component with premium features.</reason>
+      </artifact>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/palette.ts" kind="constant" symbol="briefingPalette" lines="*">
+        <reason>Color constants for Briefing Engine. Contains indigo (#4F46E5), cyan (#0891B2), fuchsia (#C026D3) palette values. Use these constants for consistent accent colors across ModeToggle, benefit cards, and container gradients.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="gsap" version="^3.13.0">Core animation library + Flip plugin for state transitions</package>
+        <package name="@gsap/react" version="^2.1.2">React hooks (useGSAP) for simplified context management</package>
+        <package name="@radix-ui/react-toggle" version="^1.1.0">Accessible toggle primitive for ModeToggle component</package>
+        <package name="lucide-react" version="^0.462.0">Icon library (Building, Users, TrendingUp, Rocket, Bookmark, Award)</package>
+        <package name="framer-motion" version="^12.4.2">Card hover animations (lift + glow with spring physics)</package>
+        <package name="react" version="^18.3.1">Core framework (useState, useEffect, useRef hooks)</package>
+        <package name="tailwindcss" version="^3.4.11">Utility-first styling (glassmorphism, responsive design)</package>
+        <package name="class-variance-authority" version="^0.7.1">CVA for variant styling in components</package>
+        <package name="clsx" version="^2.1.1">className utility for conditional classes</package>
+        <package name="tailwind-merge" version="^2.5.2">Merge Tailwind classes (cn() utility)</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint type="pattern">Component design: TypeScript + functional components + proper JSDoc (per frontend-architecture.md checklist)</constraint>
+    <constraint type="pattern">File organization: Feature-based structure (src/components/briefing/)</constraint>
+    <constraint type="pattern">Naming convention: PascalCase for components, camelCase for utilities</constraint>
+    <constraint type="pattern">Code size limits: All components <500 LOC (BenefitCard ~80 LOC, ModeToggle ~120 LOC, AudienceBenefits ~150 LOC)</constraint>
+    <constraint type="state">Local React Hooks (useState, useEffect) for mode state - no global state management required</constraint>
+    <constraint type="styling">Tailwind CSS utility-first approach + CVA for variant styling + Shadcn/UI Radix primitives</constraint>
+    <constraint type="animation">Library segregation: GSAP Flip for state transitions, GSAP Timeline for orchestration, Framer Motion for card hovers, NO Lenis (user-initiated, not scroll-driven)</constraint>
+    <constraint type="cleanup">gsap.context() with scoped animations, ctx.revert() in useEffect cleanup, prevents memory leaks on unmount</constraint>
+    <constraint type="performance">Transform + opacity only (GPU-accelerated), 60fps target, will-change hints, debouncing to prevent animation thrashing</constraint>
+    <constraint type="color">Briefing Engine palette: Cyan #0891B2 (agency accent), Fuchsia #C026D3 (brand accent), Dark Indigo #4F46E5 (background gradients), Slate-900/800 (glassmorphic surfaces)</constraint>
+    <constraint type="responsive">Desktop breakpoint: 1024px+ (3-column grid), Mobile <1024px (single column stack)</constraint>
+    <constraint type="accessibility">Keyboard navigation (Tab, Enter, Space), focus indicators (ring-2 ring-offset-2), ARIA attributes (Radix handles), screen reader announcements (aria-live="polite")</constraint>
+    <constraint type="testing">Zero automated tests (manual validation only per project DoD). Manual browser testing (Chrome, Firefox, Safari, mobile), performance profiling (Chrome DevTools), accessibility testing (keyboard nav, screen readers)</constraint>
+    <constraint type="integration">Must coexist with existing AudienceBenefits.tsx (plan to REPLACE or heavily refactor). No conflicts with Framer Motion library, React Router navigation, Tailwind configuration</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface name="AudienceMode" kind="type">
+      <signature>type AudienceMode = 'agency' | 'brand'</signature>
+      <purpose>Audience mode discriminator - determines which benefits panel is displayed</purpose>
+    </interface>
+    <interface name="AccentColor" kind="type">
+      <signature>type AccentColor = 'cyan' | 'fuchsia'</signature>
+      <purpose>Accent color variants matching Briefing Engine palette</purpose>
+    </interface>
+    <interface name="BenefitCardProps" kind="interface">
+      <signature>interface BenefitCardProps { title: string; description: string; icon: LucideIcon; accentColor: AccentColor; className?: string }</signature>
+      <purpose>Props for BenefitCard component (AC4)</purpose>
+    </interface>
+    <interface name="ModeToggleProps" kind="interface">
+      <signature>interface ModeToggleProps { activeMode: AudienceMode; onToggle: (mode: AudienceMode) => void; className?: string; disabled?: boolean }</signature>
+      <purpose>Props for ModeToggle component (AC1). disabled prevents toggle during animation</purpose>
+    </interface>
+    <interface name="AudienceBenefitsProps" kind="interface">
+      <signature>interface AudienceBenefitsProps { initialMode?: AudienceMode; showHeader?: boolean; className?: string }</signature>
+      <purpose>Props for AudienceBenefits parent component (AC7, AC8). initialMode defaults to 'agency', showHeader defaults to true</purpose>
+    </interface>
+    <interface name="AudienceBenefitsState" kind="interface">
+      <signature>interface AudienceBenefitsState { mode: AudienceMode; isAnimating: boolean; isPersisted: boolean }</signature>
+      <purpose>Local state for mode toggle. isAnimating prevents toggle spam, isPersisted tracks if mode loaded from localStorage</purpose>
+    </interface>
+    <interface name="localStorage" kind="api">
+      <signature>localStorage.setItem('audience-benefits-mode', mode: 'agency' | 'brand')</signature>
+      <purpose>Save mode preference across sessions (AC1.7). Key: 'audience-benefits-mode', Value: 'agency' | 'brand'</purpose>
+    </interface>
+    <interface name="URLSearchParams" kind="api">
+      <signature>new URLSearchParams(window.location.search).get('mode') → 'agency' | 'brand' | null</signature>
+      <purpose>Deep link support for marketing campaigns (AC1.8). Query param: ?mode=brand sets initial mode</purpose>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+Project has zero automated tests - manual validation only per Definition of Done. Testing approach: Manual browser testing (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+, Mobile Safari iOS 15+, Mobile Chrome Android 12+), performance profiling using Chrome DevTools Performance tab (60fps target, no dropped frames), memory leak detection using Chrome DevTools Memory profiler (heap snapshots before/after mount/unmount cycles), accessibility testing (keyboard navigation with Tab/Enter/Space, screen readers NVDA/VoiceOver, color contrast verification with WebAIM Contrast Checker). Animation validation: Chrome DevTools Rendering tab (check "Paint flashing" and "Layer borders" to verify GPU acceleration), FPS monitoring during 0.9s transition sequence, rapid toggle click testing to verify isAnimating guard prevents spam. Component testing: Visual QA for glassmorphism, film strip borders, color consistency, responsive breakpoints (375px, 768px, 1024px, 1920px). localStorage testing: Mode persistence across page reloads, Safari private mode fallback (no crash), clear localStorage reset to 'agency' default. URL parameter testing: Navigate to ?mode=brand, verify brand mode displays on load, test invalid ?mode=invalid defaults to 'agency'. No test framework (Vitest/Jest/RTL/Playwright) - all validation manual.
+    </standards>
+    <locations>
+No automated test directories exist. Manual testing performed in browser DevTools. Performance profiling: Chrome DevTools → Performance tab (record toggle interaction, analyze frame rate). Memory profiling: Chrome DevTools → Memory tab (take heap snapshot, mount/unmount component 10 times, take second snapshot, verify no GSAP detached DOM nodes). Accessibility testing: Keyboard navigation (Tab through toggle and cards), screen reader testing (NVDA on Windows, VoiceOver on macOS), color contrast analysis (WebAIM Contrast Checker for cyan/fuchsia text on dark backgrounds). Visual QA: Browser resize testing (375px → 1920px), cross-browser testing (Chrome, Firefox, Safari, Edge), mobile device testing (iPhone 12, Pixel 6). Animation testing: Chrome DevTools Rendering tab (enable Paint flashing, Layer borders), stats.js FPS monitor (if integrated), rapid click spam testing.
+    </locations>
+    <ideas>
+      <idea ac="AC1">Test ModeToggle pill-shaped design: Verify glassmorphic background (backdrop-blur-md visible), sliding indicator animates smoothly (0.4s power2.inOut ease), active mode glows in correct accent color (cyan for agency, fuchsia for brand), keyboard Tab focuses toggle, Enter/Space toggles mode</idea>
+      <idea ac="AC1">Test localStorage persistence: Toggle to brand mode → refresh page → verify brand mode persists, clear localStorage → verify defaults to agency, test Safari private mode → verify graceful fallback (no crash, mode doesn't persist)</idea>
+      <idea ac="AC1">Test URL parameter deep linking: Navigate to ?mode=brand → verify brand mode displays on load, test ?mode=invalid → verify defaults to agency, test ?mode=agency → verify agency mode displays</idea>
+      <idea ac="AC2">Test GSAP Flip state transitions: Toggle mode → verify smooth transition (no layout shift, no jank), verify Flip.getState() called before state change (inspect React DevTools timeline), verify Flip.from() animates to new state (0.6s duration visible)</idea>
+      <idea ac="AC2">Test toggle spam prevention: Rapidly click toggle during animation → verify clicks ignored while isAnimating=true, verify toggle responds after animation completes (900ms total), test keyboard spam (rapid Enter/Space) → same behavior</idea>
+      <idea ac="AC3">Test orchestrated exit/enter animations: Toggle mode → observe 3-phase animation: (1) Exit 0-300ms: Cards fade out + scale down 1→0.95, stagger 0.05s visible, (2) Color 300-600ms: Container gradient shifts cyan→fuchsia or fuchsia→cyan, (3) Enter 600-900ms: New cards fade in + scale up + translateY -30px→0, stagger 0.08s visible, back.out(1.2) overshoot subtle</idea>
+      <idea ac="AC3">Test animation cleanup: Mount/unmount component 10 times → take heap snapshot → verify no retained GSAP detached DOM nodes, verify ctx.revert() called on unmount (React DevTools Profiler), verify no ScrollTrigger instances persist</idea>
+      <idea ac="AC4">Test BenefitCard premium design: Verify film strip border aesthetic (mini sprocket holes or accent borders inspired by FilmStripDivider), verify glassmorphic card styling (backdrop-blur-lg visible), verify icon size 48px and colored in accent, verify typography (title text-2xl font-bold, description text-base text-slate-300)</idea>
+      <idea ac="AC4">Test BenefitCard hover effects: Hover card → verify lift translateY(-4px), verify glow box-shadow 0 8px 32px with accent color, verify spring physics (stiffness 300, damping 20) feels smooth, verify GPU optimization (no paint flashing in DevTools Rendering tab)</idea>
+      <idea ac="AC5,AC6">Test benefit content accuracy: Agency mode → verify 3 cards: Scale Multiple Clients (Building icon), Faster Client Onboarding (Users icon), Increased Team Productivity (TrendingUp icon), Brand mode → verify 3 cards: Speed to Campaign Launch (Rocket icon), Stay On Brand Always (Bookmark icon), Professional Results (Award icon), verify all icons from lucide-react, verify descriptions match AC5/AC6 exactly</idea>
+      <idea ac="AC7">Test layout and responsiveness: Desktop 1024px+ → verify 3-column grid, max-width 1200px container, Mobile <1024px → verify single column stack, verify section header "Who Benefits" centered, verify ModeToggle centered below header mb-16, verify no horizontal scroll at any breakpoint</idea>
+      <idea ac="AC7">Test container gradient shift: Toggle mode → verify container background gradient shifts from cyan tones to fuchsia tones (or vice versa), verify smooth color transition during 300-600ms phase, verify gradient uses linear-gradient(135deg, var(--accent-from), var(--accent-to))</idea>
+      <idea ac="AC8">Test React integration: Verify gsap.context() used for animation scoping (inspect code), verify ctx.revert() in useEffect cleanup (inspect code), verify both panels in DOM (inspect React DevTools), verify visibility toggled via state not DOM removal, verify localStorage try-catch handles errors gracefully</idea>
+      <idea ac="AC8">Test performance budget: Record animation in Chrome DevTools Performance tab → verify 60fps maintained during 0.9s transition (no dropped frames), verify GPU acceleration (only transform + opacity animated, no layout/paint), verify memory usage <2MB additional footprint, verify bundle size impact <5kb gzipped (webpack bundle analyzer)</idea>
+    </ideas>
+  </tests>
+</story-context>

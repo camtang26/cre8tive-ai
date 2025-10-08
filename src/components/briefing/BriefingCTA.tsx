@@ -42,7 +42,7 @@ export const BriefingCTA = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Ready to Transform Your Ad Creation?
+            Start Creating Premium Storyboards—Free Trial
           </motion.h2>
 
           <motion.p

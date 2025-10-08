@@ -100,12 +100,6 @@ docs/
 
 **Components:** <500 LOC/file • Lazy load heavy components • Proper TypeScript types
 
-**Animations:**
-- GSAP: Timeline-based, scroll-triggered
-- Lenis: Smooth scroll wrapper
-- Framer Motion: Component transitions, micro-interactions
-- **REQUIRED:** `prefers-reduced-motion` fallbacks
-
 **SEO:** react-helmet meta tags • sitemap.xml • canonical URLs • structured data
 
 **Security:** Zod validation • DOMPurify sanitization • CSP headers • HTTPS only
@@ -125,7 +119,7 @@ docs/
 - `take_screenshot()` • `list_console_messages()`
 
 **Context7 MCP:**
-- Latest docs for React, TypeScript, GSAP, Tailwind, Framer Motion
+- Latest docs for everything.
 
 ---
 

@@ -1,0 +1,76 @@
+# Content Intelligence Dual-Page Extraction Workflow
+name: 'content-intelligence-dual-page'
+description: 'Multi-agent parallel analysis workflow that extracts actionable content insights from long-form transcripts for multiple pages. Uses specialized agents to analyze, synthesize, and validate content intelligence.'
+author: 'BMad Master'
+version: '1.0.0'
+
+# Configuration
+config_source: '{project-root}/bmad/core/config.yaml'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+output_folder: '{config_source}:output_folder'
+date: system-generated
+
+# Workflow paths
+installed_path: '{project-root}/bmad/workflows/content-intelligence-dual-page'
+template: false  # Action workflow - no template needed
+instructions: '{installed_path}/instructions.md'
+validation: '{installed_path}/checklist.md'
+
+# Input files - transcript parts (can be customized per run)
+transcript_parts:
+  part_1: '{project-root}/docs/gemini-transcript-parts/part-1-concept-brief.md'
+  part_2: '{project-root}/docs/gemini-transcript-parts/part-2-production-execution.md'
+  part_3: '{project-root}/docs/gemini-transcript-parts/part-3-visual-strategy.md'
+  part_4: '{project-root}/docs/gemini-transcript-parts/part-4-deployment-marketing.md'
+
+# Page targets for synthesis
+page_targets:
+  - name: 'briefing-engine'
+    label: 'AI Briefing Engine'
+    tags: ['Briefing Engine', 'Both']
+  - name: 'studios'
+    label: 'Studios'
+    tags: ['Studios', 'Both']
+
+# Output configuration
+output_base: '{output_folder}/insights/gemini-transcript-analysis'
+phase1_output: '{output_base}/phase1-extractions'
+phase2_output: '{output_base}/phase2-strategies'
+phase3_output: '{output_base}/phase3-validation'
+
+# Agent configurations
+agents:
+  phase1:
+    - name: 'bmm-user-researcher'
+      focus: 'User personas, pain points, value propositions, objections, desires'
+      output: '{phase1_output}/01-user-research-insights.md'
+    - name: 'bmm-market-researcher'
+      focus: 'Competitive positioning, differentiation, market context'
+      output: '{phase1_output}/02-market-competitive-insights.md'
+    - name: 'bmm-trend-spotter'
+      focus: 'Emerging opportunities, industry signals, innovation areas'
+      output: '{phase1_output}/03-trend-opportunity-insights.md'
+    - name: 'bmm-technical-evaluator'
+      focus: 'Technical capabilities, AI/media stack, process sophistication'
+      output: '{phase1_output}/04-technical-capability-insights.md'
+    - name: 'bmm-data-analyst'
+      focus: 'Quantitative insights, performance indicators, ROI signals'
+      output: '{phase1_output}/05-quantitative-insights.md'
+
+  phase2:
+    - name: 'briefing-engine-synthesizer'
+      input_tags: ['Briefing Engine', 'Both']
+      output: '{phase2_output}/briefing-engine-content-strategy.md'
+    - name: 'studios-synthesizer'
+      input_tags: ['Studios', 'Both']
+      output: '{phase2_output}/studios-content-strategy.md'
+
+  phase3:
+    - name: 'bmm-document-reviewer'
+      scope: 'All Phase 1 and Phase 2 outputs'
+      output: '{phase3_output}/quality-review-recommendations.md'
+
+# Execution mode
+autonomous: false  # Requires user approval at checkpoints
+parallel_execution: true  # Enable parallel agent processing
