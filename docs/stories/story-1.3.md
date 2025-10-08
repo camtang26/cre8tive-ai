@@ -6,6 +6,8 @@
 **Assignee:** Dev
 **Created:** 2025-10-06
 
+> **Retrospective Note (2025-10-08):** This story included `prefers-reduced-motion` support and accessibility features which are no longer applicable per [AD-003](../technical-decisions.md#ad-003-remove-all-wcag-accessibility-implementations-2025-10-08). Future animation components do not require these implementations.
+
 ---
 
 ## User Story

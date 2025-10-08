@@ -2,22 +2,24 @@ import { Navigation } from "@/components/Navigation";
 import { PageLayout } from "@/components/layouts/PageLayout";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Helmet } from "react-helmet";
-import { ReactLenis } from 'lenis/react';
+import { ReactLenis } from "lenis/react";
 import { StoryboardDivider } from "@/components/briefing/StoryboardDivider";
 import { VisualStylesGallery } from "@/components/briefing/VisualStylesGallery";
 import { BriefingCTA } from "@/components/briefing/BriefingCTA";
 import { FadeIn } from "@/components/shared/FadeIn";
-import { briefingPalette } from "@/components/briefing/palette";
 import { BriefToStoryboardAnimation } from "@/components/briefing/BriefToStoryboardAnimation";
+import { AudienceBenefits } from "@/components/briefing/AudienceBenefits";
 import { BriefingProcessFlow } from "@/components/briefing/BriefingProcessFlow";
-import { AIProcessingVisual } from "@/components/briefing/AIProcessingVisual";
+import { WorkflowTransformation } from "@/components/briefing/WorkflowTransformation";
+import { briefingPalette } from "@/components/briefing/palette";
+import { useReducedMotion } from "framer-motion";
 
 const BriefingEngine = () => {
   const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
 
-  return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: true }}>
-      <div className="relative min-h-screen bg-transparent">
+  const page = (
+    <div className="relative min-h-screen bg-transparent">
         {/* Unified Page Background - Briefing Engine BLACK-CENTRIC with Indigo Hints */}
         {/* Matches Studios black-centric approach: 95%+ black, subtle color hints */}
         <div
@@ -48,27 +50,27 @@ const BriefingEngine = () => {
           <Navigation />
 
           <main className="pt-20">
-          {/* Hero Section with Dark Aesthetic */}
+          {/* Hero Section with Dark Aesthetic - AC #9: Full viewport height with balanced scaling */}
           <section
-            className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-10 md:py-20 px-4 mb-8 md:mb-16"
+            className="relative min-h-screen flex items-start justify-center overflow-hidden pt-20 md:pt-28 pb-8 px-4 z-10"
             aria-label="Hero section"
           >
-            <div className="container mx-auto max-w-7xl">
-              <div className="text-center space-y-6 md:space-y-10">
+            <div className="mx-auto w-full max-w-[1680px] px-4 sm:px-6 lg:px-12">
+              <div className="text-center space-y-8 md:space-y-12 lg:space-y-14">
                 <h1 className={`font-black tracking-tighter leading-none text-white opacity-0 animate-[fadeIn_1s_ease-out_0.3s_forwards] ${
                   isMobile
                     ? 'text-5xl'
-                    : 'text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl'
+                    : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl'
                 }`}>
                   AI Briefing Engine
                 </h1>
 
-                <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl text-white/90 font-semibold opacity-0 animate-[fadeIn_1s_ease-out_0.6s_forwards] max-w-5xl mx-auto px-2 md:px-0">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-white/90 font-semibold opacity-0 animate-[fadeIn_1s_ease-out_0.6s_forwards] max-w-5xl mx-auto px-2 md:px-0">
                   From Brand Brief to Professional Storyboard in Minutes
                 </h2>
 
-                <p className="text-base sm:text-lg md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed opacity-0 animate-[fadeIn_1s_ease-out_0.9s_forwards] px-3 md:px-4">
-                  AI-powered briefing platform that transforms your brand vision into production-ready storyboards. Choose from 8 visual styles, delivered as professional PDFs.
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed opacity-0 animate-[fadeIn_1s_ease-out_0.9s_forwards] px-3 md:px-4">
+                  AI-powered briefing platform that transforms your brand vision into production-ready storyboards. Choose from 9 visual styles, delivered as professional PDFs.
                 </p>
 
                 <div className="opacity-0 animate-[fadeIn_1s_ease-out_1.2s_forwards] flex gap-4 justify-center flex-wrap">
@@ -77,7 +79,7 @@ const BriefingEngine = () => {
                     style={{
                       background: `linear-gradient(135deg, ${briefingPalette.indigo.DEFAULT}, ${briefingPalette.fuchsia.DEFAULT})`,
                       color: 'white',
-                      boxShadow: `0 0 20px ${briefingPalette.holographic.cyan}40`
+                      boxShadow: `0 0 20px ${briefingPalette.cyan.DEFAULT}50`
                     }}
                   >
                     Start Your Brief
@@ -86,86 +88,37 @@ const BriefingEngine = () => {
                   <button
                     className="px-10 py-4 rounded-xl font-bold text-xl border-2 text-white transition-all duration-300 transform hover:scale-105"
                     style={{
-                      borderColor: briefingPalette.cyan.glow,
+                      borderColor: briefingPalette.cyan.DEFAULT,
                       background: 'transparent'
                     }}
                   >
                     See How It Works
                   </button>
                 </div>
-
-                <div className="mt-14 md:mt-16">
-                  <BriefToStoryboardAnimation />
-                </div>
               </div>
             </div>
           </section>
 
-          <FadeIn>
-            <StoryboardDivider sceneNumbers={[1, 2, 3]} />
-          </FadeIn>
+          {/* Transformation Animation - OUTSIDE hero section to prevent blue bar bleed */}
+          <BriefToStoryboardAnimation />
+
+          <StoryboardDivider />
 
           <FadeIn>
             <VisualStylesGallery />
           </FadeIn>
 
-          <FadeIn>
-            <StoryboardDivider sceneNumbers={[2, 3, 4]} />
-          </FadeIn>
+          <StoryboardDivider />
 
           <BriefingProcessFlow />
 
-          <FadeIn>
-            <StoryboardDivider sceneNumbers={[3, 4, 5]} />
-          </FadeIn>
+          <StoryboardDivider />
 
-          {/* AI Processing Visualization Section */}
-          <section
-            className="py-16 md:py-24 px-4"
-            style={{
-              background: `radial-gradient(circle at center, rgba(67, 56, 202, 0.05) 0%, transparent 70%)`,
-            }}
-          >
-            <div className="container mx-auto max-w-7xl">
-              {/* Section Header */}
-              <div className="text-center mb-12 md:mb-16">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 md:mb-6">
-                  AI in Action
-                </h2>
-                <p
-                  className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
-                  style={{ color: briefingPalette.text.secondary }}
-                >
-                  Watch our AI transform your brand brief into a professional storyboard
-                  in real-time. Advanced neural processing creates production-ready
-                  creative direction.
-                </p>
-              </div>
+          <WorkflowTransformation />
 
-              {/* AI Processing Visual */}
-              <AIProcessingVisual />
+          <StoryboardDivider />
 
-              {/* Bottom Context */}
-              <div className="text-center mt-12 md:mt-16">
-                <p
-                  className="text-base md:text-lg"
-                  style={{ color: briefingPalette.text.secondary }}
-                >
-                  Processing thousands of creative patterns to generate your{" "}
-                  <span
-                    className="font-bold"
-                    style={{ color: briefingPalette.cyan.glow }}
-                  >
-                    unique storyboard
-                  </span>
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <FadeIn>
-            <StoryboardDivider sceneNumbers={[4, 5, 6]} />
-          </FadeIn>
+          <AudienceBenefits />
 
           <FadeIn>
             <BriefingCTA />
@@ -173,6 +126,15 @@ const BriefingEngine = () => {
         </main>
         </PageLayout>
       </div>
+  );
+
+  if (prefersReducedMotion) {
+    return page;
+  }
+
+  return (
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: true }}>
+      {page}
     </ReactLenis>
   );
 };

@@ -10,6 +10,11 @@
 - Accessibility patterns (WCAG AA, prefers-reduced-motion)
 - Build validated ✅ | Lint validated ✅
 
+- **AI Product Charter — Story 1.7 / AC10 (Entrance Animation)**
+  - **Problem:** The BriefToStoryboardAnimation container appears immediately on load with no entrance motion, breaking the premium cinematic reveal promised in Story 1.7 and leaving Acceptance Criterion #10 unmet.
+  - **Target User:** Prospective Cre8tive AI Studios clients evaluating our storyboard automation workflow on desktop and laptop browsers (primary decision-makers in agencies/marketing teams).
+  - **Success Signal:** On first scroll past the hero (≈20% viewport), the container animates from blurred/offset to crisp focus exactly once, chains into the intro timeline, maintains 60 fps, and the story’s AC #10 plus associated tasks in `docs/stories/story-1.7.md` are marked complete with passing tests/linters.
+
 - 2025-10-06 10:15 NZDT — Codex prepping S6 (Storyboard GSAP timeline + canvas particles)
 - 2025-10-06 08:50 NZDT — Codex starting S5 (Visual styles ScrollTrigger + detail panel) (Complete)
 - 2025-10-06 05:15 NZDT — Codex starting S2 (Fix hero section dark theme gradient rework) (Complete)
@@ -50,6 +55,11 @@ npm run preview          # Preview production build on port 4173
 - 2 modified config files (base.css, tailwind.config.ts)
 
 # Decisions
+
+**2025-10-08 09:30 UTC: AC10 Entrance Research ✅**
+- Context7 (/llmstxt/gsap_llms_txt) confirms `timeline.eventCallback('onComplete', ...)` as the recommended chaining pattern; use paused intro timeline and fire via entrance timeline completion.
+- Archon RAG surfaced ScrollTrigger docs emphasising `once: true` entrance triggers and warned against nesting ScrollTriggers inside tweens; ensures we drive entrance via standalone `ScrollTrigger.create`.
+- Blur performance guidance: lean on transforms + filter with GPU acceleration (`force3D` auto) and be ready to add `willChange: 'filter, transform'` or dial blur to 12px if perf drops.
 
 **2025-10-06 13:30 NZDT: Architecture Documentation Sprint Complete ✅**
 - **Created:** `docs/architecture/frontend-architecture.md` (26KB, 670 lines) — Complete frontend spec with component patterns, state management, styling, accessibility, performance
@@ -496,6 +506,14 @@ npm run preview          # Preview production build on port 4173
 None from redesign - all validations complete, redesign ready for deployment
 
 # Next Steps
+
+**ACTIVE STORY: 1.7 AC10 Entrance Reveal**
+- Prep: Research captured 2025-10-08 (GSAP chaining, blur performance).
+- Implement entrance timeline + ScrollTrigger once logic in `BriefToStoryboardAnimation.tsx`.
+- Validate hero layout keeps animation container below fold; adjust `min-h` if necessary.
+- Add Vitest harness + RTL test for initial hidden state and chain callback stub.
+- Run `npx vitest run`, `npm run lint`, `npm run build`; record performance observations.
+- Update story Debug Log/Change Log + checkboxes for AC10 completion.
 
 **ACTIVE PLAN: AI Briefing Engine Dark Theme + GSAP Animations Rework**
 - Created: 2025-10-05 17:03 NZDT

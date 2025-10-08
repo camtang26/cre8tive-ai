@@ -556,78 +556,47 @@ const lenis = new Lenis({
 
 ---
 
-## Accessibility (Reduced Motion)
+## ~~Accessibility (Reduced Motion)~~ DEPRECATED
 
-### prefers-reduced-motion Support
+> **⚠️ DEPRECATED (2025-10-08):** This section is NO LONGER APPLICABLE per Technical Decision **[AD-003](../technical-decisions.md#ad-003-remove-all-wcag-accessibility-implementations-2025-10-08)**.
+>
+> **DO NOT implement `prefers-reduced-motion` or accessibility features** in animation components.
+>
+> **Rationale:** Visual impact is core to brand identity. Cre8tive AI follows creative industry standards (Figma, After Effects, agency showcases) which prioritize visual experience over WCAG compliance.
+>
+> **Historical Context:** This section documents patterns used in Stories 1.2-1.6 (completed before AD-003). New development should NOT follow these patterns.
 
-**CSS Approach (Recommended):**
+<details>
+<summary>Historical Implementation (Reference Only - Do Not Use)</summary>
+
+### prefers-reduced-motion Support (DEPRECATED)
+
+**CSS Approach (Do Not Use):**
 
 ```css
-/* Default: Full animations */
-.animated-element {
-  transition: transform 0.6s ease-out;
-}
-
-/* Reduced motion: Instant transitions */
+/* DEPRECATED - DO NOT USE */
 @media (prefers-reduced-motion: reduce) {
   .animated-element {
     transition: none;
     animation: none;
   }
-
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }
 ```
 
-**JavaScript Detection:**
+**JavaScript Detection (Do Not Use):**
 
 ```typescript
+// DEPRECATED - DO NOT USE
 // src/hooks/usePrefersReducedMotion.ts
-import { useEffect, useState } from 'react'
-
 export function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
-
-    const listener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
-    mediaQuery.addEventListener('change', listener)
-    return () => mediaQuery.removeEventListener('change', listener)
-  }, [])
-
-  return prefersReducedMotion
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  return mediaQuery.matches
 }
 ```
 
-**GSAP Integration:**
+**Why Deprecated:** See [AD-003](../technical-decisions.md#ad-003-remove-all-wcag-accessibility-implementations-2025-10-08) for full context, alternatives considered, and rollback plan.
 
-```typescript
-export function Component() {
-  const prefersReducedMotion = usePrefersReducedMotion()
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to('.element', {
-        x: 100,
-        duration: prefersReducedMotion ? 0.01 : 0.8,  // Near-instant if reduced motion
-        scrollTrigger: prefersReducedMotion ? undefined : {  // Disable ScrollTrigger
-          trigger: '.container',
-          start: 'top 80%',
-        }
-      })
-    }, containerRef)
-
-    return () => ctx.revert()
-  }, [prefersReducedMotion])
-}
-```
+</details>
 
 ---
 

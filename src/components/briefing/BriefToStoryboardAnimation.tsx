@@ -1,63 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { useLenis } from "lenis/react";
-import { briefingPalette } from "@/components/briefing/palette";
+import { briefingPalette } from "./palette";
 import { AIProcessingVisual } from "@/components/briefing/AIProcessingVisual";
 
-gsap.registerPlugin(ScrollTrigger);
+const visualStyles = [
+  { name: "Minimalist", src: "/briefing-engine/visual-styles/Minimalist.webp" },
+  { name: "Bold & Vibrant", src: "/briefing-engine/visual-styles/BoldVibrant.webp" },
+  { name: "Cinematic", src: "/briefing-engine/visual-styles/CinematicDramatic.webp" },
+  { name: "Playful & Animated", src: "/briefing-engine/visual-styles/Playfulanimated.webp" },
+  { name: "Futuristic", src: "/briefing-engine/visual-styles/Futuristic.webp" },
+  { name: "Retro & Vintage", src: "/briefing-engine/visual-styles/RetroVintage.webp" },
+  { name: "Documentary", src: "/briefing-engine/visual-styles/DocumentaryRealistic.webp" },
+  { name: "Artistic Abstract", src: "/briefing-engine/visual-styles/ArtisticAbstract.webp" },
+  { name: "2D Vector", src: "/briefing-engine/visual-styles/2dVector.webp" }
+];
 
-/**
- * BriefToStoryboardAnimation - 15-Second GSAP ScrollTrigger Transformation Timeline
- *
- * Scroll-driven animation that visualizes the five-stage briefing → storyboard workflow.
- * User controls playhead by scrolling. Implements scrub animation pattern with pinning.
- *
- * @param duration - Timeline duration in seconds (default: 15s, maps to 3600px scroll)
- *
- * @features
- * - Stage 1 (0-3s): Form fields stagger animation
- * - Stage 2 (3-6s): AI processing particle swirl
- * - Stage 3 (6-9s): Style selection with burst effect
- * - Stage 4 (9-15s): Storyboard assembly (6 panels fly in)
- * - Stage 5 (15-16s): Studios handoff gradient shift
- *
- * @animation
- * - GSAP ScrollTrigger with scrub: true (user controls via scroll)
- * - Pin: Desktop only (disabled < 768px)
- * - GPU-accelerated transforms: translate, scale, opacity, filter
- * - Lenis smooth scroll integration via useLenis hook
- *
- * @accessibility
- * - prefers-reduced-motion: Shows final state immediately, skips animation
- * - ARIA labels for semantic structure
- * - Keyboard-accessible (no interactive elements, scroll-driven only)
- *
- * @performance
- * - ScrollTrigger cleanup via gsap.context() revert
- * - Lazy loading for images
- * - GPU acceleration via transform + will-change hints
- * - Dynamic stage content refs prevent memory leaks
- *
- * @references
- * - Architecture: docs/architecture/animation-patterns.md (Pattern 2: Scrub Animation)
- * - Story: docs/stories/story-1.7.md
- * - Palette: src/components/briefing/palette.ts
- */
-export interface BriefToStoryboardAnimationProps {
-  duration?: number;
-}
-
-// Animation constants
-const SCROLL_PIXELS_PER_SECOND = 240 // 240px scroll per second of timeline duration
-const DESKTOP_BREAKPOINT = 768 // px - below this, disable pinning
-const STAGE_COUNT = 5 // Total transformation stages
-
-// Accessibility helpers
-const prefersReducedMotion = () =>
-  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// Asset paths
 const storyboardFrames = [
   "/briefing-engine/storyboard/Frame1.webp",
   "/briefing-engine/storyboard/Frame2.webp",
@@ -67,360 +27,716 @@ const storyboardFrames = [
   "/briefing-engine/storyboard/Frame6.webp"
 ];
 
-const styleSamples = [
-  { name: "Minimalist", image: "/briefing-engine/visual-styles/Minimalist.webp" },
-  { name: "Cinematic", image: "/briefing-engine/visual-styles/CinematicDramatic.webp" },
-  { name: "Futuristic", image: "/briefing-engine/visual-styles/Futuristic.webp" },
-  { name: "Playful", image: "/briefing-engine/visual-styles/Playfulanimated.webp" },
-  { name: "Retro", image: "/briefing-engine/visual-styles/RetroVintage.webp" },
-  { name: "Documentary", image: "/briefing-engine/visual-styles/DocumentaryRealistic.webp" }
-];
-
 const stageData = [
   {
     title: "Craft the Brief",
-    description: "Capture campaign goal, audience, tone and must-have shots in a guided cinematic form.",
+    description:
+      "Capture campaign goal, audience, tone and must-have shots in a guided cinematic form.",
     accent: briefingPalette.indigo.DEFAULT
   },
   {
     title: "AI Narrative Engine",
-    description: "Neural choreography maps story pacing, tone and cinematography cues in real-time.",
+    description:
+      "Neural choreography maps story pacing, tone and cinematography cues in real-time.",
     accent: briefingPalette.holographic.cyan
   },
   {
     title: "Style Selection",
-    description: "Nine signature looks lock in aesthetic direction before any panel assembles.",
+    description:
+      "Nine signature looks snap into place—Minimalist, Cinematic, Playful and more—fully on brand.",
     accent: briefingPalette.fuchsia.DEFAULT
   },
   {
     title: "Storyboard Assembly",
-    description: "Panels draw on with scene markers, aspect ratios and director notes ready for review.",
+    description:
+      "Panels draw on with scene markers, aspect ratios and director notes ready for review.",
     accent: briefingPalette.cyan.DEFAULT
   },
   {
     title: "Studios Handoff",
-    description: "A production-ready PDF transitions into Cre8tive AI Studios for photo-real delivery.",
+    description:
+      "A production-ready PDF transitions into Cre8tive AI Studios for photo-real delivery.",
     accent: briefingPalette.orange.DEFAULT
   }
 ];
 
-export const BriefToStoryboardAnimation = ({ duration = 15 }: BriefToStoryboardAnimationProps = {}) => {
-  const containerRef = useRef<HTMLElement | null>(null);
+const heroDetailPills = [
+  {
+    label: "Campaign",
+    value: "Alpine Water · Summer Elevation"
+  },
+  {
+    label: "Formats",
+    value: "30s Hero · 15s Echo"
+  }
+];
+
+const heroFieldTiles = [
+  {
+    label: "Brand Name",
+    value: "Alpine Water Co.",
+    hint: "Feeds lower-thirds, supers, and CTA copy."
+  },
+  {
+    label: "Campaign Goal",
+    value: "Launch \"Peak Serenity\" hydration ritual",
+    hint: "Guides narrative arc + hero imagery."
+  },
+  {
+    label: "Primary Audience",
+    value: "Urban wellness seekers · 24–38",
+    hint: "Sets tone, casting, and pacing."
+  },
+  {
+    label: "Launch Window",
+    value: "June 15 – Aug 30 · Paid + Organic",
+    hint: "Locks timeline + media mix animations."
+  }
+];
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+export const BriefToStoryboardAnimation = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const stageRefs = useRef<HTMLDivElement[]>([]);
-  const progressRef = useRef<HTMLDivElement | null>(null);
+  const heroShellRef = useRef<HTMLDivElement | null>(null);
+  const heroGridRef = useRef<HTMLDivElement | null>(null);
+  const heroArcRef = useRef<HTMLDivElement | null>(null);
+  const heroLabelRef = useRef<HTMLDivElement | null>(null);
+  const heroHeadlineRef = useRef<HTMLHeadingElement | null>(null);
+  const heroSubheadlineRef = useRef<HTMLParagraphElement | null>(null);
+  const heroDetailRefs = useRef<HTMLDivElement[]>([]);
+  const heroFieldCardRef = useRef<HTMLDivElement | null>(null);
+  const heroFieldRefs = useRef<HTMLDivElement[]>([]);
+  const heroPrimaryCtaRef = useRef<HTMLAnchorElement | null>(null);
+  const heroSecondaryCtaRef = useRef<HTMLAnchorElement | null>(null);
   const badgeRef = useRef<HTMLSpanElement | null>(null);
+  const progressRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const descriptionRef = useRef<HTMLParagraphElement | null>(null);
   const accentRef = useRef<HTMLDivElement | null>(null);
+  const styleCardRefs = useRef<HTMLDivElement[]>([]);
+  const storyboardFrameRefs = useRef<HTMLDivElement[]>([]);
+  const pdfMockupRef = useRef<HTMLImageElement | null>(null);
 
-  const lenis = useLenis(() => ScrollTrigger.update());
+  const lenis = useLenis(() => {
+    ScrollTrigger.update();
+  });
+
+  // NOTE: useLenis hook handles Lenis + ScrollTrigger integration
+  // No manual ticker integration needed with ReactLenis wrapper
+
+  // Track if lenis callback has been registered (needs one frame after lenis loads)
+  const [lenisReady, setLenisReady] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-    const reduceMotion = prefersReducedMotion();
-    const sections = stageRefs.current.filter(Boolean);
-    if (!sections.length) return;
+    if (lenis && !lenisReady) {
+      // Wait one frame to ensure useLenis callback is fully registered
+      requestAnimationFrame(() => {
+        setLenisReady(true);
+      });
+    } else if (!lenis && lenisReady) {
+      setLenisReady(false);
+    }
+  }, [lenis, lenisReady]);
 
-    // Dynamic stage info updater (badge, title, description, accent color)
+  // All GSAP animations consolidated (auto-cleanup with useGSAP)
+  useGSAP(() => {
+    // CRITICAL: Wait for lenis callback to be registered before creating ScrollTrigger
+    if (!lenisReady) {
+      return;
+    }
+
+    // CRITICAL: Check containerRef first (exists immediately on mount)
+    // heroShellRef is populated later by JSX callback - checking it first causes early return
+    if (!containerRef.current) {
+      return;
+    }
+
+    // ========================================
+    // ENTRANCE ANIMATION - Initial Hidden State
+    // ========================================
+
+    // Set entire container to hidden state (position/scale final, only opacity/blur animate)
+    // CRITICAL: Keep y and scale at final values to prevent ScrollTrigger position shifts
+    gsap.set(containerRef.current, {
+      opacity: 0,                // Invisible but occupies layout space
+      y: 0,                      // Already at final position (no slide animation)
+      scale: 1,                  // Already at final scale (no scale animation)
+      filter: "blur(20px)",      // Heavy blur (out of focus) - will animate to 0
+      transformOrigin: "50% 50%" // Scale from center (for other animations)
+    });
+
+    // ========================================
+    // ENTRANCE TIMELINE - Simplified Focus Pull (opacity + blur only)
+    // ========================================
+
+    // Create entrance reveal timeline (blur → sharp, invisible → visible)
+    const entranceTimeline = gsap.timeline({
+      paused: true,  // Don't play automatically, wait for ScrollTrigger
+      defaults: { ease: "power3.out" }  // Smooth deceleration
+    });
+
+    entranceTimeline.to(containerRef.current, {
+      opacity: 1,                // Fade in
+      filter: "blur(0px)",       // Snap into focus
+      duration: 1.2,             // 1.2 seconds (feels premium, not rushed)
+      ease: "power3.out"         // Smooth ease-out (starts fast, ends slow)
+    });
+
+    // ScrollTrigger to fire entrance when container enters viewport
+    ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top 60%",          // Fires when container top hits 60% down viewport (tunable)
+      once: true,                // Only fire once (don't re-trigger on scroll up)
+      onEnter: () => {
+        entranceTimeline.play();
+      }
+    });
+
+    // ========================================
+    // INTRO TIMELINE (Stage 1 - Hero Form)
+    // ========================================
+
+    // Declare introTimeline outside conditional for broader scope
+    let introTimeline = null;
+
+    // Only run intro timeline if hero refs are populated
+    if (heroShellRef.current) {
+      // Set initial states
+      gsap.set(heroShellRef.current, { autoAlpha: 0, y: 40, scale: 0.94 });
+    if (heroGridRef.current) gsap.set(heroGridRef.current, { autoAlpha: 0, rotation: 4, scale: 1.06 });
+    if (heroArcRef.current) gsap.set(heroArcRef.current, { autoAlpha: 0, scale: 0.72, rotate: -28 });
+    if (heroLabelRef.current) gsap.set(heroLabelRef.current, { autoAlpha: 0, y: 22 });
+    if (heroHeadlineRef.current) gsap.set(heroHeadlineRef.current, { autoAlpha: 0, y: 36 });
+    if (heroSubheadlineRef.current) gsap.set(heroSubheadlineRef.current, { autoAlpha: 0, y: 28 });
+    heroDetailRefs.current.forEach((el) => gsap.set(el, { autoAlpha: 0, y: 20 }));
+    if (heroFieldCardRef.current) gsap.set(heroFieldCardRef.current, { autoAlpha: 0, y: 50, scale: 0.95 });
+    heroFieldRefs.current.forEach((el) => gsap.set(el, { autoAlpha: 0, y: 26 }));
+    if (heroPrimaryCtaRef.current) gsap.set(heroPrimaryCtaRef.current, { autoAlpha: 0, y: 20, scale: 0.92 });
+    if (heroSecondaryCtaRef.current) gsap.set(heroSecondaryCtaRef.current, { autoAlpha: 0, y: 20, scale: 0.92 });
+
+    // Create intro timeline (waits for entrance onComplete, not auto-play)
+    // This ensures all heroShellRef content is visible BEFORE scroll timeline can hide it
+    introTimeline = gsap.timeline({
+      paused: true,              // Don't auto-play, wait for entrance onComplete
+      defaults: { ease: "power3.out" }
+    });
+
+    introTimeline
+      .to(heroShellRef.current, { autoAlpha: 1, y: 0, scale: 1, duration: 0.8 })
+      .to(heroGridRef.current, { autoAlpha: 1, rotation: 0, scale: 1, duration: 1.1 }, "<")
+      .to(heroArcRef.current, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.9 }, "<0.1")
+      .to(heroLabelRef.current, { y: 0, autoAlpha: 1, duration: 0.55 }, "-=0.5")
+      .to(heroHeadlineRef.current, { y: 0, autoAlpha: 1, duration: 0.8 }, "-=0.4")
+      .to(heroSubheadlineRef.current, { y: 0, autoAlpha: 1, duration: 0.6 }, "-=0.45")
+      .to(heroDetailRefs.current, { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.1 }, "-=0.4")
+      .to(heroFieldCardRef.current, { y: 0, autoAlpha: 1, scale: 1, duration: 0.8 }, "-=0.35")
+      .to(heroFieldRefs.current, { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.08 }, "-=0.6")
+      .to(heroPrimaryCtaRef.current, { y: 0, autoAlpha: 1, scale: 1, duration: 0.45 }, "-=0.3")
+      .to(heroSecondaryCtaRef.current, { y: 0, autoAlpha: 1, scale: 1, duration: 0.45 }, "-=0.35");
+
+    // ========================================
+    // ENTRANCE → INTRO CHAINING (Overlapped for Earlier Start)
+    // ========================================
+
+    // Start intro timeline EARLIER (midway through entrance at 0.6s)
+    // This gives Frame 1 animation more time to complete before scroll transitions
+    entranceTimeline.add(() => {
+      introTimeline.play();
+    }, 0.6); // Fires 0.6s into entrance (50% through 1.2s entrance)
+
+    // ========================================
+    // INFINITE ANIMATIONS (Background elements)
+    // ========================================
+
+    // Rotating energy arc
+    if (heroArcRef.current) {
+      gsap.to(heroArcRef.current, {
+        rotation: 360,
+        repeat: -1,
+        duration: 20,
+        ease: "none"
+      });
+    }
+
+    // Pulsing grid background
+    if (heroGridRef.current) {
+      gsap.to(heroGridRef.current, {
+        backgroundPosition: "120% 60%",
+        filter: "brightness(1.25)",
+        repeat: -1,
+        yoyo: true,
+        duration: 24,
+        ease: "sine.inOut"
+      });
+    }
+    } // End hero intro timeline conditional
+
+    // ========================================
+    // SCROLL TIMELINE (All 5 Stages)
+    // ========================================
+
+    const sections = stageRefs.current.filter(Boolean);
+
+    if (!sections.length) {
+      return;
+    }
+
     const updateDetail = (index: number) => {
-      const clamped = Math.max(0, Math.min(stageData.length - 1, index));
-      const data = stageData[clamped];
-      // Update badge counter (1/5, 2/5, etc.)
-      if (badgeRef.current) badgeRef.current.textContent = `${clamped + 1}/${stageData.length}`;
-      // Update stage title and description
+      const data = stageData[Math.max(0, Math.min(stageData.length - 1, index))];
+      if (badgeRef.current)
+        badgeRef.current.textContent = `${index + 1}/${stageData.length}`;
       if (titleRef.current) titleRef.current.textContent = data.title;
       if (descriptionRef.current) descriptionRef.current.textContent = data.description;
-      // Animate accent color transition
-      if (accentRef.current) {
-        gsap.to(accentRef.current, { background: data.accent, duration: 0.4 });
-      }
     };
 
-    const ctx = gsap.context(() => {
-      if (reduceMotion) {
-        // Show final state (Stage 5) when motion disabled
-        sections.forEach((stage, i) => {
-          gsap.set(stage, { autoAlpha: i === sections.length - 1 ? 1 : 0, scale: 1 });
-        });
-        updateDetail(sections.length - 1);
-        if (progressRef.current) {
-          progressRef.current.style.width = "100%";
-          progressRef.current.style.background = briefingPalette.orange.DEFAULT;
-        }
-        return;
+    // Set initial states for all stages
+    gsap.set(sections, {
+      autoAlpha: 0,
+      scale: 0.9,
+      yPercent: 12,
+      filter: "saturate(0.6)",
+      transformOrigin: "50% 50%"
+    });
+
+    // Stage 0 (hero form) stays visible as base layer - NEVER gets hidden
+    // It contains heroShellRef with intro animations - hiding parent would override children
+    gsap.set(sections[0], {
+      autoAlpha: 1,
+      scale: 1.05,
+      yPercent: 0,
+      filter: "saturate(1)",
+      zIndex: 1  // Base layer
+    });
+    updateDetail(0);
+
+    // CRITICAL: Wait for container to be laid out before creating ScrollTrigger
+    // On hard refresh, lenis loads but container hasn't been painted yet (height=0)
+    const containerRect = containerRef.current?.getBoundingClientRect();
+    if (!containerRect || containerRect.height === 0) {
+      // Use requestAnimationFrame to defer until after browser layout pass
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+      return;
+    }
+
+    // Main scroll timeline (CRITICAL: ease "none" for scrub compatibility)
+    const scrollTimeline = gsap.timeline({
+      defaults: { ease: "none" }, // CHANGED from "power3.out" - required for scrub
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top+=15 top", // FIXED: Start pin AFTER scrolling past top (prevents text cutoff)
+        end: "+=12000", // Buffer (6s) + Frames 2-5 (5s) + dwell (2s) = 13s × 960px
+        scrub: 10.0, // Instant 1:1 scroll-to-animation mapping (linear progression, no lag)
+        pin: true,
+        anticipatePin: 1,
+        pinSpacing: true,
+        invalidateOnRefresh: true // Force recalc on Lenis updates
       }
+    });
 
-      gsap.set(sections, { autoAlpha: 0, scale: 0.94, filter: "saturate(0.6)" });
-      gsap.set(sections[0], { autoAlpha: 1, scale: 1, filter: "saturate(1)" });
-      updateDetail(0);
+    // CRITICAL: Add intro buffer - prevents Frame 1→2 transition until intro completes
+    // 6.0s is the minimum needed for full intro animation to play out smoothly
+    if (introTimeline) {
+      scrollTimeline.to({}, { duration: 1.0 }); // User-tested optimal value
+    }
 
-      // Timeline with scrub: user controls playhead by scrolling
-      const tl = gsap.timeline({
-        defaults: { ease: "power2.out" },
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",  // Pin starts when section hits viewport top
-          end: `+=${duration * SCROLL_PIXELS_PER_SECOND}`,  // 15s default = 3600px scroll distance
-          scrub: true,  // Sync timeline to scroll position (1:1 mapping)
-          pin: window.matchMedia(`(min-width: ${DESKTOP_BREAKPOINT}px)`).matches,  // Mobile: disable pinning
-          anticipatePin: 1  // Prevent flicker on pin start
+      sections.forEach((stage, index) => {
+        const label = `stage-${index}`;
+        const accent = stageData[index].accent;
+        const progress = ((index + 1) / stageData.length) * 100;
+
+        // Add spacing between stages - each stage gets equal timeline duration
+        // Using "+=1" adds 1 second of timeline duration between each stage label
+        scrollTimeline.addLabel(label, index === 0 ? 0 : "+=0.5");
+        scrollTimeline.call(updateDetail, [index], label);
+
+        scrollTimeline.to(
+          stage,
+          {
+            autoAlpha: 1,
+            scale: 1.05,
+            yPercent: 0,
+            filter: "saturate(1)",
+            boxShadow: `0 70px 220px -120px ${accent}90`,
+            zIndex: index + 2  // Higher z-index for later stages (stage 0 is z:1, this starts at z:2)
+          },
+          label
+        );
+
+        // Hide previous stage when showing next stage
+        // FIXED: Changed from (index > 0 && index - 1 > 0) which never hid Frame 1
+        if (index > 0) {
+          scrollTimeline.to(
+            sections[index - 1],
+            {
+              autoAlpha: 0,
+              scale: 0.88,
+              yPercent: -18,
+              filter: "saturate(0.35)",
+              zIndex: 0  // Move to back
+            },
+            label
+          );
+        }
+
+        if (progressRef.current) {
+          scrollTimeline.to(
+            progressRef.current,
+            {
+              width: `${progress}%`,
+              background: `linear-gradient(90deg, ${accent}, ${accent}80)`
+            },
+            label
+          );
+        }
+
+        if (accentRef.current) {
+          scrollTimeline.to(
+            accentRef.current,
+            {
+              background: accent,
+              boxShadow: `0 0 24px ${accent}66`
+            },
+            label
+          );
+        }
+
+        if (index === 2 && styleCardRefs.current.length) {
+          scrollTimeline.fromTo(
+            styleCardRefs.current,
+            { autoAlpha: 0, yPercent: 10, scale: 0.95 },
+            { autoAlpha: 1, yPercent: 0, scale: 1, stagger: 0.08 },
+            `${label}+=0.15`
+          );
+        }
+
+        if (index === 3 && storyboardFrameRefs.current.length) {
+          scrollTimeline.fromTo(
+            storyboardFrameRefs.current,
+            { autoAlpha: 0, yPercent: 6, scale: 0.96 },
+            { autoAlpha: 1, yPercent: 0, scale: 1, stagger: 0.05 },
+            `${label}+=0.1`
+          );
+        }
+
+        if (index === 4 && pdfMockupRef.current) {
+          scrollTimeline.fromTo(
+            pdfMockupRef.current,
+            { autoAlpha: 0, yPercent: 10, scale: 0.92 },
+            { autoAlpha: 1, yPercent: 0, scale: 1 },
+            `${label}+=0.08`
+          );
         }
       });
 
-      // Stage 1 (0-3s): Craft the Brief - Form fields stagger
-      tl.addLabel("stage-0", 0);
-      tl.call(updateDetail, [0], "stage-0");
-      tl.to(sections[0], { autoAlpha: 1, scale: 1, filter: "saturate(1)", duration: 0.8 }, "stage-0");
-      tl.from(".form-field", {
-        opacity: 0,
-        y: 50,
-        stagger: 0.4,
-        duration: 0.5,
-        ease: "power2.out"
-      }, "stage-0+=0.3");
-      if (progressRef.current) {
-        tl.to(progressRef.current, {
-          width: "20%",
-          background: `linear-gradient(90deg, ${stageData[0].accent}, ${stageData[0].accent}80)`
-        }, "stage-0");
-      }
-
-      // Stage 2 (3-6s): AI Narrative Engine - Particles appear
-      tl.addLabel("stage-1", 3);
-      tl.call(updateDetail, [1], "stage-1");
-      tl.to(sections[0], { autoAlpha: 0, scale: 0.8, filter: "saturate(0.5)", duration: 0.8 }, "stage-1");
-      tl.to(sections[1], { autoAlpha: 1, scale: 1, filter: "saturate(1)", duration: 0.8 }, "stage-1");
-      tl.from(".ai-particles-wrapper", {
-        opacity: 0,
-        scale: 0,
-        duration: 1.5,
-        ease: "elastic.out(1, 0.5)"
-      }, "stage-1+=0.5");
-      if (progressRef.current) {
-        tl.to(progressRef.current, {
-          width: "40%",
-          background: `linear-gradient(90deg, ${stageData[1].accent}, ${stageData[1].accent}80)`
-        }, "stage-1");
-      }
-
-      // Stage 3 (6-9s): Style Selection - Cards appear, selected bursts
-      tl.addLabel("stage-2", 6);
-      tl.call(updateDetail, [2], "stage-2");
-      tl.to(sections[1], { autoAlpha: 0, scale: 0.9, duration: 0.8 }, "stage-2");
-      tl.to(sections[2], { autoAlpha: 1, scale: 1, filter: "saturate(1)", duration: 0.8 }, "stage-2");
-      tl.from(".style-card", {
-        opacity: 0,
-        scale: 0.8,
-        stagger: 0.1,
-        duration: 0.5,
-        ease: "back.out(1.2)"
-      }, "stage-2+=0.3");
-      tl.to(".style-card-selected", {
-        scale: 1.15,
-        duration: 0.4,
-        ease: "back.out(1.5)"
-      }, "stage-2+=2");
-      if (progressRef.current) {
-        tl.to(progressRef.current, {
-          width: "60%",
-          background: `linear-gradient(90deg, ${stageData[2].accent}, ${stageData[2].accent}80)`
-        }, "stage-2");
-      }
-
-      // Stage 4 (9-15s): Storyboard Assembly - Panels fly in
-      tl.addLabel("stage-3", 9);
-      tl.call(updateDetail, [3], "stage-3");
-      tl.to(sections[2], { autoAlpha: 0, scale: 0.9, duration: 0.8 }, "stage-3");
-      tl.to(sections[3], { autoAlpha: 1, scale: 1, filter: "saturate(1)", duration: 0.8 }, "stage-3");
-      tl.from(".storyboard-panel", {
-        x: (i) => (i % 2 === 0 ? -200 : 200),
-        y: -100,
-        opacity: 0,
-        stagger: 0.3,
-        duration: 1.2,
-        ease: "power3.out"
-      }, "stage-3+=0.5");
-      if (progressRef.current) {
-        tl.to(progressRef.current, {
-          width: "80%",
-          background: `linear-gradient(90deg, ${stageData[3].accent}, ${stageData[3].accent}80)`
-        }, "stage-3");
-      }
-
-      // Stage 5 (15-16s): Studios Handoff - Gradient shift
-      tl.addLabel("stage-4", 15);
-      tl.call(updateDetail, [4], "stage-4");
-      tl.to(sections[3], { autoAlpha: 0, scale: 0.9, duration: 0.8 }, "stage-4");
-      tl.to(sections[4], { autoAlpha: 1, scale: 1, filter: "saturate(1)", duration: 0.8 }, "stage-4");
-      tl.to(".gradient-overlay", {
-        background: "linear-gradient(135deg, #4F46E5 0%, #EA580C 100%)",
-        duration: 1,
-        ease: "power2.inOut"
-      }, "stage-4");
-      if (progressRef.current) {
-        tl.to(progressRef.current, {
-          width: "100%",
-          background: `linear-gradient(90deg, ${stageData[4].accent}, ${stageData[4].accent}80)`
-        }, "stage-4");
-      }
+      // Add extra dwell time for Frame 5 to stay visible before unpin
+      // This adds 2 seconds of timeline without animating anything
+      scrollTimeline.to({}, { duration: 2 });
 
       ScrollTrigger.refresh();
-    }, containerRef);
+  }, {
+    scope: containerRef,
+    dependencies: [lenisReady] // CRITICAL: Re-run when lenis callback is registered
+  });
 
-    return () => ctx.revert();
-  }, [lenis, duration]);
+  // Note: Refs are auto-populated by JSX callbacks below - no manual clearing needed
 
   return (
     <section
       id="brief-to-storyboard"
       ref={containerRef}
-      className="rounded-[28px] border border-white/10 bg-[rgba(10,10,22,0.7)] p-6 md:p-10 shadow-[0_40px_140px_-90px_rgba(12,10,28,0.85)] backdrop-blur-xl"
+      className="relative isolate flex min-h-[92vh] items-center justify-center overflow-hidden px-4 pt-28 pb-20 md:px-12 z-0"
       aria-label="Transformation from creative brief to storyboard"
     >
-      <div className="grid gap-8 md:grid-cols-[250px_1fr] md:gap-12">
-        <aside className="space-y-6">
-          <div className="flex items-center gap-3">
+      <div className="absolute inset-0" aria-hidden>
+        <div
+          className="absolute inset-0 opacity-80"
+          style={{
+            background: `radial-gradient(circle at 15% 20%, rgba(99,102,241,0.18) 0%, transparent 48%),
+              radial-gradient(circle at 82% 78%, rgba(192,38,211,0.14) 0%, transparent 52%),
+              linear-gradient(180deg, rgba(4,4,12,0.92) 0%, rgba(8,8,18,0.95) 40%, rgba(4,4,12,0.9) 100%)`
+          }}
+        />
+        <div
+          className="absolute -inset-20 blur-[160px] opacity-35"
+          style={{
+            background: "linear-gradient(135deg, rgba(99,102,241,0.65), rgba(34,211,238,0.45), rgba(192,38,211,0.35))"
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 flex w-full max-w-[1680px] flex-col items-center gap-10">
+        <div className="relative flex w-full max-w-[1480px] items-center justify-center">
+          <div className="relative aspect-[18/8.5] w-full min-h-[500px] max-h-[580px] overflow-visible rounded-[48px] border border-white/12"
+            style={{ background: briefingPalette.neutrals.panel }}
+          >
+            <div className="pointer-events-none absolute -inset-px rounded-[42px] bg-gradient-to-br from-white/16 via-transparent to-transparent" />
+            <div className="relative h-full w-full overflow-hidden rounded-[30px] border border-white/12"
+              style={{ background: briefingPalette.neutrals.surface }}
+            >
+              <div
+                ref={(el) => el && (stageRefs.current[0] = el)}
+                className="absolute inset-0 rounded-[28px] border border-white/14"
+              >
+                <div ref={heroShellRef} className="relative h-full w-full overflow-hidden rounded-[28px]">
+                  <div
+                    ref={heroGridRef}
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(129,140,248,0.28),transparent_52%),radial-gradient(circle_at_82%_78%,rgba(192,38,211,0.18),transparent_58%),linear-gradient(130deg,rgba(10,12,28,0.98),rgba(7,9,20,0.95))]"
+                    aria-hidden
+                  />
+                  <div
+                    ref={heroArcRef}
+                    className="pointer-events-none absolute -top-44 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full border border-white/10 opacity-70 blur-sm"
+                    style={{
+                      background:
+                        "conic-gradient(from 180deg at 50% 50%, rgba(79,70,229,0) 0deg, rgba(34,211,238,0.55) 120deg, rgba(192,38,211,0) 280deg)"
+                    }}
+                    aria-hidden
+                  />
+                  <div className="absolute inset-0 pointer-events-none rounded-[28px] border border-white/8 mix-blend-screen" aria-hidden />
+                  <div className="relative z-10 h-full px-8 py-10 md:px-12 lg:px-16 lg:py-12">
+                    <div className="grid h-full items-stretch gap-10 md:grid-cols-[1.1fr_0.9fr]">
+                      <div className="flex flex-col justify-between gap-8">
+                        <div className="space-y-6">
+                          <div
+                            ref={heroLabelRef}
+                            className="inline-flex w-max items-center gap-3 rounded-full border border-white/18 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.38em] text-white/70"
+                          >
+                            <span>Step 01</span>
+                            <span className="text-white/45">Briefing Intake</span>
+                          </div>
+                          <div className="space-y-3">
+                            <h4
+                              ref={heroHeadlineRef}
+                              className="text-[34px] font-black tracking-tight text-white md:text-[44px] lg:text-[46px]"
+                            >
+                              Feed four essentials and ignite the storyboard engine
+                            </h4>
+                            <p
+                              ref={heroSubheadlineRef}
+                              className="max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
+                            >
+                              These entries power tone mapping, pacing, and shot selection so the platform can transform the brief as you scroll further in.
+                            </p>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-3">
+                            {heroDetailPills.map((detail) => (
+                              <div
+                                key={detail.label}
+                                ref={(el) => el && heroDetailRefs.current.push(el)}
+                                className="inline-flex items-center gap-3 rounded-full border border-white/16 bg-white/10 px-5 py-2 text-[11px] uppercase tracking-[0.35em] text-white/60"
+                              >
+                                <span>{detail.label}</span>
+                                <span className="text-xs font-semibold tracking-[0.28em] text-white/85">
+                                  {detail.value}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-4">
+                          <a
+                            ref={heroPrimaryCtaRef}
+                            href="/contact"
+                            className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE] px-7 py-3 text-sm font-semibold uppercase tracking-[0.32em] text-white shadow-[0_32px_120px_-60px_rgba(99,102,241,0.9)] transition-transform duration-300 group-hover:-translate-y-0.5"
+                          >
+                            Launch Storyboard Draft
+                            <span className="text-white/70">→</span>
+                          </a>
+                          <a
+                            ref={heroSecondaryCtaRef}
+                            href="/briefing-engine"
+                            className="inline-flex items-center gap-3 rounded-full border border-white/18 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.32em] text-white/75 transition-colors duration-300 hover:border-white/40 hover:text-white"
+                          >
+                            View Platform Walkthrough
+                          </a>
+                        </div>
+                      </div>
+
+                      <div
+                        ref={heroFieldCardRef}
+                        className="relative flex flex-col gap-4 rounded-[28px] border border-white/12 bg-[rgba(13,15,32,0.92)] p-6 shadow-[0_80px_200px_-120px_rgba(99,102,241,0.7)]"
+                      >
+                        <div className="pointer-events-none absolute inset-0 rounded-[28px] border border-white/10 opacity-45" aria-hidden />
+                        <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/12 via-transparent to-transparent opacity-40" aria-hidden />
+                        <div className="relative space-y-4">
+                          {heroFieldTiles.map((field) => (
+                            <div
+                              key={field.label}
+                              ref={(el) => el && heroFieldRefs.current.push(el)}
+                              className="rounded-2xl border border-white/12 bg-[rgba(18,20,40,0.9)] p-5"
+                            >
+                              <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.32em] text-white/55">
+                                <span>{field.label}</span>
+                                <span className="rounded-full bg-white/10 px-3 py-0.5 text-[10px] text-white/40">Required</span>
+                              </div>
+                              <p className="mt-3 text-lg font-semibold text-white/90 md:text-xl">
+                                {field.value}
+                              </p>
+                              <p className="mt-3 text-[10px] uppercase tracking-[0.32em] text-white/40">
+                                {field.hint}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                ref={(el) => el && (stageRefs.current[1] = el)}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-8 rounded-[26px] border border-white/14 bg-[rgba(12,12,28,0.94)] p-10 opacity-0"
+              >
+                <div className="relative flex h-52 w-52 items-center justify-center rounded-full border border-white/12 bg-black/50 shadow-[0_45px_160px_-100px_rgba(34,211,238,0.75)]">
+                  <AIProcessingVisual />
+                  <div className="absolute inset-4 rounded-full border border-white/10" aria-hidden />
+                </div>
+                <div className="space-y-3 text-center">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs uppercase tracking-[0.35em] text-white/60">
+                    <span>Step 02</span>
+                    <span className="text-white/40">Processing</span>
+                  </div>
+                  <h4 className="text-3xl font-black text-white md:text-4xl">AI Narrative Engine</h4>
+                  <p className="mx-auto max-w-md text-base leading-relaxed text-white/70 md:text-lg">
+                    Particle choreography visualises rhythm, shot cadence and tonal balance as the system reasons through your brief.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                ref={(el) => el && (stageRefs.current[2] = el)}
+                className="absolute inset-0 flex flex-col justify-center gap-8 rounded-[26px] border border-white/14 bg-[rgba(18,18,34,0.94)] p-8 opacity-0"
+              >
+                <div className="grid w-full gap-5 text-center text-white md:grid-cols-[auto_minmax(0,1fr)_minmax(0,1.1fr)] md:items-center md:text-left">
+                  <div className="inline-flex items-center justify-center gap-3 rounded-full bg-white/12 px-6 py-2 text-sm font-semibold uppercase tracking-[0.55em] text-white/75 md:justify-start">
+                    <span>Step 03</span>
+                    <span className="text-white/50">Style</span>
+                  </div>
+                  <h4 className="text-[30px] font-black tracking-tight text-white md:text-[36px]">Curate Signature Look</h4>
+                </div>
+
+                <div className="w-full max-w-[1400px] overflow-hidden rounded-[30px] border border-white/12 bg-white/8 shadow-[0_55px_180px_-120px_rgba(34,211,238,0.55)]">
+                  <div className="flex h-[380px] gap-[14px] px-[10px] md:h-[420px] md:gap-[18px] md:px-[14px]">
+                    {visualStyles.map((style, index) => (
+                      <div
+                        key={style.name}
+                        className="relative flex-1 min-w-[165px] border-r border-white/12 last:border-r-0"
+                        ref={(el) => {
+                          if (el) {
+                            styleCardRefs.current[index] = el
+                          }
+                        }}
+                      >
+                        <img
+                          src={style.src}
+                          alt={`${style.name} visual style`}
+                          loading="lazy"
+                          className="h-full w-full object-cover object-center"
+                        />
+                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/65 via-black/20 to-transparent px-6 pt-[220px]">
+                          <span className="text-center text-[14px] font-black uppercase tracking-[0.2em] text-white drop-shadow-[0_28px_60px_rgba(0,0,0,0.65)]">
+                            {style.name}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                ref={(el) => el && (stageRefs.current[3] = el)}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-8 rounded-[26px] border border-white/14 bg-[rgba(10,10,22,0.97)] p-8 opacity-0 md:flex-row md:items-center md:gap-12"
+              >
+                <div className="flex w-full flex-1 items-center justify-end">
+                  <div className="grid h-full max-h-[332px] w-full max-w-[980px] grid-cols-3 gap-6 self-center md:max-h-[340px] md:translate-y-[-32px] md:translate-x-[18px]">
+                    {storyboardFrames.map((src, index) => (
+                      <div
+                        key={src}
+                        className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/12 bg-black/40 shadow-[0_25px_90px_-60px_rgba(99,102,241,0.5)]"
+                        ref={(el) => {
+                          if (el) {
+                            storyboardFrameRefs.current[index] = el
+                          }
+                        }}
+                      >
+                        <img src={src} alt={`Storyboard frame ${index + 1}`} className="h-full w-full object-cover" loading="lazy" />
+                        <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#11142d] shadow-[0_18px_42px_-26px_rgba(12,12,32,0.8)]">
+                          <span>Scene</span>
+                          <span>{index + 1}</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="w-full max-w-[440px] space-y-4 text-center text-base text-white/75 md:max-w-[460px] md:text-left">
+                  <div className="inline-flex items-center justify-center gap-3 rounded-full bg-white/12 px-6 py-2 text-sm font-semibold uppercase tracking-[0.5em] text-white/75 md:justify-start">
+                    <span>Step 04</span>
+                    <span className="text-white/50">Storyboard</span>
+                  </div>
+                  <h4 className="text-[30px] font-black text-white md:text-[34px]">Storyboard Assembly</h4>
+                  <p className="font-mono text-sm uppercase tracking-[0.26em] text-white/60 md:text-base">
+                    Frames converge into a cinematic sequence while timing notes and transitions stay locked to your brief.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                ref={(el) => el && (stageRefs.current[4] = el)}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-8 rounded-[26px] border border-white/14 bg-gradient-to-br from-[rgba(18,18,32,0.97)] via-[rgba(34,19,6,0.85)] to-[rgba(18,18,26,0.94)] p-8 opacity-0 md:flex-row md:items-center md:gap-10"
+              >
+                <div className="w-full max-w-[480px] space-y-4 text-center text-base text-white/80 md:text-left md:text-xl">
+                  <div className="inline-flex items-center gap-3 justify-center rounded-full bg-white/12 px-6 py-2 text-sm font-semibold uppercase tracking-[0.55em] text-white/80 md:justify-start">
+                    <span>Step 05</span>
+                    <span className="text-white/50">Studios</span>
+                  </div>
+                  <h4 className="text-[34px] font-black text-white md:text-[38px]">Studios Handoff</h4>
+                  <p className="font-mono text-sm uppercase tracking-[0.3em] text-white/65 md:text-base">
+                    PDF boards land in the client inbox and Cre8tive AI Studios with shot notes, aspect ratios, and delivery specs ready to shoot.
+                  </p>
+                </div>
+                <div className="w-full max-w-[680px] overflow-hidden rounded-3xl border border-white/12 shadow-[0_55px_190px_-110px_rgba(234,88,12,0.6)]">
+                  <img
+                    ref={pdfMockupRef}
+                    src="/briefing-engine/storyboard/SB-Mockup.webp"
+                    alt="Storyboard PDF handoff"
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex w-full max-w-[1480px] flex-col gap-4 text-white">
+          <div className="flex w-full max-w-[420px] items-center gap-4 self-start">
             <span
               ref={badgeRef}
-              className="inline-flex h-9 min-w-[72px] items-center justify-center rounded-full border border-white/15 bg-white/5 px-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/70"
+              className="inline-flex h-10 min-w-[108px] items-center justify-center rounded-full border border-white/20 bg-white/10 px-4 text-xs font-semibold uppercase tracking-[0.4em] text-white/85"
             >
               1/5
             </span>
-            <div className="h-1 flex-1 rounded-full bg-white/10">
-              <div ref={progressRef} className="h-full w-[20%] rounded-full bg-gradient-to-r from-[#4F46E5] to-[#4F46E580]" />
+            <div className="relative h-1.5 flex-1 rounded-full bg-white/12">
+              <div
+                ref={progressRef}
+                className="absolute inset-y-0 left-0 w-[20%] rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE]"
+              />
             </div>
           </div>
 
-          <div>
-            <div ref={accentRef} className="mb-3 h-1.5 w-16 rounded-full bg-[rgba(79,70,229,0.9)]" />
-            <h3 ref={titleRef} className="text-2xl font-black tracking-tight text-white">
+          <div className="w-full max-w-[900px] space-y-3 text-center mx-auto -mt-[70px]">
+            <div ref={accentRef} className="mx-auto mb-2 h-2 w-32 rounded-full bg-[rgba(79,70,229,0.95)] shadow-[0_0_30px_rgba(79,70,229,0.55)]" />
+            <h3 ref={titleRef} className="text-[34px] font-black tracking-tight text-white md:text-[44px]">
               Craft the Brief
             </h3>
-            <p ref={descriptionRef} className="mt-3 text-sm leading-relaxed text-white/70">
+            <p ref={descriptionRef} className="mx-auto max-w-[900px] text-xl leading-relaxed text-white/70 md:text-2xl">
               Capture campaign goal, audience, tone and must-have shots in a guided cinematic form.
             </p>
-          </div>
-
-          <ul className="space-y-2 text-sm text-white/55">
-            <li className="flex items-center gap-2">
-              <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: briefingPalette.indigo.DEFAULT }} />
-              Scroll to scrub through each transformation stage.
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: briefingPalette.holographic.cyan }} />
-              Prefer reduced motion? Animations gracefully flatten to static states.
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: briefingPalette.orange.DEFAULT }} />
-              Built on GSAP ScrollTrigger, tied into Lenis smooth scrolling.
-            </li>
-          </ul>
-        </aside>
-
-        <div className="relative h-[440px] overflow-visible rounded-[24px] border border-white/10 bg-black/40 p-6">
-          <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-br from-white/15 via-white/5 to-transparent" aria-hidden="true" />
-          <div className="relative h-full">
-            <div
-              ref={(el) => el && (stageRefs.current[0] = el)}
-              className="absolute inset-0 flex flex-col justify-between rounded-[20px] border border-white/12 bg-[rgba(18,18,32,0.92)] p-6 shadow-[0_30px_120px_-80px_rgba(79,70,229,0.9)]"
-            >
-              <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/60">
-                  <span>Step 01</span>
-                  <span className="text-white/40">Brief</span>
-                </div>
-                <h4 className="text-2xl font-black text-white">Creative Brief Intake</h4>
-                <p className="text-sm leading-relaxed text-white/70">
-                  Seven structured fields shape the narrative blueprint before a single shot is imagined.
-                </p>
-              </div>
-              <div className="grid gap-2 text-[13px] text-white/60">
-                {["Campaign Title", "Audience Persona", "Key Message", "Runtime", "Voice & Tone", "Mandatory Shots", "Call to Action"].map((label) => (
-                  <div key={label} className="form-field flex items-center justify-between rounded-lg border border-white/8 bg-white/4 px-3 py-2">
-                    <span>{label}</span>
-                    <span className="text-white/35">Tap to configure…</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div
-              ref={(el) => el && (stageRefs.current[1] = el)}
-              className="absolute inset-0 flex flex-col items-center justify-center gap-6 rounded-[20px] border border-white/12 bg-[rgba(12,12,28,0.9)] p-6 opacity-0"
-            >
-              <div className="ai-particles-wrapper h-48 w-48 flex items-center justify-center">
-                <AIProcessingVisual />
-              </div>
-              <div className="space-y-2 text-center">
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/60">
-                  <span>Step 02</span>
-                  <span className="text-white/40">Processing</span>
-                </div>
-                <h4 className="text-2xl font-black text-white">AI Narrative Engine</h4>
-                <p className="text-sm leading-relaxed text-white/70 max-w-sm">
-                  Particle choreography visualises rhythm, shot cadence and tonal balance as the system reasons through your brief.
-                </p>
-              </div>
-            </div>
-
-            <div
-              ref={(el) => el && (stageRefs.current[2] = el)}
-              className="absolute inset-0 flex flex-col items-center justify-center gap-6 rounded-[20px] border border-white/12 bg-[rgba(18,18,34,0.9)] p-6 opacity-0"
-            >
-              <div className="grid w-full max-w-xl grid-cols-3 gap-3">
-                {styleSamples.map((sample, i) => (
-                  <div
-                    key={sample.name}
-                    className={`style-card ${i === 1 ? 'style-card-selected' : ''} rounded-xl border border-white/12 bg-white/8 p-3 text-center text-xs text-white/70 transition-transform`}
-                  >
-                    <div className="aspect-[4/3] overflow-hidden rounded-lg border border-white/12">
-                      <img src={sample.image} alt={`${sample.name} look preview`} className="h-full w-full object-cover" loading="lazy" />
-                    </div>
-                    <p className="mt-2 font-semibold">{sample.name}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="max-w-md text-center text-sm text-white/70">
-                Minimalist, Cinematic, Playful or Futuristic—the chosen aesthetic is locked before panels assemble.
-              </p>
-            </div>
-
-            <div
-              ref={(el) => el && (stageRefs.current[3] = el)}
-              className="absolute inset-0 flex items-center justify-center rounded-[20px] border border-white/12 bg-[rgba(10,10,22,0.95)] p-6 opacity-0"
-            >
-              <div className="grid h-full max-h-[420px] w-full max-w-3xl grid-cols-3 gap-4">
-                {storyboardFrames.map((src, index) => (
-                  <div key={src} className="storyboard-panel relative overflow-hidden rounded-xl border border-white/12 bg-black/50">
-                    <img src={src} alt={`Storyboard frame ${index + 1}`} className="h-full w-full object-cover" loading="lazy" />
-                    <span className="absolute left-3 top-3 rounded-full bg-white/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/75">
-                      Scene {index + 1}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div
-              ref={(el) => el && (stageRefs.current[4] = el)}
-              className="gradient-overlay absolute inset-0 flex flex-col items-center justify-center gap-6 rounded-[20px] border border-white/12 bg-gradient-to-br from-[rgba(18,18,32,0.95)] via-[rgba(34,19,6,0.88)] to-[rgba(18,18,26,0.92)] p-6 opacity-0"
-            >
-              <img
-                src="/briefing-engine/storyboard/SB-Mockup.webp"
-                alt="Storyboard PDF handoff"
-                className="w-full max-w-2xl rounded-2xl border border-white/12 shadow-[0_50px_160px_-80px_rgba(234,88,12,0.6)]"
-                loading="lazy"
-              />
-              <div className="space-y-2 text-center text-sm text-white/70">
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/60">
-                  <span>Step 05</span>
-                  <span className="text-white/40">Studios</span>
-                </div>
-                <p>
-                  Final PDF drops into the Studios pipeline with shot notes, aspect ratios, and delivery metadata locked.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

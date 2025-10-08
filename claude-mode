@@ -1,0 +1,366 @@
+#!/usr/bin/env bash
+#
+# claude-mode - CLI utility for swapping CLAUDE.md workflow modes
+# Switches between BMAD multi-agent mode and Single-Claude mode using symlinks
+#
+# Usage: claude-mode <mode> [options]
+#   Modes: bmad, single, status, init
+#   Options: --global, --project, --help
+#
+# Author: Cameron
+# Version: 1.0.0
+# Date: 2025-10-07
+
+set -e  # Exit on error
+
+# Color codes for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Global variables
+SCOPE=""
+BASE_DIR=""
+
+#######################################
+# Print usage information
+#######################################
+usage() {
+    cat << EOF
+claude-mode - Switch between CLAUDE.md workflow modes
+
+USAGE:
+    claude-mode <mode> [options]
+
+MODES:
+    bmad      Switch to BMAD multi-agent mode
+    single    Switch to single-Claude mode
+    status    Show current active mode
+    init      Initialize source files (if missing)
+
+OPTIONS:
+    --global  Force global mode (~/.claude/)
+    --project Force project mode (current directory)
+    --help    Show this help message
+
+EXAMPLES:
+    claude-mode bmad           # Switch to BMAD mode (auto-detect scope)
+    claude-mode single         # Switch to single-Claude mode
+    claude-mode status         # Show current mode
+    claude-mode init           # Create source files if missing
+    claude-mode bmad --project # Switch project-level only
+
+ABOUT:
+    This tool manages CLAUDE.md by creating symlinks to either:
+    - CLAUDE-bmad.md (BMAD multi-agent workflow)
+    - CLAUDE-nonbmad.md (Single-Claude workflow)
+
+    Scope detection:
+    - Project: If CLAUDE-bmad.md exists in current directory
+    - Global: ~/.claude/ (default)
+
+EOF
+}
+
+#######################################
+# Detect scope (global vs project)
+# Sets: SCOPE, BASE_DIR
+#######################################
+detect_scope() {
+    local force_scope="${1:-}"
+
+    if [[ "$force_scope" == "global" ]]; then
+        SCOPE="global"
+        BASE_DIR="$HOME/.claude"
+    elif [[ "$force_scope" == "project" ]]; then
+        SCOPE="project"
+        BASE_DIR="."
+    elif [[ -f "CLAUDE-bmad.md" && -f "CLAUDE-nonbmad.md" ]]; then
+        SCOPE="project"
+        BASE_DIR="."
+    else
+        SCOPE="global"
+        BASE_DIR="$HOME/.claude"
+    fi
+}
+
+#######################################
+# Get current active mode
+# Returns: "bmad", "single", or "none"
+#######################################
+get_current_mode() {
+    if [[ ! -L "$BASE_DIR/CLAUDE.md" ]]; then
+        echo "none"
+        return
+    fi
+
+    local target
+    target=$(readlink "$BASE_DIR/CLAUDE.md" 2>/dev/null || echo "")
+
+    case "$target" in
+        CLAUDE-bmad.md)
+            echo "bmad"
+            ;;
+        CLAUDE-nonbmad.md)
+            echo "single"
+            ;;
+        CLAUDE-single.md)
+            # Legacy support
+            echo "single"
+            ;;
+        *)
+            echo "none"
+            ;;
+    esac
+}
+
+#######################################
+# Validate environment before operations
+# Exits with error if validation fails
+#######################################
+validate_environment() {
+    # Check directory exists
+    if [[ ! -d "$BASE_DIR" ]]; then
+        echo -e "${RED}✗ Error: Directory $BASE_DIR not found${NC}" >&2
+        echo "  Run 'mkdir -p $BASE_DIR' to create it" >&2
+        exit 1
+    fi
+
+    # Check source files exist
+    if [[ ! -f "$BASE_DIR/CLAUDE-bmad.md" ]]; then
+        echo -e "${RED}✗ Error: CLAUDE-bmad.md missing in $BASE_DIR${NC}" >&2
+        echo "  Run 'claude-mode init' to create source files" >&2
+        exit 1
+    fi
+
+    if [[ ! -f "$BASE_DIR/CLAUDE-nonbmad.md" ]]; then
+        echo -e "${RED}✗ Error: CLAUDE-nonbmad.md missing in $BASE_DIR${NC}" >&2
+        echo "  Run 'claude-mode init' to create source files" >&2
+        exit 1
+    fi
+}
+
+#######################################
+# Swap to target mode with rollback
+# Args: target_mode ("bmad" or "single")
+#######################################
+swap_mode() {
+    local target_mode="$1"
+    local target_file
+
+    # Map mode to actual filename
+    case "$target_mode" in
+        bmad)
+            target_file="CLAUDE-bmad.md"
+            ;;
+        single)
+            target_file="CLAUDE-nonbmad.md"
+            ;;
+        *)
+            echo -e "${RED}✗ Unknown mode: $target_mode${NC}" >&2
+            exit 1
+            ;;
+    esac
+
+    # Get current symlink target for rollback
+    local current_target=""
+    if [[ -L "$BASE_DIR/CLAUDE.md" ]]; then
+        current_target=$(readlink "$BASE_DIR/CLAUDE.md" 2>/dev/null || echo "")
+    fi
+
+    # Check if already in target mode
+    if [[ "$current_target" == "$target_file" ]]; then
+        echo -e "${BLUE}Already in $target_mode mode ($SCOPE)${NC}"
+        return 0
+    fi
+
+    # Remove existing symlink
+    if [[ -L "$BASE_DIR/CLAUDE.md" ]] || [[ -f "$BASE_DIR/CLAUDE.md" ]]; then
+        rm "$BASE_DIR/CLAUDE.md" || {
+            echo -e "${RED}✗ Failed to remove existing CLAUDE.md${NC}" >&2
+            exit 1
+        }
+    fi
+
+    # Create new symlink
+    ln -s "$target_file" "$BASE_DIR/CLAUDE.md" || {
+        echo -e "${RED}✗ Failed to create symlink${NC}" >&2
+        # Rollback
+        if [[ -n "$current_target" ]]; then
+            ln -s "$current_target" "$BASE_DIR/CLAUDE.md" 2>/dev/null || true
+            echo -e "${YELLOW}  Rolled back to previous state${NC}" >&2
+        fi
+        exit 1
+    }
+
+    # Verify new symlink
+    local verify_target
+    verify_target=$(readlink "$BASE_DIR/CLAUDE.md" 2>/dev/null || echo "")
+
+    if [[ "$verify_target" != "$target_file" ]]; then
+        echo -e "${RED}✗ Symlink verification failed${NC}" >&2
+        # Rollback
+        rm "$BASE_DIR/CLAUDE.md" 2>/dev/null || true
+        if [[ -n "$current_target" ]]; then
+            ln -s "$current_target" "$BASE_DIR/CLAUDE.md" 2>/dev/null || true
+            echo -e "${YELLOW}  Rolled back to previous state${NC}" >&2
+        fi
+        exit 1
+    fi
+
+    # Success
+    local mode_name
+    case "$target_mode" in
+        bmad) mode_name="BMAD" ;;
+        single) mode_name="Single-Claude" ;;
+        *) mode_name="$target_mode" ;;
+    esac
+
+    echo -e "${GREEN}✓ Switched to $mode_name mode ($SCOPE)${NC}"
+    echo "  $BASE_DIR/CLAUDE.md → $target_file"
+}
+
+#######################################
+# Show current mode status
+#######################################
+show_status() {
+    local current_mode
+    current_mode=$(get_current_mode)
+
+    local mode_display
+    case "$current_mode" in
+        bmad)
+            mode_display="${GREEN}BMAD multi-agent${NC}"
+            ;;
+        single)
+            mode_display="${BLUE}Single-Claude${NC}"
+            ;;
+        none)
+            mode_display="${RED}Invalid (no valid symlink)${NC}"
+            ;;
+    esac
+
+    echo -e "Current mode: $mode_display ($SCOPE)"
+
+    if [[ "$current_mode" != "none" ]]; then
+        local target
+        target=$(readlink "$BASE_DIR/CLAUDE.md" 2>/dev/null || echo "unknown")
+        echo "  └─ $BASE_DIR/CLAUDE.md → $target"
+    else
+        echo "  └─ $BASE_DIR/CLAUDE.md (missing or invalid)"
+    fi
+}
+
+#######################################
+# Initialize source files
+#######################################
+init_files() {
+    echo "Initializing CLAUDE mode source files in $BASE_DIR..."
+
+    # Create directory if needed
+    mkdir -p "$BASE_DIR"
+
+    # Check for existing files
+    local needs_init=false
+
+    if [[ ! -f "$BASE_DIR/CLAUDE-bmad.md" ]]; then
+        echo -e "${YELLOW}  CLAUDE-bmad.md not found${NC}"
+        needs_init=true
+    fi
+
+    if [[ ! -f "$BASE_DIR/CLAUDE-nonbmad.md" ]]; then
+        echo -e "${YELLOW}  CLAUDE-nonbmad.md not found${NC}"
+        needs_init=true
+    fi
+
+    if [[ "$needs_init" == false ]]; then
+        echo -e "${GREEN}✓ Source files already exist${NC}"
+        return 0
+    fi
+
+    echo ""
+    echo -e "${RED}ERROR: Source files missing${NC}"
+    echo ""
+    echo "Please create the following files manually:"
+    echo "  1. $BASE_DIR/CLAUDE-bmad.md (BMAD multi-agent instructions)"
+    echo "  2. $BASE_DIR/CLAUDE-nonbmad.md (Single-Claude instructions)"
+    echo ""
+    echo "Then run: claude-mode init"
+    exit 1
+}
+
+#######################################
+# Main entry point
+#######################################
+main() {
+    local mode=""
+    local force_scope=""
+
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            bmad|single|status|init)
+                mode="$1"
+                shift
+                ;;
+            --global)
+                force_scope="global"
+                shift
+                ;;
+            --project)
+                force_scope="project"
+                shift
+                ;;
+            --help|-h)
+                usage
+                exit 0
+                ;;
+            *)
+                echo -e "${RED}Unknown argument: $1${NC}" >&2
+                echo "Use --help for usage information" >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    # Check mode specified
+    if [[ -z "$mode" ]]; then
+        echo -e "${RED}Error: No mode specified${NC}" >&2
+        echo "Use --help for usage information" >&2
+        exit 1
+    fi
+
+    # Detect scope
+    detect_scope "$force_scope"
+
+    # Handle init specially (doesn't require validation)
+    if [[ "$mode" == "init" ]]; then
+        init_files
+        exit 0
+    fi
+
+    # Validate environment
+    validate_environment
+
+    # Execute mode command
+    case "$mode" in
+        bmad)
+            swap_mode "bmad"
+            ;;
+        single)
+            swap_mode "single"
+            ;;
+        status)
+            show_status
+            ;;
+        *)
+            echo -e "${RED}Unknown mode: $mode${NC}" >&2
+            exit 1
+            ;;
+    esac
+}
+
+# Run main
+main "$@"

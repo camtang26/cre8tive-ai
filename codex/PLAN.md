@@ -1,3 +1,30 @@
+# Story 1.7 AC10 – Cinematic Entrance (2025-10-08)
+
+**Goal:** Deliver the once-only focus-pull entrance animation for `BriefToStoryboardAnimation`, chaining cleanly into the existing intro timeline while maintaining 60 fps and preserving current scroll stages.
+
+**Impact Set:**
+- `src/components/briefing/BriefToStoryboardAnimation.tsx` (entrance timeline + chaining)
+- `src/pages/BriefingEngine.tsx` (hero height sanity)
+- `src/components/briefing/__tests__/BriefToStoryboardAnimation.test.tsx` (new Vitest coverage)
+- `package.json` / `vite.config.ts` (test runner wiring)
+- `docs/stories/story-1.7.md` (Dev Agent Record + task checkboxes)
+
+**Commands:**
+- `npm install --save-dev vitest @testing-library/react @testing-library/jest-dom jsdom`
+- `npx vitest run`
+- `npm run lint`
+- `npm run build`
+
+## Steps
+- S1 (DONE) — GSAP entrance + blur performance research via Context7 + Archon; capture takeaways in `_MEMO.md`.
+- S2 — Wire entrance initial state + `ScrollTrigger.create({ start: 'top 80%', once: true })` timeline in `BriefToStoryboardAnimation.tsx`; guard with `lenisReady`.
+- S3 — Pause intro timeline, chain via `entranceTimeline.eventCallback('onComplete', ...)`, and ensure hero layout keeps container below fold (tweak `min-h` if needed).
+- S4 — Add Vitest + RTL harness; write tests asserting initial hidden state (autoAlpha, blur) and that entrance `once` triggers chain stub.
+- S5 — Run lint/build/test, address failures, capture performance notes (blur fallback) in `_MEMO.md`.
+- S6 — Update `docs/stories/story-1.7.md` (Debug Log, Change Log, file list) marking AC10 tasks complete with evidence.
+
+---
+
 # AI Briefing Engine Page Redesign Plan
 
 **Status:** Phase 1 RESTART 🔄 (First Attempt Failed - User Feedback)

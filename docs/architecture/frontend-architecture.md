@@ -75,11 +75,10 @@ import { cn } from '@/lib/utils'
  * @param className - Additional Tailwind classes
  * @param animationDelay - GSAP stagger delay (optional)
  *
- * @accessibility
- * - Uses semantic <article> tag
- * - Includes alt text for image
- * - Keyboard-focusable with focus-visible ring
- * - Respects prefers-reduced-motion
+ * @note
+ * - Uses semantic <article> tag for SEO
+ * - Includes alt text for image (SEO)
+ * - ~~Keyboard-focusable, prefers-reduced-motion~~ (REMOVED per AD-003)
  */
 export interface StyleCardProps {
   title: string
@@ -133,13 +132,12 @@ export function StyleCard({
 
 **Component Template Checklist:**
 - ✅ TypeScript interface for props (exported)
-- ✅ JSDoc comment with description and accessibility notes
-- ✅ Semantic HTML tags (`<article>`, `<section>`, `<nav>`)
+- ✅ JSDoc comment with description
+- ✅ Semantic HTML tags (`<article>`, `<section>`, `<nav>`) for SEO
 - ✅ `cn()` utility for className merging
-- ✅ Accessibility attributes (`role`, `aria-*`, `tabIndex`)
 - ✅ Responsive classes (Tailwind breakpoints)
 - ✅ Loading strategy (`loading="lazy"` for images)
-- ✅ Focus management (`focus-visible:` styles)
+- ~~Accessibility attributes, focus management~~ (REMOVED per AD-003)
 
 ---
 
@@ -347,7 +345,7 @@ export function BriefingEngine() {
 1. ✅ Use `gsap.context()` with cleanup in `useEffect`
 2. ✅ Never nest ScrollTriggers inside timeline tweens
 3. ✅ Animate `transform` and `opacity` only (GPU acceleration)
-4. ✅ Support `prefers-reduced-motion` (disable animations)
+4. ~~Support `prefers-reduced-motion`~~ (REMOVED per AD-003)
 
 **Example Hook:**
 
@@ -580,16 +578,27 @@ import { briefingPalette } from './palette'
 
 ---
 
-## Accessibility Standards
+## ~~Accessibility Standards~~ DEPRECATED
 
-### WCAG AA Compliance (Target)
+> **⚠️ DEPRECATED (2025-10-08):** WCAG compliance requirements REMOVED per Technical Decision **[AD-003](../technical-decisions.md#ad-003-remove-all-wcag-accessibility-implementations-2025-10-08)**.
+>
+> **DO NOT implement** accessibility features beyond semantic HTML for SEO purposes.
+>
+> **Reference:** See [design-system.md](./design-system.md#visual-first-principle) for Visual-First Philosophy
 
-**Requirements:**
-- ✅ Color contrast ≥ 4.5:1 for normal text, ≥ 3:1 for large text
-- ✅ Keyboard navigation (all interactive elements focusable)
-- ✅ Screen reader support (semantic HTML, ARIA labels)
-- ✅ Focus indicators (visible focus states)
-- ✅ `prefers-reduced-motion` support
+<details>
+<summary>Historical Requirements (Reference Only - No Longer Applicable)</summary>
+
+### WCAG AA Compliance (DEPRECATED - Do Not Implement)
+
+**Requirements (NO LONGER APPLICABLE):**
+- ~~Color contrast ≥ 4.5:1~~
+- ~~Keyboard navigation enhancements~~
+- ~~ARIA labels beyond basic semantic HTML~~
+- ~~Focus indicators (beyond browser defaults)~~
+- ~~`prefers-reduced-motion` support~~
+
+</details>
 
 ---
 
@@ -903,12 +912,9 @@ src/
 - [ ] Semantic HTML tags used
 - [ ] `cn()` utility for className merging
 - [ ] Responsive classes (mobile-first)
-- [ ] Focus styles (`focus-visible:`)
-- [ ] ARIA labels for interactive elements
 - [ ] `loading="lazy"` on images
 - [ ] Animation cleanup in `useEffect` return
-- [ ] `prefers-reduced-motion` support (if animated)
-- [ ] Color contrast ≥ 4.5:1 (verify with tools)
+- [ ] ~~Focus styles, ARIA labels, `prefers-reduced-motion`, color contrast~~ (REMOVED per AD-003)
 
 ---
 

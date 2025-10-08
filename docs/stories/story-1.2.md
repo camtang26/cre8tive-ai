@@ -6,6 +6,8 @@
 **Assignee:** Dev
 **Created:** 2025-10-06
 
+> **Retrospective Note (2025-10-08):** AC #7 (WCAG AA color contrast) implemented as specified but is no longer applicable per [AD-003](../technical-decisions.md#ad-003-remove-all-wcag-accessibility-implementations-2025-10-08). Future work does not require accessibility compliance.
+
 ---
 
 ## User Story

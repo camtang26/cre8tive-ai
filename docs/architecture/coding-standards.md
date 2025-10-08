@@ -475,27 +475,24 @@ useEffect(() => {
 }, [])
 ```
 
-### Accessibility
+### ~~Accessibility~~ DEPRECATED
 
-**prefers-reduced-motion:**
+> **⚠️ DEPRECATED (2025-10-08):** Accessibility patterns REMOVED per Technical Decision **[AD-003](../technical-decisions.md#ad-003-remove-all-wcag-accessibility-implementations-2025-10-08)**.
+>
+> **DO NOT implement** `prefers-reduced-motion` or other accessibility features.
+
+<details>
+<summary>Historical Pattern (Reference Only - Do Not Use)</summary>
+
+**prefers-reduced-motion (DEPRECATED):**
 
 ```typescript
-// ✅ GOOD: Respect user preference
+// DEPRECATED - DO NOT USE
 const prefersReducedMotion = usePrefersReducedMotion()
-
-useEffect(() => {
-  if (prefersReducedMotion) {
-    gsap.set(".element", { opacity: 1, y: 0 })  // Final state instantly
-    return
-  }
-
-  const ctx = gsap.context(() => {
-    gsap.from(".element", { opacity: 0, y: 50 })
-  }, ref)
-
-  return () => ctx.revert()
-}, [prefersReducedMotion])
+// ... conditional animation logic
 ```
+
+</details>
 
 ---
 
@@ -603,7 +600,7 @@ import { briefingPalette, getGradient } from "@/components/briefing/palette"
 **GSAP + Lenis Stack:**
 1. ✅ Register ScrollTrigger once per component
 2. ✅ Clean up on unmount (`gsap.context()`)
-3. ✅ Respect `prefers-reduced-motion`
+3. ~~Respect `prefers-reduced-motion`~~ (REMOVED per AD-003)
 4. ✅ Target 60fps (profile in Chrome DevTools)
 
 **Asset Loading:**

@@ -1,0 +1,257 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.7</storyId>
+    <title>Build 15-Second GSAP ScrollTrigger Transformation Timeline</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-08</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-1.7.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a visitor</asA>
+    <iWant>to see the briefing → storyboard transformation as I scroll</iWant>
+    <soThat>I understand the platform's workflow through visual storytelling</soThat>
+    <tasks>
+- Create BriefToStoryboardAnimation component with GSAP timeline (AC: #1)
+  - Stage 1: Alpine Water hero with 15+ animated refs
+  - Stage 2: AI processing visual
+  - Stage 3: Style selection
+  - Stage 4: Storyboard assembly
+  - Stage 5: Studios handoff
+- Configure ScrollTrigger (trigger, start, end, scrub, pin) (AC: #2)
+- Use GPU-accelerated transforms only (translate/scale/opacity) (AC: #3)
+- Disable pinning on mobile (&lt; 768px) (AC: #5)
+- Add duration prop customization (AC: #6)
+- Integrate storyboard frames (Frame1-6) (AC: #7)
+- Implement React cleanup with gsap.context() (AC: #8)
+- Test ScrollTrigger pinning behavior
+- Test all 5 transformation stages
+- Test reverse scroll reset
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. BriefToStoryboardAnimation component created with GSAP timeline:
+   - Stage 1 (0-3s): Form fields animate in (7 input fields, staggered)
+   - Stage 2 (3-6s): AI processing (particle swirl from Story 1.6, holographic glow)
+   - Stage 3 (6-9s): Style selection (8 style cards → 1 selected → burst)
+   - Stage 4 (9-15s): Storyboard assembly (6 panels fly in, frames draw)
+   - Stage 5 (15-16s): Studios handoff (gradient shift indigo → orange)
+2. ScrollTrigger configuration:
+   - Trigger: `.transformation-container`
+   - Start: `top top`
+   - End: `bottom top`
+   - Scrub: 1 (user controls pace by scrolling)
+   - Pin: true (desktop only, disabled on &lt; 768px)
+3. Timeline uses GPU-accelerated transforms only (translate, scale, opacity)
+4. ~~Accessibility: prefers-reduced-motion CSS query disables animations~~ **REMOVED per AD-003**
+5. Mobile: ScrollTrigger pinning disabled, simple fade-in reveals instead
+6. Component accepts props: `duration={15}` to customize timeline length
+7. Visual assets: Uses real storyboard frames (Frame1-6) for assembly stage
+8. React cleanup implemented: `gsap.context()` with cleanup function to prevent memory leaks (ScrollTriggers killed on unmount)
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md" title="Animation Patterns &amp; Best Practices" section="Pattern 2: Scrub Animation (Scroll = Playhead)" lines="148-206">
+      - Timeline directly tied to scroll position (parallax, process timelines)
+      - `scrub: 1` ties timeline playhead to scroll (higher = smoother/laggier)
+      - `pin: true` keeps section fixed while timeline plays
+      - `end: '+=200%'` defines scroll distance (200% viewport height)
+      - Timeline labels (`'-=0.5'`) overlap animations for smooth transitions
+      - Example: BriefingProcessFlow component with 4-step workflow
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md" title="Animation Patterns &amp; Best Practices" section="React Integration &amp; Cleanup" lines="432-478">
+      - CRITICAL: Always use `gsap.context()` with cleanup in `useEffect` return
+      - `useGSAP` hook alternative (official GSAP React hook)
+      - Auto-cleanup on unmount prevents ScrollTrigger memory leaks
+      - Without cleanup, ScrollTriggers keep firing after component unmounts
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md" title="Animation Patterns &amp; Best Practices" section="Performance Optimization" lines="484-556">
+      - GPU Acceleration: Use `transform` and `opacity` only (translate, scale, opacity)
+      - Avoid animating width, height, top, left (forces layout reflow)
+      - CSS setup: `will-change: transform, opacity` hint browser to use GPU
+      - Performance budget: 60fps target (16ms per frame)
+      - Limit concurrent ScrollTriggers (max 10-15 per page)
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md" title="Animation Patterns &amp; Best Practices" section="Accessibility (Reduced Motion) DEPRECATED" lines="559-600">
+      - **DEPRECATED (2025-10-08):** prefers-reduced-motion support REMOVED per AD-003
+      - DO NOT implement `prefers-reduced-motion` or accessibility features
+      - Rationale: Visual impact is core to brand identity
+      - See AD-003 for full context and rollback plan
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/frontend-architecture.md" title="Frontend Architecture" section="Animation Architecture" lines="330-375">
+      - **GSAP + ScrollTrigger**: Scroll-linked timelines, parallax, pinning
+      - **Lenis**: Smooth scroll foundation (global)
+      - **Framer Motion**: Hover, tap, simple reveals
+      - Critical Rules: Use `gsap.context()` with cleanup, never nest ScrollTriggers inside timeline tweens, animate transform and opacity only
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/technical-decisions.md" title="Technical Decisions" section="AD-003: Remove All WCAG Accessibility Implementations" lines="645-737">
+      - Decision: Remove ALL WCAG/accessibility implementations across entire website
+      - Rationale: Visual impact and bold animations ARE the core product demonstration
+      - Industry Alignment: Creative tools (Figma, After Effects, Awwwards) prioritize visual experience
+      - Implications: Simpler component logic, consistent animation experience, reduced bundle size
+      - Scope: Global - affects all components, current and future
+      - Status: APPROVED by Product Owner (Cameron) - 2025-10-08
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/technical-decisions.md" title="Technical Decisions" section="Animation Framework: GSAP + Lenis (Approved)" lines="18-104">
+      - Decision: Add GSAP 3.x with ScrollTrigger plugin and Lenis smooth scroll
+      - Bundle Impact: GSAP core + ScrollTrigger: ~66kb, Lenis: ~7kb, Total: ~73kb
+      - Performance Target: 60fps on modern devices, GPU-accelerated transforms only
+      - Integration Pattern: ReactLenis wrapper + useGSAP hook for component-level timelines
+      - Risk: Lenis smooth scroll conflicts with React Router (mitigation: test thoroughly)
+      - Status: IMPLEMENTED (Story 1.1 complete)
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/prd/prd.md" title="AI Briefing Engine Page Redesign - PRD" section="FR4: 15-Second GSAP Timeline" lines="79-84">
+      - Stage 1 (0-3s): Form fields animate in
+      - Stage 2 (3-6s): AI processing with Canvas particle swirl (60-100 particles)
+      - Stage 3 (6-9s): Style selection with burst animation
+      - Stage 4 (9-15s): Storyboard assembly (6 panels fly in, frames draw)
+      - Stage 5 (15-16s): Studios handoff (gradient shift indigo → orange)
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/prd/prd.md" title="AI Briefing Engine Page Redesign - PRD" section="NFR1: Animation Performance" lines="111">
+      - SHALL maintain 60fps on modern devices (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+)
+      - Using GPU-accelerated transforms only (translate, scale, opacity)
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/prd/prd.md" title="AI Briefing Engine Page Redesign - PRD" section="NFR8: GSAP ScrollTrigger Pinning" lines="133">
+      - SHALL be disabled on mobile (&lt; 768px) if animation performance drops below 30fps
+      </doc>
+    </docs>
+    <code>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefToStoryboardAnimation.tsx" kind="component" symbol="BriefToStoryboardAnimation" lines="1-714" reason="Existing implementation - Version 2 foundation with useGSAP, 15+ animated refs, Alpine Water hero. Contains ScrollTrigger early return bug that needs fixing.">
+      - 655 lines, Alpine Water branded hero with 15+ animated refs
+      - Modern `useGSAP` architecture with scope cleanup
+      - Production-quality layered animations (grid pulse, arc rotation, cascading reveals)
+      - Bug: ScrollTrigger early return due to `heroShellRef` timing issue (line 161 check)
+      - Uses `lenisReady` state to ensure lenis callback is registered before creating ScrollTrigger
+      - 5 stages: Hero form, AI processing, Style selection, Storyboard assembly, Studios handoff
+      - Infinite animations: Rotating energy arc (line 210-217), Pulsing grid background (line 220-229)
+      - Scroll timeline with scrub: 1, pin: true, end: "+=6720" (line 291-309)
+      - Mobile optimization: None yet (ScrollTrigger pinning enabled on all devices)
+      </artifact>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/palette.ts" kind="module" symbol="briefingPalette" lines="1-118" reason="Color palette constants used throughout component for consistent theming">
+      - Type-safe palette with indigo/cyan/fuchsia color scheme
+      - Helper functions: getGradient(), getColor(), getTextColor()
+      - Neutrals for panels: panel, surface, border
+      - Holographic glows: indigo (#818CF8), cyan (#22D3EE), green (#34D399)
+      </artifact>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/AIProcessingVisual.tsx" kind="component" symbol="AIProcessingVisual" lines="1-250" reason="Canvas particle animation used in Stage 2 (AI processing visual)">
+      - Canvas particle system with 80 particles (desktop), 30 particles (mobile)
+      - Orbital physics: Centripetal force + random drift
+      - FPS monitoring with auto-fallback (&lt; 30fps → static gradient)
+      - Intersection Observer for scroll lifecycle (only renders when visible)
+      - Memory leak prevention: RAF cleanup on unmount
+      - Uses `usePrefersReducedMotion` hook (⚠️ DEPRECATED per AD-003 - should be removed)
+      </artifact>
+      <artifact path="/home/cameronai/projects/cre8tive-website-1006/src/hooks/usePrefersReducedMotion.ts" kind="hook" symbol="usePrefersReducedMotion" lines="unknown" reason="⚠️ DEPRECATED - Used by AIProcessingVisual but should be removed per AD-003">
+      - Hook for detecting prefers-reduced-motion media query
+      - ⚠️ DEPRECATED: Per AD-003, all accessibility implementations should be removed
+      - Should be removed from AIProcessingVisual.tsx in future refactor
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="react" version="18.3.1">Core React library for component rendering</package>
+        <package name="react-dom" version="18.3.1">React DOM renderer</package>
+        <package name="typescript" version="5.5.3">TypeScript compiler (relaxed mode: noImplicitAny: true, strictNullChecks: false)</package>
+        <package name="gsap" version="3.13.0">Animation library with ScrollTrigger plugin</package>
+        <package name="@gsap/react" version="2.1.2">Official GSAP React hooks (useGSAP)</package>
+        <package name="lenis" version="1.3.11">Smooth scroll library with momentum-based scrolling</package>
+        <package name="framer-motion" version="12.4.2">UI micro-interactions (coexists with GSAP)</package>
+        <package name="vite" version="5.4.1">Build tool</package>
+        <package name="tailwindcss" version="3.4.11">Utility-first CSS framework</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint type="pattern" source="animation-patterns.md:148-206">
+    - Pattern Used: Animation Pattern 2 - Scrub Animation (Scroll = Playhead)
+    - Must use `gsap.context()` with cleanup function (CRITICAL for React)
+    - Timeline ease must be "none" for scrub compatibility (not "power3.out")
+    - Never nest ScrollTriggers inside timeline tweens
+    - Use `end: '+=200%'` or similar to define scroll distance
+    </constraint>
+    <constraint type="pattern" source="animation-patterns.md:432-460">
+    - MUST return cleanup function: `return () => ctx.revert()` (kills all ScrollTriggers)
+    - Alternative: `useGSAP` hook with `{ scope: containerRef, dependencies: [] }`
+    - Without cleanup, ScrollTriggers persist after unmount (memory leak)
+    </constraint>
+    <constraint type="performance" source="technical-decisions.md:111">
+    - MUST maintain 60fps on modern devices (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+)
+    - Use GPU-accelerated transforms ONLY: translate, scale, opacity
+    - Avoid animating: width, height, top, left, margin, padding (forces layout reflow)
+    - Add `will-change: transform` to animated elements
+    </constraint>
+    <constraint type="mobile" source="prd.md:133 + story-1.7.md:27">
+    - ScrollTrigger pinning MUST be disabled on mobile (&lt; 768px)
+    - Implementation: `pin: window.matchMedia('(min-width: 768px)').matches`
+    - Fallback: Simple fade-in reveals instead of scrub timeline
+    </constraint>
+    <constraint type="accessibility" source="technical-decisions.md:645-737">
+    - ⚠️ REMOVED per AD-003: NO prefers-reduced-motion implementation
+    - ⚠️ REMOVED per AD-003: NO reduced-motion fallback states
+    - ⚠️ REMOVED per AD-003: NO motion detection conditional logic
+    - Rationale: Visual impact IS the product demonstration for creative studio
+    </constraint>
+    <constraint type="integration" source="story-1.7.md:148-152">
+    - Integration Verification IV1: ScrollTrigger doesn't interfere with Lenis smooth scroll
+    - Integration Verification IV2: Scroll position syncs correctly on browser resize
+    - Integration Verification IV3: Timeline resets properly when scrolling back up
+    </constraint>
+    <constraint type="codeStyle" source="coding-standards.md:42-49">
+    - NO semicolons (consistent across codebase)
+    - Double quotes for strings
+    - 2 spaces for indentation (no tabs)
+    - Trailing commas in objects/arrays
+    - 100 character line length limit
+    </constraint>
+    <constraint type="assets" source="story-1.7.md:163-168">
+    - Storyboard frames: Frame1-6.webp (6 frames total, 1.7MB combined)
+    - Location: public/briefing-engine/storyboard-mockup/
+    - Visual styles: 9 webp images in public/briefing-engine/visual-styles/
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface name="BriefToStoryboardAnimation props" kind="component-props" signature="{ duration?: number }" path="src/components/briefing/BriefToStoryboardAnimation.tsx">
+    - duration: Optional number to customize timeline length (default: 15 seconds)
+    - Component accepts no other props
+    </interface>
+    <interface name="briefingPalette" kind="module-export" signature="const briefingPalette: { gradients, colors, indigo, cyan, fuchsia, orange, holographic, neutrals, text, borders, overlays }" path="src/components/briefing/palette.ts">
+    - Type-safe palette object with color constants
+    - Helper functions: getGradient(key), getColor(key), getTextColor(key)
+    - Used for consistent theming across all briefing components
+    </interface>
+    <interface name="gsap.timeline" kind="api" signature="gsap.timeline(config: { scrollTrigger?, defaults? })" path="external">
+    - GSAP timeline creation for scrub animations
+    - scrollTrigger.scrub: number (1 = 1 second lag for smooth feel)
+    - scrollTrigger.pin: boolean (true = pin section during scroll)
+    - scrollTrigger.end: string (e.g., "+=6720" for scroll distance)
+    </interface>
+    <interface name="useGSAP" kind="hook" signature="useGSAP(callback: () => void, config?: { scope?, dependencies? })" path="@gsap/react">
+    - Official GSAP React hook for auto-cleanup
+    - scope: RefObject for scoping animations
+    - dependencies: Array of dependencies to re-run on change
+    - Auto-cleanup on unmount (kills all animations and ScrollTriggers)
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Zero automated tests exist (documented technical debt in ARCHITECTURE.md). Manual validation only with browser testing (Chrome, Firefox, Safari, Edge) across 4 device sizes (375px mobile, 768px tablet, 1024px desktop, 1920px wide). Lighthouse Performance target 80+, Accessibility 90+. Visual QA via Chrome DevTools screenshots. Performance monitoring via Chrome DevTools Performance tab (60fps target, 30fps minimum acceptable).</standards>
+    <locations>No test directories or files exist. Future planned: Vitest + React Testing Library (unit/integration), Playwright (E2E), @axe-core/react (accessibility). See ARCHITECTURE.md lines 626-661 for full testing strategy.</locations>
+    <ideas>
+      <idea ac="1" description="Test Stage 1-5 transitions: Verify all 5 stages render correctly and transition smoothly on scroll. Check that hero form (Stage 1) stays visible as base layer and never gets hidden by later stages."/>
+      <idea ac="2" description="Test ScrollTrigger configuration: Verify trigger selector (.transformation-container), start/end positions, scrub value (1), pin behavior (desktop only). Test that pinning is disabled on mobile (&lt; 768px)."/>
+      <idea ac="3" description="Test GPU-accelerated transforms: Verify only translate, scale, opacity are used in animations. Check that width, height, top, left are NOT animated. Verify `will-change: transform` is set on animated elements."/>
+      <idea ac="4" description="⚠️ SKIP: prefers-reduced-motion removed per AD-003. No accessibility testing required."/>
+      <idea ac="5" description="Test mobile pinning disabled: Load page on mobile viewport (&lt; 768px), verify ScrollTrigger pinning is disabled, verify simple fade-in reveals work instead."/>
+      <idea ac="6" description="Test duration prop: Pass different duration values (e.g., 10, 15, 20), verify timeline length adjusts accordingly."/>
+      <idea ac="7" description="Test storyboard frames: Verify Frame1-6 appear in Stage 4 (Storyboard Assembly), verify stagger animation works, verify images load correctly."/>
+      <idea ac="8" description="Test React cleanup: Navigate away from page, return to page, repeat 3 times. Verify no console errors, verify ScrollTriggers are properly killed, verify no memory leaks (Chrome DevTools Memory tab)."/>
+      <idea ac="integration" description="Test Lenis integration: Verify smooth scroll works, verify ScrollTrigger updates on scroll, verify no scroll jank or stuttering. Test browser resize during animation, verify scroll position syncs correctly. Test reverse scroll (scroll up), verify timeline resets properly."/>
+    </ideas>
+  </tests>
+</story-context>

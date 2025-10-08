@@ -1,6 +1,6 @@
 {
   "session_id": "73e1ab27-9da2-443f-9342-a028f7bbe342",
-  "generated_at": "2025-10-06T17:06:36.060778Z",
+  "generated_at": "2025-10-06T17:54:15.902944Z",
   "docs": [
     {
       "label": "Global CLAUDE.md",
@@ -23,16 +23,16 @@
       "path": "/home/cameronai/projects/cre8tive-website-1006/SPEC.md",
       "lines": 292,
       "skim_hint": null,
-      "ack": true,
-      "last_read": "2025-10-06T17:37:58.325233Z"
+      "ack": false,
+      "last_read": null
     },
     {
       "label": "ARCHITECTURE.md",
       "path": "/home/cameronai/projects/cre8tive-website-1006/ARCHITECTURE.md",
       "lines": 916,
       "skim_hint": "Architecture, System Overview, Tech Stack, Language & Runtime, Frontend Framework, UI & Styling",
-      "ack": true,
-      "last_read": "2025-10-06T17:37:59.858892Z"
+      "ack": false,
+      "last_read": null
     },
     {
       "label": "README.md",
@@ -63,8 +63,8 @@
       "path": "/home/cameronai/projects/cre8tive-website-1006/codex/PLAN.md",
       "lines": 2017,
       "skim_hint": "AI Briefing Engine Page Redesign Plan, Executive Summary, Product Understanding, What It Does, Target Audience, Core Value Props",
-      "ack": true,
-      "last_read": "2025-10-06T17:45:58.137699Z"
+      "ack": false,
+      "last_read": null
     }
   ]
 }
