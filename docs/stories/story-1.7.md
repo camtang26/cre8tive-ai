@@ -1,6 +1,6 @@
 # Story 1.7: Build 15-Second GSAP ScrollTrigger Transformation Timeline
 
-Status: Approved
+Status: Ready for Review
 
 ## Story
 
