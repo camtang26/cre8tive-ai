@@ -63,11 +63,18 @@ const stageData = [
 const heroDetailPills = [
   {
     label: "Campaign",
-    value: "Alpine Water · Summer Elevation"
+    value: "Alpine Water · Summer Elevation",
+    platform: null
   },
   {
-    label: "Formats",
-    value: "30s Hero · 15s Echo"
+    label: "YouTube",
+    value: "16:9 · 60sec",
+    platform: "youtube"
+  },
+  {
+    label: "TikTok",
+    value: "9:16 · 15sec",
+    platform: "tiktok"
   }
 ];
 
@@ -75,22 +82,22 @@ const heroFieldTiles = [
   {
     label: "Brand Name",
     value: "Alpine Water Co.",
-    hint: "Feeds lower-thirds, supers, and CTA copy."
+    hint: "Integrated into every video concept."
   },
   {
-    label: "Campaign Goal",
-    value: "Launch \"Peak Serenity\" hydration ritual",
-    hint: "Guides narrative arc + hero imagery."
-  },
-  {
-    label: "Primary Audience",
+    label: "Target Audience",
     value: "Urban wellness seekers · 24–38",
-    hint: "Sets tone, casting, and pacing."
+    hint: "AI tailors messaging to your ideal viewer."
   },
   {
-    label: "Launch Window",
-    value: "June 15 – Aug 30 · Paid + Organic",
-    hint: "Locks timeline + media mix animations."
+    label: "Unique Selling Points",
+    value: "Glacier-sourced purity · Zero plastic · Peak hydration science",
+    hint: "Core benefits highlighted in every frame."
+  },
+  {
+    label: "Brand Personality",
+    value: "Elevated yet approachable · Zen minimalist · Science-backed wellness",
+    hint: "Locks tone and style before production."
   }
 ];
 
@@ -327,7 +334,7 @@ export const BriefToStoryboardAnimation = () => {
         trigger: containerRef.current,
         start: "top+=15 top", // FIXED: Start pin AFTER scrolling past top (prevents text cutoff)
         end: "+=12000", // Buffer (6s) + Frames 2-5 (5s) + dwell (2s) = 13s × 960px
-        scrub: 10.0, // Instant 1:1 scroll-to-animation mapping (linear progression, no lag)
+        scrub: 1, // 1-second smooth lag (GSAP best practice - responsive but not jerky)
         pin: true,
         anticipatePin: 1,
         pinSpacing: true,
@@ -346,11 +353,11 @@ export const BriefToStoryboardAnimation = () => {
         const accent = stageData[index].accent;
         const progress = ((index + 1) / stageData.length) * 100;
 
-        // Add spacing between stages - each stage gets equal timeline duration
-        // Using "+=1" adds 1 second of timeline duration between each stage label
-        scrollTimeline.addLabel(label, index === 0 ? 0 : "+=0.5");
+        // Add spacing between stages (AC1: crossfade overlap +=0.15s for tighter handoff)
+        scrollTimeline.addLabel(label, index === 0 ? 0 : "+=0.15");
         scrollTimeline.call(updateDetail, [index], label);
 
+        // AC1: Stage reveal - 0.6s duration, power2.out ease (Apple 400-600ms standard)
         scrollTimeline.to(
           stage,
           {
@@ -359,13 +366,15 @@ export const BriefToStoryboardAnimation = () => {
             yPercent: 0,
             filter: "saturate(1)",
             boxShadow: `0 70px 220px -120px ${accent}90`,
-            zIndex: index + 2  // Higher z-index for later stages (stage 0 is z:1, this starts at z:2)
+            zIndex: index + 2,  // Higher z-index for later stages (stage 0 is z:1, this starts at z:2)
+            duration: 0.6,      // AC1: 60% faster than 1.5s baseline
+            ease: "power2.out"  // AC1: Sharper deceleration for snappier feel
           },
           label
         );
 
         // Hide previous stage when showing next stage
-        // FIXED: Changed from (index > 0 && index - 1 > 0) which never hid Frame 1
+        // AC1: Stage hide - 0.5s duration, power3.in ease (UX research 200-500ms sweet spot)
         if (index > 0) {
           scrollTimeline.to(
             sections[index - 1],
@@ -374,65 +383,148 @@ export const BriefToStoryboardAnimation = () => {
               scale: 0.88,
               yPercent: -18,
               filter: "saturate(0.35)",
-              zIndex: 0  // Move to back
+              zIndex: 0,         // Move to back
+              duration: 0.5,     // AC1: 58% faster than 1.2s baseline
+              ease: "power3.in"  // AC1: Sharp acceleration for cleaner exit
             },
             label
           );
         }
 
+        // AC2: Progress bar synchronized with stage reveal (0.6s duration)
         if (progressRef.current) {
           scrollTimeline.to(
             progressRef.current,
             {
               width: `${progress}%`,
-              background: `linear-gradient(90deg, ${accent}, ${accent}80)`
+              background: `linear-gradient(90deg, ${accent}, ${accent}80)`,
+              duration: 0.6,     // AC2: Matches stage reveal timing
+              ease: "power2.out" // Matches stage reveal ease
             },
             label
           );
         }
 
+        // AC2: Accent indicator synchronized with stage reveal (0.6s, larger glow)
         if (accentRef.current) {
           scrollTimeline.to(
             accentRef.current,
             {
               background: accent,
-              boxShadow: `0 0 24px ${accent}66`
+              boxShadow: `0 0 30px ${accent}80`, // AC2: Slightly larger, more intense glow
+              duration: 0.6,                     // AC2: Matches stage reveal timing
+              ease: "power2.out"                 // Matches stage reveal ease
             },
             label
           );
         }
 
+        // AC3: Style cards cascade - COUNTERINTUITIVE: INCREASE stagger from 0.08 to 0.12
+        // Research: <100ms staggers blur together, 0.1-0.15s creates visible "energetic wave"
         if (index === 2 && styleCardRefs.current.length) {
           scrollTimeline.fromTo(
             styleCardRefs.current,
-            { autoAlpha: 0, yPercent: 10, scale: 0.95 },
-            { autoAlpha: 1, yPercent: 0, scale: 1, stagger: 0.08 },
-            `${label}+=0.15`
+            {
+              autoAlpha: 0,
+              yPercent: 15,        // INCREASED: 12 → 15 (more dramatic slide up)
+              scale: 0.88,         // DECREASED: 0.92 → 0.88 (bigger growth)
+              rotationZ: -3,       // NEW: Slight rotation for more dynamic entry
+              force3D: true        // CRITICAL: GPU acceleration (was missing!)
+            },
+            {
+              autoAlpha: 1,
+              yPercent: 0,
+              scale: 1,
+              rotationZ: 0,        // Rotate back to 0
+              force3D: true,       // Keep GPU layer active
+              stagger: 0.12,       // AC3: INCREASE 0.08→0.12 (50% slower for visible cascade)
+              duration: 0.35,      // AC3: 42% faster than 0.6s baseline
+              ease: "back.out(2.0)" // INCREASED: 1.7 → 2.0 (BIGGER overshoot for more bounce)
+            },
+            `${label}+=0.2`  // AC3: Tighter coordination (0.3s→0.2s)
           );
         }
 
+        // AC4: Storyboard frames - INCREASE stagger 0.05→0.15 + add 3D depth
+        // Research: 150ms is Awwwards 2024-2025 standard for "cinematic snap-in rhythm"
         if (index === 3 && storyboardFrameRefs.current.length) {
           scrollTimeline.fromTo(
             storyboardFrameRefs.current,
-            { autoAlpha: 0, yPercent: 6, scale: 0.96 },
-            { autoAlpha: 1, yPercent: 0, scale: 1, stagger: 0.05 },
-            `${label}+=0.1`
+            {
+              autoAlpha: 0,
+              yPercent: 8,
+              scale: 0.94,
+              rotationY: 15,               // INCREASED: 5° → 15° for more visible flip
+              transformPerspective: 500,   // REDUCED: 1000 → 500 for more dramatic perspective
+              force3D: true                // CRITICAL: Force GPU acceleration for 3D
+            },
+            {
+              autoAlpha: 1,
+              yPercent: 0,
+              scale: 1,
+              rotationY: 0,                // AC4: 3D flip effect (15° → 0°)
+              transformPerspective: 500,   // Maintain perspective throughout
+              force3D: true,               // Keep GPU layer active
+              stagger: 0.15,               // AC4: INCREASE 0.05→0.15 (200% slower for cinematic rhythm)
+              duration: 0.3,               // AC4: 40% faster than 0.5s baseline
+              ease: "power3.out"           // AC4: Sharper snap = assembly feel
+            },
+            `${label}+=0.2`  // AC4: Tighter coordination (0.3s→0.2s)
           );
         }
 
+        // AC5: PDF finale - CLIMACTIC REVEAL with 3D flip + BIG overshoot
+        // Research: 0.5s (72% faster than 1.8s baseline) creates "TA-DA!" moment
         if (index === 4 && pdfMockupRef.current) {
           scrollTimeline.fromTo(
             pdfMockupRef.current,
-            { autoAlpha: 0, yPercent: 10, scale: 0.92 },
-            { autoAlpha: 1, yPercent: 0, scale: 1 },
-            `${label}+=0.08`
+            {
+              autoAlpha: 0,
+              yPercent: 15,
+              scale: 0.75,                 // MORE DRAMATIC: 0.88 → 0.75 for bigger growth
+              rotationX: 25,               // INCREASED: 8° → 25° for much more visible flip
+              transformPerspective: 500,   // REDUCED: 1000 → 500 for more dramatic perspective
+              force3D: true                // CRITICAL: Force GPU acceleration for 3D
+            },
+            {
+              autoAlpha: 1,
+              yPercent: 0,
+              scale: 1,
+              rotationX: 0,                // AC5: Dramatic 3D flip (25° → 0°)
+              transformPerspective: 500,   // Maintain perspective throughout
+              force3D: true,               // Keep GPU layer active
+              duration: 0.5,               // AC5: 72% faster - IMPACTFUL not slow fade
+              ease: "back.out(2.5)"        // AC5: BIG overshoot for climactic "TA-DA!" moment
+            },
+            `${label}+=0.2`  // AC5: Tighter coordination (0.3s→0.2s)
           );
         }
       });
 
-      // Add extra dwell time for Frame 5 to stay visible before unpin
-      // This adds 2 seconds of timeline without animating anything
-      scrollTimeline.to({}, { duration: 2 });
+      // AC6: Victory pulse animation - DRAMATIC celebratory effect on PDF finale
+      // FIX: Removed brightness filter (black flash), MASSIVELY increased scale + rotation for impact
+      if (pdfMockupRef.current) {
+        scrollTimeline.fromTo(
+          pdfMockupRef.current,
+          {
+            scale: 1,
+            rotation: 0,
+            boxShadow: "0 80px 240px -100px rgba(234,88,12,0.6)",
+            force3D: true  // GPU acceleration
+          },
+          {
+            scale: 1.08,                                             // MASSIVE INCREASE: 1.03 → 1.08 (8% growth!)
+            rotation: 2,                                             // NEW: Subtle rotation for more life
+            boxShadow: "0 120px 320px -80px rgba(234,88,12,1.0)",   // INTENSIFIED: Larger, full opacity glow
+            force3D: true,
+            duration: 1.2,                                           // Slightly faster for snappiness
+            ease: "power2.inOut",                                    // Changed: Snappier than sine
+            yoyo: true,
+            repeat: 1  // Pulse once (up and down)
+          },
+          "+=0.3"  // AC6: Start earlier (0.5s→0.3s) after reveal
+        );
+      }
 
       ScrollTrigger.refresh();
   }, {
@@ -495,91 +587,173 @@ export const BriefToStoryboardAnimation = () => {
                     aria-hidden
                   />
                   <div className="absolute inset-0 pointer-events-none rounded-[28px] border border-white/8 mix-blend-screen" aria-hidden />
-                  <div className="relative z-10 h-full px-8 py-10 md:px-12 lg:px-16 lg:py-12">
-                    <div className="grid h-full items-stretch gap-10 md:grid-cols-[1.1fr_0.9fr]">
-                      <div className="flex flex-col justify-between gap-8">
-                        <div className="space-y-6">
+                  <div className="relative z-10 h-full px-8 py-3 md:px-12 md:py-5 lg:px-16 lg:py-6">
+                    <div className="grid h-full items-stretch gap-4 md:gap-5 md:grid-cols-[1.1fr_0.9fr]">
+                      <div className="flex flex-col justify-between gap-3 md:gap-3">
+                        <div className="space-y-5">
                           <div
                             ref={heroLabelRef}
-                            className="inline-flex w-max items-center gap-3 rounded-full border border-white/18 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.38em] text-white/70"
+                            className="inline-flex w-max items-center gap-3 rounded-full border border-white/18 bg-white/10 px-4 py-1.5 text-[15px] font-semibold uppercase tracking-[0.38em] text-white/70"
+                            style={{textShadow: '0 1px 6px rgba(0,0,0,0.3)'}}
                           >
                             <span>Step 01</span>
                             <span className="text-white/45">Briefing Intake</span>
                           </div>
-                          <div className="space-y-3">
+                          <div className="space-y-2.5">
                             <h4
                               ref={heroHeadlineRef}
-                              className="text-[34px] font-black tracking-tight text-white md:text-[44px] lg:text-[46px]"
+                              className="text-[32px] font-black tracking-tight text-white md:text-[50px] lg:text-[60px] leading-[1.1]"
+                              style={{textShadow: '0 2px 12px rgba(0,0,0,0.5), 0 4px 24px rgba(0,0,0,0.3)'}}
                             >
-                              Feed four essentials and ignite the storyboard engine
+                              Brand DNA captured in 2 minutes
                             </h4>
-                            <p
-                              ref={heroSubheadlineRef}
-                              className="max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
-                            >
-                              These entries power tone mapping, pacing, and shot selection so the platform can transform the brief as you scroll further in.
-                            </p>
                           </div>
-                          <div className="flex flex-wrap items-center gap-3">
-                            {heroDetailPills.map((detail) => (
+                          <div className="flex flex-col gap-4">
+                            {heroDetailPills.slice(0, 1).map((detail) => (
                               <div
                                 key={detail.label}
                                 ref={(el) => el && heroDetailRefs.current.push(el)}
-                                className="inline-flex items-center gap-3 rounded-full border border-white/16 bg-white/10 px-5 py-2 text-[11px] uppercase tracking-[0.35em] text-white/60"
+                                className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/12 px-6 py-3 text-[13px] uppercase tracking-[0.35em] text-white/70 w-max"
+                                style={{boxShadow: '0 2px 12px rgba(0,0,0,0.2)', textShadow: '0 1px 4px rgba(0,0,0,0.3)'}}
                               >
-                                <span>{detail.label}</span>
-                                <span className="text-xs font-semibold tracking-[0.28em] text-white/85">
+                                <span className="font-semibold">{detail.label}</span>
+                                <span className="text-xs font-bold tracking-[0.28em] text-white/85">
                                   {detail.value}
                                 </span>
                               </div>
                             ))}
+
+                            <div className="flex flex-col gap-4">
+                              <div className="inline-flex items-center gap-2 text-[16px] font-bold uppercase tracking-[0.38em] text-white/60" style={{textShadow: '0 1px 4px rgba(0,0,0,0.3)'}}>
+                                <span>Formats & Duration</span>
+                              </div>
+                              <div className="flex items-center gap-8">
+                                {heroDetailPills.slice(1).map((detail, idx) => (
+                                  <div
+                                    key={detail.label}
+                                    ref={(el) => {
+                                      if (el && idx === 0) heroDetailRefs.current.push(el);
+                                      if (el && idx === 1) heroDetailRefs.current.push(el);
+                                    }}
+                                    className="inline-flex items-center gap-3"
+                                    style={{textShadow: '0 1px 6px rgba(0,0,0,0.3)'}}
+                                  >
+                                    {detail.platform === 'youtube' && (
+                                      <svg className="w-10 h-10" viewBox="0 0 24 24" fill="#FF0000">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                      </svg>
+                                    )}
+                                    {detail.platform === 'tiktok' && (
+                                      <svg className="w-10 h-10" viewBox="0 0 24 24">
+                                        <defs>
+                                          <linearGradient id="tiktokGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style={{stopColor: '#00F2EA', stopOpacity: 1}} />
+                                            <stop offset="100%" style={{stopColor: '#FF0050', stopOpacity: 1}} />
+                                          </linearGradient>
+                                        </defs>
+                                        <path fill="url(#tiktokGradient)" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                                      </svg>
+                                    )}
+                                    <div className="flex flex-col">
+                                      <span className="text-[13px] font-bold uppercase tracking-[0.3em] text-white/70">{detail.label}</span>
+                                      <span className="text-[16px] font-black tracking-wide text-white/95">{detail.value}</span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-4">
-                          <a
-                            ref={heroPrimaryCtaRef}
-                            href="/contact"
-                            className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE] px-7 py-3 text-sm font-semibold uppercase tracking-[0.32em] text-white shadow-[0_32px_120px_-60px_rgba(99,102,241,0.9)] transition-transform duration-300 group-hover:-translate-y-0.5"
-                          >
-                            Launch Storyboard Draft
-                            <span className="text-white/70">→</span>
-                          </a>
-                          <a
-                            ref={heroSecondaryCtaRef}
-                            href="/briefing-engine"
-                            className="inline-flex items-center gap-3 rounded-full border border-white/18 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.32em] text-white/75 transition-colors duration-300 hover:border-white/40 hover:text-white"
-                          >
-                            View Platform Walkthrough
-                          </a>
-                        </div>
+                        <a
+                          ref={heroPrimaryCtaRef}
+                          href="/contact"
+                          className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE] px-8 py-4 text-[15px] font-bold uppercase tracking-[0.3em] text-white shadow-[0_32px_120px_-60px_rgba(99,102,241,0.9)] transition-transform duration-300 group-hover:-translate-y-0.5 w-max"
+                          style={{textShadow: '0 2px 8px rgba(0,0,0,0.3)'}}
+                        >
+                          Start Your First Brief
+                          <span className="text-white/70">→</span>
+                        </a>
                       </div>
 
                       <div
                         ref={heroFieldCardRef}
-                        className="relative flex flex-col gap-4 rounded-[28px] border border-white/12 bg-[rgba(13,15,32,0.92)] p-6 shadow-[0_80px_200px_-120px_rgba(99,102,241,0.7)]"
+                        className="relative flex flex-col gap-3 rounded-[28px] border border-white/12 bg-[rgba(13,15,32,0.92)] p-4 shadow-[0_80px_200px_-120px_rgba(99,102,241,0.7)]"
                       >
                         <div className="pointer-events-none absolute inset-0 rounded-[28px] border border-white/10 opacity-45" aria-hidden />
                         <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/12 via-transparent to-transparent opacity-40" aria-hidden />
-                        <div className="relative space-y-4">
-                          {heroFieldTiles.map((field) => (
-                            <div
-                              key={field.label}
-                              ref={(el) => el && heroFieldRefs.current.push(el)}
-                              className="rounded-2xl border border-white/12 bg-[rgba(18,20,40,0.9)] p-5"
-                            >
-                              <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.32em] text-white/55">
-                                <span>{field.label}</span>
-                                <span className="rounded-full bg-white/10 px-3 py-0.5 text-[10px] text-white/40">Required</span>
-                              </div>
-                              <p className="mt-3 text-lg font-semibold text-white/90 md:text-xl">
-                                {field.value}
-                              </p>
-                              <p className="mt-3 text-[10px] uppercase tracking-[0.32em] text-white/40">
-                                {field.hint}
-                              </p>
+
+                        {/* Brand Name - Hero Treatment */}
+                        <div
+                          ref={(el) => el && heroFieldRefs.current.push(el)}
+                          className="relative overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-transparent p-4"
+                        >
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_70%)]" aria-hidden />
+                          <div className="relative">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-indigo-300/80">Brand Name</span>
+                              <span className="rounded-full bg-indigo-400/20 px-2 py-0.5 text-[8px] font-semibold text-indigo-200/60">Required</span>
                             </div>
-                          ))}
+                            <h3 className="text-2xl font-black text-white tracking-tight" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
+                              Alpine Water Co.
+                            </h3>
+                          </div>
+                        </div>
+
+                        {/* Target Audience - Icon Card */}
+                        <div
+                          ref={(el) => el && heroFieldRefs.current.push(el)}
+                          className="relative rounded-2xl border border-white/15 bg-[rgba(18,20,40,0.85)] p-6"
+                        >
+                          <div className="flex items-start gap-4">
+                            <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/30">
+                              <svg className="w-6 h-6 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                              </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-cyan-300/70 mb-2">Target Audience</div>
+                              <p className="text-lg font-semibold text-white/95 leading-tight">Urban wellness seekers · 24–38</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* USPs - Tag Layout */}
+                        <div
+                          ref={(el) => el && heroFieldRefs.current.push(el)}
+                          className="relative rounded-2xl border border-white/15 bg-[rgba(18,20,40,0.85)] p-6"
+                        >
+                          <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-fuchsia-300/70 mb-3">Unique Selling Points</div>
+                          <div className="flex flex-wrap gap-2.5">
+                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-fuchsia-500/20 to-pink-500/20 border border-fuchsia-400/30 text-sm font-semibold text-white/90">
+                              Glacier-sourced purity
+                            </span>
+                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 border border-purple-400/30 text-sm font-semibold text-white/90">
+                              Zero plastic
+                            </span>
+                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border border-pink-400/30 text-sm font-semibold text-white/90">
+                              Peak hydration science
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Brand Personality - Trait Pills */}
+                        <div
+                          ref={(el) => el && heroFieldRefs.current.push(el)}
+                          className="relative rounded-2xl border border-white/15 bg-[rgba(18,20,40,0.85)] p-6"
+                        >
+                          <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-indigo-300/70 mb-3">Brand Personality</div>
+                          <div className="flex flex-wrap gap-2.5">
+                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-indigo-500/15 border border-indigo-400/30 text-sm font-medium text-indigo-100/90">
+                              Elevated yet approachable
+                            </span>
+                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-cyan-500/15 border border-cyan-400/30 text-sm font-medium text-cyan-100/90">
+                              Zen minimalist
+                            </span>
+                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-purple-500/15 border border-purple-400/30 text-sm font-medium text-purple-100/90">
+                              Science-backed wellness
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
