@@ -343,9 +343,10 @@ export const BriefToStoryboardAnimation = () => {
     });
 
     // CRITICAL: Add intro buffer - prevents Frame 1→2 transition until intro completes
-    // 6.0s is the minimum needed for full intro animation to play out smoothly
+    // Intro timeline takes ~2.74s to complete all hero content animations
+    // Buffer duration must match to prevent scroll-based timeline from advancing before time-based intro finishes
     if (introTimeline) {
-      scrollTimeline.to({}, { duration: 1.0 }); // User-tested optimal value
+      scrollTimeline.to({}, { duration: 3.5 }); // Match intro duration + margin (prevents Frame 2 appearing before Frame 1 completes)
     }
 
       sections.forEach((stage, index) => {
@@ -473,58 +474,34 @@ export const BriefToStoryboardAnimation = () => {
           );
         }
 
-        // AC5: PDF finale - CLIMACTIC REVEAL with 3D flip + BIG overshoot
-        // Research: 0.5s (72% faster than 1.8s baseline) creates "TA-DA!" moment
+        // Frame 2: AI Processing dwell - Give particle visualization breathing room
+        // 0.6s transition + 0.6s dwell = 1.2s total
+        if (index === 1) {
+          scrollTimeline.to({}, { duration: 0.6 }, "+=0");
+        }
+
+        // Frame 5: PDF finale - Clean reveal with breathing room
+        // 0.5s reveal + 1.0s dwell = 1.5s total (matches other frames)
         if (index === 4 && pdfMockupRef.current) {
           scrollTimeline.fromTo(
             pdfMockupRef.current,
             {
               autoAlpha: 0,
-              yPercent: 15,
-              scale: 0.75,                 // MORE DRAMATIC: 0.88 → 0.75 for bigger growth
-              rotationX: 25,               // INCREASED: 8° → 25° for much more visible flip
-              transformPerspective: 500,   // REDUCED: 1000 → 500 for more dramatic perspective
-              force3D: true                // CRITICAL: Force GPU acceleration for 3D
+              scale: 0.95
             },
             {
               autoAlpha: 1,
-              yPercent: 0,
               scale: 1,
-              rotationX: 0,                // AC5: Dramatic 3D flip (25° → 0°)
-              transformPerspective: 500,   // Maintain perspective throughout
-              force3D: true,               // Keep GPU layer active
-              duration: 0.5,               // AC5: 72% faster - IMPACTFUL not slow fade
-              ease: "back.out(2.5)"        // AC5: BIG overshoot for climactic "TA-DA!" moment
+              duration: 0.5,
+              ease: "power2.out"
             },
-            `${label}+=0.2`  // AC5: Tighter coordination (0.3s→0.2s)
+            `${label}+=0.2`
           );
+
+          // Add dwell time after reveal - let the PDF breathe
+          scrollTimeline.to({}, { duration: 1.0 }, "+=0");
         }
       });
-
-      // AC6: Victory pulse animation - DRAMATIC celebratory effect on PDF finale
-      // FIX: Removed brightness filter (black flash), MASSIVELY increased scale + rotation for impact
-      if (pdfMockupRef.current) {
-        scrollTimeline.fromTo(
-          pdfMockupRef.current,
-          {
-            scale: 1,
-            rotation: 0,
-            boxShadow: "0 80px 240px -100px rgba(234,88,12,0.6)",
-            force3D: true  // GPU acceleration
-          },
-          {
-            scale: 1.08,                                             // MASSIVE INCREASE: 1.03 → 1.08 (8% growth!)
-            rotation: 2,                                             // NEW: Subtle rotation for more life
-            boxShadow: "0 120px 320px -80px rgba(234,88,12,1.0)",   // INTENSIFIED: Larger, full opacity glow
-            force3D: true,
-            duration: 1.2,                                           // Slightly faster for snappiness
-            ease: "power2.inOut",                                    // Changed: Snappier than sine
-            yoyo: true,
-            repeat: 1  // Pulse once (up and down)
-          },
-          "+=0.3"  // AC6: Start earlier (0.5s→0.3s) after reveal
-        );
-      }
 
       ScrollTrigger.refresh();
   }, {
