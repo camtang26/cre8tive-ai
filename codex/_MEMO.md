@@ -15,6 +15,11 @@
   - **Target User:** Prospective Cre8tive AI Studios clients evaluating our storyboard automation workflow on desktop and laptop browsers (primary decision-makers in agencies/marketing teams).
   - **Success Signal:** On first scroll past the hero (≈20% viewport), the container animates from blurred/offset to crisp focus exactly once, chains into the intro timeline, maintains 60 fps, and the story’s AC #10 plus associated tasks in `docs/stories/story-1.7.md` are marked complete with passing tests/linters.
 
+- **AI Product Charter — Briefing Process Flow Refinement (2025-10-09)**
+  - **Problem:** The current stacked workflow section feels text-heavy and under-utilizes viewport space, with the connected pipeline card carrying redundant copy and the stage cards reading smaller than intended.
+  - **Target User:** Marketing decision makers and creative leads exploring the AI Briefing Engine on laptops and large tablets who need an immediate, premium sense of the guided workflow.
+  - **Success Signal:** Within one viewport, visitors can read the key workflow headline, spot a concise connected-pipeline callout, and interact with enlarged stage cards whose dossier alignment stays intact across breakpoints, validated via responsive preview and build.
+
 - 2025-10-06 10:15 NZDT — Codex prepping S6 (Storyboard GSAP timeline + canvas particles)
 - 2025-10-06 08:50 NZDT — Codex starting S5 (Visual styles ScrollTrigger + detail panel) (Complete)
 - 2025-10-06 05:15 NZDT — Codex starting S2 (Fix hero section dark theme gradient rework) (Complete)
@@ -55,6 +60,19 @@ npm run preview          # Preview production build on port 4173
 - 2 modified config files (base.css, tailwind.config.ts)
 
 # Decisions
+
+**2025-10-09 18:20 UTC: Process Flow Layout Refinement ✅**
+- Connected Pipeline content trimmed to title + ladder and relocated beneath the stack navigator as a compact badge so the header breathes.
+- Stage cards expanded (max-width, padding, icon scale) with deeper perspective transforms to keep the 3D stagger while filling viewport real estate.
+- Build verified via `npm run build` (Alias `npmrb` unavailable in non-interactive shell).
+
+**2025-10-09 19:05 UTC: Process Flow Layout Reversion ↺**
+- User requested original card proportions back; reverted stack dimensions and transform depths to prior settings while retaining the slim connected-pipeline badge placement.
+- Rebuilt (`npm run build`) to confirm parity after rollback.
+
+**2025-10-09 19:40 UTC: Workflow Header Emphasis ✅**
+- Shifted the briefing header lower in the viewport (larger sticky offset + intro spacing) and scaled typography to give the section more presence.
+- Build re-run (`npm run build`) to validate.
 
 **2025-10-08 09:30 UTC: AC10 Entrance Research ✅**
 - Context7 (/llmstxt/gsap_llms_txt) confirms `timeline.eventCallback('onComplete', ...)` as the recommended chaining pattern; use paused intro timeline and fire via entrance timeline completion.
@@ -506,6 +524,11 @@ npm run preview          # Preview production build on port 4173
 None from redesign - all validations complete, redesign ready for deployment
 
 # Next Steps
+
+**ACTIVE TASK: Briefing Process Flow Refinement (2025-10-09)**
+- S1 ✅ Layout audit: slim the connected pipeline into a horizontal badge beneath the stage navigator and reserve more horizontal room for the stack.
+- S2 ↺ Rolled back per user direction: restored original card scale while keeping the connected-pipeline badge in place.
+- S3 — Paused pending further direction; header emphasis applied and build reconfirmed via `npm run build`.
 
 **ACTIVE STORY: 1.7 AC10 Entrance Reveal**
 - Prep: Research captured 2025-10-08 (GSAP chaining, blur performance).

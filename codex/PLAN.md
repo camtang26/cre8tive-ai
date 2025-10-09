@@ -1,3 +1,19 @@
+# Briefing Process Flow Refinement – 2025-10-09
+
+**Goal:** Reduce textual clutter and elevate the stacked workflow presence by streamlining the connected pipeline callout and enlarging the interactive stage cards while preserving viewport clarity.
+
+**Impact Set:**
+- `src/components/briefing/BriefingProcessFlow.tsx`
+- `/codex/_MEMO.md` (charter + notes)
+
+**Commands:**
+- `npm run build` (build verification)
+
+## Steps
+- S1 (DONE) — Evaluate current layout space usage, decide on connected pipeline placement, and blueprint enlarged card dimensions.
+- S2 (CANCELLED) — Rolled back per user request; original stacked card proportions reinstated while retaining the slim connected-pipeline badge.
+- S3 — Paused pending new direction; header prominence adjusted, responsive sweep/build rerun on hold.
+
 # Story 1.7 AC10 – Cinematic Entrance (2025-10-08)
 
 **Goal:** Deliver the once-only focus-pull entrance animation for `BriefToStoryboardAnimation`, chaining cleanly into the existing intro timeline while maintaining 60 fps and preserving current scroll stages.
