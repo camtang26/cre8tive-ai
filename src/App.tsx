@@ -13,7 +13,7 @@ import { scrollAnimator } from './utils/scrollAnimations';
 import Index from "./pages/Index";
 import Studios from "./pages/Studios";
 import BriefingEngine from "./pages/BriefingEngine";
-import Agents from "./pages/Agents";
+// import Agents from "./pages/Agents"; // Temporarily disabled - service under development
 import ConversationalAI from "./pages/ConversationalAI";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -80,11 +80,14 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/studios" element={<Studios />} />
-              {/* AI Briefing Engine - keeping /studios-engine route for SEO, could change to /briefing-engine */}
-              <Route path="/studios-engine" element={<BriefingEngine />} />
+              {/* AI Briefing Engine */}
+              <Route path="/briefing-engine" element={<BriefingEngine />} />
+              {/* Redirect old /studios-engine route for SEO */}
+              <Route path="/studios-engine" element={<Navigate to="/briefing-engine" replace />} />
               {/* Legacy /manager route - redirects to Briefing Engine */}
               <Route path="/manager" element={<BriefingEngine />} />
-              <Route path="/agents" element={<Agents />} />
+              {/* AI Agents page temporarily disabled - service under development */}
+              {/* <Route path="/agents" element={<Agents />} /> */}
               <Route path="/conversational" element={<ConversationalAI />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />

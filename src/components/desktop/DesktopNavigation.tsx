@@ -66,18 +66,19 @@ export const DesktopNavigation = () => {
                 }`} />
               </Link>
               <Link
-                to="/studios-engine"
+                to="/briefing-engine"
                 className={`relative text-white/90 hover:text-white transition-all duration-300 font-geist text-base font-medium tracking-[-0.01em] flex items-center h-full group ${
-                  isActive('/studios-engine') ? 'text-white' : ''
+                  isActive('/briefing-engine') ? 'text-white' : ''
                 }`}
                 role="menuitem"
               >
                 AI Briefing Engine
                 <span className={`absolute bottom-5 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transform origin-left transition-transform duration-300 ${
-                  isActive('/studios-engine') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  isActive('/briefing-engine') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                 }`} />
               </Link>
-              <Link
+              {/* AI Agents temporarily hidden until service is polished */}
+              {/* <Link
                 to="/agents"
                 className={`relative text-white/90 hover:text-white transition-all duration-300 font-geist text-base font-medium tracking-[-0.01em] flex items-center h-full group ${
                   isActive('/agents') ? 'text-white' : ''
@@ -88,7 +89,7 @@ export const DesktopNavigation = () => {
                 <span className={`absolute bottom-5 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-500 to-teal-500 transform origin-left transition-transform duration-300 ${
                   isActive('/agents') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                 }`} />
-              </Link>
+              </Link> */}
               <Link
                 to="/conversational"
                 className={`relative text-white/90 hover:text-white transition-all duration-300 font-geist text-base font-medium tracking-[-0.01em] flex items-center h-full group ${
