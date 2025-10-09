@@ -161,103 +161,52 @@ export const BriefToStoryboardAnimation = () => {
     }
 
     // ========================================
-    // ENTRANCE ANIMATION - Initial Hidden State
+    // INITIAL STATES - Set all elements to hidden before scroll timeline
     // ========================================
 
-    // Set entire container to hidden state (position/scale final, only opacity/blur animate)
-    // CRITICAL: Keep y and scale at final values to prevent ScrollTrigger position shifts
+    // Container entrance state
     gsap.set(containerRef.current, {
-      opacity: 0,                // Invisible but occupies layout space
-      y: 0,                      // Already at final position (no slide animation)
-      scale: 1,                  // Already at final scale (no scale animation)
-      filter: "blur(20px)",      // Heavy blur (out of focus) - will animate to 0
-      transformOrigin: "50% 50%" // Scale from center (for other animations)
+      opacity: 0,
+      filter: "blur(20px)",
+      transformOrigin: "50% 50%"
     });
 
-    // ========================================
-    // ENTRANCE TIMELINE - Simplified Focus Pull (opacity + blur only)
-    // ========================================
-
-    // Create entrance reveal timeline (blur → sharp, invisible → visible)
-    const entranceTimeline = gsap.timeline({
-      paused: true,  // Don't play automatically, wait for ScrollTrigger
-      defaults: { ease: "power3.out" }  // Smooth deceleration
-    });
-
-    entranceTimeline.to(containerRef.current, {
-      opacity: 1,                // Fade in
-      filter: "blur(0px)",       // Snap into focus
-      duration: 1.2,             // 1.2 seconds (feels premium, not rushed)
-      ease: "power3.out"         // Smooth ease-out (starts fast, ends slow)
-    });
-
-    // ScrollTrigger to fire entrance when container enters viewport
-    ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top 60%",          // Fires when container top hits 60% down viewport (tunable)
-      once: true,                // Only fire once (don't re-trigger on scroll up)
-      onEnter: () => {
-        entranceTimeline.play();
-      }
-    });
-
-    // ========================================
-    // INTRO TIMELINE (Stage 1 - Hero Form)
-    // ========================================
-
-    // Declare introTimeline outside conditional for broader scope
-    let introTimeline = null;
-
-    // Only run intro timeline if hero refs are populated
+    // Hero intro states (only if refs populated)
     if (heroShellRef.current) {
-      // Set initial states
       gsap.set(heroShellRef.current, { autoAlpha: 0, y: 40, scale: 0.94 });
-    if (heroGridRef.current) gsap.set(heroGridRef.current, { autoAlpha: 0, rotation: 4, scale: 1.06 });
-    if (heroArcRef.current) gsap.set(heroArcRef.current, { autoAlpha: 0, scale: 0.72, rotate: -28 });
-    if (heroLabelRef.current) gsap.set(heroLabelRef.current, { autoAlpha: 0, y: 22 });
-    if (heroHeadlineRef.current) gsap.set(heroHeadlineRef.current, { autoAlpha: 0, y: 36 });
-    if (heroSubheadlineRef.current) gsap.set(heroSubheadlineRef.current, { autoAlpha: 0, y: 28 });
+    }
+    if (heroGridRef.current) {
+      gsap.set(heroGridRef.current, { autoAlpha: 0, rotation: 4, scale: 1.06 });
+    }
+    if (heroArcRef.current) {
+      gsap.set(heroArcRef.current, { autoAlpha: 0, scale: 0.72, rotate: -28 });
+    }
+    if (heroLabelRef.current) {
+      gsap.set(heroLabelRef.current, { autoAlpha: 0, y: 22 });
+    }
+    if (heroHeadlineRef.current) {
+      gsap.set(heroHeadlineRef.current, { autoAlpha: 0, y: 36 });
+    }
+    if (heroSubheadlineRef.current) {
+      gsap.set(heroSubheadlineRef.current, { autoAlpha: 0, y: 28 });
+    }
     heroDetailRefs.current.forEach((el) => gsap.set(el, { autoAlpha: 0, y: 20 }));
-    if (heroFieldCardRef.current) gsap.set(heroFieldCardRef.current, { autoAlpha: 0, y: 50, scale: 0.95 });
+    if (heroFieldCardRef.current) {
+      gsap.set(heroFieldCardRef.current, { autoAlpha: 0, y: 50, scale: 0.95 });
+    }
     heroFieldRefs.current.forEach((el) => gsap.set(el, { autoAlpha: 0, y: 26 }));
-    if (heroPrimaryCtaRef.current) gsap.set(heroPrimaryCtaRef.current, { autoAlpha: 0, y: 20, scale: 0.92 });
-    if (heroSecondaryCtaRef.current) gsap.set(heroSecondaryCtaRef.current, { autoAlpha: 0, y: 20, scale: 0.92 });
-
-    // Create intro timeline (waits for entrance onComplete, not auto-play)
-    // This ensures all heroShellRef content is visible BEFORE scroll timeline can hide it
-    introTimeline = gsap.timeline({
-      paused: true,              // Don't auto-play, wait for entrance onComplete
-      defaults: { ease: "power3.out" }
-    });
-
-    introTimeline
-      .to(heroShellRef.current, { autoAlpha: 1, y: 0, scale: 1, duration: 0.8 })
-      .to(heroGridRef.current, { autoAlpha: 1, rotation: 0, scale: 1, duration: 1.1 }, "<")
-      .to(heroArcRef.current, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.9 }, "<0.1")
-      .to(heroLabelRef.current, { y: 0, autoAlpha: 1, duration: 0.55 }, "-=0.5")
-      .to(heroHeadlineRef.current, { y: 0, autoAlpha: 1, duration: 0.8 }, "-=0.4")
-      .to(heroSubheadlineRef.current, { y: 0, autoAlpha: 1, duration: 0.6 }, "-=0.45")
-      .to(heroDetailRefs.current, { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.1 }, "-=0.4")
-      .to(heroFieldCardRef.current, { y: 0, autoAlpha: 1, scale: 1, duration: 0.8 }, "-=0.35")
-      .to(heroFieldRefs.current, { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.08 }, "-=0.6")
-      .to(heroPrimaryCtaRef.current, { y: 0, autoAlpha: 1, scale: 1, duration: 0.45 }, "-=0.3")
-      .to(heroSecondaryCtaRef.current, { y: 0, autoAlpha: 1, scale: 1, duration: 0.45 }, "-=0.35");
+    if (heroPrimaryCtaRef.current) {
+      gsap.set(heroPrimaryCtaRef.current, { autoAlpha: 0, y: 20, scale: 0.92 });
+    }
+    if (heroSecondaryCtaRef.current) {
+      gsap.set(heroSecondaryCtaRef.current, { autoAlpha: 0, y: 20, scale: 0.92 });
+    }
 
     // ========================================
-    // ENTRANCE → INTRO CHAINING (Overlapped for Earlier Start)
+    // INFINITE ANIMATIONS (Background elements - separate from scroll timeline)
     // ========================================
 
-    // Start intro timeline EARLIER (midway through entrance at 0.6s)
-    // This gives Frame 1 animation more time to complete before scroll transitions
-    entranceTimeline.add(() => {
-      introTimeline.play();
-    }, 0.6); // Fires 0.6s into entrance (50% through 1.2s entrance)
-
-    // ========================================
-    // INFINITE ANIMATIONS (Background elements)
-    // ========================================
-
-    // Rotating energy arc
+    // Rotating energy arc (infinite, independent of scroll)
     if (heroArcRef.current) {
       gsap.to(heroArcRef.current, {
         rotation: 360,
@@ -267,7 +216,7 @@ export const BriefToStoryboardAnimation = () => {
       });
     }
 
-    // Pulsing grid background
+    // Pulsing grid background (infinite, independent of scroll)
     if (heroGridRef.current) {
       gsap.to(heroGridRef.current, {
         backgroundPosition: "120% 60%",
@@ -278,7 +227,6 @@ export const BriefToStoryboardAnimation = () => {
         ease: "sine.inOut"
       });
     }
-    } // End hero intro timeline conditional
 
     // ========================================
     // SCROLL TIMELINE (All 5 Stages)
@@ -327,35 +275,172 @@ export const BriefToStoryboardAnimation = () => {
       return;
     }
 
-    // Main scroll timeline (CRITICAL: ease "none" for scrub compatibility)
+    // ========================================
+    // UNIFIED SCROLL TIMELINE - All animations controlled by scroll (scrub: 1)
+    // ========================================
+
     const scrollTimeline = gsap.timeline({
-      defaults: { ease: "none" }, // CHANGED from "power3.out" - required for scrub
+      defaults: { ease: "none" }, // CRITICAL: ease "none" required for scrub compatibility
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top+=15 top", // FIXED: Start pin AFTER scrolling past top (prevents text cutoff)
-        end: "+=12000", // Buffer (6s) + Frames 2-5 (5s) + dwell (2s) = 13s × 960px
-        scrub: 1, // 1-second smooth lag (GSAP best practice - responsive but not jerky)
+        start: "top+=15 top",
+        end: "+=14000", // Total: 4.1s intro + 10s stages = 14s × 1000px/s
+        scrub: 1, // 1-second smooth lag (GSAP best practice)
         pin: true,
         anticipatePin: 1,
         pinSpacing: true,
-        invalidateOnRefresh: true // Force recalc on Lenis updates
+        invalidateOnRefresh: true
       }
     });
 
-    // CRITICAL: Add intro buffer - prevents Frame 1→2 transition until intro completes
-    // Intro timeline takes ~2.74s to complete all hero content animations
-    // Buffer duration must match to prevent scroll-based timeline from advancing before time-based intro finishes
-    if (introTimeline) {
-      scrollTimeline.to({}, { duration: 3.5 }); // Match intro duration + margin (prevents Frame 2 appearing before Frame 1 completes)
+    // ========================================
+    // ENTRANCE + INTRO SEQUENCE (0.0s - 4.1s) - Now scroll-controlled!
+    // ========================================
+
+    // Container entrance: blur → sharp + fade in (0.0s - 1.2s)
+    scrollTimeline.to(containerRef.current, {
+      opacity: 1,
+      filter: "blur(0px)",
+      duration: 1.2,
+      ease: "power3.out"
+    }, 0); // Absolute position: start at 0s
+
+    // Hero shell reveal (starts at 0.0s, duration 0.8s)
+    if (heroShellRef.current) {
+      scrollTimeline.to(heroShellRef.current, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      }, 0); // Starts immediately with container entrance
     }
+
+    // Grid reveal (overlapped with shell)
+    if (heroGridRef.current) {
+      scrollTimeline.to(heroGridRef.current, {
+        autoAlpha: 1,
+        rotation: 0,
+        scale: 1,
+        duration: 1.1,
+        ease: "power3.out"
+      }, 0); // Same start time as shell
+    }
+
+    // Arc reveal (slight delay after shell for layered effect)
+    if (heroArcRef.current) {
+      scrollTimeline.to(heroArcRef.current, {
+        autoAlpha: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 0.9,
+        ease: "power3.out"
+      }, 0.1); // Start 0.1s after shell
+    }
+
+    // Text cascade begins at 0.5s
+    if (heroLabelRef.current) {
+      scrollTimeline.to(heroLabelRef.current, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "power3.out"
+      }, 0.5);
+    }
+
+    if (heroHeadlineRef.current) {
+      scrollTimeline.to(heroHeadlineRef.current, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      }, 0.6); // Slight overlap with label
+    }
+
+    if (heroSubheadlineRef.current) {
+      scrollTimeline.to(heroSubheadlineRef.current, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "power3.out"
+      }, 0.75);
+    }
+
+    // Detail pills stagger
+    if (heroDetailRefs.current.length) {
+      scrollTimeline.to(heroDetailRefs.current, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "power3.out"
+      }, 0.9);
+    }
+
+    // Field card reveal at 1.8s
+    if (heroFieldCardRef.current) {
+      scrollTimeline.to(heroFieldCardRef.current, {
+        y: 0,
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      }, 1.8);
+    }
+
+    // Field items stagger
+    if (heroFieldRefs.current.length) {
+      scrollTimeline.to(heroFieldRefs.current, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power3.out"
+      }, 2.0);
+    }
+
+    // CTAs reveal at 2.8s
+    if (heroPrimaryCtaRef.current) {
+      scrollTimeline.to(heroPrimaryCtaRef.current, {
+        y: 0,
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.45,
+        ease: "power3.out"
+      }, 2.8);
+    }
+
+    if (heroSecondaryCtaRef.current) {
+      scrollTimeline.to(heroSecondaryCtaRef.current, {
+        y: 0,
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.45,
+        ease: "power3.out"
+      }, 2.85); // Slight overlap
+    }
+
+    // Mark intro completion at 3.6s (reduced from 4.1s to shorten Frame 1 scroll time)
+    scrollTimeline.addLabel("intro-complete", 3.6);
+
+    // ========================================
+    // STAGE TRANSITIONS (4.1s onwards) - Starts after intro completes
+    // ========================================
 
       sections.forEach((stage, index) => {
         const label = `stage-${index}`;
         const accent = stageData[index].accent;
         const progress = ((index + 1) / stageData.length) * 100;
 
-        // Add spacing between stages (AC1: crossfade overlap +=0.15s for tighter handoff)
-        scrollTimeline.addLabel(label, index === 0 ? 0 : "+=0.15");
+        // Stage 0 already visible from intro - skip to stage 1 transitions
+        if (index === 0) {
+          scrollTimeline.addLabel(label, "intro-complete");
+          scrollTimeline.call(updateDetail, [index], label);
+          return; // Don't animate stage 0 (already visible)
+        }
+
+        // Add spacing between stages (crossfade overlap for smooth transitions)
+        scrollTimeline.addLabel(label, "+=0.15");
         scrollTimeline.call(updateDetail, [index], label);
 
         // AC1: Stage reveal - 0.6s duration, power2.out ease (Apple 400-600ms standard)
@@ -475,9 +560,9 @@ export const BriefToStoryboardAnimation = () => {
         }
 
         // Frame 2: AI Processing dwell - Give particle visualization breathing room
-        // 0.6s transition + 0.6s dwell = 1.2s total
+        // 0.6s transition + 1.1s dwell = 1.7s total (added 0.5s from Frame 1)
         if (index === 1) {
-          scrollTimeline.to({}, { duration: 0.6 }, "+=0");
+          scrollTimeline.to({}, { duration: 1.1 }, "+=0");
         }
 
         // Frame 5: PDF finale - Clean reveal with breathing room
