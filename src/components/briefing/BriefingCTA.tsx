@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { briefingPalette } from "@/components/briefing/palette";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const BriefingCTA = () => {
+  const navigate = useNavigate();
+
   return (
     <section
       className="relative py-24 px-4 overflow-hidden"
@@ -62,58 +65,133 @@ export const BriefingCTA = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <button
-              className="group px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+            {/* Primary CTA Button */}
+            <motion.button
+              onClick={() => window.location.href = 'https://admanager.cre8tive.ai/'}
+              className="group relative px-10 py-5 rounded-xl font-bold text-xl text-white overflow-hidden flex items-center gap-2"
               style={{
                 background: `linear-gradient(135deg, ${briefingPalette.indigo.DEFAULT}, ${briefingPalette.cyan.glow})`,
-                color: 'white',
-                boxShadow: `0 10px 30px ${briefingPalette.indigo.DEFAULT}40`
+                border: `2px solid ${briefingPalette.cyan.glow}`,
+                boxShadow: `0 0 40px ${briefingPalette.cyan.glow}80, 0 10px 40px ${briefingPalette.indigo.DEFAULT}60, inset 0 0 20px rgba(255, 255, 255, 0.1)`
               }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: `0 0 60px ${briefingPalette.cyan.glow}FF, 0 0 100px ${briefingPalette.cyan.glow}80, 0 20px 60px rgba(34, 211, 238, 0.6), inset 0 0 30px rgba(255, 255, 255, 0.2)`
+              }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              Start Your First Brief
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+              {/* Pulsing glow effect */}
+              <motion.div
+                className="absolute inset-0 rounded-xl"
+                style={{
+                  background: `radial-gradient(circle at 50% 50%, ${briefingPalette.cyan.glow}40, transparent 70%)`,
+                }}
+                animate={{
+                  opacity: [0.5, 0.8, 0.5],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut'
+                }}
+              />
 
-            <button
-              className="px-10 py-5 rounded-xl font-bold text-xl border-2 text-white transition-all duration-300 transform hover:scale-105 hover:bg-white/10"
+              {/* Animated gradient overlay */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                style={{
+                  background: `linear-gradient(135deg, ${briefingPalette.indigo.DEFAULT}30, ${briefingPalette.cyan.glow}30)`,
+                }}
+                animate={{
+                  backgroundPosition: ['0% 0%', '100% 100%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: 'reverse',
+                  ease: 'linear'
+                }}
+              />
+
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)',
+                }}
+                animate={{
+                  x: ['-200%', '200%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  repeatDelay: 2
+                }}
+              />
+
+              <span className="relative z-10 flex items-center gap-2">
+                Start Your First Brief
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </motion.button>
+
+            {/* Secondary CTA Button */}
+            <motion.button
+              onClick={() => navigate('/contact')}
+              className="group relative px-10 py-5 rounded-xl font-bold text-xl text-white overflow-hidden"
               style={{
-                borderColor: briefingPalette.indigo.DEFAULT,
-                background: 'transparent'
+                background: 'rgba(0, 0, 0, 0.4)',
+                backdropFilter: 'blur(12px)',
+                border: '2px solid transparent',
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), linear-gradient(135deg, ${briefingPalette.holographic.cyan}, ${briefingPalette.holographic.green})`,
+                backgroundOrigin: 'border-box',
+                backgroundClip: 'padding-box, border-box',
               }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: `0 0 50px ${briefingPalette.holographic.cyan}80, 0 20px 60px rgba(34, 211, 238, 0.5), inset 0 0 20px ${briefingPalette.holographic.cyan}20`
+              }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              Talk to Our Team
-            </button>
-          </motion.div>
+              {/* Animated gradient overlay */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                style={{
+                  background: `linear-gradient(135deg, ${briefingPalette.holographic.cyan}20, ${briefingPalette.holographic.green}20)`,
+                }}
+                animate={{
+                  backgroundPosition: ['0% 0%', '100% 100%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: 'reverse',
+                  ease: 'linear'
+                }}
+              />
 
-          {/* Supporting Info */}
-          <motion.div
-            className="pt-8 flex flex-col sm:flex-row gap-6 justify-center items-center text-white/70 text-sm"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <div className="flex items-center gap-2">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: briefingPalette.cyan.glow }}
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
+                }}
+                animate={{
+                  x: ['-200%', '200%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  repeatDelay: 2
+                }}
               />
-              <span>9 Visual Styles</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: briefingPalette.fuchsia.DEFAULT }}
-              />
-              <span>PDF Delivery</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ background: briefingPalette.orange.DEFAULT }}
-              />
-              <span>Studios Integration</span>
-            </div>
+
+              <span className="relative z-10">Talk to Our Team</span>
+            </motion.button>
           </motion.div>
         </div>
       </div>
