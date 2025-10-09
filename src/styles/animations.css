@@ -147,3 +147,26 @@ html {
     transform: translateX(0);
   }
 }
+
+/* Holographic shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 200%;
+  }
+  50% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -200% -200%;
+  }
+}
+
+/* Rotation animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
