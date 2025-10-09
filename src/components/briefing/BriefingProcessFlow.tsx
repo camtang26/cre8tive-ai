@@ -283,35 +283,15 @@ export function BriefingProcessFlow() {
       />
 
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-16 lg:flex-row lg:gap-12">
-        <div className="workflow-header max-w-xl space-y-8 lg:sticky lg:top-24 lg:max-w-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.55em] text-white/50">Workflow Intelligence</p>
-          <h2 id="briefing-workflow-heading" className="text-4xl font-black tracking-tight text-white md:text-5xl">
+        <div className="workflow-header mt-6 max-w-xl space-y-10 lg:sticky lg:top-32 lg:mt-0 lg:max-w-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.55em] text-white/55">Workflow Intelligence</p>
+          <h2 id="briefing-workflow-heading" className="text-5xl font-black tracking-tight text-white md:text-6xl">
             The Briefing Runway
           </h2>
-          <p className="text-lg text-white/70 md:text-xl">
+          <p className="text-xl text-white/75 md:text-2xl">
             Navigate the stack—each card reveals a briefing milestone while future steps hover in view. Open the dossier
             to explore deliverables and metrics for the active stage.
           </p>
-          <div className="hidden lg:flex rounded-[28px] border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_80px_-60px_rgba(8,10,25,0.9)] backdrop-blur-xl">
-            <div className="flex items-start gap-3 text-white">
-              <Layers className="h-6 w-6 text-white/80" aria-hidden="true" />
-              <div className="space-y-2">
-                <p className="text-sm font-semibold uppercase tracking-[0.38em] text-white/60">Connected Pipeline</p>
-                <p className="text-lg font-semibold text-white/95">Brief → Narrative → Style → Boards</p>
-                <p className="text-sm text-white/70">
-                  Data flows forward automatically. Strategy, creative, and production stay in sync without duplicating
-                  work across tools.
-                </p>
-                <button
-                  type="button"
-                  className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.08] px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white/70 transition-all duration-300 hover:-translate-y-[2px] hover:border-white/25 hover:text-white"
-                >
-                  View architectural doc
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="flex-1 space-y-12 lg:grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-start lg:gap-16 lg:space-y-0">
@@ -365,6 +345,18 @@ export function BriefingProcessFlow() {
                     </button>
                   );
                 })}
+              </div>
+
+              <div className="mt-7 flex justify-center lg:justify-start">
+                <div className="flex w-full max-w-[600px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.05] px-5 py-4 text-white/80 shadow-[0_36px_90px_-70px_rgba(8,10,25,0.85)] backdrop-blur-lg">
+                  <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-3xl border border-white/15 bg-black/25 text-white">
+                    <Layers className="h-6 w-6 text-white/75" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">Connected Pipeline</p>
+                    <p className="mt-1 text-base font-semibold text-white md:text-lg">Brief → Narrative → Style → Boards</p>
+                  </div>
+                </div>
               </div>
 
               <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
