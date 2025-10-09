@@ -5,6 +5,9 @@ import { useGSAP } from "@gsap/react";
 import { useLenis } from "lenis/react";
 import { briefingPalette } from "./palette";
 import { AIProcessingVisual } from "@/components/briefing/AIProcessingVisual";
+import { ParticleCore } from "@/components/briefing/ParticleCore";
+import { SynopsisPanel, getSynopsisWordRefs } from "@/components/briefing/SynopsisPanel";
+import { SceneCards, getSceneCardRefs } from "@/components/briefing/SceneCards";
 
 const visualStyles = [
   { name: "Minimalist", src: "/briefing-engine/visual-styles/Minimalist.webp" },
@@ -63,7 +66,7 @@ const stageData = [
 const heroDetailPills = [
   {
     label: "Campaign",
-    value: "Alpine Water · Summer Elevation",
+    value: "Luxury Harbors · Coastal Elevation",
     platform: null
   },
   {
@@ -73,7 +76,7 @@ const heroDetailPills = [
   },
   {
     label: "TikTok",
-    value: "9:16 · 15sec",
+    value: "9:16 · 30sec",
     platform: "tiktok"
   }
 ];
@@ -81,22 +84,22 @@ const heroDetailPills = [
 const heroFieldTiles = [
   {
     label: "Brand Name",
-    value: "Alpine Water Co.",
+    value: "Luxury Harbors",
     hint: "Integrated into every video concept."
   },
   {
     label: "Target Audience",
-    value: "Urban wellness seekers · 24–38",
+    value: "Discerning coastal lifestyle seekers · 35–65",
     hint: "AI tailors messaging to your ideal viewer."
   },
   {
     label: "Unique Selling Points",
-    value: "Glacier-sourced purity · Zero plastic · Peak hydration science",
+    value: "Curated yacht experiences · Exclusive marina access · White-glove concierge",
     hint: "Core benefits highlighted in every frame."
   },
   {
     label: "Brand Personality",
-    value: "Elevated yet approachable · Zen minimalist · Science-backed wellness",
+    value: "Timeless elegance · Coastal sophistication · Curated exclusivity",
     hint: "Locks tone and style before production."
   }
 ];
@@ -125,6 +128,13 @@ export const BriefToStoryboardAnimation = () => {
   const styleCardRefs = useRef<HTMLDivElement[]>([]);
   const storyboardFrameRefs = useRef<HTMLDivElement[]>([]);
   const pdfMockupRef = useRef<HTMLImageElement | null>(null);
+
+  // Frame 2: Neural Synthesis refs
+  const particleCoreRef = useRef<HTMLDivElement | null>(null);
+  const synopsisPanelRef = useRef<HTMLDivElement | null>(null);
+  const sceneCardsRef = useRef<HTMLDivElement | null>(null);
+  const [isCoreActive, setIsCoreActive] = useState(false);
+  const [coreIntensity, setCoreIntensity] = useState(0.5);
 
   const lenis = useLenis(() => {
     ScrollTrigger.update();
@@ -284,7 +294,7 @@ export const BriefToStoryboardAnimation = () => {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top+=15 top",
-        end: "+=14000", // Total: 4.1s intro + 10s stages = 14s × 1000px/s
+        end: "+=17000", // Total: 4.1s intro + 13s stages (Frame 2 = 3.8s) = 17s × 1000px/s
         scrub: 1, // 1-second smooth lag (GSAP best practice)
         pin: true,
         anticipatePin: 1,
@@ -505,6 +515,32 @@ export const BriefToStoryboardAnimation = () => {
           );
         }
 
+        // === FRAME 2 → 3 TRANSITION: Core Explosion ===
+        if (index === 2) {
+          const frame3Label = label;
+
+          // Synopsis/cards compress and blur (0.4s)
+          scrollTimeline.to(
+            [synopsisPanelRef.current, sceneCardsRef.current, particleCoreRef.current],
+            {
+              scale: 0.8,
+              autoAlpha: 0.2,
+              filter: "blur(12px)",
+              duration: 0.4,
+              ease: "power2.in"
+            },
+            `${frame3Label}-=0.5` // Start 0.5s before Frame 3
+          );
+
+          // Core explosion burst
+          scrollTimeline.call(() => setCoreIntensity(2), [], `${frame3Label}-=0.3`);
+
+          // Deactivate particles
+          scrollTimeline.call(() => setIsCoreActive(false), [], `${frame3Label}-=0.1`);
+
+          // Frame 3 style cards will materialize from this explosion
+        }
+
         // AC3: Style cards cascade - COUNTERINTUITIVE: INCREASE stagger from 0.08 to 0.12
         // Research: <100ms staggers blur together, 0.1-0.15s creates visible "energetic wave"
         if (index === 2 && styleCardRefs.current.length) {
@@ -559,10 +595,108 @@ export const BriefToStoryboardAnimation = () => {
           );
         }
 
-        // Frame 2: AI Processing dwell - Give particle visualization breathing room
-        // 0.6s transition + 1.1s dwell = 1.7s total (added 0.5s from Frame 1)
+        // ========================================
+        // FRAME 2: NEURAL SYNTHESIS CHAMBER (3.8s total)
+        // ========================================
         if (index === 1) {
-          scrollTimeline.to({}, { duration: 1.1 }, "+=0");
+          const frame2Label = label;
+
+          // --- TRANSITION IN (0.8s) ---
+
+          // Activate core with dramatic intensity arc
+          scrollTimeline
+            .call(() => setIsCoreActive(true), [], frame2Label)
+            .call(() => setCoreIntensity(0.3), [], frame2Label) // Gentle start
+            .call(() => setCoreIntensity(0.7), [], `${frame2Label}+=0.2`) // Build
+            .call(() => setCoreIntensity(1.2), [], `${frame2Label}+=0.4`) // BURST
+            .call(() => setCoreIntensity(0.9), [], `${frame2Label}+=0.5`) // Settle
+            .call(() => setCoreIntensity(0.6), [], `${frame2Label}+=2.5`); // Idle
+
+          // --- SYNOPSIS STREAMING (1.8s) - compressed timing ---
+          scrollTimeline.call(() => {
+            if (!synopsisPanelRef.current) return;
+
+            const { titleWords, synopsisWords } = getSynopsisWordRefs(synopsisPanelRef.current);
+
+            // Title: Fast reveal
+            if (titleWords.length) {
+              scrollTimeline.to(
+                titleWords,
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.3,
+                  stagger: 0.08, // Faster stagger
+                  ease: "power3.out"
+                },
+                `${frame2Label}+=0.6`
+              );
+            }
+
+            // Synopsis: Rapid streaming
+            if (synopsisWords.length) {
+              scrollTimeline.to(
+                synopsisWords,
+                {
+                  autoAlpha: 1,
+                  scale: 1,
+                  duration: 0.25,
+                  stagger: 0.06, // Very fast flow
+                  ease: "power2.out"
+                },
+                `${frame2Label}+=1.0`
+              );
+            }
+          }, [], `${frame2Label}+=0.6`);
+
+          // --- SCENE CARDS HOLOGRAPHIC BUILD (1.5s) - parallel + compressed ---
+          scrollTimeline.call(() => {
+            if (!sceneCardsRef.current) return;
+
+            const { cards, wireframes, containers, thumbnails } = getSceneCardRefs(sceneCardsRef.current);
+
+            cards.forEach((card, cardIndex) => {
+              const cardLabel = `${frame2Label}+=` + (1.4 + (cardIndex * 0.15)); // Tight stagger
+
+              // Wireframe
+              scrollTimeline.to(
+                wireframes[cardIndex],
+                { autoAlpha: 1, duration: 0.15, ease: "power2.out" },
+                cardLabel
+              );
+
+              // Container
+              scrollTimeline.to(
+                containers[cardIndex],
+                { autoAlpha: 1, duration: 0.2, ease: "power2.out" },
+                `${cardLabel}+=0.1`
+              );
+
+              // Card slide
+              scrollTimeline.to(
+                card,
+                {
+                  autoAlpha: 1,
+                  x: 0,
+                  duration: 0.3,
+                  ease: "back.out(1.3)" // Subtle bounce
+                },
+                `${cardLabel}+=0.15`
+              );
+
+              // Thumbnail
+              scrollTimeline.to(
+                thumbnails[cardIndex],
+                { autoAlpha: 1, scale: 1, duration: 0.2, ease: "power2.out" },
+                `${cardLabel}+=0.25`
+              );
+            });
+          }, [], `${frame2Label}+=1.4`);
+
+          // --- DWELL TIME (0.7s) - reduced for pacing ---
+          scrollTimeline.to({}, { duration: 0.7 }, "+=0");
+
+          // Total: 0.8s transition + 1.8s synopsis + 1.5s cards (overlapped) + 0.7s dwell = ~3.8s
         }
 
         // Frame 5: PDF finale - Clean reveal with breathing room
@@ -753,11 +887,11 @@ export const BriefToStoryboardAnimation = () => {
                           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_70%)]" aria-hidden />
                           <div className="relative">
                             <div className="flex items-center justify-between mb-2">
-                              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-indigo-300/80">Brand Name</span>
+                              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-indigo-300/80">{heroFieldTiles[0].label}</span>
                               <span className="rounded-full bg-indigo-400/20 px-2 py-0.5 text-[8px] font-semibold text-indigo-200/60">Required</span>
                             </div>
                             <h3 className="text-2xl font-black text-white tracking-tight" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-                              Alpine Water Co.
+                              {heroFieldTiles[0].value}
                             </h3>
                           </div>
                         </div>
@@ -774,8 +908,8 @@ export const BriefToStoryboardAnimation = () => {
                               </svg>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-cyan-300/70 mb-2">Target Audience</div>
-                              <p className="text-lg font-semibold text-white/95 leading-tight">Urban wellness seekers · 24–38</p>
+                              <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-cyan-300/70 mb-2">{heroFieldTiles[1].label}</div>
+                              <p className="text-lg font-semibold text-white/95 leading-tight">{heroFieldTiles[1].value}</p>
                             </div>
                           </div>
                         </div>
@@ -785,17 +919,17 @@ export const BriefToStoryboardAnimation = () => {
                           ref={(el) => el && heroFieldRefs.current.push(el)}
                           className="relative rounded-2xl border border-white/15 bg-[rgba(18,20,40,0.85)] p-6"
                         >
-                          <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-fuchsia-300/70 mb-3">Unique Selling Points</div>
+                          <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-fuchsia-300/70 mb-3">{heroFieldTiles[2].label}</div>
                           <div className="flex flex-wrap gap-2.5">
-                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-fuchsia-500/20 to-pink-500/20 border border-fuchsia-400/30 text-sm font-semibold text-white/90">
-                              Glacier-sourced purity
-                            </span>
-                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 border border-purple-400/30 text-sm font-semibold text-white/90">
-                              Zero plastic
-                            </span>
-                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border border-pink-400/30 text-sm font-semibold text-white/90">
-                              Peak hydration science
-                            </span>
+                            {heroFieldTiles[2].value.split(' · ').map((usp, idx) => (
+                              <span key={idx} className={`inline-flex items-center px-4 py-2.5 rounded-lg border text-sm font-semibold text-white/90 ${
+                                idx === 0 ? 'bg-gradient-to-r from-fuchsia-500/20 to-pink-500/20 border-fuchsia-400/30' :
+                                idx === 1 ? 'bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 border-purple-400/30' :
+                                'bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border-pink-400/30'
+                              }`}>
+                                {usp}
+                              </span>
+                            ))}
                           </div>
                         </div>
 
@@ -804,17 +938,17 @@ export const BriefToStoryboardAnimation = () => {
                           ref={(el) => el && heroFieldRefs.current.push(el)}
                           className="relative rounded-2xl border border-white/15 bg-[rgba(18,20,40,0.85)] p-6"
                         >
-                          <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-indigo-300/70 mb-3">Brand Personality</div>
+                          <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-indigo-300/70 mb-3">{heroFieldTiles[3].label}</div>
                           <div className="flex flex-wrap gap-2.5">
-                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-indigo-500/15 border border-indigo-400/30 text-sm font-medium text-indigo-100/90">
-                              Elevated yet approachable
-                            </span>
-                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-cyan-500/15 border border-cyan-400/30 text-sm font-medium text-cyan-100/90">
-                              Zen minimalist
-                            </span>
-                            <span className="inline-flex items-center px-4 py-2.5 rounded-lg bg-purple-500/15 border border-purple-400/30 text-sm font-medium text-purple-100/90">
-                              Science-backed wellness
-                            </span>
+                            {heroFieldTiles[3].value.split(' · ').map((trait, idx) => (
+                              <span key={idx} className={`inline-flex items-center px-4 py-2.5 rounded-lg border text-sm font-medium ${
+                                idx === 0 ? 'bg-indigo-500/15 border-indigo-400/30 text-indigo-100/90' :
+                                idx === 1 ? 'bg-cyan-500/15 border-cyan-400/30 text-cyan-100/90' :
+                                'bg-purple-500/15 border-purple-400/30 text-purple-100/90'
+                              }`}>
+                                {trait}
+                              </span>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -824,21 +958,42 @@ export const BriefToStoryboardAnimation = () => {
               </div>
               <div
                 ref={(el) => el && (stageRefs.current[1] = el)}
-                className="absolute inset-0 flex flex-col items-center justify-center gap-8 rounded-[26px] border border-white/14 bg-[rgba(12,12,28,0.94)] p-10 opacity-0"
+                className="absolute inset-0 rounded-[26px] border border-white/14 bg-[rgba(12,12,28,0.94)] opacity-0"
               >
-                <div className="relative flex h-52 w-52 items-center justify-center rounded-full border border-white/12 bg-black/50 shadow-[0_45px_160px_-100px_rgba(34,211,238,0.75)]">
-                  <AIProcessingVisual />
-                  <div className="absolute inset-4 rounded-full border border-white/10" aria-hidden />
-                </div>
-                <div className="space-y-3 text-center">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs uppercase tracking-[0.35em] text-white/60">
-                    <span>Step 02</span>
-                    <span className="text-white/40">Processing</span>
+                {/* Neural Synthesis Chamber - Luxury Harbors Theme */}
+                <div className="relative h-full w-full flex flex-col gap-4 p-6">
+
+                  {/* Top: Particle Core + Synopsis (70% height) */}
+                  <div className="flex-[7] flex gap-4">
+                    {/* Particle Core (35% width) */}
+                    <div
+                      ref={particleCoreRef}
+                      className="w-[35%] rounded-3xl border border-white/10 overflow-hidden"
+                      style={{
+                        background: `radial-gradient(circle at 50% 50%, rgba(99,102,241,0.15) 0%, transparent 70%)`
+                      }}
+                    >
+                      <ParticleCore
+                        isActive={isCoreActive}
+                        intensity={coreIntensity}
+                        className="w-full h-full"
+                      />
+                    </div>
+
+                    {/* Synopsis Panel (65% width) */}
+                    <SynopsisPanel
+                      ref={synopsisPanelRef}
+                      className="flex-1"
+                    />
                   </div>
-                  <h4 className="text-3xl font-black text-white md:text-4xl">AI Narrative Engine</h4>
-                  <p className="mx-auto max-w-md text-base leading-relaxed text-white/70 md:text-lg">
-                    Particle choreography visualises rhythm, shot cadence and tonal balance as the system reasons through your brief.
-                  </p>
+
+                  {/* Bottom: Scene Cards (30% height) */}
+                  <div className="flex-[3]">
+                    <SceneCards
+                      ref={sceneCardsRef}
+                      className="h-full"
+                    />
+                  </div>
                 </div>
               </div>
 
