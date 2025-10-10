@@ -8,7 +8,7 @@
 - GSAP + Lenis + Framer Motion patterns documented with 5 production-ready examples
 - React cleanup patterns documented (prevents memory leaks)
 - Accessibility patterns (WCAG AA, prefers-reduced-motion)
-- Build validated ✅ | Lint validated ✅
+- Build validated ✅ | Lint blocked by missing unicorn plugin rules (documented in completion notes)
 
 - **AI Product Charter — Story 1.7 / AC10 (Entrance Animation)**
   - **Problem:** The BriefToStoryboardAnimation container appears immediately on load with no entrance motion, breaking the premium cinematic reveal promised in Story 1.7 and leaving Acceptance Criterion #10 unmet.
@@ -20,6 +20,11 @@
   - **Target User:** Marketing decision makers and creative leads exploring the AI Briefing Engine on laptops and large tablets who need an immediate, premium sense of the guided workflow.
   - **Success Signal:** Within one viewport, visitors can read the key workflow headline, spot a concise connected-pipeline callout, and interact with enlarged stage cards whose dossier alignment stays intact across breakpoints, validated via responsive preview and build.
 
+- **AI Product Charter — Our Solutions Reimagination (2025-10-09)**
+  - **Problem:** The homepage “Our Solutions” grid still showcases the paused AI Agents service and lacks the ultra-premium storytelling needed to convert executive buyers immediately below the fold.
+  - **Target User:** C-suite and marketing directors evaluating Cre8tive AI from desktop and large-tablet devices who expect a refined, credible services overview without inactive offerings.
+  - **Success Signal:** Updated section removes the AI Agents card entirely and introduces a cinematic, research-backed solutions showcase whose layout, motion, and copy test well across breakpoints and earns user sign-off after prototype review.
+
 - 2025-10-06 10:15 NZDT — Codex prepping S6 (Storyboard GSAP timeline + canvas particles)
 - 2025-10-06 08:50 NZDT — Codex starting S5 (Visual styles ScrollTrigger + detail panel) (Complete)
 - 2025-10-06 05:15 NZDT — Codex starting S2 (Fix hero section dark theme gradient rework) (Complete)
@@ -30,6 +35,7 @@
 ```bash
 npm run dev              # Dev server on http://localhost:8080
 npm run build            # Production build
+npm run test             # Vitest suite
 npm run preview          # Preview production build on port 4173
 ```
 
@@ -52,6 +58,14 @@ npm run preview          # Preview production build on port 4173
 - Image integration: Placeholder gradients → Real webp assets with lazy loading
 - Updated: "8 Visual Styles" → "9 Visual Styles" across all components
 
+**Current Session (Story 3.1 Particle System fixes):**
+- Restored production particle counts with optional `VITE_PARTICLE_COUNT_SCALE`.
+- Implemented staged entrance burst (power4 easing, staggered delays) + render buffers.
+- Fixed mouse interaction teardown (stable listener references).
+- Added vitest config + tests for device helpers, entrance easing, mouse interaction.
+- Commands: `npm install --save-dev vitest @testing-library/react @testing-library/jest-dom jsdom`, `npm run lint` (fails on unicorn plugin), `npm run test`, `npm run build`.
+- Playwright headless check (`npm run test:e2e`) against dev server shows hero canvas initialization taking 24–41s (5000 particles + O(n²) connections) and timing out before canvas becomes visible; captured video + screenshot artifacts for analysis.
+
 **Previous Commit 5ae64e0:**
 - 7 new UI components (BentoGrid, GlassCard, RevealText, MagneticButton, etc.)
 - 3 new hooks (useScrollAnimation, useParallax, useMagneticHover)
@@ -60,6 +74,39 @@ npm run preview          # Preview production build on port 4173
 - 2 modified config files (base.css, tailwind.config.ts)
 
 # Decisions
+
+**2025-10-09 20:15 UTC: Story 3.1 Particle System Restore ✅**
+- Restored responsive particle counts (5K/2K/1K) with optional `VITE_PARTICLE_COUNT_SCALE` to keep prod spec while permitting local downscaling.
+- Implemented entrance burst via render buffers + power4 easing (stagger delays), ensuring animation respects prefers-reduced-motion fallback.
+- Fixed `MouseInteraction` listener lifecycle so stop/destroy detach the original callback (prevents duplicate handlers).
+- Added vitest harness covering device helpers, entrance easing math, and listener teardown; lint still blocked by missing unicorn plugin definitions (documented for follow-up).
+
+**2025-10-09 21:05 UTC: Playwright E2E Findings ⚠️**
+- Initial Chromium headless run (`npm run test:e2e`) kept the hero blank for 24–41 s; console logged `ParticleHero Initialized in 40571ms`, confirming the O(n²) connection sweep was choking first paint.
+- React dev server warned `createRoot()` was called twice—prompted caching/root reuse changes in `main.tsx`.
+- Captured artifacts (video + screenshot) in `test-results/briefing-engine-AI-Briefin-...` for reference; served as baseline before spatial hash + ramp work.
+
+**2025-10-09 22:40 UTC: Spatial Hash & Ramp ✅**
+- Implemented 100 px spatial hash and progressive particle ramp (1 K → target 5 K over ~3 s). Playwright now logs `ParticleHero Initialized in ~1 s`, though selector waits still time out under software WebGL fallback.
+- PerformanceMonitor now waits for a full 60-frame sample and pauses degradation while ramping to avoid premature downscaling.
+- Remaining warnings: React still reports `createRoot` reuse (needs deeper audit) and Chromium emits WebGL software fallback/GPU stall notices.
+
+**2025-10-09 21:50 UTC: Our Solutions Benchmarking ✅**
+- Archon RAG surfaced Google’s pattern library emphasis on theming consistency and subgrid layout control for complex cards, reinforcing the need for layered grids and restrained palette transitions.
+- Context7 Tailwind docs confirm subgrid utilities (`grid-cols-subgrid`, `grid-rows-subgrid`) are available for aligning nested cards with headline columns—will leverage for staggered storytelling layout.
+- External inspiration (web.dev luxury marketing sections) highlights cinematic scroll reveals, metric-infused proof points, and per-card micro-interactions as trust accelerators—these cues shape the upcoming concept.
+
+**2025-10-09 22:05 UTC: Our Solutions Narrative Draft ✅**
+- Retire the AI Agents card; promote three pillars instead: `Cre8tive AI Studios` (flagship cinematic delivery), `AI Briefing Engine` (renamed from “Studios AI Engine”), and `Conversational AI` (telephony + voice automation).
+- Hero zone becomes a two-column subgrid: left anchors the flagship story with kinetic typography + KPI ticker; right stacks two staggered cards introducing the other pillars and a “Custom AI Programs” teaser leading to contact.
+- Mid-section adds proof strip (client logos + quantified outcomes) and an “Solution Switcher” micro-interaction that previews motion snippets on hover/tap.
+- Footer CTA evolves into a dual-action rail (“Book strategic session” + “Download capability deck”), with hover states borrowing the holographic gradient language for continuity.
+
+**2025-10-09 22:25 UTC: Implementation Blueprint ✅**
+- Restructure services data into a `solutions` config with categories, KPIs, and asset hooks, enabling richer card layouts and state-driven highlights.
+- Compose section from three layers: `SolutionsLead` (headline + KPI ticker), `SolutionsSubgrid` (subgrid with flagship + two secondary cards + teaser tile), and `SolutionsProofRail` (logos/testimonials + CTA rail) with shared motion variants.
+- Motion stack: Framer Motion for hover/tap micro-interactions, GSAP ScrollTrigger for staggered reveals, magnetic CTA retained for continuity; provide prefers-reduced-motion guards.
+- Accessibility: ensure cards remain fully keyboard navigable (tabIndex + enter activation), provide ARIA labels for metrics, and mirror interactions in reduced-motion state via subtle opacity/scale changes.
 
 **2025-10-09 18:20 UTC: Process Flow Layout Refinement ✅**
 - Connected Pipeline content trimmed to title + ladder and relocated beneath the stack navigator as a compact badge so the header breathes.
@@ -524,6 +571,12 @@ npm run preview          # Preview production build on port 4173
 None from redesign - all validations complete, redesign ready for deployment
 
 # Next Steps
+
+**ACTIVE PLAN: Our Solutions Reimagination (2025-10-09)**
+- S1 ✅ Benchmark + research recorded above.
+- S2 ✅ Narrative and content architecture defined (three-pillar approach + proof rail).
+- S3 ✅ Implementation blueprint captured (solutions config + layered components, motion/accessibility plan).
+- S4 — Prepare annotated concept + build sequence for user approval before writing code.
 
 **ACTIVE TASK: Briefing Process Flow Refinement (2025-10-09)**
 - S1 ✅ Layout audit: slim the connected pipeline into a horizontal badge beneath the stage navigator and reserve more horizontal room for the stack.

@@ -1,6 +1,23 @@
 # Cre8tive AI Website - BMAD Mode
 
-**Project:** B2B Marketing Site (React/TS/Vite) | **BMAD:** v6.0.0-alpha.0 | **Updated:** 2025-10-07
+**Project:** Cre8tive AI Website (React/TS/Vite) | **BMAD:** v6.0.0-alpha.0 | **Updated:** 2025-10-07
+
+## 🔍 Tooling (Universal)
+
+```bash
+# Search (NEVER use grep)
+rg "pattern"              # Content search
+rg --files | rg "name"    # Find files
+rg -t python "def"        # Language filter
+
+# File discovery
+fd pattern                # Respects .gitignore
+
+# JSON
+jq '.key' file.json       # Parse/transform
+```
+
+**Privileges:** `sudo` available (NOPASSWD for `cameronai`). Use responsibly, preview changes.
 
 ---
 
@@ -37,41 +54,6 @@ npm run preview      # Preview production → http://localhost:4173
 
 ---
 
-## 🏗️ Tech Stack
-
-**Core:** React 18.3.1 • TypeScript 5.5.3 • Vite 5.4.1 • Tailwind 3.4.11
-
-**Animation:** GSAP 3.x + ScrollTrigger • Lenis (smooth scroll) • Framer Motion 12.4.2
-
-**State/Forms:** React Query 5.56.2 • React Hook Form 7.53.0 • Zod 3.23.8
-
-**Routing:** React Router 6.26.2
-
-**Integrations:** Vercel Analytics • GTM • getform.io • Cal.com • Vimeo
-
----
-
-## 📂 BMAD Documentation Structure
-
-**Sharded Architecture (Dev Agent Auto-Loads):**
-```
-docs/
-├── PRD.md or SPEC.md           # Overview/TOC (light)
-├── prd/*.md                    # Detailed PRD sections (sharded)
-├── ARCHITECTURE.md             # Architecture overview/TOC (light)
-├── architecture/*.md           # Detailed architecture sections (sharded)
-├── stories/story-X.Y.md        # Story files (AUTHORITATIVE)
-├── tech-specs/tech-spec-epic-N.md  # Epic tech specs (JIT)
-└── qa/*.md                     # QA reports
-```
-
-**Story Context XML:**
-- Referenced in story file → "Dev Agent Record" → "Context Reference"
-- Contains dynamic expertise injection for each story
-- Trust Story Context over model priors
-
----
-
 ## ✅ Definition of Done
 
 **Code Quality:**
@@ -80,7 +62,6 @@ docs/
 - [ ] `npm run build` passes
 - [ ] `npm run lint` passes (errors only)
 - [ ] Visual QA (design, animations, responsive)
-- [ ] Accessibility (keyboard, focus, contrast, prefers-reduced-motion)
 - [ ] TypeScript compiles clean
 
 **Story Updates:**
@@ -90,23 +71,6 @@ docs/
 
 **Testing:** Zero tests exist (manual only until infrastructure added)
 
----
-
-## 🎨 Project Standards
-
-**TypeScript:** Relaxed mode (noImplicitAny: false) - fix errors, allow implicit any where practical
-
-**Styling:** Tailwind only • Shadcn/UI components • Glassmorphism patterns
-
-**Components:** <500 LOC/file • Lazy load heavy components • Proper TypeScript types
-
-**SEO:** react-helmet meta tags • sitemap.xml • canonical URLs • structured data
-
-**Security:** Zod validation • DOMPurify sanitization • CSP headers • HTTPS only
-
-**Accessibility:** WCAG AA minimum • Semantic HTML • ARIA labels • Keyboard nav • Focus indicators
-
----
 
 ## 🔌 MCP Servers
 
@@ -123,57 +87,6 @@ docs/
 
 ---
 
-## 📋 BMAD Config
-
-```yaml
-Location: bmad/core/config.yaml
-user_name: Cameron
-communication_language: English
-output_folder: '{project-root}/docs'
-```
-
-**Agent Slash Commands:**
-- `/bmad:core:agents:bmad-master` - Master orchestrator
-- `/bmad:bmm:agents:pm` - Product Manager
-- `/bmad:bmm:agents:architect` - Solution Architect
-- `/bmad:bmm:agents:sm` - Scrum Master (story creation)
-- `/bmad:bmm:agents:dev` - Developer (implementation)
-
----
-
-## 🎯 Current Focus (2025-10-07)
-
-**Active:** AI Briefing Engine v2 (dark indigo/cyan/fuchsia)
-- Hero, Visual Styles Gallery (8 styles), Process Flow, Transformation, Benefits, CTA
-- GSAP ScrollTrigger + Lenis + Framer Motion
-- 60fps target, WCAG AA, high CTA conversion
-
-**Project Scale:** Level 2-3 (10-20 stories, 2-3 epics)
-
----
-
-## 🚫 Technical Debt (Document in Stories)
-
-1. Zero automated tests (manual only)
-2. No test framework (Vitest + RTL planned)
-3. TypeScript relaxed mode
-4. No E2E tests (Playwright planned)
-5. Limited error boundaries
-
----
-
-## 🔄 Git Workflow
-
-**Branches:** `main` (prod) • `feat/story-X.Y-desc` • `design/feature-name-date`
-
-**Commits:** Conventional format (`feat:` `fix:` `refactor:` `docs:`)
-
-```bash
-git add . && git commit -m "feat: description" && git push origin feat/story-X.Y
-```
-
----
-
 ## 📞 Escalation (HALT and ask Cameron)
 
 1. Story Context XML missing
@@ -182,24 +95,21 @@ git add . && git commit -m "feat: description" && git push origin feat/story-X.Y
 4. Security/performance risk
 5. Same approach fails ≥3 times
 
----
 
-## 💡 Story Implementation Best Practices
+## 🧠 AI Behavior (Universal)
 
-**✅ Do:**
-- Trust Story Context XML over model priors
-- Map every code change to specific Acceptance Criteria
-- Update story status after each workflow step
-- Run retrospectives after epics
-- Use MCP servers for latest best practices
+### Never Hallucinate
+- Only use verified packages/APIs
+- Confirm paths exist before referencing
+- Ask when uncertain
 
-**❌ Don't:**
-- Start implementation before story status = "Approved"
-- Skip Story Context generation
-- Batch story creation (JIT: one at a time)
-- Update story file without checking all ACs satisfied
-- Invent solutions when Story Context lacks detail
+### Epistemic Humility
+- "Ready for testing" not "Done"
+- "This should handle X, Y, Z - please verify"
+- "This could be the cause" not "Found the root cause"
+- Acknowledge uncertainty, invite validation
 
----
-
-**Lead:** Cameron | **Language:** English | **Output:** `{project-root}/docs`
+### Code Modification
+- Never delete code unless explicitly instructed
+- Story ACs or agent instructions must authorize changes
+- Preserve behavior when refactoring

@@ -11,6 +11,7 @@ import { AudienceBenefits } from "@/components/briefing/AudienceBenefits";
 import { BriefingProcessFlow } from "@/components/briefing/BriefingProcessFlow";
 import { WorkflowTransformation } from "@/components/briefing/WorkflowTransformation";
 import { briefingPalette } from "@/components/briefing/palette";
+import { ParticleHero } from "@/components/briefing/ParticleHero";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -155,7 +156,10 @@ const BriefingEngine = () => {
             className="relative min-h-screen flex items-start justify-center overflow-hidden pt-20 md:pt-28 pb-8 px-4 z-10"
             aria-label="Hero section"
           >
-            <div className="mx-auto w-full max-w-[1680px] px-4 sm:px-6 lg:px-12">
+            {/* Epic 3: Neural Network Particle System Background (AC-3.1, AC-3.9) */}
+            <ParticleHero className="absolute inset-0" />
+
+            <div className="relative z-10 mx-auto w-full max-w-[1680px] px-4 sm:px-6 lg:px-12">
               <div className="text-center space-y-8 md:space-y-12 lg:space-y-14">
                 <h1 className={`hero-headline font-black tracking-tighter leading-none ${
                   isMobile

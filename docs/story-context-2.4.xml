@@ -1,0 +1,560 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.4</storyId>
+    <title>Studios Testimonials Update - Premium Staggered Reveals &amp; Citation Glow</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-2.4.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 content strategy and premium components</asA>
+    <iWant>to update the Studios Testimonials section with enhanced format, staggered quote reveals using signature easing curves, and organic glow pulse animations on citation badges</iWant>
+    <soThat>client testimonials feel premium and trustworthy through research-validated social proof (Kotia, Marina Lab, Advisor Plus PTD) with polished animation choreography that elevates beyond generic testimonial carousels</soThat>
+    <tasks>
+      <task id="1" ac="1,2">Update Testimonials Component Structure - Enhanced format with star ratings, client details, citation badges</task>
+      <task id="2" ac="2">Create Testimonial Data Structure - TestimonialConfig interface with quote, client, company, rating</task>
+      <task id="3" ac="6">Implement OrganicCard Blob Shapes - Wrap testimonial content in blob-shaped cards with glassmorphism</task>
+      <task id="4" ac="3">Implement Staggered Quote Reveals - GSAP ScrollTrigger animation with 0.2s stagger, organic easing</task>
+      <task id="5" ac="5">Create Star Rating Micro-Animation - Sequential scale-in with spring easing after card reveals</task>
+      <task id="6" ac="4">Implement Citation Badge Glow Pulse - 2s CSS animation with Studios orange glow, staggered timing</task>
+      <task id="7" ac="7">Responsive Layout &amp; Grid Configuration - 1/2/3 column layouts with 60fps performance target</task>
+      <task id="8" ac="7">Performance Optimization - GPU acceleration, CSS animations for glow pulse, mobile optimization</task>
+      <task id="9" ac="8">Integrate with Studios Page - Place after ImageToVideoComparison, before ContactCTA</task>
+      <task id="10" ac="9">Code Quality &amp; Build Validation - TypeScript compiles clean, ESLint passes, React cleanup patterns</task>
+      <task id="11" ac="10">Visual QA &amp; Copy Verification - Exact match to COPY_IMPLEMENTATION_GUIDE.md testimonials</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1" priority="MUST">
+      <description>Testimonial Format Update (Enhanced Structure)</description>
+      <details>
+        - Update existing Testimonials section with enhanced format from COPY_IMPLEMENTATION_GUIDE.md
+        - Section header: "What Our Clients Say"
+        - Section subheader: "Don't just take our word for it—see what agencies and brands say about working with Cre8tive AI."
+        - 3 testimonial cards with complete structure:
+          * Star rating visualization (5 stars)
+          * Quote text (actual client testimonial)
+          * Client name and title
+          * Company/Industry
+          * Optional: Client logo or headshot
+        - Card layout: 3 columns desktop (1 column mobile responsive)
+        - **Verification:** Visual QA comparing to COPY_IMPLEMENTATION_GUIDE.md testimonials section, verify 3 testimonial cards render
+        - **Reference:** Source: docs/COPY_IMPLEMENTATION_GUIDE.md#Testimonials Section
+        - **Traceability:** AC-2.8 from tech-spec-epic-2.md line 873
+      </details>
+    </criterion>
+
+    <criterion id="2" priority="MUST">
+      <description>Testimonial Content (Research-Validated Clients)</description>
+      <details>
+        **Testimonial 1: Kotia Skincare**
+        - Quote: "Cre8tive AI transformed our product launch with stunning visual storytelling. The image-to-video quality was exceptional."
+        - Client: Sarah Chen, Marketing Director
+        - Company: Kotia Skincare
+        - Star Rating: 5 stars
+
+        **Testimonial 2: Marina Lab**
+        - Quote: "Working with Cre8tive AI felt like having an entire creative agency at our fingertips. The multi-platform optimization saved us weeks."
+        - Client: Alex Rivera, Creative Lead
+        - Company: Marina Lab
+        - Star Rating: 5 stars
+
+        **Testimonial 3: Advisor Plus PTD**
+        - Quote: "The AI Briefing Engine to Studios workflow is seamless. From storyboard to final video in days, not weeks."
+        - Client: Jamie Thompson, Head of Content
+        - Company: Advisor Plus PTD
+        - Star Rating: 5 stars
+
+        - **Verification:** All copy matches COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word)
+        - **Reference:** Source: docs/COPY_IMPLEMENTATION_GUIDE.md#Testimonials
+      </details>
+    </criterion>
+
+    <criterion id="3" priority="MUST">
+      <description>Staggered Quote Reveals with Signature Easing</description>
+      <details>
+        - Implement GSAP ScrollTrigger animation for testimonial cards
+        - Staggered reveal: Cards enter viewport sequentially (not simultaneously)
+        - Animation properties:
+          * Initial state: opacity: 0, y: 60 (fade-in from below)
+          * Final state: opacity: 1, y: 0
+          * Stagger timing: 0.2s between each card (total 0.6s for all 3)
+          * Easing: CRE8TIVE_EASINGS.organic (power4.out fallback)
+        - ScrollTrigger configuration:
+          * Trigger: testimonials section container
+          * Start: "top 75%" (cards animate when section 75% into viewport)
+          * toggleActions: "play none none reverse"
+        - **Verification:** Scroll into testimonials section, verify cards reveal sequentially with organic easing
+        - **Reference:** Source: docs/tech-spec-epic-2.md#Story 2.4 Implementation line 517
+        - **Traceability:** AC-2.42 from tech-spec-epic-2.md line 917
+      </details>
+    </criterion>
+
+    <criterion id="4" priority="MUST">
+      <description>Organic Glow Pulse on Citation Badges (Premium Pattern)</description>
+      <details>
+        - Add citation badges to each testimonial card (industry/company labels)
+        - Implement subtle glow pulse animation (not static badges)
+        - Glow properties:
+          * SVG filter: glow effect with blur radius 8px
+          * Color: Studios orange (#EA580C) with opacity pulsing 0.3 → 0.6
+          * Animation: 2s infinite loop with sine wave easing
+          * Pulse timing: Each badge offset by 0.3s (staggered pulse, not synchronized)
+        - Badge styling: Glassmorphism background, small text, bottom-right of card
+        - **Verification:** Inspect badges, verify glow SVG filter animates, measure 2s pulse duration
+        - **Reference:** Source: docs/tech-spec-epic-2.md#Story 2.4 Implementation line 518
+        - **Traceability:** AC-2.9 from tech-spec-epic-2.md line 874 (citation badges throughout)
+      </details>
+    </criterion>
+
+    <criterion id="5" priority="MUST">
+      <description>Star Rating Visualization (Premium Micro-Pattern)</description>
+      <details>
+        - Display 5-star rating with filled star icons
+        - Star styling: Small golden/yellow stars (#F59E0B), inline layout
+        - Micro-animation: Stars scale-in sequentially after card reveals (0.05s stagger per star)
+        - Animation properties:
+          * Initial: scale: 0, opacity: 0
+          * Final: scale: 1, opacity: 1
+          * Easing: CRE8TIVE_EASINGS.spring (elastic.out fallback)
+          * Total duration: 0.25s (5 stars × 0.05s)
+        - Position: Top of testimonial card, above quote text
+        - **Verification:** Scroll into view, verify stars appear after card, sequential scale-in visible
+        - **Reference:** Source: docs/tech-spec-epic-2.md#Workflows Story 2.4 line 517
+      </details>
+    </criterion>
+
+    <criterion id="6" priority="MUST">
+      <description>Testimonial Card Design (OrganicCard with Glassmorphism)</description>
+      <details>
+        - Use OrganicCard from Epic 2 foundation with shape="blob" (softer than organic/hexagon)
+        - Blob shape: Gentle rounded edges, not sharp geometric
+        - Glassmorphism styling:
+          * backdrop-filter: blur(20px)
+          * bg-opacity: 10% (dark background with transparency)
+          * border: 1px solid white/10
+        - Glow color: Studios orange (#EA580C) subtle glow on hover
+        - Card elevation: shadow-xl, hover:shadow-2xl transition
+        - Padding: p-8 (generous spacing for quote readability)
+        - **Verification:** Inspect cards, verify blob SVG clip-path shapes (not rectangles or hexagons)
+        - **Reference:** Source: docs/tech-spec-epic-2.md#Premium Component Architecture lines 110-114
+        - **Traceability:** AC-2.31 from tech-spec-epic-2.md line 906
+      </details>
+    </criterion>
+
+    <criterion id="7" priority="MUST">
+      <description>Responsive Design &amp; Performance</description>
+      <details>
+        - Mobile (375px): 1 column stack, full testimonial cards, all animations preserved
+        - Tablet (768px): 2 columns grid, 3rd card wraps below
+        - Desktop (1024px+): 3 columns grid, all cards visible simultaneously
+        - All animations achieve 60fps on Chrome 100+, Firefox 100+, Safari 15+
+        - Stagger reveals GPU-accelerated (will-change: transform, opacity)
+        - Glow pulse uses CSS animations (not JS RAF) for better mobile performance
+        - **Verification:** Test all 3 breakpoints in Chrome DevTools, verify 60fps in Performance tab
+        - **Reference:** Source: docs/tech-spec-epic-2.md#Performance lines 614-686
+        - **Traceability:** AC-2.24, AC-2.25, AC-2.43 from tech-spec-epic-2.md lines 896-898, 918
+      </details>
+    </criterion>
+
+    <criterion id="8" priority="MUST">
+      <description>Integration with Studios Page</description>
+      <details>
+        - Update existing Testimonials section in src/pages/Studios.tsx
+        - Place after ImageToVideoComparison (Story 2.3), before final ContactCTA section
+        - Import updated TestimonialsSection component
+        - Verify smooth scroll behavior with Lenis (already configured globally)
+        - Verify no layout shifts (CLS ≤0.1), no console errors
+        - **Verification:** Full Studios page renders, testimonials section visible after comparison, scroll smooth, build succeeds
+        - **Reference:** Source: docs/tech-spec-epic-2.md#Page Rendering Flow lines 543-559
+      </details>
+    </criterion>
+
+    <criterion id="9" priority="MUST">
+      <description>Code Quality &amp; Build Validation</description>
+      <details>
+        - TypeScript compiles clean (npm run build) with 0 errors
+        - ESLint passes (0 errors, warnings acceptable per project standards)
+        - All components follow frontend-architecture.md Component Template Checklist
+        - React cleanup patterns implemented (useEffect return cleanup for GSAP context)
+        - No console.log statements in production code
+        - SVG glow filters optimized (inline for best performance)
+        - **Verification:** Run npm run build and npm run lint, verify success
+        - **Reference:** Source: docs/architecture/frontend-architecture.md#Component Template Checklist
+        - **Traceability:** AC-2.21, AC-2.22, AC-2.23 from tech-spec-epic-2.md lines 891-893
+      </details>
+    </criterion>
+
+    <criterion id="10" priority="MUST">
+      <description>Visual QA &amp; Copy Accuracy</description>
+      <details>
+        - All testimonial quotes match COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word)
+        - Client names, titles, companies match guide exactly
+        - Star ratings: All 5 stars (premium client showcase only)
+        - Section header and subheader match guide
+        - Citation badges display correctly (company/industry labels)
+        - Blob shapes render consistently across browsers (Chrome, Firefox, Safari)
+        - **Verification:** Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md, pixel-perfect match
+        - **Reference:** Source: docs/COPY_IMPLEMENTATION_GUIDE.md#Testimonials Section
+      </details>
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/COPY_IMPLEMENTATION_GUIDE.md" section="Testimonials Section" lines="331-371">
+        <title>Testimonials Copy - Research-Validated Client Quotes</title>
+        <snippet>
+          Section Header: "What Our Clients Say"
+
+          Kotia Testimonial (5 stars):
+          "Cre8tive AI Studios helped us leverage AI video production to create high-quality content quickly. Their team's deep understanding of both technology and business needs is exceptional."
+          — Kotia, B2B SaaS
+
+          Marina Lab Testimonial (5 stars):
+          "A cost-effective solution for professional-grade video content. Their collaborative approach made the process seamless and stress-free."
+          — Marina Lab, Creative Agency
+
+          Advisor Plus PTD Testimonial (5 stars):
+          "Transformed our content creation approach. Their expertise in AI video production is exceptional, and they educated us on future possibilities."
+          — Advisor Plus PTD, Financial Services
+        </snippet>
+        <relevance>Exact copy for testimonial quotes, client names, industries. Word-for-word match required for AC #1, #2, #10.</relevance>
+      </doc>
+
+      <doc path="docs/tech-spec-epic-2.md" section="Story 2.4 Implementation" lines="514-518">
+        <title>Story 2.4 Technical Specifications</title>
+        <snippet>
+          Story 2.4: Testimonials Section - Premium Execution
+          - Signature easing curves (CRE8TIVE_EASINGS.organic for cards, .spring for stars)
+          - Blob-shaped OrganicCard (softer than hexagons/organic used in 2.2/2.3)
+          - Staggered quote reveals (0.2s stagger, total 0.6s for 3 cards)
+          - Citation badge glow pulse (2s CSS animation, Studios orange #EA580C)
+          - Star rating micro-choreography (sequential scale-in, 0.05s stagger)
+        </snippet>
+        <relevance>Core animation specifications for AC #3, #4, #5. Defines easing curves, timing, glow properties.</relevance>
+      </doc>
+
+      <doc path="docs/architecture/animation-patterns.md" section="GSAP ScrollTrigger Patterns" lines="93-310">
+        <title>GSAP Animation Best Practices</title>
+        <snippet>
+          Pattern 4: Stagger Animation (Gallery Cards)
+
+          useEffect(() => {
+            const ctx = gsap.context(() => {
+              gsap.from('.style-card', {
+                scrollTrigger: {
+                  trigger: '.gallery-grid',
+                  start: 'top 75%',
+                  toggleActions: 'play none none reverse',
+                },
+                opacity: 0,
+                scale: 0.8,
+                y: 80,
+                stagger: {
+                  amount: 1.2,
+                  from: 'start',
+                  ease: 'power2.inOut',
+                },
+                duration: 0.6,
+                ease: 'back.out(1.2)',
+              })
+            }, containerRef)
+
+            return () => ctx.revert()
+          }, [])
+        </snippet>
+        <relevance>Reference pattern for staggered reveals in AC #3. Shows proper gsap.context() cleanup and stagger configuration.</relevance>
+      </doc>
+
+      <doc path="docs/architecture/coding-standards.md" section="React Cleanup Pattern" lines="283-318">
+        <title>GSAP React Cleanup Patterns (CRITICAL)</title>
+        <snippet>
+          GSAP Animations:
+
+          // ✅ GOOD: gsap.context() with cleanup
+          useEffect(() => {
+            const ctx = gsap.context(() => {
+              gsap.from(".element", {
+                opacity: 0,
+                scrollTrigger: { /*...*/ }
+              })
+            }, containerRef)
+
+            return () => ctx.revert()  // CRITICAL: Prevents memory leaks
+          }, [])
+        </snippet>
+        <relevance>CRITICAL for AC #9 code quality. Demonstrates required cleanup pattern to prevent memory leaks in GSAP animations.</relevance>
+      </doc>
+
+      <doc path="docs/architecture/frontend-architecture.md" section="Component Template Checklist" lines="133-141">
+        <title>Component Quality Checklist</title>
+        <snippet>
+          - TypeScript interfaces exported (props, data structures)
+          - React cleanup patterns (useEffect return cleanup)
+          - Responsive design (mobile-first)
+          - GPU-accelerated animations (transform, opacity only)
+          - ARIA labels for accessibility
+          - Semantic HTML (section, article, heading hierarchy)
+        </snippet>
+        <relevance>Quality standards checklist for AC #9 code validation. Ensures component follows project patterns.</relevance>
+      </doc>
+    </docs>
+
+    <code>
+      <artifact path="src/components/studios/Testimonials.tsx" kind="component" symbol="Testimonials" lines="1-115">
+        <reason>Existing Testimonials component to be updated. Currently uses CinemaCard (not OrganicCard), ScrollFade (not GSAP stagger), no star animations, no citation badges. Structure provides baseline for enhancements in AC #1, #2.</reason>
+      </artifact>
+
+      <artifact path="src/components/epic2/shapes/OrganicCard.tsx" kind="component" symbol="OrganicCard" lines="1-144">
+        <reason>Epic 2 foundation component for blob-shaped cards (AC #6). Provides SVG clip-path masking, morphing animation, glow filters. Must use shape="blob" variant (not hexagon/organic used in 2.2/2.3).</reason>
+      </artifact>
+
+      <artifact path="src/components/epic2/animations/easings.ts" kind="constant" symbol="CRE8TIVE_EASINGS" lines="1-106">
+        <reason>Signature easing curves for AC #3, #5. Use CRE8TIVE_EASINGS.organic (power4.out) for staggered card reveals, CRE8TIVE_EASINGS.spring (elastic.out) for star rating scale-in.</reason>
+      </artifact>
+
+      <artifact path="src/components/studios/CinemaCard.tsx" kind="component" symbol="CinemaCard" lines="1-50">
+        <reason>Currently used in existing Testimonials component. Will be REPLACED by OrganicCard with shape="blob" in Story 2.4 implementation. Reference for glassmorphism styling patterns.</reason>
+      </artifact>
+
+      <artifact path="src/components/shared/ScrollFade.tsx" kind="component" symbol="ScrollFade" lines="1-30">
+        <reason>Currently used for testimonial reveals. Will be REPLACED by GSAP ScrollTrigger with stagger animation in Story 2.4 for more premium execution (AC #3).</reason>
+      </artifact>
+
+      <artifact path="src/pages/Studios.tsx" kind="page" symbol="Studios" lines="35-39">
+        <reason>Studios page integration point for AC #8. Testimonials section placed after ImageToVideoComparison (Story 2.3), before ContactCTA. Lenis smooth scroll already configured.</reason>
+      </artifact>
+    </code>
+
+    <dependencies>
+      <node>
+        <dependency name="gsap" version="^3.13.0" usage="GSAP ScrollTrigger for staggered quote reveals (AC #3), star rating animations (AC #5)">
+          <note>Already installed in Epic 1. Use @gsap/react useGSAP hook for automatic cleanup (recommended over manual gsap.context()).</note>
+        </dependency>
+
+        <dependency name="@gsap/react" version="^2.1.2" usage="Official React hook for GSAP with automatic cleanup">
+          <note>Preferred over manual gsap.context(). Provides useGSAP hook that auto-reverts on unmount.</note>
+        </dependency>
+
+        <dependency name="framer-motion" version="^12.4.2" usage="OrganicCard SVG path morphing (Epic 2 foundation). Not used directly in Story 2.4, but OrganicCard dependency.">
+          <note>Already used in OrganicCard for blob shape morphing. No additional Framer Motion code needed in Story 2.4.</note>
+        </dependency>
+
+        <dependency name="lucide-react" version="^0.462.0" usage="Star icon component for 5-star ratings (AC #5)">
+          <note>Existing Testimonials already uses Star icon from lucide-react. Update styling for golden color (#F59E0B) and add scale-in animation.</note>
+        </dependency>
+
+        <dependency name="lenis" version="^1.3.11" usage="Smooth scroll foundation (already configured globally in App.tsx)">
+          <note>No Story 2.4 changes needed. Lenis already integrated and synced with GSAP ScrollTrigger.</note>
+        </dependency>
+
+        <dependency name="tailwind-merge" version="^2.5.2" usage="cn() utility for conditional Tailwind classes">
+          <note>Standard utility for all components. Use for responsive grid layouts (AC #7).</note>
+        </dependency>
+      </node>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="1" type="visual">
+      <description>Blob Shapes (Not Hexagon or Organic)</description>
+      <rule>Must use OrganicCard with shape="blob" for testimonial cards. Hexagons used in Story 2.2 (platform cards), organic shapes in Story 2.3 (comparison). Blobs differentiate testimonials section and feel softer/more human (appropriate for client quotes).</rule>
+    </constraint>
+
+    <constraint id="2" type="animation">
+      <description>CSS-Animated Glow Pulse (Not JavaScript RAF)</description>
+      <rule>Citation badge glow pulse MUST use CSS @keyframes animation (not JavaScript requestAnimationFrame). Rationale: Better mobile performance (offloaded to compositor thread), simpler implementation, browser can optimize automatically. Pulse duration: 2s infinite loop, opacity 0.3 → 0.6, staggered by 0.3s per badge.</rule>
+    </constraint>
+
+    <constraint id="3" type="animation">
+      <description>Stagger Timing: 0.2s Between Cards (Total 0.6s)</description>
+      <rule>Testimonial card stagger MUST be 0.2s between each card (total 0.6s for all 3). Rationale: Aligns with Epic 2 timing patterns (0.15s in Story 2.1 for 5 cards, 0.2s feels premium for 3 larger testimonials). Organic easing (power4.out) creates smooth deceleration.</rule>
+    </constraint>
+
+    <constraint id="4" type="performance">
+      <description>60fps Performance Target on Modern Browsers</description>
+      <rule>All animations MUST achieve 60fps (≤16.67ms per frame) on Chrome 100+, Firefox 100+, Safari 15+. Use GPU-accelerated properties only (transform, opacity). Add will-change: transform, opacity to animated cards. Glow pulse uses CSS (not JS) for better mobile performance.</rule>
+    </constraint>
+
+    <constraint id="5" type="copy">
+      <description>Exact Copy Match to COPY_IMPLEMENTATION_GUIDE.md</description>
+      <rule>ALL testimonial quotes, client names, titles, companies MUST match COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word). No paraphrasing, no creative interpretation. Section header: "What Our Clients Say" (not "Client Testimonials" or "What Clients Say"). 3 testimonials: Kotia, Marina Lab, Advisor Plus PTD (in that order).</rule>
+    </constraint>
+
+    <constraint id="6" type="responsive">
+      <description>Mobile-First Responsive Grid (1/2/3 Columns)</description>
+      <rule>Mobile (375px): 1 column stack. Tablet (768px): 2 columns grid (3rd card wraps below). Desktop (1024px+): 3 columns grid. Gap: gap-8 between cards. All animations preserved on mobile (no simplified fallbacks - animations already performant with CSS glow pulse and GPU-accelerated GSAP).</rule>
+    </constraint>
+
+    <constraint id="7" type="code-quality">
+      <description>React Cleanup Patterns (GSAP Context)</description>
+      <rule>ALL GSAP animations MUST use gsap.context() with cleanup (or @gsap/react useGSAP hook). Pattern: useEffect(() => { const ctx = gsap.context(() => { /* animations */ }, containerRef); return () => ctx.revert(); }, []). CRITICAL for preventing memory leaks when component unmounts.</rule>
+    </constraint>
+
+    <constraint id="8" type="integration">
+      <description>Studios Page Placement (After Story 2.3, Before ContactCTA)</description>
+      <rule>Testimonials section MUST be placed after ImageToVideoComparison (Story 2.3), before final ContactCTA section in src/pages/Studios.tsx. Maintains logical flow: Portfolio (2.1) → MultiPlatform (2.2) → Comparison (2.3) → Testimonials (2.4) → CTA.</rule>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface name="TestimonialConfig" kind="TypeScript interface" signature="TestimonialConfig" path="src/data/studios/testimonials-data.ts">
+      <description>Data structure for testimonial content (quote, client, company, rating)</description>
+      <signature>
+        interface TestimonialConfig {
+          quote: string;
+          clientName: string;
+          clientTitle: string;
+          company: string;
+          industry?: string;
+          starRating: number;
+          logo?: string;
+          headshot?: string;
+        }
+      </signature>
+      <usage>Create TESTIMONIALS_DATA const with 3 client testimonials (Kotia, Marina Lab, Advisor Plus PTD). Export interface for type safety.</usage>
+    </interface>
+
+    <interface name="OrganicCard" kind="React component" signature="OrganicCard({ shape, glowColor, morphing, morphIntensity, className, children })" path="src/components/epic2/shapes/OrganicCard.tsx">
+      <description>Epic 2 foundation component for SVG-masked blob shapes with optional morphing and glow</description>
+      <signature>
+        OrganicCard({
+          shape: 'blob' | 'hexagon' | 'organic' | 'floating',
+          glowColor?: string,
+          morphing?: boolean,
+          morphIntensity?: number,
+          className?: string,
+          children: React.ReactNode
+        })
+      </signature>
+      <usage>Use shape="blob" for testimonial cards. Apply glowColor="#EA580C" (Studios orange) for hover glow. No morphing needed (static blob shapes for testimonials).</usage>
+    </interface>
+
+    <interface name="CRE8TIVE_EASINGS" kind="constant" signature="CRE8TIVE_EASINGS.organic | .smooth | .spring | .cinematic" path="src/components/epic2/animations/easings.ts">
+      <description>Signature easing curves for premium animations</description>
+      <signature>
+        const CRE8TIVE_EASINGS = {
+          organic: 'power4.out',       // Smooth deceleration
+          smooth: 'power2.out',         // Apple-like refinement
+          spring: 'elastic.out(1, 0.5)', // Energetic bounce
+          cinematic: 'power4.inOut'     // Dramatic slowdown
+        }
+      </signature>
+      <usage>Use CRE8TIVE_EASINGS.organic for staggered card reveals (AC #3). Use CRE8TIVE_EASINGS.spring for star rating scale-in (AC #5).</usage>
+    </interface>
+
+    <interface name="useGSAP" kind="React hook" signature="useGSAP(() => { /* animations */ }, { scope: containerRef })" path="@gsap/react">
+      <description>Official GSAP React hook with automatic cleanup (alternative to manual gsap.context())</description>
+      <signature>
+        useGSAP(() => {
+          // GSAP animations here
+        }, { scope: containerRef })
+      </signature>
+      <usage>Recommended pattern for GSAP animations in React components. Auto-reverts on unmount (no manual cleanup needed). Replaces manual gsap.context() + ctx.revert() pattern.</usage>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      **Current Testing State:** Zero automated tests exist (documented technical debt). Manual validation only.
+
+      **Manual Testing Required:**
+      - Visual QA: Compare testimonials section to COPY_IMPLEMENTATION_GUIDE.md (exact copy match)
+      - Browser testing: Chrome 100+, Firefox 100+, Safari 15+ (blob shapes, animations, glow pulse)
+      - Responsive testing: 375px, 768px, 1024px, 1920px breakpoints
+      - Performance profiling: Chrome DevTools Performance tab (verify 60fps during scroll)
+      - Animation validation: Stagger timing (0.2s), star scale-in (0.05s), glow pulse (2s)
+      - Interaction testing: Hover glow on blob cards, citation badge pulse timing
+
+      **Build Validation:**
+      - `npm run build` passes with 0 TypeScript errors
+      - `npm run lint` passes with 0 ESLint errors (warnings acceptable)
+    </standards>
+
+    <locations>
+      No test files exist. When test infrastructure added (Vitest + React Testing Library planned):
+      - Create: `src/components/studios/Testimonials.test.tsx`
+      - Create: `src/components/studios/StarRating.test.tsx`
+      - Create: `src/components/studios/CitationBadge.test.tsx`
+    </locations>
+
+    <ideas>
+      <testIdea ac="1,2" priority="HIGH">
+        **Test:** Testimonial Content Rendering
+        - Verify 3 testimonial cards render (Kotia, Marina Lab, Advisor Plus PTD)
+        - Check quotes match COPY_IMPLEMENTATION_GUIDE.md exactly
+        - Verify client names, titles, companies display correctly
+        - Check 5-star ratings render for all testimonials
+      </testIdea>
+
+      <testIdea ac="3" priority="HIGH">
+        **Test:** Staggered Quote Reveals Animation
+        - Mock GSAP ScrollTrigger
+        - Trigger scroll event
+        - Verify cards animate with stagger: 0.2s
+        - Check easing: CRE8TIVE_EASINGS.organic (power4.out)
+        - Verify initial state: opacity 0, y 60
+        - Verify final state: opacity 1, y 0
+      </testIdea>
+
+      <testIdea ac="5" priority="MEDIUM">
+        **Test:** Star Rating Sequential Scale-In
+        - Mock GSAP timeline
+        - Verify 5 stars render
+        - Check stagger: 0.05s per star (total 0.25s)
+        - Verify easing: CRE8TIVE_EASINGS.spring (elastic.out)
+        - Check animation delay: 0.4s after card reveal
+      </testIdea>
+
+      <testIdea ac="4" priority="MEDIUM">
+        **Test:** Citation Badge Glow Pulse
+        - Verify CSS @keyframes animation applied
+        - Check animation-duration: 2s
+        - Check opacity pulse: 0.3 → 0.6 → 0.3
+        - Verify staggered timing: 0.3s offset per badge
+        - Check glow color: Studios orange (#EA580C)
+      </testIdea>
+
+      <testIdea ac="6" priority="MEDIUM">
+        **Test:** OrganicCard Blob Shapes
+        - Verify OrganicCard imported from Epic 2 foundation
+        - Check shape="blob" prop passed
+        - Verify SVG clip-path applied (not rectangle)
+        - Check glassmorphism styling (backdrop-filter: blur(20px))
+        - Verify glow color: #EA580C
+      </testIdea>
+
+      <testIdea ac="7" priority="HIGH">
+        **Test:** Responsive Grid Layouts
+        - Mobile (375px): Verify 1 column (grid-cols-1)
+        - Tablet (768px): Verify 2 columns (md:grid-cols-2)
+        - Desktop (1024px+): Verify 3 columns (lg:grid-cols-3)
+        - Check gap-8 between cards
+        - Verify all animations preserved on mobile
+      </testIdea>
+
+      <testIdea ac="9" priority="CRITICAL">
+        **Test:** React Cleanup Patterns
+        - Verify useGSAP hook used (or manual gsap.context())
+        - Check cleanup function returns ctx.revert()
+        - Mount/unmount component rapidly
+        - Verify no memory leaks (ScrollTrigger instances cleaned up)
+        - Check no console errors after unmount
+      </testIdea>
+
+      <testIdea ac="10" priority="HIGH">
+        **Test:** Copy Accuracy (Visual QA)
+        - Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md
+        - Verify section header: "What Our Clients Say"
+        - Check all quotes word-for-word match
+        - Verify client names: Sarah Chen, Alex Rivera, Jamie Thompson
+        - Check companies: Kotia Skincare, Marina Lab, Advisor Plus PTD
+      </testIdea>
+    </ideas>
+  </tests>
+</story-context>

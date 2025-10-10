@@ -8,6 +8,9 @@
     "build": "tsc && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -44,6 +47,7 @@
   "dependencies": {
     "@fontsource/geist-sans": "^5.1.0",
     "@fontsource/inter": "^5.1.1",
+    "@fontsource/outfit": "^5.2.8",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
@@ -115,7 +119,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@playwright/test": "^1.56.0",
     "@tailwindcss/typography": "^0.5.15",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -128,6 +135,7 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "gh-pages": "^6.3.0",
     "globals": "^15.9.0",
+    "jsdom": "^27.0.0",
     "lovable-tagger": "^1.0.19",
     "postcss": "^8.5.1",
     "postcss-import": "^16.1.0",
@@ -138,6 +146,7 @@
     "terser": "^5.37.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vitest": "^3.2.4"
   }
 }

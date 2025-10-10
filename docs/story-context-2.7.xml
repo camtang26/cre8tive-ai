@@ -1,0 +1,397 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.7</storyId>
+    <title>Briefing Engine Value Props &amp; Premium CTA with Magnetic Dual-Button</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09T19:40:35</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-2.7.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 content strategy and premium components</asA>
+    <iWant>to create the ValuePropsAgenciesBrands component with organic card shapes, 3D Y-axis rotation reveals, cursor-following gradient spotlight effects, and a premium CTA section with dual-button magnetic pull</iWant>
+    <soThat>users experience a compelling split-benefit presentation distinguishing agency vs brand value propositions with distinctive GSAP + Framer Motion premium choreography, followed by a conversion-optimized CTA that showcases feature pills and competing magnetic forces between primary and secondary actions</soThat>
+    <tasks>
+      - Create VALUE_PROPS_DATA Constant (AC: #1)
+      - Create ValuePropsAgenciesBrands Component Structure (AC: #1, #9)
+      - Implement Organic Benefit Card Shapes (AC: #2)
+      - Implement 3D Y-Axis Rotation Reveal (AC: #3)
+      - Implement Cursor-Following Gradient Spotlight (AC: #4)
+      - Create CTA_DATA Constant (AC: #5)
+      - Update BriefingCTA Component with Dual-Button Magnetic Pull (AC: #6)
+      - Implement Feature Pills Morphing Entrance (AC: #7)
+      - Implement Responsive Design (AC: #8)
+      - Integrate with Briefing Engine Page (AC: #9)
+      - Code Quality &amp; Build Validation (AC: #10, #11)
+      - Visual QA &amp; Copy Verification (AC: #12)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC-1">
+      <title>Value Props Section Copy Implementation (Research-Validated Messaging)</title>
+      <description>Section header: "Built for Professional Teams", Two-column split layout: "For Agencies" (left) | "For Brands" (right), For Agencies Column (cyan accent): Header "For Agencies", Subheader "Scale creative without burning hours", 3 Benefits (Multi-Client Pipeline, Faster Client Onboarding, Team Productivity Multiplier), For Brands Column (fuchsia accent): Header "For Brands", Subheader "Launch campaigns before opportunities pass", 3 Benefits (Speed to Campaign Launch, Brand Consistency Locked In, Studios-Ready Output). All copy matches COPY_IMPLEMENTATION_GUIDE.md Value Props section exactly (lines 688-742).</description>
+      <source>docs/COPY_IMPLEMENTATION_GUIDE.md#Value Props: Agencies vs Brands Section lines 688-742</source>
+      <traceTo>AC-2.17, AC-2.18 from tech-spec-epic-2.md lines 907-908</traceTo>
+    </criterion>
+    <criterion id="AC-2">
+      <title>Organic Benefit Card Shapes (Premium Visual Pattern)</title>
+      <description>Implement organic shape variants for benefit cards using OrganicCard component from Epic 2. Use shape variant: "organic" for all 6 benefit cards (3 agencies + 3 brands). Each card has subtle morphing/breathing animation: Shape varies ±3-5% over 8s loop, Framer Motion path morphing (not GSAP MorphSVG), Low CPU cost, medium GPU cost (acceptable for 6 cards). Cards have glassmorphism background with accent glow: Agencies cards cyan glow (briefingPalette.cyan.DEFAULT), Brands cards fuchsia glow (briefingPalette.fuchsia.DEFAULT), Glow opacity 10-15% for subtlety.</description>
+      <source>docs/tech-spec-epic-2.md#Premium Component Architecture lines 83-130</source>
+      <traceTo>AC-2.31, AC-2.32 from tech-spec-epic-2.md lines 925-926</traceTo>
+    </criterion>
+    <criterion id="AC-3">
+      <title>3D Y-Axis Rotation Reveal Animation (Premium Choreography)</title>
+      <description>Implement 3D rotation reveal for benefit cards on scroll into view. GSAP ScrollTrigger configuration: Trigger `.value-props-container`, Start `top 75%`, Initial state `rotationY: 90, opacity: 0` (cards rotated away), Final state `rotationY: 0, opacity: 1` (cards face user), Easing CRE8TIVE_EASINGS.organic (power4.out fallback), Stagger 0.15s between cards (agencies 1-3, then brands 1-3), Duration 0.8s per card, transformPerspective 1000. Stagger order: Agencies benefit 1 → 2 → 3, then Brands benefit 1 → 2 → 3 (total 6 cards).</description>
+      <source>docs/tech-spec-epic-2.md#Story 2.7 Implementation line 539</source>
+      <traceTo>AC-2.37, AC-2.42 from tech-spec-epic-2.md lines 931, 936</traceTo>
+    </criterion>
+    <criterion id="AC-4">
+      <title>Cursor-Following Gradient Spotlight (Premium Micro-Interaction)</title>
+      <description>Implement gradient spotlight effect that follows cursor position across value props section. Use CSS radial-gradient overlay with JavaScript mousemove tracking: Spotlight center follows cursor coordinates, Gradient radial-gradient(circle 600px at [cursorX] [cursorY], rgba(cyan/fuchsia, 0.15), transparent 70%), Throttled to 60fps (16ms mousemove event processing via gsap.utils.throttle), Spotlight color interpolates between cyan and fuchsia based on cursor X position (Left side agencies: cyan spotlight, Right side brands: fuchsia spotlight, Center: gradient blend). Spotlight effect only active on desktop (>= 1024px), disabled on mobile/tablet.</description>
+      <source>docs/tech-spec-epic-2.md#Story 2.7 Implementation line 540</source>
+      <traceTo>Premium execution pattern (not explicit AC, but enhances "premium feel")</traceTo>
+    </criterion>
+    <criterion id="AC-5">
+      <title>CTA Section Copy Implementation (Dual-Button Strategy)</title>
+      <description>Main headline: "Start Creating Production-Ready Storyboards", Subheadline: "Your Brand. Your Vision. AI-Powered Precision.", Dual CTA Buttons: Primary button "Start Your First Brief" (links to https://admanager.cre8tive.ai/), Secondary button "Talk to Our Team" (links to /contact). Feature Pills (3 pills below CTAs): "9 Visual Styles", "PDF Export", "Studios Integration" with subtle morphing entrance animation (shape morphs in with elastic.out). All copy matches COPY_IMPLEMENTATION_GUIDE.md CTA section exactly (lines 745-767).</description>
+      <source>docs/COPY_IMPLEMENTATION_GUIDE.md#CTA Section lines 745-767</source>
+      <traceTo>AC-2.19, AC-2.20 from tech-spec-epic-2.md lines 907-908</traceTo>
+    </criterion>
+    <criterion id="AC-6">
+      <title>Dual-Button Magnetic Pull with Competing Forces (Premium Micro-Pattern)</title>
+      <description>Implement magnetic pull on BOTH CTA buttons using useMagneticPull hook from Epic 2. Primary Button Magnetic Config: Strength 0.4 (stronger pull), Max distance 150px cursor detection radius, Element moves ≤35px toward cursor when hovering nearby, Rotation enabled rotationIntensity 0.15 (slight tilt toward cursor). Secondary Button Magnetic Config: Strength 0.25 (gentler pull), Max distance 120px cursor detection radius, Element moves ≤25px toward cursor, Rotation enabled rotationIntensity 0.1. Competing Forces Effect: When cursor is between both buttons (equidistant), both buttons pull simultaneously, Creates visual "tension" where buttons move toward each other slightly, Throttled to 60fps for both buttons (shared mousemove listener). Magnetic pull disabled on mobile (&lt;768px), buttons static with standard hover states.</description>
+      <source>docs/tech-spec-epic-2.md#Story 2.7 Implementation line 543</source>
+      <traceTo>AC-2.33, AC-2.34, AC-2.44 from tech-spec-epic-2.md lines 927-928, 938</traceTo>
+    </criterion>
+    <criterion id="AC-7">
+      <title>Feature Pills Morphing Entrance Animation (Premium Micro-Choreography)</title>
+      <description>Implement morphing entrance for 3 feature pills below CTA buttons. Pills start as collapsed circles (0% width pill shape), morph into full pill capsules. GSAP animation sequence: Initial state scaleX: 0.2, opacity: 0 (pill appears as dot), Final state scaleX: 1, opacity: 1 (pill expands to full capsule width), Easing CRE8TIVE_EASINGS.spring (elastic.out for visible bounce), Stagger 0.1s between pills (sequential reveal), Duration 0.6s per pill, ScrollTrigger pills animate when CTA section scrolls into view (trigger `.cta-section`, start `top 80%`). Pills have glassmorphism styling: Background indigo gradient 15% opacity, Border 1px solid cyan/fuchsia (alternating colors), Icon + text layout.</description>
+      <source>docs/tech-spec-epic-2.md#Story 2.7 Implementation line 544</source>
+      <traceTo>AC-2.42 from tech-spec-epic-2.md line 936 (signature easing)</traceTo>
+    </criterion>
+    <criterion id="AC-8">
+      <title>Responsive Design &amp; Performance</title>
+      <description>Desktop (1024px+): Full premium animations (3D rotation, cursor spotlight, dual magnetic pull, morphing pills). Tablet (768px-1023px): Simplified animations (2D fade-in for cards, no spotlight, no magnetic pull, pills fade in). Mobile (375px-767px): 1 column stack (Agencies above Brands), static cards (simple fade-in), no spotlight, no magnetic pull, pills fade in. All animations achieve 60fps on Chrome 100+, Firefox 100+, Safari 15+. 3D rotation uses CSS transform + transformPerspective (GPU-accelerated). Cursor spotlight uses CSS radial-gradient (no canvas, performant).</description>
+      <source>docs/tech-spec-epic-2.md#Performance lines 629-707</source>
+      <traceTo>AC-2.24, AC-2.25, AC-2.43, AC-2.44 from tech-spec-epic-2.md lines 915-916, 937-938</traceTo>
+    </criterion>
+    <criterion id="AC-9">
+      <title>Integration with Briefing Engine Page</title>
+      <description>Import ValuePropsAgenciesBrands component into src/pages/BriefingEngine.tsx, Place after StudiosConnection component (Story 2.6), before or as part of BriefingCTA section. Import BriefingCTA component (update with dual-button magnetic pull and feature pills). Create VALUE_PROPS_DATA const in component file with all copy from COPY_IMPLEMENTATION_GUIDE.md. Verify both CTA buttons link correctly: Primary https://admanager.cre8tive.ai/ (external link, opens same tab), Secondary /contact (React Router Link). Verify smooth scroll behavior with Lenis (already configured globally). Verify no layout shifts (CLS ≤0.1), no console errors.</description>
+      <source>docs/tech-spec-epic-2.md#Page Rendering Flow lines 561-592</source>
+    </criterion>
+    <criterion id="AC-10">
+      <title>Code Quality &amp; Build Validation</title>
+      <description>TypeScript compiles clean (npm run build) with 0 errors. ESLint passes (0 errors, warnings acceptable per project standards). All components follow frontend-architecture.md Component Template Checklist. React cleanup patterns implemented (useEffect return cleanup for GSAP context, useMagneticPull, mousemove listeners). No console.log statements in production code. Organic SVG shapes optimized (inline for best performance).</description>
+      <source>docs/architecture/frontend-architecture.md#Component Template Checklist</source>
+      <traceTo>AC-2.21, AC-2.22, AC-2.23 from tech-spec-epic-2.md lines 911-913</traceTo>
+    </criterion>
+    <criterion id="AC-11">
+      <title>Premium Pattern Integration from Epic 2 Foundation</title>
+      <description>Import and use OrganicCard from @/components/epic2/shapes/OrganicCard. Import and use useMagneticPull hook from @/components/epic2/hooks/useMagneticPull. Import and use CRE8TIVE_EASINGS from @/components/epic2/animations/easings. Follow Epic 2 premium usage patterns from src/components/epic2/PREMIUM_USAGE.md. Verify all premium patterns achieve 60fps (verified in Chrome DevTools Performance tab).</description>
+      <source>docs/tech-spec-epic-2.md#Story 2.0 Epic 2 Premium Foundation lines 453-469</source>
+      <traceTo>AC-2.31-2.34, AC-2.42, AC-2.43 from tech-spec-epic-2.md lines 925-928, 936-937</traceTo>
+    </criterion>
+    <criterion id="AC-12">
+      <title>Visual QA &amp; Copy Accuracy</title>
+      <description>All Value Props copy matches COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word). Agencies column: 3 benefits with headers, cyan accent color. Brands column: 3 benefits with headers, fuchsia accent color. CTA section: Main headline, subheadline, dual buttons with correct links, 3 feature pills. Section headers and subheaders match copy guide. Primary CTA links to https://admanager.cre8tive.ai/ correctly. Secondary CTA links to /contact correctly (React Router).</description>
+      <source>docs/COPY_IMPLEMENTATION_GUIDE.md#Value Props and CTA sections lines 688-767</source>
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Epic 2 - Research-Validated Content &amp; Portfolio Implementation</title>
+        <section>Premium Component Architecture (lines 83-140), Story 2.7 Implementation (lines 537-547), Acceptance Criteria (lines 907-947), Performance Budget (lines 629-707)</section>
+        <snippet>Epic 2 introduces premium execution components with organic shapes, GSAP orchestration, magnetic micro-interactions, and 60fps signature animations. Story 2.7 implements Value Props split-benefit presentation and dual-button CTA with competing magnetic forces. All patterns use Epic 2 foundation (OrganicCard, useMagneticPull, CRE8TIVE_EASINGS) established in Story 2.0.</snippet>
+        <reason>Authoritative technical specification for Story 2.7 implementation patterns, AC traceability, and performance constraints</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/COPY_IMPLEMENTATION_GUIDE.md</path>
+        <title>Cre8tive AI - Website Copy Implementation Guide</title>
+        <section>Value Props: Agencies vs Brands Section (lines 688-742), CTA Section (lines 745-767)</section>
+        <snippet>Research-validated copy for Briefing Engine Value Props and CTA sections. For Agencies: "Scale creative without burning hours" with 3 benefits (Multi-Client Pipeline, Faster Client Onboarding, Team Productivity Multiplier). For Brands: "Launch campaigns before opportunities pass" with 3 benefits (Speed to Campaign Launch, Brand Consistency Locked In, Studios-Ready Output). CTA: "Start Creating Production-Ready Storyboards" with dual buttons and 3 feature pills.</snippet>
+        <reason>Single source of truth for all copy text - must match exactly to satisfy AC-1, AC-5, AC-12</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/frontend-architecture.md</path>
+        <title>Frontend Architecture</title>
+        <section>Component Design Patterns (lines 58-130), Animation Architecture (lines 330-376), Styling System (lines 499-556), Performance Optimization (lines 693-762)</section>
+        <snippet>Standard component template pattern using TypeScript interfaces, JSDoc comments, semantic HTML, and cn() utility. GSAP + ScrollTrigger for scroll-driven animations with gsap.context() cleanup. Tailwind CSS utility-first with Shadcn/UI primitives. Briefing Engine color palette: indigo/cyan/fuchsia accents, glassmorphism cards. Mobile-first responsive design (375px-1920px breakpoints).</snippet>
+        <reason>Component template checklist, animation patterns, and responsive design standards for Story 2.7 implementation</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/epic2/PREMIUM_USAGE.md</path>
+        <title>Epic 2 Premium Components - Usage Guide</title>
+        <section>OrganicCard Component (lines 47-140), useMagneticPull Hook (lines 142-209), Signature Easing Curves (lines 355-391), Performance Budget (lines 393-422)</section>
+        <snippet>Complete usage guide for Epic 2 foundation components. OrganicCard with 4 shape variants (blob, hexagon, organic, floating) and optional morphing/glow. useMagneticPull hook for cursor-following magnetic effect (throttled 60fps, auto-disables on mobile). CRE8TIVE_EASINGS signature curves (organic, smooth, spring, cinematic). Performance constraints: max 3 morphing shapes, 3 glow filters, 12 elements per timeline.</snippet>
+        <reason>Integration patterns and best practices for using Epic 2 premium components in Story 2.7</reason>
+      </entry>
+    </docs>
+    <code>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/epic2/shapes/OrganicCard.tsx</path>
+        <kind>component</kind>
+        <symbol>OrganicCard</symbol>
+        <lines>Full component implementation (Story 2.0 COMPLETE)</lines>
+        <reason>OrganicCard component with shape="organic" variant will be used for all 6 benefit cards in ValuePropsAgenciesBrands. Supports morphing animation (±3-5% over 8s loop) and glow effects (cyan for agencies, fuchsia for brands). Critical dependency for AC-2.</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/epic2/hooks/useMagneticPull.ts</path>
+        <kind>hook</kind>
+        <symbol>useMagneticPull</symbol>
+        <lines>Full hook implementation (Story 2.0 COMPLETE)</lines>
+        <reason>useMagneticPull hook will be applied to BOTH CTA buttons (primary strength 0.4, secondary strength 0.25) to create competing magnetic forces effect. Throttled to 60fps, auto-disables on mobile &lt;768px. Critical dependency for AC-6.</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/epic2/animations/easings.ts</path>
+        <kind>constants</kind>
+        <symbol>CRE8TIVE_EASINGS</symbol>
+        <lines>Full easings definition (Story 2.0 COMPLETE)</lines>
+        <reason>CRE8TIVE_EASINGS.organic (power4.out fallback) will be used for 3D Y-axis rotation reveals on benefit cards. CRE8TIVE_EASINGS.spring (elastic.out) will be used for feature pill morphing entrances. Signature curves ensure premium feel. Critical dependency for AC-3, AC-7.</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/palette.ts</path>
+        <kind>constants</kind>
+        <symbol>briefingPalette</symbol>
+        <lines>Briefing Engine color system</lines>
+        <reason>briefingPalette.cyan.DEFAULT will be used for Agencies column accent color (glow, borders, headers). briefingPalette.fuchsia.DEFAULT will be used for Brands column accent color. briefingPalette.indigo.DEFAULT for CTA gradient and feature pill backgrounds. Critical dependency for AC-1, AC-2, AC-5.</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefingCTA.tsx</path>
+        <kind>component</kind>
+        <symbol>BriefingCTA</symbol>
+        <lines>Existing Briefing Engine CTA component (will be updated)</lines>
+        <reason>BriefingCTA component will be UPDATED to add dual-button magnetic pull (primary + secondary buttons), feature pills with morphing entrances, and signature easing. Existing component structure will be preserved, new premium patterns added. Critical for AC-5, AC-6, AC-7.</reason>
+      </entry>
+      <entry>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/pages/BriefingEngine.tsx</path>
+        <kind>page</kind>
+        <symbol>BriefingEngine</symbol>
+        <lines>Briefing Engine page component (will be updated)</lines>
+        <reason>BriefingEngine page will import and render new ValuePropsAgenciesBrands component after StudiosConnection (Story 2.6). Integration point for Story 2.7 components. Verify smooth scroll with Lenis, no layout shifts. Critical for AC-9.</reason>
+      </entry>
+    </code>
+    <dependencies>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>react</package>
+        <version>18.3.1</version>
+        <reason>Core UI library for component rendering and hooks (useState, useRef, useEffect)</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>react-dom</package>
+        <version>18.3.1</version>
+        <reason>DOM rendering for React components</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>gsap</package>
+        <version>3.13.0</version>
+        <reason>Animation engine for 3D Y-axis rotation reveals, feature pill morphing, ScrollTrigger integration. Critical for AC-3, AC-4, AC-7.</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>@gsap/react</package>
+        <version>2.1.2</version>
+        <reason>useGSAP hook for React integration with automatic cleanup. Used for ScrollTrigger animations.</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>framer-motion</package>
+        <version>12.4.2</version>
+        <reason>Shape morphing animation for OrganicCard (path morphing for organic shapes). Critical for AC-2.</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>lenis</package>
+        <version>1.3.11</version>
+        <reason>Smooth scroll foundation (already configured globally). Ensures smooth scroll behavior for ValuePropsAgenciesBrands. Critical for AC-9.</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>tailwindcss</package>
+        <version>3.4.11</version>
+        <reason>Utility-first CSS framework for responsive layouts, glassmorphism styling, gradient backgrounds. Critical for AC-8.</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>react-router-dom</package>
+        <version>6.26.2</version>
+        <reason>Client-side routing for Secondary CTA button (/contact link). Critical for AC-5, AC-9.</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>react-helmet</package>
+        <version>6.1.0</version>
+        <reason>SEO meta tags for Briefing Engine page (optional, not critical for Story 2.7)</reason>
+      </entry>
+      <entry>
+        <ecosystem>Node.js</ecosystem>
+        <package>typescript</package>
+        <version>5.5.3</version>
+        <reason>Type safety for component props, interfaces, and build validation. Critical for AC-10.</reason>
+      </entry>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <category>Epic 2 Premium Patterns</category>
+      <rule>MUST use Epic 2 foundation components (OrganicCard, useMagneticPull, CRE8TIVE_EASINGS) established in Story 2.0. Do NOT reimplement premium patterns - import from @/components/epic2. Follow usage patterns from PREMIUM_USAGE.md.</rule>
+    </constraint>
+    <constraint>
+      <category>Performance Budget (60fps Non-Negotiable)</category>
+      <rule>All animations MUST achieve 60fps (≤16.67ms per frame) on Chrome 100+, Firefox 100+, Safari 15+. Organic shapes: max 6 morphing (±3-5% variance over 8s loop). Magnetic pull: throttled to 16ms (60fps), shared mousemove listener for dual buttons. 3D rotation: use transformPerspective 1000, GPU-accelerated transform. Cursor spotlight: CSS radial-gradient (no canvas), throttled to 60fps. Profile all animations in Chrome DevTools Performance tab.</rule>
+    </constraint>
+    <constraint>
+      <category>Responsive Design (Mobile-First)</category>
+      <rule>Desktop (1024px+): Full premium animations (3D rotation, cursor spotlight, dual magnetic pull, morphing pills). Tablet (768px-1023px): Simplified (2D fade-in, no spotlight, no magnetic pull, pills fade). Mobile (375px-767px): 1 column stack (Agencies above Brands), static cards (fade-in), no spotlight, no magnetic pull, pills fade. Use Tailwind breakpoints: lg: for desktop features, md: for tablet simplifications, default for mobile base.</rule>
+    </constraint>
+    <constraint>
+      <category>Copy Accuracy (Zero Deviation)</category>
+      <rule>ALL copy text MUST match COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word, line-for-line). No paraphrasing, no summarizing, no creative interpretation. Copy source: lines 688-742 (Value Props), lines 745-767 (CTA). Create const objects (VALUE_PROPS_DATA, CTA_DATA) with exact copy from guide. Side-by-side comparison during Visual QA.</rule>
+    </constraint>
+    <constraint>
+      <category>Accent Color System</category>
+      <rule>Agencies column: briefingPalette.cyan.DEFAULT (#0891B2) for glow, borders, headers. Brands column: briefingPalette.fuchsia.DEFAULT (#C026D3) for glow, borders, headers. Cursor spotlight: interpolate between cyan (left) and fuchsia (right) based on cursor X position. Feature pills: alternating cyan/fuchsia borders (pill 1,3 cyan; pill 2 fuchsia). Maintain 4.5:1 contrast ratio for WCAG AA (optional per AD-003, but recommended for readability).</rule>
+    </constraint>
+    <constraint>
+      <category>Component Architecture</category>
+      <rule>Create NEW component: ValuePropsAgenciesBrands.tsx in src/components/briefing/. UPDATE existing component: BriefingCTA.tsx (add dual magnetic pull, feature pills). Follow frontend-architecture.md Component Template Checklist: TypeScript interface exported, JSDoc comment, semantic HTML, cn() utility, responsive classes, React cleanup patterns. Max 500 LOC per file, extract sub-components if exceeded.</rule>
+    </constraint>
+    <constraint>
+      <category>TypeScript &amp; Code Quality</category>
+      <rule>TypeScript MUST compile clean (npm run build) with 0 errors. ESLint MUST pass with 0 errors (warnings acceptable per project standards). No console.log statements in production code. All component props have exported TypeScript interfaces. React cleanup: useEffect return cleanup for GSAP context, useMagneticPull hook cleanup, mousemove listener cleanup. Import paths: use @/ alias for src/ directory.</rule>
+    </constraint>
+    <constraint>
+      <category>Testing Standards (Manual Validation Only)</category>
+      <rule>Zero automated tests (per project standards). Manual testing required: Browser test (Chrome, Firefox, Safari, mobile), Verify all 12 acceptance criteria satisfied, Visual QA (copy matches guide exactly), npm run build passes (0 TypeScript errors), npm run lint passes (0 ESLint errors), 60fps validation in Chrome DevTools Performance tab, Responsive layouts (375px, 768px, 1024px, 1920px), Keyboard navigation (tab to CTAs, enter to activate), No layout shifts (CLS ≤0.1), No console errors.</rule>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>OrganicCard Component API (Epic 2 Foundation)</name>
+      <kind>React Component</kind>
+      <signature>
+        OrganicCard({
+          children: React.ReactNode,
+          shape?: 'blob' | 'hexagon' | 'organic' | 'floating',  // Story 2.7 uses 'organic'
+          glowColor?: string,                                    // briefingPalette.cyan.DEFAULT or .fuchsia.DEFAULT
+          morphing?: boolean,                                     // true for breathing animation
+          morphIntensity?: number,                                // 0.03-0.05 (±3-5% variance)
+          className?: string
+        }): JSX.Element
+      </signature>
+      <path>src/components/epic2/shapes/OrganicCard.tsx</path>
+      <reason>OrganicCard will wrap all 6 benefit cards in ValuePropsAgenciesBrands. Use shape="organic" for softer edges (better for text-heavy cards), morphing=true for subtle breathing (±3-5% over 8s loop), glowColor for cyan/fuchsia accent glow (10-15% opacity).</reason>
+    </interface>
+    <interface>
+      <name>useMagneticPull Hook API (Epic 2 Foundation)</name>
+      <kind>React Hook</kind>
+      <signature>
+        useMagneticPull({
+          strength?: number,           // 0-1, pull intensity (primary: 0.4, secondary: 0.25)
+          maxDistance?: number,        // Max pixels element can move (primary: 150px, secondary: 120px)
+          ease?: string,               // GSAP easing (default: 'power2.out')
+          rotation?: boolean,          // Enable rotation on pull (true)
+          rotationIntensity?: number   // 0-1, rotation amount (primary: 0.15, secondary: 0.1)
+        }): React.RefObject&lt;HTMLDivElement&gt;
+      </signature>
+      <path>src/components/epic2/hooks/useMagneticPull.ts</path>
+      <reason>useMagneticPull will be applied to BOTH CTA buttons (primary and secondary) to create competing magnetic forces effect. Primary button gets stronger pull (0.4 strength, 150px radius), secondary gets gentler pull (0.25 strength, 120px radius). When cursor is equidistant, both buttons pull simultaneously (visual tension).</reason>
+    </interface>
+    <interface>
+      <name>CRE8TIVE_EASINGS Constants (Epic 2 Foundation)</name>
+      <kind>TypeScript Const</kind>
+      <signature>
+        CRE8TIVE_EASINGS = {
+          organic: "power4.out",         // Smooth deceleration for 3D rotation
+          smooth: "power2.out",          // Apple-like refinement
+          spring: "elastic.out(1, 0.5)", // Energetic bounce for pills
+          cinematic: "power4.inOut"      // Dramatic slowdown
+        } as const
+      </signature>
+      <path>src/components/epic2/animations/easings.ts</path>
+      <reason>CRE8TIVE_EASINGS.organic will be used for 3D Y-axis rotation reveals on benefit cards (smooth deceleration). CRE8TIVE_EASINGS.spring will be used for feature pill morphing entrances (visible bounce with elastic.out). Signature curves ensure premium feel across all animations.</reason>
+    </interface>
+    <interface>
+      <name>BriefingCTA Component (Existing, Will Be Updated)</name>
+      <kind>React Component</kind>
+      <signature>
+        BriefingCTA({
+          className?: string
+        }): JSX.Element
+      </signature>
+      <path>src/components/briefing/BriefingCTA.tsx</path>
+      <reason>BriefingCTA will be UPDATED to add: Dual-button magnetic pull (useMagneticPull for both buttons with different strengths), Feature pills with morphing entrances (scaleX: 0.2 → 1.0 with elastic.out), CTA_DATA const with copy from COPY_IMPLEMENTATION_GUIDE.md. Preserve existing component structure, add new premium patterns.</reason>
+    </interface>
+    <interface>
+      <name>briefingPalette Constants (Existing)</name>
+      <kind>TypeScript Const</kind>
+      <signature>
+        briefingPalette = {
+          indigo: { DEFAULT: '#4F46E5' },
+          cyan: { DEFAULT: '#0891B2' },        // Agencies accent
+          fuchsia: { DEFAULT: '#C026D3' },     // Brands accent
+          text: { primary: '#E0E7FF', secondary: '#9CA3AF' }
+        }
+      </signature>
+      <path>src/components/briefing/palette.ts</path>
+      <reason>briefingPalette provides color constants for Agencies column (cyan), Brands column (fuchsia), and CTA gradient (indigo to fuchsia). Cursor spotlight will interpolate between cyan and fuchsia based on X position. Feature pills will use indigo background with alternating cyan/fuchsia borders.</reason>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Manual testing only (zero automated tests per project standards). Browser testing: Chrome 100+, Firefox 100+, Safari 15+ (latest versions). Performance validation: Chrome DevTools Performance tab (verify 60fps, no frames &gt;16.67ms). Responsive testing: Chrome DevTools device toolbar (375px, 768px, 1024px, 1920px). Accessibility: Keyboard navigation (tab to CTAs, enter to activate), no WCAG requirements per AD-003 but semantic HTML for SEO. Build validation: npm run build (0 TypeScript errors), npm run lint (0 ESLint errors, warnings acceptable). Visual QA: Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md (exact copy match).</standards>
+    <locations>
+      Manual testing locations: Localhost (http://localhost:8080/briefing-engine), Production (https://cre8tive.ai/briefing-engine after deployment). No automated test directories (docs/ARCHITECTURE.md confirms zero test infrastructure).
+    </locations>
+    <ideas>
+      <idea acRef="AC-1">
+        Visual QA: Compare Value Props copy to COPY_IMPLEMENTATION_GUIDE.md lines 688-742. Verify section header "Built for Professional Teams". Verify Agencies column header, subheader, 3 benefits (exact text match). Verify Brands column header, subheader, 3 benefits (exact text match). Verify cyan accent on Agencies, fuchsia accent on Brands.
+      </idea>
+      <idea acRef="AC-2">
+        Visual QA: Inspect organic benefit cards in browser DevTools. Verify SVG clip-path applied (not rectangular). Observe 8s morphing loop (shape breathing animation). Verify morphing intensity ±3-5% variance (subtle, not extreme). Verify glassmorphism background (backdrop-filter: blur). Verify cyan glow on Agencies cards, fuchsia glow on Brands cards. Verify glow opacity 10-15% (subtle, not overpowering).
+      </idea>
+      <idea acRef="AC-3">
+        Browser test: Scroll into Value Props section slowly. Verify 3D Y-axis rotation (cards rotate from side 90° to front 0°). Verify stagger effect visible (Agencies 1 → 2 → 3, then Brands 1 → 2 → 3). Verify smooth deceleration (CRE8TIVE_EASINGS.organic / power4.out). Chrome DevTools Performance: Record scroll, verify 60fps maintained. Mobile test: Verify 2D fade-in fallback on &lt;768px (no 3D rotation on mobile).
+      </idea>
+      <idea acRef="AC-4">
+        Desktop test (1024px+): Move cursor across Value Props section. Verify spotlight follows cursor smoothly (throttled 60fps). Verify spotlight color transitions: left (cyan) → center (blend) → right (fuchsia). Verify spotlight radius 600px, opacity 15%. Tablet/mobile test: Verify spotlight disabled on &lt;1024px (no cursor effect on touch screens).
+      </idea>
+      <idea acRef="AC-5">
+        Visual QA: Compare CTA copy to COPY_IMPLEMENTATION_GUIDE.md lines 745-767. Verify main headline "Start Creating Production-Ready Storyboards". Verify subheadline "Your Brand. Your Vision. AI-Powered Precision." Verify primary button text "Start Your First Brief". Verify secondary button text "Talk to Our Team". Verify 3 feature pills: "9 Visual Styles", "PDF Export", "Studios Integration".
+      </idea>
+      <idea acRef="AC-6">
+        Desktop test (1024px+): Hover near primary button (within 150px radius). Verify button moves toward cursor (max 35px movement). Verify rotation on pull (rotationIntensity 0.15). Hover near secondary button (within 120px radius). Verify button moves toward cursor (max 25px movement). Verify rotation on pull (rotationIntensity 0.1). Hover between both buttons (equidistant). Verify competing forces effect (both buttons pull toward cursor simultaneously, slight tension). Mobile test: Verify magnetic pull disabled on &lt;768px (static buttons, standard hover).
+      </idea>
+      <idea acRef="AC-7">
+        Browser test: Scroll into CTA section. Verify 3 feature pills morph from dots (scaleX 0.2) to capsules (scaleX 1.0). Verify visible elastic bounce (CRE8TIVE_EASINGS.spring / elastic.out). Verify stagger effect (0.1s between pills, sequential reveal). Verify glassmorphism styling (indigo gradient background, cyan/fuchsia borders). Mobile test: Verify pills still morph on mobile (lightweight scaleX animation acceptable).
+      </idea>
+      <idea acRef="AC-8">
+        Responsive test: Desktop (1024px+): Verify full premium animations (3D rotation, cursor spotlight, dual magnetic pull, morphing pills). Tablet (768px-1023px): Verify simplified animations (2D fade-in, no spotlight, no magnetic pull, pills fade). Mobile (375px-767px): Verify 1 column stack (Agencies above Brands), static cards (fade-in), no spotlight, no magnetic pull, pills fade. Chrome DevTools Performance: Record page load + scroll, verify 60fps maintained across all breakpoints. Verify no layout shifts (CLS ≤0.1 in Lighthouse).
+      </idea>
+      <idea acRef="AC-9">
+        Integration test: Verify ValuePropsAgenciesBrands component renders on Briefing Engine page (after StudiosConnection, Story 2.6). Verify BriefingCTA component renders with dual magnetic buttons and feature pills. Click primary CTA button: Verify links to https://admanager.cre8tive.ai/ (external link, same tab). Click secondary CTA button: Verify links to /contact (React Router, internal navigation). Verify smooth scroll with Lenis (no jumps, smooth transitions). Verify no console errors in browser DevTools. Verify no layout shifts during scroll (CLS ≤0.1).
+      </idea>
+      <idea acRef="AC-10">
+        Build validation: Run npm run build, verify TypeScript compiles with 0 errors. Run npm run lint, verify ESLint passes with 0 errors (warnings acceptable). Code review: Verify React cleanup patterns (useEffect return cleanup for GSAP context, useMagneticPull hook cleanup, mousemove listener cleanup). Verify no console.log statements in production code. Verify organic SVG shapes optimized (inline SVG for best performance, not external files).
+      </idea>
+      <idea acRef="AC-11">
+        Code review: Verify OrganicCard imported from @/components/epic2/shapes/OrganicCard. Verify useMagneticPull imported from @/components/epic2/hooks/useMagneticPull. Verify CRE8TIVE_EASINGS imported from @/components/epic2/animations/easings. Verify PREMIUM_USAGE.md patterns followed (shape="organic", morphing config, magnetic pull config, easing usage). Chrome DevTools Performance: Record all animations, verify 60fps (no frames &gt;16.67ms). Profile on mid-range device (throttle CPU 6x), verify graceful degradation if &lt;30fps.
+      </idea>
+      <idea acRef="AC-12">
+        Visual QA: Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md. Verify all Value Props copy matches exactly (lines 688-742): Agencies column headers, subheaders, 3 benefit descriptions (word-for-word). Brands column headers, subheaders, 3 benefit descriptions (word-for-word). Verify all CTA copy matches exactly (lines 745-767): Main headline, subheadline, button text, feature pill text. Verify accent colors correct: Agencies cyan, Brands fuchsia. Verify primary CTA links to https://admanager.cre8tive.ai/ correctly. Verify secondary CTA links to /contact correctly (React Router).
+      </idea>
+    </ideas>
+  </tests>
+</story-context>

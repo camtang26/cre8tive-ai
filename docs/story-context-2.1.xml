@@ -1,0 +1,535 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>1</storyId>
+    <title>Studios Hero &amp; Portfolio Section - Premium GSAP Orchestration</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-2.1.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 content strategy and premium components</asA>
+    <iWant>to update the Studios hero with research-validated quality-focused messaging and create a PortfolioSection component with GSAP orchestrated timeline animations</iWant>
+    <soThat>clients see proven work with industry-cited copy and visually distinctive premium presentation that showcases real client case studies through blob-shaped cards with magnetic pull interactions</soThat>
+    <tasks>
+- Task 1: Update Studios Hero Component (AC: #1)
+- Task 2: Create Portfolio Data Structure (AC: #6)
+- Task 3: Build PortfolioCard Sub-Component (AC: #2, #3)
+- Task 4: Build PortfolioSection Container Component (AC: #2, #7)
+- Task 5: Implement GSAP Orchestrated Timeline (AC: #4)
+- Task 6: Implement Magnetic Pull on Portfolio Cards (AC: #5)
+- Task 7: Responsive &amp; Performance Optimization (AC: #8)
+- Task 8: Integrate with Studios Page (AC: #9)
+- Task 9: Code Quality &amp; Build Validation (AC: #10)
+- Task 10: Visual QA &amp; Documentation (AC: all)
+</tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC-1" title="Studios Hero Copy Update (Research-Validated Messaging)">
+      - Update StudiosHero headline to "Premium AI Video Production Native for Every Platform"
+      - Update subheadline emphasizing "full-stack video production combining AI innovation with professional-grade creative direction, sound design, and multi-platform optimization"
+      - Add supporting copy: "Not automated clips—bespoke videos crafted for YouTube, TikTok, Instagram, LinkedIn, X, and Facebook. Image-to-video workflows for maximum quality and control."
+      - Add hero CTA buttons: Primary "See Our Work", Secondary "Start a Project"
+      - Add industry citation badge: "86% of enterprise brands adopting AI video by 2026 — Lemonlight Industry Report, 2025"
+      - Verification: All copy matches COPY_IMPLEMENTATION_GUIDE.md Studios Hero Section exactly
+      - Reference: docs/COPY_IMPLEMENTATION_GUIDE.md#Studios Hero Section lines 20-48
+      - Traceability: AC-2.1 from tech-spec-epic-2.md line 867
+    </criterion>
+
+    <criterion id="AC-2" title="PortfolioSection Component Structure">
+      - Create src/components/studios/PortfolioSection.tsx component
+      - Implement section header "Real Work. Real Results." with subheader from copy guide
+      - Create PortfolioCard.tsx sub-component using OrganicCard shape="blob" from Epic 2 foundation
+      - Props interface: PortfolioSectionProps { title, subtitle, portfolioItems, ctaText, ctaLink }
+      - Responsive grid: 1 column mobile, 2 columns tablet, 3 columns desktop
+      - Verification: Component renders with proper TypeScript types, follows frontend-architecture.md template pattern
+      - Reference: docs/tech-spec-epic-2.md#Feature Components lines 108-115
+      - Traceability: AC-2.2, AC-2.3 from tech-spec-epic-2.md lines 868-869
+    </criterion>
+
+    <criterion id="AC-3" title="Portfolio Card Content Structure">
+      - Each card displays: client name, industry, challenge description, full-stack production steps (5 bullet points), deliverables summary
+      - Spec pills display: formats (e.g., "3 formats"), resolution (e.g., "4K"), duration (e.g., "60s")
+      - Optional video embed support (Vimeo iframe, click-to-play not autoplay)
+      - OrganicCard uses blob shape with subtle breathing morphing animation (from Epic 2 foundation)
+      - Verification: Card structure matches COPY_IMPLEMENTATION_GUIDE.md Portfolio Card Template lines 66-98
+      - Reference: docs/tech-spec-epic-2.md#Portfolio Section lines 217-240
+      - Traceability: AC-2.3 from tech-spec-epic-2.md line 869
+    </criterion>
+
+    <criterion id="AC-4" title="GSAP Orchestrated Timeline (5-Phase Animation Sequence)">
+      - Create master timeline using useOrchestrator hook from Epic 2 foundation
+      - Phase 1 (0-0.8s): Title morphing entrance (opacity 0→1, y: 50→0, power4.out)
+      - Phase 2 (0.2-1.0s): Portfolio cards reveal (OrganicCard blob shapes, stagger 0.2s between cards)
+      - Phase 3 (0.4-1.2s): Card entrance with alternating angles (rotation -45°/+45° per card, ends at 0°)
+      - Phase 4 (0.6-1.4s): Spec pills stagger reveal (elastic.out easing for visible bounce effect)
+      - Phase 5 (0.8-1.6s): CTA magnetic reveal (opacity 0→1 with magnetic glow effect)
+      - ScrollTrigger: trigger on "top 75%" of viewport, toggleActions: 'play none none reverse'
+      - Verification: Chrome DevTools Performance tab shows 60fps, all 5 phases execute in correct sequence
+      - Reference: docs/tech-spec-epic-2.md#Workflows and Sequencing lines 461-473
+      - Traceability: AC-2.35, AC-2.36 from tech-spec-epic-2.md lines 910-911
+    </criterion>
+
+    <criterion id="AC-5" title="Magnetic Pull Interaction (Premium Pattern)">
+      - Implement useMagneticPull hook on all portfolio cards from Epic 2 foundation
+      - Magnetic pull configuration: strength 0.3, maxDistance 30px, trigger radius 150px
+      - Throttled to 60fps (16ms mousemove interval via gsap.utils.throttle)
+      - Mobile detection: disabled on viewport &lt;768px (touch screens)
+      - Smooth GSAP transform animation on hover (cursor-following pull effect)
+      - Verification: Hover portfolio card, measure pull distance ≤30px, verify 16ms throttle in Performance tab
+      - Reference: docs/tech-spec-epic-2.md#Premium Execution Features lines 931-934
+      - Traceability: AC-2.33, AC-2.34, AC-2.44 from tech-spec-epic-2.md lines 908-909, 919
+    </criterion>
+
+    <criterion id="AC-6" title="Portfolio Data Content (3-5 Client Case Studies)">
+      - Create PORTFOLIO_DATA const in component file or separate data file
+      - Minimum 3 client case studies following Portfolio Card Template structure
+      - Each item includes: clientName, industry, challenge, fullStackProduction (array of 5 production steps), delivered, specs (formats, resolution, duration)
+      - Optional fields: videoUrl (Vimeo embed), thumbnailUrl (fallback image)
+      - All copy follows "challenge → solution → deliverables" format from copy guide
+      - Verification: Portfolio items render correctly, all fields display, no placeholder text
+      - Reference: docs/COPY_IMPLEMENTATION_GUIDE.md#Portfolio Card Template lines 66-104
+      - Traceability: AC-2.2 from tech-spec-epic-2.md line 868
+    </criterion>
+
+    <criterion id="AC-7" title="Portfolio Section CTA">
+      - Add CTA below portfolio cards: "Ready to create professional-grade video for your platforms? [Button: Start Your Project]"
+      - Button uses MagneticButton component pattern from Epic 2 foundation or existing shared components
+      - Links to /contact page
+      - Verification: CTA displays correctly, button link works, magnetic/hover effect active
+      - Reference: docs/COPY_IMPLEMENTATION_GUIDE.md#Portfolio Section lines 100-104
+    </criterion>
+
+    <criterion id="AC-8" title="Responsive Design &amp; Performance">
+      - Mobile (375px): 1 column grid, static OrganicCard shapes (no morphing), magnetic pull disabled
+      - Tablet (768px): 2 column grid, static shapes, magnetic pull enabled
+      - Desktop (1024px+): 3 column grid, morphing shapes enabled, full magnetic pull
+      - All animations achieve 60fps on Chrome 100+, Firefox 100+, Safari 15+
+      - Images lazy-loaded (loading="lazy"), thumbnails used for video embeds
+      - Verification: Test all 3 breakpoints in Chrome DevTools, verify 60fps in Performance tab
+      - Reference: docs/tech-spec-epic-2.md#Performance lines 614-686
+      - Traceability: AC-2.24, AC-2.25, AC-2.43 from tech-spec-epic-2.md lines 896-898, 918
+    </criterion>
+
+    <criterion id="AC-9" title="Integration with Studios Page">
+      - Import PortfolioSection into src/pages/Studios.tsx
+      - Place after updated StudiosHero, before existing MultiPlatformCards section (to be created in Story 2.2)
+      - Verify smooth scroll behavior with Lenis (already configured globally)
+      - Verify no layout shifts (CLS ≤0.1), no console errors
+      - Verification: Full Studios page renders, portfolio section visible, scroll smooth, build succeeds
+      - Reference: docs/tech-spec-epic-2.md#Page Rendering Flow lines 543-559
+    </criterion>
+
+    <criterion id="AC-10" title="Code Quality &amp; Build Validation">
+      - TypeScript compiles clean (npm run build) with 0 errors
+      - ESLint passes (0 errors, warnings acceptable per project standards)
+      - All components follow frontend-architecture.md Component Template Checklist
+      - React cleanup patterns implemented (useEffect return cleanup for GSAP context)
+      - No console.log statements in production code
+      - Portfolio images optimized (WebP format recommended, PNG fallback acceptable)
+      - Verification: Run npm run build and npm run lint, verify success
+      - Reference: docs/architecture/frontend-architecture.md#Component Template Checklist lines 133-141
+      - Traceability: AC-2.21, AC-2.22, AC-2.23 from tech-spec-epic-2.md lines 891-893
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Research-Validated Content &amp; Portfolio Implementation</title>
+        <section>Story 2.1 Implementation</section>
+        <snippet>Epic 2 introduces premium execution components with GSAP orchestrated timelines, organic shapes (blob, hexagon), magnetic pull interactions, and signature easing curves. Story 2.1 is the first production application of these patterns: OrganicCard blob shapes, useMagneticPull cursor-following, useOrchestrator 5-phase timeline builder. All components integrate with existing Epic 1 infrastructure (GSAP 3.13.0 + ScrollTrigger, Lenis 1.3.11, dark indigo/cyan/fuchsia palette).</snippet>
+      </doc>
+
+      <doc>
+        <path>docs/COPY_IMPLEMENTATION_GUIDE.md</path>
+        <title>Website Copy Implementation Guide</title>
+        <section>Studios Hero Section</section>
+        <snippet>Hero Headline: "Premium AI Video Production Native for Every Platform". Subheadline emphasizes full-stack video production combining AI innovation with professional-grade creative direction. Supporting copy: "Not automated clips—bespoke videos crafted for YouTube, TikTok, Instagram, LinkedIn, X, and Facebook. Image-to-video workflows for maximum quality and control." Industry citation: "86% of enterprise brands adopting AI video by 2026 — Lemonlight Industry Report, 2025"</snippet>
+      </doc>
+
+      <doc>
+        <path>docs/COPY_IMPLEMENTATION_GUIDE.md</path>
+        <title>Website Copy Implementation Guide</title>
+        <section>Portfolio Card Template (lines 66-104)</section>
+        <snippet>Portfolio cards follow "challenge → solution → deliverables" format. Each card displays: client name, industry, challenge description, full-stack production steps (5 bullet points), deliverables summary, spec pills (formats, resolution, duration). Optional video embed support (Vimeo iframe, click-to-play not autoplay). Section header: "Real Work. Real Results." with CTA: "Ready to create professional-grade video for your platforms? [Button: Start Your Project]"</snippet>
+      </doc>
+
+      <doc>
+        <path>docs/architecture/frontend-architecture.md</path>
+        <title>Frontend Architecture</title>
+        <section>Component Template Checklist (lines 133-141)</section>
+        <snippet>All components must: export TypeScript interface, use semantic HTML tags, implement responsive Tailwind classes (mobile-first), use cn() utility for className merging, add loading="lazy" for images, include JSDoc comments. React cleanup patterns required: useEffect return cleanup for GSAP context (ctx.revert()). Component size guidelines: &lt;300 lines (prefer &lt;200), functions &lt;50 lines, files &lt;500 lines.</snippet>
+      </doc>
+
+      <doc>
+        <path>docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns &amp; Best Practices</title>
+        <section>GSAP ScrollTrigger Patterns</section>
+        <snippet>GSAP ScrollTrigger used for scroll-linked animations. Critical pattern: gsap.context() for scoped animations with cleanup (ctx.revert() in useEffect return). Animate transform and opacity only (GPU acceleration). ScrollTrigger on timeline (not individual tweens). Stagger reveals use stagger.amount for total duration. Example: gsap.from('.card', {opacity: 0, y: 60, stagger: 0.15, scrollTrigger: {trigger: ref, start: 'top 80%', toggleActions: 'play none none reverse'}})</snippet>
+      </doc>
+
+      <doc>
+        <path>docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns &amp; Best Practices</title>
+        <section>Lenis Integration</section>
+        <snippet>Lenis provides global smooth scroll foundation. Connect to GSAP via lenis.on('scroll', ScrollTrigger.update) and gsap.ticker.add((time) => lenis.raf(time * 1000)). Already configured globally in project. Components should not reinitialize Lenis.</snippet>
+      </doc>
+
+      <doc>
+        <path>src/components/epic2/PREMIUM_USAGE.md</path>
+        <title>Epic 2 Premium Components - Usage Guide</title>
+        <section>Integration Examples</section>
+        <snippet>Epic 2 foundation components (Story 2.0 - production ready): OrganicCard (4 shape variants: blob, hexagon, organic, floating with morphing), useMagneticPull (cursor-following magnetic effect, throttled 60fps, mobile detection), useOrchestrator (GSAP master timeline builder with ScrollTrigger integration), CRE8TIVE_EASINGS (signature easing: organic, smooth, spring, cinematic), usePerformanceMonitor (FPS tracking with graceful degradation). Import pattern: import { OrganicCard, useMagneticPull, useOrchestrator } from '@/components/epic2'</snippet>
+      </doc>
+
+      <doc>
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Epic 2</title>
+        <section>Performance Budget (lines 614-687)</section>
+        <snippet>Performance targets: 60fps (16.67ms frame budget). OrganicCard blob shapes (3-5 cards): Low CPU, Medium GPU, limit ≤3 glows/viewport. Magnetic Pull: Medium CPU (mousemove), Low GPU (transform only), 16ms throttle, disable on mobile (&lt;768px). GSAP Timeline (5 phases): Low CPU, High GPU, ≤12 elements/timeline. Mobile optimization: disable magnetic pull &lt;768px, static OrganicCard shapes (no morphing), simplified ScrollTrigger animations if &lt;30fps detected.</snippet>
+      </doc>
+
+      <doc>
+        <path>docs/stories/story-2.0.md</path>
+        <title>Story 2.0: Epic 2 Premium Foundation Components</title>
+        <section>Status</section>
+        <snippet>Story 2.0 Status: Ready for Review (all tasks completed, validation passed). Epic 2 foundation is production-ready for use in Stories 2.1-2.8. Components available at src/components/epic2/ with comprehensive PREMIUM_USAGE.md documentation (547 lines). Tested on Chrome 100+, Firefox 100+, Safari 15+. Performance validated: 60fps maintained on desktop, graceful degradation on mobile.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <file>
+        <path>src/components/studios/StudiosHero.tsx</path>
+        <kind>component</kind>
+        <symbol>StudiosHero</symbol>
+        <lines>1-54</lines>
+        <reason>Existing Studios hero component that needs copy updates per AC #1. Current headline is "Cre8tive AI Studios" which must be replaced with "Premium AI Video Production Native for Every Platform". Subheadline and CTA buttons need to be added/updated per COPY_IMPLEMENTATION_GUIDE.md.</reason>
+      </file>
+
+      <file>
+        <path>src/components/epic2/shapes/OrganicCard.tsx</path>
+        <kind>component</kind>
+        <symbol>OrganicCard</symbol>
+        <lines>1-144</lines>
+        <reason>Epic 2 foundation component for blob-shaped portfolio cards (AC #2, #3). Provides SVG clip-path masking with 4 shape variants (blob, hexagon, organic, floating). Supports optional morphing animation (breathing effect) and glow filters. Must use shape="blob" for portfolio cards per tech spec. Already production-ready from Story 2.0.</reason>
+      </file>
+
+      <file>
+        <path>src/components/epic2/hooks/useMagneticPull.ts</path>
+        <kind>hook</kind>
+        <symbol>useMagneticPull</symbol>
+        <lines>1-169</lines>
+        <reason>Epic 2 hook for cursor-following magnetic pull effect (AC #5). Configuration: strength 0.3, maxDistance 30px, trigger radius 150px. Throttled to 60fps (16ms), disabled on mobile (&lt;768px). Returns ref to attach to PortfolioCard wrapper. CRITICAL: Cleanup pattern includes gsap.utils.throttle.kill() to prevent memory leaks.</reason>
+      </file>
+
+      <file>
+        <path>src/components/epic2/hooks/useOrchestrator.ts</path>
+        <kind>hook</kind>
+        <symbol>useOrchestrator</symbol>
+        <lines>1-166</lines>
+        <reason>Epic 2 hook for GSAP master timeline builder (AC #4). Creates 5-phase orchestrated timeline with ScrollTrigger integration. Uses official useGSAP hook for automatic cleanup. ScrollTrigger config: trigger ref, start 'top 75%', toggleActions 'play none none reverse'. addPhase method accepts AnimationPhase objects with targets, animation vars, stagger, and position.</reason>
+      </file>
+
+      <file>
+        <path>src/components/epic2/types.ts</path>
+        <kind>types</kind>
+        <symbol>OrganicCardProps, MagneticPullOptions, AnimationPhase, OrchestratorOptions</symbol>
+        <lines>1-192</lines>
+        <reason>TypeScript interface definitions for Epic 2 components. OrganicCardProps: shape, glowColor, morphing, morphIntensity, className. MagneticPullOptions: strength, maxDistance, ease, rotation. AnimationPhase: name, targets, animation (gsap.TweenVars), stagger, position. Must reuse these types for PortfolioSection components.</reason>
+      </file>
+
+      <file>
+        <path>src/pages/Studios.tsx</path>
+        <kind>page</kind>
+        <symbol>Studios</symbol>
+        <lines>1-61</lines>
+        <reason>Studios page layout where PortfolioSection will be integrated (AC #9). Current structure: StudiosHero → StudiosIntro → FilmStripDivider → ExpertiseBenefits → WhoWeServe → Testimonials → ContactCTA. PortfolioSection should be placed after StudiosHero, before MultiPlatformCards section (to be created in Story 2.2). Uses FadeIn wrapper for scroll reveals.</reason>
+      </file>
+
+      <file>
+        <path>src/components/epic2/animations/easings.ts</path>
+        <kind>constants</kind>
+        <symbol>CRE8TIVE_EASINGS</symbol>
+        <lines>N/A</lines>
+        <reason>Epic 2 signature easing curves (organic, smooth, spring, cinematic). AC #4 requires elastic.out easing for spec pills stagger reveal. Must import from '@/components/epic2' barrel export. Used for premium animation feel.</reason>
+      </file>
+
+      <file>
+        <path>src/components/epic2/index.ts</path>
+        <kind>barrel-export</kind>
+        <symbol>OrganicCard, useMagneticPull, useOrchestrator, CRE8TIVE_EASINGS</symbol>
+        <lines>N/A</lines>
+        <reason>Epic 2 barrel export for clean imports. Import pattern: import { OrganicCard, useMagneticPull, useOrchestrator } from '@/components/epic2'. All Epic 2 foundation components available through this single import. Already configured in Story 2.0.</reason>
+      </file>
+
+      <file>
+        <path>package.json</path>
+        <kind>config</kind>
+        <symbol>dependencies</symbol>
+        <lines>44-114</lines>
+        <reason>Project dependencies already include all required libraries: GSAP 3.13.0, @gsap/react 2.1.2 (official hook), Lenis 1.3.11, Framer Motion 12.4.2, React 18.3.1, TypeScript 5.5.3, Tailwind 3.4.11. No new dependencies needed for Story 2.1.</reason>
+      </file>
+    </code>
+
+    <dependencies>
+      <ecosystem name="Node">
+        <package name="react" version="18.3.1" reason="Core UI library"/>
+        <package name="react-dom" version="18.3.1" reason="React renderer"/>
+        <package name="gsap" version="3.13.0" reason="GSAP core + ScrollTrigger for orchestrated timelines (AC #4)"/>
+        <package name="@gsap/react" version="2.1.2" reason="Official GSAP React hook with automatic cleanup"/>
+        <package name="lenis" version="1.3.11" reason="Smooth scroll foundation (already configured globally)"/>
+        <package name="framer-motion" version="12.4.2" reason="OrganicCard shape morphing animation"/>
+        <package name="tailwindcss" version="3.4.11" reason="Utility-first styling system"/>
+        <package name="typescript" version="5.5.3" reason="Type safety for component interfaces"/>
+        <package name="@radix-ui/react-slot" version="1.1.0" reason="Shadcn/UI primitives (Button component for CTAs)"/>
+        <package name="class-variance-authority" version="0.7.1" reason="CVA for button variants"/>
+        <package name="clsx" version="2.1.1" reason="cn() utility for className merging"/>
+        <package name="lucide-react" version="0.462.0" reason="Icon library (optional for portfolio card decorations)"/>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint type="component-size">
+      - Max 300 LOC per component file (prefer &lt;200 LOC)
+      - Max 50 lines per function
+      - Max 500 lines per file
+      - If PortfolioSection exceeds 300 LOC, extract PortfolioCard to separate file
+    </constraint>
+
+    <constraint type="performance">
+      - 60fps target (16.67ms frame budget per frame)
+      - GSAP timeline: max 12 elements per timeline (5-phase sequence)
+      - OrganicCard blob shapes: limit ≤3 glows per viewport
+      - Magnetic pull: 16ms throttle (60fps max), disabled on mobile (&lt;768px)
+      - Mobile optimization: static shapes (no morphing), no magnetic pull
+      - GPU acceleration: animate transform and opacity only (no width/height/top/left)
+    </constraint>
+
+    <constraint type="animation">
+      - ALWAYS use gsap.context() with cleanup (ctx.revert() in useEffect return)
+      - ScrollTrigger on timeline (NOT on individual tweens)
+      - Lenis already configured globally (do not reinitialize)
+      - Use will-change: transform, opacity for GPU hints
+      - Throttle cleanup: gsap.utils.throttle.kill() in useMagneticPull cleanup
+    </constraint>
+
+    <constraint type="responsive">
+      - Mobile-first Tailwind classes (no prefix = mobile, md: = tablet+)
+      - Mobile (375px): 1 column grid, static shapes, no magnetic pull
+      - Tablet (768px): 2 column grid, static shapes, magnetic pull enabled
+      - Desktop (1024px+): 3 column grid, morphing shapes, full magnetic pull
+      - Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px), 2xl (1536px)
+    </constraint>
+
+    <constraint type="typescript">
+      - Export all component interfaces (PortfolioSectionProps, PortfolioCardProps)
+      - Use semantic HTML tags (&lt;section&gt;, &lt;article&gt;, &lt;h2&gt;) for SEO
+      - JSDoc comments for all components
+      - No implicit any (though project tsconfig allows it, avoid in new code)
+      - Reuse Epic 2 types: OrganicCardProps, MagneticPullOptions, AnimationPhase
+    </constraint>
+
+    <constraint type="styling">
+      - Tailwind utility classes only (no custom CSS)
+      - cn() utility for className merging
+      - Glassmorphism pattern: bg-gradient-to-br from-indigo-500/10 to-fuchsia-500/10, backdrop-filter: blur(20px)
+      - Studios color palette: orange (#EA580C), teal (#0891B2), coral accents
+      - Do NOT copy Briefing Engine colors (dark indigo/cyan/fuchsia)
+    </constraint>
+
+    <constraint type="testing">
+      - Zero automated tests (project has no test infrastructure yet)
+      - Manual testing required: Chrome DevTools Performance tab for 60fps validation
+      - Browser testing: Chrome 100+, Firefox 100+, Safari 15+ (latest versions)
+      - Mobile testing: viewport emulation in DevTools + real device if available
+    </constraint>
+
+    <constraint type="copy-accuracy">
+      - All copy MUST match COPY_IMPLEMENTATION_GUIDE.md exactly (no paraphrasing)
+      - StudiosHero headline: "Premium AI Video Production Native for Every Platform"
+      - Industry citation: "86% of enterprise brands adopting AI video by 2026 — Lemonlight Industry Report, 2025"
+      - Portfolio section header: "Real Work. Real Results."
+      - CTA: "Ready to create professional-grade video for your platforms? [Button: Start Your Project]"
+    </constraint>
+
+    <constraint type="dev-notes">
+      - Story 2.0 (Epic 2 foundation) is production-ready and tested
+      - Do NOT modify Epic 2 foundation components (OrganicCard, useMagneticPull, useOrchestrator)
+      - Import from '@/components/epic2' barrel export
+      - Follow existing project patterns in src/components/studios/ directory
+      - Use FadeIn wrapper from '@/components/shared/FadeIn' for scroll reveals (optional)
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>OrganicCardProps</name>
+      <kind>component-props</kind>
+      <signature>{ children: ReactNode, shape?: 'blob' | 'hexagon' | 'organic' | 'floating', glowColor?: string, morphing?: boolean, morphIntensity?: number, className?: string }</signature>
+      <path>src/components/epic2/types.ts</path>
+      <usage>PortfolioCard must use OrganicCard with shape="blob", optional glowColor (e.g., '#0891B2'), morphing enabled on desktop only (&gt;=1024px), morphIntensity 0.05 (±5% variance)</usage>
+    </interface>
+
+    <interface>
+      <name>MagneticPullOptions</name>
+      <kind>hook-options</kind>
+      <signature>{ strength?: number, maxDistance?: number, ease?: string, rotation?: boolean, rotationIntensity?: number }</signature>
+      <path>src/components/epic2/types.ts</path>
+      <usage>useMagneticPull({ strength: 0.3, maxDistance: 30, ease: 'power2.out' }). Apply to PortfolioCard wrapper. Returns ref to attach to element. Automatically disabled on mobile (&lt;768px).</usage>
+    </interface>
+
+    <interface>
+      <name>AnimationPhase</name>
+      <kind>animation-config</kind>
+      <signature>{ name: string, targets: string | HTMLElement[], animation: gsap.TweenVars, stagger?: number | gsap.StaggerVars, position?: string | number }</signature>
+      <path>src/components/epic2/types.ts</path>
+      <usage>Define 5 phases for PortfolioSection timeline: 1) title reveal (0-0.8s), 2) card stagger (0.2-1.0s), 3) card angles (0.4-1.2s), 4) spec pills (0.6-1.4s), 5) CTA reveal (0.8-1.6s). Use position: '-=0.6' for overlapping phases.</usage>
+    </interface>
+
+    <interface>
+      <name>OrchestratorOptions</name>
+      <kind>hook-options</kind>
+      <signature>{ trigger: string | HTMLElement, start?: string, end?: string, scrub?: number | boolean, pin?: boolean, markers?: boolean }</signature>
+      <path>src/components/epic2/types.ts</path>
+      <usage>useOrchestrator({ trigger: containerRef.current, start: 'top 75%', end: 'bottom center', scrub: false }). ScrollTrigger toggleActions: 'play none none reverse'. Use addPhase() method to add 5 animation phases.</usage>
+    </interface>
+
+    <interface>
+      <name>PortfolioItem</name>
+      <kind>data-model</kind>
+      <signature>{ clientName: string, industry: string, challenge: string, fullStackProduction: string[], delivered: string, specs: { formats: string, resolution: string, duration: string }, videoUrl?: string, thumbnailUrl?: string }</signature>
+      <path>src/data/studios/portfolio-data.ts (to be created)</path>
+      <usage>Define 3-5 client case studies following COPY_IMPLEMENTATION_GUIDE.md Portfolio Card Template (lines 66-104). Each item follows "challenge → solution → deliverables" format. fullStackProduction array has 5 production steps.</usage>
+    </interface>
+
+    <interface>
+      <name>PortfolioSectionProps</name>
+      <kind>component-props</kind>
+      <signature>{ title: string, subtitle: string, portfolioItems: PortfolioItem[], ctaText: string, ctaLink: string }</signature>
+      <path>src/components/studios/PortfolioSection.tsx (to be created)</path>
+      <usage>Main container component props. title: "Real Work. Real Results.", subtitle from copy guide, portfolioItems: PORTFOLIO_DATA array, ctaText: "Start Your Project", ctaLink: "/contact"</usage>
+    </interface>
+
+    <interface>
+      <name>PortfolioCardProps</name>
+      <kind>component-props</kind>
+      <signature>{ item: PortfolioItem, className?: string }</signature>
+      <path>src/components/studios/PortfolioCard.tsx (to be created)</path>
+      <usage>Sub-component that renders single portfolio item. Wraps OrganicCard with portfolio content: client name, industry, challenge, production steps, deliverables, spec pills, optional video embed.</usage>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Project has zero automated tests (documented technical debt). All testing is manual validation:
+
+      - Browser testing: Chrome DevTools for performance profiling (Performance tab), console errors, network requests
+      - Performance validation: 60fps target verified via Chrome DevTools Performance tab recording + timeline view
+      - Responsive testing: Chrome DevTools device emulation (375px, 768px, 1024px, 1920px) + mobile device testing if available
+      - Visual QA: Compare rendered output to COPY_IMPLEMENTATION_GUIDE.md and tech spec mockups for pixel-perfect copy match
+      - Build validation: npm run build must pass with 0 TypeScript errors, npm run lint must pass with 0 ESLint errors (warnings acceptable)
+      - Cross-browser: Chrome 100+, Firefox 100+, Safari 15+ (latest stable versions)
+
+      No testing frameworks configured yet (Vitest + RTL + Playwright planned for future, see ARCHITECTURE.md lines 626-661)
+    </standards>
+
+    <locations>
+      N/A - No test files exist yet. Future test locations (when infrastructure added):
+      - src/components/studios/__tests__/PortfolioSection.test.tsx
+      - src/components/studios/__tests__/PortfolioCard.test.tsx
+      - e2e/studios-portfolio.spec.ts (Playwright E2E tests)
+    </locations>
+
+    <ideas>
+      <test id="test-2.1-1" ac="AC-1" type="manual">
+        <description>StudiosHero copy accuracy verification</description>
+        <steps>
+          1. Open Studios page in browser
+          2. Compare headline to COPY_IMPLEMENTATION_GUIDE.md line 20: "Premium AI Video Production Native for Every Platform"
+          3. Compare subheadline to lines 24-26 (full-stack video production messaging)
+          4. Verify hero CTA buttons: Primary "See Our Work", Secondary "Start a Project"
+          5. Verify industry citation badge: "86% of enterprise brands adopting AI video by 2026 — Lemonlight Industry Report, 2025"
+        </steps>
+        <pass-criteria>All copy matches guide exactly (no paraphrasing), CTAs render and link correctly, citation displays with proper formatting</pass-criteria>
+      </test>
+
+      <test id="test-2.1-2" ac="AC-4" type="manual-performance">
+        <description>GSAP 5-phase timeline orchestration validation</description>
+        <steps>
+          1. Open Studios page, open Chrome DevTools Performance tab
+          2. Start recording, scroll to PortfolioSection trigger point (75% viewport)
+          3. Stop recording after animation completes (~2s)
+          4. Analyze timeline: verify 5 distinct animation phases execute in correct sequence
+          5. Check frame rate: verify no frames exceed 16.67ms (60fps maintained)
+          6. Verify phase timings: Phase 1 (0-0.8s), Phase 2 (0.2-1.0s), Phase 3 (0.4-1.2s), Phase 4 (0.6-1.4s), Phase 5 (0.8-1.6s)
+        </steps>
+        <pass-criteria>All 5 phases execute in correct sequence with proper overlaps, 60fps maintained (no dropped frames), total timeline ~1.6s duration</pass-criteria>
+      </test>
+
+      <test id="test-2.1-3" ac="AC-5" type="manual-interaction">
+        <description>Magnetic pull interaction validation</description>
+        <steps>
+          1. Desktop (1024px+): Hover portfolio card from 150px away, verify pull triggers
+          2. Measure pull distance using DevTools element inspector: should be ≤30px from center
+          3. Check mousemove throttle: Chrome DevTools Performance tab, verify mousemove events fire every 16ms max (60fps)
+          4. Tablet (768px): Verify magnetic pull enabled, static shapes (no morphing)
+          5. Mobile (375px): Verify magnetic pull disabled (no hover effect on touch screens)
+        </steps>
+        <pass-criteria>Pull triggers within 150px radius, max 30px movement, 16ms throttle, disabled on mobile, smooth GSAP animation</pass-criteria>
+      </test>
+
+      <test id="test-2.1-4" ac="AC-8" type="manual-responsive">
+        <description>Responsive layout and performance verification</description>
+        <steps>
+          1. Mobile (375px): Verify 1 column grid, static OrganicCard shapes, no magnetic pull, no morphing
+          2. Tablet (768px): Verify 2 column grid, static shapes, magnetic pull enabled
+          3. Desktop (1024px): Verify 3 column grid, morphing shapes enabled, full magnetic pull
+          4. Test each breakpoint in Chrome DevTools Performance tab: verify 60fps maintained
+          5. Check Lighthouse CLS score: should be ≤0.1 (no layout shifts)
+        </steps>
+        <pass-criteria>Correct grid columns at each breakpoint, morphing/magnetic pull per spec, 60fps maintained, CLS ≤0.1</pass-criteria>
+      </test>
+
+      <test id="test-2.1-5" ac="AC-3" type="manual-content">
+        <description>Portfolio card content structure validation</description>
+        <steps>
+          1. Verify each card displays: client name, industry, challenge, full-stack production steps (5 bullets), deliverables
+          2. Verify spec pills display: formats (e.g., "3 formats"), resolution (e.g., "4K"), duration (e.g., "60s")
+          3. Check OrganicCard shape: verify blob shape (not rectangle/square)
+          4. Check optional video embed: if present, verify Vimeo iframe click-to-play (not autoplay)
+          5. Verify all copy follows "challenge → solution → deliverables" format per COPY_IMPLEMENTATION_GUIDE.md lines 66-98
+        </steps>
+        <pass-criteria>All card fields display correctly, blob shape renders, video embed click-to-play, copy format matches guide</pass-criteria>
+      </test>
+
+      <test id="test-2.1-6" ac="AC-10" type="manual-build">
+        <description>Code quality and build validation</description>
+        <steps>
+          1. Run: npm run build
+          2. Verify TypeScript compiles with 0 errors (warnings OK)
+          3. Run: npm run lint
+          4. Verify ESLint passes with 0 errors (warnings OK per project standards)
+          5. Check React cleanup: grep for "ctx.revert()" in PortfolioSection useEffect return
+          6. Check for console.log statements: grep "console.log" in PortfolioSection.tsx and PortfolioCard.tsx (should be 0)
+        </steps>
+        <pass-criteria>Build succeeds, lint passes (0 errors), React cleanup present, no console.log in production code</pass-criteria>
+      </test>
+
+      <test id="test-2.1-7" ac="AC-9" type="manual-integration">
+        <description>Studios page integration and smooth scroll validation</description>
+        <steps>
+          1. Open Studios page, verify PortfolioSection appears after StudiosHero
+          2. Scroll from top to bottom: verify Lenis smooth scroll active (momentum-based scrolling)
+          3. Verify no console errors during scroll
+          4. Check layout shifts: use Chrome Lighthouse to measure CLS score
+          5. Verify full page renders: StudiosHero → PortfolioSection → (future sections)
+        </steps>
+        <pass-criteria>PortfolioSection positioned correctly, Lenis smooth scroll works, no console errors, CLS ≤0.1, full page renders</pass-criteria>
+      </test>
+    </ideas>
+  </tests>
+</story-context>

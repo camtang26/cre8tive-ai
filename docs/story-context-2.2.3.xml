@@ -1,0 +1,266 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.3</storyId>
+    <title>Studios Why Choose + Image-to-Video Quality Comparison - Premium Split Scroll &amp; Pinning</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-2.3.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 content strategy and premium components</asA>
+    <iWant>to update the Why Choose section with magnetic card interactions and create an ImageToVideoComparison component with split scroll effects and ScrollTrigger pinning</iWant>
+    <soThat>users understand Cre8tive AI's quality-first approach through dramatic visual comparison featuring opposing scroll motion, VS divider rotation, and research-validated messaging emphasizing image-to-video workflows as the professional standard</soThat>
+    <tasks>
+      - Task 1: Update Why Choose Section Copy (AC: #1)
+      - Task 2: Create Comparison Data Structure (AC: #5)
+      - Task 3: Build ImageToVideoComparison Component (AC: #2, #5)
+      - Task 4: Implement Split Scroll Effect (AC: #3)
+      - Task 5: Create VS Divider with Rotation Reveal (AC: #4)
+      - Task 6: Implement Organic Shapes (AC: #6)
+      - Task 7: Configure ScrollTrigger Pinning (AC: #7)
+      - Task 8: Responsive &amp; Performance Optimization (AC: #8)
+      - Task 9: Integrate with Studios Page (AC: #9)
+      - Task 10: Code Quality &amp; Build Validation (AC: #10)
+      - Task 11: Visual QA &amp; Documentation (AC: all)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    AC-1: Why Choose Section Updates (Copy &amp; Interactions) - Update existing Why Choose section with research-validated copy, 3-column layout with value proposition cards, industry citation badges, and magnetic card interactions using useMagneticPull
+    AC-2: ImageToVideoComparison Component Structure - Create component with section header/subheader, 2-column comparison layout (Image-to-Video vs Text-to-Video), props interface, responsive design
+    AC-3: Split Scroll Effect (Premium Pattern) - Implement opposing scroll motion (left up, right down) using GSAP ScrollTrigger with y transforms at ±20% speeds, section pinned during animation
+    AC-4: VS Divider Rotation Reveal - Create vertical VS divider that rotates 180° with back.out easing during scroll, glassmorphism styling
+    AC-5: Comparison Content (Research-Validated Copy) - Populate both cards with exact copy from COPY_IMPLEMENTATION_GUIDE.md lines 280-328
+    AC-6: Organic Shapes for Comparison Columns - Use OrganicCard with shape="organic" for both columns, cyan/gray glow accents, glassmorphism backgrounds
+    AC-7: ScrollTrigger Pinning Configuration - Pin section during scroll (start: "top 20%", end: "bottom 80%"), scrub: true, disable on mobile
+    AC-8: Responsive Design &amp; Performance - Mobile (375px): 1 column, no split scroll/pinning; Tablet (768px): 2 columns, full features; 60fps target across breakpoints
+    AC-9: Integration with Studios Page - Import into Studios.tsx, place after MultiPlatformCards (Story 2.2), verify smooth scroll with Lenis, no layout shifts
+    AC-10: Code Quality &amp; Build Validation - TypeScript compiles clean, ESLint passes, Component Template Checklist compliance, React cleanup patterns, optimized SVG shapes
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/COPY_IMPLEMENTATION_GUIDE.md" section="Why Choose Section" lines="196-277">
+        Complete copy for Why Choose section including 3-column value propositions:
+        - Column 1: Full-Stack Expertise (Beyond Video Generation)
+        - Column 2: Top 1% Production Values (Professional Quality Standards)
+        - Column 3: Enterprise-Grade Process (Built for Ambitious Brands)
+        Each column includes industry citation badges (Tavus 2025, HeyGen 2025, Lemonlight 2025)
+      </doc>
+      <doc path="docs/COPY_IMPLEMENTATION_GUIDE.md" section="Image-to-Video Quality Section" lines="280-328">
+        Complete copy for Image-to-Video comparison section:
+        - Left column: Image-to-Video Production Method (4 benefits with checkmarks)
+        - Right column: Text-to-Video (Quick Generation Tools) (4 limitations with bullets)
+        - Supporting text for both columns
+        Word-for-word implementation required
+      </doc>
+      <doc path="docs/tech-spec-epic-2.md" section="Acceptance Criteria" lines="863-923">
+        Epic 2 AC specifications including:
+        - AC-2.6: ImageToVideoComparison component structure
+        - AC-2.7: Why Choose section updates with magnetic interactions
+        - AC-2.39: Split scroll effect (left up, right down, pinning)
+        - AC-2.40: VS divider rotation reveal (180° with back.out easing)
+        - AC-2.31: OrganicCard organic shapes for comparison columns
+        - AC-2.43: 60fps performance target
+      </doc>
+      <doc path="docs/architecture/frontend-architecture.md" section="Component Template Checklist" lines="133-141">
+        Standard component template requirements:
+        - TypeScript interface for props (exported)
+        - JSDoc comment with description
+        - Semantic HTML tags for SEO
+        - cn() utility for className merging
+        - Responsive classes (Tailwind breakpoints)
+        - loading="lazy" for images
+      </doc>
+      <doc path="docs/architecture/animation-patterns.md" section="GSAP ScrollTrigger Patterns" lines="93-143">
+        GSAP ScrollTrigger implementation patterns:
+        - Basic scroll-triggered animations
+        - Pinning sections during scroll
+        - Scrub animations (scroll = playhead)
+        - React cleanup with gsap.context() and ctx.revert()
+        - Performance: 60fps target, GPU acceleration with transform/opacity
+      </doc>
+      <doc path="src/components/epic2/PREMIUM_USAGE.md" section="OrganicCard Component" lines="48-141">
+        Epic 2 premium component usage guide:
+        - OrganicCard: 4 shape variants (blob, hexagon, organic, floating)
+        - Morphing animation (optional breathing effect)
+        - Glow effects with glowColor prop
+        - Performance constraints: Max 3 glows per viewport
+        - Import pattern: import { OrganicCard } from '@/components/epic2'
+      </doc>
+      <doc path="src/components/epic2/PREMIUM_USAGE.md" section="useMagneticPull Hook" lines="143-208">
+        Magnetic pull cursor-following effect:
+        - Hook pattern: useMagneticPull({ strength, maxDistance, rotation, rotationIntensity })
+        - Throttled to 60fps (16ms interval)
+        - Automatically disabled on mobile (&lt;768px)
+        - Trigger radius: 150px from element center
+        - Max movement: ≤30px from center (default)
+      </doc>
+      <doc path="docs/tech-spec-epic-2.md" section="Premium Execution Features" lines="931-947">
+        Premium pattern specifications:
+        - Split scroll with opposing motion (left -20%, right +20%)
+        - ScrollTrigger pinning configuration (start: "top 20%", end: "bottom 80%")
+        - VS divider rotation with back.out easing
+        - Organic shapes for comparison cards
+        - Mobile optimization: Disable split scroll/pinning on &lt;768px
+      </doc>
+    </docs>
+    <code>
+      <file path="src/components/epic2/index.ts" kind="module" reason="Epic 2 foundation barrel export - import OrganicCard and useMagneticPull from here">
+        Main export point for Epic 2 premium components
+      </file>
+      <file path="src/components/epic2/shapes/OrganicCard.tsx" kind="component" lines="1-144" reason="Foundation component for organic-shaped cards - use shape='organic' for comparison columns">
+        OrganicCard component with 4 shape variants (blob, hexagon, organic, floating)
+        Props: shape, glowColor, morphing, morphIntensity, className
+        SVG clip-path masking with Framer Motion morphing animation
+      </file>
+      <file path="src/components/epic2/hooks/useMagneticPull.ts" kind="hook" reason="Cursor-following magnetic effect for value cards">
+        Magnetic pull hook with throttled 60fps performance
+        Returns ref to attach to elements, automatically disabled on mobile
+      </file>
+      <file path="src/components/studios/ExpertiseBenefits.tsx" kind="component" lines="1-100" reason="Existing 'Why Choose' component - needs copy update and magnetic interactions">
+        Current "Why Choose Cre8tive AI Studios" section
+        6 value proposition cards using BenefitCard sub-components
+        Needs updating to 3-column layout with new copy from COPY_IMPLEMENTATION_GUIDE.md
+      </file>
+      <file path="src/pages/Studios.tsx" kind="page" lines="1-71" reason="Studios page integration point - place ImageToVideoComparison after PortfolioSection">
+        Studios page structure showing component placement order
+        PortfolioSection already integrated (Story 2.1)
+        ExpertiseBenefits component renders after StudiosIntro
+      </file>
+      <file path="src/components/shared/ScrollFade.tsx" kind="utility" reason="Reusable scroll-triggered fade-in wrapper">
+        Used throughout Studios page for scroll animations
+      </file>
+      <file path="src/lib/utils.ts" kind="utility" reason="cn() utility for className merging">
+        Standard Tailwind className merger using clsx and tailwind-merge
+      </file>
+    </code>
+    <dependencies>
+      <runtime>
+        <package name="react" version="18.3.1">Component rendering, hooks (useState, useRef, useEffect)</package>
+        <package name="react-dom" version="18.3.1">DOM rendering</package>
+        <package name="gsap" version="3.13.0">GSAP core for ScrollTrigger animations, split scroll, rotation</package>
+        <package name="@gsap/react" version="2.1.2">useGSAP hook for React integration with cleanup</package>
+        <package name="framer-motion" version="12.4.2">Motion components for VS divider rotation, organic shape morphing</package>
+        <package name="lenis" version="1.3.11">Smooth scroll (already active globally on Studios page)</package>
+        <package name="tailwindcss" version="3.4.11">Utility-first CSS styling</package>
+        <package name="class-variance-authority" version="0.7.1">Component variant styling</package>
+        <package name="clsx" version="2.1.1">Conditional className composition</package>
+        <package name="tailwind-merge" version="2.5.2">Merge Tailwind classes without conflicts</package>
+      </runtime>
+      <build>
+        <package name="vite" version="5.4.1">Build tool and dev server</package>
+        <package name="typescript" version="5.5.3">TypeScript compiler</package>
+        <package name="@vitejs/plugin-react" version="4.3.4">Vite React plugin</package>
+      </build>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - MUST use OrganicCard with shape="organic" for comparison columns (AC-2.6, AC-2.31)
+    - MUST implement split scroll effect: left column scrolls up (-20%), right column scrolls down (+20%) (AC-2.3, AC-2.39)
+    - MUST use ScrollTrigger pinning (start: "top 20%", end: "bottom 80%") during split scroll (AC-2.7)
+    - MUST create VS divider with 180° rotation using back.out easing (AC-2.4, AC-2.40)
+    - MUST match copy exactly from COPY_IMPLEMENTATION_GUIDE.md lines 280-328 for Image-to-Video section (AC-2.5)
+    - MUST match copy exactly from COPY_IMPLEMENTATION_GUIDE.md lines 196-277 for Why Choose section (AC-2.7)
+    - MUST add magnetic pull to Why Choose value cards using useMagneticPull hook (AC-2.7)
+    - MUST achieve 60fps for all animations (AC-2.43)
+    - MUST disable split scroll and pinning on mobile (&lt;768px) (AC-2.8)
+    - MUST use glassmorphism backgrounds (backdrop-filter: blur(20px)) on comparison cards (AC-2.6)
+    - MUST use GSAP ScrollTrigger patterns from animation-patterns.md (gsap.context with cleanup)
+    - MUST follow Component Template Checklist from frontend-architecture.md (TypeScript interface, JSDoc, semantic HTML, cn() utility, responsive classes)
+    - MUST lazy-load images with loading="lazy" attribute
+    - MUST use will-change: transform for GPU acceleration on animated elements
+    - MUST implement React cleanup (ctx.revert() in useEffect return) for all GSAP animations
+    - MUST pass npm run build (0 TypeScript errors) and npm run lint (0 ESLint errors)
+  </constraints>
+  <interfaces>
+    <interface name="OrganicCardProps" path="src/components/epic2/types.ts" kind="component-props">
+      interface OrganicCardProps {
+        children: React.ReactNode;
+        shape?: 'blob' | 'hexagon' | 'organic' | 'floating';
+        glowColor?: string;
+        morphing?: boolean;
+        morphIntensity?: number;
+        className?: string;
+      }
+      Usage: OrganicCard with shape="organic" for comparison columns
+    </interface>
+    <interface name="useMagneticPull" path="src/components/epic2/hooks/useMagneticPull.ts" kind="hook">
+      function useMagneticPull(options?: {
+        strength?: number;      // default: 0.3
+        maxDistance?: number;   // default: 30
+        rotation?: boolean;
+        rotationIntensity?: number;
+        ease?: string;
+      }): React.RefObject&lt;HTMLDivElement&gt;
+
+      Returns ref to attach to element for magnetic pull effect
+      Automatically throttled to 60fps, disabled on mobile
+    </interface>
+    <interface name="ComparisonConfig" path="docs/tech-spec-epic-2.md" lines="256-274" kind="data-structure">
+      interface ComparisonConfig {
+        imageToVideo: {
+          title: string;
+          benefits: string[];      // ✓ checkmark items
+          supportingText: string;
+        };
+        textToVideo: {
+          title: string;
+          limitations: string[];   // • bullet items
+          supportingText: string;
+        };
+      }
+    </interface>
+    <interface name="ImageToVideoComparisonProps" path="docs/tech-spec-epic-2.md" lines="270-274" kind="component-props">
+      interface ImageToVideoComparisonProps {
+        title: string;
+        subtitle: string;
+        comparison: ComparisonConfig;
+      }
+    </interface>
+    <interface name="ScrollTrigger" path="gsap/ScrollTrigger" kind="external-api">
+      GSAP ScrollTrigger plugin for scroll-driven animations
+
+      Key properties for Story 2.3:
+      - trigger: element or selector
+      - start: "top 20%" (when to start animation)
+      - end: "bottom 80%" (when to end animation)
+      - pin: true (keep section pinned during animation)
+      - scrub: true (tie animation progress to scroll)
+      - onUpdate: callback for scroll progress updates
+
+      Must use gsap.context() for proper React cleanup
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Manual testing only (zero automated tests per project standards).
+      Testing approach: Browser DevTools + manual interaction + visual QA.
+      Browser matrix: Chrome 100+ (primary), Firefox 100+, Safari 15+, mobile Safari iOS 15+.
+      Performance validation: Chrome DevTools Performance tab, verify 60fps (no frames &gt;16.67ms).
+      Build validation: npm run build (0 TypeScript errors), npm run lint (0 ESLint errors).
+      Responsive testing: All breakpoints (375px, 768px, 1024px, 1920px).
+    </standards>
+    <locations>
+      No test files exist yet. Manual testing performed via browser.
+    </locations>
+    <ideas>
+      AC-1 (Why Choose Update): Verify 3-column layout, magnetic pull triggers on hover, copy matches COPY_IMPLEMENTATION_GUIDE.md lines 196-277
+      AC-2 (Component Structure): Verify ImageToVideoComparison renders with 2-column layout, section header/subheader display correctly
+      AC-3 (Split Scroll): Scroll into section, verify left column moves up while right column moves down, opposing motion creates visual tension
+      AC-4 (VS Divider): Verify divider rotates 180° with back.out overshoot during scroll, smooth animation coordinated with split scroll
+      AC-5 (Copy Accuracy): Compare rendered copy to COPY_IMPLEMENTATION_GUIDE.md lines 280-328, verify exact word-for-word match
+      AC-6 (Organic Shapes): Inspect elements, verify OrganicCard with organic SVG clip-path (not rectangles), cyan/gray glow accents present
+      AC-7 (ScrollTrigger Pinning): Verify section stays pinned during scroll animation, unpins smoothly at end
+      AC-8 (Responsive): Test 375px (no split scroll, 1 column), 768px (split scroll enabled, 2 columns), 1024px+ (full features)
+      AC-9 (Integration): Verify ImageToVideoComparison appears after PortfolioSection in Studios page, smooth Lenis scroll throughout
+      AC-10 (Code Quality): Run npm run build, verify 0 errors; run npm run lint, verify 0 errors; verify React cleanup (ctx.revert())
+      Performance: Profile split scroll animation in Chrome DevTools, verify all frames ≤16.67ms, no layout shifts
+      Mobile: Verify split scroll disabled on &lt;768px, pinning disabled, static organic shapes, 60fps maintained
+    </ideas>
+  </tests>
+</story-context>

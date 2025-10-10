@@ -1,3 +1,47 @@
+# Story 3.1 – Particle System Stabilization (2025-10-09)
+
+**Goal:** Close the Story 3.1 review findings by restoring spec particle counts, adding the hero entrance burst, and ensuring interaction cleanup + testing infrastructure.
+
+**Impact Set:**
+- `src/components/briefing/ParticleHero.tsx`
+- `src/components/briefing/particle-system/*`
+- `docs/stories/story-3.1.md`
+- `/codex/_MEMO.md`
+- `/codex/REPORT.md`
+
+**Commands:**
+- `npm run lint`
+- `npm run test`
+- `npm run build`
+
+## Steps
+- S1 (DONE) — Restore 5K/2K/1K particle counts with optional env scaling; update device helper module.
+- S2 (DONE) — Implement staged entrance burst (power4 easing, per-particle delays) with prefers-reduced-motion guard.
+- S3 (DONE) — Fix mouse interaction teardown; ensure render buffers reset on resize/degrade.
+- S4 (IN PROGRESS) — Validate lint/build/test; document lint blocker (`unicorn` plugin missing) and investigate runtime perf (Playwright now shows ~1 s init but headless WebGL fallback still stalls selector wait; track spatial hash/ramp improvements + plan further mitigations).
+
+# Our Solutions Reimagination – 2025-10-09
+
+**Goal:** Remove the inactive AI Agents card and design a premium, research-backed "Our Solutions" experience that elevates credibility and cross-sells the active offerings.
+
+**Impact Set:**
+- `src/components/Services/*`
+- `src/pages/Index.tsx`
+- `/codex/_MEMO.md`
+- `/codex/REPORT.md`
+- `/docs/MCPs.md` (usage note if tooling expands)
+
+**Commands:**
+- `npm run lint`
+- `npm run build`
+- `npm run preview`
+
+## Steps
+- S1 — Gather competitive intel (Archon RAG, Context7 Tailwind patterns, web inspiration) and capture insights in `_MEMO.md`.
+- S2 — Define content architecture: active services, narrative flow, CTA strategy, state variants, and motion system.
+- S3 — Draft implementation approach: component structure, data model, animation hooks, responsive behavior, accessibility plan.
+- S4 — Present annotated wireframe/UI concept plus build plan for approval (no code until signed off).
+
 # Briefing Process Flow Refinement – 2025-10-09
 
 **Goal:** Reduce textual clutter and elevate the stacked workflow presence by streamlining the connected pipeline callout and enlarging the interactive stage cards while preserving viewport clarity.

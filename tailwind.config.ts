@@ -23,6 +23,7 @@ export default {
         sans: ['Geist', 'system-ui', 'sans-serif'],
         geist: ['Geist', 'system-ui', 'sans-serif'],
         inter: ['Inter', 'system-ui', 'sans-serif'],
+        outfit: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         '7xl': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.02em' }],      // 72px
@@ -193,6 +194,13 @@ export default {
         ipad: "1024px",
         laptop: "1366px",
         desktop: "1920px",
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-radial-at-t': 'radial-gradient(ellipse at top, var(--tw-gradient-stops))',
+        'gradient-radial-at-b': 'radial-gradient(ellipse at bottom, var(--tw-gradient-stops))',
+        'gradient-radial-at-l': 'radial-gradient(ellipse at left, var(--tw-gradient-stops))',
+        'gradient-radial-at-r': 'radial-gradient(ellipse at right, var(--tw-gradient-stops))',
       }
     }
   },

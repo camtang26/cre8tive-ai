@@ -1,13 +1,18 @@
 import { Navigation } from "@/components/Navigation";
 import { StudiosHero } from "@/components/studios/StudiosHero";
+import { PortfolioSection } from "@/components/studios/PortfolioSection";
+import { MultiPlatformCards } from "@/components/studios/MultiPlatformCards"; // Story 2.2
+import { ImageToVideoComparison } from "@/components/studios/ImageToVideoComparison"; // Story 2.3
+import { TestimonialsSection } from "@/components/studios/TestimonialsSection"; // Story 2.4
 import { StudiosIntro } from "@/components/studios/StudiosIntro";
 import { ExpertiseBenefits } from "@/components/studios/ExpertiseBenefits";
 import { WhoWeServe } from "@/components/studios/WhoWeServe";
-import { Testimonials } from "@/components/studios/Testimonials";
 import { ContactCTA } from "@/components/shared/ContactCTA";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { PageLayout } from "@/components/layouts/PageLayout";
 import { FilmStripDivider } from "@/components/studios/FilmStripDivider";
+import { PORTFOLIO_DATA } from "@/data/studios/portfolio-data";
+import { COMPARISON_DATA, COMPARISON_HEADER } from "@/data/studios/comparison-data"; // Story 2.3
 
 const Studios = () => {
   return (
@@ -28,6 +33,19 @@ const Studios = () => {
         <Navigation />
         <main className="pt-20">
           <StudiosHero />
+
+          {/* Portfolio Section - Real Work. Real Results. */}
+          <PortfolioSection
+            portfolioItems={PORTFOLIO_DATA}
+            ctaText="Start Your Project"
+            ctaLink="https://cal.com/cameron-tang-121990/30min"
+          />
+
+          {/* Story 2.2: Multi-Platform Native Section */}
+          <FadeIn>
+            <MultiPlatformCards />
+          </FadeIn>
+
           <FadeIn>
             <StudiosIntro />
           </FadeIn>
@@ -40,15 +58,27 @@ const Studios = () => {
           <div className="container mx-auto px-4">
             <FilmStripDivider />
           </div>
+
+          {/* Story 2.3: Image-to-Video Quality Comparison */}
+          <FadeIn>
+            <ImageToVideoComparison
+              title={COMPARISON_HEADER.title}
+              subtitle={COMPARISON_HEADER.subtitle}
+              comparison={COMPARISON_DATA}
+            />
+          </FadeIn>
+          <div className="container mx-auto px-4">
+            <FilmStripDivider />
+          </div>
+
           <FadeIn>
             <WhoWeServe />
           </FadeIn>
           <div className="container mx-auto px-4">
             <FilmStripDivider />
           </div>
-          <FadeIn>
-            <Testimonials />
-          </FadeIn>
+          {/* Story 2.4: Premium Testimonials with Staggered Reveals */}
+          <TestimonialsSection />
           <FadeIn>
             <ContactCTA />
           </FadeIn>

@@ -1,0 +1,281 @@
+<story-context id="story-context-4.1" v="1.0">
+  <metadata>
+    <epicId>4</epicId>
+    <storyId>1</storyId>
+    <title>3D Interactive Solution Theater - Homepage Solutions Section</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow v6.0.0-alpha.0</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-4.1.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>homepage visitor</asA>
+    <iWant>to experience a premium 3D interactive showcase of our three core services (Studios, Studios Engine, Conversational AI) with immersive mouse tracking, scroll-choreographed reveals, and interactive preview windows</iWant>
+    <soThat>I immediately perceive the technical sophistication of Cre8tive AI and can make an informed decision about which service to explore</soThat>
+    <tasks>
+      - Phase 1: Component Foundation (1.5-2h) - SolutionTheater, PerspectiveContainer, SolutionCard3D, InteractivePreview
+      - Phase 2: Custom Hooks (1.5-2h) - useMouseTracking (tilt calculations), useScrollTheater (GSAP timeline)
+      - Phase 3: Interactive Preview System (1.5-2h) - Asset config, lazy loading, fallback chain
+      - Phase 4: Card Interactions (1-1.5h) - Hover effects, magnetic CTA, React Router navigation
+      - Phase 5: Responsive Adaptive Layouts (1-1.5h) - Mobile stack, tablet grid, device gestures
+      - Phase 6: Performance & Polish (1-1.5h) - 60fps, RAIL compliance, reduced motion (optional)
+      - Phase 7: Integration & QA (1-2h) - Browser matrix, responsive testing, build validation
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <ac id="AC-4.1.1" priority="critical">
+      <title>AI Agents Card Removal</title>
+      <gherkin>GIVEN homepage loads WHEN user scrolls to "Our Solutions" THEN only 3 service cards visible (Studios, Studios Engine, Conversational AI) AND AI Agents card not rendered in DOM</gherkin>
+    </ac>
+    <ac id="AC-4.1.2" priority="critical">
+      <title>3D Perspective Layout (Desktop ≥1024px)</title>
+      <gherkin>GIVEN desktop viewport ≥1024px WHEN solutions section enters viewport THEN cards display in diagonal stagger (z-index 3,2,1; scale 1.1,1.0,0.95) AND CSS perspective: 1200px applied</gherkin>
+    </ac>
+    <ac id="AC-4.1.3" priority="critical">
+      <title>Mouse-Tracking Tilt Effects</title>
+      <gherkin>GIVEN user has NOT enabled prefers-reduced-motion WHEN mouse moves in container THEN cards tilt -15° to +15° on X/Y axes (strength 0.15, shadow 0-40px, 60fps) AND spring back on mouse leave (300ms)</gherkin>
+    </ac>
+    <ac id="AC-4.1.4" priority="critical">
+      <title>GSAP ScrollTrigger Reveal Sequence</title>
+      <gherkin>GIVEN user scrolls toward section WHEN top edge crosses 75% viewport THEN cards reveal staggered (0ms, 150ms, 300ms delays; opacity 0→1, scale 0.8→target, translateY 100→0, 800ms duration) AND parallax 0.5x scroll speed AND gsap.context() cleanup</gherkin>
+    </ac>
+    <ac id="AC-4.1.5" priority="high">
+      <title>Interactive Preview Windows</title>
+      <gherkin>GIVEN card has asset configured WHEN card in viewport ±100px THEN preview lazy loads (Priority: video/image → thumbnail → gradient) AND gradient shows immediately (0ms wait) AND video auto-plays on hover (muted, looped)</gherkin>
+    </ac>
+    <ac id="AC-4.1.6" priority="high">
+      <title>Magnetic CTA Interactions</title>
+      <gherkin>GIVEN user hovers card WHEN hover >50ms THEN card scales 1.0→1.05 (300ms spring), preview opacity 0.8→1.0, CTA magnetic effect activates, shadow blur 40→60px AND hover response <50ms</gherkin>
+    </ac>
+    <ac id="AC-4.1.7" priority="medium">
+      <title>Asset-Agnostic Architecture</title>
+      <gherkin>GIVEN implementation complete WHEN developer updates solutionAssets.ts THEN new assets display without code changes AND missing assets degrade to gradients AND types supported: .mp4,.webm (video), .jpg,.webp (image) AND external URLs rejected</gherkin>
+    </ac>
+    <ac id="AC-4.1.8" priority="high">
+      <title>Navigation Integration</title>
+      <gherkin>GIVEN user clicks card WHEN click fires THEN React Router navigates (Studios→/studios, Engine→/studios-engine, ConvAI→/conversational, SPA no reload) AND CTA→Cal.com new window AND Vercel Analytics tracks card.click</gherkin>
+    </ac>
+    <ac id="AC-4.1.9" priority="medium">
+      <title>Adaptive Layout - Mobile (<768px)</title>
+      <gherkin>GIVEN mobile viewport <768px WHEN section renders THEN vertical stack (no 3D), Framer Motion swipe gestures, device orientation tilt, tap to expand/double-tap navigate AND simple fade-up reveal</gherkin>
+    </ac>
+    <ac id="AC-4.1.10" priority="medium">
+      <title>Adaptive Layout - Tablet (768px-1023px)</title>
+      <gherkin>GIVEN tablet viewport 768-1023px WHEN section renders THEN 2-column grid, reduced perspective 800px, touch interactions (tap=hover, double-tap=navigate)</gherkin>
+    </ac>
+    <ac id="AC-4.1.11" priority="medium">
+      <title>Basic Usability (Non-WCAG)</title>
+      <gherkin>GIVEN theater rendered WHEN user interacts THEN keyboard nav works (Tab, Enter, Space), semantic HTML, no critical errors AND visual design prioritized over contrast AND animations NOT constrained by a11y</gherkin>
+    </ac>
+    <ac id="AC-4.1.12" priority="critical">
+      <title>Performance - 60fps Animations</title>
+      <gherkin>GIVEN user interacts WHEN scroll/mouse active THEN frame rate ≥55fps (stats.js), no drops <30fps for >100ms AND GPU properties only (translate3d, rotateX/Y, scale) AND will-change during interactions</gherkin>
+    </ac>
+    <ac id="AC-4.1.13" priority="critical">
+      <title>Performance - RAIL Model Compliance</title>
+      <gherkin>GIVEN interaction measured WHEN performance checked THEN Response <50ms, Animation <300ms (simple) <800ms (complex), Idle ≥50ms intervals, Load <1s after scroll into view AND Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1</gherkin>
+    </ac>
+    <ac id="AC-4.1.14" priority="medium">
+      <title>Error Handling - Asset Failures</title>
+      <gherkin>GIVEN video 404 WHEN preview loads THEN retry after 2s, fallback to thumbnail, then gradient AND "Preview unavailable" toast (non-blocking) AND error logged to Vercel Analytics</gherkin>
+    </ac>
+    <ac id="AC-4.1.15" priority="low">
+      <title>Accessibility - Reduced Motion (Optional)</title>
+      <gherkin>GIVEN prefers-reduced-motion enabled WHEN animation triggers THEN system MAY reduce intensity (400ms vs 800ms, tilt 0.08 vs 0.15) AND keyboard nav MUST work (Tab through cards) AND focus indicators visible</gherkin>
+    </ac>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-homepage-theater.md</path>
+        <title>Technical Specification: 3D Interactive Solution Theater</title>
+        <section>Overview, Objectives & Scope, System Architecture, Detailed Design, NFRs, Dependencies, Acceptance Criteria, Traceability, Risks & Assumptions</section>
+        <snippet>Premium 3D Interactive Solution Theater to replace static Bento grid. Remove AI Agents card. GSAP + Lenis + Framer Motion stack. Mouse-tracking tilt, scroll-choreographed reveals, interactive previews. Visuals First philosophy. 60fps target, RAIL compliance.</snippet>
+        <relevance>Primary authoritative spec for Epic 4.1 - all ACs, workflows, component designs, NFRs derived from this document</relevance>
+      </doc>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns & Best Practices</title>
+        <section>GSAP ScrollTrigger Patterns, Lenis Integration, React Integration & Cleanup, Performance Optimization</section>
+        <snippet>GSAP 3.13.0 + Lenis 1.3.11 + Framer Motion 12.4.2. CRITICAL: gsap.context() cleanup, useGSAP hook. GPU-accelerated properties only (transform, opacity). 60fps budget: 10ms animation logic + 6ms browser rendering. Lenis global setup: lenis.on('scroll', ScrollTrigger.update).</snippet>
+        <relevance>Defines GSAP cleanup patterns (ctx.revert()), Lenis coordination, performance budgets - directly applies to useScrollTheater and PerspectiveContainer</relevance>
+      </doc>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/frontend-architecture.md</path>
+        <title>Frontend Architecture</title>
+        <section>Component Design Patterns, Performance, Responsive Design</section>
+        <snippet>React 18.3.1, TypeScript 5.5.3 (relaxed mode), Vite 5.4.1. Component size: &lt;500 LOC/file. Tailwind breakpoints: sm:640px, md:768px, lg:1024px. Lazy loading, code splitting, hardware acceleration.</snippet>
+        <relevance>Component structure constraints, responsive breakpoints for adaptive layouts (mobile/tablet/desktop)</relevance>
+      </doc>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/ARCHITECTURE.md</path>
+        <title>System Architecture</title>
+        <section>Tech Stack, Build Process, Performance Considerations</section>
+        <snippet>JAMstack, GitHub Pages CDN, Vite build, SWC transpilation. Performance budget: vendor chunk strategy, lazy component loading. Zero automated tests (manual only).</snippet>
+        <relevance>Build configuration (theater chunk in vite.config.ts), deployment constraints, testing approach (manual browser testing only)</relevance>
+      </doc>
+    </docs>
+
+    <code>
+      <artifact>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/Services/types.ts</path>
+        <kind>interface</kind>
+        <symbol>ServiceData</symbol>
+        <lines>1-7</lines>
+        <snippet>export interface ServiceData { icon: string; title: string; description: string; link: string; color: string; }</snippet>
+        <reason>Existing interface that SolutionTheater must accept as props. Filter to exclude AI Agents (title !== "AI Agents").</reason>
+      </artifact>
+      <artifact>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/Services/desktop/DesktopServicesBold.tsx</path>
+        <kind>component</kind>
+        <symbol>DesktopServicesBold</symbol>
+        <lines>N/A</lines>
+        <snippet>Current desktop services implementation (Bento grid layout)</snippet>
+        <reason>Component to be REPLACED by SolutionTheater. Reference for services array structure and existing integration patterns.</reason>
+      </artifact>
+      <artifact>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/ui/magnetic-button.tsx</path>
+        <kind>component</kind>
+        <symbol>MagneticButton</symbol>
+        <lines>1-61</lines>
+        <snippet>Framer Motion magnetic button: useMotionValue, useSpring (damping:20, stiffness:300), mouse tracking with strength multiplier (default 0.15), spring-back on mouse leave</snippet>
+        <reason>Reuse for CTA buttons in SolutionCard3D. Proven implementation of magnetic effect, matches 50ms response benchmark.</reason>
+      </artifact>
+      <artifact>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/epic2/hooks/useMagneticPull.ts</path>
+        <kind>hook</kind>
+        <symbol>useMagneticPull</symbol>
+        <lines>N/A</lines>
+        <snippet>Custom magnetic pull hook (Epic 2 implementation)</snippet>
+        <reason>Reference pattern for mouse-based interaction logic. May inform useMouseTracking hook design (calculate distances, apply transforms).</reason>
+      </artifact>
+    </code>
+
+    <dependencies>
+      <node>
+        <package name="gsap" version="^3.13.0">Scroll-driven timelines, stagger reveals, cleanup via gsap.context()</package>
+        <package name="@gsap/react" version="^2.1.2">useGSAP hook for React integration, automatic cleanup</package>
+        <package name="lenis" version="^1.3.11">Smooth scroll foundation, synced with ScrollTrigger via lenis.on('scroll', ScrollTrigger.update)</package>
+        <package name="framer-motion" version="^12.4.2">Spring animations (hover scale, tilt spring-back), layout shifts, drag gestures (mobile swipe)</package>
+        <package name="react" version="^18.3.1">Core framework, hooks: useRef, useEffect, useMemo, useCallback</package>
+        <package name="react-router-dom" version="^6.26.2">Client-side routing, useNavigate for card navigation</package>
+        <package name="tailwindcss" version="^3.4.11">Responsive layouts (sm:640px, md:768px, lg:1024px), glassmorphism</package>
+        <package name="@vercel/analytics" version="^1.4.1">Custom event tracking (card.click, card.hover)</package>
+        <package name="stats.js" version="^0.17.0">FPS monitoring (dev mode, ?debug=true query param)</package>
+        <package name="lucide-react" version="^0.462.0">Service icons (Brain, Layers, Phone - reuse from existing ServiceData)</package>
+      </node>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="GSAP-001" category="animation-cleanup">
+      <rule>ALWAYS use gsap.context() or useGSAP hook from @gsap/react</rule>
+      <rationale>Prevents memory leaks - ScrollTriggers persist after component unmount without cleanup. ctx.revert() kills animations + ScrollTriggers + resets DOM.</rationale>
+      <pattern>useEffect(() => { const ctx = gsap.context(() => { /* animations */ }, containerRef); return () => ctx.revert(); }, [])</pattern>
+      <source>docs/architecture/animation-patterns.md lines 111-130, 445-455</source>
+    </constraint>
+    <constraint id="PERF-001" category="performance-gpu">
+      <rule>ONLY animate GPU-accelerated properties: transform (translate3d, rotateX/Y, scale), opacity</rule>
+      <rationale>60fps target (16.67ms/frame). CPU-bound properties (width, height, top, left) force layout reflow = jank.</rationale>
+      <pattern>gsap.to('.el', { x: 100, y: 50, scale: 1.2, opacity: 0.5 }); // ✅ GPU | gsap.to('.el', { width: 200, left: 50 }); // ❌ CPU reflow</pattern>
+      <source>docs/architecture/animation-patterns.md lines 486-518, tech-spec AC-4.1.12</source>
+    </constraint>
+    <constraint id="LENIS-001" category="smooth-scroll">
+      <rule>Access global Lenis instance from window.lenis, sync with ScrollTrigger via lenis.on('scroll', ScrollTrigger.update)</rule>
+      <rationale>Lenis wraps entire app (App.tsx). ScrollTrigger must listen to Lenis scroll events, not native window scroll.</rationale>
+      <pattern>const lenis = window.lenis; lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add((time) => lenis.raf(time * 1000));</pattern>
+      <source>docs/architecture/animation-patterns.md lines 323-355, tech-spec Integration Points</source>
+    </constraint>
+    <constraint id="ARCH-001" category="component-structure">
+      <rule>Max 500 LOC/file, 50 lines/function, 100 lines/class. Organize by feature, not type.</rule>
+      <rationale>Project coding standards. Maintainability, readability, reduces merge conflicts.</rationale>
+      <source>CLAUDE.md engineering principles, docs/architecture/coding-standards.md</source>
+    </constraint>
+    <constraint id="PHIL-001" category="design-philosophy">
+      <rule>Visuals First - aesthetic excellence prioritized over WCAG compliance. Basic keyboard nav required, contrast/ARIA not required.</rule>
+      <rationale>Technical Decision AD-003 (2025-10-08): Remove all WCAG implementations. Creative industry standards (Figma, After Effects, agency showcases) prioritize visual experience.</rationale>
+      <pattern>prefers-reduced-motion: OPTIONAL (not required). Keyboard nav: REQUIRED (Tab, Enter, Space work). Screen readers: OUT OF SCOPE.</pattern>
+      <source>tech-spec Overview lines 14-15, 29; AC-4.1.11, AC-4.1.15; animation-patterns.md lines 559-598 (DEPRECATED section)</source>
+    </constraint>
+    <constraint id="RESP-001" category="responsive-design">
+      <rule>Mobile (&lt;768px): vertical stack, no 3D. Tablet (768-1023px): 2-column grid, reduced perspective 800px. Desktop (≥1024px): full 3D stage, perspective 1200px.</rule>
+      <rationale>Tailwind breakpoints (sm:640px, md:768px, lg:1024px). Mobile performance (no 3D tilt = less GPU load). Touch vs. mouse interactions.</rationale>
+      <pattern>const isMobile = useMediaQuery('(max-width: 767px)'); const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');</pattern>
+      <source>tech-spec AC-4.1.9, AC-4.1.10; ARCHITECTURE.md responsive design</source>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>ServiceData</name>
+      <kind>TypeScript interface</kind>
+      <signature>{ icon: string; title: string; description: string; link: string; color: string; }</signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/src/components/Services/types.ts</path>
+      <usage>SolutionTheater props, filter to exclude AI Agents, map to SolutionCard3D components</usage>
+    </interface>
+    <interface>
+      <name>PreviewAsset</name>
+      <kind>TypeScript interface (NEW)</kind>
+      <signature>{ preview?: string; thumbnail?: string; fallbackGradient: string; type: 'video' | 'image'; }</signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/src/config/solutionAssets.ts (to be created)</path>
+      <usage>Asset configuration for InteractivePreview, priority chain: preview → thumbnail → gradient</usage>
+    </interface>
+    <interface>
+      <name>MouseTrackingState</name>
+      <kind>TypeScript interface (NEW)</kind>
+      <signature>{ tiltX: number (-15 to 15°); tiltY: number (-15 to 15°); shadowX: number (0-40px); shadowY: number (0-40px); isHovered: boolean; }</signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/src/hooks/useMouseTracking.ts (to be created)</path>
+      <usage>Mouse-based tilt calculations, applied to card transforms in PerspectiveContainer</usage>
+    </interface>
+    <interface>
+      <name>ScrollTheaterState</name>
+      <kind>TypeScript interface (NEW)</kind>
+      <signature>{ isInView: boolean; progress: number (0-1); cardStates: Array<{ index, opacity, scale, translateY }> }</signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/src/hooks/useScrollTheater.ts (to be created)</path>
+      <usage>GSAP ScrollTrigger timeline state, staggered reveal coordination</usage>
+    </interface>
+    <interface>
+      <name>MagneticButton</name>
+      <kind>React component (EXISTING - REUSE)</kind>
+      <signature>({ children, className, strength = 0.15, as = "button", onClick, href, type })</signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/src/components/ui/magnetic-button.tsx</path>
+      <usage>Integrate into SolutionCard3D for CTA buttons, proven 50ms response time</usage>
+    </interface>
+    <interface>
+      <name>useNavigate (React Router)</name>
+      <kind>React hook (LIBRARY)</kind>
+      <signature>() => (path: string, options?: { replace?: boolean; state?: any }) => void</signature>
+      <path>react-router-dom</path>
+      <usage>Card click navigation: navigate(service.link) for SPA routing</usage>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Project has ZERO automated test infrastructure (no Vitest, Jest, RTL, Playwright). All validation is MANUAL via browser testing. Standards: (1) Chrome DevTools Performance tab for FPS measurement, (2) Lighthouse audit for Core Web Vitals (LCP &lt;2.5s, FID &lt;100ms, CLS &lt;0.1), (3) stats.js for on-screen FPS monitoring (?debug=true), (4) Manual browser matrix: Chrome 120+, Firefox 121+, Safari 17+, Edge 120+, Chrome Mobile, Safari iOS, (5) Manual responsive testing: 375px (mobile), 768px (tablet), 1024px (desktop), 1920px (widescreen), (6) Manual keyboard navigation (Tab, Enter, Space - basic usability, NOT WCAG compliance). Build validation: tsc --noEmit (TypeScript), npm run lint (ESLint errors only), npm run build (production build succeeds). NO accessibility testing (screen readers, axe DevTools, color contrast - Visuals First philosophy per AD-003).
+    </standards>
+    <locations>
+      No test files or directories exist. Testing is 100% manual via: (1) Browser DevTools (localhost:8080 dev server), (2) Production preview (localhost:4173, npm run preview), (3) GitHub Pages staging (optional, gh-pages branch). Performance monitoring: Chrome DevTools Performance panel, Lighthouse CI (manual run), stats.js overlay. Asset testing: Network tab throttling (3G, offline mode) to simulate 404/slow loads.
+    </locations>
+    <ideas>
+      <idea acId="AC-4.1.1">Visual inspection: Open homepage in browser, scroll to Solutions section, confirm only 3 cards visible (Studios, Engine, ConvAI). DevTools Elements tab: search for "AI Agents" text or data-testid, confirm null result (card not in DOM).</idea>
+      <idea acId="AC-4.1.2">Desktop test (1024px+ viewport): DevTools Inspect Element on PerspectiveContainer, verify CSS perspective: 1200px. Inspect each card's computed style: z-index (3, 2, 1), transform scale (1.1, 1.0, 0.95). Screenshot at 1920px width, compare diagonal stagger vs. design mockup.</idea>
+      <idea acId="AC-4.1.3">Mouse tilt test: Move cursor slowly across PerspectiveContainer, visually verify cards tilt -15° to +15° (measure with DevTools transform values). Performance tab: record mouse movement, verify updates at 60fps (16.67ms/frame). Mouse leave: confirm 300ms spring-back animation (check Framer Motion transform).</idea>
+      <idea acId="AC-4.1.4">Scroll reveal test: Scroll slowly toward Solutions section, watch ScrollTrigger marker (enable markers: true for debugging). Confirm cards reveal at 75% viewport. Performance tab: measure stagger delays (0ms, 150ms, 300ms) and total sequence duration (~2.1s). Parallax: scroll and visually verify background elements move at 0.5x speed. Cleanup: navigate away and back 10 times, check Chrome Task Manager for memory leaks (stable memory = no leak).</idea>
+      <idea acId="AC-4.1.5">Asset loading test: Network tab → block /videos/*.mp4 to simulate 404. Confirm preview fallback chain: attempt preview → retry after 2s → load thumbnail → display gradient. Loading state: verify gradient appears instantly (0ms wait, no flash). Hover test: play video on mouseenter, pause on mouseleave (muted, looped).</idea>
+      <idea acId="AC-4.1.6">Hover performance test: performance.mark('hover-start') on mouseenter, performance.mark('hover-feedback') when visual change occurs. performance.measure('hover-latency', 'hover-start', 'hover-feedback'). Confirm &lt;50ms latency. Visual validation: card scales 1.0→1.05, preview opacity 0.8→1.0, shadow blur increases 40→60px. MagneticButton: move cursor near CTA, verify magnetic pull effect.</idea>
+      <idea acId="AC-4.1.7">Config update test: Edit solutionAssets.ts, change preview URL for 'studios' service, save file (hot reload), verify new asset displays without code recompile. Security test: attempt external URL (https://example.com/video.mp4), data URI (data:image/png;base64,...), confirm both rejected (asset validation logic).</idea>
+      <idea acId="AC-4.1.8">Navigation test: Click Studios card → verify React Router navigates to /studios (check URL bar, no page reload). Click Studios Engine card → /studios-engine, Conversational AI card → /conversational. Click CTA button → verify Cal.com opens in new window (target="_blank"). Vercel Analytics: check dashboard for card.click events (or console.log track() calls in dev mode).</idea>
+      <idea acId="AC-4.1.9">Mobile test (375px viewport, Chrome DevTools device mode or real device): Confirm vertical stack layout (no 3D perspective). Swipe left/right (Framer Motion drag) to navigate cards. Device orientation: tilt phone, verify gyroscope-based card tilt (if implemented). Tap once to expand preview, double-tap to navigate. Scroll reveal: simple fade-up animation (no complex transforms).</idea>
+      <idea acId="AC-4.1.10">Tablet test (768px viewport, iPad simulation): Confirm 2-column grid layout. Inspect PerspectiveContainer CSS: perspective 800px (reduced from 1200px desktop). Touch interaction: tap card = hover state, double-tap = navigate. Visual QA: compare tablet layout to design mockup.</idea>
+      <idea acId="AC-4.1.11">Keyboard nav test: Tab key to cycle through cards, Enter/Space to navigate. Confirm no critical JavaScript errors (Console tab). Visual design vs. usability: accept low-contrast text if visually appealing (Visuals First philosophy). NO screen reader testing (VoiceOver, NVDA - out of scope per AD-003).</idea>
+      <idea acId="AC-4.1.12">FPS test: Enable stats.js (?debug=true query param), scroll and mouse-move simultaneously, verify FPS stays ≥55fps for 30+ seconds. Performance tab: record interaction, check for frames >16.67ms (jank) or drops below 30fps. GPU properties: inspect computed styles, confirm all transforms use translate3d/rotateX/Y/scale (no width/height/top/left changes). will-change: verify applied during interactions, removed when idle (DevTools Computed tab).</idea>
+      <idea acId="AC-4.1.13">RAIL test: Response (hover latency &lt;50ms - see AC-4.1.6 test). Animation: measure transition durations (simple &lt;300ms, complex &lt;800ms) via Performance tab. Idle: record timeline, verify main thread has ≥50ms idle gaps. Load: Performance mark when ScrollTrigger activates, confirm theater interactive &lt;1s after scroll into view. Lighthouse audit (mobile + desktop): LCP &lt;2.5s, FID &lt;100ms, CLS &lt;0.1.</idea>
+      <idea acId="AC-4.1.14">Error handling test: Network tab → throttle to Slow 3G, block video URL (404), watch retry logic (2s delay), confirm fallback to thumbnail, then gradient. Toast notification: verify "Preview unavailable" appears (non-blocking, auto-dismiss). Vercel Analytics: check error events logged (or console logs in dev). No console spam: confirm only 1 error log per failed asset (not repeated on every frame).</idea>
+      <idea acId="AC-4.1.15">Reduced motion test: OS settings → enable "Reduce motion" (macOS, Windows, iOS). Reload page, observe optional animation reduction (faster GSAP 400ms vs 800ms, reduced tilt 0.08 vs 0.15). Required: keyboard nav MUST still work (Tab, Enter, Space). Focus indicators: confirm visible on Tab navigation (visual ring/outline). If reduced motion ignored (animations at full strength), that's acceptable (optional respect per Visuals First philosophy).</idea>
+    </ideas>
+  </tests>
+</story-context>
