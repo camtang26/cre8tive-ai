@@ -43,12 +43,13 @@ export const Footer = () => {
               <Link to="/studios" className="text-white/70 hover:text-blue-400 text-sm transition-colors duration-200 hover:translate-x-1 inline-block">
                 Cre8tive AI Studios
               </Link>
-              <Link to="/studios-engine" className="text-white/70 hover:text-blue-400 text-sm transition-colors duration-200 hover:translate-x-1 inline-block">
-                CS AI Engine
+              <Link to="/briefing-engine" className="text-white/70 hover:text-blue-400 text-sm transition-colors duration-200 hover:translate-x-1 inline-block">
+                AI Briefing Engine
               </Link>
-              <Link to="/agents" className="text-white/70 hover:text-cyan-400 text-sm transition-colors duration-200 hover:translate-x-1 inline-block">
+              {/* AI Agents temporarily hidden until service is polished */}
+              {/* <Link to="/agents" className="text-white/70 hover:text-cyan-400 text-sm transition-colors duration-200 hover:translate-x-1 inline-block">
                 AI Agents
-              </Link>
+              </Link> */}
               <Link to="/conversational" className="text-white/70 hover:text-emerald-400 text-sm transition-colors duration-200 hover:translate-x-1 inline-block">
                 Conversational AI
               </Link>

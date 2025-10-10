@@ -12,8 +12,8 @@ import { useEffect, useState } from 'react';
 import { scrollAnimator } from './utils/scrollAnimations';
 import Index from "./pages/Index";
 import Studios from "./pages/Studios";
-import StudiosEngine from "./pages/StudiosEngine";
-import Agents from "./pages/Agents";
+import BriefingEngine from "./pages/BriefingEngine";
+// import Agents from "./pages/Agents"; // Temporarily disabled - service under development
 import ConversationalAI from "./pages/ConversationalAI";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -80,12 +80,14 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/studios" element={<Studios />} />
-              <Route path="/studios-engine" element={<StudiosEngine />} />
-              {/* Keep the old /manager path redirecting for now, or remove if not needed */}
-              {/* <Route path="/manager" element={<Navigate to="/studios-engine" replace />} /> */}
-              {/* Or just update both to point to the new component if both paths should work */}
-               <Route path="/manager" element={<StudiosEngine />} />
-              <Route path="/agents" element={<Agents />} />
+              {/* AI Briefing Engine */}
+              <Route path="/briefing-engine" element={<BriefingEngine />} />
+              {/* Redirect old /studios-engine route for SEO */}
+              <Route path="/studios-engine" element={<Navigate to="/briefing-engine" replace />} />
+              {/* Legacy /manager route - redirects to Briefing Engine */}
+              <Route path="/manager" element={<BriefingEngine />} />
+              {/* AI Agents page temporarily disabled - service under development */}
+              {/* <Route path="/agents" element={<Agents />} /> */}
               <Route path="/conversational" element={<ConversationalAI />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
