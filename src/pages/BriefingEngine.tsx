@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import { ReactLenis } from "lenis/react";
 import { VisualStylesGallery } from "@/components/briefing/VisualStylesGallery";
 import { BriefingCTA } from "@/components/briefing/BriefingCTA";
+import { MidPageCTA } from "@/components/briefing/MidPageCTA";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { BriefToStoryboardAnimation } from "@/components/briefing/BriefToStoryboardAnimation";
 import { AudienceBenefits } from "@/components/briefing/AudienceBenefits";
@@ -181,7 +182,8 @@ const BriefingEngine = () => {
 
                 <div className="hero-ctas flex gap-4 justify-center flex-wrap">
                   <button
-                    className="px-10 py-4 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105"
+                    onClick={() => window.location.href = 'https://admanager.cre8tive.ai/'}
+                    className="px-10 py-4 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
                     style={{
                       background: `linear-gradient(135deg, ${briefingPalette.indigo.DEFAULT}, ${briefingPalette.fuchsia.DEFAULT})`,
                       color: 'white',
@@ -189,16 +191,6 @@ const BriefingEngine = () => {
                     }}
                   >
                     Start Your Brief
-                  </button>
-
-                  <button
-                    className="px-10 py-4 rounded-xl font-bold text-xl border-2 text-white transition-all duration-300 transform hover:scale-105"
-                    style={{
-                      borderColor: briefingPalette.cyan.DEFAULT,
-                      background: 'transparent'
-                    }}
-                  >
-                    See How It Works
                   </button>
                 </div>
               </div>
@@ -213,6 +205,10 @@ const BriefingEngine = () => {
           </FadeIn>
 
           <BriefingProcessFlow />
+
+          <FadeIn>
+            <MidPageCTA />
+          </FadeIn>
 
           <WorkflowTransformation />
 
