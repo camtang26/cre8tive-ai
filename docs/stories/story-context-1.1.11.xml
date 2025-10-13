@@ -1,0 +1,439 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.11</storyId>
+    <title>Performance Optimization &amp; Responsive Testing</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-13</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.11.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a user on any device or connection speed</asA>
+    <iWant>the page to load quickly and animate smoothly</iWant>
+    <soThat>I can experience the visual storytelling without lag or jank</soThat>
+    <tasks>
+      <task id="AC2-1">Run Lighthouse audit (Performance 80+, Best Practices 90+)</task>
+      <task id="AC2-2">Verify Core Web Vitals (LCP &lt; 2.5s, FID &lt; 100ms, CLS &lt; 0.1)</task>
+      <task id="AC2-3">Monitor animation frame rate (60fps target, 30fps min)</task>
+      <task id="AC2-4">Verify bundle size &lt; 900kb</task>
+      <task id="AC3-1">Implement lazy loading for visual style images</task>
+      <task id="AC3-2">Preload Frame1-3, lazy-load Frame4-6</task>
+      <task id="AC3-3">Optimize Canvas particle lifecycle</task>
+      <task id="AC4-1">Test responsive breakpoints (4 devices)</task>
+      <task id="IV1">Test Integration Verification IV1 (Performance profiling)</task>
+      <task id="IV2">Test Integration Verification IV2 (Lazy-loading edge cases)</task>
+      <task id="IV3">Test Integration Verification IV3 (Responsive consistency)</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1" status="removed">
+      <title>Accessibility (WCAG AA)</title>
+      <description>REMOVED per Technical Decision AD-003 (2025-10-08): Remove all WCAG accessibility implementations</description>
+    </criterion>
+    <criterion id="AC2" status="active">
+      <title>Performance</title>
+      <requirements>
+        <requirement>Lighthouse audit: Performance 80+, Accessibility 90+, Best Practices 90+</requirement>
+        <requirement>Core Web Vitals: LCP &lt; 2.5s, FID &lt; 100ms, CLS &lt; 0.1</requirement>
+        <requirement>Animation frame rate: 60fps on Chrome/Firefox/Safari (latest), 30fps minimum acceptable</requirement>
+        <requirement>Bundle size: Total vendor bundle &lt; 900kb (current 806kb + 73kb = 879kb ✓)</requirement>
+      </requirements>
+    </criterion>
+    <criterion id="AC3" status="active">
+      <title>Lazy Loading</title>
+      <requirements>
+        <requirement>Visual styles images: Load only when scrolling to gallery (Intersection Observer)</requirement>
+        <requirement>Storyboard frames: Preload Frame1-3, lazy-load Frame4-6</requirement>
+        <requirement>Canvas particles: Initialize on scroll reveal, destroy on scroll out</requirement>
+      </requirements>
+    </criterion>
+    <criterion id="AC4" status="active">
+      <title>Responsive Testing</title>
+      <requirements>
+        <requirement>Mobile: iPhone 12 (375px × 812px), Android flagship (412px × 915px)</requirement>
+        <requirement>Tablet: iPad (768px × 1024px)</requirement>
+        <requirement>Desktop: 1920px × 1080px</requirement>
+        <requirement>Test all breakpoints in Chrome DevTools Device Mode</requirement>
+      </requirements>
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns &amp; Best Practices</title>
+        <section>Performance Optimization (Section 7)</section>
+        <snippet>
+          **1. GPU Acceleration (Transform &amp; Opacity Only)**
+          - Use scaleX, translateY, scale, rotation, opacity (GPU-accelerated)
+          - Avoid width, height, top, left (CPU-bound, forces layout reflow)
+          - CSS Setup: will-change: transform, opacity; transform: translateZ(0);
+
+          **2. Performance Budget: 60fps Target**
+          - RAIL Performance Model: 16ms per frame, ~10ms for animation logic
+          - Optimization Checklist:
+            * Use transform and opacity only
+            * Set will-change: transform on animated elements
+            * Limit concurrent ScrollTriggers (max 10-15 per page)
+            * Use scrub for smooth scroll-linked animations
+            * Debounce resize handlers (ScrollTrigger.refresh())
+
+          **3. React Cleanup Pattern (Memory Leak Prevention)**
+          - CRITICAL: Use gsap.context() with cleanup in useEffect
+          - ctx.revert() kills all animations + ScrollTriggers + resets DOM
+          - Without cleanup, ScrollTriggers keep firing after unmount (memory leak)
+        </snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture/frontend-architecture.md</path>
+        <title>Frontend Architecture</title>
+        <section>Performance Optimization (Section 8)</section>
+        <snippet>
+          **Code Splitting (Vite Config):**
+          - manualChunks: vendor (react, react-dom, router, query), ui (radix-ui)
+          - Result: Parallel loading of vendor, ui, and app chunks
+          - chunkSizeWarningLimit: 1000kb
+
+          **Image Optimization:**
+          - Lazy loading: loading="lazy" attribute
+          - Responsive images: srcSet with multiple sizes
+          - Sizes attribute: (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw
+          - Future: Convert to WebP/AVIF for smaller file sizes
+
+          **Responsive Design:**
+          - Breakpoints: sm(640px), md(768px), lg(1024px), xl(1280px), 2xl(1536px)
+          - Pattern: Mobile-first (no prefix = mobile, md: = tablet+)
+        </snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1 - AI Briefing Engine Page Redesign</title>
+        <section>Non-Functional Requirements - Performance</section>
+        <snippet>
+          **Frame Rate Targets:**
+          - 60fps sustained during all GSAP animations (16.67ms frame budget)
+          - No jank or stutter during scroll-triggered reveals
+          - Smooth 120fps on high refresh rate displays
+
+          **Animation Performance Requirements:**
+          - GPU-Accelerated Transforms Only: scaleX, translateY, opacity
+          - will-change Optimization: Apply will-change: transform
+          - Layer Promotion: Ensure animated elements create GPU layers
+          - No Layout Triggers: Avoid reading layout properties inside animation loops
+
+          **Bundle Size Constraints:**
+          - Must stay within 879kb vendor bundle target (current 806kb + 73kb GSAP/Lenis)
+          - Component code splitting for below-fold elements
+
+          **Lighthouse Performance Targets:**
+          - Performance Score: ≥80
+          - First Contentful Paint (FCP): ≤1.8s
+          - Largest Contentful Paint (LCP): ≤2.5s
+          - Time to Interactive (TTI): ≤3.8s
+          - Cumulative Layout Shift (CLS): ≤0.1
+
+          **Memory Management:**
+          - Zero memory leaks after component unmount
+          - All ScrollTriggers killed on cleanup (ctx.revert())
+          - No orphaned event listeners or RAF loops
+        </snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/story-1.11.md</path>
+        <title>Story 1.11: Performance Optimization &amp; Responsive Testing</title>
+        <section>Dev Notes</section>
+        <snippet>
+          **Animation Cleanup Checklist (VERIFIED):**
+          - Story 1.3: VisualStylesGallery - gsap.context() cleanup ✓
+          - Story 1.5: BriefingProcessFlow - gsap.context() cleanup ✓
+          - Story 1.6: AIProcessingVisual - cancelAnimationFrame() cleanup ✓
+          - Story 1.7: BriefToStoryboardAnimation - gsap.context() cleanup ✓
+          - Story 1.8: WorkflowTransformation - gsap.context() cleanup ✓
+          - Story 1.9: AudienceBenefits - gsap.context() cleanup ✓
+          - Story 1.10: Lenis wrapper - auto-cleanup verified ✓
+
+          **Lazy Loading Pattern:**
+          - Use react-intersection-observer: useInView hook
+          - triggerOnce: true, threshold: 0.1
+          - Render content only when inView === true
+          - Add loading="lazy" to img tags
+
+          **Integration Verifications:**
+          - IV1: Performance profiling (60fps maintained)
+          - IV2: Lazy-loading edge cases (no broken images, smooth reveals)
+          - IV3: Responsive consistency (matches existing site patterns)
+        </snippet>
+      </doc>
+      <doc>
+        <path>docs/technical-decisions.md</path>
+        <title>Technical Decisions</title>
+        <section>AD-003: Remove WCAG Accessibility Implementations (2025-10-08)</section>
+        <snippet>
+          **Status:** Active
+          **Decision:** Remove all WCAG accessibility requirements from Epic 1 stories
+          **Rationale:** Visual impact is core to brand identity. Cre8tive AI follows creative industry standards (Figma, After Effects, agency showcases) which prioritize visual experience over WCAG compliance.
+          **Impact:** Story 1.11 scope revised - accessibility requirements removed, story now focuses exclusively on performance optimization and responsive testing.
+          **Note:** Semantic HTML for SEO purposes is still maintained.
+        </snippet>
+      </doc>
+    </docs>
+    <code>
+      <component>
+        <path>src/pages/BriefingEngine.tsx</path>
+        <kind>PageComponent</kind>
+        <symbol>BriefingEngine</symbol>
+        <lines>1-234</lines>
+        <reason>Main page component that orchestrates all briefing sections. Uses ReactLenis wrapper for smooth scrolling. Hero section has GSAP animation using useGSAP hook. CRITICAL for understanding page structure and component composition.</reason>
+      </component>
+      <component>
+        <path>src/components/briefing/WorkflowTransformation.tsx</path>
+        <kind>FeatureComponent</kind>
+        <symbol>WorkflowTransformation</symbol>
+        <lines>1-435</lines>
+        <reason>Example of PREMIUM GSAP implementation with master timeline choreography, counter animations, and proper React cleanup. Demonstrates performance patterns Story 1.11 should validate: gsap.context(), ScrollTrigger setup, GPU optimization (scaleX, translateY, opacity only), will-change CSS hints.</reason>
+      </component>
+      <component>
+        <path>src/hooks/useLenisReady.ts</path>
+        <kind>CustomHook</kind>
+        <symbol>useLenisReady</symbol>
+        <lines>1-58</lines>
+        <reason>Utility hook to detect when Lenis smooth scroll is ready before initializing ScrollTrigger animations. Prevents race conditions on page load. Used to ensure GSAP animations can safely use Lenis scroll events.</reason>
+      </component>
+      <component>
+        <path>src/components/briefing/VisualStylesGallery.tsx</path>
+        <kind>FeatureComponent</kind>
+        <symbol>VisualStylesGallery</symbol>
+        <lines>N/A</lines>
+        <reason>Component with stagger reveal animation that needs performance profiling (Story 1.11 AC2, Task AC2-3). Should be tested for 60fps during animation. Cleanup pattern should be verified per Dev Notes checklist.</reason>
+      </component>
+      <component>
+        <path>src/components/briefing/BriefingProcessFlow.tsx</path>
+        <kind>FeatureComponent</kind>
+        <symbol>BriefingProcessFlow</symbol>
+        <lines>N/A</lines>
+        <reason>4-step timeline with scroll scrubbing. Needs performance profiling for smooth 60fps scrubbing. Cleanup pattern verified per Dev Notes checklist.</reason>
+      </component>
+      <component>
+        <path>src/components/briefing/AudienceBenefits.tsx</path>
+        <kind>FeatureComponent</kind>
+        <symbol>AudienceBenefits</symbol>
+        <lines>N/A</lines>
+        <reason>Component with GSAP animations. Cleanup pattern verified per Dev Notes checklist. Should be profiled for performance.</reason>
+      </component>
+    </code>
+    <dependencies>
+      <category name="Animation &amp; Performance">
+        <package name="gsap" version="^3.13.0">Core animation engine. ScrollTrigger plugin for scroll-driven animations. Counter animations. GPU-optimized transforms.</package>
+        <package name="@gsap/react" version="^2.1.2">useGSAP hook for React integration. Auto-cleanup of animations on unmount.</package>
+        <package name="lenis" version="^1.3.11">Smooth scroll foundation. Provides scroll events to ScrollTrigger. lerp: 0.1, duration: 1.5s config in BriefingEngine.tsx</package>
+        <package name="stats.js" version="^0.17.0">FPS monitoring utility for development. Can be used to verify 60fps target during profiling.</package>
+      </category>
+      <category name="React Core">
+        <package name="react" version="^18.3.1">UI library. useEffect, useRef hooks for animation integration.</package>
+        <package name="react-dom" version="^18.3.1">DOM rendering.</package>
+        <package name="react-router-dom" version="^6.26.2">Client-side routing.</package>
+      </category>
+      <category name="Styling &amp; UI">
+        <package name="tailwindcss" version="^3.4.11">Utility-first CSS. Responsive breakpoints: sm(640), md(768), lg(1024), xl(1280), 2xl(1536).</package>
+        <package name="tailwind-merge" version="^2.5.2">cn() utility for className merging.</package>
+        <package name="lucide-react" version="^0.462.0">Icon library used in components.</package>
+        <package name="framer-motion" version="^12.4.2">Micro-interactions (not used for scroll animations per architecture).</package>
+      </category>
+      <category name="Build &amp; Development">
+        <package name="vite" version="^5.4.1">Build tool. Dev server. Code splitting configuration in vite.config.ts.</package>
+        <package name="typescript" version="^5.5.3">Type safety. NOTE: Relaxed config (noImplicitAny: false).</package>
+        <package name="@vitejs/plugin-react-swc" version="^3.5.0">Fast React refresh.</package>
+      </category>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="PERF-1">
+      <title>60fps Animation Target</title>
+      <description>All GSAP animations must maintain 60fps (16.67ms frame budget). Use GPU-accelerated properties only: scaleX, translateY, scale, rotation, opacity. Avoid width, height, top, left (CPU-bound, forces layout reflow).</description>
+    </constraint>
+    <constraint id="PERF-2">
+      <title>Bundle Size Limit</title>
+      <description>Total vendor bundle must stay ≤900kb. Current: 806kb + 73kb GSAP/Lenis = 879kb. Story 1.11 should not add significant JS (testing/profiling only).</description>
+    </constraint>
+    <constraint id="PERF-3">
+      <title>Core Web Vitals</title>
+      <description>LCP &lt; 2.5s, FID &lt; 100ms, CLS &lt; 0.1. Lighthouse Performance ≥80, Best Practices ≥90. NO accessibility score requirement per AD-003.</description>
+    </constraint>
+    <constraint id="CLEAN-1">
+      <title>React Cleanup Pattern</title>
+      <description>MANDATORY: Use gsap.context() with cleanup in useEffect. Return () =&gt; ctx.revert() to kill all animations + ScrollTriggers. Without cleanup, memory leaks occur. All components in Dev Notes checklist already verified.</description>
+    </constraint>
+    <constraint id="LAZY-1">
+      <title>Lazy Loading Pattern</title>
+      <description>Use react-intersection-observer (if available) or Intersection Observer API for lazy loading images. triggerOnce: true, threshold: 0.1. Add loading="lazy" to img tags.</description>
+    </constraint>
+    <constraint id="RESP-1">
+      <title>Responsive Design</title>
+      <description>Mobile-first Tailwind breakpoints: sm(640px), md(768px), lg(1024px), xl(1280px), 2xl(1536px). Test on: iPhone 12 (375x812), iPad (768x1024), Desktop (1920x1080).</description>
+    </constraint>
+    <constraint id="ARCH-1">
+      <title>No Accessibility Requirements</title>
+      <description>Per AD-003 (2025-10-08): WCAG compliance removed from Epic 1. DO NOT implement prefers-reduced-motion, ARIA enhancements, keyboard navigation beyond semantic HTML. Visual impact prioritized over accessibility.</description>
+    </constraint>
+    <constraint id="TEST-1">
+      <title>Manual Testing Only</title>
+      <description>Zero automated tests exist (per CLAUDE.md). All validation must be manual: browser testing (Chrome, Firefox, Safari, mobile), performance profiling (Chrome DevTools), visual QA.</description>
+    </constraint>
+    <constraint id="LENIS-1">
+      <title>Lenis Integration Required</title>
+      <description>Global Lenis smooth scroll wrapper in BriefingEngine.tsx (ReactLenis root). All ScrollTriggers must wait for Lenis ready (use useLenisReady hook or polling pattern from WorkflowTransformation.tsx). Without Lenis ready, ScrollTrigger may not detect scroll events on initial load.</description>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>ReactLenis</name>
+      <kind>Component</kind>
+      <signature>&lt;ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: true }}&gt;</signature>
+      <path>lenis/react</path>
+      <description>Lenis smooth scroll wrapper component. Must wrap entire page for global smooth scrolling. Provides Lenis instance to child components.</description>
+    </interface>
+    <interface>
+      <name>useGSAP</name>
+      <kind>Hook</kind>
+      <signature>useGSAP(() =&gt; { /* GSAP code */ }, [dependencies])</signature>
+      <path>@gsap/react</path>
+      <description>Official GSAP React hook. Auto-cleanup on unmount. Alternative to manual gsap.context() pattern. Used in BriefingEngine.tsx hero animation.</description>
+    </interface>
+    <interface>
+      <name>gsap.context()</name>
+      <kind>Method</kind>
+      <signature>const ctx = gsap.context(() =&gt; { /* animations */ }, containerRef); return () =&gt; ctx.revert()</signature>
+      <path>gsap</path>
+      <description>GSAP scoped context for React cleanup. Collects all animations/ScrollTriggers created inside callback. ctx.revert() kills all and resets DOM. MANDATORY for memory leak prevention.</description>
+    </interface>
+    <interface>
+      <name>ScrollTrigger.create()</name>
+      <kind>Method</kind>
+      <signature>ScrollTrigger.create({ trigger: element, start: "top 75%", once: true, onEnter: () =&gt; {} })</signature>
+      <path>gsap/ScrollTrigger</path>
+      <description>Creates scroll-triggered animation. Must be registered: gsap.registerPlugin(ScrollTrigger). Auto-killed by gsap.context().revert(). Use once: true to prevent re-triggering.</description>
+    </interface>
+    <interface>
+      <name>useLenisReady</name>
+      <kind>Hook</kind>
+      <signature>const ready = useLenisReady(pollInterval?, fallbackDelay?)</signature>
+      <path>src/hooks/useLenisReady.ts</path>
+      <description>Utility hook that returns boolean when window.lenis is available. Prevents race conditions on page load. Used to delay ScrollTrigger setup until Lenis ready.</description>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      **Testing Philosophy:**
+      - Zero automated tests exist (per CLAUDE.md and project standards)
+      - Manual validation only: browser testing, DevTools profiling, visual QA
+      - Performance profiling: Chrome DevTools Performance tab, verify 60fps green bars
+      - Memory leak detection: DevTools Memory tab, heap snapshots before/after unmount
+      - Cross-browser: Chrome, Firefox, Safari (latest versions), mobile (iOS Safari, Chrome Android)
+      - Responsive testing: Chrome DevTools Device Mode, physical devices if available
+
+      **Story 1.11 Specific:**
+      - Lighthouse audit: Run npm run build, then Lighthouse on preview. Verify Performance ≥80, Best Practices ≥90
+      - Core Web Vitals: Use Chrome DevTools Performance Insights, verify LCP &lt; 2.5s, FID &lt; 100ms, CLS &lt; 0.1
+      - Animation frame rate: Record Performance trace during scroll, verify 60fps sustained (green bars, no red frames)
+      - Bundle size: Run npm run build, check dist/assets/vendor.*.js size ≤900kb
+    </standards>
+    <locations>
+      - Manual browser testing: Local dev server (npm run dev → http://localhost:8080)
+      - Production build testing: npm run preview → http://localhost:4173
+      - Chrome DevTools Performance tab: Record 6s trace during scroll
+      - Chrome DevTools Memory tab: Heap snapshots for leak detection
+      - Chrome DevTools Device Mode: Responsive breakpoint testing
+    </locations>
+    <ideas>
+      <test id="PERF-TEST-1" criterion="AC2">
+        <title>Lighthouse Performance Audit</title>
+        <steps>
+          1. Run npm run build
+          2. Run npm run preview
+          3. Open Chrome DevTools → Lighthouse tab
+          4. Run audit: Performance + Best Practices
+          5. Verify: Performance ≥80, Best Practices ≥90
+          6. If failing: Identify bottlenecks (LCP, TTI, bundle size)
+        </steps>
+      </test>
+      <test id="PERF-TEST-2" criterion="AC2">
+        <title>Core Web Vitals Verification</title>
+        <steps>
+          1. Open Chrome DevTools → Performance Insights tab
+          2. Record page load + scroll interaction
+          3. Check Web Vitals section: LCP &lt; 2.5s, FID &lt; 100ms, CLS &lt; 0.1
+          4. If LCP high: Check image sizes, bundle size, render-blocking resources
+          5. If CLS high: Check for layout shifts during animation initialization
+        </steps>
+      </test>
+      <test id="PERF-TEST-3" criterion="AC2">
+        <title>Animation Frame Rate Profiling (60fps Target)</title>
+        <steps>
+          1. Open Chrome DevTools → Performance tab
+          2. Enable "Screenshots" and "Memory" checkboxes
+          3. Record 6-second trace while scrolling through briefing page
+          4. Stop recording, analyze Frame chart
+          5. Verify: Green bars (60fps), no red frames (jank), no yellow frames (partial jank)
+          6. If red frames: Check for layout thrashing (reading offsetWidth, etc. inside animation loop)
+          7. Profile specific components: VisualStylesGallery, BriefingProcessFlow, WorkflowTransformation, AudienceBenefits
+        </steps>
+      </test>
+      <test id="PERF-TEST-4" criterion="AC2">
+        <title>Bundle Size Verification</title>
+        <steps>
+          1. Run npm run build
+          2. Check console output for chunk sizes
+          3. Navigate to dist/assets/ directory
+          4. Find vendor.*.js file, check size (should be ≤900kb)
+          5. Current baseline: 879kb (806kb + 73kb GSAP/Lenis)
+          6. Story 1.11 should NOT increase bundle (testing/profiling only, no new components)
+        </steps>
+      </test>
+      <test id="LAZY-TEST-1" criterion="AC3">
+        <title>Lazy Loading Edge Cases</title>
+        <steps>
+          1. Throttle network to "Slow 3G" in DevTools
+          2. Scroll quickly through page
+          3. Verify: Images load smoothly when entering viewport, no broken images
+          4. Check: Intersection Observer properly detects viewport entry
+          5. Edge case: Rapid scroll past images - should still load eventually
+          6. Check console for any Intersection Observer errors
+        </steps>
+      </test>
+      <test id="RESP-TEST-1" criterion="AC4">
+        <title>Responsive Breakpoint Testing</title>
+        <steps>
+          1. Open Chrome DevTools → Device Mode
+          2. Test viewports: iPhone 12 (375x812), iPad (768x1024), Desktop (1920x1080), Android flagship (412x915)
+          3. Verify: No horizontal scroll, text legible, buttons tappable (44px+ touch targets)
+          4. Check: Animations work smoothly on mobile (no jank on slower devices)
+          5. Grid layouts: VisualStylesGallery (4 cols → 2 cols → 1 col), WorkflowTransformation value cards (2 cols → 1 col)
+          6. Typography scaling: Hero headlines scale down appropriately
+        </steps>
+      </test>
+      <test id="MEM-TEST-1" criterion="IV1">
+        <title>Memory Leak Detection</title>
+        <steps>
+          1. Open Chrome DevTools → Memory tab
+          2. Take heap snapshot (baseline)
+          3. Navigate to briefing page (component mount)
+          4. Let animations complete
+          5. Take heap snapshot (after animations)
+          6. Navigate away from briefing page (component unmount)
+          7. Force garbage collection (trash can icon)
+          8. Take heap snapshot (after unmount)
+          9. Compare heap sizes: Should return to baseline (±5%)
+          10. Check for detached DOM nodes: Should be minimal
+          11. If leaks detected: Check gsap.context().revert() calls in components
+        </steps>
+      </test>
+    </ideas>
+  </tests>
+</story-context>

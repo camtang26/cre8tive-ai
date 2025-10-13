@@ -1,0 +1,634 @@
+<story-context id="story-1.14-context" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>14</storyId>
+    <title>Adaptive Performance Optimization System</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-13</generatedAt>
+    <generator>BMAD Story Context Workflow (Scrum Master Bob)</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-1.14.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>user on any device (high-end desktop, mid-range laptop, or budget mobile)</asA>
+    <iWant>the website animations to automatically adjust to my device's capabilities</iWant>
+    <soThat>I experience smooth performance regardless of my hardware specifications</soThat>
+    <tasks>
+      - Task 1: Device Capability Detection (AC #1)
+        - Create src/utils/performance-adapter.ts with DeviceCapabilities interface
+        - Implement detectGPUTier() using WebGL WEBGL_debug_renderer_info extension
+        - Implement detectConnectionSpeed() using NetworkInformation API
+        - Implement calculatePerformanceTier() scoring algorithm (11-point scale)
+        - Add unit tests (manual browser testing, verify detection accuracy across devices)
+
+      - Task 2: Adaptive Configuration System (AC #2)
+        - Create src/utils/adaptive-config.ts with AdaptiveAnimationConfig interface
+        - Implement getAdaptiveConfig() function with 4 tier configs (high/medium/low/prefers-reduced-motion)
+        - Define particle count thresholds (150/75/0)
+        - Define animation duration multipliers (1.2x/1.0x/0.6x)
+        - Define easing function mappings (power3.out/power2.out/linear)
+
+      - Task 3: Real-Time FPS Monitoring Hook (AC #3)
+        - Create src/hooks/usePerformance.ts with FPSMonitor class
+        - Implement RAF-based frame timing measurement (delta calculation)
+        - Implement rolling 60-frame avgFPS calculation
+        - Create src/hooks/useAdaptivePerformance.ts hook for React integration
+        - Implement degradation logic (3 consecutive drops → tier downgrade)
+        - Implement recovery logic (FPS > 45 → reset counter)
+
+      - Task 4: ParticleCore Adaptive Integration (AC #4)
+        - Update src/components/briefing/ParticleCore.tsx to import performance-adapter + adaptive-config
+        - Initialize config state on mount using getAdaptiveConfig(detectDeviceCapabilities())
+        - Integrate useAdaptivePerformance hook to listen for tier changes
+        - Update config when qualityLevel changes (useEffect dependency)
+        - Apply config.particleCount to particle array initialization
+        - Apply config.enableBlur/enableShadows in drawParticle function
+        - Return null early if config.enableParticles === false
+
+      - Task 5: GSAP Animation Adaptive Integration (AC #5)
+        - Update src/components/briefing/BriefToStoryboardAnimation.tsx
+        - Load adaptive config on mount (useState + detectDeviceCapabilities)
+        - Apply config.animationDuration to gsap.to() duration parameter
+        - Apply config.ease to gsap.to() ease parameter
+        - Update WorkflowTransformation.tsx (same pattern)
+        - Verify gsap.context() cleanup still functions correctly
+
+      - Task 6: Build-Time Performance Budget Plugin (AC #6)
+        - Update vite.config.ts to add performance-budget plugin
+        - Implement closeBundle() hook to read dist/assets/ directory
+        - Find vendor.*.js file and calculate size in KB
+        - Throw Error if size > 900kb (build fails)
+        - Log success message with size if under limit
+
+      - Task 7: CSS Performance Optimizations (AC #7)
+        - Update src/index.css to add .animated-element class
+        - Add .gpu-optimized class with GPU hints
+        - Add @media (prefers-reduced-motion: reduce) block
+        - Add .lazy-section class with content-visibility
+        - Apply classes to relevant components (ParticleCore, WorkflowTransformation, BriefToStoryboardAnimation)
+
+      - Task 8: Manual Testing & Validation (AC #1-7)
+        - Test device detection accuracy on 3 device tiers (high/medium/low)
+        - Verify FPS monitoring triggers degradation after 3 low frames
+        - Test ParticleCore particle count changes (150 → 75 → 0)
+        - Test GSAP animation duration adjustments (1.2s → 1.0s → 0.6s)
+        - Test prefers-reduced-motion behavior (instant transitions)
+        - Verify build fails if vendor bundle > 900kb (simulate by adding large dependency)
+        - Run Lighthouse audit (Performance ≥80, Best Practices ≥90)
+        - Profile FPS with Chrome DevTools (verify 60fps sustained after adaptive optimization)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1" priority="P0">
+      <title>Device Capability Detection System</title>
+      <description>
+        Detect device performance characteristics using Web APIs and classify into performance tiers.
+      </description>
+      <details>
+        - GPU tier detection via WebGL (discrete/integrated/software renderer)
+        - CPU detection via navigator.hardwareConcurrency (cores count)
+        - Memory detection via navigator.deviceMemory (GB available)
+        - Network speed detection via NetworkInformation API (4g/3g/2g)
+        - Performance tier classification: high (score ≥9), medium (score ≥6), low (score &lt;6)
+        - Respect prefers-reduced-motion preference (disable all animations)
+      </details>
+      <testStrategy>Manual browser testing on 3+ devices with varying specs (high/medium/low tier). Verify correct tier classification using console logging. Test prefers-reduced-motion in system preferences.</testStrategy>
+    </criterion>
+
+    <criterion id="AC2" priority="P0">
+      <title>Adaptive Configuration System</title>
+      <description>
+        Provide different animation quality configurations based on detected performance tier.
+      </description>
+      <details>
+        High-tier: 150 particles, blur enabled, shadows enabled, 1.2s duration, power3.out easing, 60fps target
+        Medium-tier: 75 particles (50% reduction), blur disabled, shadows disabled, 1.0s duration, power2.out easing, 60fps target
+        Low-tier: 0 particles (disabled), no blur/shadows, 0.6s duration, linear easing, 30fps acceptable
+        prefers-reduced-motion: duration 0, all animations disabled
+      </details>
+      <testStrategy>Manual verification of animation complexity adjustments. Measure particle counts, duration timing, and visual effects across tiers using Chrome DevTools.</testStrategy>
+    </criterion>
+
+    <criterion id="AC3" priority="P0">
+      <title>Real-Time FPS Monitoring & Adaptive Degradation</title>
+      <description>
+        Monitor frame rate in real-time and automatically degrade quality when performance drops.
+      </description>
+      <details>
+        - Custom React hook (useAdaptivePerformance) using requestAnimationFrame
+        - Calculate avgFPS over rolling 60-frame window (1 second at 60fps)
+        - Detect sustained performance drops (FPS &lt; 45 threshold)
+        - Automatic quality degradation after 3 consecutive low FPS measurements (high → medium → low)
+        - Reset degradation counter when FPS recovers above 45
+        - Console logging of tier changes (dev mode only)
+      </details>
+      <testStrategy>Simulate performance degradation by CPU throttling in Chrome DevTools. Verify automatic tier downgrade after 3 consecutive low FPS readings. Check console logs for degradation events.</testStrategy>
+    </criterion>
+
+    <criterion id="AC4" priority="P0">
+      <title>ParticleCore Integration</title>
+      <description>
+        Apply adaptive configuration to ParticleCore canvas particle system.
+      </description>
+      <details>
+        - Load adaptive config on component mount based on detected tier
+        - Update config dynamically when quality tier changes (FPS monitoring)
+        - Skip Canvas rendering entirely if enableParticles === false (low-tier/prefers-reduced-motion)
+        - Apply conditional blur (ctx.filter) and shadows (ctx.shadowBlur) based on config
+        - Log quality adjustments: [ParticleCore] Quality adjusted to ${tier}
+      </details>
+      <testStrategy>Visual inspection of particle system behavior across tiers. Verify particle count changes (150/75/0). Confirm canvas not rendered when enableParticles is false. Check console logs.</testStrategy>
+    </criterion>
+
+    <criterion id="AC5" priority="P0">
+      <title>GSAP Animation Integration</title>
+      <description>
+        Apply adaptive durations and easing to GSAP scroll animations.
+      </description>
+      <details>
+        - Apply adaptive durations to BriefToStoryboardAnimation ScrollTrigger animations
+        - Apply adaptive easing functions (power3.out → power2.out → linear) based on tier
+        - WorkflowTransformation master timeline respects adaptive config
+        - All animations maintain gsap.context() cleanup patterns
+        - No changes to animation choreography (only timing and easing)
+      </details>
+      <testStrategy>Measure animation durations across tiers using Chrome DevTools Performance timeline. Verify timing matches config (1.2s/1.0s/0.6s). Confirm easing functions applied correctly by visual inspection of animation curves.</testStrategy>
+    </criterion>
+
+    <criterion id="AC6" priority="P1">
+      <title>Build-Time Performance Budget Enforcement</title>
+      <description>
+        Add Vite plugin to enforce 900kb vendor bundle size limit at build time.
+      </description>
+      <details>
+        - Vite plugin: performance-budget
+        - Enforce 900kb vendor bundle limit
+        - Build fails with error message if limit exceeded
+        - Log successful build with bundle size: ✅ Vendor bundle: XXXkb (under 900kb limit)
+        - No impact on development server (build-only check)
+      </details>
+      <testStrategy>Run npm run build and verify success message with current bundle size (~805kb). Simulate exceeding limit by temporarily adding large dependency - verify build fails with appropriate error.</testStrategy>
+    </criterion>
+
+    <criterion id="AC7" priority="P1">
+      <title>CSS Performance Optimizations</title>
+      <description>
+        Add CSS classes for GPU acceleration and accessibility support.
+      </description>
+      <details>
+        - .animated-element class: will-change: transform, opacity + contain: layout style paint
+        - .gpu-optimized class: transform: translateZ(0) + backface-visibility: hidden
+        - @media (prefers-reduced-motion: reduce): Force instant transitions (animation-duration: 0.01ms)
+        - .lazy-section class: content-visibility: auto + contain-intrinsic-size: 0 500px
+      </details>
+      <testStrategy>Inspect elements in DevTools to verify CSS classes applied. Test prefers-reduced-motion in OS preferences and confirm instant transitions. Verify GPU layer promotion using Chrome DevTools Layers panel.</testStrategy>
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc id="doc-1">
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1 - AI Briefing Engine Page Redesign</title>
+        <section>Performance Constraints Alignment (lines 83-87)</section>
+        <snippet>
+          Bundle budget: 879kb target (current 806kb + 73kb GSAP/Lenis)
+          Targets Lighthouse Performance 80+, Best Practices 90+
+          GPU-optimized transforms (scaleX, translateY, opacity) for 60fps on modern devices
+          Lazy loading patterns for below-fold components
+        </snippet>
+        <relevance>Defines performance baseline and bundle budget that adaptive system must maintain. Story 1.14 must stay within 900kb limit.</relevance>
+      </doc>
+
+      <doc id="doc-2">
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1</title>
+        <section>Animation Architecture Alignment (lines 64-69)</section>
+        <snippet>
+          Extends existing GSAP ScrollTrigger patterns (Pattern 1: Basic Scroll-Triggered, Pattern 4: Stagger)
+          Maintains Lenis smooth scroll foundation (wraps entire app, provides scroll events to GSAP)
+          Preserves clear separation: GSAP for scroll-driven macro animations, Framer Motion for micro-interactions
+        </snippet>
+        <relevance>Establishes GSAP/Lenis animation architecture that Story 1.14 must integrate with. Adaptive system adjusts timing/easing without breaking existing patterns.</relevance>
+      </doc>
+
+      <doc id="doc-3">
+        <path>docs/stories/story-1.11.md</path>
+        <title>Story 1.11: Performance Optimization & Responsive Testing</title>
+        <section>Completion Notes (lines 192-215)</section>
+        <snippet>
+          Performance test infrastructure in test/performance/ directory
+          Lighthouse: Performance 89, Best Practices 96, avgFPS 59.53
+          GPU stall warnings in ParticleCore (ReadPixels operations)
+          Cameron's mandate: "Website needs to run flawlessly and smooth on every single device regardless of device specs"
+        </snippet>
+        <relevance>Story 1.11 identified GPU stalls in ParticleCore and established performance baseline. Story 1.14 solves device-agnostic performance via adaptive particle count.</relevance>
+      </doc>
+
+      <doc id="doc-4">
+        <path>docs/stories/story-1.11.md</path>
+        <title>Story 1.11: Performance Optimization & Responsive Testing</title>
+        <section>Manual Testing Results (lines 498-507)</section>
+        <snippet>
+          GPU stall due to ReadPixels (4 occurrences)
+          Context: briefing-engine page, ParticleCore Canvas particle system
+          Impact: Low severity - GPU stalls indicate minor performance pressure during particle rendering but do not block functionality
+          Recommendation: Consider throttling particle spawn rate or reducing max particle count from 150 to 100
+        </snippet>
+        <relevance>Provides evidence for adaptive particle count requirement. Story 1.14 implements dynamic adjustment (150/75/0) based on device capability.</relevance>
+      </doc>
+
+      <doc id="doc-5">
+        <path>CLAUDE.md</path>
+        <title>Project Instructions - Cre8tive AI Website</title>
+        <section>Code Structure</section>
+        <snippet>
+          Max 500 LOC/file, 50 lines/function, 100 lines/class
+          Organize by feature, not type
+          Types FIRST before implementation
+          No TODO typings or unjustified any
+        </snippet>
+        <relevance>Enforces file size and code organization constraints for new utility files (performance-adapter.ts, adaptive-config.ts, usePerformance.ts).</relevance>
+      </doc>
+
+      <doc id="doc-6">
+        <path>CLAUDE.md</path>
+        <title>Project Instructions</title>
+        <section>Definition of Done</section>
+        <snippet>
+          Browser test (Chrome, Firefox, Safari, mobile)
+          npm run build passes
+          npm run lint passes (errors only, warnings OK)
+          Visual QA (design, animations, responsive)
+          TypeScript compiles clean (no type errors)
+          GSAP/Lenis animations tested (smooth 60fps, no jank)
+          Accessibility verified (keyboard nav, focus management, prefers-reduced-motion)
+        </snippet>
+        <relevance>Testing standards Story 1.14 must satisfy. Includes prefers-reduced-motion requirement which AC1 addresses.</relevance>
+      </doc>
+    </docs>
+
+    <code>
+      <artifact id="code-1">
+        <path>src/components/briefing/ParticleCore.tsx</path>
+        <kind>component</kind>
+        <symbol>ParticleCore</symbol>
+        <lines>1-200</lines>
+        <reason>Canvas particle system that Story 1.14 must integrate adaptive configuration into. Current implementation creates fixed 150 particles. Needs dynamic particle count (150/75/0) based on tier.</reason>
+      </artifact>
+
+      <artifact id="code-2">
+        <path>src/components/briefing/BriefToStoryboardAnimation.tsx</path>
+        <kind>component</kind>
+        <symbol>BriefToStoryboardAnimation</symbol>
+        <lines>1-150</lines>
+        <reason>GSAP ScrollTrigger animations for storyboard frames. Story 1.14 must apply adaptive durations (1.2s/1.0s/0.6s) and easing (power3/power2/linear) to gsap.to() calls.</reason>
+      </artifact>
+
+      <artifact id="code-3">
+        <path>src/components/briefing/WorkflowTransformation.tsx</path>
+        <kind>component</kind>
+        <symbol>WorkflowTransformation</symbol>
+        <lines>1-300</lines>
+        <reason>Master timeline choreography component. Story 1.14 must integrate adaptive config for timing adjustments while preserving sequential reveal choreography.</reason>
+      </artifact>
+
+      <artifact id="code-4">
+        <path>vite.config.ts</path>
+        <kind>configuration</kind>
+        <symbol>defineConfig</symbol>
+        <lines>1-50</lines>
+        <reason>Vite build configuration where performance-budget plugin (AC6) will be added. Plugin enforces 900kb vendor bundle limit.</reason>
+      </artifact>
+
+      <artifact id="code-5">
+        <path>src/index.css</path>
+        <kind>stylesheet</kind>
+        <symbol>global styles</symbol>
+        <lines>1-100</lines>
+        <reason>Global CSS where performance optimization classes (AC7) will be added: .animated-element, .gpu-optimized, @media (prefers-reduced-motion).</reason>
+      </artifact>
+
+      <artifact id="code-6">
+        <path>test/performance/run-tests.ts</path>
+        <kind>test orchestrator</kind>
+        <symbol>runPerformanceTests</symbol>
+        <lines>1-100</lines>
+        <reason>Performance test infrastructure from Story 1.11. Story 1.14's adaptive system should maintain/improve test results (Lighthouse 89, avgFPS 59.53).</reason>
+      </artifact>
+    </code>
+
+    <dependencies>
+      <node>
+        <package name="react" version="^18.3.1" />
+        <package name="react-dom" version="^18.3.1" />
+        <package name="typescript" version="^5.5.3" />
+        <package name="vite" version="^5.4.1" />
+        <package name="gsap" version="^3.13.0" />
+        <package name="@gsap/react" version="^2.1.2" />
+        <package name="lenis" version="^1.3.11" />
+        <package name="tailwindcss" version="^3.4.11" />
+      </node>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="PERF-1" type="performance">
+      <title>Bundle Size Budget</title>
+      <description>Total vendor bundle must remain under 900kb. Current baseline: 805.86kb (10.5% headroom). Story 1.14 estimated impact: +5-8kb for new utilities.</description>
+      <rationale>Performance budget ensures fast page load. Adaptive system adds minimal code weight.</rationale>
+    </constraint>
+
+    <constraint id="PERF-2" type="performance">
+      <title>60fps Animation Target</title>
+      <description>All GSAP animations must sustain 60fps on high-tier devices, 30fps minimum acceptable on low-tier. Use GPU-accelerated properties only (scaleX, translateY, opacity).</description>
+      <rationale>Smooth animations critical for premium user experience. Adaptive system maintains performance across device tiers.</rationale>
+    </constraint>
+
+    <constraint id="PERF-3" type="performance">
+      <title>Core Web Vitals Compliance</title>
+      <description>Maintain Lighthouse Performance ≥80, Best Practices ≥90. Core Web Vitals: INP &lt;200ms, LCP &lt;2.5s, CLS &lt;0.1.</description>
+      <rationale>Story 1.11 established baseline (Lighthouse 89). Story 1.14 must maintain or improve these scores via adaptive optimization.</rationale>
+    </constraint>
+
+    <constraint id="ARCH-1" type="architecture">
+      <title>GSAP Pattern Preservation</title>
+      <description>Maintain gsap.context() cleanup patterns, ScrollTrigger configuration, Lenis integration. Adaptive system adjusts timing/easing only, not choreography.</description>
+      <rationale>Existing animation architecture is robust. Story 1.14 enhances without breaking established patterns.</rationale>
+    </constraint>
+
+    <constraint id="ARCH-2" type="architecture">
+      <title>React Hooks Pattern</title>
+      <description>Use useRef for RAF IDs and mutable state (not bound to React lifecycle). Use useState for config state triggering re-renders. Use useEffect for cleanup.</description>
+      <rationale>Standard React patterns for performance-sensitive code. Research identified useRef best practice for RAF loops.</rationale>
+    </constraint>
+
+    <constraint id="CODE-1" type="coding-standard">
+      <title>File Size Limits</title>
+      <description>Max 500 LOC/file, 50 lines/function, 100 lines/class. New files: performance-adapter.ts, adaptive-config.ts, usePerformance.ts must comply.</description>
+      <rationale>Enforced by project CLAUDE.md standards. Ensures maintainability.</rationale>
+    </constraint>
+
+    <constraint id="CODE-2" type="coding-standard">
+      <title>TypeScript Strictness</title>
+      <description>Types FIRST before implementation. No any types without justification. All interfaces documented with JSDoc comments.</description>
+      <rationale>Project standard for type safety. DeviceCapabilities, AdaptiveAnimationConfig interfaces must be fully typed.</rationale>
+    </constraint>
+
+    <constraint id="A11Y-1" type="accessibility">
+      <title>prefers-reduced-motion Compliance</title>
+      <description>Must respect prefers-reduced-motion OS preference. When enabled: animationDuration = 0, particleCount = 0, enableParticles = false.</description>
+      <rationale>Accessibility best practice per research + project DoD. Highest priority override in adaptive config.</rationale>
+    </constraint>
+
+    <constraint id="TEST-1" type="testing">
+      <title>Manual Testing Only</title>
+      <description>Zero automated tests exist (per project standards). All validation via manual browser testing with Chrome DevTools profiling.</description>
+      <rationale>Project constraint: "Zero tests exist, manual only" (CLAUDE.md). Story 1.14 follows established pattern.</rationale>
+    </constraint>
+
+    <constraint id="COMPAT-1" type="compatibility">
+      <title>Browser Compatibility</title>
+      <description>Modern browsers only (last 2 versions): Chrome 120+, Firefox 120+, Safari 17+, Edge 120+. No IE11 support.</description>
+      <rationale>Project uses ES6+, CSS Grid, backdrop-filter. Web APIs (navigator.deviceMemory, WebGL) have limited support - graceful fallbacks required.</rationale>
+    </constraint>
+
+    <constraint id="COMPAT-2" type="compatibility">
+      <title>Web API Availability</title>
+      <description>navigator.deviceMemory only in Chromium browsers (not Firefox/Safari). navigator.hardwareConcurrency widely supported. Provide fallback defaults when APIs unavailable.</description>
+      <rationale>Research identified Chromium-only limitation. Adaptive system must function with degraded detection on non-Chromium browsers.</rationale>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface id="IF-1">
+      <name>DeviceCapabilities</name>
+      <kind>TypeScript Interface</kind>
+      <signature>
+        interface DeviceCapabilities {
+          tier: 'high' | 'medium' | 'low';
+          gpu: 'discrete' | 'integrated' | 'software';
+          memory: number; // GB
+          cores: number;
+          connectionSpeed: 'fast' | 'medium' | 'slow';
+          reducedMotion: boolean;
+        }
+      </signature>
+      <path>src/utils/performance-adapter.ts</path>
+      <description>Device capability detection result returned by detectDeviceCapabilities(). Used to determine performance tier.</description>
+    </interface>
+
+    <interface id="IF-2">
+      <name>AdaptiveAnimationConfig</name>
+      <kind>TypeScript Interface</kind>
+      <signature>
+        interface AdaptiveAnimationConfig {
+          particleCount: number;
+          enableBlur: boolean;
+          enableShadows: boolean;
+          animationDuration: number;
+          ease: string;
+          fpsCap: number;
+          enableParticles: boolean;
+        }
+      </signature>
+      <path>src/utils/adaptive-config.ts</path>
+      <description>Animation quality configuration for a specific performance tier. Returned by getAdaptiveConfig(capabilities).</description>
+    </interface>
+
+    <interface id="IF-3">
+      <name>useAdaptivePerformance</name>
+      <kind>React Hook</kind>
+      <signature>
+        function useAdaptivePerformance(): 'high' | 'medium' | 'low'
+      </signature>
+      <path>src/hooks/useAdaptivePerformance.ts</path>
+      <description>React hook that monitors FPS in real-time and returns current quality level. Automatically degrades tier when FPS drops below 45 for 3 consecutive measurements.</description>
+    </interface>
+
+    <interface id="IF-4">
+      <name>gsap.context()</name>
+      <kind>GSAP API</kind>
+      <signature>
+        gsap.context(scope: RefObject | Element | null, config?: object): ContextFunc
+      </signature>
+      <path>node_modules/gsap</path>
+      <description>GSAP context scoping for React cleanup. All Story 1.14 GSAP animations must use this pattern. Returns cleanup function for useEffect.</description>
+    </interface>
+
+    <interface id="IF-5">
+      <name>window.matchMedia()</name>
+      <kind>Web API</kind>
+      <signature>
+        window.matchMedia(mediaQueryString: string): MediaQueryList
+      </signature>
+      <path>Web Standard</path>
+      <description>Used to detect prefers-reduced-motion: window.matchMedia('(prefers-reduced-motion: reduce)').matches returns boolean.</description>
+    </interface>
+
+    <interface id="IF-6">
+      <name>navigator.deviceMemory</name>
+      <kind>Web API</kind>
+      <signature>
+        navigator.deviceMemory: number | undefined
+      </signature>
+      <path>Web Standard (Chromium only)</path>
+      <description>Returns approximate device RAM in GB (0.25, 0.5, 1, 2, 4, or 8). Only available in Chromium browsers. Fallback to 4 if unavailable.</description>
+    </interface>
+
+    <interface id="IF-7">
+      <name>navigator.hardwareConcurrency</name>
+      <kind>Web API</kind>
+      <signature>
+        navigator.hardwareConcurrency: number | undefined
+      </signature>
+      <path>Web Standard</path>
+      <description>Returns number of logical CPU cores. Widely supported. Fallback to 2 if unavailable.</description>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Project has zero automated tests (per CLAUDE.md: "Zero tests exist, manual only"). All validation performed via manual browser testing with Chrome DevTools profiling. Key tools: Performance tab (frame rate, timeline), Memory tab (heap snapshots), Network tab (resource loading), Lighthouse audit (Performance ≥80, Best Practices ≥90). Performance test infrastructure exists (test/performance/) but runs Playwright-driven Lighthouse audits - not unit tests.
+    </standards>
+
+    <locations>
+      test/performance/ - Lighthouse audit, Core Web Vitals extraction, frame rate profiling
+      Manual testing: Chrome DevTools, Firefox DevTools, Safari Web Inspector
+      No unit test framework installed (no Jest, Vitest, Mocha)
+    </locations>
+
+    <ideas>
+      <test id="TEST-1" criterion="AC1">
+        <name>Device Detection Accuracy Test</name>
+        <description>
+          Manual test on 3 device tiers:
+          1. High-tier: Desktop with discrete GPU (NVIDIA/AMD), 8+ cores, 8+ GB RAM
+          2. Medium-tier: Laptop with integrated GPU (Intel Iris), 4 cores, 8 GB RAM
+          3. Low-tier: Budget mobile (2-3 years old), 2-4 cores, 2-4 GB RAM
+
+          For each device:
+          - Open console, call detectDeviceCapabilities()
+          - Verify gpu tier matches expectations (discrete/integrated/software)
+          - Verify cores count matches actual CPU
+          - Verify memory approximates actual RAM
+          - Verify connectionSpeed reflects network (4g/wifi = fast)
+          - Verify tier classification (high ≥9, medium ≥6, low &lt;6)
+          - Test prefers-reduced-motion in OS settings, verify reducedMotion: true
+        </description>
+        <priority>P0</priority>
+      </test>
+
+      <test id="TEST-2" criterion="AC3">
+        <name>FPS Monitoring & Degradation Test</name>
+        <description>
+          Manual test with CPU throttling:
+          1. Open briefing-engine page in Chrome DevTools
+          2. Performance tab → CPU throttling → 6x slowdown
+          3. Scroll to ParticleCore section (trigger animations)
+          4. Monitor console for degradation logs: "[ParticleCore] Quality adjusted to medium"
+          5. Verify particle count reduces (150 → 75 visible particles)
+          6. Continue scrolling, verify second degradation: "Quality adjusted to low"
+          7. Particle count reduces to 0 (canvas not rendered)
+          8. Remove CPU throttle, scroll away and back
+          9. Verify FPS recovers, degradation counter resets (but tier stays low until page reload)
+
+          Expected: 3 consecutive FPS &lt; 45 readings trigger one tier downgrade. Log messages in console.
+        </description>
+        <priority>P0</priority>
+      </test>
+
+      <test id="TEST-3" criterion="AC4,AC5">
+        <name>Adaptive Animation Integration Test</name>
+        <description>
+          Manual test across quality tiers:
+          1. Simulate high-tier device (no throttle, fast network)
+             - ParticleCore: Verify 150 particles rendered
+             - BriefToStoryboardAnimation: Measure duration ≈1.2s per frame (Performance timeline)
+             - Verify blur/shadows applied (Inspect element → ctx.filter, ctx.shadowBlur)
+
+          2. Simulate medium-tier (4x CPU throttle OR set deviceMemory=4, cores=4 in console override)
+             - Verify 75 particles (50% reduction)
+             - Measure duration ≈1.0s per frame
+             - Verify no blur/shadows (ctx.filter = 'none')
+
+          3. Simulate low-tier (6x CPU throttle OR set deviceMemory=2, cores=2)
+             - Verify 0 particles (canvas returns null early)
+             - Measure duration ≈0.6s per frame
+             - Verify linear easing (no bounce/overshoot in animation curve)
+
+          4. Enable prefers-reduced-motion in OS settings
+             - Verify instant transitions (duration ≈0ms)
+             - Verify no particles rendered
+             - Verify no GSAP animations fire (static content only)
+        </description>
+        <priority>P0</priority>
+      </test>
+
+      <test id="TEST-4" criterion="AC6">
+        <name>Build-Time Bundle Limit Test</name>
+        <description>
+          Manual test of performance-budget plugin:
+          1. Run `npm run build` with current codebase
+             - Verify success log: "✅ Vendor bundle: 805.86kb (under 900kb limit)"
+
+          2. Simulate exceeding limit:
+             - Temporarily add large dependency: `npm install --save-dev lodash` (full build, not tree-shaken)
+             - Run `npm run build`
+             - Verify build FAILS with error: "Vendor bundle too large: XXXkb (limit: 900kb)"
+             - Build process exits with non-zero code
+
+          3. Remove large dependency: `npm uninstall lodash`
+             - Re-run `npm run build`
+             - Verify success again
+        </description>
+        <priority>P1</priority>
+      </test>
+
+      <test id="TEST-5" criterion="AC7">
+        <name>CSS Performance Class Application Test</name>
+        <description>
+          Manual test of CSS optimizations:
+          1. Inspect ParticleCore canvas element in DevTools
+             - Verify class="animated-element gpu-optimized" applied
+             - Computed styles show: will-change: transform, opacity
+             - Computed styles show: transform: translateZ(0)
+             - Layers panel (Chrome DevTools) shows GPU layer created
+
+          2. Enable prefers-reduced-motion in OS
+             - Reload page
+             - Inspect any animated element
+             - Computed styles show: animation-duration: 0.01ms (from @media rule)
+
+          3. Inspect lazy-loaded section (e.g., VisualStylesGallery)
+             - Verify class="lazy-section" applied
+             - Computed styles show: content-visibility: auto
+             - Computed styles show: contain-intrinsic-size: 0 500px
+        </description>
+        <priority>P1</priority>
+      </test>
+
+      <test id="TEST-6" criterion="AC1-AC7">
+        <name>Lighthouse Performance Audit Test</name>
+        <description>
+          Manual Lighthouse audit after Story 1.14 implementation:
+          1. Run `npm run build && npm run preview`
+          2. Open http://localhost:4173 in Chrome (Incognito mode)
+          3. Open DevTools → Lighthouse tab
+          4. Select: Performance, Best Practices, Desktop
+          5. Click "Analyze page load"
+          6. Verify scores:
+             - Performance ≥80 (ideally maintain 89 from Story 1.11)
+             - Best Practices ≥90 (ideally maintain 96 from Story 1.11)
+             - INP &lt;200ms (via Performance Insights tab)
+             - LCP &lt;2.5s
+             - CLS &lt;0.1
+
+          If scores drop: Investigate performance regressions in adaptive system code. Likely culprits: excessive state updates, RAF loop overhead, config recalculations.
+        </description>
+        <priority>P0</priority>
+      </test>
+    </ideas>
+  </tests>
+</story-context>

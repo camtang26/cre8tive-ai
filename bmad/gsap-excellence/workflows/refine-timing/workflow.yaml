@@ -1,0 +1,45 @@
+# Refine Timing Workflow - GSAP Excellence Engine
+# Polish animation timing and easing curves
+# Agent: Editor
+# Complexity: Simple
+
+name: refine-timing
+description: "Polish animation timing, adjust easing curves, perfect choreography"
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "simple"
+
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+agents:
+  primary: "gsap-editor"
+
+installed_path: "{module_root}/workflows/refine-timing"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+default_output_file: "{output_folder}/gsap-timing-refinement-{{date}}.md"
+
+inputs:
+  animation_code:
+    description: "Animation code to refine"
+    required: true
+
+  timing_issues:
+    description: "What feels wrong? (too fast, too slow, robotic, awkward)"
+    required: false
+
+outputs:
+  refined_code:
+    format: "Animation with refined timing and easing"
+
+  timing_analysis:
+    format: "Analysis of timing improvements"
+
+estimated_duration: "10-15 minutes"

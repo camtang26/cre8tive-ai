@@ -6,7 +6,7 @@ import { ReactLenis } from "lenis/react";
 import { VisualStylesGallery } from "@/components/briefing/VisualStylesGallery";
 import { BriefingCTA } from "@/components/briefing/BriefingCTA";
 import { MidPageCTA } from "@/components/briefing/MidPageCTA";
-import { FadeIn } from "@/components/shared/FadeIn";
+import { GsapFadeIn } from "@/components/shared/GsapFadeIn";
 import { BriefToStoryboardAnimation } from "@/components/briefing/BriefToStoryboardAnimation";
 import { AudienceBenefits } from "@/components/briefing/AudienceBenefits";
 import { BriefingProcessFlow } from "@/components/briefing/BriefingProcessFlow";
@@ -200,23 +200,23 @@ const BriefingEngine = () => {
           {/* Transformation Animation - OUTSIDE hero section to prevent blue bar bleed */}
           <BriefToStoryboardAnimation />
 
-          <FadeIn>
+          <GsapFadeIn>
             <VisualStylesGallery />
-          </FadeIn>
+          </GsapFadeIn>
 
           <BriefingProcessFlow />
 
-          <FadeIn>
+          <GsapFadeIn>
             <MidPageCTA />
-          </FadeIn>
+          </GsapFadeIn>
 
           <WorkflowTransformation />
 
           <AudienceBenefits />
 
-          <FadeIn>
+          <GsapFadeIn>
             <BriefingCTA />
-          </FadeIn>
+          </GsapFadeIn>
         </main>
         </PageLayout>
       </div>

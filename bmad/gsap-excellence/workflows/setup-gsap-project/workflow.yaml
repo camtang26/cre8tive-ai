@@ -1,0 +1,106 @@
+# Setup GSAP Project Workflow - GSAP Excellence Engine
+# Initialize GSAP with best practices and optimal configuration
+# Agent: VFX Artist (or Tech Director in Phase 2)
+# Complexity: Simple
+
+name: setup-gsap-project
+description: "Initialize GSAP in your project with best practices, optimal configuration, and proper structure for premium animations."
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "simple"
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers used
+mcp_servers:
+  context7:
+    tools: ["resolve-library-id", "get-library-docs"]
+    purpose: "Fetch latest GSAP installation and setup documentation"
+
+# Agents involved
+agents:
+  primary: "gsap-vfx"  # VFX Artist handles setup in MVP
+  phase2: "gsap-tech-director"  # Tech Director will own this in Phase 2
+
+# Module path and component files
+installed_path: "{module_root}/workflows/setup-gsap-project"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+# Output configuration - Setup guide + configuration files
+default_output_file: "{output_folder}/gsap-setup-{{project_name}}-{{date}}.md"
+
+# Workflow inputs
+inputs:
+  project_name:
+    description: "Project name"
+    required: true
+
+  project_type:
+    description: "Project type: vanilla, react, vue, svelte, next, vite"
+    required: true
+    options: ["vanilla", "react", "vue", "svelte", "next", "vite", "other"]
+
+  bundler:
+    description: "Bundler/build tool: webpack, vite, rollup, parcel, esbuild, none"
+    required: false
+    default: "vite"
+
+  typescript:
+    description: "Using TypeScript?"
+    required: false
+    default: false
+
+  plugins_needed:
+    description: "Which GSAP plugins to include?"
+    required: false
+    options: ["ScrollTrigger", "Draggable", "SplitText", "MorphSVG", "MotionPathPlugin", "ScrollSmoother"]
+    multiple: true
+
+# Expected outputs
+outputs:
+  installation_commands:
+    format: "npm/yarn commands to install GSAP and plugins"
+
+  configuration_files:
+    format: "Config files for bundler, TypeScript, etc."
+
+  project_structure:
+    format: "Recommended folder structure for animations"
+
+  example_code:
+    format: "Basic animation setup example"
+
+  setup_checklist:
+    format: "Validation checklist to ensure correct setup"
+
+# Success criteria
+success_criteria:
+  - "GSAP installed successfully"
+  - "Plugins configured correctly"
+  - "Build tool integration working"
+  - "TypeScript types available (if applicable)"
+  - "Example animation runs"
+  - "Folder structure established"
+
+# Integration
+feeds_into:
+  - "creative-ideation"  # Ready to create animations
+  - "implement-from-pattern"  # Ready to implement patterns
+  - "research-gsap-pattern"  # Project configured for research
+
+# Performance targets
+estimated_duration: "5-10 minutes"
+phases:
+  requirements_gathering: "1-2 min"
+  gsap_docs_fetch: "1 min"
+  installation_guide: "2-3 min"
+  configuration: "2-3 min"
+  validation: "1-2 min"

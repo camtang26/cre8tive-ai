@@ -1,23 +1,51 @@
 # Cre8tive AI Website - BMAD Mode
 
-**Project:** Cre8tive AI Website (React/TS/Vite) | **BMAD:** v6.0.0-alpha.0 | **Updated:** 2025-10-07
+**Project:** A modern, high-performance marketing website for Cre8tive AI, showcasing AI-powered video production, autonomous agents, and conversational AI solutions. Built with React, TypeScript, and Tailwind CSS. | **BMAD:** v6.0.0-alpha.0 | **Updated:** 2025-10-13
 
 ## 🔍 Tooling (Universal)
 
+**Claude Code Built-in Tools Status** (as of 2025-10-13):
+- ❌ **Grep tool**: DENIED (50% failure rate per GH#5256) → Use `rg` via Bash
+- ✅ **Glob tool**: ENABLED (tested safe, GH#8973 not reproducible in v2.0.14)
+- ✅ **Read/Edit/Write**: Reliable, use as normal
+
+**Core Search Tools** (optimized versions in ~/.local/bin):
+
 ```bash
-# Search (NEVER use grep)
-rg "pattern"              # Content search
-rg --files | rg "name"    # Find files
-rg -t python "def"        # Language filter
+# Content Search (ripgrep 14.1.0 with ~/.ripgreprc auto-config)
+rg "pattern"                    # Smart case, auto-excludes node_modules/dist
+rg -t typescript "interface"    # Language-specific search
+rg -i "TODO|FIXME"             # Case-insensitive, multiple patterns
+rg --files-with-matches "bug"   # Just filenames (token efficient)
+rg -A 3 -B 3 "error"           # Context lines (3 before/after)
 
-# File discovery
-fd pattern                # Respects .gitignore
+# File Discovery (fd 10.2.0, respects .gitignore + .claudeignore)
+fd "\.ts$"                      # Find TypeScript files
+fd -t f -e md docs/            # Type filter + extension in specific dir
+fd -H "config"                 # Include hidden files
+fd --max-depth 2 "package"     # Limit search depth
 
-# JSON
-jq '.key' file.json       # Parse/transform
+# JSON Processing
+jq '.key' file.json            # Parse/transform
+jq -r '.items[] | .name'       # Raw output, array iteration
+
+# Git Diff (delta 0.18.2 for beautiful diffs)
+git diff | delta               # Syntax-highlighted diff
+git log -p | delta             # Commit history with diffs
+
+# Benchmarking (hyperfine 1.19.0)
+hyperfine --warmup 3 'command' # Performance testing
 ```
 
-**Privileges:** `sudo` available (NOPASSWD for `cameronai`). Use responsibly, preview changes.
+**Config Files** (auto-active):
+- `~/.ripgreprc`: 25 optimizations (smart case, exclusions, colors)
+- `.claudeignore`: Context filtering (50+ patterns)
+
+**Why These Tools**:
+- rg 14.1.0: 20-30% faster than 13.0.0, SIMD optimized, 100% reliable vs Grep's 50%
+- fd 10.2.0: Better glob handling vs 8.3.1, respects .gitignore
+
+**Privileges**: `sudo` available (NOPASSWD for `cameronai`). Use responsibly, preview changes.
 
 ---
 
@@ -47,9 +75,11 @@ jq '.key' file.json       # Parse/transform
 
 ```bash
 npm run dev          # Dev server → http://localhost:8080
-npm run build        # Production build (tsc + vite)
+npm run build        # Production build (tsc + vite build)
+npm run build:dev    # Build in development mode with source maps
 npm run lint         # ESLint (errors MUST pass, warnings OK)
 npm run preview      # Preview production → http://localhost:4173
+npm run deploy       # Deploy to GitHub Pages (CI/CD preferred)
 ```
 
 ---
@@ -60,22 +90,23 @@ npm run preview      # Preview production → http://localhost:4173
 - [ ] All Acceptance Criteria satisfied
 - [ ] Browser test (Chrome, Firefox, Safari, mobile)
 - [ ] `npm run build` passes
-- [ ] `npm run lint` passes (errors only)
+- [ ] `npm run lint` passes (errors only, warnings OK)
 - [ ] Visual QA (design, animations, responsive)
-- [ ] TypeScript compiles clean
+- [ ] TypeScript compiles clean (no type errors)
+- [ ] GSAP/Lenis animations tested (smooth 60fps, no jank)
 
-**Story Updates:**
-- [ ] Story status updated (Draft → Approved → InProgress → ReadyForReview → Done)
-- [ ] Tasks checked off in story file
-- [ ] README/CHANGELOG updated if behavior changed
+**Documentation:**
+- [ ] Code comments explain "why" where needed
+- [ ] Complex logic documented
 
-**Testing:** Zero tests exist (manual only until infrastructure added)
+**Testing:** Zero automated tests exist (manual testing only until infrastructure added)
 
+---
 
 ## 🔌 MCP Servers
 
-**Archon MCP (MANDATORY before decisions):**
-- GSAP, Lenis, Tailwind, accessibility research
+**Archon MCP (MANDATORY before GSAP/Lenis/Tailwind decisions):**
+- Research GSAP best practices, Lenis integration patterns, accessibility standards
 - `rag_search_knowledge_base(query="...", match_count=5)`
 
 **Chrome DevTools MCP (Visual QA):**
@@ -83,7 +114,9 @@ npm run preview      # Preview production → http://localhost:4173
 - `take_screenshot()` • `list_console_messages()`
 
 **Context7 MCP:**
-- Latest docs for everything.
+- Latest docs for React, GSAP, TypeScript, Vite
+
+<!-- Run: mcp docs sync -->
 
 ---
 
@@ -91,10 +124,11 @@ npm run preview      # Preview production → http://localhost:4173
 
 1. Story Context XML missing
 2. Ambiguous/contradictory Acceptance Criteria
-3. Architectural decision needed
+3. Architectural decision needed (e.g., state management, routing patterns)
 4. Security/performance risk
 5. Same approach fails ≥3 times
 
+---
 
 ## 🧠 AI Behavior (Universal)
 

@@ -1,0 +1,223 @@
+# Pattern: Smooth Page Transition
+# Category: Interactive Animations
+# GSAP Excellence Engine Pattern Library
+
+id: pattern-smooth-page-transition-011
+name: "Smooth Page Transition"
+category: "interactive"
+complexity: "medium-high"
+gsap_version: "3.12.0"
+plugins_required: []
+description: "Smooth animated transitions between pages/routes - premium SPA experience"
+inspiration_source: "Awwwards page transitions, premium agency sites"
+performance_notes: "60fps with proper z-index layering and GPU acceleration"
+created_date: "2025-10-11"
+last_validated: "2025-10-11"
+success_count: 0
+tags: ["page-transition", "navigation", "SPA", "premium", "interactive"]
+framework: "vanilla"
+
+code_example: |
+  import { gsap } from 'gsap';
+
+  // Page transition system
+  class PageTransition {
+    constructor() {
+      this.overlay = document.createElement('div');
+      this.overlay.classList.add('page-transition-overlay');
+      document.body.appendChild(this.overlay);
+
+      this.initStyles();
+      this.attachListeners();
+    }
+
+    initStyles() {
+      gsap.set(this.overlay, {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        background: '#000',
+        zIndex: 9999,
+        scaleY: 0,
+        transformOrigin: 'top',
+        pointerEvents: 'none'
+      });
+    }
+
+    attachListeners() {
+      document.querySelectorAll('a[data-transition]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = link.getAttribute('href');
+          this.transitionTo(href);
+        });
+      });
+    }
+
+    async transitionTo(href) {
+      const tl = gsap.timeline();
+
+      // Hide current page
+      tl.to(this.overlay, {
+        scaleY: 1,
+        duration: 0.5,
+        ease: "power2.inOut"
+      })
+      .to('#app', {
+        opacity: 0,
+        duration: 0.3
+      }, "-=0.3");
+
+      await tl.then();
+
+      // Navigate
+      window.location.href = href;
+    }
+
+    pageEnter() {
+      // Call this on new page load
+      const tl = gsap.timeline();
+
+      tl.to('#app', {
+        opacity: 1,
+        duration: 0.3
+      })
+      .to(this.overlay, {
+        scaleY: 0,
+        transformOrigin: 'bottom',
+        duration: 0.5,
+        ease: "power2.inOut"
+      }, "-=0.1");
+    }
+  }
+
+  // Initialize
+  const pageTransition = new PageTransition();
+
+  // On page load
+  window.addEventListener('load', () => {
+    pageTransition.pageEnter();
+  });
+
+usage_notes: |
+  HTML:
+  <a href="/about" data-transition>About</a>
+
+  Links with [data-transition] trigger animated transition
+  System handles exit animation → navigation → enter animation
+
+  For SPA frameworks (React, Vue):
+  - Integrate with router (beforeEach hook)
+  - Prevent default navigation
+  - Run exit animation
+  - Change route
+  - Run enter animation
+
+variations:
+  slide_transition: |
+    // Slide overlay from left to right
+    gsap.fromTo(overlay,
+      { x: '-100%' },
+      { x: '100%', duration: 0.8, ease: "power2.inOut" }
+    );
+
+  fade_only: |
+    // Simple cross-fade
+    tl.to(currentPage, { opacity: 0, duration: 0.3 })
+      .to(nextPage, { opacity: 1, duration: 0.3 }, "-=0.1");
+
+  circle_wipe: |
+    // Circular reveal (requires clip-path)
+    gsap.to(overlay, {
+      clipPath: 'circle(150% at 50% 50%)',
+      duration: 0.8,
+      ease: "power2.inOut"
+    });
+
+advanced_example: |
+  // Multi-layer transition
+  class AdvancedTransition {
+    async transitionTo(href) {
+      const tl = gsap.timeline();
+
+      // Layer 1: Content fade out
+      tl.to('#app', { opacity: 0, y: -30, duration: 0.3 });
+
+      // Layer 2: Overlay wipe
+      tl.to(this.overlay, {
+        scaleY: 1,
+        duration: 0.5,
+        ease: "power2.inOut"
+      }, "-=0.2");
+
+      // Layer 3: Logo spin (optional flourish)
+      tl.to('.logo', {
+        rotation: 360,
+        duration: 0.5
+      }, "-=0.5");
+
+      await tl.then();
+      window.location.href = href;
+    }
+  }
+
+performance_tips:
+  - Use transform and opacity only
+  - Set will-change on overlay
+  - Keep transitions short (<1s total)
+  - Preload next page if possible
+  - Clean up old page DOM
+
+accessibility:
+  reduced_motion: "Instant navigation without animation"
+  implementation: |
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Navigate immediately without animation
+      window.location.href = href;
+      return;
+    }
+
+  focus_management: |
+    // Announce page change to screen readers
+    const announcer = document.createElement('div');
+    announcer.setAttribute('aria-live', 'polite');
+    announcer.textContent = 'Page loading...';
+
+    // Move focus to main content after transition
+    document.querySelector('main').focus();
+
+browser_support:
+  chrome: "Full support"
+  firefox: "Full support"
+  safari: "Full support"
+  mobile: "Full support"
+
+framework_integration:
+  react: |
+    // Use with React Router
+    import { useNavigate } from 'react-router-dom';
+
+    function TransitionLink({ to, children }) {
+      const navigate = useNavigate();
+
+      const handleClick = async (e) => {
+        e.preventDefault();
+        await pageTransition.transitionOut();
+        navigate(to);
+      };
+
+      return <a href={to} onClick={handleClick}>{children}</a>;
+    }
+
+  vue: |
+    // Use with Vue Router
+    router.beforeEach(async (to, from, next) => {
+      await pageTransition.transitionOut();
+      next();
+    });
+
+    router.afterEach(() => {
+      pageTransition.transitionIn();
+    });

@@ -1,0 +1,141 @@
+# Animation Production Workflow - GSAP Excellence Engine
+# Complete production pipeline: Vision → Research → Implementation → Polish → Validation
+# ALL 5 AGENTS: Director → Cinematographer → VFX Artist → Editor → Tech Director
+# Complexity: Complex (Flagship workflow)
+
+name: animation-production
+description: "Complete animation production pipeline from vision to production-ready delivery using all 5 studio crew agents"
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "complex"
+signature_workflow: true  # This is the flagship demonstration workflow
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+pattern_library: "{module_root}/patterns"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers used (ALL FOUR for complete pipeline)
+mcp_servers:
+  archon:
+    tools: ["rag_search_knowledge_base", "rag_search_code_examples"]
+    purpose: "GSAP technical patterns and code examples"
+
+  context7:
+    tools: ["resolve-library-id", "get-library-docs"]
+    purpose: "Latest GSAP API documentation"
+
+  perplexity:
+    tools: ["perplexity_research"]
+    purpose: "Premium animation examples and trends"
+
+  chrome_devtools:
+    tools: ["take_screenshot", "list_console_messages", "performance_start_trace", "performance_stop_trace", "emulate_cpu"]
+    purpose: "Visual validation, console checking, performance profiling"
+
+# Multi-agent coordination (ALL 5 AGENTS)
+agents:
+  director: "gsap-director"           # Phase 1: Vision planning & orchestration
+  cinematographer: "gsap-cinematographer"  # Phase 2: Multi-source research
+  vfx_artist: "gsap-vfx"              # Phase 3: Implementation
+  editor: "gsap-editor"               # Phase 4: Polish & refinement
+  tech_director: "gsap-tech-director"      # Phase 5: Validation & optimization
+
+# Module path and component files
+installed_path: "{module_root}/workflows/animation-production"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+# Output configuration - Complete production package
+default_output_file: "{output_folder}/animation-production-{{animation_name}}-{{date}}.md"
+
+# Workflow inputs (gathered from user)
+inputs:
+  animation_request:
+    description: "What animation do you need? (component, page, element)"
+    required: true
+
+  brand_personality:
+    description: "Brand personality and design language"
+    required: false
+
+  animation_goals:
+    description: "Goals: engagement, delight, storytelling, wow factor"
+    required: false
+    default: "Premium feel and user engagement"
+
+  constraints:
+    description: "Performance budget, timeline, accessibility requirements"
+    required: false
+
+  target_framework:
+    description: "Framework: vanilla, react, vue, svelte"
+    required: false
+    default: "vanilla"
+
+  page_url:
+    description: "Dev server URL for testing (optional but recommended)"
+    required: false
+
+# Expected outputs (complete production package)
+outputs:
+  vision_document:
+    format: "Director's creative vision and concept"
+
+  research_report:
+    format: "Cinematographer's multi-source research findings"
+
+  implementation_code:
+    format: "VFX Artist's production-ready GSAP code"
+
+  polish_report:
+    format: "Editor's refinement and debugging notes"
+
+  validation_report:
+    format: "Tech Director's performance and quality validation"
+
+  final_package:
+    format: "Complete production-ready animation with full documentation"
+
+# Success criteria (high bar for flagship workflow)
+success_criteria:
+  - "Creative vision defined and approved"
+  - "Multi-source research completed (3 MCPs)"
+  - "Implementation works on first try"
+  - "Polish pass completed (timing, smoothness)"
+  - "Performance validated (60fps achieved)"
+  - "Console clean (zero errors)"
+  - "Accessibility compliant (prefers-reduced-motion)"
+  - "Cross-browser tested"
+  - "Production-ready code delivered"
+  - "User satisfaction: premium quality"
+
+# Integration points
+feeds_into:
+  - "Pattern library" # Successful animations added as reusable patterns
+
+fed_by:
+  - "creative-ideation" # Can start from concept
+  - "Pattern library" # Can reference existing patterns
+
+# Performance targets (flagship workflow quality standards)
+estimated_duration: "45-90 minutes (complete production cycle)"
+phases:
+  phase1_vision: "10-15 min (Director)"
+  phase2_research: "10-15 min (Cinematographer, 3 MCPs)"
+  phase3_implementation: "15-25 min (VFX Artist)"
+  phase4_polish: "5-10 min (Editor)"
+  phase5_validation: "10-20 min (Tech Director with Chrome DevTools)"
+
+quality_targets:
+  fps: "60fps on mid-range devices (4x CPU throttle)"
+  console_errors: 0
+  accessibility: "100% compliant"
+  code_quality: "Production-ready, fully commented"
+  first_time_success_rate: "60%+ (vs 20% baseline)"
+  debugging_reduction: "70% fewer iterations"

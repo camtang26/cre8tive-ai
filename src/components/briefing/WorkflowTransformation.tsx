@@ -14,12 +14,15 @@
  * @see docs/story-context-1.1.8.xml
  */
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Zap, Shield, Palette, Handshake } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { TransformationValueCard } from "@/components/briefing/TransformationValueCard"
 import { briefingPalette } from "@/components/briefing/palette"
+import { detectDeviceCapabilities, detectDeviceCapabilitiesSync } from "@/utils/performance-adapter"
+import { getAdaptiveConfig } from "@/utils/adaptive-config"
+import type { AdaptiveAnimationConfig } from "@/utils/adaptive-config"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -82,6 +85,27 @@ const valueProps = [
 export const WorkflowTransformation = () => {
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // STORY 1.14: Adaptive Performance - Device-based quality tier detection
+  const [adaptiveConfig, setAdaptiveConfig] = useState<AdaptiveAnimationConfig>(() => {
+    const capabilities = detectDeviceCapabilitiesSync();
+    return getAdaptiveConfig(capabilities);
+  });
+
+  // STORY 1.14: Run async device detection for accurate GPU detection
+  useEffect(() => {
+    detectDeviceCapabilities().then((capabilities) => {
+      const newConfig = getAdaptiveConfig(capabilities);
+      setAdaptiveConfig(newConfig);
+
+      if (import.meta.env.DEV) {
+        console.log('[WorkflowTransformation] Adaptive config loaded:', {
+          tier: newConfig.tier,
+          timeScale: newConfig.timeScaleMultiplier
+        });
+      }
+    });
+  }, []);
+
   // AC3: Master Timeline Animation with AC7: React cleanup
   useEffect(() => {
     const container = containerRef.current
@@ -113,6 +137,10 @@ export const WorkflowTransformation = () => {
           once: true, // AC3: Play once, no re-trigger
         }
       })
+
+      // STORY 1.14: Apply adaptive timeScale to entire timeline
+      // high: 1.0 (normal), medium: 1.2 (20% faster), low: 1.5 (50% faster)
+      masterTL.timeScale(adaptiveConfig.timeScaleMultiplier)
 
       // Step 1: Hero stat reveal (0.8s) - AC1
       masterTL.to(heroStatContainer, {
@@ -186,8 +214,8 @@ export const WorkflowTransformation = () => {
         }, "<0.3") // Start 0.3s into AI label animation
       }
 
-        // Force ScrollTrigger refresh after setup
-        ScrollTrigger.refresh()
+      // PHASE 2 PERF FIX: Removed redundant ScrollTrigger.refresh()
+      // ScrollTrigger auto-refreshes on window resize - manual refresh only needed after dynamic DOM changes
       }, container)
 
       return ctx
@@ -209,7 +237,7 @@ export const WorkflowTransformation = () => {
           clearInterval(lenisCheckInterval)
           ctx = setupAnimations()
         }
-      }, 50) // Check every 50ms
+      }, 200) // PHASE 2 PERF FIX: Check every 200ms (was 50ms) - reduces main thread overhead by 75%
 
       // Fallback: setup after 2s even if Lenis not detected
       const fallbackTimeout = setTimeout(() => {
@@ -229,7 +257,7 @@ export const WorkflowTransformation = () => {
 
     // CRITICAL (AC7): Cleanup to prevent memory leaks
     return () => ctx?.revert()
-  }, [])
+  }, [adaptiveConfig.timeScaleMultiplier]) // STORY 1.14: Re-run when adaptive config changes
 
   return (
     <section

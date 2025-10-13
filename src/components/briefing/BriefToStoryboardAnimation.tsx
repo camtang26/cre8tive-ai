@@ -8,26 +8,29 @@ import { AIProcessingVisual } from "@/components/briefing/AIProcessingVisual";
 import { ParticleCore } from "@/components/briefing/ParticleCore";
 import { SynopsisPanel, getSynopsisWordRefs } from "@/components/briefing/SynopsisPanel";
 import { SceneCards, getSceneCardRefs } from "@/components/briefing/SceneCards";
+import { detectDeviceCapabilities, detectDeviceCapabilitiesSync } from "@/utils/performance-adapter";
+import { getAdaptiveConfig } from "@/utils/adaptive-config";
+import type { AdaptiveAnimationConfig } from "@/utils/adaptive-config";
 
 const visualStyles = [
-  { name: "Minimalist", src: "/briefing-engine/visual-styles/Minimalist.webp" },
-  { name: "Bold & Vibrant", src: "/briefing-engine/visual-styles/BoldVibrant.webp" },
-  { name: "Cinematic", src: "/briefing-engine/visual-styles/CinematicDramatic.webp" },
-  { name: "Playful & Animated", src: "/briefing-engine/visual-styles/Playfulanimated.webp" },
-  { name: "Futuristic", src: "/briefing-engine/visual-styles/Futuristic.webp" },
-  { name: "Retro & Vintage", src: "/briefing-engine/visual-styles/RetroVintage.webp" },
-  { name: "Documentary", src: "/briefing-engine/visual-styles/DocumentaryRealistic.webp" },
-  { name: "Artistic Abstract", src: "/briefing-engine/visual-styles/ArtisticAbstract.webp" },
-  { name: "2D Vector", src: "/briefing-engine/visual-styles/2dVector.webp" }
+  { name: "Minimalist", src: "/briefing-engine/visual-styles/Minimalist.webp", width: 4096, height: 2272 },
+  { name: "Bold & Vibrant", src: "/briefing-engine/visual-styles/BoldVibrant.webp", width: 4096, height: 2272 },
+  { name: "Cinematic", src: "/briefing-engine/visual-styles/CinematicDramatic.webp", width: 4096, height: 2272 },
+  { name: "Playful & Animated", src: "/briefing-engine/visual-styles/Playfulanimated.webp", width: 4096, height: 2288 },
+  { name: "Futuristic", src: "/briefing-engine/visual-styles/Futuristic.webp", width: 5504, height: 3072 },
+  { name: "Retro & Vintage", src: "/briefing-engine/visual-styles/RetroVintage.webp", width: 4403, height: 2457 },
+  { name: "Documentary", src: "/briefing-engine/visual-styles/DocumentaryRealistic.webp", width: 4623, height: 2580 },
+  { name: "Artistic Abstract", src: "/briefing-engine/visual-styles/ArtisticAbstract.webp", width: 4096, height: 2272 },
+  { name: "2D Vector", src: "/briefing-engine/visual-styles/2dVector.webp", width: 4096, height: 2288 }
 ];
 
 const storyboardFrames = [
-  "/briefing-engine/storyboard/Frame1.webp",
-  "/briefing-engine/storyboard/Frame2.webp",
-  "/briefing-engine/storyboard/Frame3.webp",
-  "/briefing-engine/storyboard/Frame4.webp",
-  "/briefing-engine/storyboard/Frame5.webp",
-  "/briefing-engine/storyboard/Frame6.webp"
+  { src: "/briefing-engine/storyboard/Frame1.webp", width: 1920, height: 1080 },
+  { src: "/briefing-engine/storyboard/Frame2.webp", width: 4096, height: 2336 },
+  { src: "/briefing-engine/storyboard/Frame3.webp", width: 1920, height: 1080 },
+  { src: "/briefing-engine/storyboard/Frame4.webp", width: 1920, height: 1080 },
+  { src: "/briefing-engine/storyboard/Frame5.webp", width: 4096, height: 2336 },
+  { src: "/briefing-engine/storyboard/Frame6.webp", width: 4096, height: 2336 }
 ];
 
 const stageData = [
@@ -141,6 +144,13 @@ export const BriefToStoryboardAnimation = () => {
   const synopsisRefsCache = useRef<ReturnType<typeof getSynopsisWordRefs> | null>(null);
   const sceneRefsCache = useRef<ReturnType<typeof getSceneCardRefs> | null>(null);
 
+  // STORY 1.14: Adaptive Performance - Device-based quality tier detection
+  // Use sync detection for initial value (async detection updates below)
+  const [adaptiveConfig, setAdaptiveConfig] = useState<AdaptiveAnimationConfig>(() => {
+    const capabilities = detectDeviceCapabilitiesSync();
+    return getAdaptiveConfig(capabilities);
+  });
+
   const lenis = useLenis(() => {
     ScrollTrigger.update();
   });
@@ -150,6 +160,23 @@ export const BriefToStoryboardAnimation = () => {
 
   // Track if lenis callback has been registered (needs one frame after lenis loads)
   const [lenisReady, setLenisReady] = useState(false);
+
+  // STORY 1.14: Run async device detection on mount for accurate GPU detection
+  useEffect(() => {
+    detectDeviceCapabilities().then((capabilities) => {
+      const newConfig = getAdaptiveConfig(capabilities);
+      setAdaptiveConfig(newConfig);
+
+      // Log adaptive tier (dev mode only)
+      if (import.meta.env.DEV) {
+        console.log('[BriefToStoryboardAnimation] Adaptive config loaded:', {
+          tier: newConfig.tier,
+          timeScale: newConfig.timeScaleMultiplier,
+          ease: newConfig.ease
+        });
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (lenis && !lenisReady) {
@@ -228,6 +255,15 @@ export const BriefToStoryboardAnimation = () => {
     }
     if (heroSecondaryCtaRef.current) {
       gsap.set(heroSecondaryCtaRef.current, { autoAlpha: 0, y: 20, scale: 0.92 });
+    }
+
+    // Progress bar initial state - scaleX animation (CRITICAL: Prevents CLS)
+    if (progressRef.current) {
+      gsap.set(progressRef.current, {
+        scaleX: 0.2,  // 20% initial progress (matches Stage 1)
+        transformOrigin: "left center",
+        force3D: true
+      });
     }
 
     // ========================================
@@ -315,11 +351,18 @@ export const BriefToStoryboardAnimation = () => {
         end: "+=17000", // Total: 4.1s intro + 13s stages (Frame 2 = 3.8s) = 17s × 1000px/s
         scrub: 1, // 1-second smooth lag (GSAP best practice)
         pin: true,
+        pinType: "transform",
         anticipatePin: 1,
         pinSpacing: true,
         invalidateOnRefresh: true
       }
     });
+
+    // STORY 1.14: Apply adaptive timeScale to entire timeline
+    // Preserves choreography while adjusting overall speed based on device tier
+    // high: 1.0 (normal), medium: 1.2 (20% faster), low: 1.5 (50% faster)
+    // Reason: Faster animations reduce total frame count during scroll, improving perceived performance
+    scrollTimeline.timeScale(adaptiveConfig.timeScaleMultiplier);
 
     // ========================================
     // ENTRANCE + INTRO SEQUENCE (0.0s - 4.1s) - Now scroll-controlled!
@@ -517,12 +560,15 @@ export const BriefToStoryboardAnimation = () => {
         }
 
         // AC2: Progress bar synchronized with stage reveal (0.6s duration)
+        // CRITICAL CLS FIX: Use scaleX instead of width to avoid layout shifts
         if (progressRef.current) {
           scrollTimeline.to(
             progressRef.current,
             {
-              width: `${progress}%`,
+              scaleX: progress / 100,  // Convert 20% -> 0.2, 100% -> 1.0
               background: `linear-gradient(90deg, ${accent}, ${accent}80)`,
+              transformOrigin: "left center",  // Scale from left edge
+              force3D: true,  // GPU acceleration
               duration: 0.6,     // AC2: Matches stage reveal timing
               ease: "power2.out" // Matches stage reveal ease
             },
@@ -757,7 +803,7 @@ export const BriefToStoryboardAnimation = () => {
       ScrollTrigger.sort();
   }, {
     scope: containerRef,
-    dependencies: [lenisReady] // CRITICAL: Re-run when lenis callback is registered
+    dependencies: [lenisReady, adaptiveConfig.timeScaleMultiplier] // CRITICAL: Re-run when lenis or adaptive config changes
   });
 
   // Note: Refs are auto-populated by JSX callbacks below - no manual clearing needed
@@ -1057,6 +1103,8 @@ export const BriefToStoryboardAnimation = () => {
                           src={style.src}
                           alt={`${style.name} visual style`}
                           loading="lazy"
+                          width={style.width}
+                          height={style.height}
                           className="h-full w-full object-cover object-center"
                         />
                         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/65 via-black/20 to-transparent px-10 pt-[220px]">
@@ -1076,9 +1124,9 @@ export const BriefToStoryboardAnimation = () => {
               >
                 <div className="flex w-full flex-1 items-center justify-end">
                   <div className="grid h-full max-h-[332px] w-full max-w-[980px] grid-cols-3 gap-6 self-center md:max-h-[340px] md:translate-y-[-55px] md:translate-x-[18px]">
-                    {storyboardFrames.map((src, index) => (
+                    {storyboardFrames.map((frame, index) => (
                       <div
-                        key={src}
+                        key={frame.src}
                         className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/12 bg-black/40 shadow-[0_25px_90px_-60px_rgba(99,102,241,0.5)]"
                         ref={(el) => {
                           if (el) {
@@ -1087,8 +1135,10 @@ export const BriefToStoryboardAnimation = () => {
                         }}
                       >
                         <img
-                          src={src}
+                          src={frame.src}
                           alt={`Storyboard frame ${index + 1}`}
+                          width={frame.width}
+                          height={frame.height}
                           className="h-full w-full object-cover"
                           loading={index >= 3 ? "lazy" : undefined}
                         />
@@ -1132,6 +1182,8 @@ export const BriefToStoryboardAnimation = () => {
                     ref={pdfMockupRef}
                     src="/briefing-engine/storyboard/SB-Mockup.webp"
                     alt="Storyboard PDF handoff"
+                    width="2048"
+                    height="1365"
                     className="h-full w-full object-cover"
                     loading="lazy"
                   />
@@ -1152,7 +1204,7 @@ export const BriefToStoryboardAnimation = () => {
             <div className="relative h-1.5 flex-1 rounded-full bg-white/12">
               <div
                 ref={progressRef}
-                className="absolute inset-y-0 left-0 w-[20%] rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE]"
+                className="absolute inset-y-0 left-0 w-full rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE]"
               />
             </div>
           </div>

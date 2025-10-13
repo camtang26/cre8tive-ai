@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-10-13T07:48:19.790Z",
+  "route": "/briefing-engine",
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "lighthouse": {
+    "scores": {
+      "performance": 0,
+      "bestPractices": 0,
+      "accessibility": 0,
+      "seo": 0,
+      "metrics": {
+        "firstContentfulPaint": 0,
+        "largestContentfulPaint": 0,
+        "totalBlockingTime": 0,
+        "cumulativeLayoutShift": 0,
+        "speedIndex": 0
+      }
+    },
+    "passed": true,
+    "failures": []
+  },
+  "webVitals": {
+    "INP": {
+      "value": 0,
+      "rating": "good"
+    },
+    "LCP": {
+      "value": 0,
+      "rating": "good"
+    },
+    "CLS": {
+      "value": 0,
+      "rating": "good"
+    },
+    "passed": true
+  },
+  "frameRate": {
+    "avgFPS": 60.15,
+    "minFPS": 59.52,
+    "droppedFrames": 186,
+    "totalFrames": 301,
+    "passed": false
+  },
+  "overallResult": "FAIL",
+  "duration": 10623
+}

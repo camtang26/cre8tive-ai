@@ -154,8 +154,8 @@ export const VisualStylesGallery = () => {
           );
         }
 
-        // Force ScrollTrigger refresh after setup
-        ScrollTrigger.refresh();
+        // PHASE 2 PERF FIX: Removed redundant ScrollTrigger.refresh()
+        // ScrollTrigger auto-refreshes on window resize - manual refresh only needed after dynamic DOM changes
       });
 
       return ctx;
@@ -180,7 +180,7 @@ export const VisualStylesGallery = () => {
           clearInterval(lenisCheckInterval);
           ctx = setupAnimations();
         }
-      }, 50); // Check every 50ms
+      }, 200); // PHASE 2 PERF FIX: Check every 200ms (was 50ms) - reduces main thread overhead by 75%
 
       // Fallback: setup after 2s even if Lenis not detected
       const fallbackTimeout = setTimeout(() => {
