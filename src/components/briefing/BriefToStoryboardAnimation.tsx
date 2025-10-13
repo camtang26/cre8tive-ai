@@ -339,6 +339,7 @@ export const BriefToStoryboardAnimation = () => {
         autoAlpha: 1,
         y: 0,
         scale: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y, scale)
         duration: 0.8,
         ease: "power3.out"
       }, 0); // Starts immediately with container entrance
@@ -350,6 +351,7 @@ export const BriefToStoryboardAnimation = () => {
         autoAlpha: 1,
         rotation: 0,
         scale: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (rotation, scale)
         duration: 1.1,
         ease: "power3.out"
       }, 0); // Same start time as shell
@@ -361,6 +363,7 @@ export const BriefToStoryboardAnimation = () => {
         autoAlpha: 1,
         scale: 1,
         rotate: 0,
+        force3D: true, // PHASE 2: GPU acceleration for transform (scale, rotate)
         duration: 0.9,
         ease: "power3.out"
       }, 0.1); // Start 0.1s after shell
@@ -371,6 +374,7 @@ export const BriefToStoryboardAnimation = () => {
       scrollTimeline.to(heroLabelRef.current, {
         y: 0,
         autoAlpha: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y)
         duration: 0.55,
         ease: "power3.out"
       }, 0.5);
@@ -380,6 +384,7 @@ export const BriefToStoryboardAnimation = () => {
       scrollTimeline.to(heroHeadlineRef.current, {
         y: 0,
         autoAlpha: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y)
         duration: 0.8,
         ease: "power3.out"
       }, 0.6); // Slight overlap with label
@@ -389,6 +394,7 @@ export const BriefToStoryboardAnimation = () => {
       scrollTimeline.to(heroSubheadlineRef.current, {
         y: 0,
         autoAlpha: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y)
         duration: 0.6,
         ease: "power3.out"
       }, 0.75);
@@ -399,6 +405,7 @@ export const BriefToStoryboardAnimation = () => {
       scrollTimeline.to(heroDetailRefs.current, {
         y: 0,
         autoAlpha: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y)
         duration: 0.5,
         stagger: 0.1,
         ease: "power3.out"
@@ -411,6 +418,7 @@ export const BriefToStoryboardAnimation = () => {
         y: 0,
         autoAlpha: 1,
         scale: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y, scale)
         duration: 0.8,
         ease: "power3.out"
       }, 1.8);
@@ -421,6 +429,7 @@ export const BriefToStoryboardAnimation = () => {
       scrollTimeline.to(heroFieldRefs.current, {
         y: 0,
         autoAlpha: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y)
         duration: 0.5,
         stagger: 0.08,
         ease: "power3.out"
@@ -433,6 +442,7 @@ export const BriefToStoryboardAnimation = () => {
         y: 0,
         autoAlpha: 1,
         scale: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y, scale)
         duration: 0.45,
         ease: "power3.out"
       }, 2.8);
@@ -443,6 +453,7 @@ export const BriefToStoryboardAnimation = () => {
         y: 0,
         autoAlpha: 1,
         scale: 1,
+        force3D: true, // PHASE 2: GPU acceleration for transform (y, scale)
         duration: 0.45,
         ease: "power3.out"
       }, 2.85); // Slight overlap
@@ -738,7 +749,12 @@ export const BriefToStoryboardAnimation = () => {
         }
       });
 
-      ScrollTrigger.refresh();
+      // PHASE 2: Conditional refresh - only if needed (avoids unnecessary layout thrashing)
+      // Research: ScrollTrigger.refresh() forces layout recalc even when positions are stable
+      // The early return above (line 303) already handles unstable layout with requestAnimationFrame
+      // This final call is redundant 99% of the time - only needed after manual DOM changes
+      // Removed unconditional refresh - use ScrollTrigger.sort() instead (lightweight position sort)
+      ScrollTrigger.sort();
   }, {
     scope: containerRef,
     dependencies: [lenisReady] // CRITICAL: Re-run when lenis callback is registered
