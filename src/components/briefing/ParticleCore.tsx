@@ -1,5 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { briefingPalette } from "./palette";
+import { detectDeviceCapabilities, detectDeviceCapabilitiesSync } from "@/utils/performance-adapter";
+import { getAdaptiveConfig } from "@/utils/adaptive-config";
+import type { AdaptiveAnimationConfig } from "@/utils/adaptive-config";
 
 interface Particle {
   x: number;
@@ -28,7 +31,61 @@ export const ParticleCore = ({
   const particlesRef = useRef<Particle[]>([]);
   const poolRef = useRef<Particle[]>([]);
 
+  // ADAPTIVE PERFORMANCE: Detect device capabilities and load appropriate config
+  // Use sync detection for initial value (async detection updates via useEffect below)
+  const [adaptiveConfig, setAdaptiveConfig] = useState<AdaptiveAnimationConfig>(() => {
+    const capabilities = detectDeviceCapabilitiesSync();
+    return getAdaptiveConfig(capabilities);
+  });
+
+  // PERFORMANCE FIX: Use refs to avoid restarting animation loop on prop changes
+  // This prevents 9 complete canvas teardowns during 17-second scroll timeline
+  const isActiveRef = useRef(isActive);
+  const intensityRef = useRef(intensity);
+  const configRef = useRef(adaptiveConfig); // ADAPTIVE: Read config from ref in animation loop
+
+  // ADAPTIVE PERFORMANCE: Run async device detection on mount
+  // Updates config with accurate GPU detection from detect-gpu library
   useEffect(() => {
+    detectDeviceCapabilities().then((capabilities) => {
+      const newConfig = getAdaptiveConfig(capabilities);
+      setAdaptiveConfig(newConfig);
+
+      // Log adaptive tier (dev mode only)
+      if (import.meta.env.DEV) {
+        console.log('[ParticleCore] Adaptive config loaded:', {
+          tier: newConfig.tier,
+          particles: newConfig.particleCount,
+          blur: newConfig.enableBlur,
+          shadows: newConfig.enableShadows
+        });
+      }
+    });
+  }, []);
+
+  // Sync refs when props/config change (lightweight, no animation restart)
+  useEffect(() => {
+    isActiveRef.current = isActive;
+  }, [isActive]);
+
+  useEffect(() => {
+    intensityRef.current = intensity;
+  }, [intensity]);
+
+  useEffect(() => {
+    configRef.current = adaptiveConfig;
+  }, [adaptiveConfig]);
+
+  useEffect(() => {
+    // ADAPTIVE PERFORMANCE: Skip Canvas rendering entirely if particles disabled
+    // Reason: Low-tier devices (score <4) or prefers-reduced-motion users
+    if (!configRef.current.enableParticles) {
+      if (import.meta.env.DEV) {
+        console.log('[ParticleCore] Particles disabled for tier:', configRef.current.tier);
+      }
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -65,13 +122,16 @@ export const ParticleCore = ({
       };
     };
 
-    // Initialize particle pool (150 for performance)
-    for (let i = 0; i < 150; i++) {
+    // ADAPTIVE PERFORMANCE: Initialize particle pool based on device tier
+    // high: 150 particles, medium: 75 particles, low: 0 (disabled via early return)
+    const particleCount = configRef.current.particleCount;
+    for (let i = 0; i < particleCount; i++) {
       poolRef.current.push(createParticle(centerX, centerY));
     }
 
     const spawnParticle = () => {
-      if (!isActive) return;
+      // PERFORMANCE FIX: Read from ref to avoid stale closure
+      if (!isActiveRef.current) return;
 
       // Spawn from center with slight randomness
       const offsetX = (Math.random() - 0.5) * 20;
@@ -124,8 +184,26 @@ export const ParticleCore = ({
 
       const particles = particlesRef.current;
 
+      // ADAPTIVE PERFORMANCE: Apply blur filter if enabled (high-tier only)
+      // Reason: ctx.filter is GPU-accelerated on discrete GPUs, expensive on integrated
+      const config = configRef.current;
+      if (config.enableBlur) {
+        ctx.filter = 'blur(2px)';
+      } else {
+        ctx.filter = 'none';
+      }
+
       particles.forEach(p => {
         const alpha = p.life / p.maxLife;
+
+        // ADAPTIVE PERFORMANCE: Apply shadow if enabled (high-tier only)
+        // Reason: ctx.shadowBlur adds render overhead on integrated GPUs
+        if (config.enableShadows) {
+          ctx.shadowColor = `hsla(${p.hue}, 80%, 70%, ${alpha * 0.3})`;
+          ctx.shadowBlur = 10;
+        } else {
+          ctx.shadowBlur = 0;
+        }
 
         // Glow effect - outer
         ctx.beginPath();
@@ -143,12 +221,15 @@ export const ParticleCore = ({
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
+
+      // Reset filter and shadow for subsequent drawings
+      ctx.filter = 'none';
+      ctx.shadowBlur = 0;
     };
 
     // Animation loop - throttled to 30fps for performance
     let lastSpawn = 0;
     let frameCount = 0;
-    const spawnInterval = Math.max(10, 50 - (intensity * 40)); // Higher intensity = faster spawn
 
     const animate = () => {
       frameCount++;
@@ -157,10 +238,16 @@ export const ParticleCore = ({
       if (frameCount % 2 === 0) {
         lastSpawn++;
 
+        // PERFORMANCE FIX: Recalculate spawn interval dynamically from ref (trivial cost vs full restart)
+        const spawnInterval = Math.max(10, 50 - (intensityRef.current * 40)); // Higher intensity = faster spawn
+
+        // ADAPTIVE PERFORMANCE: Limit particle count based on device tier
+        const maxParticles = configRef.current.particleCount;
+
         // Spawn new particles based on intensity
-        if (lastSpawn >= spawnInterval && particlesRef.current.length < 150) {
+        if (lastSpawn >= spawnInterval && particlesRef.current.length < maxParticles) {
           spawnParticle();
-          if (intensity > 0.7) spawnParticle(); // Double spawn at high intensity
+          if (intensityRef.current > 0.7) spawnParticle(); // Double spawn at high intensity
           lastSpawn = 0;
         }
 
@@ -181,7 +268,7 @@ export const ParticleCore = ({
       particlesRef.current = [];
       poolRef.current = [];
     };
-  }, [isActive, intensity]);
+  }, []); // PERFORMANCE FIX: Empty deps = animation runs once, never restarts (reads current values from refs)
 
   return (
     <div className={`relative ${className}`}>

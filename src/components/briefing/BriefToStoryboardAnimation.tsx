@@ -136,6 +136,11 @@ export const BriefToStoryboardAnimation = () => {
   const [isCoreActive, setIsCoreActive] = useState(false);
   const [coreIntensity, setCoreIntensity] = useState(0.5);
 
+  // PERFORMANCE FIX: Cache DOM query results to avoid querySelectorAll during timeline creation
+  // Prevents expensive DOM traversal (6 querySelectorAll calls) during scroll setup
+  const synopsisRefsCache = useRef<ReturnType<typeof getSynopsisWordRefs> | null>(null);
+  const sceneRefsCache = useRef<ReturnType<typeof getSceneCardRefs> | null>(null);
+
   const lenis = useLenis(() => {
     ScrollTrigger.update();
   });
@@ -168,6 +173,19 @@ export const BriefToStoryboardAnimation = () => {
     // heroShellRef is populated later by JSX callback - checking it first causes early return
     if (!containerRef.current) {
       return;
+    }
+
+    // ========================================
+    // PERFORMANCE FIX: Pre-calculate DOM queries ONCE before timeline creation
+    // ========================================
+    // Cache synopsis word refs (prevents querySelectorAll during timeline build)
+    if (synopsisPanelRef.current && !synopsisRefsCache.current) {
+      synopsisRefsCache.current = getSynopsisWordRefs(synopsisPanelRef.current);
+    }
+
+    // Cache scene card refs (prevents querySelectorAll during timeline build)
+    if (sceneCardsRef.current && !sceneRefsCache.current) {
+      sceneRefsCache.current = getSceneCardRefs(sceneCardsRef.current);
     }
 
     // ========================================
@@ -613,10 +631,9 @@ export const BriefToStoryboardAnimation = () => {
             .call(() => setCoreIntensity(0.6), [], `${frame2Label}+=2.5`); // Idle
 
           // --- SYNOPSIS STREAMING (1.8s) - compressed timing ---
-          scrollTimeline.call(() => {
-            if (!synopsisPanelRef.current) return;
-
-            const { titleWords, synopsisWords } = getSynopsisWordRefs(synopsisPanelRef.current);
+          // PERFORMANCE FIX: Use pre-calculated cache instead of querySelectorAll
+          if (synopsisRefsCache.current) {
+            const { titleWords, synopsisWords } = synopsisRefsCache.current;
 
             // Title: Fast reveal
             if (titleWords.length) {
@@ -647,13 +664,12 @@ export const BriefToStoryboardAnimation = () => {
                 `${frame2Label}+=1.0`
               );
             }
-          }, [], `${frame2Label}+=0.6`);
+          }
 
           // --- SCENE CARDS HOLOGRAPHIC BUILD (1.5s) - parallel + compressed ---
-          scrollTimeline.call(() => {
-            if (!sceneCardsRef.current) return;
-
-            const { cards, wireframes, containers, thumbnails } = getSceneCardRefs(sceneCardsRef.current);
+          // PERFORMANCE FIX: Use pre-calculated cache instead of querySelectorAll
+          if (sceneRefsCache.current) {
+            const { cards, wireframes, containers, thumbnails } = sceneRefsCache.current;
 
             cards.forEach((card, cardIndex) => {
               const cardLabel = `${frame2Label}+=` + (1.4 + (cardIndex * 0.15)); // Tight stagger
@@ -691,7 +707,7 @@ export const BriefToStoryboardAnimation = () => {
                 `${cardLabel}+=0.25`
               );
             });
-          }, [], `${frame2Label}+=1.4`);
+          }
 
           // --- DWELL TIME (0.7s) - reduced for pacing ---
           scrollTimeline.to({}, { duration: 0.7 }, "+=0");
@@ -1054,7 +1070,12 @@ export const BriefToStoryboardAnimation = () => {
                           }
                         }}
                       >
-                        <img src={src} alt={`Storyboard frame ${index + 1}`} className="h-full w-full object-cover" loading="lazy" />
+                        <img
+                          src={src}
+                          alt={`Storyboard frame ${index + 1}`}
+                          className="h-full w-full object-cover"
+                          loading={index >= 3 ? "lazy" : undefined}
+                        />
                         <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#11142d] shadow-[0_18px_42px_-26px_rgba(12,12,32,0.8)]">
                           <span>Scene</span>
                           <span>{index + 1}</span>
