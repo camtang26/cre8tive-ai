@@ -22,10 +22,10 @@
 <template-output>component_context, brand_personality, user_goals, constraints, anti_patterns</template-output>
 </step>
 
-<step n="2" goal="Multi-Source Research - Cinematographer">
+<step n="2" goal="Multi-Source Research">
 <critical>This is where we leverage THREE MCP servers for comprehensive research</critical>
 
-<action>Invoke Cinematographer agent for multi-source research</action>
+<action>Execute multi-source research using MCP integrations</action>
 
 **Research Protocol (Execute in parallel where possible):**
 
@@ -57,7 +57,7 @@
 <step n="3" goal="Trend Analysis & Synthesis">
 <action>Analyze research findings to identify patterns</action>
 
-**Director + Cinematographer collaboration:**
+**Analysis approach:**
 
 1. **Identify cutting-edge vs overdone**
    - What's fresh and exciting in 2025?
@@ -88,7 +88,7 @@
 <step n="4" goal="Concept Generation">
 <critical>Generate 3-5 DISTINCT premium concepts</critical>
 
-<action>Director creates concepts based on research synthesis</action>
+<action>Create concepts based on research synthesis</action>
 
 **For EACH concept, provide:**
 
@@ -126,9 +126,7 @@
 </step>
 
 <step n="5" goal="Presentation">
-<action>Present concepts in decision-friendly format</action>
-
-**Director presents with film director energy:**
+<action>Present concepts in decision-friendly format with film director energy</action>
 
 🎬 **"I've researched premium {{component_context}} animations. Here are [N] stunning options:"**
 
@@ -169,8 +167,8 @@
 <goto step="4">Regenerate concepts with new direction</goto>
 </check>
 
-<action>If implementing: Pass FULL research context to VFX Artist</action>
-<action>Cinematographer's findings become implementation blueprint</action>
+<action>If user wants to implement: Guide them to run /gsap-vfx with the research context</action>
+<action>Research findings should be shared with VFX Artist for implementation</action>
 
 <template-output>final_selection, handoff_context</template-output>
 </step>

@@ -493,6 +493,15 @@ Animation strategy for GSAP + Lenis + Framer Motion integration:
 **Dependencies:** GSAP 3.x, ScrollTrigger plugin, Lenis, Framer Motion, Tailwind CSS gradients, Vite asset pipeline
 **Tests:** Planned (visual regression + animation smoke tests TBD)
 
+**2025-10-14 Update — Segmented Scroll Narrative Initiative**
+- **Why:** Stakeholder sessions with senior decision-makers revealed long pinned scrubbing felt “broken” and lacked obvious interaction cues. Research into section-driven ScrollTrigger patterns shows premium experiences are achieved by animating discrete sections that enter the viewport, giving immediate feedback while preserving cinematic quality.citeturn0search0turn0search5turn1search0turn1search1turn1search3
+- **What changes:**
+  - Replace the single 17 s pinned timeline in `BriefToStoryboardAnimation.tsx` with five stacked sections (Hero Intake, Neural Synthesis, Style Selection, Storyboard Assembly, Studios Handoff).
+  - Each section auto-plays its GSAP timeline on enter via `useScrollTriggerAnimation`, with snap-to-stage progress indicators and optional click/keyboard advance.
+  - Introduce instruction/prompt UI (“Scroll to brief the AI ▸”), right-edge progress rail, and analytics events (`timeline_stage_view`, `timeline_secondary_control`).
+  - Maintain adaptive performance tiers per section and ensure reduced-motion fallback swaps animations for fades/static imagery.
+- **Implementation status:** Design & research complete; component extraction and orchestration planned per `.codex/PLAN.md` (Briefing Timeline Segmentation). Delivery will update this entry with concrete component names once refactor lands.
+
 ### 12. Studios Platform-Native Module (Planned)
 **Purpose:** Future Studios page section showcasing platform-native aspect ratio delivery.
 **Location:** `src/components/studios/platform-native/*` (new directory)

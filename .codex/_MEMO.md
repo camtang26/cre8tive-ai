@@ -53,6 +53,16 @@ npm run preview          # Preview production build on port 4173
 - **Implication:** Doc updates must foreground the optimization backlog and remediation status; execution focus shifts to resolving Tech Director audit blockers before any new feature work.
 - **Change log:** Implemented ScrollTrigger `pinType: "transform"` within `BriefToStoryboardAnimation` timeline to reduce CLS triggered during pin activation; follow-up trace needed to confirm improvement (Option 1 from audit recommendations).
 
+## 2025-10-13 – Timeline UX Research Notes
+
+- Stakeholder feedback (older exec cohort) flags long scrub distance and unclear affordance in the pinned Brief→Storyboard sequence; prioritize reducing “dead zones” and clarifying interaction instructions.
+- External research round (GSAP docs + UX studies):
+  - Section-driven ScrollTrigger timelines can deliver premium feel without heavy pinning when each section animates on entry and uses tight start/end offsets.citeturn0search0
+  - Premium scrollytelling pieces often choreograph consecutive sections, using data-step markers and timeline labels to keep motion snappy and obvious.citeturn0search5
+  - Older adults benefit from intuitive navigation, predictable structure, and high-clarity instructions—simplify flows and make calls-to-action explicit.citeturn1search0turn1search3
+  - Many older users experience reduced dexterity and prefer straightforward controls; design should minimize precision scrolling demands and support keyboard activation.citeturn1search1
+- Action items: evaluate compressing timeline length, introduce explicit “scroll to advance” prompts plus optional click-to-advance, and assess whether full pinning is still justified for broader audience comfort.
+
 # Impact Set
 
 **Current Session (AI Briefing Engine Rework Plan Created + Indexed):**

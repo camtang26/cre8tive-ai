@@ -55,6 +55,7 @@ Flagship product page that turns brand briefs into production-ready storyboards:
 - Hero section with deep black/indigo gradient, dual CTAs, and briefing-to-storyboard animation
 - Visual Styles Gallery showcasing eight core looks (Minimalistic, Bold & Vibrant, Cinematic, Playful, Futuristic, Retro, Documentary, Abstract) with motion reveals
 - Briefing Process Flow timeline outlining Define → Style → AI Processing → Review handoff
+- Segmented scroll narrative: five stacked sections (Hero Intake, Neural Synthesis, Style Selection, Storyboard Assembly, Studios Handoff) that auto-play GSAP timelines on entry with clear “scroll to advance” prompts, progress rail, and optional click/keyboard controls (no long pinned scrub)
 - Workflow Transformation comparison (traditional vs AI) emphasizing speed, consistency, creative freedom, and Studios integration
 - Audience Benefits split for Agencies vs Brands with storyboard frame aesthetic
 - Storyboard CTA with holographic accents guiding to booking or sample download

@@ -30,58 +30,80 @@ AI-assisted developers (100% AI-powered workflow) who demand premium results and
 
 ## Quick Start
 
-### Phase 1 MVP (Available Now)
+**User-Guided Studio Flow**
 
-**1. Creative Ideation**
+The GSAP Excellence Engine works through a **user-guided specialist workflow**:
+
+**1. Start with The Director** (`/gsap-director`)
 ```
-Load the Director agent and request premium animation concepts:
-"I want a wow-factor animation for my hero section. Come up with ideas."
+Tell The Director what animation you need:
+"I want a premium hero section animation with parallax"
+
+The Director analyzes your needs and creates a routing plan:
+- Which specialists you need (Cinematographer, VFX Artist, etc.)
+- What order to use them in
+- What to tell each specialist
 ```
 
-**2. Research & Implement**
+**2. Follow The Director's Routing**
 ```
-Director coordinates Cinematographer (research) and VFX Artist (implementation)
-to deliver animations that work on first try.
+Director: "This needs research. Run /gsap-cinematographer with *research"
+
+You: /gsap-cinematographer → complete research
+
+You: Return to Director with findings
+
+Director: "Great research! Now run /gsap-vfx with *implement"
+
+You: /gsap-vfx → complete implementation
+
+You: Return to Director for validation
 ```
 
-**3. Pattern Library**
+**3. Director as Your Hub**
 ```
-Successful animations are added to the pattern library for future reuse.
+- Come to Director when you need guidance
+- Director reviews specialist work for quality
+- Director tells you what's next or validates you're done
 ```
 
 ## Agents (Film Studio Crew)
 
 ### Phase 1 MVP Agents (3 of 5)
 
-**1. The Director** (`gsap-director`) ⭐ LEAD AGENT
-- Vision keeper and creative lead
-- Orchestrates the entire animation production
-- Commands: `/plan-animation`, `/review-vision`, `/coordinate-crew`
-- **Status:** Ready to build
+**1. The Director** (`gsap-director`) ⭐ GUIDE AGENT
+- Animation production guide & quality consultant
+- Routes you to the right specialists with clear instructions
+- Reviews work and maintains quality standards
+- Your fallback hub when you need guidance
+- Commands: `*guide`, `*plan`, `*crew`, `*review`, `*status`
+- **Status:** ✅ Complete (Redesigned as guide/consultant pattern)
 
 **2. The Cinematographer** (`gsap-cinematographer`)
 - Research specialist with multi-MCP integration
 - Master of timing, easing, and motion principles
-- Commands: `/research-pattern`, `/study-examples`, `/analyze-motion`
-- **Status:** Ready to build
+- Commands: `*research`
+- **Status:** ✅ Complete
 
 **3. The VFX Artist** (`gsap-vfx`)
 - Implementation specialist for complex animations
 - Expert in ScrollTrigger, physics, timelines
-- Commands: `/implement-animation`, `/create-timeline`, `/add-scroll-trigger`
-- **Status:** Ready to build
+- Commands: `*implement`
+- **Status:** ✅ Complete
 
 ### Phase 2 Agents (2 more)
 
 **4. The Editor** (`gsap-editor`)
 - Debugging and refinement specialist
 - Polishes timing, fixes issues, ensures smooth flow
-- **Status:** Planned for Phase 2
+- Commands: `*debug`, `*refine`
+- **Status:** ✅ Complete
 
 **5. The Technical Director** (`gsap-tech-director`)
 - Performance and production readiness expert
 - Chrome DevTools integration for validation
-- **Status:** Planned for Phase 2
+- Commands: `*profile`
+- **Status:** ✅ Complete
 
 ## Workflows
 
