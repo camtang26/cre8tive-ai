@@ -53,7 +53,7 @@ const faqs = [
   }
 ]
 
-export const BriefingFAQ = () => {
+const BriefingFAQ = () => {
   return (
     <section className="relative isolate mx-auto max-w-[920px] px-4 py-20">
       <div className="absolute inset-0 -z-10 rounded-[36px] border border-white/10 bg-gradient-to-br from-black/65 via-black/55 to-black/70" aria-hidden />
@@ -88,3 +88,5 @@ export const BriefingFAQ = () => {
     </section>
   )
 }
+
+export default BriefingFAQ;

@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import gsap from "gsap";
 
 interface StyleCardProps {
   name: string;
@@ -11,14 +11,54 @@ interface StyleCardProps {
 
 export const StyleCard = ({ name, description, imagePath, textColor, accent }: StyleCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (cardRef.current) {
+      gsap.to(cardRef.current, {
+        scale: 1.05,
+        y: -8,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
+    if (overlayRef.current) {
+      gsap.to(overlayRef.current, {
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (cardRef.current) {
+      gsap.to(cardRef.current, {
+        scale: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
+    if (overlayRef.current) {
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
+  };
 
   return (
-    <motion.div
+    <div
+      ref={cardRef}
       className="style-card relative group cursor-pointer"
-      whileHover={{ scale: 1.05, y: -8 }}
-      transition={{ duration: 0.3 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{ willChange: 'transform' }}
     >
       <div
         className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl"
@@ -51,14 +91,13 @@ export const StyleCard = ({ name, description, imagePath, textColor, accent }: S
           </p>
         </div>
 
-        <motion.div
+        <div
+          ref={overlayRef}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 backdrop-blur-sm"
           style={{
-            background: `rgba(0, 0, 0, 0.75)`
+            background: `rgba(0, 0, 0, 0.75)`,
+            opacity: 0
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
         >
           <div className="text-center space-y-4">
             <h3 className="text-2xl font-black text-white tracking-tight">
@@ -73,13 +112,13 @@ export const StyleCard = ({ name, description, imagePath, textColor, accent }: S
               </span>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <div
         className="absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10"
         style={{ background: `linear-gradient(135deg, ${accent}, ${accent}40)` }}
       />
-    </motion.div>
+    </div>
   );
 };

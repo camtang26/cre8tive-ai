@@ -143,45 +143,36 @@ export function NeuralSynthesisSection({ stage, onStageEnter, onStageLeave }: Ne
         }
         applyWillChange();
 
-        // Animation timeline - plays once and kills itself for memory efficiency
+        // CONSOLIDATED: Single ScrollTrigger for both animation AND tracking
+        // FIXED: Eliminates double/triple-firing by removing dual trigger anti-pattern
         const timeline = gsap.timeline({
           defaults: { ease: "power3.out" },
           scrollTrigger: {
             trigger: container,
             start: () => `top ${Math.round(offsets.startPercent * 100)}%`,
             end: () => `bottom ${Math.round(offsets.endPercent * 100)}%`,
-            once: true,  // Kill trigger after reaching end once
-            toggleActions: "play none none none",  // CRITICAL: Only play on enter, never on scrollback
+            once: true, // Animation plays once for performance
+            toggleActions: "play none none none", // No replays on scrollback
             invalidateOnRefresh: true,
             refreshPriority: 4,
             lazy: false,
+            // Stage tracking callbacks integrated into animation trigger
             onEnter: () => {
               onStageEnterRef.current?.(stage.id);
               setIsCoreActive(true);
-            }
-          }
-        });
-
-        // Separate tracking trigger - stays alive for stage tracking & analytics
-        ScrollTrigger.create({
-          trigger: container,
-          start: () => `top ${Math.round(offsets.startPercent * 100)}%`,
-          end: () => `bottom ${Math.round(offsets.endPercent * 100)}%`,
-          onEnter: () => {
-            onStageEnterRef.current?.(stage.id);
-            setIsCoreActive(true);
-          },
-          onEnterBack: () => {
-            onStageEnterRef.current?.(stage.id);
-            setIsCoreActive(true);
-          },
-          onLeave: () => {
-            onStageLeaveRef.current?.(stage.id);
-            setIsCoreActive(false);
-          },
-          onLeaveBack: () => {
-            onStageLeaveRef.current?.(stage.id);
-            setIsCoreActive(false);
+            },
+            onEnterBack: () => {
+              onStageEnterRef.current?.(stage.id);
+              setIsCoreActive(true);
+            },
+            onLeave: () => {
+              onStageLeaveRef.current?.(stage.id);
+              setIsCoreActive(false);
+            },
+            onLeaveBack: () => {
+              onStageLeaveRef.current?.(stage.id);
+              setIsCoreActive(false);
+            },
           }
         });
 

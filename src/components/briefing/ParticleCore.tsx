@@ -30,6 +30,7 @@ export const ParticleCore = ({
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const tickerRef = useRef<gsap.TickerCallback | null>(null)
   const resizeObserverRef = useRef<ResizeObserver | null>(null)
+  const measureRafRef = useRef<number | null>(null)
   const sizeRef = useRef({ width: 0, height: 0, centerX: 0, centerY: 0, needsResize: true })
   const particlesRef = useRef<Particle[]>([])
   const poolRef = useRef<Particle[]>([])
@@ -87,7 +88,8 @@ export const ParticleCore = ({
 
     const sizeState = sizeRef.current
 
-    // PERFORMANCE FIX: Batch layout reads in RAF to prevent forced reflows
+    // PERFORMANCE FIX: Move measure() OUT of ticker to prevent forced reflows
+    // ResizeObserver triggers RAF-batched measurements separately from animation loop
     const measure = () => {
       // Batch getBoundingClientRect and window.devicePixelRatio reads
       const rect = canvas.getBoundingClientRect()
@@ -115,14 +117,27 @@ export const ParticleCore = ({
       sizeState.needsResize = false
     }
 
+    // Schedule measurement in separate RAF (outside ticker)
+    const scheduleMeasure = () => {
+      if (measureRafRef.current !== null) {
+        cancelAnimationFrame(measureRafRef.current)
+      }
+      measureRafRef.current = requestAnimationFrame(() => {
+        measure()
+        measureRafRef.current = null
+      })
+    }
+
     sizeState.needsResize = true
-    measure()
+    scheduleMeasure()
 
     if (resizeObserverRef.current) {
       resizeObserverRef.current.disconnect()
     }
     const resizeObserver = new ResizeObserver(() => {
       sizeRef.current.needsResize = true
+      // Trigger measurement in separate RAF, not in ticker
+      scheduleMeasure()
     })
     resizeObserver.observe(canvas)
     resizeObserverRef.current = resizeObserver
@@ -272,9 +287,8 @@ export const ParticleCore = ({
         return
       }
 
-      if (sizeRef.current.needsResize) {
-        measure()
-      }
+      // PERFORMANCE: measure() now runs in separate RAF via ResizeObserver
+      // No layout reads in ticker = no forced reflows during animation
 
       const deltaSeconds = deltaTime || 1 / 60
       accumulator += deltaSeconds

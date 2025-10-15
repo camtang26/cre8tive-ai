@@ -1,4 +1,6 @@
-import { motion, useReducedMotion } from "framer-motion"
+import { useRef, useEffect } from "react"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
 
 const orbitCards = [
   {
@@ -25,21 +27,71 @@ const orbitCards = [
 ]
 
 export const HeroOrbitVisual = () => {
-  const reduceMotion = useReducedMotion()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const bgRef = useRef<HTMLDivElement>(null)
+  const centerRef = useRef<HTMLDivElement>(null)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  useGSAP(() => {
+    if (reduceMotion) return
+
+    // Background opacity pulse
+    if (bgRef.current) {
+      gsap.to(bgRef.current, {
+        opacity: 0.9,
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut"
+      })
+    }
+
+    // Orbit cards floating animation
+    const cards = containerRef.current?.querySelectorAll('.orbit-card')
+    cards?.forEach((card, index) => {
+      gsap.to(card, {
+        y: "+=20",
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        delay: orbitCards[index].delay,
+        ease: "power1.inOut"
+      })
+
+      // Fade in
+      gsap.from(card, {
+        opacity: 0,
+        duration: 0.8,
+        delay: orbitCards[index].delay,
+        ease: "power2.out"
+      })
+    })
+
+    // Center circle animation
+    if (centerRef.current) {
+      gsap.to(centerRef.current, {
+        scale: 1.05,
+        rotation: 3,
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut"
+      })
+    }
+  }, { scope: containerRef })
 
   return (
-    <div className="relative mt-12 w-full max-w-[520px] lg:mt-0">
+    <div className="relative mt-12 w-full max-w-[520px] lg:mt-0" ref={containerRef}>
       <div
         className="absolute -inset-10 rounded-[52px] bg-gradient-to-br from-[#4F46E5]/25 via-[#0EA5E9]/20 to-[#C026D3]/25 blur-3xl"
         aria-hidden
       />
       <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-gradient-to-br from-[#0F172A]/85 via-[#111827]/92 to-[#020617]/95 p-10 shadow-[0_45px_160px_-100px_rgba(99,102,241,0.75)]">
-        <motion.div
+        <div
+          ref={bgRef}
           className="absolute inset-0"
-          initial={{ opacity: 0.5 }}
-          animate={{ opacity: reduceMotion ? 0.6 : [0.45, 0.9, 0.45] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           style={{
+            opacity: 0.5,
             background:
               "radial-gradient(circle at 30% 30%, rgba(79,70,229,0.25) 0%, transparent 55%), radial-gradient(circle at 75% 65%, rgba(14,165,233,0.25) 0%, transparent 55%)",
           }}
@@ -61,48 +113,21 @@ export const HeroOrbitVisual = () => {
           </div>
 
           <div className="relative h-[260px]">
-            {!reduceMotion &&
-              orbitCards.map((card) => (
-                <motion.div
-                  key={card.title}
-                  className={`absolute ${card.position} w-[220px] rounded-3xl border border-white/10 bg-gradient-to-br ${card.gradient} px-5 py-6 shadow-[0_25px_80px_-60px_rgba(99,102,241,0.6)] backdrop-blur`}
-                  initial={{ y: 0, opacity: 0 }}
-                  animate={{ y: [-10, 10, -10], opacity: 1 }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    delay: card.delay,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <p className="text-sm font-semibold text-white">{card.title}</p>
-                  <p className="mt-2 text-xs text-white/70">{card.subtitle}</p>
-                </motion.div>
-              ))}
+            {orbitCards.map((card) => (
+              <div
+                key={card.title}
+                className={`orbit-card absolute ${card.position} w-[220px] rounded-3xl border border-white/10 bg-gradient-to-br ${card.gradient} px-5 py-6 shadow-[0_25px_80px_-60px_rgba(99,102,241,0.6)] backdrop-blur`}
+                style={{ willChange: reduceMotion ? 'auto' : 'transform, opacity' }}
+              >
+                <p className="text-sm font-semibold text-white">{card.title}</p>
+                <p className="mt-2 text-xs text-white/70">{card.subtitle}</p>
+              </div>
+            ))}
 
-            {reduceMotion &&
-              orbitCards.map((card) => (
-                <div
-                  key={card.title}
-                  className={`absolute ${card.position} w-[220px] rounded-3xl border border-white/10 bg-gradient-to-br ${card.gradient} px-5 py-6 shadow-[0_25px_80px_-60px_rgba(99,102,241,0.6)] backdrop-blur`}
-                >
-                  <p className="text-sm font-semibold text-white">{card.title}</p>
-                  <p className="mt-2 text-xs text-white/70">{card.subtitle}</p>
-                </div>
-              ))}
-
-            <motion.div
+            <div
+              ref={centerRef}
               className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-gradient-to-br from-[#1E293B]/90 to-[#111827]/70 shadow-[0_20px_80px_-40px_rgba(59,130,246,0.6)]"
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      scale: [1, 1.05, 1],
-                      rotate: [0, 3, -3, 0],
-                    }
-              }
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              style={{ willChange: reduceMotion ? 'auto' : 'transform' }}
             >
               <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#4F46E5]/65 via-[#8B5CF6]/60 to-[#22D3EE]/65 blur-2xl" />
               <div className="relative flex h-full w-full flex-col items-center justify-center gap-1 text-center text-white">
@@ -111,7 +136,7 @@ export const HeroOrbitVisual = () => {
                 </span>
                 <span className="text-lg font-semibold">Hybrid Flow</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

@@ -10,10 +10,8 @@
     <link rel="preload" href="/assets/img/logo-small-aBW6Abcq.webp" as="image" type="image/webp" />
     <link rel="preload" href="/assets/img/logo-medium-BerZkreM.webp" as="image" type="image/webp" />
 
-    <!-- Preload storyboard frames 1-3 (AC3-2: Performance optimization) -->
-    <link rel="preload" href="/briefing-engine/storyboard/Frame1.webp" as="image" type="image/webp" />
-    <link rel="preload" href="/briefing-engine/storyboard/Frame2.webp" as="image" type="image/webp" />
-    <link rel="preload" href="/briefing-engine/storyboard/Frame3.webp" as="image" type="image/webp" fetchpriority="high" />
+    <!-- PERFORMANCE: Removed storyboard frame preloads (not above-fold, wasted bandwidth) -->
+    <!-- Use lazy loading instead: loading="lazy" on img tags -->
     
     <meta name="description" content="Transform your business with AI-powered video production, autonomous agents, and innovative content creation solutions. Cre8tive AI helps you stay ahead of the competition." />
     <meta name="author" content="Cre8tive AI" />

@@ -3,18 +3,44 @@ import { Button } from "../ui/button";
 import { ENABLE_AUTH_FEATURES } from "../../constants/featureFlags";
 import { ASSETS } from '@/constants/assets';
 import { OptimizedImage } from '@/components/core/OptimizedImage';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const DesktopNavigation = () => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const rafRef = useRef<number | null>(null);
+  const throttleTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
+    // PERFORMANCE: Throttle + RAF to prevent forced reflows (-30ms, site-wide benefit)
+    // Batches scroll position reads in RAF for smooth 60fps across all pages
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      if (throttleTimeoutRef.current === null) {
+        throttleTimeoutRef.current = window.setTimeout(() => {
+          throttleTimeoutRef.current = null;
+          rafRef.current = requestAnimationFrame(() => {
+            const scrollY = window.scrollY;
+            setScrolled(scrollY > 20);
+          });
+        }, 16); // 60fps
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      if (throttleTimeoutRef.current !== null) {
+        clearTimeout(throttleTimeoutRef.current);
+      }
+    };
   }, []);
 
   const isActive = (path: string) => location.pathname === path;
