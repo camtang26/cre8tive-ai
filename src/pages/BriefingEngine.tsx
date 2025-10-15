@@ -270,7 +270,7 @@ const BriefingEngine = () => {
 
   // ALWAYS render with Lenis - no reduced motion exceptions per client requirements
   return (
-    <ReactLenis root options={{ lerp: 0.15, duration: 0.8, smoothTouch: false }}>
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: true }}>
       <LenisScrollSync />
       {page}
     </ReactLenis>
