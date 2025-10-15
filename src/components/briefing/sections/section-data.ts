@@ -1,5 +1,25 @@
 import { briefingPalette } from "@/components/briefing/palette"
 
+/**
+ * Generate srcset string for responsive images
+ *
+ * @param basePath - Base image path (e.g., "/briefing-engine/visual-styles/Minimalist.webp")
+ * @returns srcset string with 600w, 1200w, 1800w variants
+ *
+ * Example output: "/path/image-600.webp 600w, /path/image-1200.webp 1200w, /path/image-1800.webp 1800w"
+ */
+export function generateSrcSet(basePath: string): string {
+  const pathParts = basePath.split('.');
+  const extension = pathParts.pop();
+  const base = pathParts.join('.');
+
+  return [
+    `${base}-600.${extension} 600w`,
+    `${base}-1200.${extension} 1200w`,
+    `${base}-1800.${extension} 1800w`
+  ].join(', ');
+}
+
 export const heroDetailPills = [
   {
     label: "Campaign",
@@ -59,67 +79,121 @@ export const platformCards = [
 export const visualStyles = [
   {
     name: "Minimalist",
-    src: "/briefing-engine/visual-styles/Minimalist.webp",
+    src: "/briefing-engine/visual-styles/Minimalist-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/Minimalist.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4096,
     height: 2272,
   },
   {
     name: "Bold & Vibrant",
-    src: "/briefing-engine/visual-styles/BoldVibrant.webp",
+    src: "/briefing-engine/visual-styles/BoldVibrant-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/BoldVibrant.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4096,
     height: 2272,
   },
   {
     name: "Cinematic",
-    src: "/briefing-engine/visual-styles/CinematicDramatic.webp",
+    src: "/briefing-engine/visual-styles/CinematicDramatic-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/CinematicDramatic.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4096,
     height: 2272,
   },
   {
     name: "Playful & Animated",
-    src: "/briefing-engine/visual-styles/Playfulanimated.webp",
+    src: "/briefing-engine/visual-styles/Playfulanimated-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/Playfulanimated.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4096,
     height: 2288,
   },
   {
     name: "Futuristic",
-    src: "/briefing-engine/visual-styles/Futuristic.webp",
+    src: "/briefing-engine/visual-styles/Futuristic-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/Futuristic.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 5504,
     height: 3072,
   },
   {
     name: "Retro & Vintage",
-    src: "/briefing-engine/visual-styles/RetroVintage.webp",
+    src: "/briefing-engine/visual-styles/RetroVintage-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/RetroVintage.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4403,
     height: 2457,
   },
   {
     name: "Documentary",
-    src: "/briefing-engine/visual-styles/DocumentaryRealistic.webp",
+    src: "/briefing-engine/visual-styles/DocumentaryRealistic-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/DocumentaryRealistic.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4623,
     height: 2580,
   },
   {
     name: "Artistic Abstract",
-    src: "/briefing-engine/visual-styles/ArtisticAbstract.webp",
+    src: "/briefing-engine/visual-styles/ArtisticAbstract-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/ArtisticAbstract.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4096,
     height: 2272,
   },
   {
     name: "2D Vector",
-    src: "/briefing-engine/visual-styles/2dVector.webp",
+    src: "/briefing-engine/visual-styles/2dVector-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/visual-styles/2dVector.webp"),
+    sizes: "(max-width: 768px) 90vw, 528px",
     width: 4096,
     height: 2288,
   },
 ]
 
 export const storyboardFrames = [
-  { src: "/briefing-engine/storyboard/Frame1.webp", width: 1920, height: 1080 },
-  { src: "/briefing-engine/storyboard/Frame2.webp", width: 4096, height: 2336 },
-  { src: "/briefing-engine/storyboard/Frame3.webp", width: 1920, height: 1080 },
-  { src: "/briefing-engine/storyboard/Frame4.webp", width: 1920, height: 1080 },
-  { src: "/briefing-engine/storyboard/Frame5.webp", width: 4096, height: 2336 },
-  { src: "/briefing-engine/storyboard/Frame6.webp", width: 4096, height: 2336 },
+  {
+    src: "/briefing-engine/storyboard/Frame1-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/storyboard/Frame1.webp"),
+    sizes: "(max-width: 768px) 90vw, 525px",
+    width: 1920,
+    height: 1080
+  },
+  {
+    src: "/briefing-engine/storyboard/Frame2-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/storyboard/Frame2.webp"),
+    sizes: "(max-width: 768px) 90vw, 525px",
+    width: 4096,
+    height: 2336
+  },
+  {
+    src: "/briefing-engine/storyboard/Frame3-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/storyboard/Frame3.webp"),
+    sizes: "(max-width: 768px) 90vw, 525px",
+    width: 1920,
+    height: 1080
+  },
+  {
+    src: "/briefing-engine/storyboard/Frame4-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/storyboard/Frame4.webp"),
+    sizes: "(max-width: 768px) 90vw, 525px",
+    width: 1920,
+    height: 1080
+  },
+  {
+    src: "/briefing-engine/storyboard/Frame5-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/storyboard/Frame5.webp"),
+    sizes: "(max-width: 768px) 90vw, 525px",
+    width: 4096,
+    height: 2336
+  },
+  {
+    src: "/briefing-engine/storyboard/Frame6-1200.webp",
+    srcSet: generateSrcSet("/briefing-engine/storyboard/Frame6.webp"),
+    sizes: "(max-width: 768px) 90vw, 525px",
+    width: 4096,
+    height: 2336
+  },
 ]
 
 export const stageMetadata = [

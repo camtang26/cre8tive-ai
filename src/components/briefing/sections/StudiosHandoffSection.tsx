@@ -281,10 +281,13 @@ export function StudiosHandoffSection({
                   <div className="relative overflow-hidden rounded-[26px] border border-white/15 shadow-[0_26px_76px_-58px_rgba(12,12,32,0.75)]">
                     <img
                       src={scene.frame.src}
+                      srcSet={scene.frame.srcSet}
+                      sizes={scene.frame.sizes}
                       alt={`${scene.title} storyboard still`}
                       width={scene.frame.width}
                       height={scene.frame.height}
                       loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
                       className="h-full w-full object-cover object-center"
                     />
                     <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.32em] text-[#141626] shadow-[0_18px_38px_-20px_rgba(17,22,52,0.7)]">
@@ -320,10 +323,13 @@ export function StudiosHandoffSection({
                 <div className="relative overflow-hidden rounded-[24px] border border-white/10">
                   <img
                     src={heroStoryboard.frame.src}
+                    srcSet={heroStoryboard.frame.srcSet}
+                    sizes={heroStoryboard.frame.sizes}
                     alt="Storyboard hero frame highlighting executive briefing suite"
                     width={heroStoryboard.frame.width}
                     height={heroStoryboard.frame.height}
                     loading="lazy"
+                    decoding="async"
                     className="w-full object-cover object-center"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-5 pb-5 pt-12">
@@ -337,10 +343,13 @@ export function StudiosHandoffSection({
                   <div className="relative overflow-hidden rounded-[24px] border border-white/15">
                     <img
                       src={supportingScene.frame.src}
+                      srcSet={supportingScene.frame.srcSet}
+                      sizes={supportingScene.frame.sizes}
                       alt={`${supportingScene.title} storyboard still`}
                       width={supportingScene.frame.width}
                       height={supportingScene.frame.height}
                       loading="lazy"
+                      decoding="async"
                       className="h-full w-full object-cover"
                     />
                     <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.32em] text-[#141626] shadow-[0_18px_38px_-20px_rgba(17,22,52,0.7)]">

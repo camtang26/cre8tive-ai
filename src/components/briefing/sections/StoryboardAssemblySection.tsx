@@ -233,10 +233,13 @@ export function StoryboardAssemblySection({
             >
               <img
                 src={frame.src}
+                srcSet={frame.srcSet}
+                sizes={frame.sizes}
                 alt={`Storyboard frame ${index + 1}`}
                 width={frame.width}
                 height={frame.height}
                 loading={index >= 3 ? "lazy" : "eager"}
+                decoding="async"
                 className="h-56 w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#11142d] shadow-[0_18px_42px_-26px_rgba(12,12,32,0.8)]">

@@ -240,10 +240,13 @@ export function StyleSelectionSection({ stage, onStageEnter, onStageLeave }: Sty
             >
               <img
                 src={style.src}
+                srcSet={style.srcSet}
+                sizes={style.sizes}
                 alt={`${style.name} visual style`}
                 width={style.width}
                 height={style.height}
                 loading="lazy"
+                decoding="async"
                 className="h-56 w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
               <figcaption className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-2 px-5 pb-6 pt-12 text-white">
