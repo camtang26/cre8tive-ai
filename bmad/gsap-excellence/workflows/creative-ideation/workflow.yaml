@@ -1,0 +1,101 @@
+# Creative Ideation Workflow - GSAP Excellence Engine
+# SIGNATURE WORKFLOW: Generate 3-5 premium animation concepts
+# Solves: "I don't know what animation I want"
+# Transforms it into: "I'm choosing between multiple excellent options backed by research"
+
+name: creative-ideation
+description: "Generate premium animation concepts backed by multi-source research (Archon + Context7 + Perplexity). Provides expert creative direction that AI typically lacks."
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "standard"
+signature_workflow: true
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers used (ALL THREE research sources)
+mcp_servers:
+  archon:
+    tools: ["rag_search_knowledge_base", "rag_search_code_examples"]
+    purpose: "GSAP showcase examples and technical patterns"
+
+  context7:
+    tools: ["get-library-docs"]
+    purpose: "Latest GSAP API capabilities and new plugins"
+
+  perplexity:
+    tools: ["perplexity_research"]
+    purpose: "Award-winning animations, premium examples, industry trends"
+
+# Agents involved
+agents:
+  primary: "gsap-director"  # Lead, orchestrates
+  support: "gsap-cinematographer"  # Research specialist
+
+# Module path and component files
+installed_path: "{module_root}/workflows/creative-ideation"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false  # No checklist for creative workflow
+
+# Output configuration - Concept presentation document
+default_output_file: "{output_folder}/animation-concepts-{{component_name}}-{{date}}.md"
+
+# Workflow inputs (gathered from user)
+inputs:
+  component_context:
+    description: "What component/page needs animation"
+    required: true
+
+  brand_personality:
+    description: "Brand personality and design language"
+    required: false
+
+  user_goals:
+    description: "Goals: engagement, storytelling, interaction, delight"
+    required: false
+    default: "Create wow factor and premium feel"
+
+  constraints:
+    description: "Performance budget, accessibility, timeline"
+    required: false
+
+  anti_patterns:
+    description: "Trends to avoid, competitor patterns to differ from"
+    required: false
+
+# Expected outputs
+outputs:
+  concepts:
+    count: "3-5"
+    format: "Structured concept with name, description, technical approach, wow factor, complexity"
+
+  research_citations:
+    sources: ["perplexity", "archon", "context7"]
+    format: "URLs and references from premium examples"
+
+# Success criteria
+success_criteria:
+  - "User excited by at least one concept"
+  - "Concepts backed by research citations"
+  - "Mix of complexity levels (medium, medium-high, high)"
+  - "Each concept explains wow factor clearly"
+  - "Technical approaches are ambitious, not safe"
+
+# Integration
+feeds_into:
+  - "animation-production"  # Selected concept becomes vision for full implementation
+  - "implement-from-pattern"  # If concept matches existing pattern
+
+# Performance targets
+estimated_duration: "10-15 minutes"
+phases:
+  context_gathering: "2-3 min"
+  research: "5-7 min (parallel MCP calls)"
+  synthesis: "2-3 min"
+  presentation: "1-2 min"

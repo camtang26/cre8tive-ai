@@ -1,0 +1,7 @@
+# Optimize Performance Workflow
+name: optimize-performance
+description: "Profile and optimize existing animation"
+complexity: "standard"
+uses_mcps: ["chrome_devtools"]
+estimated_duration: "10-15 minutes"
+config_source: "{project-root}/bmad/gsap-excellence-v2/config.yaml"

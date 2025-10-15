@@ -44,10 +44,23 @@
     transform: rotateY(10deg);
   }
 
+  /* STORY 1.14: Enhanced GPU-optimized transform class */
   .transform-gpu {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) translateZ(0);
     backface-visibility: hidden;
     transform-style: preserve-3d;
+  }
+
+  /* STORY 1.14: Animated element optimization (will-change + containment) */
+  .animated-element {
+    will-change: transform, opacity;
+    contain: layout style paint;
+  }
+
+  /* Alias for consistency (gpu-optimized = transform-gpu) */
+  .gpu-optimized {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   [animation-delay="200ms"] {
@@ -66,9 +79,30 @@
     @apply opacity-100 translate-y-0;
   }
 
+  /* STORY 1.14: Lazy loading optimization (content-visibility) */
+  .lazy-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+  }
+
+  /* STORY 1.14: Enhanced prefers-reduced-motion support (WCAG 2.1 compliance) */
   @media (prefers-reduced-motion: reduce) {
     .fade-in-visible {
       @apply transition-none transform-none;
+    }
+
+    /* Force instant transitions globally for accessibility */
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Disable GSAP animations (handled by adaptive-config.ts) */
+    [data-gsap-animation] {
+      animation: none !important;
+      transition: none !important;
     }
   }
 }

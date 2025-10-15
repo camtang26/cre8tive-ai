@@ -1,0 +1,96 @@
+# Research GSAP Pattern Workflow - GSAP Excellence Engine
+# Deep research into specific GSAP technique
+# Agent: Cinematographer (Research Specialist)
+# Complexity: Simple
+
+name: research-gsap-pattern
+description: "Deep dive research into specific GSAP technique using multi-source integration (Archon + Context7 + Perplexity). Returns comprehensive research report with patterns, examples, and code."
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "simple"
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers used (ALL THREE research sources)
+mcp_servers:
+  archon:
+    tools: ["rag_search_knowledge_base", "rag_search_code_examples", "rag_get_available_sources"]
+    purpose: "GSAP docs, patterns, and technical implementation examples"
+
+  context7:
+    tools: ["resolve-library-id", "get-library-docs"]
+    purpose: "Latest GSAP API documentation and plugin capabilities"
+
+  perplexity:
+    tools: ["perplexity_ask", "perplexity_research"]
+    purpose: "Real-world premium examples and cutting-edge usage"
+
+# Agents involved
+agents:
+  primary: "gsap-cinematographer"  # Research specialist
+
+# Module path and component files
+installed_path: "{module_root}/workflows/research-gsap-pattern"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false  # No checklist for research workflow
+
+# Output configuration - Research report document
+default_output_file: "{output_folder}/gsap-research-{{pattern_name}}-{{date}}.md"
+
+# Workflow inputs (gathered from user)
+inputs:
+  pattern_name:
+    description: "GSAP technique or pattern to research (e.g., 'parallax scrolling', 'text reveal', 'morphing')"
+    required: true
+
+  use_case:
+    description: "Specific use case or context for this pattern"
+    required: false
+    default: "General GSAP implementation"
+
+  complexity_preference:
+    description: "Preferred complexity level: simple, medium, advanced, or all"
+    required: false
+    default: "all"
+
+# Expected outputs
+outputs:
+  research_report:
+    format: "Markdown document with sections: Overview, Technical Approach, Code Examples, Best Practices, Performance, Inspiration"
+
+  code_examples:
+    count: "3-5 examples from basic to advanced"
+    format: "Annotated code with explanations"
+
+  citations:
+    sources: ["archon", "context7", "perplexity"]
+    format: "URLs, documentation links, premium example sites"
+
+# Success criteria
+success_criteria:
+  - "Research covers all 3 MCP sources"
+  - "3-5 code examples provided with annotations"
+  - "Performance considerations documented"
+  - "Real-world premium examples cited"
+  - "Latest GSAP API compatibility confirmed"
+
+# Integration
+feeds_into:
+  - "implement-from-pattern"  # Research informs implementation
+  - "creative-ideation"  # Enriches concept generation
+  - "Pattern library"  # Successful patterns added to library
+
+# Performance targets
+estimated_duration: "5-10 minutes"
+phases:
+  query_formulation: "1 min"
+  parallel_research: "3-5 min (all 3 MCPs)"
+  synthesis: "2-3 min"
+  documentation: "1-2 min"

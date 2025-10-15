@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { VideoBackground } from "../hero/VideoBackground";
-import { HeroContentBold } from "../hero/HeroContentBold";
+import { useState } from "react"
+import { VideoBackground } from "../hero/VideoBackground"
+import { HeroContentBold } from "../hero/HeroContentBold"
 
 export const DesktopHero = () => {
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(true)
 
-  const toggleMute = () => setIsMuted(!isMuted);
-  const togglePlay = () => setIsPlaying(!isPlaying);
+  const toggleMute = () => setIsMuted(!isMuted)
+  const togglePlay = () => setIsPlaying(!isPlaying)
 
   return (
     <section
@@ -40,12 +40,12 @@ export const DesktopHero = () => {
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: 'radial-gradient(circle at center, transparent 0%, rgba(5,5,10,0.6) 100%)'
+          background: "radial-gradient(circle at center, transparent 0%, rgba(5,5,10,0.6) 100%)"
         }}
         aria-hidden="true"
       />
 
       <HeroContentBold />
     </section>
-  );
-};
+  )
+}

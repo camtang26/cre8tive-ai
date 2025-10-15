@@ -1,0 +1,120 @@
+# Pattern: Word Shuffle Reveal
+# Category: Text Animations
+# GSAP Excellence Engine Pattern Library
+
+id: pattern-word-shuffle-reveal-008
+name: "Word Shuffle Reveal"
+category: "text-animations"
+complexity: "medium"
+gsap_version: "3.12.0"
+plugins_required: ["SplitText"]
+description: "Words shuffle from random positions before settling into place - unique premium effect"
+inspiration_source: "Awwwards experimental typography, agency hero sections"
+performance_notes: "60fps with proper transform usage"
+created_date: "2025-10-11"
+last_validated: "2025-10-11"
+success_count: 0
+tags: ["text", "shuffle", "reveal", "experimental", "premium"]
+framework: "vanilla"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { SplitText } from 'gsap/SplitText';
+
+  gsap.registerPlugin(SplitText);
+
+  const title = document.querySelector('[data-shuffle-text]');
+  const split = new SplitText(title, { type: "words" });
+
+  // Shuffle and reveal words
+  gsap.from(split.words, {
+    x: () => gsap.utils.random(-200, 200), // Random horizontal position
+    y: () => gsap.utils.random(-100, 100), // Random vertical position
+    opacity: 0,
+    rotation: () => gsap.utils.random(-45, 45), // Random rotation
+    scale: () => gsap.utils.random(0.5, 1.5), // Random scale
+    duration: 0.8,
+    ease: "back.out(1.5)",
+    stagger: {
+      amount: 0.6,
+      from: "random" // Animate in random order
+    },
+    onComplete: () => split.revert()
+  });
+
+usage_notes: |
+  HTML:
+  <h1 data-shuffle-text>Your Dynamic Title</h1>
+
+  Uses SplitText plugin to split into words
+  Each word animates from random off-screen position
+  Creates chaotic-to-organized visual effect
+
+variations:
+  character_shuffle: |
+    // Shuffle individual characters instead of words
+    const split = new SplitText(title, { type: "chars" });
+    gsap.from(split.chars, {
+      x: () => gsap.utils.random(-50, 50),
+      y: () => gsap.utils.random(-50, 50),
+      opacity: 0,
+      stagger: 0.02
+    });
+
+  color_shuffle: |
+    // Add color transition
+    gsap.from(split.words, {
+      ...existingProps,
+      color: () => gsap.utils.random(["#ff0000", "#00ff00", "#0000ff"]),
+      duration: 0.8
+    });
+
+  elastic_bounce: |
+    // More dramatic bounce
+    ease: "elastic.out(1, 0.5)"
+
+advanced_example: |
+  // Multi-stage shuffle reveal
+  const tl = gsap.timeline();
+
+  // Stage 1: Shuffle in
+  tl.from(split.words, {
+    x: () => gsap.utils.random(-300, 300),
+    y: () => gsap.utils.random(-150, 150),
+    opacity: 0,
+    rotation: () => gsap.utils.random(-90, 90),
+    duration: 0.6,
+    stagger: { amount: 0.4, from: "random" }
+  });
+
+  // Stage 2: Settle with bounce
+  tl.to(split.words, {
+    x: 0,
+    y: 0,
+    rotation: 0,
+    duration: 0.4,
+    ease: "elastic.out(1, 0.5)",
+    stagger: 0.05
+  }, "-=0.3");
+
+performance_tips:
+  - Use transform properties only
+  - Limit word count (5-10 words ideal)
+  - Set will-change: transform during animation
+  - Revert SplitText after completion
+  - Consider simpler effect on mobile
+
+accessibility:
+  reduced_motion: "Skip animation, show static text"
+  implementation: |
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+  screen_readers: "SplitText preserves text content"
+
+browser_support:
+  chrome: "Full support"
+  firefox: "Full support"
+  safari: "Full support"
+  mobile: "Good support, consider simpler version"

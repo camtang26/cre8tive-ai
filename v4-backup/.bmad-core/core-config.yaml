@@ -1,0 +1,24 @@
+markdownExploder: true
+qa:
+  qaLocation: docs/qa
+prd:
+  prdFile: SPEC.md  # Using root SPEC.md instead of docs/prd.md
+  prdVersion: v4
+  prdSharded: true
+  prdShardedLocation: docs/prd  # Will create docs/prd/ when sharded
+  epicFilePattern: epic-{n}*.md
+architecture:
+  architectureFile: ARCHITECTURE.md  # Using root ARCHITECTURE.md
+  architectureVersion: v4
+  architectureSharded: true
+  architectureShardedLocation: docs/architecture  # Will create docs/architecture/ when sharded
+customTechnicalDocuments:
+  - README.md  # Auto-load for dev agent context
+  - CONTRIBUTING.md  # Auto-load for dev agent context
+devLoadAlwaysFiles:
+  - docs/architecture/coding-standards.md  # Will exist after sharding
+  - docs/architecture/tech-stack.md  # Will exist after sharding
+  - docs/architecture/source-tree.md  # Will exist after sharding
+devDebugLog: codex/debug-log.md  # Keep in codex/ folder
+devStoryLocation: docs/stories
+slashPrefix: BMad

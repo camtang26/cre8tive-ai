@@ -1,0 +1,37 @@
+{
+  "baseURL": "http://localhost:4173",
+  "routes": [
+    {
+      "path": "/briefing-engine",
+      "name": "Briefing Engine",
+      "viewport": { "width": 1920, "height": 1080 },
+      "thresholds": {
+        "lighthouse": {
+          "performance": 80,
+          "bestPractices": 90,
+          "accessibility": 90,
+          "seo": 90
+        },
+        "webVitals": {
+          "INP": 200,
+          "LCP": 2500,
+          "CLS": 0.1
+        },
+        "frameRate": {
+          "avgFPS": 55,
+          "minFPS": 45,
+          "maxDroppedFrames": 30
+        }
+      }
+    }
+  ],
+  "networkConditions": {
+    "fast3G": { "download": 1600, "upload": 750, "latency": 150 },
+    "slow3G": { "download": 500, "upload": 500, "latency": 400 }
+  },
+  "outputDir": "test/performance/reports",
+  "screenshots": true,
+  "htmlReports": false,
+  "retryAttempts": 3,
+  "warmupRuns": 1
+}

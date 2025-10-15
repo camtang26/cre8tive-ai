@@ -1,0 +1,521 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.6</storyId>
+    <title>Briefing Engine Studios Connection - Premium 2-Column Parallax Integration</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-2.6.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 content strategy and premium components</asA>
+    <iWant>to create the StudiosConnection component with 2-column parallax scrolling, elastic checkmark stagger animations, and magnetic CTA glow effects</iWant>
+    <soThat>users experience a seamless visual connection between Briefing Engine and Studios with premium choreography featuring visible elastic bounces on feature checkmarks, organic flow shapes connecting the columns, and magnetic pull interactions that elevate beyond generic 2-column layouts through distinctive GSAP + Framer Motion integration</soThat>
+    <tasks>
+- Task 1: Create CONNECTION_DATA Constant (AC: #1)
+- Task 2: Create StudiosConnection Component Structure (AC: #1, #7)
+- Task 3: Implement 2-Column Parallax Scroll Effect (AC: #2)
+- Task 4: Implement Checkmark Elastic Stagger Animation (AC: #3)
+- Task 5: Implement CTA Magnetic Glow Effect (AC: #4)
+- Task 6: Create Organic Flow Shapes Background (AC: #5)
+- Task 7: Implement Responsive Design (AC: #6)
+- Task 8: Integrate with Briefing Engine Page (AC: #7)
+- Task 9: Code Quality &amp; Build Validation (AC: #8, #9)
+- Task 10: Visual QA &amp; Copy Verification (AC: #10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+AC #1: Studios Connection Section Copy Implementation (Research-Validated Messaging)
+- Section header: "From Storyboard to Professional Video"
+- Section subheader: "Briefing Engine is built by the team behind Cre8tive AI Studios—our full-stack video production service. Seamlessly hand off your storyboard for complete production."
+- All copy matches COPY_IMPLEMENTATION_GUIDE.md Connection to Studios Section exactly (lines 626-685)
+- Verification: Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md
+
+AC #2: 2-Column Parallax Scroll Effect (Premium Pattern)
+- Parallax depth effect on left/right columns with different scroll speeds
+- Left column: normal speed (multiplier 1.0), Right column: slower (multiplier 0.7)
+- Background shapes: slowest (multiplier 0.5)
+- ScrollTrigger with scrub: true for scroll-linked smoothness
+- Verification: Visual depth separation when scrolling through section
+
+AC #3: Checkmark Stagger with Elastic Bounce Animation (Premium Micro-Pattern)
+- Elastic easing (CRE8TIVE_EASINGS.spring / elastic.out fallback) on 8 checkmarks
+- Initial: opacity 0, scale 0, rotation -45deg → Final: opacity 1, scale 1, rotation 0deg
+- Stagger: 0.1s between checkmarks, Duration: 0.8s per checkmark
+- Verification: Visible elastic overshoot/bounce on each checkmark
+
+AC #4: CTA Magnetic Glow Effect (Premium Micro-Interaction)
+- Magnetic pull on "See Studios Portfolio →" CTA using useMagneticPull hook
+- Strength: 0.3, Max distance: 150px, Element moves ≤30px toward cursor
+- Dynamic glow synchronized with cursor proximity (cyan to fuchsia gradient)
+- Verification: Hover near CTA, verify magnetic pull and increasing glow intensity
+
+AC #5: Organic Flow Shapes Connecting Columns (Premium Visual Pattern)
+- 2-3 organic SVG blob shapes between columns
+- Gradient fill: indigo → cyan with 10-15% opacity
+- Subtle morphing animation: shape varies ±3% over 8s loop
+- Shapes scroll at slowest parallax speed (multiplier 0.4)
+- Verification: Visual QA, verify shapes visible and morphing subtly
+
+AC #6: Responsive Design &amp; Performance
+- Desktop (1024px+): Full premium animations
+- Tablet (768px-1023px): Reduced parallax (50%), elastic checkmarks, reduced magnetic distance
+- Mobile (375px-767px): 1 column stack, static checkmarks, magnetic CTA disabled, shapes hidden
+- All animations achieve 60fps on Chrome 100+, Firefox 100+, Safari 15+
+- Verification: Test all 3 breakpoints, verify 60fps in Performance tab
+
+AC #7: Integration with Briefing Engine Page
+- Import into src/pages/BriefingEngine.tsx after BriefingProcessFlow component
+- "See Studios Portfolio →" CTA links to Studios page via React Router
+- Smooth scroll with Lenis, no layout shifts (CLS ≤0.1)
+- Verification: Full page renders, section visible, scroll smooth, build succeeds
+
+AC #8: Code Quality &amp; Build Validation
+- TypeScript compiles clean (npm run build) with 0 errors
+- ESLint passes (0 errors, warnings acceptable)
+- Follow frontend-architecture.md Component Template Checklist
+- React cleanup patterns (useEffect cleanup for GSAP, useMagneticPull)
+- Verification: npm run build and npm run lint pass
+
+AC #9: Premium Pattern Integration from Epic 2 Foundation
+- Import CRE8TIVE_EASINGS from @/components/epic2/animations/easings
+- Import useMagneticPull from @/components/epic2/hooks/useMagneticPull
+- Import OrganicCard/shapes from @/components/epic2/shapes/OrganicCard
+- Follow Epic 2 premium patterns from src/components/epic2/PREMIUM_USAGE.md
+- Verification: Code review confirms imports, performance shows 60fps
+
+AC #10: Visual QA &amp; Copy Accuracy
+- All copy matches COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word)
+- Left column: 4 features, badge, title, supporting text
+- Right column: 4 features, badge, title, CTA button
+- Bottom statement, section header/subheader match copy guide
+- Verification: Pixel-perfect match with COPY_IMPLEMENTATION_GUIDE.md
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/COPY_IMPLEMENTATION_GUIDE.md</path>
+        <title>Studios Connection Section Copy (Lines 626-685)</title>
+        <section>Connection to Studios Section</section>
+        <snippet>
+Section Header: "From Storyboard to Professional Video"
+Section Subheader: "Briefing Engine is built by the team behind Cre8tive AI Studios—our full-stack video production service. Seamlessly hand off your storyboard for complete production."
+
+Left Column - Briefing Engine Output:
+- Badge: "Briefing Engine Output"
+- Title: "Production-Ready Storyboard"
+- Features: 4 checkmarks (synopsis, visual style, multi-platform specs, director notes)
+- Supporting Text: "Export PDF and produce anywhere, or hand off directly to Studios..."
+
+Right Column - Studios Production:
+- Badge: "Studios Full Production"
+- Title: "Professional Video Delivery"
+- Features: 4 checkmarks (image-to-video, sound design, native videos, 4K upscaling)
+- CTA: "See Studios Portfolio →"
+
+Bottom Statement: "Same team. Same quality standards. Briefing Engine uses the exact strategic framework that powers our full-stack video production. Start with a storyboard. Scale to professional video whenever you're ready."
+        </snippet>
+        <reason>Contains ALL copy for StudiosConnection component - exact word-for-word implementation required</reason>
+      </doc>
+
+      <doc>
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Story 2.6 Implementation Details (Lines 528-535)</title>
+        <section>Story 2.6: Briefing Engine Studios Connection</section>
+        <snippet>
+Story 2.6: Briefing Engine Studios Connection (1.5-2 hours) [ENHANCED]
+├── Create StudiosConnection with premium features:
+│   ├── 2-column parallax scroll
+│   ├── Checkmark stagger with elastic.out (visible bounce)
+│   ├── CTA magnetic glow effect
+│   └── Organic flow shapes connecting columns
+├── Create CONNECTION_DATA const (2-column flow)
+└── Test: Parallax effect, elastic bounce, CTA magnetic pull
+        </snippet>
+        <reason>Defines 4 premium patterns to implement: parallax, elastic stagger, magnetic glow, organic shapes</reason>
+      </doc>
+
+      <doc>
+        <path>docs/architecture/frontend-architecture.md</path>
+        <title>Component Template Checklist (Lines 60-140)</title>
+        <section>Component Design Patterns - Component Template</section>
+        <snippet>
+Component Template Checklist:
+✅ TypeScript interface for props (exported)
+✅ JSDoc comment with description
+✅ Semantic HTML tags (<article>, <section>, <nav>) for SEO
+✅ cn() utility for className merging
+✅ Responsive classes (Tailwind breakpoints)
+✅ Loading strategy (loading="lazy" for images)
+
+Standard imports: { useRef } from 'react', { cn } from '@/lib/utils'
+Component structure: Interface → Component function → useEffect cleanup → JSX return
+        </snippet>
+        <reason>Defines standard component structure and required checklist items for StudiosConnection.tsx</reason>
+      </doc>
+
+      <doc>
+        <path>docs/architecture/animation-patterns.md</path>
+        <title>GSAP Parallax Pattern (Lines 212-272)</title>
+        <section>Pattern 3: Parallax Effect</section>
+        <snippet>
+Parallax Pattern:
+- Different elements scroll at different speeds (depth illusion)
+- Background moves slower, foreground moves faster
+- Use scrollTrigger with scrub: true for scroll-linked animation
+- ease: 'none' for linear parallax movement
+- Set will-change: transform in CSS for GPU acceleration
+
+Example: gsap.to('.hero-bg', { y: '30%', ease: 'none', scrollTrigger: { scrub: true } })
+Example: gsap.to('.hero-text', { y: '60%', ease: 'none', scrollTrigger: { scrub: true } })
+
+Key: Higher y percentage = faster movement, creating depth separation
+        </snippet>
+        <reason>Defines parallax implementation pattern for 2-column scroll effect (AC #2)</reason>
+      </doc>
+
+      <doc>
+        <path>src/components/epic2/PREMIUM_USAGE.md</path>
+        <title>Epic 2 Premium Components Usage (Lines 1-546)</title>
+        <section>Epic 2 Foundation - useMagneticPull, CRE8TIVE_EASINGS, OrganicCard</section>
+        <snippet>
+Premium Components Available (Story 2.0 - Production Ready):
+
+1. useMagneticPull Hook:
+   - Cursor-following magnetic effect, throttled to 60fps
+   - Strength: 0.3 default (30% of maxDistance)
+   - Max distance: 150px (cursor detection radius)
+   - Auto-disables on mobile (<768px viewport)
+   - Usage: const ctaRef = useMagneticPull({ strength: 0.3, maxDistance: 150 })
+
+2. CRE8TIVE_EASINGS:
+   - organic: "power4.out" (smooth deceleration)
+   - smooth: "power2.out" (Apple-like refinement)
+   - spring: "elastic.out(1, 0.5)" (energetic bounce - use for checkmarks)
+   - cinematic: "power4.inOut" (dramatic slowdown)
+
+3. OrganicCard Component:
+   - Shape variants: blob, hexagon, organic, floating
+   - Morphing animation: morphing={true}, morphIntensity={0.05} (±5% variance)
+   - Glow effect: glowColor="#06b6d4" (cyan)
+   - Performance: Max 3 morphing shapes, 3 glows per viewport
+
+Import Pattern: import { useMagneticPull, CRE8TIVE_EASINGS, OrganicCard } from '@/components/epic2'
+        </snippet>
+        <reason>Provides Epic 2 premium foundation components to use in StudiosConnection: magnetic pull for CTA, elastic easing for checkmarks, organic shapes for background</reason>
+      </doc>
+    </docs>
+    <code>
+      <file>
+        <path>src/components/epic2/hooks/useMagneticPull.ts</path>
+        <kind>hook</kind>
+        <symbol>useMagneticPull</symbol>
+        <lines>1-211</lines>
+        <reason>Magnetic pull hook for CTA button - AC #4 requires magnetic glow effect with cursor proximity detection</reason>
+        <usage>
+const ctaRef = useMagneticPull({ strength: 0.3, maxDistance: 150 })
+&lt;button ref={ctaRef}&gt;See Studios Portfolio →&lt;/button&gt;
+        </usage>
+      </file>
+
+      <file>
+        <path>src/components/epic2/animations/easings.ts</path>
+        <kind>constants</kind>
+        <symbol>CRE8TIVE_EASINGS</symbol>
+        <lines>1-106</lines>
+        <reason>Elastic easing curves - AC #3 requires elastic.out for checkmark bounce animation</reason>
+        <usage>
+gsap.from('.checkmark', {
+  ease: CRE8TIVE_EASINGS.spring, // elastic.out(1, 0.5)
+  rotation: -45,
+  scale: 0,
+  opacity: 0,
+  stagger: 0.1
+})
+        </usage>
+      </file>
+
+      <file>
+        <path>src/components/briefing/palette.ts</path>
+        <kind>constants</kind>
+        <symbol>briefingPalette</symbol>
+        <lines>1-118</lines>
+        <reason>Color system for Briefing Engine - needed for indigo/cyan/fuchsia gradients and glow effects</reason>
+        <usage>
+import { briefingPalette } from '@/components/briefing/palette'
+
+// For glow effect
+boxShadow: `0 0 ${glowIntensity * 40}px ${briefingPalette.cyan.DEFAULT}`
+
+// For gradient backgrounds
+background: `linear-gradient(135deg, ${briefingPalette.indigo.DEFAULT}, ${briefingPalette.fuchsia.DEFAULT})`
+        </usage>
+      </file>
+
+      <file>
+        <path>src/pages/BriefingEngine.tsx</path>
+        <kind>page</kind>
+        <symbol>BriefingEngine</symbol>
+        <lines>219-228</lines>
+        <reason>Integration point - StudiosConnection component will be inserted after BriefingProcessFlow (line 219), before AudienceBenefits (line 223)</reason>
+        <usage>
+&lt;BriefingProcessFlow /&gt;
+
+&lt;FadeIn&gt;
+  &lt;StudiosConnection /&gt;
+&lt;/FadeIn&gt;
+
+&lt;WorkflowTransformation /&gt;
+        </usage>
+      </file>
+    </code>
+
+    <dependencies>
+      <framework>
+        <name>React</name>
+        <version>18.3.1</version>
+        <usage>Component rendering, hooks (useRef, useEffect, useState)</usage>
+      </framework>
+
+      <framework>
+        <name>GSAP</name>
+        <version>3.13.0</version>
+        <usage>Parallax scroll effect, checkmark stagger animation, ScrollTrigger plugin</usage>
+        <plugins>ScrollTrigger (scroll-linked animations)</plugins>
+      </framework>
+
+      <framework>
+        <name>@gsap/react</name>
+        <version>2.1.2</version>
+        <usage>useGSAP hook for React integration with automatic cleanup</usage>
+      </framework>
+
+      <framework>
+        <name>Framer Motion</name>
+        <version>12.4.2</version>
+        <usage>Organic shape morphing animation (breathing effect)</usage>
+      </framework>
+
+      <framework>
+        <name>React Router</name>
+        <version>6.26.2</version>
+        <usage>Link component for "See Studios Portfolio →" CTA routing to /studios page</usage>
+      </framework>
+
+      <framework>
+        <name>Tailwind CSS</name>
+        <version>3.4.11</version>
+        <usage>Responsive styling, grid layout, glassmorphism effects</usage>
+      </framework>
+
+      <epic2>
+        <component>useMagneticPull</component>
+        <component>CRE8TIVE_EASINGS</component>
+        <component>OrganicCard (optional for organic flow shapes)</component>
+        <location>src/components/epic2/</location>
+        <status>Production ready (Story 2.0 complete)</status>
+      </epic2>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <performance>
+      <constraint>All animations must achieve 60fps on Chrome 100+, Firefox 100+, Safari 15+</constraint>
+      <constraint>Frame budget: ≤16.67ms per frame (60fps target)</constraint>
+      <constraint>Parallax uses CSS transform only (GPU-accelerated, not top/left positioning)</constraint>
+      <constraint>Magnetic pull throttled to 60fps (16ms interval) via gsap.utils.throttle</constraint>
+      <constraint>Max 3 morphing shapes per viewport for performance</constraint>
+      <constraint>Max 3 glow filters per viewport (GPU cost: Medium)</constraint>
+    </performance>
+
+    <responsive>
+      <constraint>Desktop (1024px+): Full premium animations (parallax, elastic checkmarks, magnetic CTA, organic shapes)</constraint>
+      <constraint>Tablet (768px-1023px): Reduced parallax intensity (multipliers halved), elastic checkmarks enabled, magnetic CTA reduced distance</constraint>
+      <constraint>Mobile (375px-767px): 1 column stack, no parallax, static checkmarks (fade-in only), magnetic CTA disabled, organic shapes hidden</constraint>
+    </responsive>
+
+    <technical>
+      <constraint>TypeScript must compile clean (npm run build) with 0 errors</constraint>
+      <constraint>ESLint must pass (0 errors, warnings acceptable per project standards)</constraint>
+      <constraint>React cleanup patterns: useGSAP or gsap.context with return cleanup for GSAP, useMagneticPull, Framer Motion</constraint>
+      <constraint>No console.log statements in production code</constraint>
+      <constraint>Follow frontend-architecture.md Component Template Checklist</constraint>
+    </technical>
+
+    <development>
+      <constraint>All copy must match COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word)</constraint>
+      <constraint>Component file size: &lt;500 LOC, functions &lt;50 lines, classes &lt;100 lines</constraint>
+      <constraint>Use cn() utility for className merging</constraint>
+      <constraint>Semantic HTML tags (&lt;section&gt;, &lt;article&gt;) for SEO</constraint>
+    </development>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>useMagneticPull</name>
+      <kind>hook</kind>
+      <signature>
+function useMagneticPull(options: MagneticPullOptions = {}): React.RefObject&lt;HTMLDivElement&gt;
+
+interface MagneticPullOptions {
+  strength?: number;           // 0-1, pull intensity (default: 0.3)
+  maxDistance?: number;        // Max pixels element can move (default: 30)
+  ease?: string;               // GSAP easing (default: 'power2.out')
+  rotation?: boolean;          // Enable rotation on pull (default: false)
+  rotationIntensity?: number;  // 0-1, rotation amount (default: 0.1)
+}
+      </signature>
+      <path>src/components/epic2/hooks/useMagneticPull.ts</path>
+    </interface>
+
+    <interface>
+      <name>CRE8TIVE_EASINGS</name>
+      <kind>constants</kind>
+      <signature>
+const CRE8TIVE_EASINGS = {
+  organic: 'power4.out',         // Smooth deceleration
+  smooth: 'power2.out',          // Apple-like
+  spring: 'elastic.out(1, 0.5)', // Energetic bounce (USE THIS for checkmarks)
+  cinematic: 'power4.inOut',     // Dramatic slowdown
+} as const
+      </signature>
+      <path>src/components/epic2/animations/easings.ts</path>
+    </interface>
+
+    <interface>
+      <name>briefingPalette</name>
+      <kind>constants</kind>
+      <signature>
+const briefingPalette = {
+  colors: {
+    indigo: '#4F46E5',
+    cyan: '#0891B2',
+    fuchsia: '#C026D3',
+    orange: '#EA580C'
+  },
+  indigo: { from: '#6366F1', DEFAULT: '#4F46E5', to: '#4338CA' },
+  cyan: { from: '#06B6D4', DEFAULT: '#0891B2', to: '#0E7490', glow: '#22D3EE' },
+  fuchsia: { from: '#D946EF', DEFAULT: '#C026D3', to: '#A21CAF' },
+  // ... additional color variants
+}
+      </signature>
+      <path>src/components/briefing/palette.ts</path>
+    </interface>
+
+    <interface>
+      <name>Link (React Router)</name>
+      <kind>component</kind>
+      <signature>
+import { Link } from 'react-router-dom'
+
+&lt;Link to="/studios"&gt;See Studios Portfolio →&lt;/Link&gt;
+      </signature>
+      <reason>Used for CTA button routing to Studios page (AC #7)</reason>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+Project has zero automated tests (manual validation only per ARCHITECTURE.md technical debt).
+
+Manual Testing Standards:
+- Browser testing: Chrome 100+, Firefox 100+, Safari 15+ (latest versions)
+- Mobile testing: Chrome DevTools device emulation (375px, 768px, 1024px, 1920px)
+- Performance: Chrome DevTools Performance tab (60fps verification, no frames &gt;16.67ms)
+- Build validation: npm run build (TypeScript 0 errors)
+- Lint validation: npm run lint (ESLint 0 errors, warnings OK)
+- Visual QA: Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md
+- Accessibility: Keyboard navigation, semantic HTML (WCAG removed per AD-003)
+    </standards>
+
+    <locations>
+N/A - No test files exist in project. All testing is manual browser-based validation.
+    </locations>
+
+    <ideas>
+Test Idea 1: Parallax Scroll Effect (AC #2)
+- Manual scroll through Studios Connection section
+- Verify right column moves slower than left (depth perception visible)
+- Verify background organic shapes move slowest (deepest layer)
+- Check smooth scroll with no jank (scrub: true)
+- Criteria: Visual depth separation between layers
+
+Test Idea 2: Checkmark Elastic Stagger (AC #3)
+- Scroll into Studios Connection section to trigger animation
+- Verify checkmarks bounce in sequentially (0.1s stagger visible)
+- Check visible elastic overshoot (bounce characteristic of elastic.out)
+- Initial state: checkmarks rotated -45deg, scale 0
+- Final state: checkmarks upright, scale 1
+- Criteria: 8 checkmarks total (4 left + 4 right), all bounce visibly
+
+Test Idea 3: Magnetic CTA + Dynamic Glow (AC #4)
+- Hover near "See Studios Portfolio →" button (within 150px radius)
+- Verify button moves toward cursor (magnetic pull, max 30px movement)
+- Check glow effect increases intensity when cursor is closer
+- Glow color: cyan to fuchsia gradient
+- Box-shadow blur: 0-40px based on cursor proximity
+- Criteria: Smooth magnetic pull + visible glow intensity change
+
+Test Idea 4: Organic Flow Shapes (AC #5)
+- Visual inspection of Studios Connection section background
+- Verify 2-3 organic blob shapes visible between columns
+- Check shapes have gradient fill (indigo → cyan, 10-15% opacity)
+- Verify subtle morphing/breathing animation (shape varies ±3% over 8s loop)
+- Shapes scroll at slowest parallax speed (deepest layer)
+- Criteria: Shapes enhance visual connection without distracting from content
+
+Test Idea 5: Responsive Breakpoints (AC #6)
+- 375px mobile: 1 column stack, static checkmarks (fade-in), no parallax, no magnetic CTA, shapes hidden
+- 768px tablet: 2 columns, parallax reduced 50%, elastic checkmarks enabled, magnetic CTA reduced distance
+- 1024px+ desktop: Full premium animations (all features enabled)
+- Chrome DevTools Performance tab: Verify 60fps maintained at all breakpoints
+- Criteria: Graceful degradation on mobile, premium experience on desktop
+
+Test Idea 6: Copy Accuracy (AC #10)
+- Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md lines 626-685
+- Verify section header: "From Storyboard to Professional Video"
+- Verify left column: badge, title, 4 features, supporting text
+- Verify right column: badge, title, 4 features, CTA button text
+- Verify bottom statement matches exactly
+- Criteria: Pixel-perfect word-for-word match with copy guide
+
+Test Idea 7: Integration & Routing (AC #7)
+- Navigate to Briefing Engine page
+- Scroll to Studios Connection section (after BriefingProcessFlow)
+- Click "See Studios Portfolio →" CTA button
+- Verify routing to /studios page (React Router Link)
+- Verify smooth scroll with Lenis
+- Verify no layout shifts (CLS ≤0.1)
+- Criteria: Full page renders, Studios Connection visible, CTA routing works
+
+Test Idea 8: Build & Code Quality (AC #8)
+- Run npm run build: verify TypeScript compiles with 0 errors
+- Run npm run lint: verify ESLint passes (0 errors, warnings OK)
+- Code review: verify React cleanup patterns (useGSAP cleanup, useMagneticPull cleanup)
+- Check no console.log statements in production code
+- Verify all components follow frontend-architecture.md patterns
+- Criteria: Clean build, clean lint, proper React cleanup
+
+Test Idea 9: Performance Profiling (AC #6, #9)
+- Chrome DevTools Performance tab: Record page load + scroll through section
+- Verify 60fps maintained (no frames &gt;16.67ms) during:
+  - Parallax scroll through section
+  - Checkmark elastic stagger animation
+  - Magnetic pull hover near CTA
+  - Organic shape morphing animation
+- Test CPU throttle 6x: verify graceful degradation if &lt;30fps
+- Criteria: All animations smooth 60fps, no performance bottlenecks
+
+Test Idea 10: Cross-Browser Compatibility
+- Test on Chrome 100+ (primary browser)
+- Test on Firefox 100+ (verify parallax, elastic easing)
+- Test on Safari 15+ (verify SVG shapes, magnetic pull)
+- Test mobile Safari iOS 15+ (verify mobile fallbacks)
+- Test mobile Chrome Android (verify simplified animations)
+- Criteria: Consistent behavior across all modern browsers, mobile fallbacks work
+    </ideas>
+  </tests>
+</story-context>

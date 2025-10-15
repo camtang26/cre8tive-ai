@@ -1,0 +1,206 @@
+# Pattern: Custom Cursor Follow
+# Category: Interactive Animations
+# GSAP Excellence Engine Pattern Library
+
+id: pattern-cursor-follow-012
+name: "Custom Cursor Follow Effect"
+category: "interactive"
+complexity: "medium"
+gsap_version: "3.12.0"
+plugins_required: []
+description: "Custom cursor that smoothly follows mouse with lag - premium interaction detail"
+inspiration_source: "Awwwards custom cursors, creative agency sites"
+performance_notes: "60fps with requestAnimationFrame and transform animations"
+created_date: "2025-10-11"
+last_validated: "2025-10-11"
+success_count: 0
+tags: ["cursor", "follow", "interactive", "premium", "experimental"]
+framework: "vanilla"
+
+code_example: |
+  import { gsap } from 'gsap';
+
+  // Custom cursor follow
+  class CustomCursor {
+    constructor() {
+      this.cursor = document.createElement('div');
+      this.cursor.classList.add('custom-cursor');
+      document.body.appendChild(this.cursor);
+
+      this.initStyles();
+      this.attachListeners();
+    }
+
+    initStyles() {
+      gsap.set(this.cursor, {
+        width: 20,
+        height: 20,
+        borderRadius: '50%',
+        background: 'rgba(0,0,0,0.5)',
+        position: 'fixed',
+        pointerEvents: 'none',
+        zIndex: 10000,
+        mixBlendMode: 'difference',
+        left: 0,
+        top: 0
+      });
+
+      // Hide default cursor
+      document.body.style.cursor = 'none';
+    }
+
+    attachListeners() {
+      let mouseX = 0;
+      let mouseY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      // Smooth follow with lag
+      gsap.ticker.add(() => {
+        gsap.to(this.cursor, {
+          x: mouseX - 10, // Center cursor (half of width)
+          y: mouseY - 10, // Center cursor (half of height)
+          duration: 0.5, // Lag amount (lower = faster follow)
+          ease: "power2.out"
+        });
+      });
+
+      // Expand on hover over interactive elements
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          gsap.to(this.cursor, {
+            scale: 2,
+            duration: 0.3,
+            ease: "back.out(1.5)"
+          });
+        });
+
+        el.addEventListener('mouseleave', () => {
+          gsap.to(this.cursor, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      });
+    }
+  }
+
+  // Initialize
+  const customCursor = new CustomCursor();
+
+usage_notes: |
+  HTML:
+  No HTML needed - cursor is created dynamically
+
+  CSS (optional enhancements):
+  .custom-cursor {
+    mix-blend-mode: difference; /* Inverts over content */
+    transition: background-color 0.3s;
+  }
+
+  Automatically hides default cursor and creates custom one
+  Expands on hover over interactive elements
+
+variations:
+  dot_and_ring: |
+    // Create dot + larger ring
+    const dot = document.createElement('div');
+    const ring = document.createElement('div');
+
+    // Dot follows instantly
+    gsap.ticker.add(() => {
+      gsap.set(dot, { x: mouseX, y: mouseY });
+      gsap.to(ring, { x: mouseX, y: mouseY, duration: 0.3 });
+    });
+
+  text_cursor: |
+    // Show text in cursor
+    cursor.textContent = 'View';
+    cursor.style.padding = '8px 12px';
+    cursor.style.borderRadius = '20px';
+
+  color_change_on_elements: |
+    // Change color based on element
+    element.addEventListener('mouseenter', () => {
+      gsap.to(cursor, { background: '#ff0000' });
+    });
+
+advanced_example: |
+  // Advanced cursor with multiple states
+  class AdvancedCursor {
+    setState(state) {
+      switch(state) {
+        case 'hover':
+          gsap.to(this.cursor, {
+            scale: 2,
+            background: 'rgba(0,0,255,0.5)'
+          });
+          break;
+        case 'click':
+          gsap.to(this.cursor, {
+            scale: 0.8,
+            duration: 0.1,
+            yoyo: true,
+            repeat: 1
+          });
+          break;
+        case 'drag':
+          gsap.to(this.cursor, {
+            rotate: 45,
+            background: 'rgba(255,0,0,0.5)'
+          });
+          break;
+      }
+    }
+  }
+
+performance_tips:
+  - Use transform not left/top for positioning
+  - Throttle mousemove if performance issues
+  - Use gsap.ticker for smooth animation loop
+  - Set will-change: transform on cursor
+  - Consider disabling on mobile
+
+accessibility:
+  reduced_motion: "Use default cursor"
+  implementation: |
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.body.style.cursor = 'auto';
+      this.cursor.remove();
+      return;
+    }
+
+  keyboard_users: |
+    // Detect keyboard navigation and show default cursor
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        document.body.style.cursor = 'auto';
+        this.cursor.style.display = 'none';
+      }
+    });
+
+browser_support:
+  chrome: "Full support"
+  firefox: "Full support"
+  safari: "Full support"
+  mobile: "Not applicable (no mouse cursor)"
+
+cleanup: |
+  // Remove cursor on cleanup
+  this.cursor.remove();
+  document.body.style.cursor = 'auto';
+  gsap.ticker.remove(this.tickerCallback);
+
+notes: |
+  Custom cursors are polarizing:
+  - ✅ Great for creative/agency sites
+  - ✅ Adds premium feel
+  - ❌ Can frustrate users if poorly implemented
+  - ❌ Not accessible for keyboard users
+  - ❌ Doesn't work on mobile
+
+  Use sparingly and ensure it enhances, not hinders UX

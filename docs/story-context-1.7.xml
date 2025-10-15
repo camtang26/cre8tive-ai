@@ -1,0 +1,541 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>7</storyId>
+    <title>Build 15-Second GSAP ScrollTrigger Transformation Timeline</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-08</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-1.7.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>visitor</asA>
+    <iWant>to see the briefing → storyboard transformation as I scroll</iWant>
+    <soThat>I understand the platform's workflow through visual storytelling</soThat>
+    <tasks>
+      <task id="1" status="completed">Create BriefToStoryboardAnimation component with GSAP timeline</task>
+      <task id="1.1" status="completed">Stage 1: Alpine Water hero with 15+ animated refs</task>
+      <task id="1.2" status="completed">Stage 2: AI processing visual</task>
+      <task id="1.3" status="completed">Stage 3: Style selection</task>
+      <task id="1.4" status="completed">Stage 4: Storyboard assembly</task>
+      <task id="1.5" status="completed">Stage 5: Studios handoff</task>
+      <task id="2" status="completed">Configure ScrollTrigger (trigger, start, end, scrub, pin)</task>
+      <task id="3" status="completed">Use GPU-accelerated transforms only (translate/scale/opacity)</task>
+      <task id="4" status="completed">REMOVED: prefers-reduced-motion (per AD-003)</task>
+      <task id="5" status="completed">Disable pinning on mobile (< 768px)</task>
+      <task id="6" status="completed">Add duration prop customization</task>
+      <task id="7" status="completed">Integrate storyboard frames (Frame1-6)</task>
+      <task id="8" status="completed">Implement React cleanup with gsap.context()</task>
+      <task id="9" status="pending">Scale hero section content to full viewport</task>
+      <task id="9.1" status="pending">Increase title font size (currently xl:text-8xl)</task>
+      <task id="9.2" status="pending">Increase subtitle font size (currently lg:text-4xl)</task>
+      <task id="9.3" status="pending">Increase description font size (currently md:text-2xl)</task>
+      <task id="9.4" status="pending">Increase vertical spacing (currently space-y-6 md:space-y-10)</task>
+      <task id="9.5" status="pending">Adjust section min-height if needed (currently min-h-[130vh])</task>
+      <task id="9.6" status="pending">Verify ScrollTrigger after layout shift</task>
+      <task id="9.7" status="pending">Test responsive scaling (mobile, tablet, desktop)</task>
+      <task id="10" status="pending">Implement Cinematic Focus Pull entrance animation (HIGH PRIORITY - see implementation plan)</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1" status="satisfied">
+      <description>BriefToStoryboardAnimation component created with GSAP timeline</description>
+      <details>
+        - Stage 1 (0-3s): Form fields animate in (7 input fields, staggered)
+        - Stage 2 (3-6s): AI processing (particle swirl from Story 1.6, holographic glow)
+        - Stage 3 (6-9s): Style selection (8 style cards → 1 selected → burst)
+        - Stage 4 (9-15s): Storyboard assembly (6 panels fly in, frames draw)
+        - Stage 5 (15-16s): Studios handoff (gradient shift indigo → orange)
+      </details>
+    </criterion>
+    <criterion id="2" status="satisfied">
+      <description>ScrollTrigger configuration</description>
+      <details>
+        - Trigger: `.transformation-container`
+        - Start: `top top`
+        - End: `bottom top`
+        - Scrub: 1 (user controls pace by scrolling)
+        - Pin: true (desktop only, disabled on < 768px)
+      </details>
+    </criterion>
+    <criterion id="3" status="satisfied">
+      <description>Timeline uses GPU-accelerated transforms only (translate, scale, opacity)</description>
+    </criterion>
+    <criterion id="4" status="satisfied">
+      <description>REMOVED: Accessibility prefers-reduced-motion CSS query per AD-003</description>
+    </criterion>
+    <criterion id="5" status="satisfied">
+      <description>Mobile: ScrollTrigger pinning disabled, simple fade-in reveals instead</description>
+    </criterion>
+    <criterion id="6" status="satisfied">
+      <description>Component accepts props: `duration={15}` to customize timeline length</description>
+    </criterion>
+    <criterion id="7" status="satisfied">
+      <description>Visual assets: Uses real storyboard frames (Frame1-6) for assembly stage</description>
+    </criterion>
+    <criterion id="8" status="satisfied">
+      <description>React cleanup implemented: `gsap.context()` with cleanup function to prevent memory leaks (ScrollTriggers killed on unmount)</description>
+    </criterion>
+    <criterion id="9" status="pending">
+      <description>Hero section content scales to full viewport height responsively</description>
+      <details>
+        - Hero content (title, subtitle, buttons) must fill 100vh on all screen sizes
+        - Currently only occupies ~60-75% of viewport (3/5 to 3/4)
+        - Increase font sizes, spacing, and button sizes to dominate viewport on page load
+        - Animation container positioned below hero content shifts down accordingly
+        - ScrollTrigger trigger point may need adjustment after layout shift
+        - Responsive scaling on mobile (portrait), tablet, desktop viewports
+      </details>
+    </criterion>
+    <criterion id="10" status="pending">
+      <description>Cinematic Focus Pull entrance animation implemented (Task 10 - HIGH PRIORITY)</description>
+      <details>
+        - Container hidden on page load (autoAlpha: 0, blur(20px), scale: 0.88, y: 80)
+        - Entrance ScrollTrigger fires at start: "top 80%" with once: true
+        - Entrance animation duration: 1.2s (blur → sharp, scale → normal, slide up)
+        - Chains to intro timeline via onComplete callback (no gap/stutter)
+        - Intro timeline paused: true (waits for entrance completion)
+        - Preserves existing Lenis integration (lenisReady state guard)
+        - GPU-accelerated filter performance (60fps target)
+        - See comprehensive implementation plan: docs/implementation-plans/entrance-animation-cinematic-focus-pull.md
+      </details>
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/architecture/animation-patterns.md" section="Pattern 2: Scrub Animation (Scroll = Playhead)" lines="148-206">
+        <title>GSAP ScrollTrigger Scrub Pattern - Briefing Timeline Foundation</title>
+        <snippet>
+          GSAP timeline with ScrollTrigger scrub configuration:
+          - scrub: 1 (ties timeline playhead to scroll position)
+          - pin: true (keeps section fixed while timeline plays)
+          - end: '+=200%' (defines scroll distance)
+          - Timeline labels overlap animations for smooth transitions
+          Critical: Always use gsap.context() with cleanup (ctx.revert()) in useEffect
+        </snippet>
+        <reason>Story 1.7 uses Pattern 2 for 15-second transformation timeline (brief → storyboard)</reason>
+      </doc>
+      <doc path="docs/architecture/animation-patterns.md" section="React Integration &amp; Cleanup" lines="432-460">
+        <title>CRITICAL: React Cleanup Pattern to Prevent Memory Leaks</title>
+        <snippet>
+          MUST use gsap.context() pattern:
+          ```typescript
+          useEffect(() => {
+            const ctx = gsap.context(() => {
+              gsap.to('.element', { x: 100, scrollTrigger: {...} })
+            }, containerRef)
+            return () => ctx.revert()  // Kills all animations and ScrollTriggers
+          }, [])
+          ```
+          Why: Without cleanup, ScrollTriggers persist after component unmounts (memory leak)
+        </snippet>
+        <reason>AC #8 requires proper React cleanup with gsap.context() to prevent memory leaks</reason>
+      </doc>
+      <doc path="docs/architecture/animation-patterns.md" section="Accessibility (Reduced Motion) - DEPRECATED" lines="559-600">
+        <title>WCAG Accessibility REMOVED per AD-003</title>
+        <snippet>
+          ⚠️ DEPRECATED (2025-10-08): DO NOT implement prefers-reduced-motion or accessibility features.
+          Rationale: Visual impact is core to brand identity for creative studio showcase.
+          See AD-003 for full context and rollback plan.
+        </snippet>
+        <reason>AC #4 explicitly removes accessibility implementation per technical decision AD-003</reason>
+      </doc>
+      <doc path="docs/architecture/animation-patterns.md" section="Performance Optimization - GPU Acceleration" lines="486-518">
+        <title>GPU-Accelerated Animation Properties (60fps Target)</title>
+        <snippet>
+          ✅ GOOD (GPU-accelerated): x, y, scale, rotation, opacity
+          ❌ BAD (CPU-bound, forces layout): width, height, top, left
+          CSS Setup: will-change: transform, opacity (hint browser to use GPU)
+        </snippet>
+        <reason>AC #3 requires GPU-accelerated transforms only for 60fps performance</reason>
+      </doc>
+      <doc path="docs/architecture/frontend-architecture.md" section="Animation Architecture" lines="330-376">
+        <title>Library Responsibilities - GSAP vs Framer Motion vs Lenis</title>
+        <snippet>
+          GSAP + ScrollTrigger: Scroll-linked timelines, parallax, pinning (e.g., Visual Styles Gallery stagger reveal)
+          Lenis: Smooth scroll foundation (global app-level)
+          Framer Motion: Hover, tap, simple reveals (micro-interactions)
+          Critical Rules:
+          1. Use gsap.context() with cleanup in useEffect
+          2. Never nest ScrollTriggers inside timeline tweens
+          3. Animate transform and opacity only (GPU acceleration)
+        </snippet>
+        <reason>Story 1.7 integrates GSAP timeline with existing Lenis smooth scroll wrapper</reason>
+      </doc>
+      <doc path="docs/technical-decisions.md" section="AD-003: Remove All WCAG Accessibility" lines="645-738">
+        <title>Technical Decision: Accessibility Removal Rationale</title>
+        <snippet>
+          Decision: Remove ALL WCAG/accessibility implementations across entire website.
+          Rationale:
+          1. Visual impact and bold animations ARE the core product demonstration
+          2. Creative industry standard (Figma, After Effects, Awwwards) prioritizes visual experience
+          3. Code simplification (removes conditional logic, reduces bundle size)
+          Implementation Scope (Story 1.7):
+          - Remove prefers-reduced-motion checks and fallback rendering
+          - Remove reduced-motion state management
+          - Simplify animation initialization (no motion detection)
+          Rollback Plan: Revert commit, restore from git history if business requirements change
+        </snippet>
+        <reason>AC #4 references AD-003 as justification for removing accessibility implementation</reason>
+      </doc>
+      <doc path="docs/architecture/coding-standards.md" section="Animation Standards - GSAP Patterns" lines="449-496">
+        <title>GSAP Cleanup Requirement and Deprecated Patterns</title>
+        <snippet>
+          ✅ MUST use gsap.context() cleanup:
+          useEffect(() => {
+            const ctx = gsap.context(() => { /* animations */ }, containerRef)
+            return () => ctx.revert()  // REQUIRED
+          }, [])
+
+          ⚠️ DEPRECATED (2025-10-08): Accessibility patterns REMOVED per AD-003
+          DO NOT implement prefers-reduced-motion or other accessibility features.
+        </snippet>
+        <reason>Reinforces AC #8 cleanup requirement and AC #4 accessibility removal</reason>
+      </doc>
+      <doc path="docs/prd/prd.md" section="FR4: 15-Second Transformation Timeline" lines="78-84">
+        <title>Product Requirement: Transformation Timeline Stages</title>
+        <snippet>
+          15-second scroll-driven GSAP timeline showing briefing → storyboard through 5 stages:
+          - Stage 1 (0-3s): Form fields animate in
+          - Stage 2 (3-6s): AI processing with Canvas particle swirl (60-100 particles)
+          - Stage 3 (6-9s): Style selection with burst animation
+          - Stage 4 (9-15s): Storyboard assembly (6 panels fly in, frames draw)
+          - Stage 5 (15-16s): Studios handoff (gradient shift indigo → orange)
+        </snippet>
+        <reason>Defines functional requirement for all 5 animation stages implemented in Story 1.7</reason>
+      </doc>
+      <doc path="docs/implementation-plans/entrance-animation-cinematic-focus-pull.md" section="Complete Implementation Plan" lines="1-733">
+        <title>CURRENT WORK: Cinematic Focus Pull Entrance Animation (Task 10)</title>
+        <snippet>
+          4-Phase Timeline Architecture for entrance reveal:
+          Phase 1: Research GSAP blur/filter patterns via Archon MCP
+          Phase 2: Set initial hidden state (autoAlpha: 0, blur(20px), scale: 0.88, y: 80)
+          Phase 3: Create entrance ScrollTrigger (start: "top 80%", once: true, duration: 1.2s)
+          Phase 4: Chain to intro timeline via onComplete callback
+
+          Critical Pattern: Container hidden on load → scroll down 20% → entrance reveals (blur → sharp, scale → normal, slide up) → intro plays → scroll transformation begins
+
+          Technical Details:
+          - Entrance timeline paused: true, triggered by ScrollTrigger onEnter
+          - Intro timeline paused: true, triggered by entrance onComplete
+          - Must preserve existing Lenis integration (lenisReady state guard)
+          - GPU-accelerated filter: blur() for smooth performance
+
+          Includes: Archon MCP research queries, debugging guide, browser testing checklist, rollback plan
+        </snippet>
+        <reason>Story 1.7 Task 10 - HIGH PRIORITY current work, not future enhancement. Comprehensive plan ready for immediate implementation.</reason>
+      </doc>
+    </docs>
+    <code>
+      <artifact path="src/components/briefing/BriefToStoryboardAnimation.tsx" kind="component" symbol="BriefToStoryboardAnimation" lines="98-675">
+        <reason>Primary component for Story 1.7 - implements 15-second GSAP ScrollTrigger timeline with 5 transformation stages</reason>
+        <status>Completed (all ACs satisfied except AC #9 hero scaling)</status>
+        <keyPattern>Uses useGSAP hook for automatic cleanup, ScrollTrigger with scrub: 1 and pin: true, Lenis integration via useLenis hook</keyPattern>
+      </artifact>
+      <artifact path="src/pages/BriefingEngine.tsx" kind="page" symbol="BriefingEngine" lines="1-143">
+        <reason>Parent page that integrates BriefToStoryboardAnimation at line 99 - controls Lenis wrapper and hero section layout</reason>
+        <status>Active integration point</status>
+        <keyPattern>ReactLenis wrapper with conditional prefersReducedMotion check, hero section with animate-fadeIn classes</keyPattern>
+      </artifact>
+      <artifact path="src/components/briefing/palette.ts" kind="utility" symbol="briefingPalette" lines="1-50">
+        <reason>Color constants used throughout BriefToStoryboardAnimation for stage accents (indigo, cyan, fuchsia, orange)</reason>
+        <status>Referenced in component</status>
+        <keyPattern>Provides briefingPalette.indigo.DEFAULT, briefingPalette.cyan.DEFAULT, briefingPalette.holographic.cyan, etc.</keyPattern>
+      </artifact>
+      <artifact path="src/components/briefing/AIProcessingVisual.tsx" kind="component" symbol="AIProcessingVisual" lines="1-200">
+        <reason>Canvas particle animation imported by BriefToStoryboardAnimation for Stage 2 (AI Processing visual)</reason>
+        <status>Dependency from Story 1.6</status>
+        <keyPattern>Canvas API with 60-100 particles, orbital motion physics, requestAnimationFrame loop</keyPattern>
+      </artifact>
+    </code>
+    <dependencies>
+      <node ecosystem="Node.js/React" manifestPath="package.json">
+        <package name="react" version="^18.3.1" usage="Core UI framework" />
+        <package name="gsap" version="^3.13.0" usage="Animation timeline and ScrollTrigger plugin for transformation sequence" />
+        <package name="@gsap/react" version="^2.1.2" usage="useGSAP hook for automatic cleanup of GSAP animations" />
+        <package name="lenis" version="^1.3.11" usage="Smooth scroll wrapper with momentum, integrated with ScrollTrigger" />
+        <package name="framer-motion" version="^12.4.2" usage="Micro-interactions and useReducedMotion hook (though reduced motion removed per AD-003)" />
+        <package name="typescript" version="^5.5.3" usage="Type safety (relaxed mode: noImplicitAny: false)" />
+        <package name="tailwindcss" version="^3.4.11" usage="Utility-first styling system" />
+        <package name="react-helmet" version="^6.1.0" usage="SEO meta tags in BriefingEngine page" />
+      </node>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="c1" type="pattern">
+      <rule>All GSAP animations MUST use gsap.context() with cleanup return in useEffect or useGSAP hook</rule>
+      <rationale>Prevents memory leaks - ScrollTriggers persist after unmount without cleanup (animation-patterns.md lines 432-460)</rationale>
+    </constraint>
+    <constraint id="c2" type="performance">
+      <rule>Animations MUST use GPU-accelerated transforms only (x, y, scale, opacity) - NO width, height, top, left</rule>
+      <rationale>60fps target requires GPU layer promotion - layout-triggering properties force reflow (animation-patterns.md lines 486-518)</rationale>
+    </constraint>
+    <constraint id="c3" type="architecture">
+      <rule>ScrollTrigger pinning MUST be disabled on mobile (< 768px viewport)</rule>
+      <rationale>Mobile touch scroll performance varies - pinning causes jank below 30fps (technical-decisions.md NFR8)</rationale>
+    </constraint>
+    <constraint id="c4" type="accessibility">
+      <rule>DO NOT implement prefers-reduced-motion or other WCAG accessibility features</rule>
+      <rationale>Visual impact IS the product demonstration - removed per AD-003 (technical-decisions.md lines 645-738)</rationale>
+    </constraint>
+    <constraint id="c5" type="integration">
+      <rule>Lenis smooth scroll wrapper MUST wrap entire page via ReactLenis component</rule>
+      <rationale>ScrollTrigger requires Lenis scroll events for scrub synchronization (animation-patterns.md lines 336-361)</rationale>
+    </constraint>
+    <constraint id="c6" type="responsive">
+      <rule>Hero section content MUST fill 100vh on all screen sizes (mobile 375px - desktop 1920px)</rule>
+      <rationale>AC #9 requires viewport-dominating hero with increased font sizes and spacing for premium feel</rationale>
+    </constraint>
+    <constraint id="c7" type="code-quality">
+      <rule>Component files MUST NOT exceed 500 lines of code</rule>
+      <rationale>BriefToStoryboardAnimation is 675 lines (exceeds guideline) - acceptable for complex timeline component with 15+ animated refs (coding-standards.md lines 881-891)</rationale>
+    </constraint>
+    <constraint id="c8" type="animation-chaining">
+      <rule>Entrance animation MUST chain seamlessly to intro timeline via onComplete callback - NO gap, stutter, or double-animation</rule>
+      <rationale>4-phase timeline architecture (entrance → intro → scroll transformation) requires proper callback wiring. Intro timeline must be paused: true and only play after entrance completes. See implementation plan lines 179-227.</rationale>
+    </constraint>
+    <constraint id="c9" type="trigger-behavior">
+      <rule>Entrance ScrollTrigger MUST use once: true to prevent re-triggering on scroll-up</rule>
+      <rationale>Entrance animation should only fire on first scroll down. Re-triggering would cause jarring re-animation when user scrolls back up. See implementation plan lines 210-219.</rationale>
+    </constraint>
+  </constraints>
+
+  <researchGuidelines>
+    <instruction>USE BOTH Context7 MCP AND Archon MCP for comprehensive research. ONLY use web search as last resort when both MCPs lack knowledge.</instruction>
+    <rationale>
+      Archon MCP RAG database has ingested official documentation directly from GSAP, React, Tailwind, and other frameworks - this is the authoritative source.
+      Context7 MCP provides additional code examples and community patterns.
+      Both MCPs complement each other - Context7 may have examples Archon lacks, and Archon has official docs Context7 may misrepresent.
+      Cross-reference both sources for accuracy and completeness.
+    </rationale>
+
+    <mcpResearch label="Primary Research (Use Both)">
+      <source name="Context7 MCP">
+        <strengths>
+          - High-quality code examples with Trust Scores
+          - Community-contributed patterns and use cases
+          - Multiple library versions available (/greensock/gsap, /llmstxt/gsap_llms_txt, /websites/gsap_v3)
+          - Well-organized snippet library with descriptions
+        </strengths>
+        <useCases>
+          - GSAP ScrollTrigger examples (timeline chaining, callbacks, once: true)
+          - React useGSAP hook patterns (cleanup, scope, contextSafe)
+          - Tailwind CSS responsive utilities (font sizes, viewport heights, breakpoints)
+          - Framework integration patterns and code examples
+        </useCases>
+        <examples>
+          <example task="AC #10 Timeline Chaining">
+            mcp__context7__resolve-library-id({ libraryName: "GSAP" })
+            // Returns: /llmstxt/gsap_llms_txt (784 snippets, Trust Score 8.0)
+
+            mcp__context7__get-library-docs({
+              context7CompatibleLibraryID: "/llmstxt/gsap_llms_txt",
+              topic: "ScrollTrigger once timeline onComplete callback chaining",
+              tokens: 3000
+            })
+          </example>
+          <example task="AC #9 Responsive Typography">
+            mcp__context7__resolve-library-id({ libraryName: "Tailwind CSS" })
+            // Returns: /tailwindlabs/tailwindcss.com (1747 snippets, Trust Score 10.0)
+
+            mcp__context7__get-library-docs({
+              context7CompatibleLibraryID: "/tailwindlabs/tailwindcss.com",
+              topic: "responsive font size text viewport height",
+              tokens: 2000
+            })
+          </example>
+        </examples>
+      </source>
+
+      <source name="Archon MCP RAG">
+        <strengths>
+          - Official documentation ingested directly (AUTHORITATIVE)
+          - Performance optimization patterns (GPU acceleration, will-change, filter performance)
+          - Browser-specific quirks and workarounds
+          - Troubleshooting patterns (timeline conflicts, memory leaks, rendering bugs)
+          - Edge cases and advanced use cases
+        </strengths>
+        <useCases>
+          - Official GSAP documentation (ScrollTrigger API, timeline methods, plugin usage)
+          - Performance best practices (GPU acceleration, will-change, CSS filter optimization)
+          - React integration patterns (useGSAP, gsap.context cleanup, React-specific gotchas)
+          - Tailwind configuration and customization
+          - Debugging and troubleshooting guidance
+        </useCases>
+        <examples>
+          <example task="AC #10 CSS Filter Blur Performance">
+            mcp__archon__rag_search_knowledge_base({
+              query: "GSAP CSS filter blur GPU performance",
+              match_count: 5
+            })
+
+            mcp__archon__rag_search_code_examples({
+              query: "GSAP blur entrance animation",
+              match_count: 3
+            })
+          </example>
+          <example task="AC #10 Timeline Chaining (Cross-Reference)">
+            mcp__archon__rag_search_knowledge_base({
+              query: "GSAP timeline onComplete callback sequence",
+              match_count: 5
+            })
+
+            mcp__archon__rag_search_code_examples({
+              query: "ScrollTrigger once true entrance",
+              match_count: 3
+            })
+          </example>
+          <example task="AC #9 Responsive Typography (Cross-Reference)">
+            mcp__archon__rag_search_knowledge_base({
+              query: "Tailwind responsive font size viewport",
+              match_count: 5
+            })
+          </example>
+        </examples>
+      </source>
+    </mcpResearch>
+
+    <webSearchFallback label="Last Resort (Only When Both MCPs Fail)">
+      <instruction>ONLY use web search when BOTH Context7 AND Archon MCP lack the required knowledge</instruction>
+      <useCases>
+        - Very recent library updates released after MCP knowledge cutoffs (e.g., GSAP 3.13.1+ features released in 2025)
+        - Niche browser bugs discovered recently (e.g., Safari 18 CSS filter regression)
+        - Community-specific solutions not yet documented (Stack Overflow workarounds)
+        - Real-world performance benchmarks and measurements
+      </useCases>
+      <examples>
+        <example task="Latest GSAP Features">
+          WebSearch({ query: "GSAP 3.13.0 ScrollTrigger new features 2025" })
+        </example>
+        <example task="Browser-Specific Bug">
+          WebSearch({ query: "CSS filter blur GPU acceleration Safari 18 bug 2025" })
+        </example>
+      </examples>
+    </webSearchFallback>
+
+    <researchWorkflow>
+      <step number="1">
+        <action>Query BOTH Context7 MCP AND Archon MCP for the same topic</action>
+        <reason>Archon has official docs (authoritative), Context7 has code examples (practical)</reason>
+      </step>
+      <step number="2">
+        <action>Cross-reference results from both MCPs</action>
+        <reason>Validate accuracy - if Context7 and Archon agree, high confidence; if they differ, investigate further</reason>
+      </step>
+      <step number="3">
+        <action>Synthesize findings from both sources</action>
+        <reason>Combine official documentation (Archon) with working code examples (Context7) for complete understanding</reason>
+      </step>
+      <step number="4">
+        <action>ONLY use web search if critical information is missing from BOTH MCPs</action>
+        <reason>MCPs provide higher quality, more reliable information than web search</reason>
+      </step>
+    </researchWorkflow>
+
+    <testingResults>
+      <test date="2025-10-08" story="1.7">
+        <summary>Context7 MCP tested for Story 1.7 knowledge coverage (Archon MCP testing pending)</summary>
+        <context7Coverage>
+          <framework name="GSAP ScrollTrigger" coverage="95%">
+            ✅ Timeline chaining patterns
+            ✅ once: true behavior
+            ✅ Callback documentation (onEnter, onComplete, onUpdate)
+            ✅ Pin/scrub configuration
+            ✅ Common mistakes documented
+            ⚠️ CSS filter: blur() - PixiJS blur examples only (need Archon MCP cross-reference)
+          </framework>
+          <framework name="React GSAP Integration" coverage="100%">
+            ✅ useGSAP hook patterns
+            ✅ Cleanup best practices
+            ✅ contextSafe for event handlers
+            ✅ Scope management
+          </framework>
+          <framework name="Tailwind CSS" coverage="85%">
+            ✅ Font size utilities (text-*, responsive prefixes)
+            ✅ Viewport height units (h-screen, h-svh, min-h-[130vh])
+            ✅ Responsive breakpoints (sm:, md:, lg:, xl:)
+            ✅ Line height control (leading-*)
+            ⚠️ Clamp-based fluid typography (need Archon MCP cross-reference)
+          </framework>
+        </context7Coverage>
+        <recommendation>Use BOTH Context7 AND Archon MCP for comprehensive research. Context7 provides excellent code examples, Archon MCP has official docs ingested. Cross-reference both for accuracy.</recommendation>
+      </test>
+    </testingResults>
+  </researchGuidelines>
+
+  <interfaces>
+    <interface name="useGSAP" kind="hook" signature="useGSAP(callback: () => void, options?: { scope?: RefObject })" path="@gsap/react">
+      <description>GSAP React hook with automatic cleanup - replaces manual gsap.context() pattern</description>
+      <usage>Used in BriefToStoryboardAnimation for timeline creation with scope cleanup on unmount</usage>
+    </interface>
+    <interface name="useLenis" kind="hook" signature="useLenis(callback: (lenis: LenisInstance) => void)" path="lenis/react">
+      <description>Lenis React hook for scroll event callback integration with GSAP</description>
+      <usage>Used in BriefToStoryboardAnimation to sync ScrollTrigger.update() with Lenis scroll events</usage>
+    </interface>
+    <interface name="ScrollTrigger" kind="gsapPlugin" signature="gsap.timeline({ scrollTrigger: ScrollTriggerConfig })" path="gsap/ScrollTrigger">
+      <description>GSAP plugin for scroll-driven timeline animations with pinning and scrubbing</description>
+      <config>
+        trigger: containerRef.current (element to watch for scroll)
+        start: "top top" (when trigger top hits viewport top)
+        end: "+=6720" (scroll distance in pixels for 5 stages + 2s dwell)
+        scrub: 1 (smooth scrubbing with 1s lag)
+        pin: true (desktop only, disabled on mobile)
+        anticipatePin: 1 (preload pin calculations)
+      </config>
+    </interface>
+    <interface name="briefingPalette" kind="constants" signature="{ indigo: { DEFAULT: string }, cyan: { DEFAULT: string }, ... }" path="@/components/briefing/palette">
+      <description>Color constants for Briefing Engine dark indigo/cyan/fuchsia theme</description>
+      <usage>Referenced for stage accent colors in BriefToStoryboardAnimation stageData array</usage>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Zero automated tests exist (documented technical debt in ARCHITECTURE.md lines 626-661). All validation is manual via browser testing. Future testing infrastructure planned: Vitest + React Testing Library (unit/integration) + Playwright (E2E). Current validation: Chrome DevTools screenshots, console log monitoring, visual QA across 4 browsers (Chrome, Firefox, Safari, Edge), 4 devices (mobile 375px, tablet 768px, desktop 1024px, wide 1920px).
+    </standards>
+    <locations>
+      No test directories exist. When tests are added, co-locate with components:
+      - src/components/briefing/__tests__/BriefToStoryboardAnimation.test.tsx (future)
+      - src/pages/__tests__/BriefingEngine.test.tsx (future)
+    </locations>
+    <ideas>
+      <test id="t1" criterion="AC #1" type="visual">
+        Manual: Verify all 5 transformation stages render correctly (Alpine Water hero, AI processing particles, 9 style cards, 6 storyboard frames, PDF mockup with gradient shift). Screenshot each stage at scroll positions: 0%, 25%, 50%, 75%, 100%.
+      </test>
+      <test id="t2" criterion="AC #2" type="integration">
+        Manual: Verify ScrollTrigger configuration (start: "top+=15 top", end: "+=6720", scrub: 1, pin: true on desktop). Use Chrome DevTools markers: true flag to visualize trigger points. Scroll up and down 3 times to test timeline progress reset.
+      </test>
+      <test id="t3" criterion="AC #3" type="performance">
+        Manual: Chrome DevTools Performance tab - record 10-second scroll through timeline. Verify: (1) 60fps maintained on modern devices, (2) Only transform/opacity properties animated (no layout/paint in purple bars). Check CPU usage stays below 70%.
+      </test>
+      <test id="t4" criterion="AC #4" type="compliance">
+        Manual: Confirm NO prefers-reduced-motion code exists in component. Search codebase: rg "prefers-reduced-motion" src/components/briefing/BriefToStoryboardAnimation.tsx (should return 0 results). Verify AD-003 compliance.
+      </test>
+      <test id="t5" criterion="AC #5" type="responsive">
+        Manual: Test mobile (375px iPhone 12) - verify pinning disabled, simple fade-in reveals instead. Use Chrome DevTools Device Mode. Scroll should feel native (no janky pinned sections). Verify 30fps minimum on mobile.
+      </test>
+      <test id="t6" criterion="AC #8" type="memory">
+        Manual: Chrome DevTools Memory tab - take heap snapshot before scroll, scroll through timeline 10 times, take second snapshot. Verify: (1) Memory growth < 5MB, (2) Detached DOM nodes < 10, (3) No ScrollTrigger instances persisting after unmount (mount/unmount component 5 times).
+      </test>
+      <test id="t7" criterion="AC #9" type="visual">
+        Manual: Verify hero content fills 100vh on all viewports (1920x1080, 1440x900, iPad 768x1024, iPhone 375x667). Measure: title occupies 30-40% viewport, subtitle 15-20%, description 10-15%, buttons 10-15%. Total should fill 65-90% of 100vh before animation container.
+      </test>
+      <test id="t8" criterion="AC #10" type="visual-entrance">
+        Manual: Verify entrance animation (Cinematic Focus Pull). Page load at scrollY=0 → container should be invisible (autoAlpha: 0, blurred). Scroll down ~300-500px → entrance ScrollTrigger fires at "top 80%". Record with Chrome DevTools: (1) Container fades in over 1.2s, (2) Blur reduces from 20px → 0px smoothly, (3) Scale grows from 0.88 → 1, (4) Y position slides from 80 → 0. After entrance completes, intro timeline should play immediately (no gap). Verify markers: true shows green line at 80% viewport.
+      </test>
+      <test id="t9" criterion="AC #10" type="integration-chaining">
+        Manual: Verify timeline chaining (entrance → intro → scroll transformation). Use console logs to track: (1) Entrance ScrollTrigger fires, (2) Entrance timeline completes and logs onComplete, (3) Intro timeline starts playing (Alpine Water hero animates), (4) Intro completes, (5) Scroll transformation activates. No gaps, stutters, or double-animations between phases.
+      </test>
+      <test id="t10" criterion="AC #10" type="performance-blur">
+        Manual: Chrome DevTools Performance tab - record entrance animation. Verify: (1) blur() filter uses GPU acceleration (green bars in compositing), (2) Maintains 60fps throughout 1.2s duration, (3) No purple layout/paint bars during blur animation, (4) CPU usage < 70%. If blur is choppy, reduce from 20px to 12px or remove and use scale+y only.
+      </test>
+      <test id="t11" criterion="AC #10" type="trigger-once">
+        Manual: Test ScrollTrigger once: true behavior. Scroll down to fire entrance → scroll back up to top → scroll down again. Entrance should NOT re-trigger (container stays visible). Console should log "[Entrance] fired" only once. Verify markers show green line but entrance timeline doesn't replay.
+      </test>
+    </ideas>
+  </tests>
+</story-context>

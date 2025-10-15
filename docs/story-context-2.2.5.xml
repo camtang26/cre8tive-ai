@@ -1,0 +1,137 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.5</storyId>
+    <title>Briefing Engine Hero &amp; Process Updates - Premium Timeline &amp; Pill Animations</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-2.5.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 content strategy and premium components</asA>
+    <iWant>to update the Briefing Engine hero with signature easing on title reveals and enhance the BriefingProcessFlow component with timeline connector draw-on animation and feature pill morphing entrances</iWant>
+    <soThat>users experience polished premium animations that reinforce the platform's professional quality through distinctive GSAP choreography featuring elastic easing on timeline connectors and morphing pill reveals that elevate beyond generic process flows</soThat>
+    <tasks>
+      <task id="1" name="Update Briefing Engine Hero Component" acs="1,2">Read existing BriefingHero.tsx, update headline/subheadline/supporting copy to match COPY_IMPLEMENTATION_GUIDE.md lines 376-395, update hero CTA buttons (Primary → admanager.cre8tive.ai, Secondary → /contact), add 4 feature highlights, implement title signature easing animation with word stagger (CRE8TIVE_EASINGS.organic, 0.1s stagger)</task>
+      <task id="2" name="Update Process Flow Step Content" acs="3">Read existing BriefingProcessFlow.tsx, update Step 01-05 copy (Title, Summary, Description, Timeline, Deliverables, Outputs, Insight) to match lines 433-622, add Connected Pipeline badge with copy from lines 425-431</task>
+      <task id="3" name="Create Timeline Connector Component" acs="4">Create TimelineConnector.tsx with SVG vertical line, implement stroke-dashoffset draw-on animation (100% → 0%), GSAP ScrollTrigger scrub: true, gradient stroke (indigo → cyan), subtle glow filter, 2s duration power2.inOut easing</task>
+      <task id="4" name="Create Feature Pill Components" acs="5">Create FeaturePill.tsx with Framer Motion morphing animation, borderRadius 50% → 12px, scale 0.8 → 1, spring physics, 0.08s stagger, glassmorphism background + gradient border (cyan/fuchsia), use in hero (4 pills) and process steps</task>
+      <task id="5" name="Implement Elastic Step Reveal Animations" acs="6">Import CRE8TIVE_EASINGS.spring, apply elastic easing to step card reveals (opacity 0 → 1, y: 40 → 0, scale: 0.95 → 1, elastic.out(1, 0.5), 0.15s stagger), individual ScrollTrigger per step</task>
+      <task id="6" name="Responsive &amp; Performance Optimization" acs="7">Test mobile 375px (static pills, no timeline, simple fade), tablet 768px (pill morphing, timeline draw-on, elastic reveals), desktop 1024px+ (full premium), verify 60fps in Chrome DevTools, add prefers-reduced-motion support</task>
+      <task id="7" name="Integrate with Briefing Engine Page" acs="8">Open BriefingEngine.tsx, import updated components, verify placement (Hero → ProcessFlow → other sections), test smooth scroll, no layout shifts, no console errors, verify Lenis integration</task>
+      <task id="8" name="Code Quality &amp; Build Validation" acs="9">Run npm run build (0 TypeScript errors), npm run lint (0 ESLint errors), review React cleanup patterns (useEffect cleanup for GSAP/Framer Motion), remove console.log, verify component patterns match frontend-architecture.md</task>
+      <task id="9" name="Visual QA &amp; Copy Verification" acs="10">Side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md, browser testing (Chrome/Firefox/Safari), test breakpoints (375px/768px/1024px/1920px), verify all 10 ACs satisfied, document deviations, take screenshots</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <ac id="1" priority="high" testable="true">Briefing Engine hero section displays updated quality-focused headline "From Brand Brief to Production-Ready Storyboard" and subheadline emphasizing Studios connection. Verification: Visual QA comparing to COPY_IMPLEMENTATION_GUIDE.md lines 376-408 for exact match.</ac>
+    <ac id="2" priority="high" testable="true">Hero title implements signature easing animation with word-by-word stagger reveal. Animation properties: opacity 0 → 1, y: 60 → 0, duration 1.2s, CRE8TIVE_EASINGS.organic (power4.out fallback), 0.1s stagger between words. Verification: Observe page load animation, verify organic easing curve, word stagger visible.</ac>
+    <ac id="3" priority="high" testable="true">5-step "Briefing Runway" process displays corrected copy with timeline estimates and insights for each step (Step 01: Capture Brand DNA, Step 02: AI Synopsis &amp; Scene Map, Step 03: Choose Visual Style, Step 04: AI Generates Storyboard, Step 05: Review &amp; Handoff). Each step includes Title, Summary, Description, Timeline, Deliverables (bulleted list), Outputs (2 metrics), Insight (user feedback quote). Verification: All copy matches COPY_IMPLEMENTATION_GUIDE.md lines 433-622 exactly word-for-word.</ac>
+    <ac id="4" priority="high" testable="true">Timeline connector vertical line between process steps implements SVG stroke-dashoffset draw-on animation. Animation properties: initial stroke-dashoffset 100% (line not visible), final 0% (fully drawn), duration 2s, ease power2.inOut, ScrollTrigger scrub: true (scroll-linked), gradient stroke indigo → cyan, 2px width, subtle glow filter. Verification: Scroll through process flow, verify progressive draw from top to bottom, smooth scrub animation.</ac>
+    <ac id="5" priority="medium" testable="true">Feature pill components implement Framer Motion morphing entrance animation. Initial state: borderRadius 50% (circle), scale 0.8, opacity 0. Final state: borderRadius 12px (pill), scale 1, opacity 1. Duration 0.6s with spring physics (Framer Motion default spring), 0.08s stagger between pills. Styling: glassmorphism background, gradient border (cyan/fuchsia). Trigger: On scroll into viewport (IntersectionObserver or Framer Motion viewport detection). Verification: Scroll into hero/process steps, verify circle → pill morph, stagger visible, spring bounce effect.</ac>
+    <ac id="6" priority="medium" testable="true">Step card reveals implement elastic easing (CRE8TIVE_EASINGS.spring / elastic.out fallback) with visible bounce effect. Initial state: opacity 0, y: 40, scale 0.95. Final state: opacity 1, y: 0, scale 1. Easing: elastic.out(1, 0.5), 0.15s stagger between cards. ScrollTrigger: Each step animates on scroll into viewport. Verification: Scroll through process flow, verify visible bounce/spring effect on each reveal, elastic easing characteristic overshoot.</ac>
+    <ac id="7" priority="high" testable="true">Responsive design implemented across all breakpoints. Mobile (375px): 1 column stack, static pills (no morphing), no timeline connector draw-on, simple fade-in step reveals. Tablet (768px): 1 column, pill morphing enabled, timeline draw-on enabled, elastic step reveals. Desktop (1024px+): Full premium animations (title stagger, pill morphing, timeline draw-on, elastic steps). All animations achieve 60fps on Chrome 100+, Firefox 100+, Safari 15+. Verification: Test all 3 breakpoints in Chrome DevTools, verify 60fps in Performance tab, verify mobile fallbacks.</ac>
+    <ac id="8" priority="high" testable="true">Integration with Briefing Engine page successful. BriefingHero and BriefingProcessFlow components imported into BriefingEngine.tsx. Placement: Hero → ProcessFlow → other sections (StudiosConnection Story 2.6). Smooth scroll behavior with Lenis (already configured globally) works throughout page. No layout shifts (CLS ≤0.1), no console errors. Verification: Full page renders correctly, sections flow smoothly, scroll smooth, build succeeds.</ac>
+    <ac id="9" priority="high" testable="true">Code quality validated. TypeScript compiles clean (npm run build with 0 errors). ESLint passes (npm run lint with 0 errors, warnings acceptable per project standards). All components follow frontend-architecture.md Component Template Checklist. React cleanup patterns implemented (useEffect return cleanup for GSAP context, Framer Motion). No console.log statements in production code. SVG timeline connector optimized (inline for best performance). Verification: Run build and lint commands, verify success output.</ac>
+    <ac id="10" priority="high" testable="true">Visual QA and copy accuracy verified. All hero copy matches COPY_IMPLEMENTATION_GUIDE.md exactly (word-for-word comparison lines 376-408). All 5 process step copy matches copy guide (lines 433-622: titles, summaries, descriptions, deliverables, outputs, insights). Feature highlights display correctly (7 inputs, 9 styles, AI storyboards, Studios integration). CTAs link correctly (Primary → https://admanager.cre8tive.ai/, Secondary → /contact). Connected Pipeline badge displays with correct copy. Verification: Side-by-side comparison with copy guide, pixel-perfect match confirmation.</ac>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md" title="Technical Specification: Epic 2" section="Story 2.5 Implementation (lines 520-527)">
+        Implementation workflow: Update BriefingHero with signature easing on title reveal, Update BriefingProcessFlow with timeline connector draw-on animation, feature pill morphing entrances, 5-step with insights and elastic easing. Test timeline draw animation and pill morphing.
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md" title="Technical Specification: Epic 2" section="Acceptance Criteria (lines 898-918)">
+        AC-2.10: Briefing Engine hero displays "From Brand Brief to Production-Ready Storyboard" headline with Studios connection messaging. AC-2.11: Hero includes 4 feature highlights (7 guided inputs, 9 visual styles, AI-generated storyboards, Studios integration). AC-2.12: 5-step "Briefing Runway" process with corrected flow, timeline estimates, and insights. AC-2.13: "Connected Pipeline" badge displays Brief → Narrative → Style → Boards flow. AC-2.42: Signature easings (CRE8TIVE_EASINGS) used on premium components. AC-2.43: 60fps performance on modern browsers.
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/COPY_IMPLEMENTATION_GUIDE.md" title="Copy Implementation Guide" section="Briefing Engine Hero Section (lines 376-408)">
+        Headline: "From Brand Brief to Production-Ready Storyboard". Subheadline: "AI-powered briefing platform that transforms your vision into professional storyboards—built by the team behind enterprise-grade AI video production." Supporting copy emphasizes same quality standards as Studios productions. Hero CTAs: Primary "Start Your First Brief" → https://admanager.cre8tive.ai/, Secondary "Talk to Our Team" → /contact. Feature highlights: ✓ 7 guided brand inputs, ✓ 9 professional visual styles, ✓ AI-generated storyboards, ✓ Studios integration ready.
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/COPY_IMPLEMENTATION_GUIDE.md" title="Copy Implementation Guide" section="The Briefing Runway Section (lines 411-622)">
+        5-step process copy: Step 01 "Capture Your Brand DNA" (≈90 seconds, 4 deliverables, insight), Step 02 "AI Synopsis &amp; Scene Map" (story structuring, 3 deliverables), Step 03 "Choose Your Visual Style" (creative selection, 9 styles, 3 deliverables), Step 04 "AI Generates Your Storyboard" (realtime build, 3 deliverables), Step 05 "Review &amp; Handoff to Studios" (approval + export, 3 deliverables). Connected Pipeline badge: "Brief → Narrative → Style → Boards" with description of data flow automation.
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/frontend-architecture.md" title="Frontend Architecture" section="Component Template (lines 60-131)">
+        Standard component pattern: TypeScript interface for props (exported), JSDoc comment with description, semantic HTML tags, cn() utility for className merging, responsive Tailwind classes, loading="lazy" for images, useEffect cleanup for GSAP context. Component template checklist ensures consistent implementation across all components.
+      </doc>
+      <doc path="/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md" title="Animation Patterns" section="GSAP ScrollTrigger Patterns (lines 93-191)">
+        Pattern 1: Basic scroll-triggered animation (toggleActions: 'play none none reverse'). Pattern 2: Scrub animation (scroll = playhead, scrub: true for scroll-linked). Pattern 3: Parallax effect (different y values, ease: 'none'). Pattern 4: Stagger animation (stagger.amount for cascading reveals). All patterns use gsap.context() with cleanup in useEffect return.
+      </doc>
+    </docs>
+    <code>
+      <file path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefingProcessFlow.tsx" kind="component" symbol="BriefingProcessFlow" lines="1-488" reason="Existing 5-step process flow component to be UPDATED with new copy from COPY_IMPLEMENTATION_GUIDE.md. Currently has stacked card UI with stages array (lines 38-159). Need to preserve stacked animation while updating step titles, summaries, descriptions, deliverables, outputs, and insights to match Story 2.5 requirements.">
+        Component exports: BriefingProcessFlow (main), StageDossier (internal). Uses stages array with StageConfig type (step, title, summary, description, timelineLabel, icon, deliverables, outputs, insight). Implements 3D perspective stacking with gsap.context cleanup. Needs timeline connector and feature pill morphing additions.
+      </file>
+      <file path="/home/cameronai/projects/cre8tive-website-1006/src/components/epic2/animations/easings.ts" kind="utility" symbol="CRE8TIVE_EASINGS" lines="36-64" reason="Signature easing curves for Story 2.5 animations. Use CRE8TIVE_EASINGS.organic for hero title word stagger (power4.out fallback), CRE8TIVE_EASINGS.spring for elastic step reveals (elastic.out(1, 0.5))">
+        Available easings: organic (power4.out), smooth (power2.out), spring (elastic.out(1, 0.5)), cinematic (power4.inOut). Import from '@/components/epic2'.
+      </file>
+      <file path="/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/palette.ts" kind="constants" symbol="briefingPalette" lines="11-117" reason="Dark indigo/cyan/fuchsia color palette for Briefing Engine. Use briefingPalette.colors.indigo, .cyan, .fuchsia for timeline connector gradient and feature pill styling. Ensures consistent color scheme across Story 2.5 components.">
+        Key colors: indigo (#4F46E5), cyan (#0891B2), fuchsia (#C026D3), orange (#EA580C). Gradients: heroBg, cardBg, ctaBg. Use getColor() helper for hex values.
+      </file>
+      <file path="/home/cameronai/projects/cre8tive-website-1006/src/pages/BriefingEngine.tsx" kind="page" symbol="BriefingEngine" lines="1-300" reason="Main Briefing Engine page component. Integration point for BriefingHero and BriefingProcessFlow updates. Verify ParticleHero (Epic 3) already integrated at line 160. Need to ensure smooth integration with existing sections after updating hero copy and process flow.">
+        Current sections order: ParticleHero, BriefingHero content, BriefingProcessFlow, other sections. Lenis smooth scroll active globally.
+      </file>
+      <file path="/home/cameronai/projects/cre8tive-website-1006/src/components/epic2/hooks/useMagneticPull.ts" kind="hook" reason="Available for magnetic pull effects if needed for feature pills (optional enhancement). Throttled cursor following with 60fps performance. Can be imported from '@/components/epic2' if magnetic pill interactions desired." />
+      <file path="/home/cameronai/projects/cre8tive-website-1006/src/hooks/usePrefersReducedMotion.ts" kind="hook" reason="Accessibility hook for detecting prefers-reduced-motion. MUST be used to disable timeline draw-on animation and pill morphing for users with motion sensitivity preferences. Import and check before applying animations." />
+    </code>
+    <dependencies>
+      <runtime>
+        <package name="react" version="18.3.1" usage="Component rendering, useState, useEffect hooks" />
+        <package name="react-dom" version="18.3.1" usage="DOM rendering" />
+        <package name="gsap" version="3.13.0" usage="Timeline connector draw-on animation, hero title word stagger, step reveals with ScrollTrigger" />
+        <package name="@gsap/react" version="2.1.2" usage="useGSAP hook for automatic cleanup in React components" />
+        <package name="lenis" version="1.3.11" usage="Global smooth scroll (already active, no changes needed)" />
+        <package name="framer-motion" version="12.4.2" usage="Feature pill morphing animation (borderRadius 50% → 12px with spring physics)" />
+        <package name="lucide-react" version="0.462.0" usage="Icons for process steps (already imported in BriefingProcessFlow)" />
+        <package name="tailwindcss" version="3.4.11" usage="Component styling with utility classes" />
+        <package name="clsx" version="2.1.1" usage="Conditional className composition" />
+        <package name="tailwind-merge" version="2.5.2" usage="cn() utility for className merging" />
+      </runtime>
+      <devDependencies>
+        <package name="typescript" version="5.5.3" usage="Type checking (AC #9 requires clean compilation)" />
+        <package name="eslint" version="9.9.0" usage="Linting (AC #9 requires 0 errors)" />
+        <package name="vite" version="5.4.1" usage="Build tool (AC #9 requires successful build)" />
+      </devDependencies>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint type="architecture" source="docs/architecture/frontend-architecture.md">All components must follow Component Template pattern: TypeScript interface for props (exported), JSDoc comment, semantic HTML, cn() utility, responsive classes, lazy-load images, useEffect cleanup for GSAP context.</constraint>
+    <constraint type="architecture" source="docs/architecture/animation-patterns.md">GSAP animations MUST use gsap.context() with cleanup in useEffect return. Never nest ScrollTriggers inside timeline tweens. Animate transform and opacity only for GPU acceleration.</constraint>
+    <constraint type="performance" source="docs/tech-spec-epic-2.md#Performance">60fps non-negotiable for all animations. Frame budget ≤16.67ms. Timeline draw-on: ≤3ms, pill morphing: stagger to avoid simultaneous renders, title stagger: ≤2ms, step reveals: ≤5ms. Use will-change: transform on animated elements.</constraint>
+    <constraint type="responsive" source="docs/tech-spec-epic-2.md#AC-2.24">Mobile (375px): 1 column stack, static pills (no morphing), timeline connector simplified (no draw-on), step reveals use simple fade-in. Tablet (768px): 1 column, pill morphing enabled, timeline draw-on enabled, elastic step reveals. Desktop (1024px+): Full premium animations.</constraint>
+    <constraint type="accessibility" source="docs/tech-spec-epic-2.md#AC-2.28">prefers-reduced-motion MUST be respected. If detected, disable all premium animations: no pill morphing, instant timeline (no draw-on), no elastic bounce, no word stagger. Use usePrefersReducedMotion hook.</constraint>
+    <constraint type="copy" source="docs/COPY_IMPLEMENTATION_GUIDE.md">All hero and process step copy must match COPY_IMPLEMENTATION_GUIDE.md EXACTLY (word-for-word). No paraphrasing or creative interpretation. Headlines, subheadlines, feature highlights, step titles, summaries, descriptions, deliverables, outputs, insights must be pixel-perfect match.</constraint>
+    <constraint type="pattern" source="Story 2.5 Dev Notes">Timeline connector uses SVG stroke-dashoffset (not canvas). Feature pills use Framer Motion morphing (not GSAP). Hero title stagger word-by-word (not line-by-line). Elastic step reveals with elastic.out(1, 0.5) parameters.</constraint>
+    <constraint type="component-size" source="docs/architecture/frontend-architecture.md">Components &lt;500 LOC, functions &lt;50 lines, files &lt;500 lines total. Extract sub-components if BriefingHero or TimelineConnector exceed limits.</constraint>
+    <constraint type="code-quality" source="docs/tech-spec-epic-2.md#AC-2.21-2.23">TypeScript: noImplicitAny false (relaxed mode), but fix errors. ESLint: 0 errors required, warnings acceptable. Build: tsc &amp;&amp; vite build must succeed. No console.log in production code.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface name="CRE8TIVE_EASINGS" kind="constant" signature="{ organic: 'power4.out', smooth: 'power2.out', spring: 'elastic.out(1, 0.5)', cinematic: 'power4.inOut' }" path="src/components/epic2/animations/easings.ts">Import from '@/components/epic2'. Use CRE8TIVE_EASINGS.organic for hero title reveals, CRE8TIVE_EASINGS.spring for elastic step card reveals.</interface>
+    <interface name="briefingPalette" kind="constant" signature="{ colors: { indigo, cyan, fuchsia, orange }, gradients: { heroBg, cardBg, ctaBg }, text: { primary, secondary, muted } }" path="src/components/briefing/palette.ts">Use briefingPalette.colors.indigo/cyan for timeline gradient stroke, briefingPalette.colors.fuchsia/cyan for pill borders.</interface>
+    <interface name="usePrefersReducedMotion" kind="hook" signature="() =&gt; boolean" path="src/hooks/usePrefersReducedMotion.ts">Returns true if user has motion sensitivity. Disable all animations when true.</interface>
+    <interface name="useGSAP" kind="hook" signature="(callback: () =&gt; void, config?: { scope: RefObject }) =&gt; void" path="@gsap/react">Official GSAP React hook with automatic cleanup. Use instead of manual gsap.context() for cleaner code.</interface>
+    <interface name="motion" kind="component" signature="&lt;motion.div initial={} whileInView={} transition={} /&gt;" path="framer-motion">Framer Motion component for pill morphing. Use initial={{ borderRadius: '50%', scale: 0.8 }}, whileInView={{ borderRadius: '12px', scale: 1 }}, transition={{ type: 'spring', delay: index * 0.08 }}.</interface>
+    <interface name="cn" kind="utility" signature="(...classes: ClassValue[]) =&gt; string" path="src/lib/utils.ts">Tailwind className merging utility. Combines clsx and tailwind-merge for conditional classes.</interface>
+  </interfaces>
+
+  <tests>
+    <standards>Project has zero automated tests per ARCHITECTURE.md. All testing is manual validation only. Test approach: Component-level (browser DevTools + interaction), Integration (full page load + scroll), Visual QA (copy accuracy), Performance (Chrome DevTools 60fps validation), Accessibility (prefers-reduced-motion emulation). Build validation: npm run build (0 TypeScript errors), npm run lint (0 ESLint errors). Browser matrix: Chrome 100+, Firefox 100+, Safari 15+ (desktop + mobile).</standards>
+    <locations>No test files exist. Manual testing performed in browser. Performance profiling in Chrome DevTools Performance tab. Visual QA via side-by-side comparison with COPY_IMPLEMENTATION_GUIDE.md. Accessibility testing via Chrome DevTools Emulate prefers-reduced-motion.</locations>
+    <ideas>
+      <test id="AC-1" criteria="Headline, subheadline, supporting copy match COPY_IMPLEMENTATION_GUIDE.md lines 376-408">Visual QA: Side-by-side comparison of BriefingHero text with copy guide. Verify "From Brand Brief to Production-Ready Storyboard" headline, subheadline, supporting copy, CTA buttons (Primary → admanager.cre8tive.ai, Secondary → /contact), 4 feature highlights (7 inputs, 9 styles, AI storyboards, Studios integration).</test>
+      <test id="AC-2" criteria="Hero title signature easing with word stagger">Browser: Observe page load animation. Verify title words reveal sequentially with 0.1s stagger. Check easing curve feels organic (smooth deceleration, not linear). Use Chrome DevTools Performance timeline to verify organic easing (power4.out) applied.</test>
+      <test id="AC-3" criteria="5-step process copy matches COPY_IMPLEMENTATION_GUIDE.md lines 433-622">Visual QA: Open each process step in BriefingProcessFlow. Verify Step 01-05 titles, summaries, descriptions, timelines, deliverables (exact bullet points), outputs (2 metrics each), insights match copy guide exactly. Check Connected Pipeline badge displays "Brief → Narrative → Style → Boards".</test>
+      <test id="AC-4" criteria="Timeline connector draw-on animation">Manual scroll test: Scroll through BriefingProcessFlow section. Verify SVG vertical line draws progressively from top to bottom. Check stroke gradient (indigo → cyan), scrub: true behavior (scroll-linked), smooth power2.inOut easing. Inspect SVG stroke-dashoffset animation (100% → 0%).</test>
+      <test id="AC-5" criteria="Feature pill morphing entrances">Scroll test: Observe hero section + process steps. Verify pills start as circles (borderRadius: 50%, scale: 0.8) and morph to pill shape (borderRadius: 12px, scale: 1). Check 0.08s stagger between pills (sequential reveals), spring physics overshoot/bounce visible. Inspect Framer Motion viewport detection.</test>
+      <test id="AC-6" criteria="Elastic step reveal animations">Scroll test: Scroll through process steps. Verify each step card animates with visible bounce effect (elastic.out characteristic). Check initial state: opacity 0, y: 40, scale: 0.95. Final state: opacity 1, y: 0, scale: 1. Verify 0.15s stagger between cards, ScrollTrigger fires per card as enters viewport.</test>
+      <test id="AC-7" criteria="Responsive design (375px, 768px, 1024px)">Chrome DevTools responsive mode: Test 375px (mobile 1 column, static pills, no timeline, simple fade-in steps), 768px (tablet 1 column, pill morphing, timeline draw-on, elastic reveals), 1024px+ (desktop full premium animations). Verify 60fps maintained on all breakpoints.</test>
+      <test id="AC-8" criteria="Integration with Briefing Engine page">Full page test: Navigate to /briefing-engine. Verify smooth scroll (Lenis), no layout shifts (CLS ≤0.1), no console errors. Check hero → process flow sections flow smoothly, animations coordinate without conflicts.</test>
+      <test id="AC-9" criteria="Build &amp; code quality">Terminal: Run `npm run build` (verify 0 TypeScript errors, success output). Run `npm run lint` (verify 0 ESLint errors). Check no console.log statements in production code. Verify all components follow frontend-architecture.md Component Template checklist.</test>
+      <test id="AC-10" criteria="Copy accuracy visual QA">Side-by-side: Open COPY_IMPLEMENTATION_GUIDE.md + live page. Compare hero copy (lines 376-408), process step copy (lines 433-622), feature highlights, CTAs, Connected Pipeline badge. Mark discrepancies for correction.</test>
+    </ideas>
+  </tests>
+</story-context>

@@ -1,7 +1,76 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
+import fs from 'fs';
 import { componentTagger } from "lovable-tagger";
+import type { Plugin } from 'vite';
+
+/**
+ * Performance Budget Plugin - Story 1.14 (AC#6)
+ *
+ * Enforces 900kb vendor bundle limit at build time.
+ * Prevents bundle bloat from accumulating unnoticed.
+ *
+ * Implementation:
+ * - Runs in closeBundle() hook (after Vite build completes)
+ * - Reads dist/assets/ directory to find vendor.*.js file
+ * - Calculates size in KB (stat.size / 1024)
+ * - Throws error if size > 900kb (fails build)
+ * - Logs success message if under limit
+ *
+ * Why 900kb:
+ * - Current bundle: 805.86kb (baseline)
+ * - detect-gpu: ~50kb (Story 1.14)
+ * - Utilities: ~5-8kb (Story 1.14)
+ * - Projected: ~860kb (40kb headroom)
+ * - Limit: 900kb (safety margin for future dependencies)
+ *
+ * Reason: Research shows >1MB vendor bundles cause significant
+ * parse/compile time on low-end devices (3-5 second delay).
+ */
+function performanceBudgetPlugin(): Plugin {
+  return {
+    name: 'performance-budget',
+    closeBundle() {
+      const distPath = path.resolve(__dirname, 'dist/assets');
+
+      // Check if dist directory exists (may not exist in dev mode)
+      if (!fs.existsSync(distPath)) {
+        console.warn('[PerformanceBudget] dist/assets directory not found (skipping check)');
+        return;
+      }
+
+      const files = fs.readdirSync(distPath);
+      const vendorFile = files.find(f => f.startsWith('vendor.') && f.endsWith('.js'));
+
+      if (!vendorFile) {
+        console.warn('[PerformanceBudget] No vendor bundle found (skipping check)');
+        return;
+      }
+
+      const vendorPath = path.join(distPath, vendorFile);
+      const stats = fs.statSync(vendorPath);
+      const sizeKB = Math.round(stats.size / 1024);
+      const limitKB = 900;
+
+      if (sizeKB > limitKB) {
+        const overage = sizeKB - limitKB;
+        throw new Error(
+          `❌ BUNDLE SIZE EXCEEDED\n` +
+          `   Vendor bundle: ${sizeKB}kb (exceeds ${limitKB}kb limit by ${overage}kb)\n` +
+          `   File: ${vendorFile}\n` +
+          `   Action: Review dependencies and remove unused imports\n`
+        );
+      }
+
+      const remaining = limitKB - sizeKB;
+      const percentUsed = Math.round((sizeKB / limitKB) * 100);
+      console.log(
+        `✅ [PerformanceBudget] Vendor bundle: ${sizeKB}kb / ${limitKB}kb (${percentUsed}% used, ${remaining}kb remaining)`
+      );
+    }
+  };
+}
 
 // Determine the base URL based on the environment
 const getBaseUrl = () => {
@@ -18,6 +87,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
+    mode !== 'development' && performanceBudgetPlugin(), // Story 1.14: Enforce 900kb bundle limit
   ].filter(Boolean),
   resolve: {
     alias: {

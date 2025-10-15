@@ -14,26 +14,30 @@
  * @see docs/story-context-1.1.8.xml
  */
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Zap, Shield, Palette, Handshake } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { TransformationValueCard } from "@/components/briefing/TransformationValueCard"
 import { briefingPalette } from "@/components/briefing/palette"
+import { detectDeviceCapabilities, detectDeviceCapabilitiesSync } from "@/utils/performance-adapter"
+import { getAdaptiveConfig } from "@/utils/adaptive-config"
+import type { AdaptiveAnimationConfig } from "@/utils/adaptive-config"
+import { useLenisReady } from "@/hooks/useLenisReady"
 
 gsap.registerPlugin(ScrollTrigger)
 
 // Timeline workflow data (AC2)
+
 const workflows = [
   {
-    name: "Traditional Process",
-    duration: "2-4 WEEKS",
+    name: "Traditional Agency Workflow",
+    duration: "Serial approvals",
     stages: [
-      "Brief intake",
-      "Creative ideation",
-      "Storyboard drafts",
-      "Revisions",
-      "Final approval"
+      "Brief handoff",
+      "Creative rounds",
+      "Storyboard revisions",
+      "Production kickoff"
     ],
     width: "100%", // AC2: Full container width
     animationDuration: 3, // AC2: 3s slow crawl (reduced from 4s)
@@ -41,9 +45,9 @@ const workflows = [
     color: "gray",
   },
   {
-    name: "AI Briefing Engine",
-    duration: "2-5 MINUTES",
-    stages: ["Brief → AI → Storyboard"],
+    name: "Briefing Engine Flow",
+    duration: "Single coordinated timeline",
+    stages: ["Capture brief", "AI story engine", "Studios execution"],
     width: "15%", // AC2: 15% width (6.7:1 ratio)
     animationDuration: 0.8, // AC2: 0.8s fast zoom (< 1s threshold)
     easing: "back.out(2)", // AC2: Dramatic overshoot
@@ -54,26 +58,26 @@ const workflows = [
 // Value proposition cards (AC4)
 const valueProps = [
   {
-    title: "Speed to Market",
-    description: "Minutes not weeks",
+    title: "Faster Launch",
+    description: "Storyboard and Studio move together",
     icon: Zap,
     accentColor: "indigo" as const,
   },
   {
-    title: "Brand Consistency",
-    description: "Every ad aligns with brand",
+    title: "Locked-In Brand",
+    description: "Palette, copy, and crops set before production",
     icon: Shield,
     accentColor: "cyan" as const,
   },
   {
-    title: "Creative Freedom",
-    description: "8 styles to match any vision",
+    title: "Creative Ownership",
+    description: "Choose the direction, we fine-tune execution",
     icon: Palette,
     accentColor: "fuchsia" as const,
   },
   {
-    title: "Seamless Handoff",
-    description: "Studios production ready",
+    title: "Studio Partnership",
+    description: "Producers and directors ready on handoff",
     icon: Handshake,
     accentColor: "orange" as const,
   },
@@ -81,27 +85,74 @@ const valueProps = [
 
 export const WorkflowTransformation = () => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const lenisReady = useLenisReady(200, 2000)
+
+  // STORY 1.14: Adaptive Performance - Device-based quality tier detection
+  const [adaptiveConfig, setAdaptiveConfig] = useState<AdaptiveAnimationConfig>(() => {
+    const capabilities = detectDeviceCapabilitiesSync();
+    return getAdaptiveConfig(capabilities);
+  });
+
+  // STORY 1.14: Run async device detection for accurate GPU detection
+  useEffect(() => {
+    let cancelled = false;
+
+    detectDeviceCapabilities().then((capabilities) => {
+      if (cancelled) return;
+      const newConfig = getAdaptiveConfig(capabilities);
+      setAdaptiveConfig((prev) => {
+        if (
+          prev.tier === newConfig.tier &&
+          prev.timeScaleMultiplier === newConfig.timeScaleMultiplier &&
+          prev.ease === newConfig.ease
+        ) {
+          return prev;
+        }
+
+        return newConfig;
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // AC3: Master Timeline Animation with AC7: React cleanup
   useEffect(() => {
+    if (!lenisReady) return;
+
     const container = containerRef.current
     if (!container) return
 
-    // CRITICAL: Wait for Lenis to be ready before setting up ScrollTrigger
-    // Without this, ScrollTrigger won't detect Lenis scroll events on initial page load
-    const setupAnimations = () => {
-      const ctx = gsap.context(() => {
+    const { tier, timeScaleMultiplier, ease } = adaptiveConfig
+
+    const ctx = gsap.context(() => {
       // Find elements using selectors
       const heroStatContainer = container.querySelector('.hero-stat-container')
-      const counterSpan = heroStatContainer?.querySelector('span')
+      const counterSpan = heroStatContainer?.querySelector('span') ?? null
       const traditionalBar = container.querySelector('.traditional-bar')
       const traditionalLabel = container.querySelector('.traditional-label')
       const aiBar = container.querySelector('.ai-bar')
       const aiLabel = container.querySelector('.ai-label')
-      const cards = container.querySelectorAll('.value-card')
+      const cards = Array.from(container.querySelectorAll('.value-card')) as HTMLElement[]
 
       // Early exit if critical elements not found
-      if (!heroStatContainer || !counterSpan || !traditionalBar || !aiBar) {
+      if (!heroStatContainer || !traditionalBar || !aiBar) {
+        return
+      }
+
+      if (tier === 'reduced-motion') {
+        gsap.set(heroStatContainer, { opacity: 1, scale: 1 })
+        gsap.set([traditionalBar, aiBar], { scaleX: 1, force3D: true })
+        gsap.set(
+          [traditionalLabel, aiLabel].filter(Boolean),
+          { opacity: 1, y: 0 }
+        )
+        if (cards.length) {
+          gsap.set(cards, { opacity: 1, y: 0 })
+          gsap.set(cards, { clearProps: "willChange" })
+        }
         return
       }
 
@@ -114,6 +165,16 @@ export const WorkflowTransformation = () => {
         }
       })
 
+      // STORY 1.14: Apply adaptive timeScale to entire timeline
+      // high: 1.0 (normal), medium: 1.2 (20% faster), low: 1.5 (50% faster)
+      masterTL.timeScale(timeScaleMultiplier)
+
+      const clearCardWillChange = () => {
+        if (cards.length) {
+          gsap.set(cards, { clearProps: "willChange" })
+        }
+      }
+
       // Step 1: Hero stat reveal (0.8s) - AC1
       masterTL.to(heroStatContainer, {
         scale: 1,
@@ -122,25 +183,30 @@ export const WorkflowTransformation = () => {
         ease: "back.out(2)"
       })
 
-      // Step 2: Number counter animation (1.6s) - AC1
-      // Use proxy object for reliable counter animation (GSAP best practice)
-      const counterObj = { value: 1 }
-      masterTL.to(counterObj, {
-        value: 60,
-        duration: 1.6,
-        ease: "power2.out",
-        snap: { value: 1 }, // AC1: Snap to integers
-        onUpdate: () => {
-          counterSpan.textContent = Math.round(counterObj.value) + "x"
-        }
-      }, "<0.3") // Start 0.3s after stat reveal begins
+      // Step 2: Hero stat text settle (0.6s) - PERF: keep light on CPU
+      if (counterSpan) {
+        masterTL.fromTo(
+          counterSpan,
+          { opacity: 0.6, y: 14 },
+          { opacity: 1, y: 0, duration: 0.6, ease },
+          "<0.1"
+        )
+      }
+
+      if (cards.length) {
+        gsap.set(cards, { willChange: "transform, opacity" })
+        masterTL.eventCallback("onComplete", clearCardWillChange)
+        masterTL.eventCallback("onInterrupt", clearCardWillChange)
+        masterTL.eventCallback("onReverseComplete", clearCardWillChange)
+      }
 
       // Step 3: Traditional bar slow crawl (3s) - AC2
       masterTL.to(traditionalBar, {
         scaleX: 1,
         transformOrigin: "left center",
         duration: 3,
-        ease: "power1.inOut"
+        ease: tier === "low" ? "linear" : "power1.inOut",
+        force3D: true
       }, ">") // Start after counter completes
 
       // Step 4: Traditional label fade (0.6s near bar completion) - AC2
@@ -161,7 +227,8 @@ export const WorkflowTransformation = () => {
         scaleX: 1,
         transformOrigin: "left center",
         duration: 0.8,
-        ease: "back.out(2)"
+        ease: tier === "high" ? "back.out(2)" : ease,
+        force3D: true
       }, ">")
 
       // Step 7: AI label pop (0.5s) - AC2
@@ -178,66 +245,27 @@ export const WorkflowTransformation = () => {
       if (cards.length > 0) {
         masterTL.to(cards, {
           opacity: 1,
-          scale: 1,
           y: 0,
           stagger: 0.12,
-          duration: 0.7,
-          ease: "back.out(1.2)"
+          duration: 0.6,
+          ease
         }, "<0.3") // Start 0.3s into AI label animation
       }
 
-        // Force ScrollTrigger refresh after setup
-        ScrollTrigger.refresh()
-      }, container)
+      // PHASE 2 PERF FIX: Removed redundant ScrollTrigger.refresh()
+      // ScrollTrigger auto-refreshes on window resize - manual refresh only needed after dynamic DOM changes
+    }, container)
 
-      return ctx
-    }
-
-    // Check if Lenis is ready, or wait for it
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const lenis = (window as any).lenis
-    let ctx: gsap.Context | null = null
-
-    if (lenis) {
-      // Lenis ready, setup immediately
-      ctx = setupAnimations()
-    } else {
-      // Lenis not ready, wait for it with timeout fallback
-      const lenisCheckInterval = setInterval(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((window as any).lenis) {
-          clearInterval(lenisCheckInterval)
-          ctx = setupAnimations()
-        }
-      }, 50) // Check every 50ms
-
-      // Fallback: setup after 2s even if Lenis not detected
-      const fallbackTimeout = setTimeout(() => {
-        if (!ctx) {
-          clearInterval(lenisCheckInterval)
-          ctx = setupAnimations()
-        }
-      }, 2000)
-
-      // CRITICAL (AC7): Cleanup to prevent memory leaks
-      return () => {
-        clearInterval(lenisCheckInterval)
-        clearTimeout(fallbackTimeout)
-        ctx?.revert()
-      }
-    }
-
-    // CRITICAL (AC7): Cleanup to prevent memory leaks
-    return () => ctx?.revert()
-  }, [])
+    return () => ctx.revert()
+  }, [adaptiveConfig.ease, adaptiveConfig.tier, adaptiveConfig.timeScaleMultiplier, lenisReady])
 
   return (
     <section
       ref={containerRef}
-      className="workflow-transformation relative isolate mx-auto max-w-[1600px] px-4 py-32 md:px-12"
+      className="workflow-transformation relative isolate py-32"
       style={{ willChange: "transform" }} // AC6: GPU optimization hint
     >
-      <div className="text-center">
+      <div className="timeline-section-container flex w-full flex-col items-center text-center">
         {/* Eyebrow */}
         <p className="text-xs font-semibold uppercase tracking-[0.5em] text-white/60">
           Speed Comparison
@@ -272,7 +300,7 @@ export const WorkflowTransformation = () => {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient-shift 8s ease infinite;
+            animation: ${adaptiveConfig.tier === "high" ? "gradient-shift 8s ease infinite" : "none"};
             filter:
               drop-shadow(0 0 40px ${briefingPalette.colors.indigo}66)
               drop-shadow(0 0 20px ${briefingPalette.colors.cyan}66)
@@ -285,7 +313,7 @@ export const WorkflowTransformation = () => {
           style={{
             willChange: "transform", // AC6: GPU optimization
             opacity: 0, // Initial hidden for GSAP animation
-            transform: "scale(0)" // Initial hidden for GSAP animation
+            transform: "scale(0.92)" // PERF: Avoid huge scale jump to reduce paint cost
           }}
         >
           <h2
@@ -294,10 +322,10 @@ export const WorkflowTransformation = () => {
               display: "inline-block"
             }}
           >
-            <span>1</span> FASTER
+            <span>Launch Ready</span>
           </h2>
           <p className="mt-4 text-3xl text-white/80 font-light tracking-tight">
-            Minutes not weeks
+            Storyboard and Studio stay in sync
           </p>
         </div>
 
@@ -348,7 +376,7 @@ export const WorkflowTransformation = () => {
             pointer-events: none;
           }
         `}</style>
-        <div className="mt-12 space-y-6 max-w-6xl mx-auto">
+        <div className="mt-12 w-full max-w-6xl space-y-6">
           {workflows.map((workflow, index) => (
             <div key={workflow.name} className="relative">
               {/* Workflow Name */}
@@ -417,7 +445,7 @@ export const WorkflowTransformation = () => {
         </div>
 
         {/* AC4: Value Cards Grid - ABOVE FOLD (not hidden) */}
-        <div className="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="mt-32 grid w-full max-w-5xl grid-cols-1 gap-8 lg:grid-cols-2">
           {valueProps.map((prop) => (
             <TransformationValueCard
               key={prop.title}

@@ -14,9 +14,17 @@ A modern, high-performance marketing website for Cre8tive AI, showcasing AI-powe
 - **SEO Optimized** - Pre-rendered HTML, meta tags, sitemap for discoverability
 - **Performance Optimized** - Code splitting, lazy loading, optimized assets
 - **Accessibility** - WCAG guidelines compliance with semantic HTML
+- **AI Briefing Engine Relaunch** - Dark indigo briefing experience with GSAP ScrollTrigger, Lenis smoothing, and eight visual style showcases (in progress)
+- **Platform-Native Excellence (Upcoming)** - Studios module highlighting multi-aspect-ratio delivery without lazy crops
+
 - **Security** - CSP headers, XSS protection, input sanitization
 - **Analytics** - Vercel Analytics and Google Tag Manager integration
 - **3D Content** - Spline and Three.js integration for interactive visuals
+
+## 🎯 Current Initiative: AI Briefing Engine Rework
+- Rebuilding the Briefing Engine page with a bespoke dark indigo/cyan/fuchsia palette and storyboard motifs
+- Implementing GSAP ScrollTrigger + Lenis animations across hero, visual styles gallery, process flow, transformation, benefits, and CTA sections
+- Success criteria: smooth 60fps motion, clear four-step briefing narrative, high CTA conversion, and accessibility parity with existing pages
 
 ---
 
@@ -57,24 +65,33 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for complete tech stack details.
 ```
 src/
 ├── components/         # React components
-│   ├── ui/            # Shadcn UI components (40+ components)
-│   ├── agents/        # Agents service page components
-│   ├── studios/       # Studios service page components
-│   ├── shared/        # Reusable components
-│   └── ...            # Feature-specific components
-├── pages/             # Page components (routes)
-│   ├── Index.tsx      # Homepage
-│   ├── Studios.tsx    # Studios service page
-│   ├── Agents.tsx     # Agents service page
-│   ├── Contact.tsx    # Contact page
+│   ├── ui/              # Shadcn UI primitives, motion utilities
+│   ├── agents/          # Agents service page components
+│   ├── studios/         # Studios components (Platform-Native module planned under platform-native/)
+│   ├── briefing/         # AI Briefing Engine feature stack (hero, gallery, process, CTA)
+│   ├── shared/          # Reusable components
+│   └── ...              # Other feature-specific components
+├── pages/               # Page components (routes)
+│   ├── Index.tsx        # Homepage
+│   ├── Studios.tsx      # Studios service page
+│   ├── BriefingEngine.tsx # AI Briefing Engine page
+│   ├── Agents.tsx       # Agents service page
+│   ├── Contact.tsx      # Contact page
 │   └── ...
-├── hooks/             # Custom React hooks
-├── lib/               # Utility functions
+├── hooks/               # Custom React hooks (Lenis/ScrollTrigger helpers forthcoming)
+├── lib/                 # Utility functions
 ├── utils/             # Application utilities
 ├── types/             # TypeScript types
-├── assets/            # Images, media
+├── assets/            # Images, media (public/briefing-engine houses visual styles & storyboard frames)
 └── styles/            # Global styles
 ```
+
+## 🎨 AI Briefing Engine Design Notes
+- Palette: black-first gradient base with indigo (#4F46E5), cyan (#0891B2), fuchsia (#C026D3), orange accent (#EA580C), holographic glows (#818CF8/#22D3EE/#34D399)
+- Visual motifs: storyboard frames, briefing checklists, transformation timeline, holographic dividers
+- Animation stack: GSAP 3.x + ScrollTrigger for staggered reveals/timelines, Lenis for smooth scroll, Framer Motion for micro-interactions
+- Accessibility: WCAG AA contrast, prefers-reduced-motion fallbacks, keyboard-friendly CTA surfaces
+- Success signals: 8 visual styles showcased, four-step briefing narrative clear, CTA conversions tracked
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed structure documentation.
 

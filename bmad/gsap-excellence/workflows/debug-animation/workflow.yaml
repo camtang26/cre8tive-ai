@@ -1,0 +1,79 @@
+# Debug Animation Workflow - GSAP Excellence Engine
+# Fix broken or underperforming GSAP animations
+# Agent: Editor (lead) + Tech Director (validation)
+# Complexity: Standard
+
+name: debug-animation
+description: "Diagnose and fix animation issues (jank, timing problems, visual glitches, console errors)"
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "standard"
+
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP integration
+mcp_servers:
+  chrome_devtools:
+    tools: ["take_screenshot", "list_console_messages"]
+    purpose: "Visual analysis and console error detection"
+
+  archon:
+    tools: ["rag_search_knowledge_base"]
+    purpose: "GSAP debugging techniques and solutions"
+
+# Multi-agent coordination
+agents:
+  editor: "gsap-editor"  # Lead debugger
+  tech_director: "gsap-tech-director"  # Validation support
+  cinematographer: "gsap-cinematographer"  # Research if needed
+
+installed_path: "{module_root}/workflows/debug-animation"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+default_output_file: "{output_folder}/gsap-debug-report-{{date}}.md"
+
+# Inputs
+inputs:
+  animation_code:
+    description: "Current animation implementation code"
+    required: true
+
+  issues_description:
+    description: "What's wrong? (jank, timing, visual bugs, errors)"
+    required: true
+
+  expected_behavior:
+    description: "What should the animation do?"
+    required: true
+
+  page_url:
+    description: "Dev server URL for testing (optional)"
+    required: false
+
+# Outputs
+outputs:
+  debug_report:
+    format: "Diagnosis with root cause analysis"
+
+  fixed_code:
+    format: "Corrected animation implementation"
+
+  validation_results:
+    format: "Before/after comparison and validation"
+
+# Success criteria
+success_criteria:
+  - "Root cause identified"
+  - "Fix implemented and tested"
+  - "Console errors resolved"
+  - "Performance acceptable (60fps)"
+  - "Visual issues corrected"
+
+estimated_duration: "15-30 minutes"

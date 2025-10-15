@@ -39,9 +39,8 @@ export function TransformationValueCard({
         backdropFilter: "blur(16px)", // AC4: Enhanced from blur(12px)
         borderColor: `${accentHex}40`,
         boxShadow: `0 4px 24px rgba(0, 0, 0, 0.3)`,
-        willChange: "transform", // AC6: GPU optimization hint
         opacity: 0, // Initial hidden for GSAP animation
-        transform: "translateY(40px) scale(0.9)" // Initial hidden for GSAP animation
+        transform: "translateY(32px)" // PERF: Drop scale to avoid backdrop-filter repaints
       }}
     >
       {/* Hover Glow Effect - AC4: Expanded glow */}

@@ -1,0 +1,297 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>75</storyId>
+    <title>Optimize Scroll Animation Timing for Visual Impact + UX Smoothness</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-08</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-1.75.md</sourceStoryPath>
+    <!-- 2025-10-14 Update: legacy BriefToStoryboardAnimation references preserved for context; use BriefingTimeline segmentation for new work. -->
+  </metadata>
+
+  <story>
+    <asA>visitor experiencing the AI Briefing Engine transformation animation</asA>
+    <iWant>the scroll animation to feel energetic and impactful while remaining smooth</iWant>
+    <soThat>I'm captivated by the visual narrative without sacrificing scroll control</soThat>
+    <tasks>
+      - Phase 1: Core Timing Optimization (6 subtasks: container transitions, progress bar sync, style cards cascade, storyboard assembly, PDF finale, victory pulse)
+      - Phase 2: Performance Validation (4 subtasks: FPS testing, GPU property verification, crossfade cleanliness, timeline duration validation)
+      - Phase 3: Experience Testing (5 subtasks: slow/normal/fast scroll scenarios, zero dead zones, 1:1 mapping)
+      - Phase 4: Documentation (5 subtasks: timing rationale comments, Story 1.7 updates, performance metrics, linting, TypeScript build)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1" title="Container Transition Optimization">
+      - Stage reveal duration: 1.5s → 0.6s (60% faster, Apple desktop 400-600ms standard)
+      - Stage hide duration: 1.2s → 0.5s (58% faster, UX research 200-500ms sweet spot)
+      - Reveal ease curve: power2.inOut → power2.out (sharper deceleration)
+      - Hide ease curve: power2.inOut → power3.in (sharp acceleration for cleaner exit)
+      - Crossfade overlap: +0.3s → +0.15s (tighter handoff, 3 frames at 60fps)
+      - Lines: BriefToStoryboardAnimation.tsx ~352-382
+    </criterion>
+    <criterion id="AC2" title="Progress Bar &amp; Accent Synchronization">
+      - Progress bar duration: 1.5s → 0.6s (matches stage reveal timing)
+      - Accent indicator duration: 1.5s → 0.6s (matches stage reveal)
+      - Accent glow: 0 0 24px ${accent}66 → 0 0 30px ${accent}80 (slightly larger glow)
+      - Both elements must change IN SYNC with stage transition (not lag behind)
+      - Lines: BriefToStoryboardAnimation.tsx ~385-410
+    </criterion>
+    <criterion id="AC3" title="Style Cards Cascade Acceleration (Stage 2)">
+      - Stagger interval: 0.35s → 0.12s (66% faster, Awwwards standard 0.1-0.15s)
+      - Per-card duration: 0.6s → 0.35s (42% faster, within 200-500ms perception window)
+      - Total cascade time: 3.15s → 1.08s (66% faster, "energetic wave" vs "patient reveal")
+      - Initial state: yPercent: 10, scale: 0.95 → yPercent: 12, scale: 0.92 (deeper start)
+      - Ease curve: back.out(1.2) → back.out(1.7) (bigger overshoot = more playful energy)
+      - Timing offset: +0.3s → +0.2s (tighter coordination with stage reveal)
+      - Lines: BriefToStoryboardAnimation.tsx ~413-427
+    </criterion>
+    <criterion id="AC4" title="Storyboard Frames Assembly Optimization (Stage 3)">
+      - Stagger interval: 0.4s → 0.15s (62% faster, cinematic snap-in rhythm)
+      - Per-frame duration: 0.5s → 0.3s (40% faster, minimum perception threshold)
+      - Total assembly time: 2.4s → 0.9s (62% faster, "rapid assembly" feel)
+      - Initial state: yPercent: 6, scale: 0.96 → yPercent: 8, scale: 0.94, rotationY: 5 (added 3D depth)
+      - Final state: Add rotationY: 0 (subtle 3D flip effect for premium polish)
+      - Ease curve: power2.out → power3.out (sharper snap = assembly feel)
+      - Timing offset: +0.3s → +0.2s
+      - Lines: BriefToStoryboardAnimation.tsx ~429-444
+    </criterion>
+    <criterion id="AC5" title="PDF Finale Climactic Reveal (Stage 4)">
+      - Reveal duration: 1.8s → 0.5s (72% faster, IMPACTFUL not slow fade)
+      - Initial state: yPercent: 10, scale: 0.92 → yPercent: 15, scale: 0.88, rotationX: 8 (deeper reveal state)
+      - Final state: Add rotationX: 0 (3D flip effect)
+      - Ease curve: power2.out → back.out(2.5) (BIG overshoot for "TA-DA!" moment)
+      - Timing offset: +0.3s → +0.2s
+      - Lines: BriefToStoryboardAnimation.tsx ~446-460
+    </criterion>
+    <criterion id="AC6" title="Victory Pulse Enhancement (Stage 4 Dwell)">
+      - Pulse duration: 2.0s → 1.5s (faster pulse = more energetic)
+      - Scale peak: 1.02 → 1.03 (slightly larger pulse)
+      - Brightness peak: brightness(1.1) → brightness(1.15) (brighter peak)
+      - BoxShadow: 0 80px 240px -100px rgba(234,88,12,0.8) → 0 100px 280px -100px rgba(234,88,12,0.9) (larger, more intense glow)
+      - Pulse start delay: +=0.5s → +=0.3s (start earlier after reveal)
+      - Lines: BriefToStoryboardAnimation.tsx ~463-479
+    </criterion>
+    <criterion id="AC7" title="Performance &amp; Quality Validation">
+      - Maintain 50+ FPS on 2019+ MacBook Pro (target hardware)
+      - Maintain 40+ FPS on 2017 MacBook Air (lower-end baseline)
+      - No jank or stuttering during stagger sequences
+      - All animations use GPU-only properties (transform, opacity, filter)
+      - Timeline total duration: ~19.5s → ~14s (28% faster overall, 964px/s average pacing)
+      - Verify clean crossfades: previous stage 80% faded when new stage 20% visible
+    </criterion>
+    <criterion id="AC8" title="Cross-Speed Experience Consistency">
+      - Slow scroll (600px/s): 22.5s total, ⭐⭐⭐⭐⭐ "Leisurely and detailed"
+      - Normal scroll (964px/s): 14.0s total, ⭐⭐⭐⭐⭐ "Optimal narrative flow" (target)
+      - Fast scroll (1500px/s): ~9s total, ⭐⭐⭐⭐ "Brisk but smooth"
+      - Zero dead zones maintained (continuous animation progression)
+      - 1:1 scroll-to-animation mapping preserved (scrub: true)
+    </criterion>
+    <criterion id="AC9" title="Documentation &amp; Code Quality">
+      - Add code comments explaining timing rationale (reference industry benchmarks)
+      - Update Story 1.7 completion notes with optimization details
+      - Capture before/after performance metrics (FPS, timeline duration)
+      - No linting errors (npm run lint passes)
+      - TypeScript compiles clean (npm run build passes)
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc id="doc1">
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/scroll-animation-optimization-spec.md</path>
+        <title>Scroll Animation Optimization Specification</title>
+        <section>Complete technical specification with industry benchmarks</section>
+        <snippet>Contains research foundation (Apple 400-600ms, Awwwards 0.1-0.15s staggers, UX research 200-500ms Goldilocks zone), design principles (variable speed pacing, ease curve variety), implementation roadmap with exact timing values, performance validation criteria, and risk mitigation strategies. PRIMARY REFERENCE for all timing decisions.</snippet>
+      </doc>
+      <doc id="doc2">
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns &amp; Best Practices</title>
+        <section>GSAP ScrollTrigger Patterns, React Integration &amp; Cleanup</section>
+        <snippet>Pattern 1: Basic scroll-triggered animation (toggleActions). Pattern 2: Scrub animation (scroll = playhead). Pattern 4: Stagger animation (gallery cards). Critical: useEffect cleanup with gsap.context() to prevent memory leaks. GPU acceleration (transform, opacity only). Performance budget: 60fps target (~10ms for animation logic).</snippet>
+      </doc>
+      <doc id="doc3">
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/frontend-architecture.md</path>
+        <title>Frontend Architecture</title>
+        <section>Component Design Patterns, Performance Optimization</section>
+        <snippet>GPU Acceleration: Use transform and opacity only (GPU-accelerated), avoid width/height/top/left (CPU-bound, forces layout reflow). CSS Setup: will-change: transform, opacity. Performance Budget: 16ms per frame (60fps), ~10ms for animation logic. GSAP + ScrollTrigger for scroll-linked timelines, Lenis for smooth scroll foundation, Framer Motion for micro-interactions.</snippet>
+      </doc>
+      <doc id="doc4">
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/ARCHITECTURE.md</path>
+        <title>System Architecture</title>
+        <section>Tech Stack, Animation Strategy</section>
+        <snippet>GSAP 3.13.0 + ScrollTrigger plugin for complex scroll-driven timelines. Lenis 1.3.11 for smooth scroll with momentum (~7kb gzipped). Framer Motion 12.4.2 for micro-interactions. Combined animation strategy: Framer Motion for UI micro-interactions, GSAP for cinematic scroll experiences. 60fps target, RAIL model compliance.</snippet>
+      </doc>
+      <doc id="doc5">
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-1.7.md</path>
+        <title>Story 1.7: Build 15-Second GSAP ScrollTrigger Transformation Timeline</title>
+        <section>Implementation Notes, Architecture Decision</section>
+        <snippet>Version 2 (Alpine Water Hero with useGSAP) chosen as foundation. 655 lines, production-quality layered animations. Modern useGSAP architecture with scope cleanup. ScrollTrigger configuration: trigger containerRef, start "top top", end "+=4800" (or calculated), scrub: 1 (user controls pace), pin: true (desktop only). React cleanup: gsap.context() with cleanup function to prevent memory leaks.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <file id="code1">
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefToStoryboardAnimation.tsx</path>
+        <kind>component</kind>
+        <symbol>BriefToStoryboardAnimation</symbol>
+        <lines>1-655</lines>
+        <reason>PRIMARY implementation target. Contains all 6 animation sections referenced in ACs (container transitions lines 352-382, progress bar/accent 385-410, style cards 405-412, storyboard frames 414-421, PDF finale 423-430, victory pulse 433-435). Uses useGSAP hook for React cleanup, ScrollTrigger for scroll-linked timeline, Lenis integration for smooth scrolling.</reason>
+      </file>
+      <file id="code2">
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefToStoryboardAnimation.tsx</path>
+        <kind>animation-config</kind>
+        <symbol>scrollTimeline setup (lines 202-441)</symbol>
+        <lines>202-441</lines>
+        <reason>Timeline configuration section. Contains current timing values that need optimization: stage reveal/hide (lines 354-381), progress bar/accent (383-403), style cards stagger (405-412 - current: stagger 0.08), storyboard stagger (414-421 - current: stagger 0.05), PDF reveal (423-430), dwell time (433-435 - current: duration 2). ScrollTrigger config: scrub: 1, pin: true (desktop), end calculated based on scroll distance.</reason>
+      </file>
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="gsap" version="^3.13.0" critical="true">GSAP core library for animation timelines</package>
+        <package name="@gsap/react" version="^2.1.2" critical="true">Official GSAP React hook (useGSAP) for automatic cleanup</package>
+        <package name="lenis" version="^1.3.11" critical="true">Smooth scroll foundation (~7kb gzipped)</package>
+        <package name="react" version="^18.3.1" critical="true">React core</package>
+        <package name="react-dom" version="^18.3.1" critical="true">React DOM renderer</package>
+        <package name="framer-motion" version="^12.4.2">Micro-interactions (not used in this story)</package>
+        <package name="typescript" version="^5.5.3">TypeScript compiler</package>
+        <package name="vite" version="^5.4.1">Build tool</package>
+        <package name="tailwindcss" version="^3.4.11">Styling framework</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="const1" priority="critical">
+      GPU-Accelerated Properties Only: ALL animations MUST use transform (translateX/Y/Z, scale, rotate), opacity, and filter properties ONLY. NEVER animate width, height, top, left, margin, padding (triggers layout reflow, destroys performance). Add will-change: transform, opacity CSS hints for GPU layer creation.
+    </constraint>
+    <constraint id="const2" priority="high">
+      60fps Performance Target: Maintain 50+ FPS on 2019+ MacBook Pro, 40+ FPS on 2017 MacBook Air. RAIL model: 16ms per frame budget, ~10ms for animation logic (6ms reserved for browser rendering). Use Chrome DevTools Performance tab to validate. No jank during stagger sequences.
+    </constraint>
+    <constraint id="const3" priority="high">
+      React Cleanup Pattern: MUST use gsap.context() with cleanup function in useGSAP return to prevent memory leaks. ScrollTriggers must be killed on component unmount. Pattern: useGSAP(() => { /* animations */ }, { scope: containerRef, dependencies: [lenisReady] }). DO NOT use manual useEffect with gsap.to() without cleanup.
+    </constraint>
+    <constraint id="const4" priority="high">
+      Industry Benchmark Alignment: All timing values MUST align with research-backed standards. Container transitions: 400-600ms (Apple desktop), Staggers: 0.1-0.15s (Awwwards baseline), Element reveals: 200-500ms (UX research Goldilocks zone). Document rationale in code comments citing specific benchmarks.
+    </constraint>
+    <constraint id="const5" priority="medium">
+      Ease Curve Variety: Use varied easing curves for emotional arcs. Entrances: back.out(1.7) for playful overshoot. Exits: power3.in for sharp acceleration. Crossfades: sine.inOut for ultra-smooth handoff. Finale: back.out(2.5) for climactic impact. Background: sine.inOut for gentle ambient. DO NOT use linear or power1 for primary animations.
+    </constraint>
+    <constraint id="const6" priority="medium">
+      Timeline Architecture: Timeline total duration target: ~14s (28% faster than current 19.5s). Scroll distance: 13,500px (unchanged). Average pacing: 964px/s (optimal sweet spot). Must support variable scroll speeds: 600px/s (leisurely), 964px/s (optimal), 1500px/s (brisk). Zero dead zones (continuous animation progression). 1:1 scroll-to-animation mapping (scrub: true).
+    </constraint>
+    <constraint id="const7" priority="low">
+      Code Quality: No linting errors (npm run lint must pass). TypeScript compiles clean (npm run build must pass). Add code comments explaining timing rationale with industry benchmark citations. Update Story 1.7 completion notes with optimization details. Capture before/after performance metrics (FPS, timeline duration).
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface id="int1">
+      <name>GSAP Timeline</name>
+      <kind>animation-api</kind>
+      <signature>gsap.timeline({ scrollTrigger: { trigger, start, end, scrub, pin, anticipatePin } })</signature>
+      <path>gsap package</path>
+      <usage>Create scroll-linked timeline. Key params: scrub (number for smooth lag, true for instant), pin (boolean for pinning section), end (string for scroll distance calculation). Use .to() .from() .fromTo() for tweens. Use .addLabel() for stage markers.</usage>
+    </interface>
+    <interface id="int2">
+      <name>GSAP Tween</name>
+      <kind>animation-api</kind>
+      <signature>gsap.to(target, { duration?, ease?, ...props }, position?)</signature>
+      <path>gsap package</path>
+      <usage>Animate element properties. Duration in seconds (default: 0.5s). Ease: "power2.out", "power3.in", "back.out(1.7)", "sine.inOut". Position: label name, "+=0.2", "-=0.1" for timeline positioning. GPU props: x, y, scale, rotation, opacity. Avoid: width, height, top, left.</usage>
+    </interface>
+    <interface id="int3">
+      <name>GSAP Stagger</name>
+      <kind>animation-api</kind>
+      <signature>gsap.from(elements, { ...props, stagger: 0.12 })</signature>
+      <path>gsap package</path>
+      <usage>Animate multiple elements sequentially. Stagger value in seconds (0.12 = 120ms interval between elements). Can be number (simple interval) or object ({ amount, from, ease }). Amount: total stagger duration for all elements. From: "start", "center", "end", "edges".</usage>
+    </interface>
+    <interface id="int4">
+      <name>ScrollTrigger.refresh</name>
+      <kind>gsap-plugin-method</kind>
+      <signature>ScrollTrigger.refresh()</signature>
+      <path>gsap/ScrollTrigger</path>
+      <usage>Recalculate all ScrollTrigger positions. Call after dynamic content changes or resize events. Already handled by Lenis integration (lenis.on('scroll', ScrollTrigger.update)) but may need manual call after timeline setup.</usage>
+    </interface>
+    <interface id="int5">
+      <name>useGSAP Hook</name>
+      <kind>react-hook</kind>
+      <signature>useGSAP(() => { /* animations */ }, { scope: ref, dependencies: [] })</signature>
+      <path>@gsap/react</path>
+      <usage>Official GSAP React hook. Auto-cleanup on unmount (kills animations and ScrollTriggers). Scope: containerRef for scoping animations to specific element. Dependencies: array of values that trigger re-run (e.g., lenisReady). Returns cleanup function automatically.</usage>
+    </interface>
+    <interface id="int6">
+      <name>Lenis Instance</name>
+      <kind>smooth-scroll-api</kind>
+      <signature>new Lenis({ lerp, duration, smoothWheel, wheelMultiplier })</signature>
+      <path>lenis package</path>
+      <usage>Create smooth scroll instance. Lerp: 0.1 (smoothing intensity). Duration: 1.2s (scroll duration). SmoothWheel: true (enable smooth mouse wheel). Connect to GSAP: lenis.on('scroll', ScrollTrigger.update). Integrate with RAF: gsap.ticker.add((time) => lenis.raf(time * 1000)).</usage>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      CURRENT STATE: Zero automated tests (documented technical debt in ARCHITECTURE.md lines 626-661).
+
+      TESTING APPROACH FOR THIS STORY:
+      - Manual visual QA (primary validation method)
+      - Performance monitoring via Chrome DevTools Performance tab
+      - FPS counter using stats.js package (already installed)
+      - Visual comparison: before/after videos at slow/normal/fast scroll speeds
+      - Subjective feel assessment: "smooth AND energetic" target
+
+      FUTURE TESTING INFRASTRUCTURE (not required for this story):
+      - Unit tests: Vitest + React Testing Library
+      - E2E tests: Playwright
+      - Visual regression: Percy or Chromatic
+
+      For this story, focus on thorough manual testing with documented metrics.
+    </standards>
+    <locations>
+      No test directories exist yet. When implemented, recommended structure:
+      - src/__tests__/ (unit tests)
+      - tests/e2e/ (end-to-end tests)
+      - tests/visual/ (visual regression tests)
+    </locations>
+    <ideas>
+      <idea ac="AC7" priority="critical">
+        Performance Validation Test:
+        - Record baseline FPS during current scroll animation (slow/normal/fast speeds)
+        - Implement optimizations
+        - Record optimized FPS at same scroll speeds
+        - Verify: 50+ FPS on 2019+ MacBook Pro, 40+ FPS on 2017 MacBook Air
+        - Use Chrome DevTools Performance tab + stats.js FPS counter
+        - Document before/after metrics in Story 1.7 completion notes
+      </idea>
+      <idea ac="AC8" priority="high">
+        Cross-Speed Experience Test:
+        - Test slow scroll (600px/s): Verify 22.5s total, leisurely feel
+        - Test normal scroll (964px/s): Verify 14.0s total, optimal flow
+        - Test fast scroll (1500px/s): Verify ~9s total, smooth coherence
+        - Verify zero dead zones at all speeds (continuous animation progression)
+        - Verify 1:1 scroll mapping maintained (scrub: true behavior)
+        - Record video of each speed for comparison
+      </idea>
+      <idea ac="AC1,AC2,AC3,AC4,AC5,AC6" priority="high">
+        Visual Impact A/B Test:
+        - Record "before" video: Current slow timing (19.5s total)
+        - Implement optimizations
+        - Record "after" video: Optimized timing (14s total)
+        - Side-by-side comparison focusing on:
+          * Style cards: 3.15s patient reveal → 1.08s energetic wave
+          * Storyboard: 2.4s methodical build → 0.9s rapid snap-in
+          * PDF finale: 1.8s slow fade → 0.5s impactful pop
+        - Subjective assessment: "smooth AND energetic" target achieved?
+      </idea>
+      <idea ac="AC9" priority="medium">
+        Code Quality Verification:
+        - Run npm run lint (verify zero errors)
+        - Run npm run build (verify TypeScript compiles clean)
+        - Check code comments: All timing values cite industry benchmarks
+        - Verify Story 1.7 updated with completion notes
+        - Verify performance metrics captured (before/after FPS, duration)
+      </idea>
+    </ideas>
+  </tests>
+</story-context>

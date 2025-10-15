@@ -1,0 +1,7 @@
+# Research Pattern Workflow
+name: research-pattern
+description: "Deep dive research into GSAP technique using multi-MCP integration"
+complexity: "standard"
+uses_mcps: ["archon", "context7", "perplexity"]
+estimated_duration: "5-10 minutes"
+config_source: "{project-root}/bmad/gsap-excellence-v2/config.yaml"

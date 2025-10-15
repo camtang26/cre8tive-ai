@@ -1,0 +1,529 @@
+{
+  "documents": ["01", "02"],
+  "analysis_date": "2025-10-09",
+  "claims": [
+    {
+      "id": "claim-001",
+      "document": "01",
+      "type": "factual",
+      "location": "Executive Summary",
+      "statement": "Primary users are time-pressured marketing professionals and brand managers",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-002",
+      "document": "01",
+      "type": "factual",
+      "location": "Executive Summary",
+      "statement": "Critical pain point: Misalignment between brief intent and creative execution",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-003",
+      "document": "01",
+      "type": "factual",
+      "location": "Executive Summary",
+      "statement": "Major desire: Speed without sacrificing quality or creative vision",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-004",
+      "document": "01",
+      "type": "factual",
+      "location": "Executive Summary",
+      "statement": "Core objection: AI replacing human creativity vs. augmenting it",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-005",
+      "document": "01",
+      "type": "strategic",
+      "location": "Executive Summary",
+      "statement": "Value proposition resonance: Control, speed, and predictable quality",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-006",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 25",
+      "statement": "Total Insights Extracted: 67",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-007",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 28",
+      "statement": "[Briefing Engine]: 18 insights (27%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-008",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 29",
+      "statement": "[Studios]: 15 insights (22%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-009",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 30",
+      "statement": "[Both]: 29 insights (43%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-010",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 31",
+      "statement": "[General]: 5 insights (7%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-011",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 34",
+      "statement": "User Personas: 4 detailed profiles",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-012",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 35",
+      "statement": "Pain Points: 7 major friction areas",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-013",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 36",
+      "statement": "Value Propositions: 6 resonant angles",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-014",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 37",
+      "statement": "Objections: 6 primary concerns",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-015",
+      "document": "01",
+      "type": "quantitative",
+      "location": "Summary Statistics - line 38",
+      "statement": "Desires: 7 aspirational goals",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-016",
+      "document": "01",
+      "type": "factual",
+      "location": "Key Findings - line 42",
+      "statement": "Primary User Archetype: Time-pressured marketing professionals seeking creative control without micromanagement",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-017",
+      "document": "01",
+      "type": "factual",
+      "location": "Key Findings - line 43",
+      "statement": "Core Pain Point: Brief-to-execution translation gap causing quality issues and wasted resources",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-018",
+      "document": "01",
+      "type": "strategic",
+      "location": "Key Findings - line 44",
+      "statement": "Highest-Resonance Value Prop: 'Your Vision, Visualized' - maintaining creative control while delegating execution",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-019",
+      "document": "01",
+      "type": "factual",
+      "location": "Key Findings - line 45",
+      "statement": "Primary Objection: Fear that AI will commoditize creative work",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-020",
+      "document": "01",
+      "type": "strategic",
+      "location": "Key Findings - line 45",
+      "statement": "Needs positioning as augmentation, not replacement (for AI commoditization objection)",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-021",
+      "document": "01",
+      "type": "aspirational",
+      "location": "Key Findings - line 46",
+      "statement": "Unmet Need with Highest Opportunity: Style transfer and asset library systems for cross-project reuse",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-022",
+      "document": "02",
+      "type": "quantitative",
+      "location": "line 4",
+      "statement": "Total Insights Extracted: 47",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-023",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Tag Distribution - line 9",
+      "statement": "[Briefing Engine]: 18 insights (38%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-024",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Tag Distribution - line 10",
+      "statement": "[Studios]: 15 insights (32%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-025",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Tag Distribution - line 11",
+      "statement": "[Both]: 10 insights (21%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-026",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Tag Distribution - line 12",
+      "statement": "[General]: 4 insights (9%)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-027",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Competitive Positioning - line 17",
+      "statement": "10x faster than traditional agencies (weeks → days/hours)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-028",
+      "document": "02",
+      "type": "strategic",
+      "location": "Competitive Positioning - line 17",
+      "statement": "Speed as Primary Advantage [Both]",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-029",
+      "document": "02",
+      "type": "strategic",
+      "location": "Competitive Positioning - line 18",
+      "statement": "Quality Parity with Traditional [Studios] - Professional-grade output, not 'good enough' AI",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-030",
+      "document": "02",
+      "type": "strategic",
+      "location": "Competitive Positioning - line 19",
+      "statement": "End-to-End Platform [Briefing Engine] - Comprehensive workflow vs. point solutions",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-031",
+      "document": "02",
+      "type": "strategic",
+      "location": "Competitive Positioning - line 20",
+      "statement": "AI-Human Collaboration [Both] - Augmentation positioning vs. replacement fears",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-032",
+      "document": "02",
+      "type": "aspirational",
+      "location": "Differentiation Factors - line 23",
+      "statement": "Real-Time Collaboration [Briefing Engine] - Eliminates email chains and version control nightmares",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-033",
+      "document": "02",
+      "type": "strategic",
+      "location": "Differentiation Factors - line 24",
+      "statement": "Visual Storyboarding [Briefing Engine] - Integrated visuals, not just text briefs",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-034",
+      "document": "02",
+      "type": "aspirational",
+      "location": "Differentiation Factors - line 25",
+      "statement": "Style Library [Studios] - Pre-trained visual languages for consistency",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-035",
+      "document": "02",
+      "type": "aspirational",
+      "location": "Differentiation Factors - line 26",
+      "statement": "Multi-Format Output [Studios] - Automated adaptation across platforms",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-036",
+      "document": "02",
+      "type": "strategic",
+      "location": "Differentiation Factors - line 27",
+      "statement": "Scalability [Studios] - Sublinear cost scaling vs. traditional linear pricing",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-037",
+      "document": "02",
+      "type": "factual",
+      "location": "Market Dynamics - line 30",
+      "statement": "Budget Compression - CMOs asked to do more with less content",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-038",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Market Dynamics - line 31",
+      "statement": "Content Volume Explosion - 10-100x more assets needed than 5 years ago",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-039",
+      "document": "02",
+      "type": "strategic",
+      "location": "Market Dynamics - line 32",
+      "statement": "Traditional Agency Model Breaking - Misaligned with modern marketing demands",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-040",
+      "document": "02",
+      "type": "factual",
+      "location": "Market Dynamics - line 33",
+      "statement": "In-House Team Growth - Brands bringing creative in-house, need tools",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-041",
+      "document": "02",
+      "type": "factual",
+      "location": "Client Psychology - line 36",
+      "statement": "Fear of Losing Control [Both] - Need human-in-loop messaging",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-042",
+      "document": "02",
+      "type": "factual",
+      "location": "Client Psychology - line 37",
+      "statement": "Risk Aversion [General] - Require social proof, case studies, pilot programs",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-043",
+      "document": "02",
+      "type": "factual",
+      "location": "Client Psychology - line 38",
+      "statement": "FOMO [Both] - Competitive pressure to adopt AI",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-044",
+      "document": "02",
+      "type": "factual",
+      "location": "Client Psychology - line 39",
+      "statement": "Need for ROI Metrics [Both] - Concrete time/cost/output numbers required",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-045",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Proof Points Required - line 42",
+      "statement": "Before/after time comparisons (3 weeks → 3 days)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-046",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Proof Points Required - line 43",
+      "statement": "Content volume multipliers (3x-10x output increase)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-047",
+      "document": "02",
+      "type": "quantitative",
+      "location": "Proof Points Required - line 44",
+      "statement": "Cost reduction metrics (50-70% savings)",
+      "evidence_required": true,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-048",
+      "document": "02",
+      "type": "strategic",
+      "location": "Proof Points Required - line 45",
+      "statement": "Client testimonials with specific metrics (required for proof)",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    },
+    {
+      "id": "claim-049",
+      "document": "02",
+      "type": "strategic",
+      "location": "Proof Points Required - line 46",
+      "statement": "Side-by-side quality comparisons (required for proof)",
+      "evidence_required": false,
+      "current_evidence": null,
+      "confidence": null
+    }
+  ],
+  "summary": {
+    "total_claims": 49,
+    "factual": 16,
+    "quantitative": 19,
+    "strategic": 10,
+    "aspirational": 4,
+    "by_document": {
+      "01": {
+        "total": 21,
+        "factual": 7,
+        "quantitative": 10,
+        "strategic": 3,
+        "aspirational": 1
+      },
+      "02": {
+        "total": 28,
+        "factual": 9,
+        "quantitative": 9,
+        "strategic": 7,
+        "aspirational": 3
+      }
+    }
+  },
+  "notes": {
+    "classification_criteria": {
+      "factual": "User persona attributes, pain points, objections, behaviors - require direct evidence from transcript",
+      "quantitative": "Specific numbers, percentages, ranges, ratings - require sourcing and verification",
+      "strategic": "Market trends, competitive positioning, recommendations - may be inferred from data",
+      "aspirational": "Future capabilities, planned improvements - product roadmap items"
+    },
+    "evidence_gap": "All claims marked with 'evidence_required: true' need validation against source transcript (4 parts). Claims marked 'evidence_required: false' are inferred insights or recommendations.",
+    "next_step": "Agent 2 should validate factual and quantitative claims against transcript source documents"
+  }
+}

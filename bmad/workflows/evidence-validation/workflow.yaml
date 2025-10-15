@@ -1,0 +1,102 @@
+# Evidence Validation Workflow Configuration
+name: "evidence-validation"
+description: "Validates claims in analysis documents against source transcripts, adds citations with confidence ratings, and produces publication-ready outputs with 8.0+ quality scores"
+author: "Cameron"
+version: "1.0.0"
+
+# Critical variables
+config_source: "{project-root}/bmad/core/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+date: system-generated
+
+# Module path and component files
+installed_path: "{project-root}/bmad/workflows/evidence-validation"
+template: false  # Action workflow - no template needed
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+# Input Configuration (runtime parameters)
+inputs:
+  analysis_name: "gemini-transcript-analysis"  # Default - user can override at runtime
+  phase1_folder: "{project-root}/docs/insights/{analysis_name}/phase1-extractions"
+  source_transcripts:
+    - "{project-root}/docs/gemini-transcript-parts/part-1-concept-and-brief.md"
+    - "{project-root}/docs/gemini-transcript-parts/part-2-production-execution.md"
+    - "{project-root}/docs/gemini-transcript-parts/part-3-visual-strategy.md"
+    - "{project-root}/docs/gemini-transcript-parts/part-4-deployment-marketing.md"
+
+# Output Configuration
+outputs:
+  validated_folder: "{project-root}/docs/insights/{analysis_name}/phase1-extractions-validated"
+  evidence_report: "{validated_folder}/evidence-quality-report.md"
+  claims_mapping: "{validated_folder}/claims-to-evidence-mapping.md"
+  metrics_report: "{validated_folder}/metrics-validation-report.md"
+
+# Validation Standards
+validation:
+  confidence_levels:
+    VALIDATED: "Direct transcript quote with strong supporting evidence (HIGH confidence)"
+    INFERRED: "Logical conclusion from multiple related statements (MEDIUM confidence)"
+    STRATEGIC: "Industry best practice or analyst recommendation (LOW confidence - not user-validated)"
+    ASPIRATIONAL: "Product vision or roadmap item (NO user evidence)"
+
+  source_codes:
+    T: "Transcript - Direct user quote or estimate"
+    PA: "Product Analytics - Cre8tive AI internal data (requires human validation)"
+    IND: "Industry Benchmark - External research/publication (requires citation)"
+    A-EST: "Analyst Estimate - Calculated by analysis team (requires methodology)"
+
+  removal_threshold: "NONE"  # Remove claims with NONE confidence/evidence
+
+# Agent Configuration
+agents:
+  phase1_classification:
+    - name: "general-purpose"
+      count: 3  # Parallel processing for document pairs
+      focus: "Parse documents, identify factual claims, quantitative metrics, strategic insights"
+      output: "claims-classification-{doc-range}.json"
+
+  phase2_evidence_search:
+    - name: "general-purpose"
+      count: 5  # One agent per document
+      focus: "Search transcripts for evidence supporting claims, extract quotes with context"
+      output: "evidence-map-{document-id}.json"
+
+  phase3_metrics_validation:
+    - name: "bmm-data-analyst"
+      count: 1  # Specialized agent for all metrics
+      focus: "Validate quantitative metrics, identify sources, classify confidence levels"
+      output: "metrics-validation-report.md"
+
+  phase4_document_revision:
+    - name: "general-purpose"
+      count: 5  # One agent per document
+      focus: "Add inline citations, evidence legends, confidence tags, remove unverifiable claims"
+      output: "Revised documents in validated_folder"
+
+  phase5_quality_reports:
+    - name: "general-purpose"
+      count: 1  # Generate summary reports
+      focus: "Create evidence quality report, claims mapping, consolidate metrics report"
+      output: "All quality reports in validated_folder"
+
+# Execution Mode
+autonomous: false  # Requires user approval at checkpoints
+parallel_execution: true  # Enable multi-agent parallel processing for performance
+
+# Upstream Dependency
+upstream_workflow: "content-intelligence-dual-page"  # Must complete before this workflow runs
+
+# Quality Targets
+quality_improvement:
+  baseline_score: 4.5  # Current evidence quality (out of 10)
+  target_score: 8.0    # Publication-ready quality threshold
+  critical_gap: "85% of claims lack transcript source attribution"
+
+# Recommended Next Steps (post-workflow)
+post_workflow_options:
+  - "Review metrics flagged [PA-PENDING] and validate with product analytics"
+  - "Re-run Phase 2 synthesis with validated Phase 1 documents"
+  - "Address removed claims through follow-up user research"

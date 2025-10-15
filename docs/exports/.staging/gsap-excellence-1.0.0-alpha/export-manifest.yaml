@@ -1,0 +1,70 @@
+# BMAD Module Export Manifest
+export_metadata:
+  module_code: "gsap-excellence"
+  module_name: "GSAP Excellence Engine"
+  version: "1.0.0-alpha"
+  export_date: "2025-10-12"
+  exported_by: "Cameron"
+  description: "gsap-excellence module for premium GSAP work"
+
+bmad_compatibility:
+  min_version: "6.0.0-alpha.0"
+  tested_versions: ["6.0.0-alpha.0"]
+
+dependencies:
+  modules: ["core"]
+  external_tools:
+    - name: "Archon MCP"
+      purpose: "GSAP documentation and code examples via RAG"
+      required: true
+      tools: ["rag_search_knowledge_base", "rag_search_code_examples", "rag_get_available_sources"]
+    - name: "Context7 MCP"
+      purpose: "Latest GSAP API documentation"
+      required: true
+      tools: ["resolve-library-id", "get-library-docs"]
+    - name: "Perplexity MCP"
+      purpose: "Premium animation examples and trends"
+      required: true
+      tools: ["perplexity_ask", "perplexity_reason", "perplexity_research"]
+    - name: "Chrome DevTools MCP"
+      purpose: "Visual validation and performance testing"
+      required: true
+      tools: ["take_screenshot", "performance_start_trace", "emulate_cpu", "emulate_network"]
+
+module_contents:
+  agents:
+    - gsap-cinematographer.agent.yaml
+    - gsap-director.agent.yaml
+    - gsap-editor.agent.yaml
+    - gsap-tech-director.agent.yaml
+    - gsap-vfx.agent.yaml
+  workflows:
+    - animation-production
+    - creative-ideation
+    - debug-animation
+    - implement-from-pattern
+    - optimize-performance
+    - refine-timing
+    - research-gsap-pattern
+    - setup-gsap-project
+  tasks: []
+  templates: []
+  data:
+    - patterns/
+    - data/
+
+installation:
+  has_installer: false
+  installer_type: "manual"
+  custom_config_required: true
+  notes: "Module requires MCP server configuration before use. See README.md for setup instructions."
+
+license: "MIT"
+author: "Cameron"
+repository: ""
+documentation: "See README.md in module root"
+
+theme:
+  personality_theme: "Film/Animation Studio Crew"
+  mission: "Fight AI mediocrity, achieve animation excellence"
+  philosophy: "Optimize, Don't Satisfice"

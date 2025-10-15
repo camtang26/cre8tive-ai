@@ -1,0 +1,572 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.8</storyId>
+    <title>Premium WorkflowTransformation - Dramatic Speed Comparison</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.8-v2-premium.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>decision maker</asA>
+    <iWant>to experience a DRAMATIC visual demonstration of AI Briefing Engine's speed advantage</iWant>
+    <soThat>I'm instantly convinced of the transformative time-savings and immediately compelled to take action</soThat>
+    <tasks>
+### Phase 1: Component Architecture
+- [ ] Create HeroStat component with animated counter (AC1)
+  - [ ] Gradient text effect with bg-clip-text
+  - [ ] GSAP counter animation with snap
+  - [ ] Elastic reveal animation (back.out easing)
+- [ ] Refactor TimelineBar into reusable component
+  - [ ] Props: width, duration, label, stages, color, animationDuration
+  - [ ] Configurable animation easing per instance
+- [ ] Enhance TransformationValueCard component (AC4)
+  - [ ] Increase min-height to 280px
+  - [ ] Increase icon size to w-16 h-16
+  - [ ] Enhanced hover effects (larger lift, expanded glow)
+
+### Phase 2: Timeline Comparison Implementation
+- [ ] Implement proportional width system (AC2)
+  - [ ] Traditional bar: 100% width with 4s slow animation
+  - [ ] AI bar: 15% width with 0.8s fast animation
+  - [ ] Hero typography for duration labels (text-4xl/5xl)
+- [ ] Apply gradient effects
+  - [ ] Traditional: gray-to-gray-400 (desaturated)
+  - [ ] AI: indigo → cyan → fuchsia (electric)
+- [ ] Position duration labels as hero elements (not badges)
+
+### Phase 3: Master Timeline Animation
+- [ ] Build GSAP master timeline (AC3)
+  - [ ] Step 1: Hero stat reveal + counter
+  - [ ] Step 2: Traditional bar crawl (4s)
+  - [ ] Step 3: 0.5s pause (dramatic beat)
+  - [ ] Step 4: AI bar zoom (0.8s with overshoot)
+  - [ ] Step 5: Value cards stagger (0.12s intervals)
+- [ ] Configure ScrollTrigger at "top 75%"
+- [ ] Test timing sequence for optimal storytelling
+
+### Phase 4: Layout & Styling
+- [ ] Implement section structure (AC5)
+  - [ ] Hero stat at top center
+  - [ ] Timeline comparison middle
+  - [ ] Value cards grid below (not hidden)
+- [ ] Increase section spacing (py-32)
+- [ ] Ensure value cards above fold (1920x1080 viewport)
+- [ ] Test responsive breakpoints (mobile, tablet, desktop)
+
+### Phase 5: Performance Optimization
+- [ ] GPU-optimize all animations (AC6)
+  - [ ] Verify scaleX usage (timeline bars)
+  - [ ] Verify translateY usage (cards)
+  - [ ] Add will-change hints
+- [ ] Profile with Chrome DevTools (target 60fps)
+- [ ] Test with CPU/network throttling
+
+### Phase 6: React Integration & Cleanup
+- [ ] Implement gsap.context() pattern (AC7)
+- [ ] Test unmount cleanup (no memory leaks)
+- [ ] Verify ScrollTriggers killed on unmount
+- [ ] Test React 18 Strict Mode compatibility
+
+### Phase 7: Quality Assurance
+- [ ] Visual QA: Compare to Vercel/Linear standards
+- [ ] Mobile testing (375px, 768px, 1024px viewports)
+- [ ] Cross-browser (Chrome, Firefox, Safari)
+- [ ] Performance profiling (60fps sustained)
+- [ ] Conversion impact: Does it "wow" stakeholders?</tasks>
+  </story>
+
+  <acceptanceCriteria>
+### AC1: Hero Speed Stat - Immediate Visual Impact
+- **60x FASTER** stat displayed as hero element at TOP CENTER
+- Typography: `text-9xl` (120px+), `font-black`, gradient text (indigo → cyan → fuchsia)
+- Animated number counter: 1x → 60x over 2 seconds with elastic easing (`back.out(2)`)
+- Positioned ABOVE timeline comparison for maximum visibility
+- Gradient glow effect using `bg-clip-text` and `text-transparent`
+- Subtitle: "Minutes not weeks" in `text-2xl` below stat
+
+### AC2: Dramatic Timeline Comparison - Proportional Widths
+- **Visual Metaphor:** Bar length = time duration (visceral understanding)
+- **Traditional Process:**
+  - Width: **100%** of container (full 1200px max-width)
+  - Duration label: "2-4 WEEKS" in `text-4xl md:text-5xl` (36-48px), positioned as hero element
+  - Animation: Slow crawl (4s duration, `ease: "power1.inOut"`)
+  - Color: Desaturated gray gradient (`#6B7280` to `#9CA3AF`)
+  - Stages: 5 small pills (Brief intake, Creative ideation, Storyboard drafts, Revisions, Final approval)
+- **AI Briefing Engine:**
+  - Width: **15%** of container (~180-200px)
+  - Duration label: "2-5 MINUTES" in `text-4xl md:text-5xl` with indigo/cyan gradient
+  - Animation: FAST zoom (0.8s duration, `ease: "back.out(2)"` for dramatic overshoot)
+  - Color: Electric gradient (indigo `#4F46E5` → cyan `#0891B2` → fuchsia `#C026D3`)
+  - Stages: Single stage "Brief → AI → Storyboard"
+- **Contrast:** 100% vs 15% creates UNDENIABLE visual difference (6.7:1 ratio)
+
+### AC3: Master Timeline Animation - Storytelling Sequence
+- **GSAP Timeline** orchestrates sequential reveal (~9 seconds total)
+- ScrollTrigger: "top 75%" (earlier than default 80% for better UX)
+- `once: true` - animation plays once, no re-trigger
+- 8-step sequence with dramatic pause for emphasis
+
+### AC4: Enhanced TransformationValueCard - Premium Aesthetic
+- **Size:** min-height 280px (increased from ~200px)
+- **Icons:** Huge (w-16 h-16, increased from w-8 h-8)
+- **Content:** Same 4 value props (Speed to Market, Brand Consistency, Creative Freedom, Seamless Handoff)
+- **Initial State:** Visible immediately (opacity: 1), not hidden
+- **Animation:** FROM `{ opacity: 0, scale: 0.9, y: 40 }` TO `{ opacity: 1, scale: 1, y: 0 }`
+- **Hover State:** Dramatic lift (`translateY(-12px)`) + expanded glow effect
+- **Typography:** Title `text-2xl md:text-3xl` (increased from text-xl)
+- **Glassmorphism:** Enhanced backdrop blur (16px) with stronger border glow
+
+### AC5: Layout & Responsive Design - Above The Fold Priority
+- Section padding `py-32` (128px, increased from py-24)
+- Value Cards: Above fold on desktop (1920x1080), grid-cols-1 lg:grid-cols-2
+- Timeline: max-w-6xl container for breathing room
+- Mobile: Single column stack, cards maintain prominence
+
+### AC6: GPU-Optimized Animations - 60fps Performance
+- Use `scaleX` for timeline bars (NOT `width`)
+- Use `transform: translateY()` for cards (NOT `top/margin`)
+- Use `opacity` for fades (GPU-accelerated)
+- Master timeline prevents layout thrashing
+- `will-change: transform` on animated elements
+- RequestAnimationFrame for DOM-ready state
+
+### AC7: React Cleanup - Memory Leak Prevention
+- `gsap.context()` with containerRef scope
+- `return () => ctx.revert()` in useEffect cleanup
+- ScrollTriggers auto-killed on unmount
+- No orphaned animations or event listeners
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/architecture/animation-patterns.md" section="Pattern 4: Stagger Animation">
+        Purpose: GSAP stagger reveal pattern for sequential element animations
+        Key Snippet: `gsap.from('.style-card', { stagger: { amount: 1.2, from: 'start', ease: 'power2.inOut' }, duration: 0.6, ease: 'back.out(1.2)' })`
+        Relevance: AC3 value cards stagger (0.12s per card), AC8 step-by-step reveal timing
+      </doc>
+
+      <doc path="docs/architecture/animation-patterns.md" section="React Integration & Cleanup">
+        Purpose: Critical pattern for preventing memory leaks with GSAP + ScrollTrigger
+        Key Snippet: `useEffect(() => { const ctx = gsap.context(() => { gsap.to('.element', { x: 100, scrollTrigger: {...} }) }, containerRef); return () => ctx.revert() }, [])`
+        Relevance: AC7 React cleanup requirements - MUST use gsap.context() pattern
+      </doc>
+
+      <doc path="docs/architecture/animation-patterns.md" section="Performance Optimization: GPU Acceleration">
+        Purpose: 60fps animation performance requirements
+        Key Snippet: GPU-accelerated transforms: `x`, `y`, `scale`, `rotation`, `opacity` only. Avoid: `width`, `height`, `top`, `left` (forces layout reflow)
+        Relevance: AC6 GPU optimization - scaleX for timeline bars, translateY for cards
+      </doc>
+
+      <doc path="docs/architecture/design-system.md" section="Briefing Color Palette">
+        Purpose: Briefing Engine specific color constants (NOT Studios or Homepage)
+        Key Colors:
+          - indigo.DEFAULT: #4F46E5 (AI intelligence)
+          - cyan.DEFAULT: #0891B2 (tech processing)
+          - fuchsia.DEFAULT: #C026D3 (creative energy)
+          - orange.DEFAULT: #EA580C (CTA accent)
+        Relevance: AC1 hero stat gradient, AC2 timeline color gradients
+      </doc>
+
+      <doc path="docs/architecture/design-system.md" section="Typography Hierarchy">
+        Purpose: Typography scale standards
+        Key Sizes:
+          - Hero H1: text-7xl (4.5rem, 72px)
+          - Hero Stat (custom): text-9xl (128px+) with font-black
+          - Section H2: text-5xl (3rem, 48px)
+          - Timeline labels: text-4xl md:text-5xl (36-48px)
+          - Card titles: text-3xl (1.875rem, 30px)
+        Relevance: AC1 hero stat (text-9xl), AC2 timeline labels (text-4xl/5xl)
+      </doc>
+
+      <doc path="docs/architecture/design-system.md" section="Glassmorphism Pattern">
+        Purpose: Card aesthetic (site-wide standard)
+        Key Snippet: `background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1)`
+        Relevance: AC4 TransformationValueCard enhanced glassmorphism (16px blur)
+      </doc>
+
+      <doc path="docs/architecture/frontend-architecture.md" section="Component Template Standard">
+        Purpose: Standard React component structure
+        Key Pattern: TypeScript interface → hooks at top → effects with cleanup → handlers → render
+        Relevance: All new components (HeroStat, TimelineBar, WorkflowTransformation container)
+      </doc>
+
+      <doc path="docs/tech-spec-epic-1.md" section="Detailed Design">
+        Purpose: Complete technical specification for Epic 1 (premium WorkflowTransformation focus)
+        Key Sections:
+          - Data Models (HeroStatProps, TimelineBarProps, TransformationValueCardProps interfaces)
+          - Animation sequence flow (9-second storytelling timeline)
+          - Component lifecycle (React integration patterns)
+        Relevance: Authoritative reference for AC1-7 implementation details
+      </doc>
+
+      <doc path="docs/coding-standards.md" section="Animation Standards">
+        Purpose: Animation implementation requirements
+        Key Rules:
+          1. MUST use `gsap.context()` with cleanup in useEffect
+          2. Never nest ScrollTriggers inside timeline tweens
+          3. Animate `transform` and `opacity` only (GPU)
+          4. Target 60fps (profile in Chrome DevTools)
+        Relevance: AC6 GPU optimization, AC7 cleanup pattern enforcement
+      </doc>
+    </docs>
+    <code>
+      <artifact path="src/components/briefing/WorkflowTransformation.tsx" kind="component" lines="1-207">
+        Symbol: WorkflowTransformation (existing v1 implementation)
+        Reason: Current implementation to be redesigned for v2 - shows existing structure, animation patterns, data constants
+        Key Patterns:
+          - Line 78-126: gsap.context() cleanup pattern (AC7 reference)
+          - Line 83-96: Timeline bars with scaleX GPU optimization (AC2, AC6)
+          - Line 99-118: Value cards stagger animation (AC3 reference)
+          - Line 24-43: Workflow data constants structure
+          - Line 46-71: Value props data structure
+        Refactor Notes: v2 requires hero stat component, proportional widths (100% vs 15%), master timeline (9s sequence), enhanced card sizes
+      </artifact>
+
+      <artifact path="src/components/briefing/TransformationValueCard.tsx" kind="component" lines="1-75">
+        Symbol: TransformationValueCard (existing component to enhance)
+        Reason: Base component for AC4 enhancements - increase sizes, icons, hover effects
+        Key Patterns:
+          - Line 4-10: TransformationValueCardProps interface (reusable)
+          - Line 20-26: Color mapping from briefingPalette (AC4 exact colors)
+          - Line 30-37: Glassmorphism pattern (enhance blur 12px → 16px)
+          - Line 40-45: Hover glow effect (expand for AC4 dramatic lift)
+        Enhancement Requirements: min-height 280px, icons w-16, translateY(-12px) hover, text-2xl/3xl titles
+      </artifact>
+
+      <artifact path="src/components/briefing/palette.ts" kind="utility" lines="1-118">
+        Symbol: briefingPalette (color constants - CRITICAL reference)
+        Reason: Single source of truth for all Briefing Engine colors (AC1, AC2 gradient requirements)
+        Key Exports:
+          - Line 11-18: gradients object (heroBg, cardBg, ctaBg)
+          - Line 21-26: colors hex values (indigo, cyan, fuchsia, orange)
+          - Line 29-56: Color variants for gradients (from, DEFAULT, to, glow)
+          - Line 99-109: Helper functions (getGradient, getColor)
+        Usage: MUST use for hero stat gradient (indigo → cyan → fuchsia), timeline colors (gray vs AI gradient)
+      </artifact>
+
+      <artifact path="src/components/briefing/BriefToStoryboardAnimation.tsx" kind="component" lines="150-533">
+        Symbol: BriefToStoryboardAnimation (master timeline reference pattern)
+        Reason: Shows advanced GSAP master timeline choreography (9-second sequential storytelling similar to AC3 requirements)
+        Key Patterns:
+          - Line 151-202: useGSAP hook with lenisReady dependency, entrance timeline (AC3 timing reference)
+          - Line 227-244: Intro timeline with sequential reveals, stagger timing (AC3 choreography pattern)
+          - Line 330-529: Master scroll timeline with stages (AC3 9-step sequence inspiration)
+          - Line 424-445: Style cards stagger (0.12s stagger, back.out easing - AC3 exact timing)
+        Relevance: AC3 master timeline requires similar sequential approach (stat → bar → pause → bar → cards)
+      </artifact>
+
+      <artifact path="src/lib/utils.ts" kind="utility" symbol="cn" reason="className merging utility (standard pattern for all components)">
+        Usage: Combine Tailwind classes with conditional logic, required for responsive and hover states
+      </artifact>
+    </code>
+    <dependencies>
+      <package name="gsap" version="^3.13.0" usage="Core animation engine, master timeline, counter animation, ScrollTrigger">
+        Critical Features:
+          - gsap.context() for React cleanup (AC7 requirement)
+          - gsap.timeline() for sequential choreography (AC3 master timeline)
+          - gsap.to() with snap for counter animation (AC1 number counting)
+          - ScrollTrigger plugin for scroll-triggered reveals
+        Installation: Already installed (no action needed)
+      </package>
+
+      <package name="@gsap/react" version="^2.1.2" usage="Optional useGSAP hook for cleaner React integration">
+        Note: gsap.context() pattern is sufficient, useGSAP is optional enhancement
+      </package>
+
+      <package name="lenis" version="^1.3.11" usage="Smooth scroll foundation (provides scroll events to GSAP)">
+        Integration: Already configured globally, connects to ScrollTrigger via lenis.on('scroll', ScrollTrigger.update)
+      </package>
+
+      <package name="lucide-react" version="^0.462.0" usage="Icon library for value cards (Zap, Shield, Palette, Handshake)">
+        Icons Needed: Same 4 icons as v1 (no new dependencies)
+      </package>
+
+      <package name="tailwindcss" version="^3.4.11" usage="Utility classes for typography, gradients, responsive design">
+        Key Classes: text-9xl (hero stat), text-4xl/5xl (timeline labels), py-32 (section spacing), grid-cols-1 lg:grid-cols-2
+      </package>
+
+      <package name="react" version="^18.3.1" usage="Core UI library">
+        Hooks: useState, useEffect, useRef for component state and animation refs
+      </package>
+
+      <package name="typescript" version="^5.5.3" usage="Type safety for component props and interfaces">
+        Config: noImplicitAny enabled, interfaces required for all components
+      </package>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+**Animation Constraints (CRITICAL):**
+1. MUST use gsap.context() pattern with containerRef scope (AC7 cleanup requirement)
+2. MUST return () => ctx.revert() in useEffect cleanup (prevents memory leaks)
+3. MUST use GPU-optimized properties ONLY (AC6): scaleX, translateY, opacity
+4. MUST NOT animate width, height, top, left, margin (forces layout reflow, breaks 60fps target)
+5. MUST add will-change: transform to animated elements (GPU layer promotion)
+6. MUST target 60fps performance (monitor in Chrome DevTools Performance tab)
+
+**Master Timeline Constraints (AC3):**
+1. MUST use gsap.timeline() with ScrollTrigger configuration (NOT individual tweens)
+2. MUST sequence 8 steps in exact order (stat → counter → slow bar → label → pause → fast bar → label → cards)
+3. MUST include 0.5s dramatic pause between traditional and AI bars (AC3 emotional beat)
+4. MUST use "top 75%" ScrollTrigger start (earlier than default 80%)
+5. MUST set once: true (prevent re-trigger on scroll up)
+6. Total duration target: ~9 seconds (optimal for scroll-triggered storytelling)
+
+**Color Palette Constraints:**
+1. MUST use briefingPalette constants (src/components/briefing/palette.ts)
+2. MUST NOT hardcode colors (prevents drift from design system)
+3. Hero stat gradient: briefingPalette.indigo.from → cyan.DEFAULT → fuchsia.DEFAULT (AC1)
+4. Traditional bar: gray-600 (#6B7280) → gray-400 (#9CA3AF) desaturated
+5. AI bar: indigo → cyan → fuchsia electric gradient
+6. Value cards: accentColor maps to palette (indigo, cyan, fuchsia, orange)
+
+**Typography Constraints (AC1, AC2):**
+1. Hero stat: text-9xl (128px+), font-black, gradient text with bg-clip-text
+2. Timeline labels: text-4xl md:text-5xl (36-48px) positioned as hero elements (NOT badges)
+3. Card titles: text-2xl md:text-3xl (increased from text-xl in v1)
+4. Section headlines: text-5xl md:text-6xl
+5. Body text: text-lg (18px) with leading-relaxed
+
+**Component Size Constraints:**
+1. MUST keep WorkflowTransformation.tsx < 500 LOC (project standard)
+2. MUST keep functions < 50 lines
+3. MUST extract HeroStat, TimelineBar as separate components if needed
+4. MUST use TypeScript interfaces (exported) for all props
+
+**Layout Constraints (AC5):**
+1. Section padding: py-32 (128px, NOT py-24 from v1)
+2. Container: max-w-6xl for timeline breathing room
+3. Value cards grid: grid-cols-1 lg:grid-cols-2 (2×2 on desktop)
+4. Above fold requirement: Hero stat + timelines + cards visible on 1920x1080 (NO scroll needed)
+5. Mobile: Single column stack, maintain card prominence (NO compression)
+
+**Proportional Width Constraints (AC2 - CRITICAL):**
+1. Traditional bar: width="100%" (full 1200px max-width container)
+2. AI bar: width="15%" (~180-200px calculated width)
+3. MUST create visual metaphor: Length = Time (6.7:1 ratio undeniable contrast)
+4. MUST position bars side-by-side OR stacked with clear visual comparison
+5. Animation durations mirror width ratio: 4s (slow) vs 0.8s (fast) = 5:1 timing
+
+**Accessibility Constraints:**
+1. DO NOT implement prefers-reduced-motion (removed per AD-003)
+2. DO NOT add WCAG-specific features beyond semantic HTML
+3. DO use semantic tags: section, article, h1-h6 for SEO
+4. Keyboard nav/ARIA labels: Basic only (NOT enhanced)
+
+**React Integration Constraints:**
+1. Functional components ONLY (no class components)
+2. Hooks at top of component (useState, useEffect, useRef before handlers)
+3. Props destructuring in function signature
+4. TypeScript interface above component definition (exported)
+5. File naming: PascalCase.tsx (e.g., HeroStat.tsx, TimelineBar.tsx)
+
+**Testing Constraints:**
+1. NO automated tests (zero test infrastructure exists)
+2. Manual QA ONLY: Browser testing (Chrome, Firefox, Safari, mobile)
+3. Performance profiling: Chrome DevTools Performance tab (60fps verification)
+4. Visual validation: Compare to Vercel/Linear premium standards
+  </constraints>
+  <interfaces>
+**Required Component Interfaces:**
+
+```typescript
+// HeroStat Component (NEW - AC1)
+export interface HeroStatProps {
+  startValue: number        // Starting counter (e.g., 1)
+  endValue: number          // Ending counter (e.g., 60)
+  duration: number          // Animation duration in seconds (e.g., 2)
+  label: string             // Stat label (e.g., "FASTER")
+  subtitle?: string         // Optional subtitle (e.g., "Minutes not weeks")
+  gradient: {
+    from: string            // Tailwind gradient start (e.g., "indigo-500")
+    via: string             // Tailwind gradient middle (e.g., "cyan-400")
+    to: string              // Tailwind gradient end (e.g., "fuchsia-500")
+  }
+}
+
+// Timeline Bar Component (NEW - AC2)
+export interface TimelineBarProps {
+  name: string                           // Workflow name (e.g., "Traditional Process")
+  duration: string                       // Duration label (e.g., "2-4 weeks")
+  stages: string[]                       // Stage names array
+  color: 'gray' | 'indigo' | 'cyan'     // Color theme
+  width: string                          // CSS width (e.g., "100%", "15%")
+  animationDuration: number              // GSAP duration in seconds (e.g., 4, 0.8)
+  easing: string                         // GSAP easing (e.g., "power1.inOut", "back.out(2)")
+  index: number                          // For animation sequencing
+}
+
+// Enhanced Value Card (AC4 - extends existing interface)
+export interface TransformationValueCardProps {
+  title: string
+  description: string
+  icon: LucideIcon
+  accentColor: 'indigo' | 'cyan' | 'fuchsia' | 'orange'
+  className?: string
+  // v2 enhancements applied via styles, no new props needed
+}
+
+// Master Timeline Configuration (AC3)
+export interface MasterTimelineConfig {
+  trigger: HTMLElement                // ScrollTrigger trigger element
+  start?: string                      // ScrollTrigger start (default: "top 75%")
+  once?: boolean                      // Play animation once (default: true)
+  heroStatDuration?: number           // Hero stat reveal duration (default: 0.8s)
+  counterDuration?: number            // Counter animation duration (default: 2s)
+  traditionalBarDuration?: number     // Traditional bar duration (default: 4s)
+  pauseDuration?: number              // Dramatic pause duration (default: 0.5s)
+  aiBarDuration?: number              // AI bar zoom duration (default: 0.8s)
+  cardsStagger?: number               // Cards stagger interval (default: 0.12s)
+}
+```
+
+**Existing Interfaces to Reuse:**
+
+```typescript
+// From src/components/briefing/palette.ts
+export type BriefingPalette = typeof briefingPalette
+// Usage: Import palette, use getColor(), getGradient() helpers
+
+// From src/lib/utils.ts
+export function cn(...inputs: ClassValue[]): string
+// Usage: Combine className strings with conditional logic
+```
+
+**GSAP Animation Interfaces:**
+
+```typescript
+// Counter Animation (AC1 number counting)
+gsap.to(element, {
+  innerText: number,           // Target number (e.g., 60)
+  duration: number,            // Animation duration (e.g., 2)
+  snap: { innerText: 1 },      // Snap to integers
+  onUpdate: function() { ... } // Update text content each frame
+})
+
+// Master Timeline (AC3 sequential choreography)
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: HTMLElement,
+    start: string,             // e.g., "top 75%"
+    once: boolean              // e.g., true
+  }
+})
+
+// Proportional Width Animation (AC2, AC6 GPU optimization)
+gsap.from(element, {
+  scaleX: 0,                   // Start scaled to 0
+  transformOrigin: "left center",
+  duration: number,            // e.g., 4 or 0.8
+  ease: string                 // e.g., "power1.inOut"
+})
+```
+  </interfaces>
+  <tests>
+    <standards>
+**Project Testing Philosophy:**
+- Zero automated tests exist (manual validation only)
+- No test framework installed (Vitest + RTL planned for future)
+- Manual QA is Definition of Done requirement
+- Performance profiling via Chrome DevTools (not automated)
+
+**Manual Testing Standards:**
+1. Browser Testing: Chrome, Firefox, Safari (latest 2 versions), mobile Safari/Chrome
+2. Visual QA: Compare to Vercel/Linear premium design standards
+3. Performance: Chrome DevTools Performance tab (60fps target, no red frames)
+4. Responsive: Test at 375px (mobile), 768px (tablet), 1024px (desktop), 1920px (wide)
+5. Build Validation: `npm run build` must pass (TypeScript compiles clean)
+6. Lint Validation: `npm run lint` must pass (errors only, warnings OK)
+
+**Animation Testing Checklist:**
+- [ ] ScrollTrigger fires at "top 75%" (verify with markers: true in dev)
+- [ ] Master timeline sequence plays in exact order (stat → bar → pause → bar → cards)
+- [ ] Hero stat counter animates 1x → 60x over 2 seconds with snap to integers
+- [ ] Traditional bar crawls slowly (4s duration feels intentional)
+- [ ] Dramatic pause (0.5s) creates anticipation before AI bar
+- [ ] AI bar zooms fast (0.8s feels instant, < 1 second threshold)
+- [ ] Value cards stagger (0.12s per card, 4 cards total)
+- [ ] 60fps sustained (DevTools Performance: green bars, no red frames)
+- [ ] No memory leaks after unmount (DevTools Memory: heap returns to baseline)
+- [ ] ScrollTrigger `once: true` prevents re-trigger on scroll up
+
+**Visual Validation Checklist:**
+- [ ] Hero stat "60x FASTER" visible immediately (no scroll needed on 1920x1080)
+- [ ] Timeline length difference obvious from 10 feet away (100% vs 15% undeniable)
+- [ ] Gradient text effect renders correctly (bg-clip-text, text-transparent)
+- [ ] Value cards above fold on desktop (1920x1080 viewport)
+- [ ] Card sizes increased (280px min-height, w-16 icons measured in DevTools)
+- [ ] Hover effects dramatic (translateY(-12px) lift, expanded glow visible)
+- [ ] Typography scales increased (text-9xl hero, text-4xl/5xl labels measured)
+- [ ] Section spacing increased (py-32 = 128px measured in DevTools)
+    </standards>
+    <locations>
+**No test directories exist** (project has zero automated tests)
+
+**Manual testing locations:**
+- Local dev: `npm run dev` → http://localhost:8080/briefing-engine
+- Production preview: `npm run build && npm run preview` → http://localhost:4173/briefing-engine
+- Chrome DevTools: Performance tab (record 6s trace during animation)
+- Chrome DevTools: Memory tab (heap snapshots before/after unmount)
+- Chrome DevTools: Elements panel (measure sizes, spacing, colors)
+- Chrome DevTools: Animations panel (verify timeline durations, easing)
+
+**Future test locations (when infrastructure added):**
+- Unit tests: `src/components/briefing/__tests__/`
+- E2E tests: `tests/e2e/briefing/`
+- Performance tests: Lighthouse CI (GitHub Actions)
+    </locations>
+    <ideas>
+**AC1 - Hero Speed Stat:**
+- [ ] Test counter animation: Verify 1x → 60x counting with snap to integers
+- [ ] Test gradient rendering: Inspect bg-clip-text and text-transparent CSS
+- [ ] Test typography size: Measure hero stat = 128px+ (text-9xl)
+- [ ] Test positioning: Verify stat appears ABOVE timeline comparison
+- [ ] Test subtitle: Verify "Minutes not weeks" displays in text-2xl
+
+**AC2 - Dramatic Timeline Comparison:**
+- [ ] Test proportional widths: Measure traditional = 100% (1200px), AI = 15% (~180-200px)
+- [ ] Test animation durations: Time traditional = 4s crawl, AI = 0.8s zoom
+- [ ] Test color gradients: Inspect traditional (gray → gray-400), AI (indigo → cyan → fuchsia)
+- [ ] Test timeline labels: Measure text-4xl/5xl (36-48px), verify NOT badges
+- [ ] Test visual metaphor: Confirm length difference obvious from 10 feet away
+
+**AC3 - Master Timeline Animation:**
+- [ ] Test sequence order: Verify stat → counter → slow bar → label → pause → fast bar → label → cards
+- [ ] Test dramatic pause: Time 0.5s pause between traditional and AI bars
+- [ ] Test ScrollTrigger: Verify fires at "top 75%", once: true (no re-trigger)
+- [ ] Test total duration: Time ~9 seconds for complete sequence
+- [ ] Test timing smoothness: Verify no jank, stutter, or layout shifts
+
+**AC4 - Enhanced TransformationValueCard:**
+- [ ] Test card size: Measure min-height = 280px (increased from ~200px)
+- [ ] Test icon size: Measure w-16 h-16 (64px, increased from 32px)
+- [ ] Test hover lift: Measure translateY(-12px) in DevTools on hover
+- [ ] Test title typography: Measure text-2xl md:text-3xl (24-30px)
+- [ ] Test glassmorphism: Inspect backdrop-blur-16px (increased from 12px)
+
+**AC5 - Layout & Responsive Design:**
+- [ ] Test above fold: Verify stat + timelines + cards visible on 1920x1080 (no scroll)
+- [ ] Test section spacing: Measure py-32 = 128px (increased from 96px)
+- [ ] Test grid layout: Verify grid-cols-1 lg:grid-cols-2 (2×2 desktop, 1 col mobile)
+- [ ] Test mobile: Verify 375px viewport single column, cards maintain prominence
+- [ ] Test responsive breakpoints: Test 768px (tablet), 1024px (desktop), 1920px (wide)
+
+**AC6 - GPU-Optimized Animations:**
+- [ ] Test scaleX usage: Inspect timeline bars use scaleX (NOT width)
+- [ ] Test translateY usage: Inspect cards use translateY (NOT top/margin)
+- [ ] Test 60fps: Record DevTools Performance trace, verify green bars (no red frames)
+- [ ] Test will-change: Inspect animated elements have will-change: transform
+- [ ] Test throttling: Test with CPU throttling (4x slowdown), verify no jank
+
+**AC7 - React Cleanup:**
+- [ ] Test gsap.context(): Verify containerRef scope in code review
+- [ ] Test cleanup function: Verify ctx.revert() in useEffect return
+- [ ] Test unmount: Navigate away, verify DevTools Memory panel (no leaks)
+- [ ] Test ScrollTrigger cleanup: Verify no orphaned ScrollTriggers after unmount
+- [ ] Test Strict Mode: Verify React 18 Strict Mode compatible (no double-mount issues)
+    </ideas>
+  </tests>
+</story-context>

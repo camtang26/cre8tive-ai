@@ -1,0 +1,111 @@
+# Implement From Pattern Workflow - GSAP Excellence Engine
+# Quick implementation based on researched GSAP pattern or pattern library entry
+# Multi-agent coordination: Director → Cinematographer → VFX Artist → (Tech Director)
+# Complexity: Standard
+
+name: implement-from-pattern
+description: "Fast implementation pipeline using researched GSAP patterns or pattern library. Adapts proven patterns to your specific context with quality validation."
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "standard"
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+pattern_library: "{module_root}/patterns"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers used (selective usage)
+mcp_servers:
+  archon:
+    tools: ["rag_search_code_examples"]
+    purpose: "Load pattern details from knowledge base if needed"
+
+  context7:
+    tools: ["get-library-docs"]
+    purpose: "Verify API compatibility for pattern"
+
+  chrome_devtools:
+    tools: ["take_screenshot", "list_console_messages"]
+    purpose: "Visual validation and console error checking (Phase 2)"
+    phase: 2
+
+# Agents involved (multi-agent coordination)
+agents:
+  director: "gsap-director"  # Orchestrator
+  cinematographer: "gsap-cinematographer"  # Loads pattern research
+  vfx_artist: "gsap-vfx"  # Implementation
+  tech_director: "gsap-tech-director"  # Validation (Phase 2, optional in MVP)
+
+# Module path and component files
+installed_path: "{module_root}/workflows/implement-from-pattern"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+# Output configuration - Implementation notes + code
+default_output_file: "{output_folder}/gsap-implementation-{{pattern_name}}-{{date}}.md"
+
+# Workflow inputs
+inputs:
+  pattern_source:
+    description: "Source of pattern: library, research-report, or url"
+    required: true
+    options: ["library", "research", "url", "describe"]
+
+  pattern_identifier:
+    description: "Pattern name, research report path, or URL"
+    required: true
+
+  target_context:
+    description: "Where to implement: component name, file path, elements"
+    required: true
+
+  customizations:
+    description: "Any customizations needed from base pattern"
+    required: false
+
+  framework:
+    description: "Framework context: vanilla, react, vue, svelte"
+    required: false
+    default: "vanilla"
+
+# Expected outputs
+outputs:
+  implementation_code:
+    format: "Production-ready GSAP code with comments"
+    includes: ["setup", "animation code", "cleanup"]
+
+  integration_notes:
+    format: "How to integrate into existing codebase"
+
+  validation_checklist:
+    format: "Testing checklist before shipping"
+
+# Success criteria
+success_criteria:
+  - "Pattern successfully adapted to target context"
+  - "Code is production-ready with proper cleanup"
+  - "Framework integration handled correctly"
+  - "Performance considerations documented"
+  - "Accessibility fallback included"
+
+# Integration
+feeds_into:
+  - "Pattern library"  # Successful adaptations can update pattern
+  - "optimize-performance"  # If performance issues detected
+
+fed_by:
+  - "research-gsap-pattern"  # Research report feeds implementation
+  - "creative-ideation"  # Concept feeds implementation
+
+# Performance targets
+estimated_duration: "10-20 minutes"
+phases:
+  pattern_loading: "2-3 min"
+  adaptation_planning: "3-5 min"
+  implementation: "5-10 min"
+  validation: "2-5 min (if Tech Director available)"

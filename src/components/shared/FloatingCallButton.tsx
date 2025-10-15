@@ -8,7 +8,7 @@ export const FloatingCallButton = () => {
   return (
     <motion.a
       href={`tel:${phoneNumber}`}
-      className="fixed bottom-[145px] right-11 md:right-12 z-50
+      className="fixed bottom-[108px] right-10 md:bottom-[98px] md:right-8 z-50
                  glass-card-medium hover:glass-card-heavy
                  px-4 py-3 md:px-6 md:py-4
                  rounded-full

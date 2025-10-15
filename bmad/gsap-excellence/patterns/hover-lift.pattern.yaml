@@ -1,0 +1,141 @@
+# Pattern: Hover Lift Effect
+# Category: Interactive Animations
+# GSAP Excellence Engine Pattern Library
+
+id: pattern-hover-lift-009
+name: "Smooth Hover Lift Effect"
+category: "interactive"
+complexity: "simple"
+gsap_version: "3.12.0"
+plugins_required: []
+description: "Card/element lifts up with shadow on hover - premium interaction pattern"
+inspiration_source: "Material Design elevation, premium card interfaces"
+performance_notes: "60fps with transform and shadow animations"
+created_date: "2025-10-11"
+last_validated: "2025-10-11"
+success_count: 0
+tags: ["hover", "interactive", "cards", "lift", "simple", "premium"]
+framework: "vanilla"
+
+code_example: |
+  import { gsap } from 'gsap';
+
+  // Hover lift effect on cards
+  const cards = document.querySelectorAll('[data-hover-lift]');
+
+  cards.forEach(card => {
+    // Store original shadow
+    const originalShadow = getComputedStyle(card).boxShadow;
+
+    card.addEventListener('mouseenter', () => {
+      gsap.to(card, {
+        y: -8, // Lift up 8px
+        boxShadow: "0 12px 24px rgba(0,0,0,0.15)", // Elevated shadow
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        y: 0, // Return to original position
+        boxShadow: originalShadow, // Original shadow
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+  });
+
+usage_notes: |
+  HTML:
+  <div data-hover-lift class="card">
+    Card content...
+  </div>
+
+  CSS (base state):
+  .card {
+    transition: none; /* Let GSAP handle transitions */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  Automatically applies to all [data-hover-lift] elements
+
+variations:
+  with_scale: |
+    // Add scale for emphasis
+    gsap.to(card, {
+      y: -8,
+      scale: 1.02,
+      boxShadow: "0 12px 24px rgba(0,0,0,0.15)",
+      duration: 0.3
+    });
+
+  with_rotation: |
+    // Add subtle rotation for 3D effect
+    gsap.to(card, {
+      y: -8,
+      rotationX: 5,
+      boxShadow: "0 12px 24px rgba(0,0,0,0.15)",
+      duration: 0.3
+    });
+
+  image_zoom: |
+    // Zoom image inside card on hover
+    const image = card.querySelector('img');
+    gsap.to(image, {
+      scale: 1.1,
+      duration: 0.3
+    });
+
+advanced_example: |
+  // 3D tilt on hover based on mouse position
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg
+    const rotateY = ((x - centerX) / centerX) * 10;
+
+    gsap.to(card, {
+      rotationX: rotateX,
+      rotationY: rotateY,
+      transformPerspective: 1000,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  });
+
+performance_tips:
+  - Use transform (y) not top for GPU acceleration
+  - Animate box-shadow carefully (can be expensive)
+  - Consider using pseudo-element for shadow
+  - Limit hover effects to reasonable number of elements
+  - Use will-change: transform on hover state
+
+accessibility:
+  reduced_motion: "Disable lift animation, keep static"
+  implementation: |
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Don't attach hover listeners
+      return;
+    }
+
+  keyboard: |
+    // Add focus state for keyboard navigation
+    card.addEventListener('focus', handleHover);
+    card.addEventListener('blur', handleHoverOut);
+
+browser_support:
+  chrome: "Full support"
+  firefox: "Full support"
+  safari: "Full support"
+  mobile: "Use :active for touch devices"
+
+cleanup: |
+  // Remove event listeners on cleanup
+  card.removeEventListener('mouseenter', handleHover);
+  card.removeEventListener('mouseleave', handleHoverOut);

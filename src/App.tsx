@@ -21,7 +21,6 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AnalyticsPage from "./pages/Analytics";
 import { SEO } from './components/core/SEO';
-import { createRoot, hydrateRoot } from 'react-dom/client';
 import { VideoTest } from './components/test/VideoTest';
 
 const queryClient = new QueryClient();
@@ -104,13 +103,5 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-
-// Add hydration support for react-snap
-const rootElement = document.getElementById('root');
-if (rootElement?.hasChildNodes()) {
-  hydrateRoot(rootElement, <App />);
-} else {
-  createRoot(rootElement!).render(<App />);
-}
 
 export default App;

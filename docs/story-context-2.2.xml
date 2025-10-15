@@ -1,0 +1,411 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2</storyId>
+    <title>Studios Multi-Platform Native Section - Premium 3D Rotation &amp; Parallax</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-2.2.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 content strategy and premium components</asA>
+    <iWant>to create a MultiPlatformCards component with research-validated platform-specific messaging and premium 3D rotation reveals with parallax depth layers</iWant>
+    <soThat>users understand Cre8tive AI's multi-platform native optimization advantage through distinctive hexagon-shaped cards with magnetic pull interactions and dramatic 3D entrance animations that showcase all 6 major platforms (YouTube, TikTok, Instagram, LinkedIn, X, Facebook)</soThat>
+    <tasks>
+      <task id="1" status="pending">Create Platform Data Structure (AC: #2, #6)</task>
+      <task id="2" status="pending">Source/Create Platform Icons (AC: #2)</task>
+      <task id="3" status="pending">Build PlatformCard Sub-Component (AC: #1, #2)</task>
+      <task id="4" status="pending">Implement Parallax Depth Layers (AC: #3)</task>
+      <task id="5" status="pending">Build MultiPlatformCards Container Component (AC: #1, #6)</task>
+      <task id="6" status="pending">Implement 3D Y-Axis Rotation Reveal (AC: #4)</task>
+      <task id="7" status="pending">Implement Magnetic Pull on Platform Cards (AC: #5)</task>
+      <task id="8" status="pending">Responsive &amp; Performance Optimization (AC: #7)</task>
+      <task id="9" status="pending">Integrate with Studios Page (AC: #8)</task>
+      <task id="10" status="pending">Code Quality &amp; Build Validation (AC: #9)</task>
+      <task id="11" status="pending">Visual QA &amp; Documentation (AC: all)</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC-1">
+      <title>MultiPlatformCards Component Structure</title>
+      <description>Create src/components/studios/MultiPlatformCards.tsx component with section header "Native for Every Major Platform", PlatformCard sub-component using OrganicCard shape="hexagon", props interface MultiPlatformCardsProps, responsive grid (1 col mobile, 2 tablet, 3 desktop)</description>
+      <reference>docs/tech-spec-epic-2.md#Feature Components lines 111-114</reference>
+      <traceability>AC-2.4 from tech-spec-epic-2.md line 870</traceability>
+    </criterion>
+    <criterion id="AC-2">
+      <title>Platform Card Content (6 Platforms)</title>
+      <description>PLATFORM_DATA const with 6 platforms: YouTube (16:9, 3 features), TikTok (9:16, 3 features), Instagram (1:1 &amp; 4:5, 3 features), LinkedIn (1:1 &amp; 16:9, 3 features), X/Twitter (16:9 &amp; 1:1, 3 features), Facebook (1:1 &amp; 16:9, 3 features). Each card displays icon (SVG), name, format label, 3 bullets. OrganicCard uses hexagon shape.</description>
+      <reference>docs/COPY_IMPLEMENTATION_GUIDE.md#Platform Cards lines 123-183</reference>
+      <traceability>AC-2.5 from tech-spec-epic-2.md line 871</traceability>
+    </criterion>
+    <criterion id="AC-3">
+      <title>Parallax Depth Layers (3-Layer Background Animation)</title>
+      <description>3 parallax layers with GSAP ScrollTrigger: Layer 1 (Background, 0.2x scroll, indigo/cyan gradients), Layer 2 (Midground, 0.5x scroll, fuchsia/orange shapes), Layer 3 (Foreground, 1.0x normal scroll, platform cards). Absolutely positioned behind cards grid.</description>
+      <reference>docs/tech-spec-epic-2.md#Workflows and Sequencing lines 495-499</reference>
+      <traceability>AC-2.38 from tech-spec-epic-2.md line 913</traceability>
+    </criterion>
+    <criterion id="AC-4">
+      <title>3D Y-Axis Rotation Reveal (Dramatic Entrance)</title>
+      <description>GSAP ScrollTrigger 3D rotation: initial rotationY: 90 (edge-on), final rotationY: 0 (face viewer). Stagger from center outward. Easing: back.out(1.4) for overshoot. Duration: 1.2s per card, 0.15s stagger. CSS: perspective: 1000px on container, transform-style: preserve-3d on cards.</description>
+      <reference>docs/tech-spec-epic-2.md#Premium Execution Features lines 931, 937</reference>
+      <traceability>AC-2.37 from tech-spec-epic-2.md line 912</traceability>
+    </criterion>
+    <criterion id="AC-5">
+      <title>Magnetic Pull Interaction (Premium Pattern)</title>
+      <description>useMagneticPull hook on all 6 platform cards. Config: strength 0.3, maxDistance 30px, trigger radius 150px. Throttled to 60fps (16ms). Mobile: disabled &lt;768px (touch screens). Smooth GSAP cursor-following pull effect.</description>
+      <reference>docs/tech-spec-epic-2.md#Premium Execution Features lines 931-934</reference>
+      <traceability>AC-2.33, AC-2.34, AC-2.44 from tech-spec-epic-2.md lines 908-909, 919</traceability>
+    </criterion>
+    <criterion id="AC-6">
+      <title>Section Copy &amp; Closing CTA</title>
+      <description>Header: "Native for Every Major Platform". Subheader: "Your 16:9 YouTube video doesn't work on TikTok..." Closing copy: "Platform-specific optimization dramatically improves performance..." All copy matches COPY_IMPLEMENTATION_GUIDE.md word-for-word.</description>
+      <reference>docs/COPY_IMPLEMENTATION_GUIDE.md#Multi-Platform Native Section lines 110-192</reference>
+    </criterion>
+    <criterion id="AC-7">
+      <title>Responsive Design &amp; Performance</title>
+      <description>Mobile (375px): 1 col, static hexagons (no 3D rotation), no magnetic pull, reduced parallax. Tablet (768px): 2 cols, 3D rotation enabled, magnetic pull enabled, full parallax. Desktop (1024px+): 3 cols, full 3D, full magnetic pull, full parallax. 60fps on Chrome 100+, Firefox 100+, Safari 15+.</description>
+      <reference>docs/tech-spec-epic-2.md#Performance lines 614-686</reference>
+      <traceability>AC-2.24, AC-2.25, AC-2.43 from tech-spec-epic-2.md lines 896-898, 918</traceability>
+    </criterion>
+    <criterion id="AC-8">
+      <title>Integration with Studios Page</title>
+      <description>Import MultiPlatformCards into src/pages/Studios.tsx. Place after PortfolioSection (Story 2.1), before ImageToVideoComparison (Story 2.3). Verify smooth Lenis scroll, no layout shifts (CLS ≤0.1), no console errors.</description>
+      <reference>docs/tech-spec-epic-2.md#Page Rendering Flow lines 543-559</reference>
+    </criterion>
+    <criterion id="AC-9">
+      <title>Code Quality &amp; Build Validation</title>
+      <description>TypeScript compiles clean (npm run build, 0 errors). ESLint passes (0 errors, warnings OK). Follows frontend-architecture.md Component Template Checklist. React cleanup patterns (useEffect return for GSAP context). No console.log in production. Platform icons optimized (SVG inline recommended).</description>
+      <reference>docs/architecture/frontend-architecture.md#Component Template Checklist lines 133-141</reference>
+      <traceability>AC-2.21, AC-2.22, AC-2.23 from tech-spec-epic-2.md lines 891-893</traceability>
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc id="DOC-1">
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Research-Validated Content &amp; Portfolio Implementation</title>
+        <section>Story 2.2 Implementation (lines 494-503)</section>
+        <snippet>Story 2.2: Studios Multi-Platform Cards (1.5-2 hours) [ENHANCED]
+- Create MultiPlatformCards with premium features:
+  - 3 parallax depth layers (background gradients)
+  - Platform cards as OrganicCard shape="hexagon"
+  - 3D Y-axis rotation reveals (rotationY: 90 → 0)
+  - Staggered entrance from center
+- Implement useMagneticPull on platform cards
+- Create PLATFORM_DATA const (6 platforms)
+- Test: Parallax scroll speeds, 3D rotation, 60fps</snippet>
+      </doc>
+      <doc id="DOC-2">
+        <path>docs/COPY_IMPLEMENTATION_GUIDE.md</path>
+        <title>Cre8tive AI - Website Copy Implementation Guide</title>
+        <section>Multi-Platform Native Section (lines 108-193)</section>
+        <snippet>Section Header: "Native for Every Major Platform"
+Subheader: "Your 16:9 YouTube video doesn't work on TikTok. Your audience knows it. We create bespoke videos optimized for each platform's unique requirements—not lazy automated crops."
+
+6 Platform Cards: YouTube (16:9 Widescreen), TikTok (9:16 Vertical), Instagram (1:1 &amp; 4:5), LinkedIn (1:1 &amp; 16:9), X/Twitter (16:9 &amp; 1:1), Facebook (1:1 &amp; 16:9)
+
+Closing: "Platform-specific optimization dramatically improves performance vs. repurposed content. We build natively for each channel from the ground up."</snippet>
+      </doc>
+      <doc id="DOC-3">
+        <path>docs/architecture/frontend-architecture.md</path>
+        <title>Frontend Architecture</title>
+        <section>Component Template Pattern (lines 60-131)</section>
+        <snippet>Component Template Checklist:
+- TypeScript interface for props (exported)
+- JSDoc comment with description
+- Semantic HTML tags (&lt;article&gt;, &lt;section&gt;) for SEO
+- cn() utility for className merging
+- Responsive classes (Tailwind breakpoints)
+- Loading strategy (loading="lazy" for images)</snippet>
+      </doc>
+      <doc id="DOC-4">
+        <path>docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns &amp; Best Practices</title>
+        <section>GSAP ScrollTrigger Parallax Effect (lines 212-271)</section>
+        <snippet>Parallax Effect Pattern:
+- Background moves slower (depth illusion)
+- gsap.to('.bg', { y: '30%', ease: 'none', scrollTrigger: { scrub: true } })
+- Different y percentages create depth perception
+- Use will-change: transform for GPU acceleration
+
+3D Rotation with ScrollTrigger:
+- Use rotationY property for Y-axis rotation
+- Set perspective on container, transform-style: preserve-3d on cards
+- Back.out easing adds overshoot effect</snippet>
+      </doc>
+      <doc id="DOC-5">
+        <path>src/components/epic2/PREMIUM_USAGE.md</path>
+        <title>Epic 2 Premium Component Usage Guide</title>
+        <section>OrganicCard &amp; useMagneticPull Examples (547 lines)</section>
+        <snippet>OrganicCard with hexagon shape:
+import { OrganicCard } from '@/components/epic2'
+&lt;OrganicCard shape="hexagon" morphing glowColor="#06b6d4"&gt;Content&lt;/OrganicCard&gt;
+
+useMagneticPull hook:
+const cardRef = useMagneticPull({ strength: 0.3, maxDistance: 30 })
+&lt;div ref={cardRef}&gt;Platform Card&lt;/div&gt;
+
+Performance: Throttled to 60fps, disabled on mobile &lt;768px, max 30px movement, 150px trigger radius</snippet>
+      </doc>
+    </docs>
+
+    <code>
+      <artifact id="CODE-1">
+        <path>src/components/epic2/shapes/OrganicCard.tsx</path>
+        <kind>component</kind>
+        <symbol>OrganicCard</symbol>
+        <lines>1-144</lines>
+        <reason>Epic 2 foundation component providing hexagon shape variant (shape="hexagon") required for platform cards. Provides SVG clip-path masking and optional morphing animation.</reason>
+        <interface>
+export interface OrganicCardProps {
+  children: React.ReactNode;
+  shape?: 'blob' | 'hexagon' | 'organic' | 'floating';
+  glowColor?: string;
+  morphing?: boolean;
+  morphIntensity?: number;
+  className?: string;
+}
+        </interface>
+      </artifact>
+      <artifact id="CODE-2">
+        <path>src/components/epic2/hooks/useMagneticPull.ts</path>
+        <kind>hook</kind>
+        <symbol>useMagneticPull</symbol>
+        <lines>1-168</lines>
+        <reason>Epic 2 foundation hook providing cursor-following magnetic pull effect for platform cards. Throttled to 60fps, mobile detection, GSAP transforms.</reason>
+        <interface>
+export interface MagneticPullOptions {
+  strength?: number;       // 0-1, pull intensity (default: 0.3)
+  maxDistance?: number;    // Max pixels element can move (default: 30)
+  ease?: string;           // GSAP easing (default: 'power2.out')
+  rotation?: boolean;      // Enable rotation on pull (default: false)
+  rotationIntensity?: number; // 0-1, rotation amount (default: 0.1)
+}
+        </interface>
+      </artifact>
+      <artifact id="CODE-3">
+        <path>src/components/epic2/animations/easings.ts</path>
+        <kind>constants</kind>
+        <symbol>CRE8TIVE_EASINGS</symbol>
+        <lines>1-30</lines>
+        <reason>Signature easing curves including back.out for 3D rotation overshoot effect required in Story 2.2 AC-4.</reason>
+        <interface>
+export const CRE8TIVE_EASINGS = {
+  organic: "power4.out",         // Smooth deceleration
+  smooth: "power2.out",          // Apple-like
+  spring: "elastic.out(1, 0.5)", // Energetic bounce
+  cinematic: "power4.inOut",     // Dramatic slowdown
+} as const
+        </interface>
+      </artifact>
+      <artifact id="CODE-4">
+        <path>src/pages/Studios.tsx</path>
+        <kind>page</kind>
+        <symbol>Studios</symbol>
+        <lines>1-100</lines>
+        <reason>Target integration page for MultiPlatformCards component. Will import and place MultiPlatformCards after PortfolioSection (Story 2.1) and before ImageToVideoComparison (Story 2.3).</reason>
+        <interface>
+export function Studios() {
+  return (
+    &lt;div&gt;
+      &lt;StudiosHero /&gt;
+      {/* MultiPlatformCards will be added here after PortfolioSection */}
+      &lt;StudiosIntro /&gt;
+      {/* ... existing sections ... */}
+    &lt;/div&gt;
+  )
+}
+        </interface>
+      </artifact>
+      <artifact id="CODE-5">
+        <path>src/components/studios/StudiosHero.tsx</path>
+        <kind>component</kind>
+        <symbol>StudiosHero</symbol>
+        <lines>1-83</lines>
+        <reason>Updated Studios hero (Story 2.1) with research-validated copy. Shows pattern for copy implementation and Tailwind styling that MultiPlatformCards should follow.</reason>
+        <interface>
+export const StudiosHero = () =&gt; {
+  // Premium AI Video Production Native for Every Platform
+  // Full-stack video production combining AI innovation...
+  // Industry citation badge with Lemonlight 2025 statistic
+}
+        </interface>
+      </artifact>
+    </code>
+
+    <dependencies>
+      <ecosystem name="node">
+        <package name="react" version="^18.3.1" />
+        <package name="react-dom" version="^18.3.1" />
+        <package name="gsap" version="^3.13.0" />
+        <package name="@gsap/react" version="^2.1.2" />
+        <package name="lenis" version="^1.3.11" />
+        <package name="framer-motion" version="^12.4.2" />
+        <package name="tailwindcss" version="^3.4.11" />
+        <package name="class-variance-authority" version="^0.7.1" />
+        <package name="clsx" version="^2.1.1" />
+        <package name="tailwind-merge" version="^2.5.2" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="CONST-1">
+      <type>architecture</type>
+      <description>Component must follow frontend-architecture.md Component Template Pattern: TypeScript interface exported, JSDoc comment, semantic HTML, cn() utility, responsive classes, lazy loading.</description>
+      <source>docs/architecture/frontend-architecture.md lines 133-141</source>
+    </constraint>
+    <constraint id="CONST-2">
+      <type>performance</type>
+      <description>60fps non-negotiable for all animations. Render budget: ≤16.67ms per frame. Magnetic pull: ≤2ms, GSAP timeline: ≤5ms, Parallax layers: ≤3ms, Layout/paint: ≤6ms. Mobile optimization: disable 3D rotation and magnetic pull on &lt;768px.</description>
+      <source>docs/tech-spec-epic-2.md lines 630-654, Performance Budget Table lines 656-665</source>
+    </constraint>
+    <constraint id="CONST-3">
+      <type>pattern</type>
+      <description>Use Epic 2 foundation components (Story 2.0): OrganicCard shape="hexagon", useMagneticPull hook, CRE8TIVE_EASINGS. Import pattern: import { OrganicCard, useMagneticPull } from '@/components/epic2'</description>
+      <source>docs/stories/story-2.2.md Dev Notes lines 252-266</source>
+    </constraint>
+    <constraint id="CONST-4">
+      <type>animation</type>
+      <description>GSAP ScrollTrigger pattern: use gsap.context() with cleanup in useEffect return. Never nest ScrollTriggers inside timeline tweens. Animate transform and opacity only (GPU acceleration). Support prefers-reduced-motion (static shapes, instant reveals).</description>
+      <source>docs/architecture/animation-patterns.md lines 432-460, 559-600</source>
+    </constraint>
+    <constraint id="CONST-5">
+      <type>styling</type>
+      <description>Tailwind CSS only. Mobile-first responsive (no prefix = mobile, md: = tablet+). Breakpoints: sm:640px, md:768px, lg:1024px, xl:1280px. Glassmorphism patterns: bg-white/10 backdrop-blur-sm border border-white/20.</description>
+      <source>docs/architecture/frontend-architecture.md lines 558-577</source>
+    </constraint>
+    <constraint id="CONST-6">
+      <type>copy</type>
+      <description>All copy must match COPY_IMPLEMENTATION_GUIDE.md word-for-word. No invention, no placeholders, no deviation from provided copy. Platform names, format labels, feature bullets all verbatim from guide.</description>
+      <source>docs/COPY_IMPLEMENTATION_GUIDE.md lines 108-193</source>
+    </constraint>
+    <constraint id="CONST-7">
+      <type>deployment</type>
+      <description>TypeScript relaxed mode (noImplicitAny: false). Build: npm run build passes with 0 errors. Lint: npm run lint passes (0 errors, warnings acceptable). No console.log in production code.</description>
+      <source>docs/architecture/frontend-architecture.md lines 764-792, CLAUDE.md DoD</source>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface id="INT-1">
+      <name>OrganicCard (Epic 2 Foundation)</name>
+      <kind>component</kind>
+      <signature>
+function OrganicCard({
+  children,
+  shape = 'blob',
+  glowColor?,
+  morphing = false,
+  morphIntensity = 0.05,
+  className?
+}: OrganicCardProps): JSX.Element
+      </signature>
+      <path>src/components/epic2/shapes/OrganicCard.tsx</path>
+      <usage>Use shape="hexagon" for platform cards. Optional morphing animation (set morphing={true} for breathing effect). Optional glowColor for SVG glow filter (max 3 per viewport).</usage>
+    </interface>
+    <interface id="INT-2">
+      <name>useMagneticPull (Epic 2 Foundation)</name>
+      <kind>hook</kind>
+      <signature>
+function useMagneticPull(options?: MagneticPullOptions): RefObject&lt;HTMLDivElement&gt;
+
+interface MagneticPullOptions {
+  strength?: number;       // Default: 0.3
+  maxDistance?: number;    // Default: 30
+  ease?: string;           // Default: 'power2.out'
+  rotation?: boolean;      // Default: false
+  rotationIntensity?: number; // Default: 0.1
+}
+      </signature>
+      <path>src/components/epic2/hooks/useMagneticPull.ts</path>
+      <usage>Apply to all platform cards. Automatically throttles to 60fps, disables on mobile &lt;768px. Returns ref to attach to card element. Config: strength: 0.3, maxDistance: 30, trigger radius: 150px (hardcoded).</usage>
+    </interface>
+    <interface id="INT-3">
+      <name>GSAP ScrollTrigger (Global)</name>
+      <kind>library</kind>
+      <signature>
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
+
+gsap.from(targets, {
+  scrollTrigger: { trigger, start, end, scrub, pin, toggleActions },
+  // animation properties
+})
+      </signature>
+      <path>node_modules/gsap</path>
+      <usage>Use for 3D rotation reveal and parallax layers. Pattern: gsap.context() with cleanup in useEffect return. 3D rotation: rotationY: 90 → 0 with back.out easing. Parallax: multiple gsap.to() with different y percentages and scrub: true.</usage>
+    </interface>
+    <interface id="INT-4">
+      <name>PlatformConfig (To Be Defined)</name>
+      <kind>type</kind>
+      <signature>
+interface PlatformConfig {
+  name: 'YouTube' | 'TikTok' | 'Instagram' | 'LinkedIn' | 'X' | 'Facebook';
+  format: string;      // e.g., "16:9 Widescreen", "9:16 Vertical"
+  features: string[];  // 3 bullet points per platform
+  iconPath: string;    // SVG icon path (or inline JSX)
+}
+      </signature>
+      <path>src/data/studios/platform-data.ts (to be created)</path>
+      <usage>Define 6 platform configurations matching COPY_IMPLEMENTATION_GUIDE.md exactly. Export as PLATFORM_DATA constant. Pass to MultiPlatformCards component.</usage>
+    </interface>
+    <interface id="INT-5">
+      <name>Lenis (Global Smooth Scroll)</name>
+      <kind>library</kind>
+      <signature>
+import Lenis from 'lenis'
+const lenis = new Lenis({ lerp: 0.1, duration: 1.2, smoothWheel: true })
+lenis.on('scroll', ScrollTrigger.update)
+      </signature>
+      <path>node_modules/lenis</path>
+      <usage>Already configured globally in App.tsx. Provides smooth scroll foundation for parallax and ScrollTrigger animations. No additional setup required for this story.</usage>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      <paragraph>Manual testing only (zero automated tests per project standards). Test checklist includes: Component rendering (all 6 platforms, hexagon shapes), 3D rotation animation (rotationY: 90 → 0, stagger from center, back.out easing), Parallax layers (3 distinct scroll speeds), Magnetic pull (hover trigger, ≤30px movement, 16ms throttle, mobile disabled), Responsive layouts (1/2/3 columns at 375px/768px/1024px+), Performance (60fps in Chrome DevTools Performance tab), Copy accuracy (word-for-word match to COPY_IMPLEMENTATION_GUIDE.md), Build &amp; Code quality (npm run build passes, npm run lint passes).</paragraph>
+    </standards>
+    <locations>
+      <location>Manual browser testing (Chrome, Firefox, Safari)</location>
+      <location>Chrome DevTools Performance tab for 60fps validation</location>
+      <location>Chrome DevTools Device Toolbar for responsive testing</location>
+      <location>Visual comparison to COPY_IMPLEMENTATION_GUIDE.md</location>
+    </locations>
+    <ideas>
+      <idea criterionId="AC-1">
+        <description>Component Rendering: Verify MultiPlatformCards renders with proper section header, 6 platform cards in responsive grid (1 col mobile, 2 tablet, 3 desktop), all PlatformCard sub-components use OrganicCard with shape="hexagon".</description>
+      </idea>
+      <idea criterionId="AC-2">
+        <description>Platform Content: Verify all 6 platforms render correctly (YouTube, TikTok, Instagram, LinkedIn, X, Facebook), format labels match copy guide exactly (16:9, 9:16, 1:1 &amp; 4:5, etc.), 3 feature bullets per platform display verbatim from guide, platform icons display at correct size.</description>
+      </idea>
+      <idea criterionId="AC-3">
+        <description>Parallax Layers: Verify 3 parallax layers scroll at different speeds (Background slowest 0.2x, Midground medium 0.5x, Foreground normal 1.0x), gradient backgrounds positioned absolutely behind cards, parallax smooth at 60fps in Performance tab.</description>
+      </idea>
+      <idea criterionId="AC-4">
+        <description>3D Rotation: Verify cards start rotationY: 90 (edge-on), animate to rotationY: 0 (face viewer), stagger from center outward (center cards animate first), overshoot effect visible (back.out easing), all 6 cards complete rotation sequence in ~1.2s with 0.15s stagger.</description>
+      </idea>
+      <idea criterionId="AC-5">
+        <description>Magnetic Pull: Hover platform card from 150px away, verify pull triggers, measure pull distance ≤30px from center, test mousemove throttle (16ms interval in Performance tab), verify mobile disabled (&lt;768px viewport).</description>
+      </idea>
+      <idea criterionId="AC-6">
+        <description>Copy Accuracy: Compare section header, subheader, platform feature bullets, closing copy paragraph to COPY_IMPLEMENTATION_GUIDE.md lines 110-192, verify word-for-word match (no deviation, no placeholders).</description>
+      </idea>
+      <idea criterionId="AC-7">
+        <description>Responsive &amp; Performance: Test mobile (375px, 1 col, static hexagons, no 3D, no magnetic pull, reduced parallax), tablet (768px, 2 cols, 3D enabled, magnetic pull enabled, full parallax), desktop (1024px+, 3 cols, full features), verify 60fps at all breakpoints.</description>
+      </idea>
+      <idea criterionId="AC-8">
+        <description>Integration: Verify MultiPlatformCards imports into Studios.tsx, placed after PortfolioSection (Story 2.1), Lenis smooth scroll works, no layout shifts (CLS ≤0.1 in Lighthouse), no console errors.</description>
+      </idea>
+      <idea criterionId="AC-9">
+        <description>Build &amp; Code Quality: Run npm run build (verify 0 TypeScript errors), run npm run lint (verify 0 errors), check React cleanup (ctx.revert() in useEffect return for GSAP contexts), verify no console.log in production code.</description>
+      </idea>
+    </ideas>
+  </tests>
+</story-context>

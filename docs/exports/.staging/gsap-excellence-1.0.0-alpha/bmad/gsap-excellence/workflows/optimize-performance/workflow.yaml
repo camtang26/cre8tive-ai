@@ -1,0 +1,50 @@
+# Optimize Performance Workflow - GSAP Excellence Engine
+# Profile and optimize animations for 60fps
+# Agent: Tech Director
+# Complexity: Standard
+
+name: optimize-performance
+description: "Profile animation performance, identify bottlenecks, optimize for 60fps"
+author: "GSAP Excellence Engine"
+version: "1.0.0-alpha"
+complexity: "standard"
+
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+mcp_servers:
+  chrome_devtools:
+    tools: ["performance_start_trace", "performance_stop_trace", "emulate_cpu"]
+    purpose: "Performance profiling and throttling tests"
+
+agents:
+  primary: "gsap-tech-director"
+
+installed_path: "{module_root}/workflows/optimize-performance"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+default_output_file: "{output_folder}/gsap-performance-report-{{date}}.md"
+
+inputs:
+  page_url:
+    description: "Dev server URL for profiling"
+    required: true
+
+  animation_trigger:
+    description: "How to trigger the animation"
+    required: true
+
+outputs:
+  performance_report:
+    format: "FPS analysis, bottlenecks, optimizations"
+
+  optimized_recommendations:
+    format: "Specific optimization strategies"
+
+estimated_duration: "15-25 minutes"

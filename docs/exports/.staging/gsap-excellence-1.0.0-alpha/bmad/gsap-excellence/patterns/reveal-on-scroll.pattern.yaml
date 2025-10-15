@@ -1,0 +1,79 @@
+# Pattern: Reveal on Scroll
+# Category: Scroll Effects
+# GSAP Excellence Engine Pattern Library
+
+id: pattern-reveal-on-scroll-002
+name: "Reveal on Scroll"
+category: "scroll-effects"
+complexity: "simple"
+gsap_version: "3.12.0"
+plugins_required: ["ScrollTrigger"]
+description: "Elements fade in and slide up as they enter viewport - classic premium pattern"
+inspiration_source: "Stripe, Vercel, modern SaaS landing pages"
+performance_notes: "Lightweight, 60fps easily achieved with transform + opacity"
+created_date: "2025-10-11"
+last_validated: "2025-10-11"
+success_count: 0
+tags: ["scroll", "reveal", "fade-in", "simple", "premium"]
+framework: "vanilla"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Reveal elements on scroll with fade + slide up
+  const revealElements = document.querySelectorAll('[data-reveal]');
+
+  revealElements.forEach((element, index) => {
+    gsap.from(element, {
+      y: 50, // Slide up from 50px below
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 85%", // Start when element is 85% down viewport
+        end: "top 60%",
+        toggleActions: "play none none none", // Play once
+        // markers: true // Debug: remove in production
+      },
+      // Stagger if multiple elements
+      delay: index * 0.1
+    });
+  });
+
+usage_notes: |
+  HTML Structure:
+  <div data-reveal>Content to reveal</div>
+  <div data-reveal>Another element</div>
+
+  Automatically staggers if multiple elements on page
+  Each element animates independently as it enters viewport
+
+variations:
+  slide_from_left: "Change y: 50 to x: -50"
+  slide_from_right: "Change y: 50 to x: 50"
+  scale_in: "Add scale: 0.8 to from object"
+  rotate_in: "Add rotationY: 15 for 3D effect"
+
+performance_tips:
+  - Use transform and opacity only (GPU accelerated)
+  - Set will-change: transform, opacity on elements
+  - Use toggleActions: "play none none none" to play once
+  - Consider using once: true for fire-and-forget
+
+accessibility:
+  reduced_motion: "Skip animation, show content immediately"
+  implementation: |
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(revealElements, { opacity: 1, y: 0 });
+      return;
+    }
+
+browser_support:
+  chrome: "Full support"
+  firefox: "Full support"
+  safari: "Full support"
+  mobile: "Excellent performance on all modern devices"

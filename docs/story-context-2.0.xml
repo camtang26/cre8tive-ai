@@ -1,0 +1,727 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.0</storyId>
+    <title>Premium Foundation Setup - Organic Shapes, Magnetic Pull, GSAP Orchestration</title>
+    <status>ContextReadyDraft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-2.0.md</sourceStoryPath>
+    <!-- 2025-10-14 Update: Use BriefingTimeline segmentation for current implementation; legacy BriefToStoryboardAnimation references retained for traceability. -->
+  </metadata>
+
+  <story>
+    <asA>a developer implementing Epic 2 premium components</asA>
+    <iWant>a reusable foundation of organic shapes, magnetic interactions, and GSAP orchestration utilities</iWant>
+    <soThat>I can build visually distinctive portfolio and value prop sections with consistent premium patterns across Stories 2.1-2.8</soThat>
+    <tasks>
+      - Task 1: Setup Epic 2 Infrastructure (AC: #1, #7)
+      - Task 2: Implement OrganicCard Shape System (AC: #2)
+      - Task 3: Build useMagneticPull Hook (AC: #3)
+      - Task 4: Build useOrchestrator Hook (AC: #4)
+      - Task 5: Create Signature Easing Curves (AC: #5)
+      - Task 6: Write Premium Usage Documentation (AC: #6)
+      - Task 7: Implement Performance Monitoring (AC: #8)
+      - Task 8: Mobile Optimization Testing (AC: #9)
+      - Task 9: Code Quality &amp; Build Validation (AC: #10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+### 1. Epic 2 Directory Structure Created
+- Create `src/components/epic2/` base directory
+- Create subdirectories: `shapes/`, `hooks/`, `animations/`
+- Add barrel exports (index.ts) for easy imports
+- **Verification:** Directory structure matches tech spec line 89-104
+
+### 2. OrganicCard Component (Premium Shape System)
+- Implement `OrganicCard.tsx` with 4 shape variants: blob, hexagon, organic, floating
+- SVG clip-path masking system (not rectangles)
+- Optional morphing animation (breathing effect, ±3-5% shape variance over 8s loop)
+- Glow effect system with configurable color
+- Props interface: `{ children, shape?, glowColor?, morphing?, morphIntensity?, className? }`
+- **Output:** `src/components/epic2/shapes/OrganicCard.tsx`
+- **Reference:** Tech spec lines 133-155 (shape system interfaces)
+
+### 3. useMagneticPull Hook (Cursor-Following Interaction)
+- Implement custom React hook for magnetic hover effects
+- Throttled mousemove listener (60fps max, 16ms interval)
+- Configurable strength (0-1, default 0.3), maxDistance (pixels)
+- GSAP-powered smooth transform (optional rotation on pull)
+- Mobile detection: disabled on touch screens (&lt;768px viewport)
+- Returns ref to attach to target element
+- **Output:** `src/components/epic2/hooks/useMagneticPull.ts`
+- **Reference:** Tech spec lines 157-167, AC 2.33-2.34 (magnetic pull specs)
+
+### 4. useOrchestrator Hook (GSAP Master Timeline Builder)
+- Implement custom React hook for building GSAP ScrollTrigger timelines
+- API: `{ timeline, addPhase, play, pause, restart }` returned
+- Phase system: name, targets, animation, stagger, position
+- Automatic cleanup via gsap.context() on unmount
+- ScrollTrigger integration with trigger, start, end, scrub, pin options
+- **Output:** `src/components/epic2/hooks/useOrchestrator.ts`
+- **Reference:** Tech spec lines 169-193, AC 2.35 (5-phase orchestration)
+
+### 5. Signature Easing Curves (Cre8tive Animation Identity)
+- Create `easings.ts` with CRE8TIVE_EASINGS const object
+- Built-in fallbacks: organic (power4.out), smooth (power2.out), spring (elastic.out), cinematic (power4.inOut)
+- Optional GreenSock Club upgrade path documented (CustomEase for unique curves)
+- Export as const with TypeScript typing
+- **Output:** `src/components/epic2/animations/easings.ts`
+- **Reference:** Tech spec lines 202-213 (easing definitions)
+
+### 6. Premium Pattern Documentation
+- Create PREMIUM_USAGE.md in `src/components/epic2/`
+- Document: OrganicCard usage examples (all 4 shapes)
+- Document: useMagneticPull integration pattern
+- Document: useOrchestrator 5-phase example (portfolio section pattern)
+- Document: Performance budget per pattern (CPU/GPU costs from tech spec table lines 638-646)
+- Include code examples with TypeScript
+- **Output:** `src/components/epic2/PREMIUM_USAGE.md`
+
+### 7. TypeScript Type Definitions
+- Export all interfaces: `OrganicCardProps`, `ShapePath`, `MagneticPullOptions`, `OrchestratorOptions`, `AnimationPhase`
+- Create `src/components/epic2/types.ts` barrel export
+- Ensure all premium utilities have full TypeScript coverage
+- No implicit any, no type assertions
+- **Verification:** `npm run build` passes with zero TypeScript errors
+
+### 8. Performance Validation &amp; Fallbacks
+- Implement performance monitor: detect FPS drops (&lt;30fps for 5 consecutive frames)
+- Graceful degradation strategy:
+  - Disable magnetic pull if performance drops
+  - Switch organic shapes to static (no morphing)
+  - Reduce parallax layers from 5 → 2
+- Document fallback thresholds in PREMIUM_USAGE.md
+- **Reference:** Tech spec lines 666-675 (fallback strategy)
+
+### 9. Mobile Optimization Patterns
+- Document mobile-specific behaviors:
+  - Magnetic pull: disabled on viewport &lt;768px
+  - Morphing shapes: static on mobile
+  - Parallax intensity: reduced by 50% on mobile
+  - ScrollTrigger pinning: disabled on mobile if performance &lt;30fps
+- **Reference:** Tech spec lines 676-681
+
+### 10. Code Quality &amp; Build Verification
+- ESLint passes (0 errors, warnings acceptable)
+- TypeScript compiles clean (`npm run build`)
+- All components follow frontend-architecture.md patterns
+- React cleanup patterns implemented (useEffect return cleanup)
+- No console.log statements in production code
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Research-Validated Content &amp; Portfolio Implementation - Epic 2</title>
+        <section>Premium Component Architecture</section>
+        <snippet>
+**New Epic 2 Component Library Structure:**
+
+```
+src/components/epic2/
+├── shapes/
+│   ├── OrganicCard.tsx           # Blob, hexagon, organic shape variants with SVG masks
+│   ├── ShapeMorphing.tsx         # Framer Motion path morphing utilities
+│   └── types.ts                  # Shape variant types
+├── hooks/
+│   ├── useMagneticPull.ts        # Cursor-following magnetic effect
+│   ├── useOrchestrator.ts        # GSAP master timeline builder
+│   └── useParallaxDepth.ts       # Multi-layer parallax scrolling
+├── animations/
+│   ├── easings.ts                # Cre8tive signature easing curves
+│   ├── choreography.ts           # Pre-built animation sequences
+│   └── constants.ts              # Timing/duration standards
+└── [feature components below]
+```
+
+### Premium Utility Interfaces:
+
+```typescript
+// ===== PREMIUM SHAPE SYSTEM =====
+
+type ShapeVariant = 'blob' | 'hexagon' | 'organic' | 'floating';
+
+interface OrganicCardProps {
+  children: React.ReactNode;
+  shape?: ShapeVariant;
+  glowColor?: string;
+  morphing?: boolean;          // Enable breathing animation
+  morphIntensity?: number;     // 0-1, how much shape morphs
+  className?: string;
+}
+
+// Magnetic Pull Hook
+interface MagneticPullOptions {
+  strength?: number;             // 0-1, pull intensity (default: 0.3)
+  maxDistance?: number;          // Max pixels element can move
+  ease?: string;                 // GSAP easing
+  rotation?: boolean;            // Enable rotation on pull
+  rotationIntensity?: number;    // 0-1, rotation amount
+}
+
+// Orchestrator Hook (Master Timeline Builder)
+interface OrchestratorOptions {
+  trigger: string | HTMLElement;
+  start?: string;
+  end?: string;
+  scrub?: number | boolean;
+  pin?: boolean;
+  markers?: boolean;
+}
+
+interface AnimationPhase {
+  name: string;
+  targets: string | HTMLElement[];
+  animation: gsap.TweenVars;
+  stagger?: number | gsap.StaggerVars;
+  position?: string | number;
+}
+
+export const CRE8TIVE_EASINGS = {
+  organic: "power4.out",         // Smooth deceleration (fallback)
+  smooth: "power2.out",          // Apple-like (fallback)
+  spring: "elastic.out(1, 0.5)", // Energetic bounce (built-in)
+  cinematic: "power4.inOut",     // Dramatic slowdown (fallback)
+} as const;
+```
+        </snippet>
+      </doc>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Epic 2 - Performance Budget</title>
+        <section>Performance</section>
+        <snippet>
+**Premium Pattern Performance Budget:**
+
+| Pattern | CPU Cost | GPU Cost | Mitigation Strategy |
+|---------|----------|----------|---------------------|
+| **Organic SVG Shapes** | Low (static clip-path) | Medium (filter effects) | Limit glow filters to 3 per viewport |
+| **Magnetic Pull** | Medium (mousemove listener) | Low (transform only) | Throttle to 60fps, disable on mobile |
+| **GSAP Orchestration** | Low (timeline pre-calculated) | High (multiple animating elements) | Limit to 12 elements per timeline |
+| **Parallax Layers** | Low (scroll listener) | Medium (3-5 layer transforms) | Use `will-change`, max 5 layers |
+| **Shape Morphing** | Medium (path interpolation) | Medium (SVG repainting) | Use Framer Motion (optimized), limit to 3 simultaneous morphs |
+
+**Optimization Strategies (Premium-Specific):**
+
+1. **GPU Acceleration (Critical):**
+   ```css
+   .premium-animated {
+     will-change: transform, opacity;
+     transform: translateZ(0); /* Force GPU layer */
+   }
+   ```
+
+2. **Magnetic Pull Throttling:**
+   ```ts
+   // Throttle mousemove to 60fps
+   const throttledMouseMove = gsap.utils.throttle(handleMouseMove, 16);
+   ```
+
+3. **Fallback Strategy (Performance Guard):**
+   - If frame rate drops &lt;30fps for 5 consecutive frames:
+     - Disable magnetic pull
+     - Reduce parallax layers from 5 → 2
+     - Switch organic shapes to static (no morphing)
+     - Fallback to simple fade-ins
+
+4. **Mobile Performance:**
+   - Disable magnetic pull (no cursor on mobile)
+   - Reduce parallax intensity by 50%
+   - Static shapes (no morphing)
+   - ScrollTrigger pinning disabled
+        </snippet>
+      </doc>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns &amp; Best Practices</title>
+        <section>React Integration &amp; Cleanup</section>
+        <snippet>
+### Critical Pattern: useEffect Cleanup
+
+**❌ WRONG (Memory Leak):**
+
+```typescript
+useEffect(() => {
+  gsap.to('.element', { x: 100, scrollTrigger: {...} })
+  // No cleanup = ScrollTrigger persists after unmount
+}, [])
+```
+
+**✅ CORRECT (With Cleanup):**
+
+```typescript
+useEffect(() => {
+  const ctx = gsap.context(() => {
+    gsap.to('.element', { x: 100, scrollTrigger: {...} })
+  }, containerRef)
+
+  return () => ctx.revert()  // Kills all animations and ScrollTriggers
+}, [])
+```
+
+**Why:**
+- `gsap.context()` collects all animations created inside
+- `ctx.revert()` kills animations + ScrollTriggers + resets DOM
+- Without cleanup, ScrollTriggers keep firing after component unmounts (memory leak)
+
+### React Hook: useGSAP (Official GSAP Hook)
+
+```typescript
+// Alternative to manual gsap.context()
+import { useGSAP } from '@gsap/react'
+
+export function Component() {
+  const containerRef = useRef&lt;HTMLDivElement&gt;(null)
+
+  useGSAP(() => {
+    gsap.to('.element', { x: 100, scrollTrigger: {...} })
+  }, { scope: containerRef })  // Auto-cleanup on unmount
+
+  return &lt;div ref={containerRef}&gt;...&lt;/div&gt;
+}
+```
+        </snippet>
+      </doc>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md</path>
+        <title>Animation Patterns - Performance Optimization</title>
+        <section>Performance Optimization</section>
+        <snippet>
+### 1. GPU Acceleration (Transform &amp; Opacity Only)
+
+**✅ GOOD (GPU-accelerated):**
+
+```typescript
+gsap.to('.element', {
+  x: 100,        // transform: translateX (GPU)
+  y: 50,         // transform: translateY (GPU)
+  scale: 1.2,    // transform: scale (GPU)
+  rotation: 45,  // transform: rotate (GPU)
+  opacity: 0.5,  // opacity (GPU)
+})
+```
+
+**❌ BAD (CPU-bound, forces layout reflow):**
+
+```typescript
+gsap.to('.element', {
+  width: 200,    // Forces layout reflow
+  height: 300,   // Forces layout reflow
+  top: 100,      // Forces layout reflow
+  left: 50,      // Forces layout reflow
+})
+```
+
+**CSS Setup for GPU Acceleration:**
+
+```css
+.animated-element {
+  will-change: transform, opacity;  /* Hint browser to use GPU */
+  transform: translateZ(0);         /* Force GPU layer */
+}
+```
+
+### 2. Performance Budget: 60fps Target
+
+**RAIL Performance Model:**
+- **Animation:** 16ms per frame (60fps)
+- **Budget:** ~10ms for animation logic (6ms reserved for browser rendering)
+
+**Optimization Checklist:**
+- ✅ Use `transform` and `opacity` only
+- ✅ Set `will-change: transform` on animated elements
+- ✅ Limit concurrent ScrollTriggers (max 10-15 per page)
+- ✅ Use `scrub` for smooth scroll-linked animations (offloads to native scroll)
+- ✅ Debounce resize handlers (`ScrollTrigger.refresh()`)
+        </snippet>
+      </doc>
+      <doc>
+        <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/frontend-architecture.md</path>
+        <title>Frontend Architecture - Component Design Patterns</title>
+        <section>Component Template (Standard Pattern)</section>
+        <snippet>
+**All components should follow this structure:**
+
+```typescript
+// src/components/briefing/StyleCard.tsx
+import { useRef } from 'react'
+import { cn } from '@/lib/utils'
+
+/**
+ * StyleCard - Visual style showcase card for Briefing Engine
+ *
+ * @param title - Style name (e.g., "Minimalistic", "Bold &amp; Vibrant")
+ * @param description - Style description
+ * @param imageSrc - Path to style preview image
+ * @param className - Additional Tailwind classes
+ * @param animationDelay - GSAP stagger delay (optional)
+ */
+export interface StyleCardProps {
+  title: string
+  description: string
+  imageSrc: string
+  className?: string
+  animationDelay?: number
+}
+
+export function StyleCard({
+  title,
+  description,
+  imageSrc,
+  className,
+  animationDelay = 0
+}: StyleCardProps) {
+  const cardRef = useRef&lt;HTMLDivElement&gt;(null)
+
+  return (
+    &lt;article
+      ref={cardRef}
+      className={cn(
+        'style-card group relative overflow-hidden rounded-lg',
+        'bg-gradient-to-br from-indigo-500/10 to-fuchsia-500/10',
+        'border border-indigo-500/20',
+        'transition-transform duration-300',
+        'hover:scale-105 hover:border-cyan-400/50',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400',
+        className
+      )}
+      tabIndex={0}
+      role="button"
+    &gt;
+      &lt;div className="aspect-video overflow-hidden"&gt;
+        &lt;img
+          src={imageSrc}
+          alt={`${title} visual style example`}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;div className="p-4"&gt;
+        &lt;h3 className="text-lg font-semibold text-indigo-100"&gt;{title}&lt;/h3&gt;
+        &lt;p className="mt-2 text-sm text-gray-400"&gt;{description}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  )
+}
+```
+
+**Component Template Checklist:**
+- ✅ TypeScript interface for props (exported)
+- ✅ JSDoc comment with description
+- ✅ Semantic HTML tags (`&lt;article&gt;`, `&lt;section&gt;`, `&lt;nav&gt;`) for SEO
+- ✅ `cn()` utility for className merging
+- ✅ Responsive classes (Tailwind breakpoints)
+- ✅ Loading strategy (`loading="lazy"` for images)
+        </snippet>
+      </doc>
+    </docs>
+    <code>
+      <file>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefToStoryboardAnimation.tsx</path>
+        <kind>React Component</kind>
+        <symbol>BriefToStoryboardAnimation</symbol>
+        <lines>1-982</lines>
+        <reason>Reference implementation of GSAP ScrollTrigger + useGSAP hook pattern for Epic 2 premium components. Shows proper cleanup, Lenis integration, scroll timeline management, and stagger animations.</reason>
+      </file>
+      <file>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefToStoryboardAnimation.tsx</path>
+        <kind>React Hook</kind>
+        <symbol>useGSAP</symbol>
+        <lines>151-595</lines>
+        <reason>Official GSAP React hook pattern - shows automatic cleanup, scope parameter, and dependency management. Template for useOrchestrator implementation.</reason>
+      </file>
+      <file>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefToStoryboardAnimation.tsx</path>
+        <kind>GSAP Animation</kind>
+        <symbol>scrollTimeline</symbol>
+        <lines>282-589</lines>
+        <reason>Unified scroll timeline pattern with scrub, pin, and stage transitions. Shows 5-phase orchestration approach required for AC 2.35.</reason>
+      </file>
+      <file>
+        <path>/home/cameronai/projects/cre8tive-website-1006/src/components/briefing/BriefToStoryboardAnimation.tsx</path>
+        <kind>Performance Pattern</kind>
+        <symbol>GPU Acceleration</symbol>
+        <lines>649-652</lines>
+        <reason>CSS GPU acceleration pattern (will-change, transform: translateZ) required for all premium animations.</reason>
+      </file>
+    </code>
+    <dependencies>
+      <node>
+        <package>react</package>
+        <version>18.3.1</version>
+        <usage>Core React hooks (useState, useRef, useEffect) for component state and refs</usage>
+      </node>
+      <node>
+        <package>gsap</package>
+        <version>3.13.0</version>
+        <usage>Animation timeline engine, GSAP utilities (throttle), ScrollTrigger plugin</usage>
+      </node>
+      <node>
+        <package>@gsap/react</package>
+        <version>2.1.2</version>
+        <usage>useGSAP hook for React integration with automatic cleanup</usage>
+      </node>
+      <node>
+        <package>lenis</package>
+        <version>1.3.11</version>
+        <usage>Smooth scroll foundation (already globally configured in App.tsx)</usage>
+      </node>
+      <node>
+        <package>framer-motion</package>
+        <version>12.4.2</version>
+        <usage>SVG path morphing for organic shape breathing animations (alternative to GSAP MorphSVG)</usage>
+      </node>
+      <node>
+        <package>tailwindcss</package>
+        <version>3.4.11</version>
+        <usage>Utility classes for styling organic cards and premium components</usage>
+      </node>
+      <node>
+        <package>class-variance-authority</package>
+        <version>0.7.1</version>
+        <usage>Variant-based styling for OrganicCard shape variants (blob/hexagon/organic/floating)</usage>
+      </node>
+      <node>
+        <package>clsx</package>
+        <version>2.1.1</version>
+        <usage>className concatenation utility</usage>
+      </node>
+      <node>
+        <package>tailwind-merge</package>
+        <version>2.5.2</version>
+        <usage>cn() utility for merging Tailwind classes without conflicts</usage>
+      </node>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <architectural>
+      - All components MUST use `gsap.context()` or `useGSAP()` hook with proper cleanup in useEffect return
+      - Magnetic pull MUST be throttled to 16ms (60fps) using `gsap.utils.throttle()`
+      - All animations MUST use GPU-accelerated properties only (`transform`, `opacity`) - NO layout properties (width, height, top, left)
+      - SVG glow filters MUST be limited to 3 per viewport (performance constraint)
+      - Mobile detection MUST disable magnetic pull on viewports &lt;768px
+      - Performance monitor MUST trigger fallbacks if FPS drops &lt;30fps for 5 consecutive frames
+      - All premium utilities MUST have full TypeScript coverage (no implicit any)
+    </architectural>
+    <performance>
+      - 60fps non-negotiable for all animations (16.67ms per frame budget)
+      - Magnetic pull calculations: ≤2ms per frame
+      - GSAP timeline updates: ≤5ms per frame
+      - Parallax layer transforms: ≤3ms per frame
+      - Total animation budget: ≤10ms (6ms reserved for browser layout/paint)
+      - Graceful degradation when performance &lt;30fps:
+        1. Disable magnetic pull
+        2. Switch shapes to static (no morphing)
+        3. Reduce parallax layers 5 → 2
+        4. Fallback to simple fade-ins
+    </performance>
+    <patterns>
+      - Component structure: Follow frontend-architecture.md template (TypeScript interface, JSDoc, semantic HTML, cn() utility)
+      - Hook naming: `use` prefix (e.g., `useMagneticPull`, `useOrchestrator`)
+      - File organization: Feature-based (shapes/, hooks/, animations/ subdirectories)
+      - Directory structure: `src/components/epic2/` isolated from existing components
+      - Barrel exports: Create index.ts files for easy imports (`import { OrganicCard } from '@/components/epic2'`)
+      - Animation cleanup: ALWAYS return cleanup function in useEffect
+      - Mobile-first: Tailwind responsive classes (no prefix = mobile, md: = tablet+)
+    </patterns>
+    <testing>
+      - Manual testing only (no automated tests per project standards)
+      - Browser test matrix: Chrome 100+, Firefox 100+, Safari 15+ (primary), Edge 100+ (tertiary)
+      - Performance profiling: Chrome DevTools Performance tab, verify 60fps
+      - Mobile testing: Chrome DevTools device emulation (375px, 768px, 1024px, 1920px)
+      - CPU throttle testing: 6x throttle to trigger fallbacks (&lt;30fps)
+      - Build verification: `npm run build` passes with 0 TypeScript errors
+      - Lint verification: `npm run lint` passes (errors only, warnings acceptable)
+    </testing>
+  </constraints>
+
+  <interfaces>
+    <api>
+      <name>OrganicCardProps</name>
+      <kind>TypeScript Interface</kind>
+      <signature>
+interface OrganicCardProps {
+  children: React.ReactNode;
+  shape?: ShapeVariant;         // 'blob' | 'hexagon' | 'organic' | 'floating'
+  glowColor?: string;            // Hex color for SVG glow filter
+  morphing?: boolean;            // Enable breathing animation
+  morphIntensity?: number;       // 0-1, how much shape morphs
+  className?: string;            // Additional Tailwind classes
+}
+      </signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md</path>
+    </api>
+    <api>
+      <name>MagneticPullOptions</name>
+      <kind>TypeScript Interface</kind>
+      <signature>
+interface MagneticPullOptions {
+  strength?: number;             // 0-1, pull intensity (default: 0.3)
+  maxDistance?: number;          // Max pixels element can move (default: 30px)
+  ease?: string;                 // GSAP easing (default: 'power2.out')
+  rotation?: boolean;            // Enable rotation on pull (default: false)
+  rotationIntensity?: number;    // 0-1, rotation amount (default: 0.1)
+}
+
+type UseMagneticPullReturn = React.RefObject&lt;HTMLDivElement&gt;;
+      </signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md</path>
+    </api>
+    <api>
+      <name>OrchestratorOptions</name>
+      <kind>TypeScript Interface</kind>
+      <signature>
+interface OrchestratorOptions {
+  trigger: string | HTMLElement;
+  start?: string;                // ScrollTrigger start position (default: 'top center')
+  end?: string;                  // ScrollTrigger end position (default: 'bottom center')
+  scrub?: number | boolean;      // Scrub lag or boolean (default: 1)
+  pin?: boolean;                 // Pin section during scroll (default: false)
+  markers?: boolean;             // Debug markers (default: false)
+}
+
+interface AnimationPhase {
+  name: string;                  // Phase label (e.g., 'title-reveal')
+  targets: string | HTMLElement[];
+  animation: gsap.TweenVars;     // GSAP animation properties
+  stagger?: number | gsap.StaggerVars;
+  position?: string | number;    // Timeline position (e.g., '+=0.5', 1.2)
+}
+
+interface UseOrchestratorReturn {
+  timeline: gsap.core.Timeline;
+  addPhase: (phase: AnimationPhase) =&gt; void;
+  play: () =&gt; void;
+  pause: () =&gt; void;
+  restart: () =&gt; void;
+}
+      </signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md</path>
+    </api>
+    <api>
+      <name>CRE8TIVE_EASINGS</name>
+      <kind>Const Object</kind>
+      <signature>
+export const CRE8TIVE_EASINGS = {
+  organic: "power4.out",         // Smooth deceleration (fallback)
+  smooth: "power2.out",          // Apple-like (fallback)
+  spring: "elastic.out(1, 0.5)", // Energetic bounce (built-in)
+  cinematic: "power4.inOut",     // Dramatic slowdown (fallback)
+} as const;
+
+// Optional GreenSock Club upgrade ($99/year):
+// import { CustomEase } from 'gsap/CustomEase';
+// CRE8TIVE_EASINGS.organic = CustomEase.create("cre8tive-organic", "0.68, -0.55, 0.27, 1.55");
+      </signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/docs/tech-spec-epic-2.md</path>
+    </api>
+    <api>
+      <name>gsap.utils.throttle</name>
+      <kind>GSAP Utility</kind>
+      <signature>
+// Throttle mousemove to 60fps (16ms interval)
+const throttledMouseMove = gsap.utils.throttle(handleMouseMove, 16);
+
+// Usage in magnetic pull hook:
+useEffect(() => {
+  const handleMouseMove = (e: MouseEvent) => {
+    // Magnetic pull calculations
+  };
+
+  const throttled = gsap.utils.throttle(handleMouseMove, 16);
+  window.addEventListener('mousemove', throttled);
+
+  return () => {
+    window.removeEventListener('mousemove', throttled);
+    throttled.kill(); // CRITICAL: Clean up throttle on unmount
+  };
+}, []);
+      </signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md</path>
+    </api>
+    <api>
+      <name>useGSAP Hook</name>
+      <kind>React Hook</kind>
+      <signature>
+import { useGSAP } from '@gsap/react'
+
+// Pattern for Epic 2 hooks:
+export function Component() {
+  const containerRef = useRef&lt;HTMLDivElement&gt;(null)
+
+  useGSAP(() => {
+    // All GSAP animations here (auto-cleanup on unmount)
+    gsap.to('.element', { x: 100, scrollTrigger: {...} })
+  }, {
+    scope: containerRef,        // Scope animations to container
+    dependencies: [someProp]    // Re-run when dependencies change
+  })
+
+  return &lt;div ref={containerRef}&gt;...&lt;/div&gt;
+}
+      </signature>
+      <path>/home/cameronai/projects/cre8tive-website-1006/docs/architecture/animation-patterns.md</path>
+    </api>
+  </interfaces>
+
+  <tests>
+    <standards>
+**Manual Testing Only (No Automated Tests)**
+
+The project currently has zero automated tests (documented technical debt). All validation is done through manual browser testing across Chrome 100+, Firefox 100+, Safari 15+, and mobile emulation.
+
+**Testing Approach:**
+1. **Component Visual QA:** Render components in isolation, verify props mapping and visual output
+2. **Integration Testing:** Full page load in browser, test scroll interactions, animation sequences
+3. **Performance Testing:** Chrome DevTools Performance tab, verify 60fps (no frames &gt;16.67ms)
+4. **Accessibility Testing:** Manual keyboard navigation, focus indicators, semantic HTML validation
+5. **Build Validation:** `npm run build` passes with 0 TypeScript errors, `npm run lint` passes (errors only)
+
+**Performance Profiling Tools:**
+- Chrome DevTools Performance tab (frame rate analysis)
+- stats.js (FPS counter overlay for development)
+- CPU throttle 6x (trigger fallbacks at &lt;30fps)
+    </standards>
+    <locations>
+      - No test files exist (manual validation only)
+      - Future test infrastructure: `src/__tests__/` (Vitest + React Testing Library planned)
+      - Future E2E tests: `e2e/` (Playwright planned)
+    </locations>
+    <ideas>
+### Test Ideas (Manual Validation - Story 2.0)
+
+**OrganicCard Component:**
+- [ ] Visual QA: Render all 4 shapes side-by-side (blob, hexagon, organic, floating)
+- [ ] Visual QA: Verify SVG clip-path masking (not rectangles, inspect DevTools)
+- [ ] Animation QA: Observe breathing animation (8s loop, ±3-5% variance)
+- [ ] Performance QA: Check glow filter count (≤3 per viewport)
+
+**useMagneticPull Hook:**
+- [ ] Interaction QA: Hover test, measure pull distance (≤30px from center)
+- [ ] Interaction QA: Verify trigger radius (150px from element center)
+- [ ] Performance QA: Verify throttling (mousemove events every 16ms max)
+- [ ] Mobile QA: Test on &lt;768px viewport (no magnetic pull, disabled)
+
+**useOrchestrator Hook:**
+- [ ] Timeline QA: Build 5-phase portfolio entrance timeline
+- [ ] Timeline QA: Verify phases execute in order with correct stagger
+- [ ] Integration QA: Test ScrollTrigger integration (trigger on scroll)
+- [ ] Cleanup QA: Verify cleanup on unmount (no memory leaks, check DevTools Memory tab)
+
+**Performance Monitoring:**
+- [ ] Chrome DevTools Performance tab: Record during scroll, verify 60fps
+- [ ] CPU Throttle Test: Set 6x throttle, verify fallback triggers (&lt;30fps detection)
+- [ ] Mobile Device Emulation: Test static shapes, no magnetic pull, reduced parallax
+
+**Build &amp; Code Quality:**
+- [ ] Run `npm run build` (TypeScript compiles clean, 0 errors)
+- [ ] Run `npm run lint` (0 errors, warnings acceptable)
+- [ ] Import test: `import { OrganicCard, useMagneticPull } from '@/components/epic2'`
+    </ideas>
+  </tests>
+</story-context>

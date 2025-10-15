@@ -5,10 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cre8tive AI</title>
-    
+
     <!-- Preload critical images -->
     <link rel="preload" href="/assets/img/logo-small-aBW6Abcq.webp" as="image" type="image/webp" />
     <link rel="preload" href="/assets/img/logo-medium-BerZkreM.webp" as="image" type="image/webp" />
+
+    <!-- PERFORMANCE: Removed storyboard frame preloads (not above-fold, wasted bandwidth) -->
+    <!-- Use lazy loading instead: loading="lazy" on img tags -->
     
     <meta name="description" content="Transform your business with AI-powered video production, autonomous agents, and innovative content creation solutions. Cre8tive AI helps you stay ahead of the competition." />
     <meta name="author" content="Cre8tive AI" />

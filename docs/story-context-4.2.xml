@@ -1,0 +1,265 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>4</epicId>
+    <storyId>4.2</storyId>
+    <title>Mobile & Tablet Responsive Layouts for 3D Solution Theater</title>
+    <status>Draft</status>
+    <generatedAt>2025-10-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-4.2.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>mobile or tablet user visiting the homepage</asA>
+    <iWant>to experience an optimized, touch-friendly version of the Solutions Theater with device-appropriate layouts, touch gestures, and performance-optimized animations</iWant>
+    <soThat>I can explore Cre8tive AI's services with a premium mobile experience tailored to my device's capabilities and screen size</soThat>
+    <tasks>
+      <phase id="1" title="Mobile Layout Foundation" acs="AC-4.2.1, AC-4.2.2, AC-4.2.11" estimate="1.5-2 hours">
+        <task>Create responsive layout logic (useIsMobile hook, conditional rendering, vertical stack)</task>
+        <task>Implement mobile touch interactions (tap, double-tap, long-press, swipe gestures)</task>
+        <task>Test: Mobile layout renders correctly, touch gestures work, no 3D on mobile</task>
+      </phase>
+      <phase id="2" title="Mobile Animations" acs="AC-4.2.3, AC-4.2.5, AC-4.2.14" estimate="1-1.5 hours">
+        <task>Create useMobileScrollReveal hook (simplified GSAP, fade-up animation)</task>
+        <task>Performance optimizations (1K particles, disable video, responsive images)</task>
+        <task>Reduced motion support (detect prefers-reduced-motion, instant animations)</task>
+        <task>Test: Animations smooth (≥45fps), reduced motion works, network optimized</task>
+      </phase>
+      <phase id="3" title="Tablet Layout" acs="AC-4.2.6, AC-4.2.7, AC-4.2.8, AC-4.2.10" estimate="1.5-2 hours">
+        <task>Two-column grid implementation (useIsTablet hook, Tailwind grid, reduced perspective)</task>
+        <task>Reduced 3D effects (maxTilt 8°, shadow 20→40px, scale 1.0→1.03)</task>
+        <task>Hybrid touch/mouse interactions (tap sticky hover, double-tap navigate, mouse hover)</task>
+        <task>Test: Tablet layout correct, 3D subtle, touch+mouse both work, ≥50fps</task>
+      </phase>
+      <phase id="4" title="Device Orientation &amp; Gyroscope" acs="AC-4.2.4, AC-4.2.13" estimate="1-1.5 hours">
+        <task>Device orientation tilt (useDeviceOrientation hook, ±5° range, 0-10px parallax)</task>
+        <task>Orientation change handling (portrait/landscape layouts, ScrollTrigger.refresh())</task>
+        <task>Test: Gyroscope tilt works (iPhone), orientation changes smooth, no layout breaks</task>
+      </phase>
+      <phase id="5" title="Cross-Platform Polish" acs="AC-4.2.11, AC-4.2.12, AC-4.2.15" estimate="1 hour">
+        <task>Breakpoint transitions (300ms ease-out, CLS &lt;0.1, debounced resize)</task>
+        <task>Touch target optimization (≥44x44px iOS, ≥48x48px Android, visual feedback)</task>
+        <task>Network optimization (saveData detection, 3G handling, lazy load 200px margin)</task>
+        <task>Test: Breakpoint transitions smooth, touch targets accessible, network-aware</task>
+      </phase>
+      <phase id="6" title="Integration &amp; QA" acs="All" estimate="1-2 hours">
+        <task>Integration with existing theater (update SolutionTheater.tsx, coordinate GSAP)</task>
+        <task>Device testing matrix (iPhone, Samsung, iPad, responsive viewports)</task>
+        <task>Build validation (TypeScript, ESLint, production build, bundle size)</task>
+        <task>Test: All devices work, responsive behavior correct, build clean</task>
+      </phase>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <category name="Mobile Layout (&lt;768px)" count="5">
+      <ac id="AC-4.2.1" title="Vertical Stack Layout">
+        <given>user views site on mobile (viewport &lt;768px)</given>
+        <when>solutions section renders</when>
+        <then>cards display in vertical stack: No 3D perspective (disable PerspectiveContainer), single column layout, card width 100% viewport width minus padding, each card occupies full viewport height on initial view</then>
+        <and>AI Agents card remains filtered out</and>
+      </ac>
+      <ac id="AC-4.2.2" title="Touch Interactions">
+        <given>user interacts with cards on mobile</given>
+        <when>user touches a card</when>
+        <then>touch interactions work: Single tap = expand preview to fullscreen (modal-like), double tap = navigate to service page, long press (500ms) = show CTA options (Cal.com link), swipe left/right = navigate between cards (Framer Motion drag)</then>
+        <and>touch target minimum 44x44px (iOS guidelines)</and>
+      </ac>
+      <ac id="AC-4.2.3" title="Simplified Animations">
+        <given>mobile viewport active</given>
+        <when>solutions section enters viewport</when>
+        <then>simplified animations apply: Simple fade-up reveal (opacity 0→1, translateY 40→0), no 3D tilt effects (disabled on mobile), no mouse tracking (touch-only device), duration 400ms (faster than desktop 800ms)</then>
+        <and>animations use GPU-accelerated properties only</and>
+      </ac>
+      <ac id="AC-4.2.4" title="Device Orientation Tilt (Optional Enhancement)">
+        <given>device has gyroscope (iPhone, modern Android)</given>
+        <when>user tilts device physically</when>
+        <then>cards respond with subtle parallax: Tilt range ±5° (gentler than desktop ±15°), parallax offset 0-10px (vs desktop 0-40px), spring-back on device level 200ms</then>
+        <and>fallback: static cards if gyroscope unavailable</and>
+      </ac>
+      <ac id="AC-4.2.5" title="Mobile Performance Optimization">
+        <given>mobile device (potentially slower CPU/GPU)</given>
+        <when>solutions theater loads</when>
+        <then>performance optimizations apply: Particle count 1K particles (vs desktop 5K), video previews disabled by default (load on tap), image assets mobile-optimized srcset (480w, 800w), lazy loading cards below fold load on scroll</then>
+        <and>frame rate maintains ≥45fps on mid-range devices</and>
+      </ac>
+    </category>
+
+    <category name="Tablet Layout (768px-1023px)" count="5">
+      <ac id="AC-4.2.6" title="Two-Column Grid Layout">
+        <given>user views site on tablet (768px ≤ viewport &lt; 1024px)</given>
+        <when>solutions section renders</when>
+        <then>layout shows 2-column grid: Grid 2 columns 1.5 rows (3 cards total), gap 32px (vs mobile 16px, desktop 48px), perspective 800px (reduced from desktop 1200px), cards side-by-side equal width</then>
+        <and>vertical centering for visual balance</and>
+      </ac>
+      <ac id="AC-4.2.7" title="Reduced 3D Effects">
+        <given>tablet viewport active</given>
+        <when>user interacts with theater</when>
+        <then>subtle 3D effects apply: Perspective 800px (vs desktop 1200px), tilt range ±8° (vs desktop ±15°, mobile disabled), shadow blur 20→40px on hover (vs desktop 40→60px), scale hover 1.0→1.03 (vs desktop 1.0→1.05)</then>
+        <and>reduced depth for tablet form factor</and>
+      </ac>
+      <ac id="AC-4.2.8" title="Touch + Mouse Hybrid Interactions">
+        <given>tablet device (supports both touch and mouse)</given>
+        <when>user interacts with cards</when>
+        <then>both input methods work: Touch tap = hover state (sticky), double-tap = navigate; Mouse (iPad Magic Keyboard) hover effects, click = navigate; Drag gesture swipe left/right to scroll cards (if overflow)</then>
+        <and>no interaction conflicts between touch/mouse</and>
+      </ac>
+      <ac id="AC-4.2.9" title="Tablet Scroll Reveal">
+        <given>tablet viewport active</given>
+        <when>solutions section enters viewport</when>
+        <then>staggered reveal with reduced complexity: Card 1 0ms delay opacity 0→1 scale 0.9→1 translateY 60→0 (600ms), Card 2 100ms delay opacity 0→1 scale 0.9→1 translateY 60→0 (600ms), Card 3 200ms delay opacity 0→1 scale 0.9→1 translateY 60→0 (600ms)</then>
+        <and>GSAP ScrollTrigger coordination (no animation conflicts)</and>
+      </ac>
+      <ac id="AC-4.2.10" title="Tablet Performance Balance">
+        <given>tablet device (mid-range performance)</given>
+        <when>solutions theater loads</when>
+        <then>balanced performance optimizations: Particle count 2K (vs mobile 1K, desktop 5K), video previews lazy load auto-play on viewport entry, image assets tablet srcset (800w, 1200w), 3D transforms reduced complexity (fewer shadow layers)</then>
+        <and>frame rate maintains ≥50fps</and>
+      </ac>
+    </category>
+
+    <category name="Cross-Platform &amp; Quality" count="5">
+      <ac id="AC-4.2.11" title="Responsive Breakpoint Transitions">
+        <given>user resizes browser window or rotates device</given>
+        <when>viewport crosses breakpoints (768px, 1024px)</when>
+        <then>layout transitions smoothly: Mobile ↔ Tablet grid reflow (1→2 columns), Tablet ↔ Desktop perspective activation (800px→1200px), no layout shift (CLS &lt;0.1), transition duration 300ms with ease-out</then>
+        <and>GSAP ScrollTrigger.refresh() called on resize</and>
+      </ac>
+      <ac id="AC-4.2.12" title="Touch Target Accessibility">
+        <given>touch-based device (mobile/tablet)</given>
+        <when>user attempts to interact</when>
+        <then>touch targets meet minimum sizes: Card tap area ≥44x44px (iOS) ≥48x48px (Android), CTA buttons ≥48x48px with 8px spacing, swipe hit zones full card width</then>
+        <and>visual feedback on touch (100ms response time)</and>
+      </ac>
+      <ac id="AC-4.2.13" title="Orientation Change Handling">
+        <given>user rotates mobile/tablet device</given>
+        <when>orientation changes (portrait ↔ landscape)</when>
+        <then>layout adapts correctly: Mobile portrait vertical stack (default), Mobile landscape horizontal carousel with snap scroll, Tablet portrait 2-column grid, Tablet landscape 3-column grid (desktop-like)</then>
+        <and>GSAP animations re-initialize on orientation change</and>
+      </ac>
+      <ac id="AC-4.2.14" title="Reduced Motion Respect (Mobile)">
+        <given>mobile user has enabled reduce motion (iOS/Android settings)</given>
+        <when>solutions theater loads</when>
+        <then>animations simplify: Instant opacity change (no fade), no translateY movement, no tilt/parallax effects, static image previews (no video auto-play)</then>
+        <and>keyboard navigation remains functional</and>
+      </ac>
+      <ac id="AC-4.2.15" title="Mobile Network Optimization">
+        <given>mobile user on slow connection (3G, Save Data mode)</given>
+        <when>solutions theater loads</when>
+        <then>network optimizations apply: Detect navigator.connection.saveData === true, if Save Data skip video assets use static thumbnails, if 3G reduce image quality (80%) defer non-critical assets, lazy load assets 200px margin (vs desktop 100px)</then>
+        <and>user sees "Lite Mode" indicator (optional)</and>
+      </ac>
+    </category>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/tech-spec-epic-4.md" section="AC8: Adaptive Layout - Mobile (&lt;768px)" relevance="PRIMARY">
+        Mobile requirements: Vertical stack (no 3D perspective), swipe gestures (Framer Motion drag), device orientation tilt, tap to expand preview, double-tap to navigate. Simple fade-up scroll reveal (no complex transforms). Performance: 1K particles vs desktop 5K, disabled video previews by default, mobile-optimized srcset (480w, 800w), lazy loading. Frame rate ≥45fps on mid-range devices.
+      </doc>
+      <doc path="docs/tech-spec-epic-4.md" section="AC9: Adaptive Layout - Tablet (768px-1023px)" relevance="PRIMARY">
+        Tablet requirements: 2-column grid layout (2 columns, 1.5 rows, 3 cards total), gap 32px, reduced perspective 800px (vs desktop 1200px). Subtle 3D effects: tilt range ±8° (vs desktop ±15°, mobile disabled), shadow blur 20→40px on hover (vs desktop 40→60px), scale hover 1.0→1.03 (vs desktop 1.0→1.05). Touch + Mouse hybrid: tap = sticky hover state, double-tap = navigate, mouse hover effects on iPad Magic Keyboard. Performance: 2K particles, lazy load video with auto-play on viewport entry, tablet srcset (800w, 1200w). Frame rate ≥50fps.
+      </doc>
+      <doc path="docs/tech-spec-epic-4.md" section="Mobile Flow (Workflows)" relevance="SECONDARY">
+        Mobile detection (useIsMobile hook) → Render mobile-specific layout: vertical stack (no perspective container), Framer Motion drag for swipe gestures, useDeviceOrientation hook for gyroscope tilt (±5° range, 0-10px parallax), tap to expand preview + double-tap to navigate. Scroll reveal: simple fade-up (no complex transforms).
+      </doc>
+      <doc path="docs/architecture/animation-patterns.md" section="GSAP ScrollTrigger Patterns" relevance="SECONDARY">
+        Mobile animation simplification: Reduce duration 400ms (vs desktop 800ms), disable 3D tilt effects, no mouse tracking on touch-only devices, GPU optimization (transform and opacity only). Pattern: fade-up reveal (opacity 0→1, translateY 40→0). Cleanup via gsap.context() for React, useEffect return must call ctx.revert().
+      </doc>
+      <doc path="docs/architecture/frontend-architecture.md" section="Responsive Design Breakpoints" relevance="SECONDARY">
+        Tailwind breakpoints: sm:640px, md:768px (tablet), lg:1024px (desktop), xl:1280px. Mobile-first approach: base = mobile, md: = tablet+, lg: = desktop+. Pattern: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8.
+      </doc>
+      <doc path="docs/tech-spec-epic-4.md" section="Touch Interaction Patterns (Dev Notes)" relevance="SECONDARY">
+        Single tap: Expand preview (modal-like fullscreen), double tap: Navigate to service page (prevent default browser zoom), long press (500ms): Show CTA options (Cal.com link in bottom sheet), swipe gestures: Framer Motion drag with dragConstraints, velocity-based card navigation. Touch targets: ≥44x44px (iOS), ≥48x48px (Android).
+      </doc>
+      <doc path="docs/tech-spec-epic-4.md" section="Performance Budget (Mobile)" relevance="CRITICAL">
+        Frame rate: ≥45fps on mid-range devices (iPhone 12, Galaxy S21), JavaScript execution &lt;100ms (excluding render), Image assets: mobile srcset (480w, 800w) WebP with JPEG fallback, Video: disabled by default, load on explicit tap. Network optimization: detect navigator.connection.saveData === true, skip videos if Save Data mode enabled.
+      </doc>
+    </docs>
+    <code>
+      <artifact path="src/components/Services/desktop/SolutionTheater.tsx" kind="component" relevance="EXTENDS">
+        Desktop 3D theater implementation (Story 4.1). Will be extended with responsive logic: useIsMobile/useIsTablet hooks for conditional rendering, mobile vertical stack vs tablet 2-column grid vs desktop 3D perspective. Mobile: disable PerspectiveContainer, use simplified fade-up animations. Tablet: reduced perspective (800px vs 1200px), reduced 3D effects (tilt ±8°, shadow 20→40px).
+      </artifact>
+      <artifact path="src/hooks/useMouseTracking.ts" kind="hook" relevance="EXTENDS">
+        Mouse tracking for 3D tilt (desktop only). Mobile: disable entirely (touch-only device detection via window.matchMedia('(pointer: coarse)')). Tablet: reduce maxTilt from 15° to 8°, shadowMultiplier adjusted for subtler depth effects. Returns: {tiltX, tiltY, shadowX, shadowY, isHovered}.
+      </artifact>
+      <artifact path="src/hooks/useScrollTheater.ts" kind="hook" relevance="EXTENDS">
+        GSAP ScrollTrigger timeline for desktop stagger reveal. Mobile: simplified timeline (fade-up only, duration 400ms vs 800ms, no complex transforms). Tablet: reduced complexity reveal (scale 0.9→1, translateY 60→0, stagger 100ms). Must add deviceCapabilities to dependencies array per review findings.
+      </artifact>
+      <artifact path="src/components/Services/3d/SolutionCard3D.tsx" kind="component" relevance="EXTENDS">
+        Desktop 3D card with perspective transforms. Mobile: create MobileSolutionCard variant (no 3D, vertical stack, touch gestures). Tablet: modify styles for reduced 3D (perspective 800px, tilt ±8°, scale 1.0→1.03 on hover). Touch interactions: tap = sticky hover, double-tap = navigate.
+      </artifact>
+      <artifact path="src/hooks/useIsMobile.ts" kind="hook" relevance="NEW">
+        Mobile detection hook (viewport &lt;768px, touch-only). Pattern: useState + useEffect with window.matchMedia('(max-width: 767px)'), addEventListener on mediaQuery change. Returns boolean isMobile. Used for conditional rendering of mobile vs desktop layouts.
+      </artifact>
+      <artifact path="src/hooks/useIsTablet.ts" kind="hook" relevance="NEW">
+        Tablet detection hook (768px ≤ viewport &lt; 1024px). Pattern: useState + useEffect with window.matchMedia('(min-width: 768px) and (max-width: 1023px)'). Returns boolean isTablet. Used for tablet-specific 2-column grid and reduced 3D effects.
+      </artifact>
+      <artifact path="src/hooks/useDeviceOrientation.ts" kind="hook" relevance="NEW">
+        Device gyroscope tilt hook (mobile only, optional enhancement). Uses DeviceOrientationEvent API, calculates tilt from beta/gamma angles (±5° range), applies parallax offset (0-10px). Fallback: check window.DeviceOrientationEvent, disable if unavailable. Returns: {tiltX, tiltY, isSupported}.
+      </artifact>
+      <artifact path="src/hooks/useMobileScrollReveal.ts" kind="hook" relevance="NEW">
+        Simplified GSAP timeline for mobile. Pattern: gsap.context() with cleanup, fade-up animation (opacity 0→1, translateY 40→0, duration 400ms). Disable mouse tracking, check window.matchMedia('(pointer: coarse)') for touch-only. GPU optimization: only transform and opacity properties.
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="npm">
+        <package name="gsap" version="^3.13.0">Scroll-driven timelines, mobile simplified reveals. Mobile: reduce duration to 400ms, disable complex transforms. Tablet: stagger reveal with reduced complexity.</package>
+        <package name="framer-motion" version="^12.4.2">Touch gestures (drag, tap, double-tap), modal animations. Mobile: drag for swipe gestures, onTap for expand, velocity detection for card navigation. Tablet: hybrid touch/mouse interactions.</package>
+        <package name="lenis" version="^1.3.11">Smooth scroll foundation (global). Mobile: same Lenis instance, coordinate with simplified GSAP timelines. No changes needed.</package>
+        <package name="react" version="^18.3.1">Core framework. Hooks: useRef, useEffect, useState for device detection, useMemo for responsive calculations, useCallback for event handlers.</package>
+        <package name="react-router-dom" version="^6.26.2">Navigation on card tap/click. Mobile: double-tap to navigate, prevent default zoom. Tablet: tap = sticky hover, double-tap = navigate. Desktop: click to navigate.</package>
+        <package name="tailwindcss" version="^3.4.11">Responsive layouts. Mobile: flex flex-col gap-4, Tablet: md:grid md:grid-cols-2 md:gap-8, Desktop: lg:perspective-1200. Breakpoints: md:768px, lg:1024px.</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint type="responsive-strategy">Mobile-first approach: Base styles for mobile, md: for tablet (≥768px), lg: for desktop (≥1024px). Progressive enhancement: Desktop 3D → Tablet reduced 3D → Mobile 2D stack.</constraint>
+    <constraint type="device-detection">useIsMobile hook: window.matchMedia('(max-width: 767px)'), useIsTablet: window.matchMedia('(min-width: 768px) and (max-width: 1023px)'), touch detection: window.matchMedia('(pointer: coarse)') for touch-only devices.</constraint>
+    <constraint type="animation-adjustments">Desktop: perspective 1200px, tilt ±15°, duration 800ms, 5K particles. Tablet: perspective 800px, tilt ±8°, duration 600ms, 2K particles. Mobile: no perspective, tilt disabled, duration 400ms, 1K particles.</constraint>
+    <constraint type="touch-interactions">Single tap: Expand preview (modal-like fullscreen). Double tap: Navigate to service page (prevent default zoom). Long press (500ms): Show CTA options (Cal.com link). Swipe gestures: Framer Motion drag with dragConstraints, velocity-based navigation.</constraint>
+    <constraint type="performance-budget">Mobile: ≥45fps on mid-range devices (iPhone 12, Galaxy S21), JavaScript execution &lt;100ms, image srcset (480w, 800w), video disabled by default (load on tap). Tablet: ≥50fps, 2K particles, lazy load video with auto-play on viewport entry, srcset (800w, 1200w).</constraint>
+    <constraint type="technology-stack">Framer Motion: Touch gestures (drag, tap, double-tap), modal animations. GSAP ScrollTrigger: Simplified mobile reveal (no complex timelines). CSS Grid: Responsive layouts (1 col mobile → 2 col tablet → 3D desktop). Intersection Observer: Lazy loading with 200px margin (mobile), 100px (desktop).</constraint>
+    <constraint type="build-validation">TypeScript: tsc --noEmit clean (0 errors). ESLint: npm run lint (0 errors, warnings OK per project standards). Production build: npm run build succeeds. Bundle size: Theater code ≤100kb (mobile code adds ~20kb).</constraint>
+  </constraints>
+  <interfaces>
+    <interface name="MobileSolutionCard" kind="component-props">
+      service: ServiceData, onTap: () =&gt; void, onDoubleTap: () =&gt; void, onLongPress: () =&gt; void, onSwipe: (direction: 'left' | 'right') =&gt; void, assetConfig?: PreviewAsset
+    </interface>
+    <interface name="TabletSolutionTheater" kind="component-props">
+      services: ServiceData[], perspectiveValue: number (default 800px), gridColumns: number (default 2), touchEnabled: boolean (default true)
+    </interface>
+    <interface name="useIsMobile" kind="hook-return">
+      Returns: boolean (true if viewport &lt;768px). Listens to window.matchMedia change events.
+    </interface>
+    <interface name="useIsTablet" kind="hook-return">
+      Returns: boolean (true if 768px ≤ viewport &lt; 1024px). Listens to window.matchMedia change events.
+    </interface>
+    <interface name="useDeviceOrientation" kind="hook-return">
+      Returns: {tiltX: number, tiltY: number, isSupported: boolean}. Uses DeviceOrientationEvent API, beta/gamma angles, ±5° range, 0-10px parallax offset.
+    </interface>
+    <interface name="useMobileScrollReveal" kind="hook-params">
+      Params: containerRef: RefObject&lt;HTMLElement&gt;, options?: {duration?: number (default 400ms), fadeDistance?: number (default 40px)}. Returns: void. Creates gsap.context() with cleanup.
+    </interface>
+    <interface name="ServiceData" kind="type-existing">
+      icon: "Brain" | "Layers" | "Bot" | "Phone", title: string, description: string, link: string, color: string (hex for gradients/shadows). Used for all responsive variants.
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>Project has zero test infrastructure (Vitest/Jest/RTL/Playwright). Manual validation only per ARCHITECTURE.md technical debt. Focus: Functional correctness, visual QA, performance (Chrome DevTools, Lighthouse), basic usability (keyboard navigation). Explicitly excluded: Automated tests, WCAG audits, screen reader testing, axe DevTools (Visuals First philosophy).</standards>
+    <locations>No test directories. Manual testing: Chrome DevTools (Performance panel, Network tab, Device emulation), Lighthouse (mobile + desktop audits), Real devices (iPhone 12-14, Samsung Galaxy S21-22, iPad Pro, iPad Mini). QA screenshots saved to public/testing-screenshots/{date}/.</locations>
+    <ideas>
+      <test id="T-4.2-1" acs="AC-4.2.1, AC-4.2.2, AC-4.2.3">Mobile Layout &amp; Interactions: DevTools emulate iPhone 12 (375px width), verify vertical stack layout (no 3D), test single tap (expand preview), double tap (navigate), long press (CTA modal), swipe left/right (card navigation). Check fade-up animation (opacity 0→1, translateY 40→0, 400ms). Verify ≥45fps via stats.js.</test>
+      <test id="T-4.2-2" acs="AC-4.2.4">Device Orientation Tilt: Test on real iPhone with gyroscope, physically tilt device ±5°, verify parallax offset 0-10px, spring-back animation 200ms. Fallback: verify static cards if gyroscope unavailable (old Android).</test>
+      <test id="T-4.2-3" acs="AC-4.2.5">Mobile Performance: Chrome DevTools throttle to 3G, verify 1K particles (vs desktop 5K), video disabled by default (load on tap only), image srcset (480w, 800w). FPS monitor: maintain ≥45fps on mid-range device emulation.</test>
+      <test id="T-4.2-4" acs="AC-4.2.6, AC-4.2.7, AC-4.2.8">Tablet Layout &amp; Effects: DevTools emulate iPad (768px width), verify 2-column grid (gap 32px), perspective 800px (inspect computed styles). Test reduced 3D: tilt ±8° on mouse move, shadow blur 20→40px on hover, scale 1.0→1.03. Touch: tap = sticky hover, double-tap = navigate. Mouse (iPad Magic Keyboard): hover effects + click navigate.</test>
+      <test id="T-4.2-5" acs="AC-4.2.9, AC-4.2.10">Tablet Scroll &amp; Performance: Scroll to theater section, verify staggered reveal (Card 1: 0ms, Card 2: 100ms, Card 3: 200ms, opacity 0→1, scale 0.9→1, translateY 60→0, 600ms). FPS monitor: ≥50fps. Check 2K particles, lazy load video with auto-play on viewport entry, srcset (800w, 1200w).</test>
+      <test id="T-4.2-6" acs="AC-4.2.11">Breakpoint Transitions: Drag browser width 375px→768px→1024px→1920px, verify smooth layout transitions (mobile→tablet→desktop). Check CLS &lt;0.1 (no layout shift), transition duration 300ms ease-out. Verify ScrollTrigger.refresh() called on resize (console log).</test>
+      <test id="T-4.2-7" acs="AC-4.2.12">Touch Target Accessibility: Inspect element dimensions, verify card tap area ≥44x44px (iOS), ≥48x48px (Android), CTA buttons ≥48x48px with 8px spacing, swipe hit zones full card width. Visual touch feedback: scale 0.98 on touchstart (100ms response time).</test>
+      <test id="T-4.2-8" acs="AC-4.2.13">Orientation Change: Test on real device (iPhone/iPad), rotate portrait↔landscape. Mobile portrait: vertical stack (default), mobile landscape: horizontal carousel with snap scroll, tablet portrait: 2-column grid, tablet landscape: 3-column grid (desktop-like). Verify GSAP animations re-initialize on orientation change (console log).</test>
+      <test id="T-4.2-9" acs="AC-4.2.14">Reduced Motion (Mobile): Chrome DevTools Rendering tab, emulate prefers-reduced-motion: reduce. Verify animations simplify: instant opacity change (no fade), no translateY movement, no tilt/parallax effects, static image previews (no video auto-play). Keyboard navigation remains functional.</test>
+      <test id="T-4.2-10" acs="AC-4.2.15">Network Optimization: Chrome DevTools Network tab, throttle to 3G. Verify navigator.connection.saveData detection, if Save Data: skip video assets use static thumbnails, if 3G: reduce image quality (80%) defer non-critical assets, lazy load assets 200px margin (vs desktop 100px). Check optional "Lite Mode" indicator displays.</test>
+    </ideas>
+  </tests>
+</story-context>
