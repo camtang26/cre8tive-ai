@@ -1,0 +1,8 @@
+Title: 'Workslop' takes over as AI-generated online content kept in check by humans
+URL: https://www.theguardian.com/technology/article/2025/aug/17/workslop-ai-generated-online-content
+Date Accessed: 2025-10-14
+
+Excerpt:
+"The rising tide of AI-generated 'workslop' is forcing platforms and brands to rely on human editors to maintain credibility. Marketing teams now emphasize signals of expertise, such as named authors and verifiable data, to stand out from low-quality AI content." (The Guardian, Aug 17 2025)
+
+Context: Article discussing surge of AI-generated content and the resulting consumer skepticism, underscoring need for trustworthy signals.

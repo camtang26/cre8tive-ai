@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useLenis } from "lenis/react";
+import { useLenisReady } from "@/hooks/useLenisReady";
 import { briefingPalette } from "./palette";
 import { AIProcessingVisual } from "@/components/briefing/AIProcessingVisual";
 import { ParticleCore } from "@/components/briefing/ParticleCore";
@@ -151,15 +151,7 @@ export const BriefToStoryboardAnimation = () => {
     return getAdaptiveConfig(capabilities);
   });
 
-  const lenis = useLenis(() => {
-    ScrollTrigger.update();
-  });
-
-  // NOTE: useLenis hook handles Lenis + ScrollTrigger integration
-  // No manual ticker integration needed with ReactLenis wrapper
-
-  // Track if lenis callback has been registered (needs one frame after lenis loads)
-  const [lenisReady, setLenisReady] = useState(false);
+  const lenisReady = useLenisReady(200, 2000);
 
   // STORY 1.14: Run async device detection on mount for accurate GPU detection
   useEffect(() => {
@@ -177,17 +169,6 @@ export const BriefToStoryboardAnimation = () => {
       }
     });
   }, []);
-
-  useEffect(() => {
-    if (lenis && !lenisReady) {
-      // Wait one frame to ensure useLenis callback is fully registered
-      requestAnimationFrame(() => {
-        setLenisReady(true);
-      });
-    } else if (!lenis && lenisReady) {
-      setLenisReady(false);
-    }
-  }, [lenis, lenisReady]);
 
   // All GSAP animations consolidated (auto-cleanup with useGSAP)
   useGSAP(() => {

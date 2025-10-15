@@ -173,7 +173,7 @@ components/briefing/
 ├── AudienceBenefits.tsx                # Agency vs Brand split layout
 ├── BenefitCard.tsx                     # Benefit card with film strip aesthetic
 ├── StoryboardDivider.tsx               # Cinematic divider (storyboard motif)
-├── BriefToStoryboardAnimation.tsx      # 15-second GSAP timeline animation
+├── BriefingTimeline.tsx               # Segmented scroll narrative orchestrator
 ├── AIProcessingVisual.tsx              # Canvas particle AI visualization (planned)
 │
 ├── palette.ts                          # Briefing Engine color palette (single source of truth)
@@ -183,7 +183,7 @@ components/briefing/
 **Status:**
 - ✅ Completed: VisualStylesGallery (Story 1.3), BriefingCTA, StoryboardDivider, palette.ts
 - 🔄 In Progress: BriefingProcessFlow, WorkflowTransformation, AudienceBenefits
-- 📋 Planned: BriefToStoryboardAnimation (Story 1.7), AIProcessingVisual (Story 1.6)
+- 📋 Planned: Segmented timeline polish (Story 1.7 follow-up), AIProcessingVisual (Story 1.6)
 
 **Palette Reference:**
 ```typescript
@@ -671,7 +671,7 @@ import { cn } from "../../../lib/utils"
 ### By Feature
 
 **Briefing Engine (9 components):**
-- BriefingHero, BriefingCTA, VisualStylesGallery, StyleCard, BriefingProcessFlow, ProcessStepCard, WorkflowTransformation, TransformationValueCard, AudienceBenefits, BenefitCard, StoryboardDivider, BriefToStoryboardAnimation, AIProcessingVisual, palette.ts
+- BriefingHero, BriefingTimeline, HeroBriefSection, NeuralSynthesisSection, StyleSelectionSection, StoryboardAssemblySection, StudiosHandoffSection, BriefingCTA, VisualStylesGallery, StyleCard, BriefingProcessFlow, ProcessStepCard, WorkflowTransformation, TransformationValueCard, AudienceBenefits, BenefitCard, StoryboardDivider, AIProcessingVisual, palette.ts
 
 **Studios (6+ components):**
 - StudiosHero, FilmStripDivider, ExpertiseShowcase, MarketingUseCases, B2BSolutions, ClientTestimonials, platform-native/ module (5 planned)

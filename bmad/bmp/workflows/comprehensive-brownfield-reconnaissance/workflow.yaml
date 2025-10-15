@@ -1,0 +1,165 @@
+# Comprehensive Brownfield Reconnaissance Workflow
+# Multi-agent codebase analysis with MCP-powered validation
+name: "comprehensive-brownfield-reconnaissance"
+description: "Comprehensive brownfield codebase analysis using 11 specialized agents with MCP-powered validation against official documentation. Discovers tech stack, analyzes patterns, identifies technical debt, audits documentation, and provides actionable recommendations for any brownfield project."
+author: "BMad Platform"
+version: "1.0.0"
+
+# Critical variables from config
+config_source: "{project-root}/bmad/bmp/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+date: system-generated
+timestamp: system-generated
+
+# Workflow-specific variables
+analysis_id: "brownfield-{timestamp}"
+
+# User inputs (collected at runtime)
+project_path: "{project-root}" # Path to project to analyze (default: current)
+output_preference: "comprehensive" # "comprehensive" (all 11 agents) or "focused" (core 7 only)
+include_data_analyst: true # Include data-analyst if databases detected
+
+# Tech stack discovery variables (populated during execution - Step 1)
+detected_tech_stack: []  # Array of all technologies found
+primary_backend_framework: ""  # e.g., "Fastify", "Express", "Django", "Rails"
+frontend_framework: ""  # e.g., "Next.js", "React", "Vue", "Angular"
+databases: []  # e.g., ["MongoDB", "PostgreSQL", "Redis"]
+external_apis: []  # e.g., ["Twilio", "Stripe", "SendGrid"]
+testing_frameworks: []  # e.g., ["Jest", "Vitest", "Pytest"]
+build_tools: []  # e.g., ["Webpack", "Vite", "Turbopack"]
+
+# MCP configuration (populated during execution - Step 2)
+archon_source_map: {}  # Map of technology name → Archon RAG source_id
+context7_library_map: {}  # Map of library name → Context7 library_id
+mcp_validation_enabled: true  # Enable MCP-powered validation
+
+# Module path and component files
+installed_path: "{project-root}/bmad/bmp/workflows/comprehensive-brownfield-reconnaissance"
+template: false  # Action workflow - no single template
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+# Output configuration
+analysis_output_folder: "{output_folder}/brownfield-analysis-{date}"
+architecture_dir: "{analysis_output_folder}/architecture"
+patterns_dir: "{analysis_output_folder}/patterns"
+quality_dir: "{analysis_output_folder}/quality"
+user_experience_dir: "{analysis_output_folder}/user-experience"
+requirements_dir: "{analysis_output_folder}/requirements"
+
+# Agent output file paths (relative to analysis_output_folder)
+output_files:
+  system_overview: "{architecture_dir}/SYSTEM_OVERVIEW.md"
+  component_map: "{architecture_dir}/COMPONENT_MAP.md"
+  tech_stack_guide: "{architecture_dir}/TECH_STACK_GUIDE.md"
+  dependency_map: "{architecture_dir}/DEPENDENCY_MAP.md"
+  tech_stack_evaluation: "{architecture_dir}/TECH_STACK_EVALUATION.md"
+  technical_decisions: "{architecture_dir}/TECHNICAL_DECISIONS.md"
+  coding_patterns: "{patterns_dir}/CODING_PATTERNS.md"
+  api_conventions: "{patterns_dir}/API_CONVENTIONS.md"
+  technical_debt_audit: "{quality_dir}/TECHNICAL_DEBT_AUDIT.md"
+  testing_strategy: "{quality_dir}/TESTING_STRATEGY.md"
+  documentation_audit: "{quality_dir}/DOCUMENTATION_AUDIT.md"
+  user_journeys: "{user_experience_dir}/USER_JOURNEYS.md"
+  implicit_requirements: "{requirements_dir}/IMPLICIT_REQUIREMENTS.md"
+  api_reference: "{requirements_dir}/API_REFERENCE.md"
+  master_index: "{analysis_output_folder}/INDEX.md"
+  executive_summary: "{analysis_output_folder}/EXECUTIVE_SUMMARY.md"
+
+# Agent configurations
+agents:
+  # Phase 1: Discovery (runs first, sequential)
+  discovery:
+    - name: "codebase-analyzer"
+      description: "Discovers tech stack, architecture patterns, project structure"
+      outputs:
+        - "system_overview"
+        - "component_map"
+        - "tech_stack_guide"
+      required: true
+
+  # Phase 2: Parallel Analysis (all run simultaneously after discovery)
+  analysis:
+    - name: "pattern-detector"
+      description: "Identifies coding patterns and conventions"
+      outputs: ["coding_patterns"]
+      required: true
+
+    - name: "api-documenter"
+      description: "Documents APIs, interfaces, integration points"
+      outputs: ["api_reference", "api_conventions"]
+      required: true
+
+    - name: "dependency-mapper"
+      description: "Maps external dependencies and integration points"
+      outputs: ["dependency_map"]
+      required: true
+
+    - name: "requirements-analyst"
+      description: "Extracts implicit requirements and constraints"
+      outputs: ["implicit_requirements"]
+      required: true
+
+    - name: "technical-decisions-curator"
+      description: "Documents technical decisions and trade-offs"
+      outputs: ["technical_decisions"]
+      required: true
+
+    - name: "user-journey-mapper"
+      description: "Maps user flows and state transitions"
+      outputs: ["user_journeys"]
+      required: true
+
+    - name: "tech-debt-auditor"
+      description: "Identifies technical debt and quick wins"
+      outputs: ["technical_debt_audit"]
+      required: true
+
+    - name: "document-reviewer"
+      description: "Audits existing documentation quality"
+      outputs: ["documentation_audit"]
+      required: true
+
+    - name: "technical-evaluator"
+      description: "Evaluates tech stack and recommends improvements"
+      outputs: ["tech_stack_evaluation"]
+      required: true
+
+    - name: "test-coverage-analyzer"
+      description: "Analyzes testing strategy and coverage"
+      outputs: ["testing_strategy"]
+      required: true
+
+# Required MCP Tools
+required_tools:
+  - name: "Archon MCP"
+    description: "Required for validating patterns against official documentation (Twilio, ElevenLabs, etc.)"
+    functions:
+      - "rag_get_available_sources()"
+      - "rag_search_knowledge_base(query, source_id, match_count)"
+      - "rag_search_code_examples(query, source_id, match_count)"
+
+  - name: "Context7 MCP"
+    description: "Optional for additional library documentation (Fastify, Next.js, etc.)"
+    functions:
+      - "resolve-library-id(libraryName)"
+      - "get-library-docs(context7CompatibleLibraryID, topic)"
+
+  - name: "Task Tool"
+    description: "Required for launching multiple agents in parallel"
+
+  - name: "File Tools"
+    description: "Required by agents for code analysis"
+    tools: ["Read", "Grep", "Glob", "Edit", "Write"]
+
+# Recommended inputs (optional docs to provide context)
+recommended_inputs:
+  - project_readme: "{project_path}/README.md"
+  - project_docs: "{project_path}/docs/"
+  - existing_architecture: "{project_path}/docs/ARCHITECTURE.md"
+
+# Execution mode
+autonomous: false  # Requires user confirmation at checkpoints
+parallel_execution: true  # Enable parallel agent execution where possible

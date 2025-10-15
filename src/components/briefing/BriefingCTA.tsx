@@ -45,7 +45,7 @@ export const BriefingCTA = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Start Creating Premium Storyboards—Free Trial
+            Turn Your Brief into Native Video
           </motion.h2>
 
           <motion.p
@@ -55,7 +55,7 @@ export const BriefingCTA = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Your Brand, Your Vision, Our AI—Perfect Storyboards, Every Time
+            Capture the idea once—our AI intake builds the storyboard and our Studio takes it the rest of the way.
           </motion.p>
 
           <motion.div
@@ -132,7 +132,7 @@ export const BriefingCTA = () => {
               />
 
               <span className="relative z-10 flex items-center gap-2">
-                Start Your First Brief
+                Start Your Brief
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.button>
@@ -190,7 +190,7 @@ export const BriefingCTA = () => {
                 }}
               />
 
-              <span className="relative z-10">Talk to Our Team</span>
+              <span className="relative z-10">Talk to the Studio</span>
             </motion.button>
           </motion.div>
         </div>

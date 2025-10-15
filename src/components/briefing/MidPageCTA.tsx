@@ -14,11 +14,11 @@ export const MidPageCTA = () => {
           transition={{ duration: 0.6 }}
         >
           <h3 className="text-2xl md:text-3xl font-bold text-white/95">
-            Ready to Create Your Storyboard?
+            Start Your Brief Today
           </h3>
 
           <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto">
-            Start transforming your brand vision into professional storyboards in minutes
+            Bring the concept; our intake maps the storyboard and lines up the Studio to deliver it.
           </p>
 
           <motion.button
@@ -49,7 +49,7 @@ export const MidPageCTA = () => {
             />
 
             <span className="relative z-10 flex items-center gap-2">
-              Try the Briefing Engine
+              Begin the Brief
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </motion.button>

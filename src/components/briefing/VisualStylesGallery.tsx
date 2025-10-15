@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { StyleCard } from "./StyleCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useLenis } from 'lenis/react';
+import { useLenisReady } from "@/hooks/useLenisReady";
 import { briefingPalette } from "./palette";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -83,128 +83,76 @@ const visualStyles = [
 ];
 
 export const VisualStylesGallery = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-
-  // Sync Lenis with ScrollTrigger
-  useLenis(({ scroll }) => {
-    ScrollTrigger.update();
-  });
+  const lenisReady = useLenisReady(200, 2000);
 
   useEffect(() => {
-    console.log('[VisualStylesGallery] useEffect running, gsap loaded:', typeof gsap !== 'undefined');
-    console.log('[VisualStylesGallery] ScrollTrigger loaded:', typeof ScrollTrigger !== 'undefined');
+    if (!lenisReady) return;
+    if (!sectionRef.current) return;
 
-    // CRITICAL: Wait for Lenis to be ready before setting up ScrollTrigger
-    const setupAnimations = () => {
-      const ctx = gsap.context(() => {
-        // Animate header on scroll
-        if (headerRef.current) {
-          console.log('[VisualStylesGallery] Animating header');
-          gsap.fromTo(
-            headerRef.current.children,
-            {
-              opacity: 0,
-              y: 30
-            },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              stagger: 0.2,
-              scrollTrigger: {
-                trigger: headerRef.current,
-                start: "top 80%",
-                end: "top 50%",
-                toggleActions: "play none none none"
-              }
+    const ctx = gsap.context(() => {
+      // Animate header on scroll
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current.children,
+          {
+            opacity: 0,
+            y: 30
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 80%",
+              end: "top 50%",
+              toggleActions: "play none none none"
             }
-          );
-        }
+          }
+        );
+      }
 
-        // Animate cards with stagger
-        if (cardsRef.current) {
-          const cards = cardsRef.current.querySelectorAll(".style-card");
-          console.log('[VisualStylesGallery] Found cards:', cards.length);
+      // Animate cards with stagger
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll(".style-card");
 
-          gsap.fromTo(
-            cards,
-            {
-              opacity: 0,
-              y: 50,
-              scale: 0.9
+        gsap.fromTo(
+          cards,
+          {
+            opacity: 0,
+            y: 50,
+            scale: 0.9
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: {
+              amount: 0.6,
+              from: "start"
             },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.6,
-              ease: "power2.out",
-              stagger: {
-                amount: 0.6,
-                from: "start"
-              },
-              scrollTrigger: {
-                trigger: cardsRef.current,
-                start: "top 75%",
-                end: "top 25%",
-                toggleActions: "play none none none"
-              }
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 75%",
+              end: "top 25%",
+              toggleActions: "play none none none"
             }
-          );
-        }
+          }
+        );
+      }
+    }, sectionRef);
 
-        // PHASE 2 PERF FIX: Removed redundant ScrollTrigger.refresh()
-        // ScrollTrigger auto-refreshes on window resize - manual refresh only needed after dynamic DOM changes
-      });
-
-      return ctx;
-    };
-
-    // Check if Lenis is ready, or wait for it
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const lenis = (window as any).lenis;
-    let ctx: gsap.Context | null = null;
-
-    if (lenis) {
-      // Lenis ready, setup immediately
-      console.log('[VisualStylesGallery] Lenis ready, setting up animations');
-      ctx = setupAnimations();
-    } else {
-      // Lenis not ready, wait for it with timeout fallback
-      console.log('[VisualStylesGallery] Waiting for Lenis...');
-      const lenisCheckInterval = setInterval(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((window as any).lenis) {
-          console.log('[VisualStylesGallery] Lenis detected, setting up animations');
-          clearInterval(lenisCheckInterval);
-          ctx = setupAnimations();
-        }
-      }, 200); // PHASE 2 PERF FIX: Check every 200ms (was 50ms) - reduces main thread overhead by 75%
-
-      // Fallback: setup after 2s even if Lenis not detected
-      const fallbackTimeout = setTimeout(() => {
-        if (!ctx) {
-          console.log('[VisualStylesGallery] Timeout fallback, setting up animations anyway');
-          clearInterval(lenisCheckInterval);
-          ctx = setupAnimations();
-        }
-      }, 2000);
-
-      // CRITICAL: Cleanup to prevent memory leaks
-      return () => {
-        clearInterval(lenisCheckInterval);
-        clearTimeout(fallbackTimeout);
-        ctx?.revert();
-      };
-    }
-
-    // CRITICAL: Cleanup to prevent memory leaks
-    return () => ctx?.revert();
-  }, []);
+    return () => ctx.revert();
+  }, [lenisReady]);
 
   return (
-    <section className="py-20 px-4" id="visual-styles">
+    <section ref={sectionRef} className="py-20 px-4" id="visual-styles">
       <div className="container mx-auto max-w-7xl">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-16">

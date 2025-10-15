@@ -7,6 +7,7 @@
     <generatedAt>2025-10-08</generatedAt>
     <generator>BMAD Story Context Workflow</generator>
     <sourceStoryPath>/home/cameronai/projects/cre8tive-website-1006/docs/stories/story-1.75.md</sourceStoryPath>
+    <!-- 2025-10-14 Update: legacy BriefToStoryboardAnimation references preserved for context; use BriefingTimeline segmentation for new work. -->
   </metadata>
 
   <story>

@@ -1,653 +1,523 @@
 # Focus Anchors
 
-- Branch: `feat/story-1.3-ac8-revert`
-- **Current Work:** Architecture documentation complete — Ready for Briefing Engine Phase 1 implementation
-- **AI Briefing Engine Phase 1 READY** (Architecture docs in place)
-- Architecture sprint deliverables: frontend-architecture.md, animation-patterns.md, palette.ts, hooks, Prettier config, TypeScript strict mode enabled
-- Briefing Engine theme codified: black-first gradient + indigo/cyan/fuchsia accents (prevents color drift)
-- GSAP + Lenis + Framer Motion patterns documented with 5 production-ready examples
-- React cleanup patterns documented (prevents memory leaks)
-- Accessibility patterns (WCAG AA, prefers-reduced-motion)
-- Build validated ✅ | Lint blocked by missing unicorn plugin rules (documented in completion notes)
-
-- **AI Product Charter — Story 1.7 / AC10 (Entrance Animation)**
-  - **Problem:** The BriefToStoryboardAnimation container appears immediately on load with no entrance motion, breaking the premium cinematic reveal promised in Story 1.7 and leaving Acceptance Criterion #10 unmet.
-  - **Target User:** Prospective Cre8tive AI Studios clients evaluating our storyboard automation workflow on desktop and laptop browsers (primary decision-makers in agencies/marketing teams).
-  - **Success Signal:** On first scroll past the hero (≈20% viewport), the container animates from blurred/offset to crisp focus exactly once, chains into the intro timeline, maintains 60 fps, and the story’s AC #10 plus associated tasks in `docs/stories/story-1.7.md` are marked complete with passing tests/linters.
-
-- **AI Product Charter — Briefing Process Flow Refinement (2025-10-09)**
-  - **Problem:** The current stacked workflow section feels text-heavy and under-utilizes viewport space, with the connected pipeline card carrying redundant copy and the stage cards reading smaller than intended.
-  - **Target User:** Marketing decision makers and creative leads exploring the AI Briefing Engine on laptops and large tablets who need an immediate, premium sense of the guided workflow.
-  - **Success Signal:** Within one viewport, visitors can read the key workflow headline, spot a concise connected-pipeline callout, and interact with enlarged stage cards whose dossier alignment stays intact across breakpoints, validated via responsive preview and build.
-
-- **AI Product Charter — Our Solutions Reimagination (2025-10-09)**
-  - **Problem:** The homepage “Our Solutions” grid still showcases the paused AI Agents service and lacks the ultra-premium storytelling needed to convert executive buyers immediately below the fold.
-  - **Target User:** C-suite and marketing directors evaluating Cre8tive AI from desktop and large-tablet devices who expect a refined, credible services overview without inactive offerings.
-  - **Success Signal:** Updated section removes the AI Agents card entirely and introduces a cinematic, research-backed solutions showcase whose layout, motion, and copy test well across breakpoints and earns user sign-off after prototype review.
-
-- 2025-10-06 10:15 NZDT — Codex prepping S6 (Storyboard GSAP timeline + canvas particles)
-- 2025-10-06 08:50 NZDT — Codex starting S5 (Visual styles ScrollTrigger + detail panel) (Complete)
-- 2025-10-06 05:15 NZDT — Codex starting S2 (Fix hero section dark theme gradient rework) (Complete)
-- 2025-10-05 21:53 NZDT — Codex starting S4 (Update color palette constants for CTA/divider) (Complete)
+- Branch: `GSAP-segmentation`
+- **Mission:** Finish the segmented `/briefing-engine` timeline with responsive desktop tiering so every viewport (1024 px–3440 px) feels intentional, animations stay premium, and progress affordances remain crystal clear.
+- Palette invariant: dark indigo/cyan/fuchsia + holographic highlights; preserve cinematographer aesthetic while tuning layouts.
+- Adaptive performance stack (Story 1.14) stays enabled via `performance-adapter`, `adaptive-config`, `useAdaptivePerformance`.
+- Build still passes (`npm run build`); lint blocked by repo unicorn config + legacy `any` in perf tests (logged for future cleanup).
+ 
+# AI Product Charter — Copy Clarity Audit (2025-10-14 Codex Session 2)
+- **Problem:** Briefing Engine & Studios copy reads like generic AI hype; stakeholders flag trust gaps and misaligned messaging.
+- **Target User:** B2B marketing leaders, creative directors, and agency owners evaluating high-stakes AI production partners.
+- **Success Signal:** Web copy that benchmarks against top-tier AI studios, survives stakeholder review without “AI slop” concerns, and anchors trust with proof (outcome metrics, process clarity, evidence-backed claims).
 
 # Commands
 
 ```bash
-npm run dev              # Dev server on http://localhost:8080
-npm run build            # Production build
-npm run test             # Vitest suite
-npm run preview          # Preview production build on port 4173
+npm run dev        # Dev server (http://localhost:8080) – ask user to restart if down
+npm run build      # Production build (tsc + vite)
+npm run lint       # ESLint (fails due to unicorn + legacy any)
+npm run test       # Vitest (not yet wired for briefing timeline)
+npm run preview    # Preview production build on http://localhost:4173
 ```
 
-## 2025-10-13 – Briefing Engine Doc Refresh Prep
-
-- **User direction:** Focus exclusively on `/briefing-engine` and align core docs with BMAD system stories/tech specs before any new dev. Existing README/SPEC/ARCH out of sync with recent BMAD workstreams.
-- **Latest audit signals:** Tech Director performance review (2025-10-14) flags CLS 1.00 (fonts missing `font-display` + preload) and missing `width/height` on 20+ images; redundant `ScrollTrigger.refresh()` calls and Lenis polling loops inflate style recalcs; framer-motion fade wrappers already replaced by `GsapFadeIn` but confirm cleanup. Document fixes + ownership in updated plan.
-- **Story parity:** Story 1.7 (hero timeline) + Story 1.11 (performance sweep) marked Ready/Done; Story 1.14 adds adaptive performance stack (`performance-adapter`, `adaptive-config`, `useAdaptivePerformance`). Ensure architecture doc references these modules and AD-003 accessibility removal nuance.
-- **Code review observations:** `BriefingEngine.tsx` hero animation still logs to console; Lenis wrapper enforced even for reduced motion; need to capture in docs so future work justifies console removal + motion stance.
-- **Doc gaps identified:** `/codex/PLAN.md` and `_MEMO` previously tracked particle system + solutions grid; must rebaseline plan for doc refresh + performance remediation roadmap. SPEC/ARCHITECTURE need sections for adaptive performance + performance audit blockers; README should surface current “Not production-ready” status and remediation checklist.
-
-## 2025-10-13 – Optimization Mandate
-
-- **User directive:** Page redesign/content is complete; current development priority is performance optimization (CLS fixes, ScrollTrigger/Lenis efficiency, asset sizing, animation overhead). Treat all upcoming plans/tasks through this lens.
-- **Implication:** Doc updates must foreground the optimization backlog and remediation status; execution focus shifts to resolving Tech Director audit blockers before any new feature work.
-- **Change log:** Implemented ScrollTrigger `pinType: "transform"` within `BriefToStoryboardAnimation` timeline to reduce CLS triggered during pin activation; follow-up trace needed to confirm improvement (Option 1 from audit recommendations).
-
-## 2025-10-13 – Timeline UX Research Notes
-
-- Stakeholder feedback (older exec cohort) flags long scrub distance and unclear affordance in the pinned Brief→Storyboard sequence; prioritize reducing “dead zones” and clarifying interaction instructions.
-- External research round (GSAP docs + UX studies):
-  - Section-driven ScrollTrigger timelines can deliver premium feel without heavy pinning when each section animates on entry and uses tight start/end offsets.citeturn0search0
-  - Premium scrollytelling pieces often choreograph consecutive sections, using data-step markers and timeline labels to keep motion snappy and obvious.citeturn0search5
-  - Older adults benefit from intuitive navigation, predictable structure, and high-clarity instructions—simplify flows and make calls-to-action explicit.citeturn1search0turn1search3
-  - Many older users experience reduced dexterity and prefer straightforward controls; design should minimize precision scrolling demands and support keyboard activation.citeturn1search1
-- Action items: evaluate compressing timeline length, introduce explicit “scroll to advance” prompts plus optional click-to-advance, and assess whether full pinning is still justified for broader audience comfort.
-
-# Impact Set
-
-**Current Session (AI Briefing Engine Rework Plan Created + Indexed):**
-- PLAN.md: Complete rewrite - focused rework plan (S1-S9, 9 steps)
-- Format fixed: "- S1 Title" (removed colons to match plan_state.py regex)
-- Plan indexed via plan_state.py reset ✅
-- PLAN_STATE.json created with 9 steps
-- Current active step: S1 (confirmed via plan_state.py current)
-- First step: RAG research (GSAP ScrollTrigger patterns)
-- Estimated completion: ~2.5 hours from S1 start
-
-**Previous Session (AI Briefing Engine Phase 1):**
-- Assets: 9 visual styles (2.2MB) + 7 storyboard frames (1.7MB) → public/briefing-engine/
-- Modified: BriefingEngine.tsx, StoryboardDivider.tsx, BriefingCTA.tsx, VisualStylesGallery.tsx, StyleCard.tsx
-- Color palette: Bright purple/green/pink → Dark indigo/cyan/fuchsia
-- Grid layout: 4-column (8 cards) → 3-column (9 cards, 3×3)
-- Image integration: Placeholder gradients → Real webp assets with lazy loading
-- Updated: "8 Visual Styles" → "9 Visual Styles" across all components
-
-**Current Session (Story 3.1 Particle System fixes):**
-- Restored production particle counts with optional `VITE_PARTICLE_COUNT_SCALE`.
-- Implemented staged entrance burst (power4 easing, staggered delays) + render buffers.
-- Fixed mouse interaction teardown (stable listener references).
-- Added vitest config + tests for device helpers, entrance easing, mouse interaction.
-- Commands: `npm install --save-dev vitest @testing-library/react @testing-library/jest-dom jsdom`, `npm run lint` (fails on unicorn plugin), `npm run test`, `npm run build`.
-- Playwright headless check (`npm run test:e2e`) against dev server shows hero canvas initialization taking 24–41s (5000 particles + O(n²) connections) and timing out before canvas becomes visible; captured video + screenshot artifacts for analysis.
-
-**Previous Commit 5ae64e0:**
-- 7 new UI components (BentoGrid, GlassCard, RevealText, MagneticButton, etc.)
-- 3 new hooks (useScrollAnimation, useParallax, useMagneticHover)
-- 1 new utility (motionVariants.ts)
-- 21 modified components
-- 2 modified config files (base.css, tailwind.config.ts)
-
-# Decisions
-
-**2025-10-09 20:15 UTC: Story 3.1 Particle System Restore ✅**
-- Restored responsive particle counts (5K/2K/1K) with optional `VITE_PARTICLE_COUNT_SCALE` to keep prod spec while permitting local downscaling.
-- Implemented entrance burst via render buffers + power4 easing (stagger delays), ensuring animation respects prefers-reduced-motion fallback.
-- Fixed `MouseInteraction` listener lifecycle so stop/destroy detach the original callback (prevents duplicate handlers).
-- Added vitest harness covering device helpers, entrance easing math, and listener teardown; lint still blocked by missing unicorn plugin definitions (documented for follow-up).
-
-**2025-10-09 21:05 UTC: Playwright E2E Findings ⚠️**
-- Initial Chromium headless run (`npm run test:e2e`) kept the hero blank for 24–41 s; console logged `ParticleHero Initialized in 40571ms`, confirming the O(n²) connection sweep was choking first paint.
-- React dev server warned `createRoot()` was called twice—prompted caching/root reuse changes in `main.tsx`.
-- Captured artifacts (video + screenshot) in `test-results/briefing-engine-AI-Briefin-...` for reference; served as baseline before spatial hash + ramp work.
-
-**2025-10-09 22:40 UTC: Spatial Hash & Ramp ✅**
-- Implemented 100 px spatial hash and progressive particle ramp (1 K → target 5 K over ~3 s). Playwright now logs `ParticleHero Initialized in ~1 s`, though selector waits still time out under software WebGL fallback.
-- PerformanceMonitor now waits for a full 60-frame sample and pauses degradation while ramping to avoid premature downscaling.
-- Remaining warnings: React still reports `createRoot` reuse (needs deeper audit) and Chromium emits WebGL software fallback/GPU stall notices.
-
-**2025-10-09 21:50 UTC: Our Solutions Benchmarking ✅**
-- Archon RAG surfaced Google’s pattern library emphasis on theming consistency and subgrid layout control for complex cards, reinforcing the need for layered grids and restrained palette transitions.
-- Context7 Tailwind docs confirm subgrid utilities (`grid-cols-subgrid`, `grid-rows-subgrid`) are available for aligning nested cards with headline columns—will leverage for staggered storytelling layout.
-- External inspiration (web.dev luxury marketing sections) highlights cinematic scroll reveals, metric-infused proof points, and per-card micro-interactions as trust accelerators—these cues shape the upcoming concept.
-
-**2025-10-09 22:05 UTC: Our Solutions Narrative Draft ✅**
-- Retire the AI Agents card; promote three pillars instead: `Cre8tive AI Studios` (flagship cinematic delivery), `AI Briefing Engine` (renamed from “Studios AI Engine”), and `Conversational AI` (telephony + voice automation).
-- Hero zone becomes a two-column subgrid: left anchors the flagship story with kinetic typography + KPI ticker; right stacks two staggered cards introducing the other pillars and a “Custom AI Programs” teaser leading to contact.
-- Mid-section adds proof strip (client logos + quantified outcomes) and an “Solution Switcher” micro-interaction that previews motion snippets on hover/tap.
-- Footer CTA evolves into a dual-action rail (“Book strategic session” + “Download capability deck”), with hover states borrowing the holographic gradient language for continuity.
-
-**2025-10-09 22:25 UTC: Implementation Blueprint ✅**
-- Restructure services data into a `solutions` config with categories, KPIs, and asset hooks, enabling richer card layouts and state-driven highlights.
-- Compose section from three layers: `SolutionsLead` (headline + KPI ticker), `SolutionsSubgrid` (subgrid with flagship + two secondary cards + teaser tile), and `SolutionsProofRail` (logos/testimonials + CTA rail) with shared motion variants.
-- Motion stack: Framer Motion for hover/tap micro-interactions, GSAP ScrollTrigger for staggered reveals, magnetic CTA retained for continuity; provide prefers-reduced-motion guards.
-- Accessibility: ensure cards remain fully keyboard navigable (tabIndex + enter activation), provide ARIA labels for metrics, and mirror interactions in reduced-motion state via subtle opacity/scale changes.
-
-**2025-10-09 18:20 UTC: Process Flow Layout Refinement ✅**
-- Connected Pipeline content trimmed to title + ladder and relocated beneath the stack navigator as a compact badge so the header breathes.
-- Stage cards expanded (max-width, padding, icon scale) with deeper perspective transforms to keep the 3D stagger while filling viewport real estate.
-- Build verified via `npm run build` (Alias `npmrb` unavailable in non-interactive shell).
-
-**2025-10-09 19:05 UTC: Process Flow Layout Reversion ↺**
-- User requested original card proportions back; reverted stack dimensions and transform depths to prior settings while retaining the slim connected-pipeline badge placement.
-- Rebuilt (`npm run build`) to confirm parity after rollback.
-
-**2025-10-09 19:40 UTC: Workflow Header Emphasis ✅**
-- Shifted the briefing header lower in the viewport (larger sticky offset + intro spacing) and scaled typography to give the section more presence.
-- Build re-run (`npm run build`) to validate.
-
-**2025-10-08 09:30 UTC: AC10 Entrance Research ✅**
-- Context7 (/llmstxt/gsap_llms_txt) confirms `timeline.eventCallback('onComplete', ...)` as the recommended chaining pattern; use paused intro timeline and fire via entrance timeline completion.
-- Archon RAG surfaced ScrollTrigger docs emphasising `once: true` entrance triggers and warned against nesting ScrollTriggers inside tweens; ensures we drive entrance via standalone `ScrollTrigger.create`.
-- Blur performance guidance: lean on transforms + filter with GPU acceleration (`force3D` auto) and be ready to add `willChange: 'filter, transform'` or dial blur to 12px if perf drops.
-
-**2025-10-06 13:30 NZDT: Architecture Documentation Sprint Complete ✅**
-- **Created:** `docs/architecture/frontend-architecture.md` (26KB, 670 lines) — Complete frontend spec with component patterns, state management, styling, accessibility, performance
-- **Created:** `docs/architecture/animation-patterns.md` (24KB, 580 lines) — GSAP + Lenis + Framer Motion integration guide with 5 production patterns
-- **Created:** `src/components/briefing/palette.ts` — Briefing Engine color constants (prevents color drift from Studios/Homepage)
-- **Created:** `src/hooks/usePrefersReducedMotion.ts` — Accessibility hook for prefers-reduced-motion detection
-- **Created:** `src/hooks/useScrollTriggerAnimation.ts` — Generic GSAP ScrollTrigger hook with automatic cleanup and reduced-motion support
-- **Created:** `.prettierrc` — Formatter config (no semi, double quotes, 2 spaces, trailing commas)
-- **Enabled:** TypeScript `noImplicitAny: true` (incremental strict mode, full strict mode deferred)
-- **Updated:** ARCHITECTURE.md with links to new docs (lines 174-213)
-- **Validation:** Build passed ✅ | Lint passed (11 warnings, 0 errors) ✅
-- **RAG Sources Used:** GSAP official docs, Lenis tech docs, DevDreaming tutorial, Web.dev RAIL model, Chrome DevTools memory profiling
-- **Architect:** Winston (BMad architect agent)
-- **Deliverables:** Ready for Briefing Engine Phase 1 implementation
-
-**2025-10-06 09:23 NZDT: S1 RAG Research — GSAP + Lenis Guidance**
-- Reviewed GSAP ScrollTrigger docs for scrub/pin setups and container animations to drive multi-panel sequences smoothly.
-- Pulled Lenis README notes on anchor handling, touch prevention, and limitations (no CSS scroll-snap, Safari FPS cap) to bake into smooth-scroll implementation.
-- Flagged need to respect prefers-reduced-motion and tie ScrollTrigger updates to Lenis raf loop for accessibility + performance.
-
-**2025-10-06 07:56 NZDT: Core Docs Synced to PLAN**
-- Updated SPEC, ARCHITECTURE, README, and CONTRIBUTING to encode AI Briefing Engine roadmap + platform-native future section.
-- Added success metrics, component stack callouts, GSAP/Lenis guidelines, and palette guardrails for upcoming implementation.
-
-**2025-10-06 05:20 NZDT: S2 Gradient Fix Complete ✅**
-- **SUCCESS:** Black-centric gradient now matches Studios approach
-- Changed radial gradient opacity: 0.15/0.12 → **0.06/0.05** (barely visible color hints)
-- Changed base gradient: rgba(28,22,55) → **rgba(10,10,22,0.99)** (deeper black, 0.98→0.99 opacity)
-- Changed spread: 50% → **40%** (tighter color concentration)
-- **Result:** 95%+ black with subtle indigo/purple hints (exactly like Studios orange/teal pattern)
-- DevTools validation complete: ✅ All sections dark, ✅ no console errors
-- File: src/pages/BriefingEngine.tsx:49-60
-- Ready for /confirm-step S2
-
-**2025-10-06 05:15 NZDT: Focus Shift Back to S2**
-- S4 paused; hero gradient still failing user validation, so refocusing on pending S2 before continuing palette constants.
-- Plan_state updated manually; start-step log captured in Focus Anchors.
-
-**2025-10-06 05:54 NZDT: PLAN-Detailed Formatting Restored**
-- Removed terminal line numbers/hyphen artifacts so detailed plan reads as native Markdown again; ready to source execution steps.
-
-**2025-10-05 21:57 NZDT: Session Realigned**
-- Confirmed current step: S4 (Update Color Palette Constants) in_progress
-- S2 invalidated (gradient not showing for user) - needs attention after S4
-- DevTools MCP available for UI validation
-
-**2025-10-05 21:30 NZDT: Capsule Synced - Current State Captured**
-- Capsule regenerated and synced
-- Current gradient: `rgba(0,0,0,0.95) → rgba(28,22,55,0.98)` - deep black with stylish indigo-purple accent
-- Awaiting user validation on gradient balance
-- Signed: Claude 4.5 Sonnet (2025-10-05 21:30 NZDT)
-
-**2025-10-05 21:27 NZDT: Session Realigned - Gradient Balance Adjustment**
-- Session realigned after user feedback on gradient balance
-- Current active step: S2 (Fix Hero Section Dark Theme)
-- Latest gradient: `rgba(0,0,0,0.95) → rgba(28,22,55,0.98)` - deep black with stylish indigo-purple accent
-- User preference: "deep black base with some stylish secondary color that just adds the flair, but doesnt overwhelm"
-- Chrome DevTools MCP available for validation
-- Signed: Claude 4.5 Sonnet (2025-10-05 21:27 NZDT)
-
-**2025-10-05 21:19 NZDT: S2 INVALIDATED - Still Too Bright (Need Black-Based Gradient)**
-- **User Feedback:** "its still way to bright, did you look at homepage and studios? Theres is like blackbased gradients, not completely black, but primary black base with a secondary non black color."
-- **Analysis of Studios:** `rgba(0,0,0,0.95) → rgba(13,13,29,0.98)` - PRIMARY pure black + SECONDARY barely visible blue
-- **My Error:** Used `rgba(10,10,30,0.96) → rgba(30,25,65,0.98)` - both have color, no pure black base!
-- **Correct Approach:** Start with pure black rgba(0,0,0,0.95), end with subtle indigo hint rgba(18,15,35,0.98)
-- **Status:** S2 reset to in-progress
-- Signed: Claude 4.5 Sonnet (2025-10-05 21:19 NZDT)
-
-**2025-10-05 21:04 NZDT: Session Realigned - Gradient Fix Complete (INVALIDATED - Too Bright)**
-- Session realigned after color correction
-- Current active step confirmed: S2 (Fix Hero Section Dark Theme)
-- Z-index fix successful (gradient visible at correct darkness)
-- Original dark colors from PLAN.md applied: #0f0f1e → #1a1a2e
-- Chrome DevTools MCP available for validation
-- Signed: Claude 4.5 Sonnet (2025-10-05 21:04 NZDT)
-
-**2025-10-05 20:59 NZDT: S2 INVALIDATED - Colors Too Bright (User Confirmed Gradient VISIBLE!)**
-- **User Feedback:** "the gradient is visible, well done!! But the colors and everything is completely off which I expect is because you put in bright colors to check visibility?"
-- **Issue:** Used bright test colors (#1a1a2e → #3a3a6e) to verify z-index fix
-- **Original Plan Colors:** #0f0f1e → #1a1a2e (MUCH darker, subtle gradient)
-- **Next Step:** Apply original dark colors from PLAN.md while keeping z-index 0 fix
-- **Status:** S2 reset to in-progress
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:59 NZDT)
-
-**2025-10-05 20:56 NZDT: S2 Z-Index Fix Success - Gradient Visible! (INVALIDATED - Colors Too Bright)**
-- **ROOT CAUSE IDENTIFIED:** Body background `#050505` at z-index auto (0) was covering gradient at z-index -10
-- **Solution:** Changed gradient z-index from -10 to 0 (renders ABOVE body background)
-- **Investigation Process:**
-  1. Compared with Studios page gradient (uses z-index -10 but works)
-  2. Deep CSS audit via DevTools revealed body bg covering gradient
-  3. Found `body { @apply bg-background }` in base.css setting `#050505` background
-  4. Fixed by moving gradient to z-index 0
-- **Final Gradient:**
-  - Linear: `#1a1a2e → #3a3a6e` (deep dark → moderate indigo)
-  - Radial overlays: rgba(99,102,241,0.15) and rgba(192,38,211,0.12) at 60% spread
-  - Z-index: 0 (CRITICAL - must be above body background)
-- **Chrome DevTools Validation:**
-  - ✅ Gradient clearly visible in screenshots (deep indigo/purple)
-  - ✅ Console: Only minor warnings (hydration, X-Frame-Options, WebGL - not critical)
-  - ✅ GSAP: Loading correctly, 9 cards detected
-  - ✅ Full page coverage verified (hero + scrolled sections)
-- **Build:** ✅ Success (16.84s)
-- **Files Modified:** src/pages/BriefingEngine.tsx
-- **Status:** READY FOR USER CONFIRMATION
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:56 NZDT)
-
-**2025-10-05 20:46 NZDT: Session Realigned After S2 Invalidation**
-- Session realigned following 6th invalidation
-- Current active step: S2 (Fix Hero Section Dark Theme)
-- Chrome DevTools MCP confirmed available for validation
-- Must implement completely different approach with deep root cause investigation
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:46 NZDT)
-
-**2025-10-05 20:41 NZDT: S2 INVALIDATED 6TH TIME - Critical: Must Ultrathink Root Cause**
-- **User Feedback:** "Anything LESS then the PROPER gradient with the Intended amount of color is unacceptable, stop settling for Not complete work, its obviously a deeper issue and you havent put in the time and effort to really critcally ultrathink about whats causing this"
-- **Critical Analysis Required:**
-  - PageLayout bg-black fix was correct but insufficient
-  - Gradient is technically applied (DevTools confirms) but NOT VISIBLE to user
-  - 6 attempts, all failed - need fundamentally different approach
-  - Must investigate: Why does DevTools show gradient but user sees pure black?
-- **Deep Investigation Needed:**
-  - Is there CSS specificity issue overriding gradient?
-  - Is z-index stacking context wrong?
-  - Are there other elements with backgrounds we haven't identified?
-  - Is the gradient color range simply too dark for visibility?
-- **Next Approach:** Stop incremental fixes, need complete visual debugging session
-- **Status:** S2 reset to in-progress
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:41 NZDT)
-
-**2025-10-05 20:18 NZDT: S2 Implementation Complete - PageLayout Fix Applied (INVALIDATED)**
-- **Root Cause Fixed:** PageLayout.tsx line 20 had hardcoded `bg-black` even with `variant="custom"`
-- **Solution:** Conditionally remove `bg-black` when `variant="custom"`
-- **Changes:**
-  - PageLayout.tsx: Added "custom" variant type, conditional bg-black removal
-  - Gradient now renders without bg-black covering it
-- **Chrome DevTools Validation:**
-  - ✅ Gradient element exists with correct styles
-  - ✅ Linear gradient: `rgb(26, 26, 46) → rgb(58, 58, 110)` (64pt blue channel difference)
-  - ✅ Radial overlays: indigo (0.15) and fuchsia (0.12) at 60% spread
-  - ✅ Console: Only minor warnings (X-Frame-Options, WebGL, preload) - no critical errors
-  - ✅ GSAP: Loading correctly, 9 cards detected
-- **Visual Result:** Gradient applied but appears very dark in screenshots (needs user confirmation on actual display)
-- **Build:** ✅ Success (16.44s)
-- **Files Modified:** src/components/layouts/PageLayout.tsx
-- **Status:** Awaiting user validation - gradient technically correct, visibility needs confirmation
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:18 NZDT)
-
-**2025-10-05 20:11 NZDT: Session Realigned**
-- Session compaction occurred, context refreshed
-- Current active step confirmed: S2 (Fix Hero Section Dark Theme)
-- Focus: Fix PageLayout bg-black covering gradient issue
-- Chrome DevTools MCP available for UI validation
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:11 NZDT)
-
-**2025-10-05 20:04 NZDT: S2 INVALIDATED 5TH TIME - Need Deep Investigation**
-- **Issue:** User reports "no subtle is not good enough, just looks black"
-- **User Request:** "take a step back ultrathink and investigate the issue and fix it"
-- **Critical Observation:** Hero-section gradient WAS visible (too bright), but page-wide gradient is NOT visible
-- **Root Cause Hypothesis:**
-  - DevTools shows gradient applied, but user cannot see it
-  - Something is covering the page-wide gradient OR
-  - Gradient colors are too dark for user's display OR
-  - There's a CSS issue I haven't identified
-- **Investigation Needed:**
-  1. Check if PageLayout or other elements have backgrounds covering gradient
-  2. Test with MUCH brighter colors temporarily to verify visibility mechanism
-  3. Examine actual rendered DOM structure for covering elements
-  4. Compare hero-section approach (worked) vs page-wide (doesn't work)
-- **Status:** S2 reset to in-progress
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:04 NZDT)
-
-**2025-10-05 20:01 NZDT: S2 Implementation Complete - Page-wide Gradient Restored (INVALIDATED)**
-- **Implementation:** Restored page-wide gradient with moderate brightness
-- **Changes:**
-  - Removed hero-section-only gradient (was too bright: #2a2a50 → #8080d0)
-  - Restored page-wide gradient: `#1a1a2e → #3a3a6e` (dark → moderate indigo)
-  - Radial overlays: 0.15/0.12 opacity, 60% spread
-  - Z-index: -1 (was -10, now higher to avoid being covered)
-- **Chrome DevTools Validation:**
-  - Gradient applied: `linear-gradient(rgb(26, 26, 46) 0%, rgb(58, 58, 110) 100%)`
-  - Console: Only minor warnings (X-Frame-Options, WebGL performance)
-  - GSAP: Loading correctly (9 cards detected)
-- **Visual Result:** Gradient is applied but appears subtle in screenshots
-- **Files Modified:** src/pages/BriefingEngine.tsx
-- **Build:** ✅ Success (16.54s)
-- **Status:** Awaiting user confirmation/invalidation
-- Signed: Claude 4.5 Sonnet (2025-10-05 20:01 NZDT)
-
-**2025-10-05 19:54 NZDT: Session Realignment - S2 Ready for Proper Implementation**
-- **Realigned:** Capsule refreshed, plan state confirmed (S2 active)
-- **User Direction:** Fix page-wide gradient properly (NOT hero-only shortcut)
-- **Brightness Constraint:** Gradient was too bright in hero section (#2a2a50 → #8080d0), need subtler but visible gradient
-- **Strategy:** Revert to page-wide gradient, fix z-index stacking, use moderate brightness that's clearly visible but not garish
-- **Chrome DevTools:** Available for validation
-- **Next Action:** `/implement-guarded S2` with proper page-wide gradient fix
-- Signed: Claude 4.5 Sonnet (2025-10-05 19:54 NZDT)
-
-**2025-10-05 19:48 NZDT: S2 INVALIDATED 4TH TIME - User Rejects Shortcut Approach**
-- **Issue:** User rejects hero-section-only gradient: "get the original page wide gradient working - changing to hero section only is a shortcut"
-- **User Requirement:** Page-wide gradient must work properly, not just hero section
-- **Root Problem:** Elements with z-index 0 or higher are covering the page-wide gradient at z-index -10/-5
-- **Real Solution Needed:**
-  1. Identify ALL elements covering the gradient
-  2. Fix z-index stacking or remove covering elements
-  3. Make page-wide gradient unmistakably visible
-  4. Do NOT take shortcuts - solve the actual problem
-- **Status:** S2 reset to in-progress
-- Signed: Claude 4.5 Sonnet (2025-10-05 19:48 NZDT)
-
-**2025-10-05 19:23 NZDT: S2 INVALIDATED 3RD TIME - Still Completely Black (SHORTCUT REJECTED)**
-- **Issue:** User reports "still completely black - no color at all"
-- **Previous Attempts Failed:**
-  - Attempt 1: `#0f0f1e → #1a1a2e` (too subtle)
-  - Attempt 2: `#0a0a14 → #2d2d4a` (still too subtle)
-  - Attempt 3: `#000000 → #6060a0` (still black to user)
-  - Attempt 4: `#1a1a2e → #7070c0` with z-index -5 (STILL black to user!)
-- **Root Cause Analysis:** Fixed background gradient at z-index -5 is being covered by other elements
-- **New Strategy:** Apply gradient DIRECTLY to hero section element, not page-wide background
-- **Status:** S2 reset to in-progress
-- Signed: Claude 4.5 Sonnet (2025-10-05 19:23 NZDT)
-
-**2025-10-05 19:15 NZDT: S2 INVALIDATED AGAIN - Gradient Still Invisible**
-- **Issue:** User still cannot see gradient - "this is getting ridiculous, actually get it right"
-- **Root Cause:** Gradient was too subtle despite 3.3x contrast increase
-- **Previous Attempt:** `#0a0a14 → #2d2d4a` still not visible enough
-- **Action Required:** Make gradient MUCH more visible - increase to clearly perceptible indigo
-- **Status:** S2 reset to in-progress
-- Signed: Claude 4.5 Sonnet (2025-10-05 19:15 NZDT)
-
-**2025-10-05 19:12 NZDT: S2 Complete - Gradient Contrast Increased (INVALIDATED)**
-- **Implementation:** Increased gradient contrast from `#0f0f1e → #1a1a2e` to `#0a0a14 → #2d2d4a`
-- **Technical Change:** Blue channel difference increased from 16pts to 54pts
-- **Radial Overlays:** Boosted opacity from 0.08/0.06 to 0.12/0.10
-- **DevTools Validation:** Gradient applied correctly, no console errors
-- **Visual Result:** Gradient is present but still subtle (sophisticated dark aesthetic)
-- **Files Modified:** src/pages/BriefingEngine.tsx
-- **Build:** ✅ Success (17.09s)
-- **Next:** S4 - Update Color Palette Constants (S3 already complete)
-- Signed: Claude 4.5 Sonnet (2025-10-05 19:12 NZDT)
-
-**2025-10-05 18:57 NZDT: S2 INVALIDATED - Gradient Still Not Visible for User**
-- **Issue:** User reports gradient still not showing on their dev server
-- **Claude's DevTools Validation:** Showed gradient visible in previous session
-- **User Request:** Show screenshots from Chrome DevTools MCP validation
-- **Action Required:** Re-investigate gradient visibility issue, provide screenshots as evidence
-- **Status:** S2 reset to pending
-- Signed: Claude 4.5 Sonnet (2025-10-05 18:57 NZDT)
-
-**2025-10-05 18:54 NZDT: Session Realignment - S2 Completion Needed**
-- **Context:** Session resumed after context compaction
-- **Drift Detected:** PLAN.md shows S2 ✅ but PLAN_STATE.json shows S2 in_progress
-- **Work Status:** PageLayout variant fix implemented and DevTools validated, but not marked complete
-- **Chrome DevTools Results:** Deep indigo gradient visible, only minor warnings (X-Frame-Options, WebGL)
-- **Next Action:** Complete S2 documentation and mark done before proceeding to S4
-- Signed: Claude 4.5 Sonnet (2025-10-05 18:54 NZDT)
-
-**2025-10-05 18:40 NZDT: Session Realignment - S2 Root Cause Identified**
-- **Realigned:** Capsule refreshed, plan state confirmed (S2 active)
-- **Root Cause Found:** PageLayout component renders background layers that override BriefingEngine's custom gradient
-  - PageLayout has pure black base + unified gradients (lines 15-56)
-  - BriefingEngine's custom gradient is `z-index: -10` and gets hidden
-- **Solution:** Add `variant="custom"` to PageLayout to skip background rendering
-- **Rationale:** Each page needs unique theme (Home/Studios/Briefing) per plan requirement
-- **Chrome DevTools MCP:** Available for UI validation after fixes
-- **Next Action:** Implement PageLayout variant fix for S2
-- Signed: Claude 4.5 Sonnet (2025-10-05 18:40 NZDT)
-
-**2025-10-05 18:33 NZDT: S2 INVALIDATED - Hero Gradient Not Applied on Live Dev Server**
-- **Issue:** User reports hero gradient unchanged on `npm run dev` (localhost:8080)
-- **Expected:** Deep black/indigo gradient (#0f0f1e → #1a1a2e)
-- **Actual:** Gradient changes not visible in running dev server
-- **Possible Causes:**
-  - Changes not saved properly
-  - Dev server not reloaded
-  - Different component rendering in dev vs build
-  - CSS specificity issue
-- **Action Required:** Investigate BriefingEngine.tsx, verify changes, reimplement if needed
-- **Status:** S2 reset to in-progress, S3 remains valid (StyleCard changes are separate)
-- Signed: Claude 4.5 Sonnet (2025-10-05 18:33 NZDT)
-
-**2025-10-05 18:04 NZDT: S3 Complete - Section Backgrounds Fixed (No More Pure Black)**
-- **Pure Black Removed:** Replaced with deep indigo gradients
-- **StyleCard.tsx Changes:**
-  - Name overlay: `from-black/80` → `rgba(15, 15, 30, 0.9)` gradient
-  - Hover overlay: `rgba(0, 0, 0, 0.85)` → `linear-gradient(135deg, rgba(26, 26, 46, 0.92), rgba(15, 15, 30, 0.95))`
-- **Visual Result:** All sections have subtle dark gradients (no flat pure black)
-- **Contrast:** Text remains highly readable (white on deep indigo)
-- **Files Modified:** src/components/briefing/StyleCard.tsx
-- **Tests:** Build ✅ Success, TypeScript ✅ No errors
-- **Next:** S4 - Update color palette constants (BriefingCTA + StoryboardDivider)
-- Signed: Claude 4.5 Sonnet (2025-10-05 18:04 NZDT)
-
-**2025-10-05 17:58 NZDT: S2 Complete - Hero Section Dark Theme Fixed**
-- **Background Updated:** Deep black/indigo gradient implemented
-  - Base colors: #0f0f1e (deep black) → #1a1a2e (deep indigo)
-  - Radial gradients: More subtle (0.08/0.06 opacity, 50% spread)
-  - Previous: rgba(0,0,0,0.95) → rgba(13,13,29,0.98) with bright radials
-  - New: Deep hex gradient with subtle purple/indigo accents
-- **Visual Result:** Sophisticated dark theme (not garish bright colors)
-- **Files Modified:** src/pages/BriefingEngine.tsx (background gradient)
-- **Tests:** Build ✅ Success, TypeScript ✅ No errors
-- **Next:** S3 - Fix section backgrounds (replace pure black with gradients)
-- Signed: Claude 4.5 Sonnet (2025-10-05 17:58 NZDT)
-
-**2025-10-05 17:22 NZDT: Lint Errors Fixed (Prerequisite Complete)**
-- **Errors Fixed:** 11/11 ✅ (all blocking errors resolved)
-- **Warnings Remaining:** 12 (9 fast-refresh + 3 exhaustive-deps - non-blocking)
-- **Build Status:** ✅ Success (`npm run build` passes)
-- **Files Modified:**
-  - src/components/Services/desktop/DesktopServicesBold.tsx (Service interface)
-  - src/components/agents/sections/HowItWorks.tsx (Icon type)
-  - src/components/contact/FormField.tsx (UseFormRegister type)
-  - src/components/ui/magnetic-button.tsx (2 type fixes)
-  - src/components/ui/command.tsx (type alias)
-  - src/components/ui/textarea.tsx (type alias)
-  - src/types/gtm.d.ts (Record type)
-  - src/utils/performanceMonitor.ts (generic types)
-  - tailwind.config.ts (ES6 import)
-- **Recommendation:** Adjust guarded workflow to use `npm run lint` (not `--max-warnings=0`) for this codebase
-- **Blocker Removed:** S2+ can now proceed with code changes
-- Signed: Claude 4.5 Sonnet (2025-10-05 17:22 NZDT)
-
-**2025-10-05 17:17 NZDT: S1 Complete - GSAP ScrollTrigger Patterns Researched**
-- **RAG Queries Completed:** 3/3 ✅
-  1. "GSAP ScrollTrigger card reveals" - 5 results
-  2. "GSAP ScrollTrigger stagger animation" - 5 code examples
-  3. "GSAP timeline scroll pin sections" - 5 results
-- **Key Patterns Documented:**
-  - **Plugin Registration:** `gsap.registerPlugin(ScrollTrigger)` (required first)
-  - **Basic Trigger:** `gsap.to('.box', { scrollTrigger: '.box', x: 500 })` - triggers when element enters viewport
-  - **Scrub + Pin:** `scrollTrigger: { trigger: '.container', pin: true, scrub: 0.1, end: '+=3000' }`
-  - **Timeline Integration:** Add scrollTrigger to timeline config: `gsap.timeline({ scrollTrigger: { start: 'top center' } })`
-  - **Stagger Reveals:** Use `stagger: 0.1` in animation config with ScrollTrigger
-  - **Access Methods:** `tl.scrollTrigger.refresh()`, `tl.scrollTrigger.kill()`
-- **Implementation Plan for S5-S6:**
-  - S5: Use basic trigger + stagger for 9 style cards
-  - S6: Use timeline + pin + scrub for 5-stage transformation
-- **Pre-flight Blocker Identified:** 7 lint errors (6 `@typescript-eslint/no-explicit-any`, 1 `no-empty-object-type`)
-  - Action: Fix lint errors before S2 (code changes)
-- Signed: Claude 4.5 Sonnet (2025-10-05 17:17 NZDT)
-
-**2025-10-05 17:13 NZDT: Capsule Synced - Plan Indexed and Ready**
-- Capsule regenerated at 2025-10-05T04:13:08Z
-- Recent Decisions updated: Formal plan creation (S1-S9)
-- Next Experiments updated: Active plan details, ready for S1
-- PLAN_STATE.json confirmed: 9 steps indexed, S1 active
-- All workflow assets in place: guarded shell, plan state, capsule
-- Signed: Claude 4.5 Sonnet (2025-10-05 17:13 NZDT)
-
-**2025-10-05 17:03 NZDT: Formal Plan Created - AI Briefing Engine Rework**
-- Context: User ran /plan-guarded after session realignment
-- Created: Focused 9-step plan (S1-S9) for dark theme + GSAP animations rework
-- Approach: Research first (RAG for GSAP), then fix colors, then animations, then test
-- Constraints enforced: RAG mandatory S1, TDD approach, quality gates, unique theme
-- Plan indexed via plan_state.py reset (format fixed: removed colons)
-- PLAN_STATE.json created with 9 steps, S1 active
-- Ready for: /implement-guarded S1 (GSAP research)
-- Signed: Claude 4.5 Sonnet (2025-10-05 17:03 NZDT)
-
-**2025-10-05 16:56 NZDT: Session Realignment + Capsule Sync**
-- Realigned with project context after session resume
-- Top constraints confirmed: Dark theme rework, RAG for GSAP, TDD enforcement
-- Branch: design/modern-refresh-2025-10-02
-- Capsule regenerated at 2025-10-05T04:02:28Z (latest sync)
-- Guarded workflow assets installed to tools/claude/
-- Formal plan creation initiated
-
-**2025-10-05: AI Briefing Engine - Phase 1 RESTART (User Feedback: First Attempt Failed)**
-- **Context:** User provided 9 visual styles + 6 storyboard frames; requested dark aesthetic matching Studios/Home pages
-- **❌ FAILED FIRST ATTEMPT - Issues:**
-  1. Hero colors TOO BRIGHT (bright blue-purple gradient - user called it "garish, not sophisticated")
-  2. Sections below hero PURE BLACK (should have subtle dark gradients like Studios page)
-  3. ZERO GSAP animations implemented (just static placeholder text)
-  4. Did NOT query RAG knowledge base for GSAP patterns (violated workflow)
-  5. Did NOT follow TDD (no testing, just declared "complete")
-  6. Almost copied Studios page wholesale (lazy - each page needs unique mini-theme)
-- **✅ CORRECTED APPROACH - Dark Aesthetic Pattern Analysis:**
-  - **Home Page:** Video background + dark overlays + radial vignette (transparent → dark edges) + gradient mesh
-  - **Studios Page:** Deep black (rgba(0,0,0,0.95-0.99)) + orange/teal radial gradients + 3000 particles (cinematic theme)
-  - **Briefing Engine (NEW):** Should be deep black/indigo base + subtle purple/indigo radial gradients + unique particle system (AI transformation theme)
-- **Briefing Engine Unique Identity:**
-  - Theme: AI intelligence transforming briefs → storyboards (processing, creative flow)
-  - Colors: DEEP indigo/purple (#1a1a2e, #0f0f1e) with subtle highlights, NOT bright
-  - Background: Deep black with very subtle indigo/purple radial gradients (like Studios but indigo instead of orange/teal)
-  - Particles: Fewer, purposeful - representing data flowing/transforming (not just aesthetic like Studios)
-  - GSAP: ScrollTrigger for card reveals, timeline for "Briefing Transformation" section
-- **✅ Asset Integration Complete:**
-  - 9 visual styles → public/briefing-engine/visual-styles/
-  - 6 storyboard frames → public/briefing-engine/storyboard/
-  - StyleCard refactored to display images with lazy loading
-  - Grid: 3×3 layout (9 cards)
-- **Next Actions:**
-  1. Fix hero to deep black with subtle dark indigo gradient (NOT bright)
-  2. Replace pure black sections with subtle dark gradients
-  3. Research GSAP ScrollTrigger in RAG knowledge base
-  4. Implement unique particle system for Briefing Engine theme
-  5. Add GSAP scroll animations to card reveals
-  6. Test in Chrome DevTools (console, performance, 60fps)
-- **Signed:** Claude 4.5 Sonnet (2025-10-05 12:15 NZDT)
-
-**2025-10-04: Brownfield Initialization - Comprehensive Documentation**
-- Rationale: No SPEC.md, ARCHITECTURE.md, or CONTRIBUTING.md existed; needed foundation docs
-- Analysis: Systematic codebase analysis (41 commits, 63 files, React+TypeScript+Vite stack)
-- Generated:
-  - SPEC.md: Requirements, features, scope boundaries, success metrics (reverse-engineered from code)
-  - ARCHITECTURE.md: Tech stack, system design, components, patterns, risks
-  - CONTRIBUTING.md: Code conventions, git workflow, testing standards (discovered from code)
-  - README.md: Enhanced with comprehensive setup and reference sections
-- Key Findings:
-  - Modern tech stack: React 18.3, TypeScript 5.5, Vite 5.4, Tailwind 3.4
-  - B2B marketing site for AI services (Studios, Agents, Conversational AI)
-  - No tests (identified as technical debt)
-  - Relaxed TypeScript config (noImplicitAny: false, strictNullChecks: false)
-  - GitHub Pages deployment via GitHub Actions to cre8tive.ai
-- Result: Solid documentation foundation for ongoing development
-- Signed: Claude 4.5 Sonnet (2025-10-04 15:01 NZDT)
-
-**2025-10-02: Modern Design Refresh Complete**
-- Rationale: User requested "insanely polished and fresh" redesign
-- Implemented: Bento Grid, Glassmorphism 2.0, Magnetic buttons, Bold typography
-- Validated: Both dev (8080) and production (4173) builds tested with Chrome DevTools MCP
-- Result: Zero critical errors, all design patterns working correctly
-
-**2025-10-02: Button Nesting Fixes**
-- Problem: React validateDOMNesting warnings (button inside button)
-- Fixed: DesktopServices.tsx and HeroContent.tsx to use MagneticButton `as` prop
-- Result: Zero console warnings
-
-**2025-10-02: Chrome DevTools MCP Stability**
-- Problem: MCP disconnecting during screenshots (memory exhaustion)
-- Fixed: Killed stuck Chrome processes, cleaned orphaned profiles, user cleared swap
-- Result: MCP stable, all validations completed successfully
-
-# Open Questions
-
-**From Documentation Analysis:**
-1. **GTM ID:** Google Tag Manager ID is placeholder "GTM-XXXXXXX" - needs real ID?
-2. **Unused 3D Dependencies:** Three.js/Spline present (~4MB) but limited usage - remove or lazy load?
-3. **Testing Strategy:** What level of automated testing is desired? (currently none)
-4. **Content Management:** Will updates always be via code, or is a CMS needed long-term?
-5. **Lead Volume Targets:** What are the monthly lead generation goals for success metrics?
-
-**Previous:**
-None from redesign - all validations complete, redesign ready for deployment
-
-# Next Steps
-
-**ACTIVE PLAN: Our Solutions Reimagination (2025-10-09)**
-- S1 ✅ Benchmark + research recorded above.
-- S2 ✅ Narrative and content architecture defined (three-pillar approach + proof rail).
-- S3 ✅ Implementation blueprint captured (solutions config + layered components, motion/accessibility plan).
-- S4 — Prepare annotated concept + build sequence for user approval before writing code.
-
-**ACTIVE TASK: Briefing Process Flow Refinement (2025-10-09)**
-- S1 ✅ Layout audit: slim the connected pipeline into a horizontal badge beneath the stage navigator and reserve more horizontal room for the stack.
-- S2 ↺ Rolled back per user direction: restored original card scale while keeping the connected-pipeline badge in place.
-- S3 — Paused pending further direction; header emphasis applied and build reconfirmed via `npm run build`.
-
-**ACTIVE STORY: 1.7 AC10 Entrance Reveal**
-- Prep: Research captured 2025-10-08 (GSAP chaining, blur performance).
-- Implement entrance timeline + ScrollTrigger once logic in `BriefToStoryboardAnimation.tsx`.
-- Validate hero layout keeps animation container below fold; adjust `min-h` if necessary.
-- Add Vitest harness + RTL test for initial hidden state and chain callback stub.
-- Run `npx vitest run`, `npm run lint`, `npm run build`; record performance observations.
-- Update story Debug Log/Change Log + checkboxes for AC10 completion.
-
-**ACTIVE PLAN: AI Briefing Engine Dark Theme + GSAP Animations Rework**
-- Created: 2025-10-05 17:03 NZDT
-- Status: S1 ✅ S2 ⏸ S3 ✅ | **Active: S4 (Update Color Palette Constants)**
-- Progress: 3/9 steps (33% complete)
-- Goal: Fix failed bright theme → unique dark indigo/purple theme with GSAP animations
-- Steps: 9 total (S1-S9), ~1.75 hours remaining
-- **Latest:** S2 completed with increased gradient contrast (#0a0a14 → #2d2d4a)
-
-**Priority 1: Validate Generated Documentation (PAUSED - After Briefing Engine)**
-1. **Review SPEC.md** - Does it capture the actual product/services accurately?
-2. **Review ARCHITECTURE.md** - Is tech stack and structure correct?
-3. **Review CONTRIBUTING.md** - Do conventions match team preferences?
-4. **Fill in placeholders:**
-   - GitHub repo URLs (currently `[org]/cre8tive-website`)
-   - Google Tag Manager ID (currently `GTM-XXXXXXX`)
-   - Any `[undefined]` or `[unknown]` values
-5. **Clarify Open Questions** documented in SPEC.md and _MEMO.md
-
-**Priority 2: Immediate (From Redesign)**
-1. User should manually test the website in browser (http://localhost:8080)
-2. Verify all interactions work (magnetic buttons, scroll animations, hover effects)
-3. Consider creating pull request to merge `design/modern-refresh-2025-10-02` into `main`
-
-**Priority 3: Optional Improvements**
-1. Remove unused Spline/Three.js dependencies (~4MB) if InteractiveRobot remains disabled
-2. Update browserslist data: `npx update-browserslist-db@latest`
-3. Test on mobile devices and other browsers (Firefox, Safari)
-4. **Implement testing** - Start with Vitest for unit tests (see CONTRIBUTING.md)
-5. **Enable stricter TypeScript** - Gradually turn on noImplicitAny, strictNullChecks
-
-**Priority 4: Future Enhancements**
-1. Consider performance optimizations (lazy load more components)
-2. Add Lighthouse/Core Web Vitals testing
-3. A/B test new design vs old design
-4. **CMS Integration** - If frequent content updates needed (Sanity, Contentful)
-5. **Blog/Resources Section** - For SEO and thought leadership
+# Collaboration Note — 2025-10-14 (Codex Session 2)
+- Running two parallel Codex sessions: this terminal is **Codex Session 2**. Codex Session 1 is reviewing MCP screenshots.
+- Please preserve each session’s entries; Session 1 should avoid editing `Codex Session 2` notes and vice versa.
+- When updating PLAN/\_MEMO/REPORT, Codex Session 2 will sign entries accordingly so we can track provenance.
+
+# Collaboration Update — 2025-10-14 (Codex Session 2)
+- Third parallel agent (**Codex Session 3**) now active; maintain signed entries across all three sessions so provenance stays clear.
+- Session 2 to continue screenshot validation while Session 1 handles analysis and Session 3 pursues copy/strategy tracks (per PLAN.md footer).
+
+# AI Product Charter — Timeline Smoothness Fix (2025-10-15 Codex Session 2)
+- **Problem:** Briefing timeline scroll experience stutters because Lenis isn’t synchronized with GSAP, timelines overlap aggressively, and refresh logic fights ScrollTrigger.
+- **Target User:** Visitors experiencing the AI Briefing Engine walkthrough on desktop/laptop (1024–3440 px viewports) and stakeholders judging polish.
+- **Success Signal:** Continuous 60 fps scroll with no perceptible hitching across sections, verified via Chrome performance traces and MCP viewport sweeps after fixes land.
+
+# AI Product Charter — Briefing Engine Recovery (2025-10-15 Codex Session 2)
+- **Problem:** `src/pages/BriefingEngine.tsx` was force-reverted to an older animation stack, disconnecting the new segmented timeline and causing build-time import failures.
+- **Target User:** Cre8tive AI marketing stakeholders and developers relying on the current segmented Briefing Engine experience.
+- **Success Signal:** Page reinstates the segmented timeline orchestration without missing imports, dev server rebuilds cleanly, and stakeholders regain today’s timeline flow.
+
+# Research Notes — GSAP Debug Report (2025-10-15 Codex Session 2)
+- Read `docs/gsap-debug-report-2025-10-15.md`; captures seven root causes (Lenis integration, refresh listener, overlap aggressiveness, will-change overuse, missing invalidateOnRefresh, conditional force3D, refreshPriority gaps) plus validation checklist.
+- Key implementation directives: wire Lenis to gsap ticker, delete custom refresh listener, add `invalidateOnRefresh`, rebalance motion overlaps ≤0.4s, clear `will-change` via `clearProps`, standardize `force3D: true`, assign descending `refreshPriority`.
+- Post-fix validation must include performance trace, resize checks, GPU paint flashing, and cross-browser smoke.
+# Segmented Timeline Snapshot (2025-10-14)
+
+- **Components:** `BriefingTimeline.tsx` orchestrates five stacked sections – `HeroBriefSection`, `NeuralSynthesisSection`, `StyleSelectionSection`, `StoryboardAssemblySection`, `StudiosHandoffSection`.
+- **Affordances:** Sticky instruction pill (“STEP · TITLE”), keyboard/tap advance (“Next” → “Restart”), right-edge progress rail (`timeline-progress-*` utilities), analytics events `timeline_stage_view`, `timeline_manual_advance`, `timeline_restart` via `useAnalytics`.
+- **Reduced Motion:** `useScrollTriggerAnimation` passes `{ prefersReducedMotion }`; sections tag `data-motion` and swap animated DOM (`data-motion-hide`) for static alternatives (`data-motion-show`). ScrollTriggers still fire to log analytics / maintain progression.
+- **Docs:** SPEC, ARCHITECTURE, PLAN, QA gates, performance brief, retrospectives, story contexts, and source tree updated to reference `BriefingTimeline`; legacy `BriefToStoryboardAnimation.tsx` kept only for historical context.
+- **Status:** Build ✅; initial Chrome DevTools MCP validation (desktop sweep) captured. Outstanding polish + responsive workstreams below.
+
+# Outstanding Tasks
+
+1. **Desktop Responsive Implementation (IN REVIEW)**
+   - [x] Add GSAP `matchMedia` tiers (laptop 1024–1439, desktop 1440–1919, large desktop 1920–2559, ultra-wide ≥2560) across all sections with tier-specific duration/stagger configs.
+   - [x] Convert ScrollTrigger `start`/`end` to functions + set `invalidateOnRefresh: true`; add debounced orientation refresh in `useScrollTriggerAnimation`.
+   - [x] Introduce fluid typography/spacing (CSS `clamp()` tokens, viewport padding) and responsive max-widths so 1707 px no longer feels oversized and ≥2560 px fills space gracefully.
+   - [x] Reposition instruction pill & progress affordances using safe-area, plus add mobile/compact rail variant per research.
+   - [x] Simplify 3D transforms on smaller tiers (Storyboards/Styles/Handoff) and gate velocity boosts to desktop tiers while keeping ParticleCore calm on compact tiers.
+2. **Validation & QA**
+   - ✅ Chrome DevTools MCP desktop sweep (1366, 1707, 1920, 2560, 3440) captured — screenshots at `/tmp/chrome-devtools-mcp-*/screenshot.png`. Next: add Lighthouse + performance trace + analytics event validation.
+   - Cross-browser smoke (Chrome/Firefox/Safari/Edge) noting any animation drift.
+3. **Analytics Verification**
+   - Confirm `timeline_stage_view`, `timeline_manual_advance`, `timeline_restart` push correct payloads post-responsiveness (pending).
+4. **Lint/Test Debt**
+   - Repo-level unicorn config + legacy `any` remain; plan follow-up once responsive mission ships.
+5. **Documentation Follow-up**
+   - Update docs & REPORT after responsive tiers/validation complete.
+6. **Copy Overhaul (Codex Session 1)**
+   - Phases 1–3 complete (hero/meta, stage metadata, process-flow copy, timeline intro, mid/final CTAs, audience benefits, FAQ). Phase 4 validation pending.
+   - Next: Phase 4 QA (Chrome MCP viewport sweep, Lighthouse, analytics events, documentation updates) per `docs/BRIEFING-ENGINE-COPY-IMPLEMENTATION-PLAN.md`.
+7. **Copy Clarity Audit (Codex Session 2)**
+   - Audit Briefing Engine & Studios messaging against stakeholder feedback + marketing research.
+   - Surface evidence-backed copy direction updates; emphasize “storyboard to video” narrative and multi-duration specs.
+   - Stakeholder flags: step labels must stay consistent (Step 01–05), remove redundant "Choose your creative look" block, highlight multi-duration/spec creation, ensure CTA reads “storyboard to video”, trim wordy Step 03 copy, keep runway copy concise.
+8. **ParticleCore Research Deep Dive (Codex Session 2)**
+   - Inventory `ParticleCore.tsx` architecture, adaptive config touchpoints, pooling strategy, sizing lifecycle, and ticker integration.
+   - Digest performance reports (Story 1.14, GSAP runtime validation) to quantify layout thrash, GC pressure, and adaptive tier behaviour.
+   - Execute external research (Archon MCP, Context7 GSAP/canvas docs, web) for 2024–2025 best practices on high-density canvas particles + smooth-scroll integrations; archive findings and log remediation ideas for forced reflow fix.
+9. **ParticleCore Density Experiment (Codex Session 2)**
+   - Increase adaptive particle counts (high/medium tiers) and tune spawn cadence to test richer visuals without regressing performance.
+   - Rebuild + capture quick manual check; queue full perf trace if counts ship.
+
+# Research Notes — 2025-10-14 AM
+- Re-read core docs (README, SPEC, ARCHITECTURE, CONTRIBUTING) and GSAP audit bundle; `TASK.md` recreated to track current workstreams.
+- Responsive backlog validated against `gsap-research-responsive-scroll-storytelling-2025-10-14.md`; priority items: matchMedia timing tiers, function-based ScrollTrigger start/end, safe-area aware progress affordances, mobile rail variant, and fluid typography.
+- Performance validation report (runtime + audit) flagged ParticleCore forced reflow (811 ms) and missing GPU hints in Styles/Handoff — schedule fix alongside responsive sweep so regressions handled together.
+- 2025-10-14 Codex Session 2: Pulled `ISXjl_7Yc0g` YouTube campaign transcript (four-step journey, "Stop dreaming. Start building." CTA) to align copy voice.
+- Gartner (2025-09-03) notes 53% of consumers distrust AI-generated search results; need explicit proof + human oversight in messaging.
+- Yext (2025-02) identifies AI Pragmatists vs Skeptics; plan copy to reassure skeptics with transparency + human support.
+- TrustRadius (2025-09) reports 95% of B2B buyers view vendor copy as overly promotional; prioritize case studies, peer proof.
+- Guardian (2025-08) warns about AI "workslop" fatigue; differentiate with grounded language and expert ownership.
+- Hackstone (2024-11) stresses pairing AI automation with human creative leadership and measurable outcomes.
+- Competitor scan: 351 Studio leans on ROI/budget-friendly AI video messaging—need to outrun by emphasizing enterprise rigor + Studio craftsmanship.
+
+# Historical Log
+
+- **2025-10-13:** Identified ScrollTrigger pinning dead zones; planned segmentation.
+- **2025-10-14 13:30 NZDT:** Segmented timeline + sections implemented; doc suite refreshed; analytics wired.
+- **2025-10-14 14:10 NZDT:** Instruction rail announces active step (`aria-live`); progress rail accessible; “Next” button transitions to “Restart” on final stage.
+- **2025-10-14 14:55 NZDT:** Reduced-motion fallbacks deployed via `data-motion`, static imagery/text, and CSS overrides; build validated.
+- **2025-10-14 16:20 NZDT:** Memoized section animation registries via `useCallback` to stop ScrollTrigger replays when active stage state updates; verified production build.
+- **2025-10-14 15:40 NZDT:** Introduced `ReducedMotionIllustration` SVG set and upgraded all reduced-motion cards with bespoke layouts, bullet summaries, and consistent focus styles.
+- **2025-10-14 16:45 NZDT:** Landed GSAP audit Priority 1 refinements (will-change lifecycle, `force3D`, `refreshPriority`) across Hero, Neural Synthesis, and Storyboard sections; rebuild passes.
+- **2025-10-14 17:05 NZDT:** Applied Priority 2 motion polish—hero and neural timelines now use richer easing/duration hierarchy, style grid gains subtle back-out cascade, storyboard stagger slowed to 0.18 s for cinematic reveal.
+- **2025-10-14 17:18 NZDT:** Centralised stage timing constants in `motion-config.ts`; sections now reference shared config for durations/easing to streamline future tuning.
+- **2025-10-14 17:25 NZDT:** Neural synthesis stage now reacts to scroll velocity—`onUpdate` maps ScrollTrigger velocity into a clamped boost layered atop the base intensity timeline, keeping reduced-motion users on static paths.
+- **2025-10-14 17:30 NZDT:** ParticleCore switched to a GSAP ticker + ResizeObserver (no per-frame layout reads); Styles/Handoff sections now share the will-change/force3D lifecycle so all five segments are GPU primed.
+- **2025-10-15 09:40 NZDT:** Desktop MCP sweep completed (1366→3440 widths); logged oversized mid-tier typography, ultra-wide guttering, missing matchMedia tiers, and progress affordance gaps. Ready to implement responsive roadmap.
+- **2025-10-15 12:55 NZDT:** Rolled in responsive GSAP tiers, function-driven ScrollTriggers, fluid typography/spacing, and safe-area progress affordances; ready for viewport revalidation + perf trace.
+- **2025-10-15 13:20 NZDT:** Refined compact-tier animations (reduced 3D, velocity gating) and standardized timeline containers/typography tokens. Phase 4 validation + analytics verification next.
+- **2025-10-15 11:20 NZDT:** Revalidated resizing code (`motion-config`, `useScrollTriggerAnimation`, ParticleCore) + ran new MCP viewport sweep post updates; build succeeds (`npm run build`). Pending: analytics payload check + Lighthouse.
+- **2025-10-15 14:45 NZDT – Codex Session 1:** Coordination note — two Codex CLI sessions active; each must sign MEMO/PLAN updates with their session tag and leave one another's entries untouched.
+- **2025-10-15 14:52 NZDT – Codex Session 1:** Kicked off T8 Content Simplification — remove redundant "Choose Your Creative Style" section beneath the timeline to avoid duplicated messaging.
+- **2025-10-15 15:00 NZDT – Codex Session 1:** Removed VisualStylesGallery block from `src/pages/BriefingEngine.tsx`; production build (`npm run build`) passes. Awaiting Session 2 validation updates before further copy changes.
+- **2025-10-15 15:20 NZDT – Codex Session 1:** Ingested `docs/BRIEFING-ENGINE-COPY-IMPLEMENTATION-PLAN.md`; queued Phases 1–4 in PLAN (T9–T12) covering hero/meta rewrite, timeline intro + stage copy updates, CTA/benefit refresh, FAQ build, and QA/perf validation.
+- **2025-10-15 15:48 NZDT – Codex Session 1:** Landed Phase 1 copy updates (hero messaging, proof bar, meta tags, stage metadata, process-flow wording), swept touched copy for "our Studio" language, and revalidated with `npm run build`.
+- **2025-10-15 15:55 NZDT – Codex Session 1:** Simplified hero to headline + subhead + stats (removed descriptive paragraph per direction) and re-ran `npm run build`.
+- **2025-10-15 16:05 NZDT – Codex Session 1:** Removed hero stats badges and timeline instruction pill per feedback; adjusted hero GSAP to match and revalidated with `npm run build`.
+- **2025-10-15 16:15 NZDT – Codex Session 1:** Beginning Copy Overhaul Phase 2 (timeline intro, CTA/benefit refresh, final CTA). Coordinating with Session 2 to avoid overlap.
+- **2025-10-15 16:32 NZDT – Codex Session 1:** Completed Phase 2 copy updates (timeline intro section, MidPage CTA, audience benefits, final CTA) and validated with `npm run build`.
+- **2025-10-15 16:50 NZDT – Codex Session 1:** Added FAQ section (`BriefingFAQ.tsx`) with 10 curated Q&As, mounted after Audience Benefits, and confirmed build success.
+- **2025-10-15 17:05 NZDT – Codex Session 1:** Reviewed validation screenshots (1024–3440 widths) + existing tiered utilities; researching container-query & GSAP matchMedia strategies for desktop resizing. Next: draft implementation plan that keeps timeline content within safe max widths, harmonizes hero typography, and stabilizes progress rail across odd viewports.
+- **2025-10-15 17:22 NZDT – Codex Session 1:** Shipped desktop layout refinements: tightened `.timeline-section-container` width clamps + `container-type`, restructured Audience Benefits & Workflow Transformation around the shared shell, and added dynamic ScrollTrigger progress offset via `ResizeObserver`. `npm run build` ✅. Pending: MCP viewport re-run + documentation/analytics checks (Phase 4).
+- **2025-10-15 09:10 PDT – Codex Session 2:** Initiated copy clarity audit; charter logged; plan to unify stakeholder feedback, Gemini transcript insights, and current-market research before recommending revisions.
+- **2025-10-15 09:55 PDT – Codex Session 2:** Collected YouTube campaign transcript, stakeholder copy notes, and 2025 trust research (Gartner, Yext, TrustRadius, Guardian, Hackstone) to ground upcoming recommendations.
+
+## Codex Session 3 – Copy Refresh Plan (2025-10-15 11:05 PDT)
+- Align hero + intro messaging around tangible deliverables (sample storyboard, Studio partnership) instead of metrics. Shift subhead to highlight guaranteed process and human oversight.
+- Rewrite `stageMetadata` + `BriefingProcessFlow` copy to incorporate stakeholder directives: consistent Step labels, remove “nine styles” count, call out multi-duration specs, reinforce storyboard-to-video narrative.
+- Add trust modules: proof strip with artifacts, client testimonial slot, named creative leads, compliance/stack badges; avoid numeric claims until data available.
+- Prepare artifact links (storybook PDF, platform spec matrix) and coordinate Studios page tone shift (“AI acceleration + director-led production”).
+- Plan for follow-up insertion of real metrics once validated; reserve placeholder language so future updates are seamless.
+- Hero research guardrails (2025-10-15): stick to 3–7 word headline, 8–18 word subhead, actionable CTA verb; echo campaign message “imagination is the only barrier” and hybrid AI + Studio positioning.
+
+### 2025-10-15 11:45 PDT – Codex Session 3 Progress
+- Refreshed hero and journey copy with dual CTAs plus proof content (subsequently streamlined per 12:25 update).
+- Updated timeline metadata, process flow, style section, and benefits copy to remove “nine styles” language, add multi-duration/spec messaging, and emphasise storyboard-to-video narrative.
+- Simplified story engine terminology (Neural section → Story Engine) for clarity.
+- Ran `npm run build` ✅ (passes; vendor bundle 790kb/900kb budget).
+
+### 2025-10-15 12:25 PDT – Codex Session 3 Update
+- Simplified hero per premium SaaS research: headline now “From Brief to Native Video,” 16-word subhead, dual CTAs only; removed badge row and immediate trust block to reduce visual load.
+- Planning to reintroduce trust proof lower on page once layout strategy confirmed with Sessions 1/2.
+
+### 2025-10-15 13:05 PDT – Codex Session 3 Update
+- Rolled copy refinements across mid-page CTA, workflow comparison, audience benefits, final CTA, and FAQ—removed unverified metrics, reinforced hybrid AI + Studio positioning, and clarified deliverables.
+- `WorkflowTransformation.tsx` now contrasts agency vs Briefing Engine without numeric promises and highlights value props focused on process clarity.
+- FAQ rewritten to focus on guided intake, production-ready outputs, agency scalability, and Studio support without quoting unsourced stats.
+- `npm run build` ✅ (vendor bundle 749kb / 900kb).
+- Updated Briefing Runway description to describe the unified workflow instead of interaction hints.
+
+### 2025-10-15 13:45 PDT – Codex Session 3 Update
+- Converted runway stage cards to minimalist signal chips (headline + status trio) so the dossier column owns detailed copy.
+- Replaced the “Connected Pipeline” badge with a left-aligned ribbon visual that highlights the current step using the carousel state.
+- `npm run build` ✅ after layout changes (vendor bundle 749kb / 900kb).
+
+### 2025-10-15 14:20 PDT – Codex Session 3 Update
+- Iterated on runway design: cards now show icon + single status tag (Option 2), pipeline ribbon pushed lower for breathing room, and section padding expanded (`py-32`/`md:py-36`).
+- Adjusted floating call button offsets so it sits directly above the ElevenLabs widget.
+- `npm run build` ✅ (vendor bundle 749kb / 900kb).
+
+### 2025-10-15 14:30 PDT – Codex Session 3 Task
+- Perform copy critique pass for the entire Briefing Timeline (stage cards + dossier content) to tighten language and remove wordiness.
+
+### 2025-10-15 12:50 PDT – Codex Session 3 Research Notes
+- Benchmarked premium hero patterns (DesignContra SaaS analysis, Pioneer UI examples, Omniconvert optimization, Nudge’s 2025 best practices) to keep layout lean and outcome-led.citeturn0search0turn0search1turn0search2turn0search6
+- Reviewed 3D hero animation case studies (Weston Mossman R3F hero, Michal Załobny transitions) and performance guidance on lazy-loading Three.js experiences.citeturn0search3turn0search4turn0search5
+- Direction: build interactive “Storyboard Orbit” scene—floating storyboard tiles flow into a central video prism, with subtle parallax tracked to pointer and autoplay timeline loop (intended for hero side visual).
+
+### 2025-10-15 13:30 PDT – Codex Session 3 Prototype Log
+- Added `OrbitHeroPreview` component (React Three Fiber + Drei) rendering orbiting storyboard cards around a luminous video prism with pointer parallax and sparkles; reduced-motion fallback supplies static storyboard grid.
+- Added `OrbitHeroPreview` component (React Three Fiber + Drei) rendering orbiting storyboard cards around a luminous video prism with pointer parallax; reduced-motion fallback supplies static storyboard grid.
+- Created `/hero-preview` route (lazy-loaded) for stakeholder review and kept chunking under budget by isolating new 3D stack into `hero-visual` manual chunk. Build passes (`npm run build`).
+- Dependencies: `@react-three/fiber@8.15.12`, `@react-three/drei@9.56.13`, `three@0.152.2`; manual chunk update prevents vendor overage.
+- Added client-mount gate to the preview so Canvas instantiates after hydration, addressing R3F strict-mode warnings.
+- Updated Helmet CSP to allow `worker-src 'self' blob:` (future-proofing WebGL helpers) and removed Drei sparkles to keep the prototype stable without background workers.
+
+### 2025-10-15 14:20 PDT – Codex Session 3 Retrospective
+- Orbit hero prototype removed per stakeholder decision; deleted preview component/route, uninstalled R3F dependencies, restored CSP + bundler to pre-prototype configuration. Returning focus to copy changes.
+
+— Codex Session 3
+
+— Codex Session 3
+
+### 2025-10-15 15:40 PDT – GSAP Smoothness Fix (Codex Session 2)
+- Integrated Lenis ↔︎ ScrollTrigger sync (`useLenis`, gsap ticker bridge, lag smoothing reset) in `src/pages/BriefingEngine.tsx` and removed the bespoke resize refresh listener from `useScrollTriggerAnimation`.
+- Standardised section timelines: added descending `refreshPriority`, ensured `invalidateOnRefresh`, enforced `force3D: true`, and swapped will-change handling to `requestAnimationFrame` + `clearProps` callbacks across Hero/Neural/Styles/Storyboard/Handoff.
+- Reduced negative overlaps in `motion-config.ts` (≤0.4 s) to keep sequences readable during rapid scroll/reverse interactions.
+- `npm run build` ✅ (11.45 s; vendor bundle 790 kb / 900 kb budget).
+
+— Codex Session 2
+
+### 2025-10-15 16:32 PDT – Timeline Visibility Investigation (Codex Session 2)
+- Research recap: Archon/context7 runs surfaced no direct fixes; web search confirmed ScrollTrigger’s `lazy` default keeps “from” states dormant until the trigger fires, which leaves multi-element grids visible unless `lazy: false` or explicit pre-set values are applied.citeturn5open0
+- Diagnosis: timeline sections mark bulk elements with `data-motion-hide`, but in full-motion mode those nodes render fully visible until ScrollTrigger activates. Multi-element grids (Storyboard frames 1,3,4) therefore flash before the first tween adjusts opacity.
+- Action: Pre-set `autoAlpha: 0` on each section’s animated elements and force eager rendering by adding `lazy: false` to timeline ScrollTriggers. Rebuilt (`npm run build`) to confirm no regressions; browser validation next.
+- Hero polish: tied the stage instruction pill and campaign/platform detail badges into the Hero timeline sequence so they stay hidden until the GSAP entrance plays.
+- Validation: Chrome DevTools MCP shows storyboard frame cards now reporting `{ opacity: \"0\", visibility: \"hidden\" }` prior to triggering; timeline sweeps pending full screenshot batch but initial gating confirmed.
+
+### 2025-10-15 17:45 PDT – Copy Clarity Benchmarks (Codex Session 3)
+- Pulled 2024–2025 SaaS/B2B onboarding copy research: Smashing Magazine’s microcopy checklist stresses one idea per element and front-loaded value, matching our brevity targets for timeline captions.citeturn5view0
+- Toptal’s UX microcopy analysis reiterates Nielsen Norman Group data—concise, scannable copy boosts usability by 124%—so every stage description needs a single outcome statement.citeturn6view0
+- Chameleon’s 2025 benchmarks show 72% completion for three-step tours vs 16% for seven-step flows, reinforcing our plan to keep each GSAP frame to one action and proof point.citeturn10view0
+- TechRadar’s coverage of the July 9 2024 Gartner survey (64% of customers prefer human support) underlines why we must emphasise our hybrid “AI + Studios” model in copy.citeturn8view0
+- Guidejar’s 2025 onboarding best practices push teams to deliver time-to-first-value immediately; use that lens to rephrase stage outcomes around the first tangible win.citeturn11view0
+
+— Codex Session 3
+
+### 2025-10-15 18:05 PDT – Step 01 Copy Refresh (Codex Session 3)
+- Replaced hero headline/subhead with outcome-first framing (“Lock Your Brief in Minutes”) and tightened supporting sentence so visitors grasp the immediate win without reading supporting tiles. Implemented in `src/components/briefing/sections/HeroBriefSection.tsx`.
+- Converted hero proof chips to artifact/spec/platform evidence and rewrote intake tiles to emphasise time-to-first-value, synced visibility, delivery scope, and human oversight (`section-data.ts`).
+- Updated stage metadata description to a single, scannable sentence reinforcing “seven cues” guidance.
+- `npm run build`
+
+— Codex Session 3
+
+— Codex Session 2
+
+### 2025-10-15 16:20 PDT – ScrollTrigger Re-trigger Bug Research (Codex Session 2)
+- Archon RAG pull (gsap forum threads) reiterates common pitfall of creating multiple ScrollTriggers per element and highlights advice to test animation without ScrollTrigger first (gsap.com forum thread 44892).
+- Perplexity reasoning (2025 guidance) surfaced interaction notes: Lenis sub-pixel interpolation can flutter around start/end; `once: true` only affects animation timeline, not additional triggers; matchMedia re-evaluation during scroll can recreate triggers.
+- Context7 GSAP docs reviewed to confirm `onEnter`, `onToggle`, `preventOverlaps`, and hook for `ScrollTrigger.config` plus callbacks usage.
+- Web search surfaced Sept 2025 discussion about `ignoreMobileResize` and ScrollTrigger refresh behaviour; additional articles on `refreshPriority`, fast scroll handling, and toggleActions clarifications.
+- Hypothesis forming: dual triggers (animation + analytics) with identical start/end plus Lenis-driven velocity likely recreating or retriggering timelines; need to audit matchMedia cleanup, state refs, and whether analytics trigger should be merged.
+
+### 2025-10-15 17:05 PDT – ScrollTrigger Re-trigger Fix (Codex Session 2)
+- Root cause confirmed: stage callbacks came from `BriefingTimeline` state, and every stage enter/leave re-render rebuilt `onStageEnter`/`onStageLeave`. Section hooks depended on those callbacks, so `useScrollTriggerAnimation` tore down and re-created ScrollTriggers mid-scroll; `once: true` reset and timelines replayed.
+- Applied `useRef` + `useEffect` in all five timeline sections so GSAP timelines reference stable `onStageEnter`/`onStageLeave` handlers, keeping `runAnimation` memoized on `stage.id` only.
+- Memoized analytics helpers in `useAnalytics` (`useCallback` + `useMemo`) for stable `trackEvent`/`trackPageView`, preventing needless prop churn.
+- Rebuilt bundles (`npm run build`) to verify TypeScript + Vite clean; vendor chunk 749 kb / 900 kb budget ✅.
+
+### 2025-10-15 17:45 PDT – Timeline Step Labels & Visual Style Overlay (Codex Session 2)
+- Introduced shared `StepLabel` component (`src/components/briefing/StepLabel.tsx`) and replaced bespoke markup in all five sections so STEP badges now share stacked typography with heavier tracking; bumped sizes for improved legibility while keeping hero instructions adjacent.
+- Refreshed Stage 03 visual style cards with a darker gradient wash, subtle backdrop blur, and brighter `Visual Style` typography + stronger drop shadow so the overlay reads clearly without obscuring imagery.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). Validation sweep still pending the MCP screenshot pass.
+
+### 2025-10-15 18:55 PDT – Visual Direction Layout Pass (Codex Session 2)
+- Extended `StepLabel` with a large variant and applied it to the Visual Direction stage, scaling the STEP identifier and nudging the block toward center with additional padding.
+- Tightened the description block (360 px max width, smaller font) so copy wraps into shorter lines per stakeholder example.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). Pausing rollout to other stages until this layout is approved.
+
+### 2025-10-15 19:25 PDT – Typography Alignment Sprint (Codex Session 2)
+- Current emphasis: lock in premium typography across all timeline stages before propagation. Stage 03 acting as pattern source.
+- Added micro accent beneath “Direction”, elevated supporting descriptor (“Signature looks snap into place”), and keeping STEP stack anchored left while adjusting scale/gap.
+- Next: once Stage 03 locks, cascade the layout to remaining stages and capture viewport validation.
+
+### 2025-10-15 20:05 PDT – Stage 03 Descriptor Spacing (Codex Session 2)
+- Tweaked the Visual Direction header so the STEP stack nudges 24 px left (negative margin) while the descriptor shifts right via auto margins, widening the breathing room between columns without drifting the spine off grid.
+- After review the italic read too casual, so we pivoted to a lighter-weight uppercase treatment (slightly smaller, softer tracking, 75% opacity) that keeps the premium tone without overpowering the STEP block.
+- Updated PLAN S1 notes to capture the spacing + typography refinements before propagating to the other stages.
+
+### 2025-10-15 20:25 PDT – Stage 04/05 Template Propagation (Codex Session 2)
+- Mirrored the Stage 03 header template into Storyboard Assembly and Studios Handoff: both now use `StepLabel` `size="lg"` with the negative left margin, widened flex gap, and the same uppercase descriptor styling on the right.
+- Trimmed legacy heading/body copy in those sections so the primary descriptor carries the message (“Scene decks lock into multi-duration cuts” / “Production bundle hands off to studios in days”), keeping the timeline typography consistent.
+- Preserved animation hooks by retaining `data-storyboard-copy` / `data-handoff-copy`, and wired the descriptor paragraphs to the section `aria-labelledby` ids for accessibility continuity.
+
+### 2025-10-15 20:40 PDT – Descriptor Removal Directive (Codex Session 2)
+- Updated the template so Stage 03, 04, and 05 headings now show the STEP lockup only; supporting descriptions live in the body content below per new guidance.
+- Extended `StepLabel` to accept an `id` prop so each section can continue wiring `aria-labelledby` without relying on separate paragraph elements.
+- Studios Handoff keeps the CTA in the header but aligns it to the right of the STEP column; Storyboard + Styles headers now collapse to the single spine block for a cleaner, cinematic read.
+
+### 2025-10-16 09:45 PDT – Stage 05 Dossier Balance (Codex Session 2)
+- Relocated the stats grid and delivery ribbon into the left dossier column (using grid order classes to preserve mobile sequencing), which levels the column heights and shortens the overall mockup footprint without squeezing the storyboard imagery.
+- Ran `npm run build` to confirm the layout change compiles cleanly (vendor 749 kb / 900 kb, unchanged).
+
+### 2025-10-15 20:55 PDT – Stage 02 Alignment (Codex Session 2)
+- Enlarged the Story Engine STEP stack (`size="lg"`) and slotted it into the shared header template with the AI core indicator, pulling the column closer to the particle core via reduced section gaps and a slight negative top offset on the grid.
+- The left column now inherits the same negative margin pattern (`md:-ml-6`) so the STEP spine lines up with later frames, but the particle core still sits immediately beneath for the “close to the effect” read.
+- PLAN S2 now reflects that stages 02–05 share the STEP-only header; Hero remains to be migrated after sign-off.
+
+### 2025-10-15 21:10 PDT – Visual Style Overlay Revisit (Codex Session 2)
+- Removed the broad gradient wash over each style card and replaced it with compact badges behind the “Visual Style” label + style name so the imagery stays vibrant.
+- Added a subtle pulse dot and shadowed capsules to keep text legible without muting the card art; hover accent remains but now only lifts colour rather than overlaying opacity.
+- No animation hooks touched (the cards still carry `data-style-card` etc.); PLAN unchanged, but this note documents the alternative readability approach stakeholders asked for.
+
+### 2025-10-15 21:18 PDT – Overlay Rollback (Codex Session 2)
+- Per review screenshot, reverted to a single style-name pill and removed the extra “Visual Style” tag so the card art owns the frame again.
+- Capsule sits at ~55% black with a heavier drop shadow to keep the name legible without pulling tonal weight from the imagery.
+
+### 2025-10-15 21:25 PDT – Style Label Restore (Codex Session 2)
+- Pulled the pill background entirely so the style name returns to the original treatment: bold uppercase with a heavy drop shadow, no additional backdrop.
+- Hover accent and motion remain untouched; imagery is now fully unobstructed while the text stays readable via shadow only.
+
+### 2025-10-15 21:28 PDT – Style Label Shadow Tweak (Codex Session 2)
+- Softened the drop shadow to a tighter 16px/32px spread at 65% opacity—gives enough contrast without the earlier smoky halo.
+
+### 2025-10-15 21:32 PDT – Style Label Shadow Boost (Codex Session 2)
+- Bumped the shadow to 22px/48px at 85% opacity so the white label reads over brighter renders; imagery still unobstructed.
+
+### 2025-10-15 21:36 PDT – Style Label Contrast Pass (Codex Session 2)
+- Nudged the label colour toward a cool neon gray (`#f2f4ff`) and deepened the shadow to 24px/60px at 88% opacity so even the high-key Documentary frame stays readable.
+
+### 2025-10-15 21:42 PDT – Style Label TextShadow (Codex Session 2)
+- Swapped Tailwind drop-shadow for explicit textShadow (0 4px 16px + 0 0 8px, ~90% opacity) and slightly warmer neon tint. Should finally cut through the bright Documentary card without adding overlays.
+
+### 2025-10-14 16:05 PDT – Briefing Engine Audit (Codex Session 2)
+- Read SPEC, ARCHITECTURE, PLAN, REPORT, MCP playbook, and TASK to refresh scope: focus stays on timeline responsive polish + validation (T6 still open).
+- Page stack recap: `ReactLenis` + ScrollTrigger sync in `src/pages/BriefingEngine.tsx`, five-section timeline orchestrated via `BriefingTimeline`, adaptive motion tables in `sections/motion-config.ts`, and reduced-motion SVG fallbacks.
+- Noted debug artefacts for cleanup: hero `console.log` noise and manual `window.location.href` CTAs in `src/pages/BriefingEngine.tsx:50-124,191-199`, plus direct DOM querying in `AudienceBenefits` toggle logic.
+- Flagged unused state/computed values in `BriefingTimeline` (`progressOffset`, `activeStageMeta`, `nextStageMeta`, `cn` import) that can be pruned once progress rail returns.
+- Next focus after analysis: finish T6 validation sweep (Chrome DevTools MCP viewport passes, performance trace, analytics payload check) before further refactors.
+
+### 2025-10-15 18:05 PDT – Storyboard Restoration (Codex Session 2)
+- Reinstated the original storyboard card gallery and GSAP animation in Stage 04 after stakeholder clarification (Frame 2 stays textual, Frame 4 returns to multi-card layout).
+- Restored `storyboardFrames` data and gallery ScrollTrigger logic; reduced-motion fallback returns to the original descriptive list.
+- `npm run build` ✅ (vendor bundle 749 kb / 900 kb).
+
+— Codex Session 2
+
+
+### 2025-10-15 18:20 PDT – Scene Deck Removal (Codex Session 2)
+- Removed the animated scene deck grid from Stage 02 so only the neural synopses and Story Engine core remain (per updated direction).
+- Cleared SceneCards import, refs, and GSAP steps; reduced-motion summary now relies on the synopsis fallback alone.
+- `npm run build` ✅ (vendor bundle 749 kb / 900 kb).
+
+— Codex Session 2
+
+### 2025-10-15 20:10 PDT – Stage 05 Audit Kickoff (Codex Session 2)
+- Re-read `docs/gsap-debug-report-2025-10-15.md` and the Stage 05 entries in `motion-config.ts` to confirm current timing: background 0.6–0.94 s, copy overlap −0.25, mockup overlap −0.2 across tiers; scroll offsets reuse the default 0.75→0.45 window.
+- Walked through `StudiosHandoffSection.tsx` structure: animated trio = `[data-stage-background]` radial wash, `data-handoff-copy` grid (StepLabel, body, CTA), and `mockupRef` image block; reduced-motion path swaps in `ReducedMotionIllustration` card.
+- Verified hidden states now preset via `gsap.set(..., { autoAlpha: 0 })` with `lazy: false`, so backgrounds/copy/mockup start invisible; `data-motion-hide/show` handles motion vs static assets correctly.
+- Noted ScrollTrigger configuration uses `once: true`, `refreshPriority: 1`, and separate tracking trigger for stage analytics; matchMedia pathways cover base (≤1023 px) and desktop tiers via `resolveMotionTier`.
+- Next: map any UX/motion gaps (e.g., stagger opportunities, CTA emphasis, mockup scale on laptop tier) before recommending adjustments and sync with Sessions 1 & 3.
+
+— Codex Session 2
+
+### 2025-10-15 20:25 PDT – Frame 05 Mockup Ideation (Codex Session 2)
+- Pulled asset list from `Briefing Engine Assets/Storyboard Mockup` (Frame1–Frame6 + current `SB-Mockup.webp`) to prep remix concepts using Stage 04 imagery.
+- Brainstorm brief: replace single flat PDF render with multi-page storyboard booklet that showcases 3–4 frames per spread with succinct scene notes, production specs, and Cre8tive Studios branding to signal polish.
+- Early directions: (1) cinematic dossier spread with hero frame callout, (2) tri-fold deck preview showing contact sheet + metadata sidebar, (3) tablet-in-hand mockup with sticky-note annotations. Need to evaluate alignment with timeline aesthetic and animation constraints before committing.
+
+— Codex Session 2
+
+### 2025-10-15 20:45 PDT – Mockup Style Research (Codex Session 2)
+- **Archon MCP:** GSAP Showcase (Sept 2025 highlights such as Blinkpath, Won J. You) leans heavily on cinematic case-study spreads with layered hero imagery and accent glows—ideal precedent for a premium dossier treatment on Stage 05. *(archon search: “luxury case study deck 2025”)* 
+- **Context7:** TailwindCSS box-shadow utilities support colored/opacity-controlled shadows (`shadow-indigo-500/50`, `inset-shadow-sm`), giving us native tools to render holographic edges and inset highlights around the dossier frame. *(context7 `/tailwindlabs/tailwindcss.com`, topic “box shadow”)* 
+- **Web scan:** 2025 pitch-deck trend posts stress minimalist layouts with ample negative space and high-contrast typography (Visible.vc) while luxury storytelling decks emphasise ultra-polished spreads and metadata ribbons to reinforce deliverable credibility (FasterCapital; Doksly). Captured palette + layout cues for storyboards.
+- Decision: pursue the **Cinematic Dossier Spread**—best aligns with showcase inspiration, matches current premium deck trends, and lets us spotlight Stage 04 frames inside a refined PDF spread with hero callouts and delivery metadata.
+
+### 2025-10-15 21:00 PDT – Stage 05 Execution Strategy (Codex Session 2)
+- Constraint: no time for external design tooling (Figma/Photoshop). Need a code-first solution that still feels premium.
+- Proposal: build an inline “dual-page dossier” component directly in React/Tailwind:
+  - Use existing Frame1–Frame4 assets arranged via CSS grid within a frosted-glass container that fakes a spread (left/right panels with subtle rotation + shadow) and overlay metadata ribbons using Tailwind colored shadows.
+  - Add micro typography (serif scene titles, condensed specs) rendered as text so copy stays editable; apply `backdrop-blur`, `shadow-[color/opacity]`, and border gradients for the holographic accents.
+  - Animate with current ScrollTrigger timeline (fade/translate); optional secondary tween for metadata ribbon can be layered later without extra assets.
+
+### 2025-10-15 22:05 PDT – Briefing Engine Recovery (Codex Session 2)
+- Reconstructed `src/pages/BriefingEngine.tsx` to drop the legacy `BriefToStoryboardAnimation`, wire in the segmented `BriefingTimeline`, add the new briefing intro, and surface the FAQ block so the page matches current architecture.
+- Updated helmet meta copy per copy-refresh brief and removed hero console logs flagged during the prior audit.
+- `npm run build` ✅ (vendor 749 kb / 900 kb) confirming the restored page structure compiles cleanly.
+
+### 2025-10-15 22:30 PDT – Timeline Padding Pass (Codex Session 2)
+- Added `px-6 sm:px-10 lg:px-16 xl:px-20` horizontal padding to all timeline section wrappers so the content no longer hugs viewport edges (`HeroBriefSection`, `NeuralSynthesisSection`, `StyleSelectionSection`, `StoryboardAssemblySection`, `StudiosHandoffSection`).
+- Build verified (`npm run build`) to ensure the updates compile cleanly; next validation run should capture the improved gutters in viewport sweeps.
+
+### 2025-10-15 22:45 PDT – Visual Styles Section Removal (Codex Session 2)
+- Removed the `VisualStylesGallery` block from `src/pages/BriefingEngine.tsx` so the page flows directly from the timeline into Process Flow without the “Choose Your Creative Style” grid.
+- Build passes (`npm run build`); confirm during next QA sweep that the section no longer appears.
+
+### 2025-10-15 23:05 PDT – Hero + Padding Refresh (Codex Session 2)
+- Boosted horizontal padding across the timeline section wrappers (`HeroBriefSection`, `NeuralSynthesisSection`, `StyleSelectionSection`, `StoryboardAssemblySection`, `StudiosHandoffSection`) and `AudienceBenefits` to better match widescreen screenshots.
+- Updated the hero copy/layout to the “From Brief to Native Video” variant with left-aligned content, refreshed CTA pair (“Start Your Brief” + “Book a Studio Call”), and gradient heading per stakeholder screenshot (`src/pages/BriefingEngine.tsx`).
+- `npm run build` ✅ after adjustments.
+
+### 2025-10-15 23:40 PDT – Stage 01 Expansion & Hero Visual (Codex Session 2)
+- Reworked Stage 01 layout with expanded grid spacing, richer tiles, an “Includes” callout, and an elevated storyboard card so the vertical real estate feels intentional (`HeroBriefSection.tsx`).
+- Added the `HeroOrbitVisual` animation beside the hero copy—a gradient dossier preview with orbiting cards powered by Framer Motion—to deliver a premium companion visual on large screens (`HeroOrbitVisual.tsx`, `BriefingEngine.tsx`).
+- `npm run build` ✅ post-update.
+
+### 2025-10-15 23:48 PDT – Hero Headline Reflow (Codex Session 2)
+- Adjusted the hero headline container so “From Brief to Native Video” clamps faster on desktop, keeping the copy within three lines while staying centered alongside the new orbit visual (`src/pages/BriefingEngine.tsx`).
+- Ran Prettier on touched files for consistency and re-verified build (`npm run build` ✅).
+- Outcome: retains premium feel, entirely code/config-driven, easy to iterate alongside Stage 04 visuals.
+
+— Codex Session 2
+
+### 2025-10-15 21:40 PDT – Stage 05 Cinematic Dossier Implemented (Codex Session 2)
+- Replaced the flat PDF mockup with a code-driven dual-page dossier: left panel stacks Scenes 01–03 with imagery, synopses, and spec chips; right panel spotlights Scene 04 with hero overlay, stats block, and Studio ribbon.
+- Leveraged Tailwind colored shadows + backdrop blur for holographic edges, kept metadata live text, and introduced contextual labels (“Live Sync”, “Storyboard PDF · Ready for Handoff”).
+- Maintained GSAP setup (container still referenced via `mockupRef`), so hidden states + once-only timeline continue to function without selector changes.
+- Updated reduced-motion copy to mirror the new deliverable emphasis.
+- `npm run build` ✅ (vendor 749 kb / 900 kb).
+
+— Codex Session 2
+
+### 2025-10-15 22:05 PDT – Stage 05 Polish Pass (Codex Session 2)
+- Tuned scene descriptions to match actual frames (arrival gate, concierge greeting, sunset lounge) and refined the hero summary to emphasize turn-key handoff.
+- Elevated dossier styling: richer glass treatment for the scene stack, higher-contrast chips, larger spacing, and a gradient ribbon so the spread reads like a premium agency deck.
+- Softened the vertical “Final storyboard export” marker, warmed Live Sync/ribbon accents, and balanced contrast across both panels.
+- `npm run build` ✅ (vendor 749 kb / 900 kb).
+
+— Codex Session 2
+
+### 2025-10-15 22:30 PDT – Stage 05 Wide Layout Pass (Codex Session 2)
+- Expanded `.timeline-section-container` width clamps so the dossier stretches further on desktop/ultra-wide tiers; reduced vertical gaps to tighten the scroll.
+- Converted the scene stack into a responsive grid (two-up layout on large screens with last card spanning) and adjusted column weights (52/48) to reclaim horizontal real estate.
+- Rebuilt `npm run build` ✅ (vendor 749 kb / 900 kb).
+
+— Codex Session 2
+
+### 2025-10-15 23:00 PDT – Stage 05 Storyboard-Focused Layout (Codex Session 2)
+- Reoriented scene cards so imagery dominates: 16:9 canvases with overlay captions, metadata chips tucked into a single footer line, and hover elevation for premium feel.
+- Hero column now aligns via 16:9 canvas + horizontal stats grid to trim vertical height while keeping the handoff ribbon intact.
+- Build ✅ (`npm run build`, vendor 749 kb / 900 kb).
+
+— Codex Session 2
+
+### 2025-10-15 23:30 PDT – Stage 05 Reversion (Codex Session 2)
+- Rolled back to the cinematic dossier layout (three stacked scenes + hero column) after width experiments caused vertical sprawl.
+- Restored original container widths and GSAP config; rebuilt the section with the corrected scene copy from earlier pass.
+- `npm run build` ✅ (vendor 749 kb / 900 kb).
+
+— Codex Session 2
+
+### 2025-10-15 23:55 PDT – Stage 05 Refined Dossier Restore (Codex Session 2)
+- Brought back the premium dossier layout (three scene cards + hero column) with updated copy so we can compare directly against the original mockup.
+- Confirmed container widths match the responsive plan and rebuilt (`npm run build` ✅, vendor 749 kb / 900 kb).
+
+— Codex Session 2
+
+### 2025-10-16 00:20 PDT – Stage 05 Dossier Spread Pass (Codex Session 2)
+- Shifted the dossier upward toward the STEP heading and rebuilt the layout as a connected two-page spread (two hero scenes left, hero storyboard + supporting scene right) with a central spine.
+- Imagery now dominates each page (16:9 canvases), metadata chips sit beneath, and stats/CTA remain on the right without vertical imbalance.
+- `npm run build` ✅ (vendor 749 kb / 900 kb).
+
+— Codex Session 2
+
+— Codex Session 2
+
+### 2025-10-15 21:30 PDT – ParticleCore Research Deep Dive (Codex Session 2)
+- **Architecture recap:** `ParticleCore.tsx` keeps a single GSAP ticker loop with pooled particles, adaptive quality refs, and a ResizeObserver-fed `measure()` that syncs canvas backing resolution to CSS size. Active state/intensity rely on refs to avoid tearing down animation when props change.
+- **Pain points:** Current `measure()` writes `canvas.width/height` inside ResizeObserver, triggering recursive `needsResize` flags; during initial mount ScrollTrigger and Lenis kicks cause ~811 ms layout thrash (matches perf report). Also `drawParticles()` performs costly gradient/shadow work even when blur/shadow disabled because properties persist between iterations.
+- **Internal docs:** Story 1.14 + runtime validation tie forced reflow to `getBoundingClientRect()` reads in `measure()` and call stacks showing `_getComputedProperty2`; recommended batching reads or caching via ResizeObserver before render.
+- **External research:** Chrome Performance Insights (2025-10-08) reiterates batching layout reads and leveraging ResizeObserver/device-pixel boxes for canvas sizing; MDN highlights `devicePixelContentBoxSize` for HiDPI-safe measurements; Lenis README confirms our GSAP ticker integration pattern is current best practice and stresses disabling lag smoothing to avoid scroll desync.
+- **Remediation ideas:** Cache ResizeObserver `devicePixelContentBoxSize` into ref and only resize when dimensions actually change; decouple `measure()` from ticker by updating cached dims in observer callback; guard `drawParticles()` to skip blur/shadow property churn when disabled; consider dynamic particle spawn cap tied to measured area to keep density consistent.
+
+### 2025-10-15 22:05 PDT – ParticleCore Density Pass (Codex Session 2)
+- Raised adaptive counts to 220 (high tier) / 120 (medium tier) via `adaptive-config.ts`; bumped baseline intensity curve in `NeuralSynthesisSection` to 0.82 and tightened spawn interval (`ParticleCore.tsx`), so hero core feels fuller immediately.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). No perf trace yet—schedule quick scroll smoke plus Chrome MCP capture to ensure the extra particles stay within frame budget.
+
+### 2025-10-15 22:20 PDT – ParticleCore Density Pass v2 (Codex Session 2)
+- Further boosted tiers (high = 320, medium = 180) and lifted baseline intensity to 0.9; spawn cadence now bottoms at 4 frames so the core stays saturated without waiting through long gaps.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). Schedule viewport sweep + perf trace to document the heavier particle load.
+
+### 2025-10-15 22:45 PDT – ParticleCore Spawn Overhaul (Codex Session 2)
+- Added prime burst to pre-populate ~35% of the pool, widened spawn offsets, and introduced force flag so initialization ignores active state.
+- Spawn interval now scales with intensity (down to 1 frame) and spawns batches tied to configured particle counts; cap at 32 per tick to stay sane even if config jumps to 10k.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). Need to run scroll smoke + perf trace with the new emitter behaviour before shipping.
+
+### 2025-10-15 23:05 PDT – ParticleCore Revert (Codex Session 2)
+- Rolled back the mega-burst experiment: lifetimes returned to baseline, spawn offsets trimmed, prime fill capped at 40%, and batch sizes back to 32 max so performance recovers while still benefiting from earlier spawn overhaul.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). Ready to re-test visuals/perf at the earlier 320/180 tier settings.
+
+### 2025-10-15 23:55 PDT – ParticleCore Incremental Boost (Codex Session 2)
+- Reapplied the lighter custom emitter: GSAP ticker loop, 60–120 frame lifetimes, size range ~2.2–5.4px, 45% prime fill, and spawn batches up to 48 with brighter gradients; `adaptive-config` high/medium tiers restored to 10 000 / 7 500 counts per earlier request.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). Ready for perf/visual sanity check in browser.
+
+### 2025-10-15 23:42 PDT – ParticleCore Glow Shell (Codex Session 2)
+- Added layered CSS aura around the canvas (two radial gradients + holographic ring) with new `animate-glow-pulse` utilities, so the core reads larger without touching particle counts.
+- `npm run build` ✅ (vendor 749 kb / 900 kb). Next: capture viewport screenshot to confirm visual impact + perf unchanged.
+
+# AI Product Charter — Hero Section Reinvention Research (2025-10-15 Codex Session 2)
+- **Problem:** Current homepage hero lacks the distinctive premium SaaS storytelling, layered proof, and cinematic polish needed to convert enterprise decision makers exploring cre8tive.ai.
+- **Target User:** B2B marketing leaders, CMOs, and innovation heads evaluating high-end AI platforms who expect world-class craft comparable to leading premium SaaS brands.
+- **Success Signal:** A research-backed hero strategy and pattern library that, when implemented, delivers memorable messaging, elevated visuals, and benchmarks favorably against top-tier SaaS experiences in stakeholder reviews.
+
+### 2025-10-15 10:45 PDT – Archon MCP Sweep (Codex Session 2)
+- Ran Archon queries (`"premium SaaS hero design"`, `"hero section best practices SaaS"`, `"landing page hero messaging framework"`); current RAG corpus surfaced generic dev resource listings with no actionable hero insights. Logging gap and proceeding with Context7 + web research to source fresh premium SaaS hero patterns.
+
+### 2025-10-15 10:52 PDT – Context7 ShaderGradient Review (Codex Session 2)
+- Pulled `/ruucm/shadergradient` docs for modern gradient canvases; snippets focus on React integration but confirm availability of lightweight stateless component and URL-configurable presets that can deliver animated gradient backdrops without heavy custom GLSL. Noted as candidate for hero background wow-effect when balancing reliability/perf.
+
+### 2025-10-15 11:20 PDT – Premium SaaS Hero Research Synthesis (Codex Session 2)
+- Copy formula emerging from 2024–2025 teardown articles (SparkReach, BeamLocal, Instant analysis of 1,000 Shopify homepages): lead with a 5–9 word outcome headline, follow with one-sentence proof/qualifier, immediately pair a primary CTA and optional secondary link, and surface trust (logos, metrics) within the fold.
+- Layout norms: keep CTA stack top-right/center on desktop with headline left-aligned; hero height ~75% viewport to preserve scroll cue; support text limited to 1–2 lines to maintain scannability; embed social proof chips or mini-metric bar under CTA.
+- Messaging emphasis: answer "what it is" + "who it's for" + "why it wins" above the fold; frameworks like PAS/AIDCA recommended to sharpen urgency without hype.
+- Visual direction: top-performing SaaS brands either spotlight polished product UI mockups or run premium lifestyle photography with consistent color grading; majority pair visuals with gentle parallax/micro-motion (hover shifts, subtle scroll parallax) rather than heavy 3D scenes.
+- Background treatments: 2025 trend coverage highlights high-contrast gradients, layered blurs/glows, softly animated geometric fields, or shader-driven plasma backgrounds—paired with glassmorphism cards or frosted panels to keep copy legible while delivering "wow" without instability.
+- Validation signals: 45% of high-performing heroes lean on a single dominant CTA, while 73% highlight product imagery; social proof (logos/case metrics) increases conversion when clustered near CTA.
+
+# Next Steps — Hero Redesign
+- Draft wireframe + asset list aligned with 12-col layout (S1).
+- Prototype animated background layers (ShaderGradient or custom CSS/Canvas) with prefers-reduced-motion fallback (S2).
+- Build copy/CTA cluster component with trust strip placement (S3).
+- Assemble visual narrative column with product montage + parallax interactions (S4).
+- Refresh nav + integrate agent widget treatment (S5).
+- Schedule validation suite (MCP sweeps, perf trace, docs updates) post-implementation (S6).
+
+### 2025-10-15 12:40 PDT – Hero Implementation Pass (Codex Session 2)
+- Replaced legacy video-driven hero with unified responsive component (no more Desktop/Mobile split) featuring animated gradient surface, halo/noise layers, and prefers-reduced-motion fallbacks.
+- Built left-column copy cluster: outcome headline, proof sentence, CTA pair, and trust chip grid powered by lucide icons; CTAs link to `/briefing-engine` and `/contact`.
+- Crafted hero showcase column: campaign workspace card, staged workflow tiles, delivery metrics, plus floating producer/timeline cards with controlled motion.
+- Cleaned dead components (`DesktopHero`, `MobileHero`, `VideoBackground`, `HeroContentBold`), added utility classes for background/motion, and re-ran `npm run build` (✅).
+- Outstanding: nav glass upgrade + agent widget alignment (S5) and validation suite/documentation updates (S6).
+
+### 2025-10-15 21:55 PDT – Hero STEP + Headline Alignment (Codex Session 2)
+- Reworked the Stage 01 header so the STEP spine (large variant) sits directly beside “Lock Your Brief In Minutes”; removed the “Briefing Engine · AI Intake” label and switched the headline to uppercase, high-tracking type to mirror the Step aesthetic.
+- Subheadline now indents to the STEP column width and shares the same ref for animation sequencing; StepLabel handles empty labels without drawing the accent bar.
+
+### 2025-10-15 22:05 PDT – Hero Header Refinement (Codex Session 2)
+- Softened the hero headline (font-semibold, tighter tracking) and tightened vertical gaps so the header occupies less viewport height.
+- Shifted the entire lockup left (StepLabel `md:-ml-12`, container padding reduced) so the STEP spine sits closer to the viewport edge while the line remains legible.
+
+### 2025-10-15 22:12 PDT – Hero Header Revert (Codex Session 2)
+- Restored the hero heading to its original timeline style (bold tracking-tight type) while leaving the StepLabel in place with no secondary copy; subheadline alignment returns to the earlier 240px offset.
+
+### 2025-10-15 22:25 PDT – Hero Step Reposition (Codex Session 2)
+- Centered the STEP spine within the hero header (`align="center"`, `forceAccent`) so the glowing bar reappears even without a label, while the headline/subheadline shift left.
+- Header now uses a split layout (copy on the left, STEP column centered via translate) so the Step badge feels prominent without crowding the headline.
+
+### 2025-10-15 22:40 PDT – Hero Headline Typeface Sync (Codex Session 2)
+- Hero headline now uses the same `text-5xl md:text-6xl font-black tracking-tight` style as “The Briefing Runway,” while the STEP badge retains the original typography (scaled up + glow only).
+### 2025-10-15 23:58 PDT – Business DNA Revival (Codex Session 2)
+- Ported the legacy Business DNA data set into Stage 01: campaign name, brand, audience, launch window, plus new platform cards for YouTube/TikTok so the section reflects the original inputs.
+- Refreshed the accompanying copy blocks and dossier card to highlight how intake data flows into Studio-ready deliverables.
+### 2025-10-16 00:05 PDT – Stage 01 Layout Polish (Codex Session 2)
+- Removed the legacy bullet list, tightened the right-hand dossier card, and retitled it “Platforms, Formats, Durations” so the frame matches the annotated mock.
+- Realigned platform cards and production metadata to sit higher in the container and align vertically with the form entries.
+- `npm run build` ✅

@@ -477,7 +477,7 @@ Animation strategy for GSAP + Lenis + Framer Motion integration:
 **Location:** `src/pages/BriefingEngine.tsx`, `src/components/briefing/*`
 **Key Components:**
 - BriefingHero.tsx — split-screen hero with deep black/indigo gradient and dual CTAs
-- BriefToStoryboardAnimation.tsx — animates brief inputs transforming into storyboard frames
+- BriefingTimeline.tsx — segmented scroll narrative that auto-plays stage animations on section entry
 - VisualStylesGallery.tsx & StyleCard.tsx — eight-style grid with GSAP ScrollTrigger stagger reveals
 - BriefingProcessFlow.tsx & ProcessStepCard.tsx — four-step Define → Style → AI Processing → Review timeline
 - WorkflowTransformation.tsx & TransformationValueCard.tsx — traditional vs AI comparison with value props
@@ -498,9 +498,9 @@ Animation strategy for GSAP + Lenis + Framer Motion integration:
 - **What changes:**
   - Replace the single 17 s pinned timeline in `BriefToStoryboardAnimation.tsx` with five stacked sections (Hero Intake, Neural Synthesis, Style Selection, Storyboard Assembly, Studios Handoff).
   - Each section auto-plays its GSAP timeline on enter via `useScrollTriggerAnimation`, with snap-to-stage progress indicators and optional click/keyboard advance.
-  - Introduce instruction/prompt UI (“Scroll to brief the AI ▸”), right-edge progress rail, and analytics events (`timeline_stage_view`, `timeline_secondary_control`).
-  - Maintain adaptive performance tiers per section and ensure reduced-motion fallback swaps animations for fades/static imagery.
-- **Implementation status:** Design & research complete; component extraction and orchestration planned per `.codex/PLAN.md` (Briefing Timeline Segmentation). Delivery will update this entry with concrete component names once refactor lands.
+  - Introduce instruction/prompt UI (“Scroll to brief the AI ▸”), right-edge progress rail, and analytics events (`timeline_stage_view`, `timeline_secondary_control`, `timeline_restart`).
+  - Maintain adaptive performance tiers per section and ensure reduced-motion fallback swaps animations for fades/static imagery; when `prefers-reduced-motion` is true, lightweight ScrollTriggers keep stage progression without running timelines.
+- **Implementation status:** Completed 2025-10-14 — segmented timeline live (`BriefingTimeline.tsx` + section components). Current workstreams focus on polish (reduced-motion imagery, focus states) and analytics validation.
 
 ### 12. Studios Platform-Native Module (Planned)
 **Purpose:** Future Studios page section showcasing platform-native aspect ratio delivery.

@@ -6,6 +6,7 @@
 **Story Context:** Story 1.11 - Performance Optimization & Responsive Testing
 **Brief Date:** 2025-10-13
 **Status:** Ready for Implementation
+> **2025-10-14 Update:** The pinned `BriefToStoryboardAnimation` has been replaced by the segmented `BriefingTimeline` experience. Performance checks now cover each section-level timeline; historical references to the legacy component remain for context.
 
 ---
 
@@ -175,7 +176,7 @@ interface CoreWebVitalsThresholds {
 - [ ] Measures frame rate during GSAP scroll-triggered animations
 - [ ] Captures **average FPS**, **minimum FPS**, **dropped frame count**
 - [ ] Tests during critical animation sequences:
-  - BriefToStoryboardAnimation scroll reveal (frames 1-6)
+  - BriefingTimeline segmented sections (hero, synthesis, styles, storyboard, handoff)
   - ParticleCore Canvas animation (continuous RAF loop)
   - Hero section GSAP timeline
 - [ ] Reports frames below 60fps threshold (16.67ms budget)

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewport Debug</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #00ff00;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .info { margin: 10px 0; }
+    .label { color: #00aaff; }
+    .value { color: #ffaa00; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Viewport Diagnostics</h1>
+  <div class="info">
+    <span class="label">window.innerWidth:</span>
+    <span class="value" id="innerWidth"></span>
+  </div>
+  <div class="info">
+    <span class="label">window.innerHeight:</span>
+    <span class="value" id="innerHeight"></span>
+  </div>
+  <div class="info">
+    <span class="label">screen.width:</span>
+    <span class="value" id="screenWidth"></span>
+  </div>
+  <div class="info">
+    <span class="label">screen.height:</span>
+    <span class="value" id="screenHeight"></span>
+  </div>
+  <div class="info">
+    <span class="label">devicePixelRatio:</span>
+    <span class="value" id="dpr"></span>
+  </div>
+  <div class="info">
+    <span class="label">Physical Resolution:</span>
+    <span class="value" id="physical"></span>
+  </div>
+  <div class="info">
+    <span class="label">OS Scaling:</span>
+    <span class="value" id="scaling"></span>
+  </div>
+  
+  <script>
+    function updateDimensions() {
+      document.getElementById('innerWidth').textContent = window.innerWidth + 'px (CSS pixels)';
+      document.getElementById('innerHeight').textContent = window.innerHeight + 'px (CSS pixels)';
+      document.getElementById('screenWidth').textContent = screen.width + 'px';
+      document.getElementById('screenHeight').textContent = screen.height + 'px';
+      document.getElementById('dpr').textContent = window.devicePixelRatio;
+      document.getElementById('physical').textContent = 
+        (window.innerWidth * window.devicePixelRatio).toFixed(0) + '×' + 
+        (window.innerHeight * window.devicePixelRatio).toFixed(0) + 'px (approx)';
+      document.getElementById('scaling').textContent = 
+        (window.devicePixelRatio * 100).toFixed(0) + '%';
+    }
+    
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+  </script>
+</body>
+</html>

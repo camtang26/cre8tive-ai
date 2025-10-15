@@ -62,7 +62,7 @@ recommendations:
   immediate: []  # No blocking issues
   future:
     - action: "Consider code-splitting GSAP ScrollTrigger if not used on all pages"
-      refs: ["src/components/briefing/BriefToStoryboardAnimation.tsx"]
+      refs: ["src/components/briefing/BriefingTimeline.tsx"]
       priority: low
     - action: "Monitor bundle size as additional GSAP plugins are added in Story 1.7 and beyond"
       refs: ["package.json"]

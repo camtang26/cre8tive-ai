@@ -1,0 +1,141 @@
+# Produce Animation Workflow - FLAGSHIP
+# Complete automated pipeline from concept to production
+# Uses Task tool for real orchestration
+# Version: 2.0.0-alpha.0
+
+name: produce-animation
+description: "Complete automated animation production pipeline with zero manual coordination"
+author: "GSAP Excellence Engine v2"
+version: "2.0.0-alpha.0"
+complexity: "complex"
+flagship: true
+uses_task_tool: true
+
+# Configuration
+config_source: "{project-root}/bmad/gsap-excellence-v2/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence-v2"
+pattern_library: "{module_root}/patterns"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers (All four used)
+mcp_servers:
+  archon:
+    tools: ["rag_search_knowledge_base", "rag_search_code_examples"]
+    purpose: "GSAP technical patterns"
+    required: true
+
+  context7:
+    tools: ["get-library-docs"]
+    purpose: "Latest GSAP API docs"
+    required: true
+
+  perplexity:
+    tools: ["perplexity_research"]
+    purpose: "Premium animation examples"
+    required: true
+
+  chrome_devtools:
+    tools: ["take_screenshot", "list_console_messages", "performance_start_trace"]
+    purpose: "Performance validation"
+    required: false
+
+# Agent orchestration
+primary_agent: "gsap-studio"
+uses_task_tool_for:
+  - research_phase
+  - implementation_phase
+  - validation_phase (optional)
+
+# Module paths
+installed_path: "{module_root}/workflows/produce-animation"
+instructions: "{installed_path}/instructions.md"
+template: "{installed_path}/template.md"
+
+# Output
+default_output_file: "{output_folder}/animation-production-{{animation_name}}-{{date}}.md"
+
+# Workflow inputs
+inputs:
+  animation_request:
+    description: "What animation do you need?"
+    required: true
+
+  component_context:
+    description: "Component/page/element to animate"
+    required: true
+
+  brand_personality:
+    description: "Brand personality (playful, professional, edgy, minimal)"
+    required: false
+    default: "professional"
+
+  animation_goals:
+    description: "Goals: engagement, delight, storytelling, wow factor"
+    required: false
+    default: "premium feel and user engagement"
+
+  constraints:
+    description: "Performance budget, timeline, accessibility requirements"
+    required: false
+
+  target_framework:
+    description: "Framework: vanilla, react, vue, svelte"
+    required: false
+    default: "vanilla"
+
+  dev_url:
+    description: "Dev server URL for testing (optional)"
+    required: false
+
+# Expected outputs
+outputs:
+  research_report:
+    description: "Multi-source research findings with citations"
+    format: "markdown"
+
+  implementation_code:
+    description: "Production-ready GSAP code with full documentation"
+    format: "code files"
+
+  integration_guide:
+    description: "Step-by-step integration instructions"
+    format: "markdown"
+
+  validation_report:
+    description: "Performance metrics and quality validation"
+    format: "markdown"
+
+  complete_package:
+    description: "All deliverables combined"
+    format: "markdown document"
+
+# Success criteria
+success_criteria:
+  - "User provides requirements once"
+  - "Zero manual agent switches"
+  - "Research from 3 MCPs completed"
+  - "Implementation works on first try"
+  - "Performance validated (60fps if Chrome DevTools available)"
+  - "Accessibility compliant (reduced-motion fallback)"
+  - "Complete documentation delivered"
+  - "User satisfaction: \"This actually saved time\""
+
+# Performance targets
+estimated_duration: "30-60 minutes total"
+phases:
+  phase1_requirements: "5 minutes"
+  phase2_research: "10-15 minutes (Task tool + 3 MCPs)"
+  phase3_implementation: "15-25 minutes (Task tool)"
+  phase4_validation: "5-10 minutes (internal or Task tool)"
+  phase5_delivery: "2-5 minutes"
+
+# Quality standards
+quality_targets:
+  automation_level: "100% (zero manual steps after initial request)"
+  fps_target: "60fps on mid-range devices"
+  accessibility: "100% compliant"
+  first_time_success: "60%+"
+  code_quality: "production-ready, fully commented"

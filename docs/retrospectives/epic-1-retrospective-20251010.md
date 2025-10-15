@@ -5,6 +5,7 @@
 **Participants:** Cameron (Product Owner/Developer), Dev Agents (Claude Sonnet 4.5)
 **Epic Duration:** 2025-10-06 to 2025-10-09 (4 days)
 **Focus:** GSAP/Lenis ScrollTrigger Mastery - Deep Learning Session
+> **2025-10-14 Update:** The original pinned `BriefToStoryboardAnimation.tsx` discussed throughout this retrospective has been replaced by the segmented `BriefingTimeline` implementation. The lessons remain applicable; map action items to the new timeline architecture.
 
 ---
 

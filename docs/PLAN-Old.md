@@ -451,40 +451,17 @@ Purpose: Use in storyboard assembly animation
 
 ---
 
-### Next Components to Build (Phase 2):
+### Segmented Timeline Implementation (Phase 2 Refresh)
 
-**Priority 1: Visual Updates (READY - Assets in hand!)**
-1. Update color palette from bright purple/green to dark indigo/cyan/fuchsia
-2. Integrate **9 visual style assets** into gallery (update grid layout)
-3. Update hero gradient to new palette
-4. Update CTA section to new palette
-5. Update StoryboardDivider colors to match new palette
+**Delivered**
+- Dark indigo/cyan/fuchsia palette deployed across hero, CTA, and dividers; 9 visual styles + storyboard frames integrated with proper asset dimensions.
+- New `BriefingTimeline` orchestrator replaces the pinned GSAP timeline. Five stacked sections (`HeroBriefSection`, `NeuralSynthesisSection`, `StyleSelectionSection`, `StoryboardAssemblySection`, `StudiosHandoffSection`) now auto-play concise ScrollTrigger timelines on entry with adaptive performance + reduced-motion guards.
+- Instruction rail, progress indicator, and optional keyboard/tap advance provide clear affordance for executive users; analytics events (`timeline_stage_view`, `timeline_manual_advance`, `timeline_restart`) wired via `useAnalytics`.
 
-**Priority 2: Animation Components**
-5. `BriefToStoryboardAnimation.tsx` - 15s scroll-driven GSAP timeline
-- Stage 1: Form fields animate in (0-3s)
-- Stage 2: AI processing with Canvas particles (3-6s)
-- Stage 3: Style selection with burst (6-9s)
-- Stage 4: Storyboard assembly (9-15s)
-- Stage 5: Studios handoff transition (15-16s)
-
-6. `BriefingFormMockup.tsx` - Holographic card with 7 field animations
-7. `AIProcessingVisual.tsx` - Canvas particle swirl + holographic effects
-8. `StyleSelectionMoment.tsx` - 8 cards → 1 selected → burst animation
-9. `StoryboardAssembly.tsx` - Panels fly in, frames draw, PDF appears
-10. `StudiosHandoff.tsx` - Gradient transition indigo → orange
-
-**Priority 3: Polish Components**
-11. `BriefingProcessFlow.tsx` - 4-step workflow with connectors
-12. `ProcessStepCard.tsx` - Color-coded steps with icons
-13. Enhanced `BriefingHero.tsx` - Split-screen with animation preview
-
-**Estimated Timeline:**
-- Color palette update: ~10 minutes
-- Visual asset integration: ~15 minutes
-- Animation components (5): ~60-90 minutes total
-- Testing & polish: ~20 minutes
-- **Total: ~2-2.5 hours to stunning, production-ready page**
+**Next Focus**
+1. Visual polish & accessibility: refine hover/focus states, provide reduced-motion imagery fallbacks, ensure progress rail remains legible across breakpoints.
+2. Update legacy documentation/workflows to reference the segmented timeline rather than `BriefToStoryboardAnimation`.
+3. Record browser validation (Chrome trace, secondary browsers) and add smoke tests for section visibility/analytics if feasible.
 
 ---
 

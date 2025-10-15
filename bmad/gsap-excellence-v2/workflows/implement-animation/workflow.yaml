@@ -1,0 +1,6 @@
+# Implement Animation Workflow
+name: implement-animation
+description: "Build animation from pattern or concept"
+complexity: "standard"
+estimated_duration: "10-20 minutes"
+config_source: "{project-root}/bmad/gsap-excellence-v2/config.yaml"

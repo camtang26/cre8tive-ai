@@ -1,0 +1,8 @@
+Title: Gartner Survey Finds 53% of Consumers Distrust AI-Generated Search Results
+URL: https://www.gartner.com/en/newsroom/press-releases/2025-09-03-gartner-survey-finds-53-percent-of-consumers-distrust-ai-generated-search-results
+Date Accessed: 2025-10-14
+
+Key Passage (excerpted from press release):
+"As AI-generated search content becomes more prevalent, 53% of consumers report they distrust AI-generated search results. Among higher-income households, 58% express fear of missing out by not using AI search, indicating a tension between adoption and trust." (Gartner, Sept 3 2025)
+
+Context: Press release summarizing 2025 consumer survey about trust in AI search results, highlighting need for transparency and proof when using AI-driven experiences.

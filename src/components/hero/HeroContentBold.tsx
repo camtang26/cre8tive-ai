@@ -1,22 +1,22 @@
-import { motion } from "framer-motion";
-import { MagneticButton } from "@/components/ui/magnetic-button";
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion"
+import { MagneticButton } from "@/components/ui/magnetic-button"
+import { ArrowRight } from "lucide-react"
+import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 export const HeroContentBold = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+        y: (e.clientY / window.innerHeight - 0.5) * 20
+      })
+    }
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
 
   return (
     <div className="relative z-[2] w-full h-[90vh] min-h-[700px] flex items-center overflow-hidden">
@@ -29,9 +29,9 @@ export const HeroContentBold = () => {
               linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px',
+            backgroundSize: "50px 50px",
             transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
-            transition: 'transform 0.2s ease-out'
+            transition: "transform 0.2s ease-out"
           }}
         />
       </div>
@@ -44,23 +44,22 @@ export const HeroContentBold = () => {
           initial={{
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
-            opacity: 0,
+            opacity: 0
           }}
           animate={{
             y: [null, Math.random() * window.innerHeight],
-            opacity: [0, 0.6, 0],
+            opacity: [0, 0.6, 0]
           }}
           transition={{
             duration: 3 + Math.random() * 4,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: Math.random() * 2
           }}
         />
       ))}
 
       <div className="container mx-auto px-4 md:px-8 h-full flex items-center justify-center md:justify-start">
         <div className="w-full max-w-7xl mx-auto flex justify-center md:justify-start md:ml-12 lg:ml-20">
-
           {/* HERO CONTENT - ASYMMETRIC LEFT */}
           <motion.div
             className="flex flex-col justify-center items-start text-left space-y-8 md:space-y-10 lg:space-y-12 max-w-4xl lg:max-w-5xl relative"
@@ -86,15 +85,16 @@ export const HeroContentBold = () => {
                     className="absolute inset-0 blur-3xl opacity-20"
                     animate={{
                       scale: [1, 1.05, 1],
-                      opacity: [0.2, 0.3, 0.2],
+                      opacity: [0.2, 0.3, 0.2]
                     }}
                     transition={{
                       duration: 5,
                       repeat: Infinity,
-                      ease: "easeInOut",
+                      ease: "easeInOut"
                     }}
                     style={{
-                      background: "radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent 70%)",
+                      background:
+                        "radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent 70%)"
                     }}
                   />
                 </div>
@@ -114,16 +114,16 @@ export const HeroContentBold = () => {
                   initial={{ left: 0 }}
                   animate={{
                     left: ["0px", "min(260px, 58vw)"],
-                    opacity: [0, 1, 1, 0],
+                    opacity: [0, 1, 1, 0]
                   }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: 2,
+                    delay: 2
                   }}
                   style={{
-                    boxShadow: "0 0 10px rgba(6, 182, 212, 1)",
+                    boxShadow: "0 0 10px rgba(6, 182, 212, 1)"
                   }}
                 />
               </motion.div>
@@ -134,7 +134,7 @@ export const HeroContentBold = () => {
               className="space-y-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.0, duration: 0.8 }}
+              transition={{ delay: 1, duration: 0.8 }}
             >
               <p className="text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white/95 leading-tight tracking-tight">
                 The Future of
@@ -154,9 +154,8 @@ export const HeroContentBold = () => {
               Transform your operations with cutting-edge AI video production, autonomous agents, and intelligent automation.
             </motion.p>
           </motion.div>
-
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

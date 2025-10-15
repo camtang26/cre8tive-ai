@@ -37,23 +37,30 @@ gsap.registerPlugin(ScrollTrigger)
  *
  * @see docs/architecture/animation-patterns.md - React Integration section
  */
+type AnimationContext = {
+  prefersReducedMotion: boolean
+  matchMedia: gsap.MatchMedia
+}
+
 export function useScrollTriggerAnimation(
   containerRef: RefObject<HTMLElement>,
-  animationFn: () => void
+  animationFn: (context: AnimationContext) => void
 ): void {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
-    // Skip animations if user prefers reduced motion
-    if (prefersReducedMotion) return
-
     // Ensure container exists
     if (!containerRef.current) return
 
+    const matchMedia = gsap.matchMedia()
+
     // Create GSAP context for automatic cleanup
-    const ctx = gsap.context(animationFn, containerRef)
+    const ctx = gsap.context(() => animationFn({ prefersReducedMotion, matchMedia }), containerRef)
 
     // Cleanup function: revert ALL animations and ScrollTriggers
-    return () => ctx.revert()
+    return () => {
+      matchMedia.revert()
+      ctx.revert()
+    }
   }, [prefersReducedMotion, containerRef, animationFn])
 }

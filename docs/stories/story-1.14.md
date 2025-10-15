@@ -2,6 +2,8 @@
 
 Status: ReadyForReview
 
+> **2025-10-14 Note:** `BriefToStoryboardAnimation.tsx` has been superseded by the segmented timeline (`BriefingTimeline.tsx` + section components). References to the legacy file remain here for historical traceability; new work should map adaptive performance checkpoints to the segmented sections.
+
 ## Story
 
 As a user on any device (high-end desktop, mid-range laptop, or budget mobile),

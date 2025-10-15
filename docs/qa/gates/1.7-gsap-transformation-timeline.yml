@@ -59,8 +59,8 @@ recommendations:
   immediate: []  # No blocking issues
   future:
     - action: "Consider adding manual test infrastructure to validate ScrollTrigger behavior across browsers"
-      refs: ["BriefToStoryboardAnimation.tsx"]
+      refs: ["BriefingTimeline.tsx", "src/components/briefing/sections/*"]
       priority: low
     - action: "Add visual regression tests when test infrastructure available to catch animation timing issues"
-      refs: ["BriefToStoryboardAnimation.tsx"]
+      refs: ["BriefingTimeline.tsx", "src/components/briefing/sections/*"]
       priority: low

@@ -6,8 +6,6 @@ import {
   BadgeCheck,
   CheckCircle2,
   Handshake,
-  Layers,
-  Orbit,
   Palette,
   PenTool,
   Sparkles,
@@ -31,9 +29,12 @@ type StageConfig = {
   deliverables: string[];
   outputs: { label: string; value: string }[];
   insight: string;
+  cardTag: string;
 };
 
 type LayerPosition = "current" | "next" | "next2" | "previous";
+
+const pipelineLabels = ["Brief", "Narrative", "Style", "Storyboard", "Studios"];
 
 const stages: StageConfig[] = [
   {
@@ -59,6 +60,7 @@ const stages: StageConfig[] = [
     ],
     insight:
       "Teams describe this step as completing a cinematic treatment—not a spreadsheet—so strategists stay engaged from minute one.",
+    cardTag: "Inputs locked",
   },
   {
     id: "ai-synopsis",
@@ -78,35 +80,37 @@ const stages: StageConfig[] = [
       "Alternate storyline suggestions",
     ],
     outputs: [
-      { label: "Narrative beats", value: "6–10 scenes drafted" },
+      { label: "Narrative beats", value: "Structured scene outline" },
       { label: "Feedback loop", value: "Request alternates instantly" },
     ],
     insight:
       "Stakeholders can request adjustments before design ever spins up—cutting entire approval cycles out of the process.",
+    cardTag: "Story engine live",
   },
   {
     id: "choose-style",
     step: "Step 03",
-    title: "Choose Your Visual Style",
-    summary: "Instantly preview nine predetermined aesthetics tailored to your brand voice.",
+    title: "Choose Your Visual Direction",
+    summary: "Preview brand-safe directions and lock the palette, typography, and motion language.",
     description:
-      "Creative teams toggle between Minimalist, Cinematic, Futuristic, and more. Each style is pre-curated and brand-safe, locking palette, typography, and motion language.",
+      "Creative teams toggle curated looks, then tailor them to the brief so every cut stays on-brand across channels.",
     timelineLabel: "Creative selection",
     icon: Palette,
     accent: briefingPalette.colors.indigo,
     accentSoft: `${briefingPalette.colors.indigo}33`,
-    highlight: "Aesthetic locked-in",
+    highlight: "Direction locked-in",
     deliverables: [
-      "Nine pre-approved style previews",
-      "Brand-safe color & typography mapping",
-      "Version control for quick approvals",
+      "Curated style library with brand-safe presets",
+      "Color, type, and motion guidance",
+      "Version history for quick approvals",
     ],
     outputs: [
-      { label: "Visual styles", value: "9 curated options" },
-      { label: "Consistency", value: "Palette & type locked in" },
+      { label: "Visual direction", value: "Locked before production" },
+      { label: "Consistency", value: "Palette & type captured" },
     ],
     insight:
-      "Style cards behave like a live brand playbook—marketing sees polish immediately and buy-in happens before production costs accrue.",
+      "Style cards act as a living brand playbook—marketing signs off on polish before production costs accrue.",
+    cardTag: "Direction set",
   },
   {
     id: "ai-storyboard",
@@ -114,7 +118,7 @@ const stages: StageConfig[] = [
     title: "AI Generates Your Storyboard",
     summary: "Scene-by-scene frames, narration, and motion cues render automatically.",
     description:
-      "Once narrative and aesthetic are approved, Cre8tive AI produces boards with director notes, camera moves, channel crops, and voice-over cues.",
+      "Once narrative and aesthetic are approved, Cre8tive AI produces boards with director notes, platform crops, and voice-over cues for every cut length.",
     timelineLabel: "Realtime build",
     icon: PenTool,
     accent: briefingPalette.colors.cyan,
@@ -122,15 +126,16 @@ const stages: StageConfig[] = [
     highlight: "Storyboard drafted automatically",
     deliverables: [
       "Scene-by-scene boards with director notes",
-      "Channel crops (16:9, 1:1, 9:16) auto-prepped",
+      "Native crops for 16:9, 1:1, 9:16",
       "On-brand copy & motion prompts",
     ],
     outputs: [
-      { label: "Shots generated", value: "12–18 frames/brief" },
-      { label: "Time saved", value: "96% faster vs manual" },
+      { label: "Storyboard", value: "PDF + web preview" },
+      { label: "Cuts prepared", value: "15s · 30s · 60s" },
     ],
     insight:
       "Directors never start from a blank frame—technical cues and copy alignment arrive with the storyboard, ready for Studios.",
+    cardTag: "Boards ready",
   },
   {
     id: "review-handoff",
@@ -155,6 +160,7 @@ const stages: StageConfig[] = [
     ],
     insight:
       "Ops teams love the zero-friction baton pass—Studios receives everything they need in one payload with no reformatting.",
+    cardTag: "Studio on deck",
   },
 ];
 
@@ -265,7 +271,7 @@ export function BriefingProcessFlow() {
 
   return (
     <section
-      className="relative isolate overflow-hidden px-4 py-24 md:px-8 lg:px-12"
+      className="relative isolate overflow-hidden px-4 py-32 md:px-8 md:py-36 lg:px-12"
       aria-labelledby="briefing-workflow-heading"
       role="region"
       aria-roledescription="carousel"
@@ -289,9 +295,41 @@ export function BriefingProcessFlow() {
             The Briefing Runway
           </h2>
           <p className="text-xl text-white/75 md:text-2xl">
-            Navigate the stack—each card reveals a briefing milestone while future steps hover in view. Open the dossier
-            to explore deliverables and metrics for the active stage.
+            See how the Briefing Engine moves from intake to Studio handoff in one continuous runway.
           </p>
+
+          <div className="mt-14 flex flex-col gap-6 md:mt-16">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/45">Connected Pipeline</span>
+            <div className="flex items-center gap-4 text-white/60">
+              {pipelineLabels.map((label, pipelineIndex) => {
+                const isReached = pipelineIndex <= activeIndex;
+                const isNextReached = pipelineIndex < activeIndex;
+                return (
+                  <div key={label} className="flex items-center gap-4">
+                    <div className="flex flex-col items-center gap-2 min-w-[68px]">
+                      <span
+                        className={cn(
+                          "flex h-3.5 w-3.5 items-center justify-center rounded-full border border-white/20 bg-white/10 transition",
+                          isReached && "border-cyan-400/60 bg-cyan-500/40 shadow-[0_0_18px_rgba(34,211,238,0.35)]"
+                        )}
+                        aria-hidden
+                      />
+                      <span className={cn("text-[11px] uppercase tracking-[0.25em] text-white/45", isReached && "text-white/80")}>{label}</span>
+                    </div>
+                    {pipelineIndex < pipelineLabels.length - 1 && (
+                      <div
+                        className={cn(
+                          "h-[2px] w-16 md:w-20 lg:w-24 rounded-full bg-white/10",
+                          isNextReached && "bg-gradient-to-r from-white/15 via-cyan-400/35 to-white/15"
+                        )}
+                        aria-hidden
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <div className="flex-1 space-y-12 lg:grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-start lg:gap-16 lg:space-y-0">
@@ -333,30 +371,24 @@ export function BriefingProcessFlow() {
                         <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-3xl border border-white/15 bg-black/20 text-white shadow-[0_18px_34px_-22px_rgba(0,0,0,0.9)]">
                           <stage.icon className="h-6 w-6" aria-hidden="true" />
                         </span>
-                        <div className="flex-1 space-y-2">
+                        <div className="flex-1 space-y-3">
                           <h3 className="text-xl font-semibold text-white md:text-2xl">{stage.title}</h3>
-                          <p className="text-sm text-white/70 md:text-base">{stage.summary}</p>
-                          <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.08] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.33em] text-white/65">
-                            <Orbit className="h-4 w-4 text-white/45" aria-hidden="true" />
-                            {stage.highlight}
-                          </span>
+                          <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
+                            <span className="flex h-2.5 w-2.5 items-center justify-center rounded-full bg-white/40">
+                              <span
+                                className={cn(
+                                  "h-1.5 w-1.5 rounded-full",
+                                  isCurrent ? "bg-cyan-400" : "bg-white/60"
+                                )}
+                              />
+                            </span>
+                            {stage.cardTag}
+                          </div>
                         </div>
                       </div>
                     </button>
                   );
                 })}
-              </div>
-
-              <div className="mt-7 flex justify-center lg:justify-start">
-                <div className="flex w-full max-w-[600px] items-center gap-4 rounded-[24px] border border-white/12 bg-white/[0.05] px-5 py-4 text-white/80 shadow-[0_36px_90px_-70px_rgba(8,10,25,0.85)] backdrop-blur-lg">
-                  <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-3xl border border-white/15 bg-black/25 text-white">
-                    <Layers className="h-6 w-6 text-white/75" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">Connected Pipeline</p>
-                    <p className="mt-1 text-base font-semibold text-white md:text-lg">Brief → Narrative → Style → Boards</p>
-                  </div>
-                </div>
               </div>
 
               <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">

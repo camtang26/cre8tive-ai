@@ -135,12 +135,51 @@ hyperfine --warmup 3 'command' # Performance testing
 ## 8) MCP & Integrations (living section)
 - Follow project MCP playbooks (`docs/MCPs.md`) before implementation:
   - Run **Archon MCP** searches to gather RAG evidence for the relevant tech domains; log insights in PLAN and `_MEMO`.
-  - Use **Chrome DevTools MCP** for visual/UX validation, screenshots, and console/perf checks per the session hook instructions.
+  - Use **Chrome DevTools MCP** for visual/UX validation, screenshots, and console/perf checks.
   - **Context7 MCP:**
 - Latest docs for React, GSAP, TypeScript, Vite
 - As MCP servers, tools, or helper scripts are added, document brief setup and usage notes here. Keep each entry concise and actionable. MCPs for Codex CLI and configured in .codex/config.toml
 - When a task involves external docs, browser automation, or large data extraction, prefer invoking the appropriate MCP (e.g., Chrome-devtools MCP, Bright Data) before reinventing local tooling.
 - If an MCP provides faster or safer insight, note its usage (or reason for skipping) in `_MEMO.md` for future runs.
+
+**REMOTE BROWSER TESTING WITH CHROME-DEVTOOLS MCP**
+
+ ## Chrome DevTools MCP Usage
+
+  See [CODEX-CHROME-DEVTOOLS-CHECKLIST.md](.codex/CODEX-CHROME-DEVTOOLS-CHECKLIST.md) for complete guide.
+
+  **TL;DR for agents:**
+  1. ❌ **NEVER** manually start/stop/check the MCP server
+  2. ✅ **JUST** call the tools - server auto-starts
+  3. 🔧 **ONLY** if "browser already running" error: ask user to run `pkill -f "node.*chrome-devtools-mcp"`
+  4. 📸 **NEVER** use `fullPage: true` - scroll and screenshot instead
+
+**CONTEXT:**
+  Cameron's laptop has 150% OS scaling, resulting in 1707×898px CSS viewport (DPR
+  1.5).
+  He reports content looking "too big and bleeding out of the page."
+
+  **CONFIRMED DIMENSIONS:**
+  - CSS Viewport: 1707×898px
+  - Device Pixel Ratio: 1.5
+  - Physical Resolution: 2560×1600px
+
+ ### STEP 1: Emulate Cameron's Viewport
+
+  Use Chrome DevTools Device Emulation:
+  - Width: 1707px
+  - Height: 898px (or 1067px for full screen)
+  - Device Pixel Ratio: 1.5
+
+  Take screenshot at this size.
+
+  ### STEP 2: Compare to Standard Desktop
+
+  Test at 1920×1080 (DPR 1.0):
+  - Take screenshot for comparison
+  - Does the layout look different?
+
+  ### STEP 3: Identify Layout Issues
 
 ---
 

@@ -38,3 +38,95 @@
 - Coordinate lint configuration update (install/disable offending unicorn rules).
 - Schedule manual performance + accessibility validation to close remaining Story 3.1 tasks.
 - Investigate WebGL fallback handling and resolve the lingering `createRoot` reuse warning surfaced in Playwright runs.
+
+# 2025-10-15 – Timeline Smoothness Remediation (Codex Session 2)
+
+## Summary
+- Synced Lenis with GSAP ScrollTrigger by bridging `useLenis` to the gsap ticker, wiring `ScrollTrigger.update`, and restoring lag smoothing so smooth scroll no longer fights animation timing.
+- Removed the bespoke resize debounce from `useScrollTriggerAnimation` and pushed responsive context via `gsap.matchMedia`, relying on GSAP’s own refresh lifecycle.
+- Normalized all five timeline sections: added `refreshPriority`, `invalidateOnRefresh`, `force3D: true`, and requestAnimationFrame-backed will-change guards, plus trimmed motion overlaps in `motion-config.ts` to ≤0.4 s for cleaner sequencing.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Full validation sweep still pending (Chrome DevTools MCP screenshots, performance trace, cross-browser smoke). Animation regressions could surface without that evidence.
+
+## Follow-ups
+- Execute T12-S6 checklist: rerun viewport sweeps at 1707/1920/2560 widths, capture performance trace, and document findings for Sessions 1/3.
+
+# 2025-10-15 – ScrollTrigger Re-trigger Fix (Codex Session 2)
+
+## Summary
+- Stopped GSAP section hooks from rebuilding on every stage enter/leave by storing `onStageEnter`/`onStageLeave` via refs inside each timeline section; `runAnimation` now memoizes on `stage.id` so ScrollTriggers persist after the first pass.
+- Memoized analytics helpers in `useAnalytics` to keep `trackEvent`/`trackPageView` stable, avoiding needless prop churn into the sections.
+- Verified smooth scroll build with `npm run build` (vendor 749 kb / 900 kb budget).
+
+## Verification
+- `npm run build`
+
+## Risks
+- Still need the outstanding validation sweep (Chrome DevTools MCP viewport captures, performance trace, analytics payload verification).
+
+## Follow-ups
+- Complete PLAN T14 A5 validation steps once QA tooling is available; capture evidence and update this report accordingly.
+
+# 2025-10-15 – Timeline Step Label Refresh (Codex Session 2)
+
+## Summary
+- Added a reusable `StepLabel` component so each briefing timeline section shares the same stacked STEP typography with scaled lettering, keeping hero instructions aligned with the stage identifier.
+- Enhanced Stage 03 visual style cards with a deeper gradient wash, backdrop blur, and brighter “Visual Style” text plus stronger drop shadow so overlays remain legible on bright renders.
+- `npm run build`
+
+# 2025-10-15 – Homepage Hero Reinvention (Codex Session 2)
+
+## Summary
+- Replaced the legacy video-first hero with a unified responsive section featuring an animated gradient backdrop, outcome-driven copy cluster, trust chip grid, and cinematic campaign showcase column.
+- Introduced floating producer/format cards and prefers-reduced-motion safe Framer Motion choreography to deliver the “rememberable” premium SaaS moment without sacrificing performance.
+- Removed deprecated hero files (`DesktopHero`, `MobileHero`, `HeroContentBold`, `VideoBackground`) and added utility classes for gradient/halo/noise layers and scroll cues.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Navigation glass treatment and EleventLabs widget integration still outstanding (PLAN S5); needs follow-up before mark-as-done.
+
+## Follow-ups
+- Complete validation suite (Chrome DevTools MCP sweeps, Lighthouse/perf trace) and update SPEC/ARCHITECTURE once hero polish is approved.
+
+## Verification
+- `npm run build`
+
+## Risks
+- None observed; pending MCP viewport sweep to sign off the visual changes.
+
+## Follow-ups
+- Capture validation screenshots and update PLAN T14 when QA resumes.
+# 2025-10-15 – Briefing Engine Recovery (Codex Session 2)
+
+## Summary
+- Restored `src/pages/BriefingEngine.tsx` to the segmented timeline stack: added the new briefing intro, rendered `BriefingTimeline`, and surfaced the FAQ block so the page matches current section architecture.
+- Updated Helmet metadata to the latest copy, removed debug logging, and kept existing hero styling intact.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Need MCP viewport sweeps and analytics spot checks to confirm the restored layout behaves identically across tiers.
+
+## Follow-ups
+- Coordinate with validation workflow (PLAN T12/T14) to capture screenshots and confirm ScrollTrigger events fire post-restoration.
+# 2025-10-15 – Stage 01 Layout & Hero Visual (Codex Session 2)
+
+## Summary
+- Expanded the Stage 01 (Enter Your Brief) layout with larger gutters, richer tiles, and a premium storyboard card so the vertical space feels balanced and polished (`HeroBriefSection.tsx`).
+- Introduced the `HeroOrbitVisual` component to occupy the hero’s right column with a floating dossier animation that complements the updated copy (`HeroOrbitVisual.tsx`, `src/pages/BriefingEngine.tsx`).
+
+## Verification
+- `npm run build`
+
+## Risks
+- Need to capture new viewport screenshots to ensure the expanded spacing and hero animation render as expected across tiers, and confirm prefers-reduced-motion fallback is acceptable.
+
+## Follow-ups
+- Run Chrome DevTools MCP sweep for hero + Stage 01, adjust animation intensity if stakeholders prefer subtler motion.

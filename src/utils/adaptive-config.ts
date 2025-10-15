@@ -53,14 +53,14 @@ export interface AdaptiveAnimationConfig {
  * Canvas blur/shadow filters are GPU-optimized on discrete GPUs.
  */
 const HIGH_TIER_CONFIG: AdaptiveAnimationConfig = {
-  particleCount: 150,
+  particleCount: 10000,
   enableBlur: true,
   enableShadows: true,
   enableParticles: true,
   timeScaleMultiplier: 1.0,
   ease: 'power3.out',
   tier: 'high',
-  description: 'Full quality - 150 particles, GPU effects, complex easing'
+  description: 'Full quality - 10000 particles, GPU effects, complex easing'
 };
 
 /**
@@ -82,14 +82,14 @@ const HIGH_TIER_CONFIG: AdaptiveAnimationConfig = {
  * total frame count during scroll sequence, improving perceived performance.
  */
 const MEDIUM_TIER_CONFIG: AdaptiveAnimationConfig = {
-  particleCount: 75,
+  particleCount: 7500,
   enableBlur: false,
   enableShadows: false,
   enableParticles: true,
   timeScaleMultiplier: 1.2,
   ease: 'power2.out',
   tier: 'medium',
-  description: 'Reduced quality - 75 particles, no effects, simpler easing'
+  description: 'Reduced quality - 7500 particles, no effects, simpler easing'
 };
 
 /**
