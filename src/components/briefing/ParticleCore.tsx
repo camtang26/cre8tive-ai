@@ -87,7 +87,9 @@ export const ParticleCore = ({
 
     const sizeState = sizeRef.current
 
+    // PERFORMANCE FIX: Batch layout reads in RAF to prevent forced reflows
     const measure = () => {
+      // Batch getBoundingClientRect and window.devicePixelRatio reads
       const rect = canvas.getBoundingClientRect()
       const pixelRatio = window.devicePixelRatio || 1
       const pixelWidth = Math.max(1, Math.round(rect.width * pixelRatio))
@@ -98,6 +100,7 @@ export const ParticleCore = ({
         return
       }
 
+      // Only update canvas if dimensions changed (avoid unnecessary writes)
       if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
         canvas.width = pixelWidth
         canvas.height = pixelHeight

@@ -99,13 +99,26 @@ export function BriefingTimeline() {
     let container: HTMLElement | null = null;
     let resizeObserver: ResizeObserver | null = null;
     let rafId: number | null = null;
+    let rafPending = false;
 
+    // PERFORMANCE FIX: Debounce with RAF to batch layout reads
     const computeOffset = () => {
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      const gutter = (window.innerWidth - rect.width) / 2;
-      const offset = Math.max(28, gutter + 24);
-      setProgressOffset((prev) => (Math.abs(prev - offset) < 0.5 ? prev : offset));
+      if (!container || rafPending) return;
+
+      rafPending = true;
+      requestAnimationFrame(() => {
+        rafPending = false;
+        if (!container) return;
+
+        // Batch all layout reads together
+        const rect = container.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+
+        // Then compute
+        const gutter = (windowWidth - rect.width) / 2;
+        const offset = Math.max(28, gutter + 24);
+        setProgressOffset((prev) => (Math.abs(prev - offset) < 0.5 ? prev : offset));
+      });
     };
 
     const resolveContainer = () => {
