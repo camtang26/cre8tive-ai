@@ -138,14 +138,6 @@ export function NeuralSynthesisSection({ stage, onStageEnter, onStageLeave }: Ne
       };
 
       const createTimeline = (motion: NeuralMotionConfig, offsets: ScrollOffsetConfig, tier: MotionTier) => {
-        const baseIntensity = { value: 0.9 };
-        const intensityState = { velocityBoost: 0 };
-        const clampIntensity = gsap.utils.clamp(0.6, 1.2);
-        const updateIntensity = () => {
-          scheduleCoreIntensity(clampIntensity(baseIntensity.value + intensityState.velocityBoost));
-        };
-
-        updateIntensity();
         if (animatedElements.length) {
           gsap.set(animatedElements, { autoAlpha: 0 });
         }
@@ -164,19 +156,8 @@ export function NeuralSynthesisSection({ stage, onStageEnter, onStageLeave }: Ne
             refreshPriority: 4,
             lazy: false,
             onEnter: () => {
-            onStageEnterRef.current?.(stage.id);
-            setIsCoreActive(true);
-            baseIntensity.value = 0.9;
-            intensityState.velocityBoost = 0;
-            updateIntensity();
-          },
-            onUpdate: (self) => {
-              if (!prefersReducedMotion && tier !== "base") {
-                const velocity = Math.abs(self.getVelocity());
-                const velocityBoost = gsap.utils.clamp(0, 0.4, gsap.utils.mapRange(0, 2000, 0, 0.4, velocity));
-                intensityState.velocityBoost = velocityBoost;
-                updateIntensity();
-              }
+              onStageEnterRef.current?.(stage.id);
+              setIsCoreActive(true);
             }
           }
         });
@@ -189,22 +170,18 @@ export function NeuralSynthesisSection({ stage, onStageEnter, onStageLeave }: Ne
           onEnter: () => {
             onStageEnterRef.current?.(stage.id);
             setIsCoreActive(true);
-            scheduleCoreIntensity(baseIntensity.value);
           },
           onEnterBack: () => {
             onStageEnterRef.current?.(stage.id);
             setIsCoreActive(true);
-            scheduleCoreIntensity(baseIntensity.value);
           },
           onLeave: () => {
             onStageLeaveRef.current?.(stage.id);
             setIsCoreActive(false);
-            scheduleCoreIntensity(0.9);
           },
           onLeaveBack: () => {
             onStageLeaveRef.current?.(stage.id);
             setIsCoreActive(false);
-            scheduleCoreIntensity(0.9);
           }
         });
 
@@ -253,31 +230,9 @@ export function NeuralSynthesisSection({ stage, onStageEnter, onStageLeave }: Ne
           );
         }
 
-        timeline
-          .to(baseIntensity, {
-            value: 1.1,
-            duration: 0.9,
-            ease: "power2.inOut",
-            onUpdate: updateIntensity
-          })
-          .to(baseIntensity, {
-            value: 0.9,
-            duration: 0.6,
-            ease: "power2.out",
-            onUpdate: updateIntensity
-          })
-          .to(baseIntensity, {
-            value: 1.1,
-            duration: 0.9,
-            ease: "power2.inOut",
-            onUpdate: updateIntensity
-          })
-          .to(baseIntensity, {
-            value: 0.9,
-            duration: 0.6,
-            ease: "power2.out",
-            onUpdate: updateIntensity
-          });
+        // PERFORMANCE FIX: Use static intensity instead of velocity-based updates
+        // Reason: onUpdate callbacks trigger React re-renders 60 times/second, blocking main thread
+        // Static intensity provides smooth particle animation without performance cost
 
         if (animatedElements.length) {
           const releaseWillChange = () => clearWillChange();
