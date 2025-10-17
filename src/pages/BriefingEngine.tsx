@@ -259,9 +259,7 @@ const BriefingEngine = () => {
           <BriefingProcessFlow />
 
           <Suspense fallback={<div className="py-16" />}>
-            <GsapFadeIn>
-              <MidPageCTA />
-            </GsapFadeIn>
+            <MidPageCTA />
           </Suspense>
 
           <WorkflowTransformation />
@@ -275,9 +273,7 @@ const BriefingEngine = () => {
           </Suspense>
 
           <Suspense fallback={<div className="py-16" />}>
-            <GsapFadeIn>
-              <BriefingCTA />
-            </GsapFadeIn>
+            <BriefingCTA />
           </Suspense>
         </main>
       </PageLayout>

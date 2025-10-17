@@ -21,7 +21,7 @@ const MidPageCTA = () => {
         ease: "power2.out",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%",
+          start: "top 95%", // Changed from 80% - safer for mid/bottom elements
           once: true
         }
       });
