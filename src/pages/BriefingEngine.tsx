@@ -211,7 +211,7 @@ const BriefingEngine = () => {
                       Start Your Brief
                     </button>
                     <button
-                      onClick={() => (window.location.href = "https://cal.com/cre8tive-ai/studio")}
+                      onClick={() => (window.location.href = "https://cal.com/cameron-tang-121990/30min?overlayCalendar=true")}
                       className="rounded-xl border border-white/20 px-10 py-4 text-lg font-semibold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50"
                     >
                       Book a Studio Call
