@@ -45,7 +45,7 @@ const BriefingCTA = () => {
         ease: "power2.out",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%",
+          start: "top 95%", // Changed from 80% - safer for bottom elements
           once: true
         }
       });
@@ -75,6 +75,39 @@ const BriefingCTA = () => {
       });
     });
   }, { scope: containerRef });
+
+  // DEFENSIVE FALLBACK: Reveal content if ScrollTrigger fails (fast scroll race condition)
+  useEffect(() => {
+    if (!headingRef.current || !paragraphRef.current || !buttonsRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Check if elements are still hidden (opacity: 0)
+            const isHidden = window.getComputedStyle(headingRef.current!).opacity === '0';
+
+            if (isHidden) {
+              // ScrollTrigger missed - reveal with immediate animation
+              gsap.to([headingRef.current, paragraphRef.current, buttonsRef.current], {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.2,
+                ease: "power2.out"
+              });
+            }
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 } // Trigger when 10% visible
+    );
+
+    observer.observe(containerRef.current!);
+
+    return () => observer.disconnect();
+  }, []);
 
   const handlePrimaryMouseEnter = () => {
     setIsPrimaryHovered(true);
