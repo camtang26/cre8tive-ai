@@ -246,7 +246,7 @@ export function StudiosHandoffSection({
           />
           <div className="md:ml-auto">
             <a
-              href="/contact"
+              href="https://cal.com/cameron-tang-121990/30min?overlayCalendar=true"
               className="inline-flex w-max items-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3 text-xs font-semibold uppercase tracking-[0.4em] text-white transition hover:border-white/40 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
             >
               Book A Studio Session
@@ -418,7 +418,7 @@ export function StudiosHandoffSection({
                 ))}
               </ul>
               <a
-                href="/contact"
+                href="https://cal.com/cameron-tang-121990/30min?overlayCalendar=true"
                 className="inline-flex w-max items-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-white transition hover:border-white/40 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
               >
                 Book A Studio Session

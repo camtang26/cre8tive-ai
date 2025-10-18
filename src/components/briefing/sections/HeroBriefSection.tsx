@@ -426,7 +426,7 @@ export function HeroBriefSection({ stage, onStageEnter, onStageLeave }: HeroBrie
                   </div>
                 </div>
                 <a
-                  href="/contact"
+                  href="https://admanager.cre8tive.ai/"
                   className="inline-flex w-max items-center gap-3 rounded-full bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#22D3EE] px-9 py-4 text-xs font-bold uppercase tracking-[0.35em] text-white shadow-[0_32px_120px_-60px_rgba(99,102,241,0.9)] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
                 >
                   Start Your Brief
