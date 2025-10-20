@@ -12,6 +12,8 @@
 <!-- ============================================================ -->
 
 <step n="1" goal="Director: Intake & Vision Planning">
+<action>Greet {user_name} in {communication_language}</action>
+<action>All written outputs must use {communication_language}</action>
 <action>Director introduces the production workflow with film energy</action>
 
 **🎬 "Welcome to the GSAP Excellence Engine production pipeline. Let's create something exceptional."**
@@ -88,10 +90,18 @@
 - Fetch latest GSAP version capabilities
 - Check API compatibility
 - Identify new features relevant to this animation
+- Document version: {{gsap_version}}
 
 <critical>Document ALL sources with full citations</critical>
 
-<template-output>perplexity_findings, archon_patterns, context7_api_info, research_citations, recommended_approach</template-output>
+<action>Synthesize research into summary:</action>
+- Key findings from all 3 sources
+- Technical approach consensus
+- Plugin recommendations
+- Performance considerations
+- Inspiration sources
+
+<template-output>perplexity_findings, archon_patterns, context7_api_info, research_citations, recommended_approach, gsap_version, research_summary</template-output>
 </step>
 
 <step n="4" goal="Cinematographer: Technical Approach Recommendation">
@@ -163,6 +173,7 @@
 ```javascript
 // Based on research from: {{inspiration_sources}}
 // Technical approach: {{technical_approach}}
+// GSAP Version: {{gsap_version}}
 
 {{animation_implementation_code}}
 ```
@@ -183,10 +194,20 @@
 {{accessibility_code}}
 ```
 
+**6. Installation Commands:**
+```bash
+{{installation_commands}}
+```
+
+**7. Usage Example:**
+```{{target_framework}}
+{{usage_example}}
+```
+
 <action>Add comprehensive inline comments explaining decisions</action>
 <action>Ensure code is production-ready (no TODOs, no placeholders)</action>
 
-<template-output>complete_implementation_code, integration_guide</template-output>
+<template-output>import_statements, gsap_setup_code, animation_implementation_code, framework_integration_code, cleanup_code, accessibility_code, integration_guide, installation_commands, usage_example, animation_name, gsap_version, research_sources_summary</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -228,8 +249,10 @@
 - Flow improvements
 
 <action>Generate polished version of code</action>
+<action>Document specific changes made</action>
+<action>Describe the result/improvement achieved</action>
 
-<template-output>polished_code, refinement_notes</template-output>
+<template-output>polished_code, refinement_notes, polish_changes, polish_result</template-output>
 </check>
 
 <check if="no_issues">
@@ -237,7 +260,9 @@
 
 **✂️ "Implementation is clean. No polish needed - buttery smooth!"**
 
-<template-output>polish_approval</template-output>
+<action>Set polish_result to confirmation message</action>
+
+<template-output>polish_approval, polish_result</template-output>
 </check>
 </step>
 
@@ -261,28 +286,37 @@
 <action>Use Chrome DevTools MCP: performance_stop_trace</action>
 
 Metrics captured:
-- Average FPS
-- Minimum FPS
-- Paint time
-- JS execution time
+- Average FPS: {{average_fps_normal}}
+- Minimum FPS: {{minimum_fps_normal}}
+- Paint time: {{paint_time_normal}}
+- JS execution time: {{js_execution_normal}}
 
 2. **FPS Profiling (CPU Throttled):**
 <action>Use Chrome DevTools MCP: emulate_cpu with 4x slowdown</action>
 <action>Re-run profiling</action>
 
+Metrics captured:
+- Average FPS (throttled): {{average_fps_throttled}}
+- Minimum FPS (throttled): {{minimum_fps_throttled}}
+
 Target: 60fps on mid-range devices
 
 3. **Console Check:**
 <action>Use Chrome DevTools MCP: list_console_messages</action>
+<action>Count errors and warnings separately</action>
 
 Requirement: ZERO errors, ZERO GSAP warnings
+- Error count: {{error_count}}
+- Warning count: {{warning_count}}
 
 4. **Visual Validation:**
 <action>Use Chrome DevTools MCP: take_screenshot</action>
+<action>Document visual observations</action>
 
 Capture: Before, during, after animation
+Notes: {{visual_validation_notes}}
 
-<template-output>performance_metrics, console_status, visual_screenshots</template-output>
+<template-output>average_fps_normal, minimum_fps_normal, paint_time_normal, js_execution_normal, average_fps_throttled, minimum_fps_throttled, console_status, error_count, warning_count, visual_validation_notes</template-output>
 </check>
 
 <check if="no_page_url">
@@ -305,27 +339,30 @@ Code Review:
 
 **Production Readiness Checklist:**
 
-**Performance: {{performance_status}}**
+**Performance: {{performance_gate_status}}**
 - [ ] 60fps achieved (normal conditions)
 - [ ] 60fps achieved (4x CPU throttle)
 - [ ] Paint time <16ms per frame
 - [ ] JS execution optimized
 
-**Console: {{console_status}}**
+**Console: {{console_gate_status}}**
 - [ ] Zero JavaScript errors
 - [ ] Zero GSAP warnings
 - [ ] Clean console output
 
-**Code Quality: {{code_quality_status}}**
+**Code Quality: {{code_quality_gate_status}}**
 - [ ] Production-ready implementation
 - [ ] Cleanup function present
 - [ ] Comments explain decisions
 - [ ] No TODOs or placeholders
 
-**Accessibility: {{accessibility_status}}**
+**Accessibility: {{accessibility_gate_status}}**
 - [ ] prefers-reduced-motion fallback
 - [ ] Keyboard accessible (if interactive)
 - [ ] Focus management proper
+
+<action>Determine individual gate statuses (PASS/FAIL)</action>
+<action>Aggregate into overall production verdict</action>
 
 **VERDICT:**
 <check if="all_gates_pass">
@@ -342,7 +379,7 @@ Blockers: {{production_blockers}}
 Recommendations: {{optimization_recommendations}}
 </check>
 
-<template-output>quality_gate_results, production_verdict, optimization_recommendations</template-output>
+<template-output>performance_gate_status, console_gate_status, code_quality_gate_status, accessibility_gate_status, production_verdict, production_blockers, optimization_recommendations</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -386,10 +423,17 @@ Recommendations: {{optimization_recommendations}}
    - Usage examples
    - Testing checklist
 
+<action>Generate animation_name from animation_request (e.g., "Hero Section Reveal" → "hero-section-reveal")</action>
+<action>Get current date for documentation</action>
+<action>Compile resource links:</action>
+- GSAP documentation relevant to this animation
+- Research sources from Cinematographer findings
+- Related patterns from pattern library
+
 <action>Generate complete production report using template.md</action>
 <action>Save to: {{default_output_file}}</action>
 
-<template-output>final_production_package</template-output>
+<template-output>final_production_package, animation_name, date, gsap_docs_links, research_source_links, related_patterns</template-output>
 </step>
 
 <step n="12" goal="Director: Present to User">
@@ -430,10 +474,12 @@ Recommendations: {{optimization_recommendations}}
 
 <check if="yes">
 <action>Director adds animation to pattern library</action>
+<action>Generate unique pattern_id (e.g., pattern-hero-reveal-2025-uuid)</action>
+<action>Determine pattern_file_path in pattern library</action>
 
 **Pattern Library Entry:**
 ```yaml
-id: pattern-{{animation_name}}-{{uuid}}
+id: {{pattern_id}}
 name: "{{animation_name}}"
 category: "{{pattern_category}}"
 complexity: "{{complexity}}"
@@ -450,13 +496,13 @@ performance_notes: "{{performance_metrics}}"
 research_sources: {{research_citations}}
 ```
 
-<action>Save to: {pattern_library}/{{animation_name}}.pattern.yaml</action>
+<action>Save to: {{pattern_file_path}}</action>
 
 **🎬 "Pattern added to library! Available for quick implementation next time."**
 </check>
 </check>
 
-<template-output>pattern_library_entry</template-output>
+<template-output>pattern_library_entry, pattern_id, pattern_file_path</template-output>
 </step>
 
 </workflow>

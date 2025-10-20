@@ -6,6 +6,8 @@
 <workflow>
 
 <step n="1" goal="Gather Debug Information">
+<action>Greet {user_name} in {communication_language}</action>
+<action>All written outputs must use {communication_language}</action>
 <ask response="animation_code">Provide the animation code that's having issues</ask>
 <ask response="issues_description">What's wrong? (jank, timing, visual bugs, console errors)</ask>
 <ask response="expected_behavior">What should the animation do correctly?</ask>
@@ -82,7 +84,13 @@ Report includes:
 - Validation results
 - Prevention tips
 
-<template-output>final_debug_report</template-output>
+<action>Document prevention tips to avoid similar issues in future:</action>
+- Common patterns that lead to this type of bug
+- Best practices to follow
+- Code review checkpoints
+- Testing strategies
+
+<template-output>final_debug_report, prevention_tips</template-output>
 </step>
 
 </workflow>

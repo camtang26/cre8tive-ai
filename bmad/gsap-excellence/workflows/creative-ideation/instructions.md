@@ -7,6 +7,8 @@
 <workflow>
 
 <step n="1" goal="Context Gathering">
+<action>Greet {user_name} in {communication_language}</action>
+<action>All written outputs must use {communication_language}</action>
 <action>Introduce the creative ideation workflow with film director energy</action>
 
 **"Let's create something exceptional. Tell me about your animation needs."**
@@ -90,7 +92,7 @@
 
 <action>Create concepts based on research synthesis</action>
 
-**For EACH concept, provide:**
+**For EACH concept, provide ALL 10 attributes:**
 
 1. **Name** - Evocative, memorable title (e.g., "Cinematic Depth Parallax")
 2. **Visual Description** - How it looks and feels (sensory language, cinematic references)
@@ -109,20 +111,12 @@
 - Variety in visual styles (subtle, dramatic, playful, cinematic)
 - At least one concept should be cutting-edge (2024-2025 trends)
 
-<example>
-**Concept 1: "Cinematic Depth Parallax"**
-- Multi-layer parallax with dramatic depth of field effect
-- Background elements move at different speeds creating 3D illusion
-- Text reveals with custom bezier easing that feels organic
-- GSAP: ScrollTrigger + timeline coordination + custom easing
-- Wow Factor: Feels like a movie title sequence
-- Inspiration: Apple product launches 2024, Awwwards winners
-- Complexity: Medium-High
-- Performance: 60fps achievable with GPU acceleration
-- Accessibility: Reduced motion shows static layout with fade-ins
-</example>
+<action>For comparison table in template, extract key attributes from first 3 concepts:</action>
+- Concept 1: name, complexity, performance, wow factor rating, best suited for
+- Concept 2: name, complexity, performance, wow factor rating, best suited for
+- Concept 3: name, complexity, performance, wow factor rating, best suited for
 
-<template-output>concept_1, concept_2, concept_3, concept_4, concept_5</template-output>
+<template-output>concept_1, concept_2, concept_3, concept_4, concept_5, concept_1_name, concept_1_complexity, concept_1_performance, concept_1_wow, concept_1_best_for, concept_2_name, concept_2_complexity, concept_2_performance, concept_2_wow, concept_2_best_for, concept_3_name, concept_3_complexity, concept_3_performance, concept_3_wow, concept_3_best_for</template-output>
 </step>
 
 <step n="5" goal="Presentation">
@@ -148,8 +142,22 @@
 <step n="6" goal="Selection & Handoff">
 <check if="user_selects_concept">
 <action>Confirm selection and prepare for implementation</action>
+<action>Get current date for documentation</action>
 
 **"Excellent choice! [concept_name] will create genuine wow factor."**
+
+<action>Extract implementation details from selected concept:</action>
+- Technical details: {{selected_concept_technical_details}}
+- GSAP features required: {{required_gsap_features}}
+- Plugins needed: {{required_plugins}}
+- Performance notes: {{performance_notes}}
+- Inspiration sources: {{inspiration_sources}}
+
+<action>Document selection rationale and next steps:</action>
+- Why this concept: {{selection_rationale}}
+- Next step 1: {{next_step_1}}
+- Next step 2: {{next_step_2}}
+- Next step 3: {{next_step_3}}
 
 <action>Offer next steps:</action>
 1. **Implement now** - Invoke animation-production workflow with selected concept
@@ -170,7 +178,7 @@
 <action>If user wants to implement: Guide them to run /gsap-vfx with the research context</action>
 <action>Research findings should be shared with VFX Artist for implementation</action>
 
-<template-output>final_selection, handoff_context</template-output>
+<template-output>final_selection, handoff_context, user_selection, date, selected_concept_technical_details, required_gsap_features, required_plugins, performance_notes, inspiration_sources, selection_rationale, next_step_1, next_step_2, next_step_3</template-output>
 </step>
 
 </workflow>

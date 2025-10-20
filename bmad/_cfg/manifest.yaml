@@ -1,15 +1,12 @@
 installation:
   version: 6.0.0-alpha.0
-  installDate: '2025-10-13T20:17:01.757Z'
-  lastUpdated: '2025-10-16T06:55:00.000Z'
+  installDate: '2025-10-20T20:33:22.876Z'
+  lastUpdated: '2025-10-20T20:33:22.876Z'
 modules:
   - core
   - bmb
   - bmm
-  - bmp
   - cis
-  - gsap-excellence
-  - gsap-excellence-v2
 ides:
   - claude-code
   - codex
