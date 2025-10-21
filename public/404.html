@@ -19,10 +19,10 @@
         // Get the path without the leading slash
         var path = l.pathname.slice(1);
         
-        // Redirect to the root with the path in the query
+        // Redirect to the root with the path in the query (spa-github-pages pattern)
         l.replace(
-          url + '?' + encodeURIComponent('/' + path) +
-          (l.search ? '&' + l.search.slice(1) : '') +
+          url + '?/' + path.replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
           l.hash
         );
       }
