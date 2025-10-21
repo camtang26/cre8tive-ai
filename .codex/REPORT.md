@@ -130,3 +130,35 @@
 
 ## Follow-ups
 - Run Chrome DevTools MCP sweep for hero + Stage 01, adjust animation intensity if stakeholders prefer subtler motion.
+
+# 2025-10-20 – USP Copy Compendium (Codex Session 2)
+
+## Summary
+- Audited Claude transcripts dedicated to messaging/USP development, isolating seven sessions that focused exclusively on copy differentiation.
+- Logged those sessions with timestamps and outputs in `docs/copy/cre8tive-usp-copy-compendium.md`, capturing core value pillars, page-specific copy systems, CTA/proof patterns, and guardrails.
+- Documented dependencies on validated research (`phase2-strategies`, `COPY_IMPLEMENTATION_GUIDE.md`, evidence audits) to streamline future copy iterations.
+
+## Verification
+- Manual review of transcript set; no code changes to build/test.
+
+## Risks
+- Several cited metrics still need analytics confirmation per evidence-validation workflow; using them externally before validation could undermine credibility.
+
+## Follow-ups
+- Coordinate with analytics/compliance to sign off on stats and security badge claims before publishing updated copy.
+- Capture new hero screenshots post-typography adjustments once design polish lands.
+
+# 2025-10-20 – Metric Source Catalog (Codex Session 2)
+
+## Summary
+- Extended `docs/copy/cre8tive-usp-copy-compendium.md` with a quantitative evidence catalog outlining approved industry reports, internal datasets, and the validation workflow for future claims.
+- Documented storage expectations (archive external PDFs under `docs/insights/external/`, link analytics dashboards) so copywriters can trace every figure to a verifiable source.
+
+## Verification
+- Documentation-only change; no build/test impact.
+
+## Risks
+- Citation list includes placeholders that still need ingestion (e.g., tavus/lemonlight PDFs). Ensure licensing and access before quoting.
+
+## Follow-ups
+- Populate each source entry with actual files and summaries; align with analytics team to schedule quarterly metric audits.

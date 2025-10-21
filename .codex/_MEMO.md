@@ -35,6 +35,11 @@ npm run preview    # Preview production build on http://localhost:4173
 - **Target User:** Visitors experiencing the AI Briefing Engine walkthrough on desktop/laptop (1024–3440 px viewports) and stakeholders judging polish.
 - **Success Signal:** Continuous 60 fps scroll with no perceptible hitching across sections, verified via Chrome performance traces and MCP viewport sweeps after fixes land.
 
+# AI Product Charter — USP Copy Deep-Dive (2025-10-20 Codex Session 2)
+- **Problem:** USP-driven messaging across Cre8tive AI surfaces is inconsistent because prior transcript insights on differentiators are scattered, making it hard to align future copy work with validated strengths.
+- **Target User:** Cre8tive AI marketing stakeholders and content designers needing a consolidated knowledge base of messaging pillars and proof points.
+- **Success Signal:** Exhaustive log of sessions focused on copy differentiation plus a master reference document that teams can rely on without rereading raw transcripts.
+
 # AI Product Charter — Briefing Engine Recovery (2025-10-15 Codex Session 2)
 - **Problem:** `src/pages/BriefingEngine.tsx` was force-reverted to an older animation stack, disconnecting the new segmented timeline and causing build-time import failures.
 - **Target User:** Cre8tive AI marketing stakeholders and developers relying on the current segmented Briefing Engine experience.
@@ -521,3 +526,12 @@ npm run preview    # Preview production build on http://localhost:4173
 - Removed the legacy bullet list, tightened the right-hand dossier card, and retitled it “Platforms, Formats, Durations” so the frame matches the annotated mock.
 - Realigned platform cards and production metadata to sit higher in the container and align vertically with the form entries.
 - `npm run build` ✅
+
+### 2025-10-20 07:45 PDT – USP Copy Archive (Codex Session 2)
+- Skimmed 7 Claude sessions focused solely on copy/differentiator brainstorming (`f398d40c`, `3e069655`, `0a4a0fa0`, `681b84c7`, `f41ee74e`, `2de6d693`, `84dff2c5`) and logged them in `docs/copy/cre8tive-usp-copy-compendium.md`.
+- Summarized canonical USPs (speed + control, hybrid craft, multi-platform, EI pipeline), page-specific copy systems, guardrails, and reference docs so future messaging work stays aligned.
+- Outstanding: validate metrics before public use per evidence audit; capture hero screenshots after typography tweaks.
+
+### 2025-10-20 08:05 PDT – Source Catalog (Codex Session 2)
+- Added "Quantitative Evidence Source Catalog" to the compendium with approved industry publications (Lemonlight, Tavus, HeyGen), internal analytics pointers, and a lightweight approval workflow so new stats stay defensible.
+- Next: archive each cited report under `docs/insights/external/<slug>/` with summary + license info, and wire analytics exports for time-reduction/first-draft stats.

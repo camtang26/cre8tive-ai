@@ -30,80 +30,99 @@ AI-assisted developers (100% AI-powered workflow) who demand premium results and
 
 ## Quick Start
 
-**User-Guided Studio Flow**
+**Bundled Agent Orchestration**
 
-The GSAP Excellence Engine works through a **user-guided specialist workflow**:
+The GSAP Excellence Engine uses a **bundled XML orchestrator** with seamless agent transformation:
 
-**1. Start with The Director** (`/gsap-director`)
+**1. Start the GSAP Excellence Orchestrator** (`/gsap-excellence-orchestrator`)
 ```
+This loads The Director, your guide through premium GSAP animation production.
+
 Tell The Director what animation you need:
 "I want a premium hero section animation with parallax"
 
-The Director analyzes your needs and creates a routing plan:
-- Which specialists you need (Cinematographer, VFX Artist, etc.)
-- What order to use them in
-- What to tell each specialist
+The Director analyzes your needs and creates a production plan.
 ```
 
-**2. Follow The Director's Routing**
+**2. Transform Into Specialists**
 ```
-Director: "This needs research. Run /gsap-cinematographer with *research"
+Director: "This needs research first. Transforming into The Cinematographer..."
 
-You: /gsap-cinematographer → complete research
+Type: *agents cinematographer
 
-You: Return to Director with findings
+🎭 I BECOME The Cinematographer (research specialist)
+You work with The Cinematographer directly for research
 
-Director: "Great research! Now run /gsap-vfx with *implement"
+When research is complete, type: *exit
 
-You: /gsap-vfx → complete implementation
+🎭 I return to The Director
 
-You: Return to Director for validation
+Director: "Great research! Now transforming into The VFX Artist..."
+
+Type: *agents vfx
+
+🎭 I BECOME The VFX Artist (implementation specialist)
+You work with The VFX Artist for implementation
+
+Type: *exit when complete → back to Director
 ```
 
-**3. Director as Your Hub**
+**3. Seamless Agent Transformation**
 ```
-- Come to Director when you need guidance
-- Director reviews specialist work for quality
-- Director tells you what's next or validates you're done
+- ONE command: /gsap-excellence-orchestrator
+- ONE session: Director transforms into specialists as needed
+- Specialists share context within same conversation
+- *agents [name] - transform into specialist
+- *exit - return to Director
+- No manual routing - seamless transformation via prompt injection
 ```
+
+**Key Benefits:**
+- ✅ Single command to start (`/gsap-excellence-orchestrator`)
+- ✅ Agent transformation within same session
+- ✅ Context preserved across specialists
+- ✅ Director guides the entire workflow
+- ✅ No manual slash command routing
 
 ## Agents (Film Studio Crew)
 
-### Phase 1 MVP Agents (3 of 5)
+**Architecture:** All 5 agents bundled in single XML file (`gsap-excellence-orchestrator.agent.xml`) for seamless transformation.
 
-**1. The Director** (`gsap-director`) ⭐ GUIDE AGENT
+**Access:** `/gsap-excellence-orchestrator` → `*agents [name]` → `*exit`
+
+### All 5 Agents ✅ Complete
+
+**1. The Director** (Orchestrator) ⭐ PRIMARY AGENT
 - Animation production guide & quality consultant
-- Routes you to the right specialists with clear instructions
+- Orchestrates specialist transformations
 - Reviews work and maintains quality standards
-- Your fallback hub when you need guidance
-- Commands: `*guide`, `*plan`, `*crew`, `*review`, `*status`
-- **Status:** ✅ Complete (Redesigned as guide/consultant pattern)
+- Your hub for guidance and routing
+- Commands: `*guide`, `*plan`, `*crew`, `*list-agents`, `*agents [name]`, `*ideate`
+- **Status:** ✅ Complete (Bundled XML orchestrator)
 
-**2. The Cinematographer** (`gsap-cinematographer`)
+**2. The Cinematographer** (Transform via `*agents cinematographer`)
 - Research specialist with multi-MCP integration
 - Master of timing, easing, and motion principles
-- Commands: `*research`
-- **Status:** ✅ Complete
+- Commands: `*research`, `*exit`
+- **Status:** ✅ Complete (Embedded in bundle)
 
-**3. The VFX Artist** (`gsap-vfx`)
+**3. The VFX Artist** (Transform via `*agents vfx`)
 - Implementation specialist for complex animations
 - Expert in ScrollTrigger, physics, timelines
-- Commands: `*implement`
-- **Status:** ✅ Complete
+- Commands: `*implement`, `*exit`
+- **Status:** ✅ Complete (Embedded in bundle)
 
-### Phase 2 Agents (2 more)
-
-**4. The Editor** (`gsap-editor`)
+**4. The Editor** (Transform via `*agents editor`)
 - Debugging and refinement specialist
 - Polishes timing, fixes issues, ensures smooth flow
-- Commands: `*debug`, `*refine`
-- **Status:** ✅ Complete
+- Commands: `*debug`, `*refine`, `*exit`
+- **Status:** ✅ Complete (Embedded in bundle)
 
-**5. The Technical Director** (`gsap-tech-director`)
+**5. The Tech Director** (Transform via `*agents tech-director`)
 - Performance and production readiness expert
 - Chrome DevTools integration for validation
-- Commands: `*profile`
-- **Status:** ✅ Complete
+- Commands: `*profile`, `*exit`
+- **Status:** ✅ Complete (Embedded in bundle)
 
 ## Workflows
 

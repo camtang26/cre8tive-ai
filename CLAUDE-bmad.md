@@ -2,6 +2,8 @@
 
 **Project:** A modern, high-performance marketing website for Cre8tive AI, showcasing AI-powered video production, autonomous agents, and conversational AI solutions. Built with React, TypeScript, and Tailwind CSS. | **BMAD:** v6.0.0-alpha.0 | **Updated:** 2025-10-13
 
+For this git repo, the master branch is the productin branch, NOT THE MAIN BRANCH.
+
 ## 🔍 Tooling (Universal)
 
 **Claude Code Built-in Tools Status** (as of 2025-10-13):

@@ -2,10 +2,6 @@
 
 ## Available Workflows in core
 
-**bmad-init**
-- Path: `bmad/core/workflows/bmad-init/workflow.yaml`
-- BMAD system initialization and maintenance workflow for agent manifest generation and system configuration
-
 **brainstorming**
 - Path: `bmad/core/workflows/brainstorming/workflow.yaml`
 - Facilitate interactive brainstorming sessions using diverse creative techniques. This workflow facilitates interactive brainstorming sessions using diverse creative techniques. The session is highly interactive, with the AI acting as a facilitator to guide the user through various ideation methods to generate and refine creative solutions.
@@ -13,6 +9,10 @@
 **party-mode**
 - Path: `bmad/core/workflows/party-mode/workflow.yaml`
 - Orchestrates group discussions between all installed BMAD agents, enabling natural multi-agent conversations
+
+**sync-runtime**
+- Path: `bmad/core/workflows/sync-runtime/workflow.yaml`
+- Sync bmad/ source files to .claude/commands/ runtime location with 3-way conflict detection and resolution options
 
 
 ## Execution

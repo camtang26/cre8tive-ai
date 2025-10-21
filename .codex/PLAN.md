@@ -1,3 +1,14 @@
+# Copy USP Transcript Synthesis Plan — 2025-10-20
+
+**Goal:** Catalogue Claude session transcripts focused on Cre8tive AI copy differentiation and consolidate all USP-oriented messaging guidance into a single reference.
+
+**Steps**
+- **S1 – Transcript Scan:** Locate every Claude session log, skim for copy/USP brainstorming focus, and flag qualifying session IDs.
+- **S2 – Insight Extraction:** Pull the detailed copy insights, positioning statements, supporting references, and stakeholder directives from the flagged sessions.
+- **S3 – Compendium Build:** Assemble a comprehensive copy reference document citing each session, include linked resources, and summarize opportunities/follow-ups; update `_MEMO`/`REPORT` with outcomes.
+
+**Impact Set:** `CLAUDE*.md`, `claude-mode/` transcripts, `.codex/_MEMO.md`, `.codex/REPORT.md`, new copy reference document under `.codex/` (TBD).
+
 # Briefing Engine Recovery Plan — 2025-10-15
 
 **Goal:** Restore `src/pages/BriefingEngine.tsx` to the segmented timeline architecture so the page renders today’s five-stage flow instead of the legacy pinned animation.
@@ -230,3 +241,14 @@ S6–S8 **Deprecated** – Orbit hero exploration cancelled per stakeholder dire
 - **Next:** Scope Step 02–05 implementations; align with Sessions 1/2 before committing layout tweaks.
 
 — Codex Session 3
+# USP Copy Transcript Harvest — 2025-10-20
+
+**Goal:** Identify every Claude session that concentrated on copywriting tied to Cre8tive AI’s USP/differentiator messaging and consolidate the insights into a single reference artifact.
+
+**Steps**
+- [x] **S1 – Candidate Scan:** Use `rg` / lightweight parsing across `.claude/projects/-home-cameronai-projects-cre8tive-website-1006/*.jsonl` to surface sessions mentioning copy strategy, USP language, differentiators, or messaging brainstorms.
+- [x] **S2 – Session Verification:** Skim each candidate transcript end-to-end; confirm the focus is copy differentiation (exclude purely technical/animation work), capture session ID, date, participants, and key copy decisions.
+- [x] **S3 – Master Reference Build:** Compile verified findings into a new document (`docs/copy/cre8tive-usp-copy-compendium.md`) structured by USP theme, including cited session IDs, quotes, and linked reference artifacts.
+- [x] **S4 – Documentation Pass:** Update this plan and `/.codex/_MEMO.md` with summary + next steps; ensure session ID list is ready for stakeholder use.
+
+**Impact Set:** `.claude/projects/-home-cameronai-projects-cre8tive-website-1006/*.jsonl`, `docs/copy/cre8tive-usp-copy-compendium.md` (new), `.codex/_MEMO.md`, `.codex/REPORT.md` (post-results).
