@@ -21,7 +21,7 @@
         
         // Redirect to the root with the path in the query
         l.replace(
-          url + '?p=' + encodeURIComponent(path) +
+          url + '?' + encodeURIComponent('/' + path) +
           (l.search ? '&' + l.search.slice(1) : '') +
           l.hash
         );
