@@ -40,6 +40,15 @@ const App = () => {
       const newUrl = '/' + redirectPath + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
       window.history.replaceState(null, '', newUrl);
     }
+
+    // Handle ad landing page redirect (for Google Ads bot compatibility)
+    // Reason: Google Ads bot doesn't execute JS in 404.html, needs HTTP 200 landing page
+    const redirectTarget = params.get('redirect');
+    if (redirectTarget === 'briefing-engine') {
+      params.delete('redirect');
+      const newUrl = '/briefing-engine' + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
+      window.history.replaceState(null, '', newUrl);
+    }
   }, []);
 
   // Get the base URL from Vite's environment
