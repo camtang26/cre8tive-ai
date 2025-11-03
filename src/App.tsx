@@ -21,7 +21,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AnalyticsPage from "./pages/Analytics";
 import { SEO } from './components/core/SEO';
 import { VideoTest } from './components/test/VideoTest';
-import VideoPlaceholderDemo from './pages/VideoPlaceholderDemo';
 
 const queryClient = new QueryClient();
 
@@ -90,7 +89,6 @@ const App = () => {
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/analytics" element={<AnalyticsPage />} />
               <Route path="/test/video" element={<VideoTest />} />
-              <Route path="/video-placeholder-demo" element={<VideoPlaceholderDemo />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <CookieConsent />
