@@ -68,22 +68,6 @@ export default {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        studios: {
-          background: '#05060D',
-          backgroundAccent: '#13263B',
-          headline: '#F5E7C7',
-          primary: '#E1B341',
-          accent: '#31C4FF',
-          body: '#C7D2E0',
-        },
-        conversational: {
-          background: '#04121E',
-          backgroundAccent: '#074C4E',
-          headline: '#E4F8FF',
-          primary: '#16F0A1',
-          accent: '#0BCBFF',
-          body: '#B8D9DE',
-        },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           dark: 'hsl(var(--primary-dark))',
@@ -217,8 +201,6 @@ export default {
         'gradient-radial-at-b': 'radial-gradient(ellipse at bottom, var(--tw-gradient-stops))',
         'gradient-radial-at-l': 'radial-gradient(ellipse at left, var(--tw-gradient-stops))',
         'gradient-radial-at-r': 'radial-gradient(ellipse at right, var(--tw-gradient-stops))',
-        'studios-hero': 'linear-gradient(135deg, #05060D 0%, #0C1526 48%, #13263B 100%)',
-        'conversational-hero': 'linear-gradient(135deg, #04121E 0%, #06293B 45%, #074C4E 100%)',
       }
     }
   },
