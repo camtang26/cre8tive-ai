@@ -1,0 +1,503 @@
+# Accuracy Guardrails
+
+## Purpose
+Accuracy violations are CRITICAL failures that damage credibility and set false expectations. This document defines strict guardrails for timeline accuracy, capability boundaries, and metric verification.
+
+**Severity:** Accuracy violations trigger immediate rejection, even if other quality dimensions pass.
+
+---
+
+## Timeline Accuracy (CRITICAL)
+
+### The Problem (From Baseline Testing)
+
+**Baseline violation (Scenario 1):**
+"From brief to video in minutes"
+
+**Why this is CRITICAL:**
+- BriefingEngine delivers STORYBOARD in 10 minutes
+- Studios delivers VIDEO in days-weeks
+- Saying "video in minutes" = false promise, client disappointment
+
+### Service-Specific Timelines
+
+#### Studios Timeline
+
+**What Studios DELIVERS:**
+- Final platform-native video (YouTube 16:9, vertical 9:16, square 1:1)
+
+**Timeline:**
+- **Days to weeks** (NOT hours, NOT minutes)
+
+**Correct phrasing:**
+✅ "Platform-native video delivered in days"
+✅ "Video production in days, not weeks"
+✅ "Final video delivered within days"
+
+**FORBIDDEN phrasing:**
+❌ "Video in minutes"
+❌ "Instant video production"
+❌ "Hours to final video"
+❌ "Same-day video delivery"
+
+**Why strict enforcement:**
+- Production-ready video requires time (even with AI acceleration)
+- Setting false "instant" expectations → client disappointment
+- Hybrid AI+human model REQUIRES time for quality
+
+#### BriefingEngine Timeline
+
+**What BriefingEngine DELIVERS:**
+- Production-ready storyboard (NOT final video)
+
+**Timeline:**
+- **10 minutes** (this IS accurate for storyboard)
+
+**Correct phrasing:**
+✅ "Storyboard in 10 minutes"
+✅ "Lock creative direction in 10 minutes"
+✅ "Production-ready storyboard under 10 minutes"
+
+**FORBIDDEN phrasing:**
+❌ "Video in 10 minutes" (NO - storyboard, not video)
+❌ "Final production in 10 minutes"
+❌ "End-to-end video in minutes"
+
+**Why strict enforcement:**
+- BriefingEngine outputs storyboard, Studios outputs video
+- Conflating the two = accuracy violation + false expectations
+
+#### Integrated Workflow Timeline (BriefingEngine → Studios)
+
+**What happens:**
+1. Brief → BriefingEngine
+2. 10 minutes → Production-ready storyboard
+3. Review/approve creative direction
+4. Hand off to Studios
+5. Days-weeks → Final video delivered
+
+**Correct phrasing:**
+✅ "Storyboard in 10 minutes, video in days"
+✅ "Lock creative direction in 10 minutes, then hand off to Studios for video production"
+✅ "From brief to storyboard (10 min) to platform-native video (days)"
+
+**FORBIDDEN phrasing:**
+❌ "From brief to video in 10 minutes"
+❌ "End-to-end video production in under 10 minutes"
+❌ "Complete video workflow in minutes"
+
+**Why strict enforcement:**
+- Integrated workflow has TWO stages with DIFFERENT timelines
+- Clients need accurate expectations for TOTAL timeline (10 min + days)
+
+#### Conversational AI Timeline
+
+**What Conversational AI DELIVERS:**
+- Scaled support capacity (ongoing, not one-time delivery)
+
+**Timeline:**
+- **24/7 availability** (continuous operation)
+- Setup/deployment timeline TBD (confirm with Cameron if copy requires specifics)
+
+**Correct phrasing:**
+✅ "24/7 customer support"
+✅ "Scale support without headcount"
+✅ "Handle inquiries around the clock"
+
+**Avoid overpromising:**
+❌ "Instant deployment"
+❌ "Set up in minutes"
+(Unless confirmed by Cameron - timeline not specified in elicitation)
+
+### Timeline Accuracy Checklist
+
+Before approving ANY copy, verify:
+
+- [ ] Studios copy says "days" for video (NEVER minutes/hours)
+- [ ] BriefingEngine copy says "10 minutes" for storyboard (NEVER video)
+- [ ] Integrated workflow distinguishes storyboard (10 min) from video (days)
+- [ ] No conflating BriefingEngine and Studios timelines
+- [ ] Conversational AI uses 24/7 availability (not instant setup)
+
+**If ANY timeline is inaccurate → IMMEDIATE REWRITE before approval**
+
+---
+
+## Capability Boundaries (What Each Service Does/Doesn't Do)
+
+### Studios Capabilities
+
+**Studios CAN deliver:**
+✅ Platform-native video (YouTube 16:9 (primary format), vertical 9:16, square 1:1, and all major platform formats)
+✅ Production-ready quality (60% first-draft approval)
+✅ Final video files ready for platform deployment
+✅ Hybrid AI+human partnership execution
+
+**Studios CANNOT deliver:**
+❌ Instant/automated video (timeline is days, requires human expertise)
+❌ Self-serve video generation (partnership model, not DIY tool)
+❌ Just storyboards (that's BriefingEngine's output)
+❌ Generic video (platform-native specialization is core differentiator)
+
+**Copy must NOT imply:**
+- Self-serve operation ("create your own videos")
+- Pure automation ("AI generates videos instantly")
+- Generic multi-platform video ("works on all platforms" vs "native to each")
+
+### BriefingEngine Capabilities
+
+**BriefingEngine CAN deliver:**
+✅ Production-ready storyboards in 10 minutes
+✅ AI-trained on cinematography principles
+✅ Strategic clarity (production decisions surfaced early)
+✅ Studio-ready quality (enables smooth handoff)
+
+**BriefingEngine CANNOT deliver:**
+❌ Final video production (that's Studios)
+❌ Standalone video service (integrated with Studios workflow)
+❌ Generic storyboards (cinematography training is differentiator)
+
+**Copy must NOT imply:**
+- BriefingEngine delivers final video
+- Self-contained video production tool
+- "End-to-end" solution (requires Studios for video)
+
+### Conversational AI Capabilities
+
+**Conversational AI CAN deliver:**
+✅ Scaled customer support without headcount growth
+✅ 24/7 inquiry handling
+✅ Conversational AI mastery (since 2023)
+
+**Conversational AI CANNOT deliver:**
+❌ Video production (that's Studios)
+❌ Storyboard generation (that's BriefingEngine)
+❌ Complete replacement of human support team
+
+**Copy must NOT imply:**
+- Video/storyboard capabilities (service cross-contamination)
+- Eliminate entire support team (partnership/augmentation model)
+
+### Capability Accuracy Checklist
+
+Before approving copy, verify:
+
+- [ ] Service capabilities match actual deliverables
+- [ ] No overpromising beyond service scope
+- [ ] No cross-contamination (Studios ≠ BriefingEngine ≠ Conversational AI)
+- [ ] No self-serve implications for partnership services
+- [ ] No replacement language (partnership/augmentation framing)
+
+**If ANY capability is misrepresented → IMMEDIATE REWRITE**
+
+---
+
+## Metric Verification (Proof Points Must Be Accurate)
+
+### 60% First-Draft Approval Rate
+
+**What this metric means:**
+- Studios delivers production-ready video
+- 60% of first deliveries approved by client WITHOUT revisions
+- vs ~30% industry standard for traditional agencies
+
+**Where to use:**
+✅ Studios copy (primary quality proof point)
+✅ Homepage (overall credibility)
+✅ Comparisons to agencies
+
+**Where NOT to use:**
+❌ BriefingEngine copy (applies to video, not storyboards)
+❌ Conversational AI copy (applies to video, not support)
+
+**Accuracy requirements:**
+- [ ] Only cited for Studios service
+- [ ] Context provided (vs industry standard, if space allows)
+- [ ] Not conflated with storyboard approval (BriefingEngine)
+
+### 10-Minute Storyboard Delivery
+
+**What this metric means:**
+- BriefingEngine delivers production-ready storyboard
+- Under 10 minutes from brief submission
+- vs 2-5 days for traditional agency storyboards
+
+**Where to use:**
+✅ BriefingEngine copy (primary speed proof point)
+✅ Comparisons to traditional agency briefing process
+
+**Where NOT to use:**
+❌ Studios copy (Studios timeline is days for video)
+❌ When referring to final video delivery
+
+**Accuracy requirements:**
+- [ ] Only cited for storyboard delivery (NOT video)
+- [ ] Context provided (vs 2-5 days traditional, if space allows)
+- [ ] Not conflated with video production timeline
+
+### Platform-Native Specialization (YouTube 16:9, vertical 9:16, square 1:1)
+
+**What this metric means:**
+- Studios delivers video optimized for EACH platform's native format
+- YouTube 16:9 ≠ TikTok 9:16 ≠ Instagram 1:1 (each has unique requirements)
+- Not generic video repurposed across platforms
+
+**Where to use:**
+✅ Studios copy (core differentiator)
+✅ Homepage (service capability)
+
+**Where NOT to use:**
+❌ BriefingEngine copy (storyboards, not final video)
+❌ Conversational AI copy (not video-related)
+
+**Accuracy requirements:**
+- [ ] Platforms listed: YouTube 16:9 (primary format), vertical 9:16, square 1:1, and all major platform formats
+- [ ] "Native to each platform" framing (not "works on all platforms")
+- [ ] No implication of generic multi-platform video
+
+### Since 2023 (Mastery Timeline)
+
+**What this metric means:**
+- Cre8tive AI has been using/mastering AI video tech since 2023
+- Years before mainstream AI video hype
+- Early adoption = time advantage = mastery depth
+
+**Per Cameron's correction:** Year is 2023 (NOT 2021 or other)
+
+**Where to use:**
+✅ All services (universal mastery proof point)
+✅ Homepage (credibility)
+✅ Comparisons to agencies (mastery vs experimentation)
+
+**Accuracy requirements:**
+- [ ] Year is 2023 (confirm with Cameron if uncertain)
+- [ ] "Mastering" (ongoing) vs "mastered" (arrogant finality)
+- [ ] Humble tone (not "pioneers", "first", "original")
+
+### Metric Accuracy Checklist
+
+Before citing ANY metric, verify:
+
+- [ ] Metric is accurate for the service (60% approval = Studios only)
+- [ ] Timeline is correct (10 min = storyboard, days = video)
+- [ ] Platform list is current (YouTube 16:9, vertical 9:16, square 1:1)
+- [ ] Year is accurate (2023 for mastery timeline)
+- [ ] Context provided (vs industry standard, if space allows)
+
+**If ANY metric is inaccurate → IMMEDIATE REWRITE**
+
+---
+
+## Service Cross-Contamination Prevention
+
+### The Problem (From Baseline Testing)
+
+**Baseline violation:**
+Homepage using "scale without headcount" (Conversational AI's outcome) when it should focus on Studios outcomes
+
+**Why this is accuracy violation:**
+- Clients expect service delivers outcome mentioned
+- Cross-contamination confuses which service does what
+- False expectations → client disappointment
+
+### Service Outcome Ownership
+
+**Quick reference:**
+
+| Outcome | Service | Timeline |
+|---------|---------|----------|
+| Platform-native video | Studios | Days |
+| 60% first-draft approval | Studios | Days (video) |
+| Scale video production without headcount | Studios | Days (video) |
+| Lock creative direction in 10 minutes | BriefingEngine | 10 min (storyboard) |
+| Production-ready storyboards | BriefingEngine | 10 min |
+| Eliminate briefing back-and-forth | BriefingEngine | 10 min (storyboard) |
+| Scale support without headcount | Conversational AI | 24/7 |
+| 24/7 customer experience | Conversational AI | Continuous |
+
+### Service Cross-Contamination Checklist
+
+Before approving copy, verify:
+
+- [ ] Outcomes match service (Studios ≠ BriefingEngine ≠ Conversational AI)
+- [ ] No video outcomes for BriefingEngine copy
+- [ ] No storyboard outcomes for Studios copy
+- [ ] No video/storyboard outcomes for Conversational AI copy
+- [ ] No support outcomes for Studios/BriefingEngine copy
+
+**If cross-contamination detected → REWRITE with correct service outcomes**
+
+---
+
+## Overpromising Prevention (What to NEVER Claim)
+
+### Technology Claims to AVOID
+
+**NEVER claim:**
+❌ "Revolutionary AI technology"
+❌ "Cutting-edge machine learning"
+❌ "Most advanced AI in the industry"
+❌ "Proprietary AI algorithms"
+
+**Why:** Generic hype language (see anti-patterns.md), not verifiable, not outcome-focused
+
+**Instead, focus on:**
+✅ Outcomes (60% approval, 10 min storyboards, platform-native)
+✅ Mastery proof (since 2023, cinematography-trained AI)
+✅ Specific differentiators (hybrid model, platform-native specialization)
+
+### Superlative Claims to AVOID
+
+**NEVER claim:**
+❌ "World's best AI video production"
+❌ "Industry-leading conversational AI"
+❌ "#1 platform for..."
+❌ "First to market with..."
+
+**Why:** Unverifiable, arrogant tone, not humble mastery
+
+**Instead, focus on:**
+✅ Specific proof points (60% approval, since 2023)
+✅ Humble mastery ("We've been mastering since 2023")
+✅ Measurable outcomes (platform-native, 10 min, days not weeks)
+
+### Replacement Claims to AVOID
+
+**NEVER claim:**
+❌ "Replace your agency"
+❌ "Eliminate your production team"
+❌ "No human involvement needed"
+❌ "Fully automated video production"
+
+**Why:** Triggers replacement fear, misrepresents partnership model (see anti-patterns.md)
+
+**Instead, focus on:**
+✅ Partnership/augmentation ("AI-powered Studio partners")
+✅ Scaling without headcount growth
+✅ Outcomes achieved WITH Cre8tive partnership
+
+### Instant Results Claims to AVOID
+
+**NEVER claim:**
+❌ "Instant video production" (Studios takes days)
+❌ "Real-time video generation" (inaccurate timeline)
+❌ "Immediate deployment" (Conversational AI timeline TBD)
+
+**Why:** Timeline accuracy violations, sets false expectations
+
+**Instead, focus on:**
+✅ Accurate timelines (10 min storyboards, days for video)
+✅ Speed RELATIVE to alternatives (days not weeks, 10 min vs 2-5 days)
+✅ Quality maintained despite speed (60% approval)
+
+### Overpromising Prevention Checklist
+
+Before approving copy, verify:
+
+- [ ] No "revolutionary"/"cutting-edge" tech claims
+- [ ] No unverifiable superlatives (#1, best, leading)
+- [ ] No replacement language (eliminate team, no humans needed)
+- [ ] No instant/immediate timeline claims (unless accurate)
+- [ ] All claims backed by specific proof points
+
+**If ANY overpromise detected → REWRITE with accurate, humble claims**
+
+---
+
+## Accuracy Violation Response Protocol
+
+### If You Spot an Accuracy Violation
+
+**Step 1: HALT - Do not approve copy**
+
+**Step 2: Identify violation type:**
+- Timeline inaccuracy (minutes vs days, storyboard vs video)
+- Capability boundary violation (service does X when it doesn't)
+- Metric misuse (60% approval cited for BriefingEngine)
+- Service cross-contamination (Studios outcome for BriefingEngine)
+- Overpromising (revolutionary claims, instant results)
+
+**Step 3: REWRITE with accurate information:**
+- Consult this document for correct timeline/capability
+- Verify metrics match service
+- Remove overpromising language
+- Add context/specificity to prevent ambiguity
+
+**Step 4: Re-check against accuracy guardrails**
+
+**Step 5: If uncertain, escalate to Cameron for validation**
+
+### Common Accuracy Violation Patterns (From Baseline)
+
+**Violation 1: Timeline conflation**
+❌ "From brief to video in minutes"
+✅ "Storyboard in 10 minutes, video in days"
+
+**Violation 2: Service capability confusion**
+❌ "BriefingEngine delivers platform-native video"
+✅ "BriefingEngine delivers production-ready storyboards for Studios to execute"
+
+**Violation 3: Metric misattribution**
+❌ "BriefingEngine storyboards achieve 60% approval"
+✅ "Studios video achieves 60% first-draft approval"
+
+**Violation 4: Overpromising speed**
+❌ "Instant AI-powered video production"
+✅ "Platform-native video delivered in days, not weeks"
+
+**Violation 5: Service cross-contamination**
+❌ Homepage: "Scale support without headcount" (when talking about video)
+✅ Homepage Studios section: "Scale video production without headcount" OR Conversational AI section: "Scale support without headcount"
+
+---
+
+## Final Accuracy Checklist (Run Before Approving ANY Copy)
+
+### Timeline Accuracy
+- [ ] Studios = days for video (NEVER minutes)
+- [ ] BriefingEngine = 10 min for storyboard (NEVER video)
+- [ ] Integrated workflow distinguishes storyboard (10 min) from video (days)
+- [ ] Conversational AI = 24/7 availability (not instant setup)
+
+### Capability Boundaries
+- [ ] Service capabilities match actual deliverables
+- [ ] No self-serve implications for partnership services
+- [ ] No replacement language
+- [ ] No cross-contamination between services
+
+### Metric Verification
+- [ ] 60% approval = Studios only (NOT BriefingEngine/Conversational AI)
+- [ ] 10 min = storyboard only (NOT video)
+- [ ] Platform-native = Studios only (NOT BriefingEngine)
+- [ ] Since 2023 = accurate year
+
+### Overpromising Prevention
+- [ ] No revolutionary/cutting-edge hype claims
+- [ ] No unverifiable superlatives
+- [ ] No replacement claims
+- [ ] No instant/immediate promises (unless accurate)
+
+### Service Cross-Contamination
+- [ ] Outcomes match service (Studios ≠ BriefingEngine ≠ Conversational AI)
+- [ ] Timelines match service capabilities
+- [ ] No mixing service-specific proof points
+
+**If ANY item fails → IMMEDIATE REWRITE before approval**
+
+**Accuracy is NON-NEGOTIABLE. When uncertain, ask Cameron for validation.**
+
+---
+
+## Cameron's Final Authority
+
+**Accuracy trumps creativity.**
+
+Even if copy is compelling, emotionally resonant, and well-written:
+- If timeline is wrong → REJECT
+- If capability is overstated → REJECT
+- If metric is misattributed → REJECT
+- If service is cross-contaminated → REJECT
+
+**Accuracy violations damage trust. Trust is harder to rebuild than to maintain.**
+
+**When in doubt about ANY accuracy question, escalate to Cameron for validation before approval.**

@@ -1,0 +1,72 @@
+# Create Simple Skill Workflow Configuration
+# Builds production-ready single-file Claude Skills with optimized descriptions and validation
+name: create-simple-skill
+description: "Create a production-ready single-file Claude Skill with optimized description, concrete examples, and quality validation. Perfect for domain expertise, brand guidelines, or focused procedural knowledge."
+author: "Skill Factory"
+version: 1.0.0
+
+# Critical variables - loaded from module config
+config_source: "{project-root}/bmad/bmb/skill-factory/config.yaml"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+
+# Module paths
+installed_path: "{config_source}:installed_path"
+workflows_path: "{config_source}:workflows_path"
+templates_path: "{config_source}:templates_path"
+reference_path: "{config_source}:reference_path"
+
+# Reference documentation for skill creation
+description_optimization_guide: "{config_source}:description_optimization_guide"
+token_budgets_guide: "{config_source}:token_budgets_guide"
+best_practices_guide: "{config_source}:best_practices_guide"
+
+# Template and validation files
+skill_template: "{config_source}:simple_skill_template"
+validation_checklist: "{workflows_path}/create-simple-skill/checklist.md"
+
+# Quality standards from config
+min_quality_score: "{config_source}:quality_standards.min_quality_score"
+target_description_chars: "{config_source}:quality_standards.target_description_chars"
+max_description_chars: "{config_source}:quality_standards.max_description_chars"
+min_examples_count: "{config_source}:quality_standards.min_examples_count"
+
+# Output configuration
+default_skill_output: "{config_source}:default_skill_output"
+output_file: "{{skill_output_path}}/{{skill_name}}/SKILL.md"
+
+# Workflow configuration
+template: true  # This is a template workflow (produces a document)
+instructions: "{workflows_path}/create-simple-skill/instructions.md"
+validation: "{validation_checklist}"
+
+# Variables to be collected during workflow
+# These will be elicited from user or generated during workflow
+workflow_variables:
+  skill_name: "Name of the skill (lowercase-with-hyphens)"
+  skill_description: "Optimized description with trigger keywords (50-200 chars ideal)"
+  skill_domain: "Domain or subject area (e.g., financial-modeling, testing, brand-guidelines)"
+  skill_output_path: "Where to save the skill"
+  skill_version: "Version number (default: 1.0.0)"
+
+  # Generated during workflow
+  skill_triggers: "List of trigger keywords and scenarios"
+  skill_examples: "Concrete code/usage examples (min 3)"
+  skill_references: "Related skills to reference"
+
+  # Quality metrics (calculated)
+  token_count_estimate: "Estimated token count for SKILL.md"
+  trigger_coverage_score: "How well description covers trigger scenarios (0-100)"
+  quality_score: "Overall quality score (0-100)"
+
+# MCP Integration (optional but recommended)
+mcp_integration:
+  use_archon_for_research: true   # Use Archon MCP to research domain
+  use_context7_for_examples: true # Use Context7 MCP for code examples
+
+# Advanced options
+advanced_options:
+  auto_optimize_description: true      # Automatically optimize description for triggers
+  generate_examples_from_domain: true  # Generate examples based on domain research
+  validate_uniqueness: true            # Check for duplicate/overlapping skills
+  suggest_related_skills: true         # Suggest skills to reference

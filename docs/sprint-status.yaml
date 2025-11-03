@@ -1,0 +1,52 @@
+# generated: 2025-11-03
+# project: cre8tive-website-1006
+# project_key: cre8tive-website-1006
+# tracking_system: file-system
+# story_location: {project-root}/docs/stories
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic exists in epic file but not contexted
+#   - contexted: Epic tech context created (required before drafting stories)
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - drafted: Story file created in stories folder
+#   - ready-for-dev: Draft approved and story context created
+#   - in-progress: Developer actively working on implementation
+#   - review: Under SM review (via code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - completed: Retrospective has been done
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epics should be 'contexted' before stories can be 'drafted'
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically drafts next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', SM reviews, then Dev moves to 'done'
+
+generated: 2025-11-03
+project: cre8tive-website-1006
+project_key: cre8tive-website-1006
+tracking_system: file-system
+story_location: "{project-root}/docs/stories"
+
+development_status:
+  epic-1: backlog
+  1-1-install-gsap-lenis-animation-framework: backlog
+  1-2-update-color-palette-create-color-constants: backlog
+  1-3-integrate-visual-style-assets-gallery: backlog
+  1-4-create-storyboard-divider-components-scene-markers: backlog
+  1-5-build-briefing-process-flow-workflow-visualization: backlog
+  1-6-implement-canvas-particle-ai-processing-animation: backlog
+  1-7-build-gsap-scrolltrigger-transformation-timeline: backlog
+  1-8-create-workflow-transformation-speed-comparison-section: backlog
+  1-9-build-audience-benefits-split-layout: backlog
+  1-10-assemble-final-page-implement-lenis-smooth-scroll: backlog
+  1-11-accessibility-performance-optimization: backlog
+  1-12-testing-documentation-deployment: backlog
+  epic-1-retrospective: optional

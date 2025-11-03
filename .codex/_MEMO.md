@@ -1,11 +1,18 @@
 # Focus Anchors
 
 - Branch: `GSAP-segmentation`
-- **Mission:** Finish the segmented `/briefing-engine` timeline with responsive desktop tiering so every viewport (1024 px–3440 px) feels intentional, animations stay premium, and progress affordances remain crystal clear.
+- **Canon:** November 3, 2025 documentation suite (`docs/bmm-index.md` + linked guides) is the baseline; treat older notes as archival unless reconfirmed.
+- **Mission (legacy animation work):** Finish the segmented `/briefing-engine` timeline with responsive desktop tiering so every viewport (1024 px–3440 px) feels intentional, animations stay premium, and progress affordances remain crystal clear.
+- **Today’s Priority:** Realign `.codex` knowledge artifacts with the November 3 documentation so future sessions start from the correct operating picture before resuming feature work.
 - Palette invariant: dark indigo/cyan/fuchsia + holographic highlights; preserve cinematographer aesthetic while tuning layouts.
 - Adaptive performance stack (Story 1.14) stays enabled via `performance-adapter`, `adaptive-config`, `useAdaptivePerformance`.
 - Build still passes (`npm run build`); lint blocked by repo unicorn config + legacy `any` in perf tests (logged for future cleanup).
  
+# AI Product Charter — Documentation Realignment (2025-11-03 Codex Session 2)
+- **Problem:** `.codex` knowledge artifacts drifted from the freshly generated November 3, 2025 documentation suite (bmm-index + derivatives), creating conflicting guidance for agents resuming work.
+- **Target User:** Codex agents and collaborating humans who rely on `.codex/_MEMO.md`, `.codex/PLAN.md`, and `.codex/REPORT.md` to understand current architecture, priorities, and validation workflows.
+- **Success Signal:** All `.codex` docs reference the November 3 documentation canon, highlight deltas versus prior guidance, and give clear next-step hooks so agents entering after today align without re-auditing the full docs set.
+
 # AI Product Charter — Copy Clarity Audit (2025-10-14 Codex Session 2)
 - **Problem:** Briefing Engine & Studios copy reads like generic AI hype; stakeholders flag trust gaps and misaligned messaging.
 - **Target User:** B2B marketing leaders, creative directors, and agency owners evaluating high-stakes AI production partners.
@@ -16,10 +23,51 @@
 ```bash
 npm run dev        # Dev server (http://localhost:8080) – ask user to restart if down
 npm run build      # Production build (tsc + vite)
+npm run build:dev  # Development build with source maps for diagnostics
 npm run lint       # ESLint (fails due to unicorn + legacy any)
 npm run test       # Vitest (not yet wired for briefing timeline)
 npm run preview    # Preview production build on http://localhost:4173
+npm run test:performance # Performance harness (see docs/performance-test-architecture-brief.md)
+npm run predeploy  # Runs build prior to GitHub Pages deploy
+npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 ```
+
+# Impact Set — 2025-11-03 (Codex Session 2)
+- `docs/bmm-index.md` + linked canonical docs (Current Architecture, Development Guide, Component Catalog, Documentation Freshness Report, Epic tech specs)
+- `.codex/_MEMO.md`, `.codex/PLAN.md`, `.codex/REPORT.md` (synchronizing guidance with November 3 canon)
+- `TASK.md` (pending update once backlog implications are confirmed)
+- `AGENTS.md` (protocols already satisfied; no change needed after review)
+
+# Decisions — 2025-11-03 (Codex Session 2)
+- Treat the November 3, 2025 documentation sweep as the single source of truth; older `.codex` narratives remain historical references only.
+- Continue manual QA as the validation gate—no automated tests exist despite `npm run test` scaffolding; note in docs to prevent false assumptions.
+- Enforce the custom vendor bundle ceiling (≤900 kb) as a hard constraint for any future dependency decisions.
+- Anchor deployment reminders on `master` being production and `npm run deploy` pushing to GitHub Pages.
+- Preserve pending animation/hero initiatives in legacy sections but flag them as paused until documentation realignment completes.
+
+# Knowledge Intake — 2025-11-03 Highlights
+- Epic 1 (AI Briefing Engine) is the only fully implemented epic; Epics 4 & 5 and the Unified Voice Widget remain plan-only.
+- Component inventory now tracks 178 components (~20 k LOC) with 27 dedicated to the Briefing Engine and 58 shadcn/ui primitives.
+- Adaptive performance system (Story 1.14) governs particle counts/timeScale across tiers; will-change lifecycle policies documented in Component Catalog.
+- Documentation bundle includes 24 GSAP mastery references plus exhaustive GSAP debugging/performance audits—leverage before shipping new timelines.
+- No automated tests exist; validation scripts rely on manual MCP viewport sweeps, Lighthouse, and performance traces as per Development Guide.
+
+# Open Questions — 2025-11-03
+- Should we archive or condense legacy hero/timeline plans in `.codex/PLAN.md` to prevent confusion for future sessions once this realignment lands?
+- Do we promote the responsive design epic (Epic 5) into the active backlog now, or wait for stakeholder confirmation after documentation sync?
+- Are there stakeholders expecting execution on the Unified Voice Widget draft, or can it remain in opportunity backlog until animation initiatives stabilize?
+
+# Opportunities Backlog — Updated 2025-11-03
+1. Retire `archive/BriefToStoryboardAnimation.tsx` and `archive/VisualStylesGallery.tsx` to eliminate 1.4 k LOC of unused code.
+2. Consolidate Vimeo players by removing `video/VimeoPlayer.tsx` duplicate once regression tests (manual) confirm parity.
+3. Stand up minimal automated testing (Vitest/Playwright) or document why manual-only remains acceptable given current roadmap.
+4. Schedule Epic 5 responsive optimization to tackle fluid typography, Windows scaling, and GSAP mobile tier adjustments.
+5. Prototype the Unified Voice Widget (Level 0 spec) once documentation and responsive debt stabilize; reassess asset requirements.
+
+# Next Steps — Documentation Realignment (Codex Session 2)
+- Finish synthesizing November 3 findings into `.codex/_MEMO.md` (in progress) and cascade updates to `.codex/PLAN.md` and `.codex/REPORT.md`.
+- Decide how much of the legacy hero/timeline planning remains actionable vs. archive references; note outcome in PLAN & TASK board.
+- After codex docs align, coordinate with MCP validation playbooks to re-check Briefing Engine/hero visuals before resuming feature work.
 
 # Collaboration Note — 2025-10-14 (Codex Session 2)
 - Running two parallel Codex sessions: this terminal is **Codex Session 2**. Codex Session 1 is reviewing MCP screenshots.
@@ -59,35 +107,29 @@ npm run preview    # Preview production build on http://localhost:4173
 
 # Outstanding Tasks
 
-1. **Desktop Responsive Implementation (IN REVIEW)**
-   - [x] Add GSAP `matchMedia` tiers (laptop 1024–1439, desktop 1440–1919, large desktop 1920–2559, ultra-wide ≥2560) across all sections with tier-specific duration/stagger configs.
-   - [x] Convert ScrollTrigger `start`/`end` to functions + set `invalidateOnRefresh: true`; add debounced orientation refresh in `useScrollTriggerAnimation`.
-   - [x] Introduce fluid typography/spacing (CSS `clamp()` tokens, viewport padding) and responsive max-widths so 1707 px no longer feels oversized and ≥2560 px fills space gracefully.
-   - [x] Reposition instruction pill & progress affordances using safe-area, plus add mobile/compact rail variant per research.
-   - [x] Simplify 3D transforms on smaller tiers (Storyboards/Styles/Handoff) and gate velocity boosts to desktop tiers while keeping ParticleCore calm on compact tiers.
-2. **Validation & QA**
-   - ✅ Chrome DevTools MCP desktop sweep (1366, 1707, 1920, 2560, 3440) captured — screenshots at `/tmp/chrome-devtools-mcp-*/screenshot.png`. Next: add Lighthouse + performance trace + analytics event validation.
-   - Cross-browser smoke (Chrome/Firefox/Safari/Edge) noting any animation drift.
-3. **Analytics Verification**
-   - Confirm `timeline_stage_view`, `timeline_manual_advance`, `timeline_restart` push correct payloads post-responsiveness (pending).
-4. **Lint/Test Debt**
-   - Repo-level unicorn config + legacy `any` remain; plan follow-up once responsive mission ships.
-5. **Documentation Follow-up**
-   - Update docs & REPORT after responsive tiers/validation complete.
-6. **Copy Overhaul (Codex Session 1)**
-   - Phases 1–3 complete (hero/meta, stage metadata, process-flow copy, timeline intro, mid/final CTAs, audience benefits, FAQ). Phase 4 validation pending.
-   - Next: Phase 4 QA (Chrome MCP viewport sweep, Lighthouse, analytics events, documentation updates) per `docs/BRIEFING-ENGINE-COPY-IMPLEMENTATION-PLAN.md`.
-7. **Copy Clarity Audit (Codex Session 2)**
-   - Audit Briefing Engine & Studios messaging against stakeholder feedback + marketing research.
-   - Surface evidence-backed copy direction updates; emphasize “storyboard to video” narrative and multi-duration specs.
-   - Stakeholder flags: step labels must stay consistent (Step 01–05), remove redundant "Choose your creative look" block, highlight multi-duration/spec creation, ensure CTA reads “storyboard to video”, trim wordy Step 03 copy, keep runway copy concise.
-8. **ParticleCore Research Deep Dive (Codex Session 2)**
-   - Inventory `ParticleCore.tsx` architecture, adaptive config touchpoints, pooling strategy, sizing lifecycle, and ticker integration.
-   - Digest performance reports (Story 1.14, GSAP runtime validation) to quantify layout thrash, GC pressure, and adaptive tier behaviour.
-   - Execute external research (Archon MCP, Context7 GSAP/canvas docs, web) for 2024–2025 best practices on high-density canvas particles + smooth-scroll integrations; archive findings and log remediation ideas for forced reflow fix.
-9. **ParticleCore Density Experiment (Codex Session 2)**
-   - Increase adaptive particle counts (high/medium tiers) and tune spawn cadence to test richer visuals without regressing performance.
-   - Rebuild + capture quick manual check; queue full perf trace if counts ship.
+## Active — 2025-11-03 Documentation Alignment
+1. **Codex Documentation Refresh** — Finish syncing `.codex/_MEMO.md`, `.codex/PLAN.md`, and `.codex/REPORT.md` with the November 3 canon; double-check that lingering references to pre-2025-11-03 guidance are clearly labeled archival.
+2. **Backlog Reality Check** — Reconcile `TASK.md` and PLAN items against the new documentation to flag which initiatives remain active vs. paused; capture outcomes in both files.
+3. **Validation Hooks** — Once docs updated, schedule a short MCP/Lighthouse verification run to confirm nothing in the current UI diverged during the doc freeze (brief note for PLAN/REPORT).
+
+## Legacy Backlog (Paused until docs sync)
+1. **Desktop Responsive Implementation (IN REVIEW)** — Tiered GSAP timing, fluid typography, safe-area progress rail, and transform simplifications completed but awaiting final validation evidence.
+2. **Validation & QA** — Chrome DevTools MCP sweep captured; still need Lighthouse, performance trace, and cross-browser smoke when feature work resumes.
+3. **Analytics Verification** — Confirm `timeline_*` events after responsive adjustments once QA loop restarts.
+4. **Lint/Test Debt** — Unicorn plugin config + legacy `any` clean-up deferred until current initiatives stabilize.
+5. **Documentation Follow-up** — Larger documentation update tied to responsive work postponed; superseded by current doc realignment.
+6. **Copy Overhaul (Codex Session 1)** — Phase 4 validation outstanding (Chrome MCP, Lighthouse, analytics, documentation) per briefing copy implementation plan.
+7. **Copy Clarity Audit (Codex Session 2)** — Messaging adjustments pending stakeholder review; maintain research but pause execution during doc sync.
+8. **ParticleCore Research Deep Dive (Codex Session 2)** — Architectural inventory and external research queued; resume after documentation task.
+9. **ParticleCore Density Experiment (Codex Session 2)** — Higher-density trials on hold pending outcome of research + performance validation.
+
+# Research Notes — 2025-11-03 (Codex Session 2)
+- `docs/bmm-index.md` confirms exhaustive documentation sweep (Nov 3, 2025) with canonical doc list, implementation status snapshot (Epic 1 implemented, Epics 4/5 planned), and performance budget reminders (vendor ≤900 kb).
+- `docs/CURRENT-ARCHITECTURE.md` reiterates JAMstack architecture, adaptive performance system, lack of automated tests, and technical debt targets (archive components, duplicate Vimeo player, disabled Agents route).
+- `docs/DEVELOPMENT-GUIDE.md` adds runbooks (`npm run build:dev`, `npm run test:performance`, `npm run deploy`) and manual QA expectations—no CI harness yet.
+- `docs/component-catalog-exhaustive.md` inventories 178 components with GSAP patterns (ScrollTrigger consolidation, will-change lifecycle) and flags adaptive performance points for future refactors.
+- `docs/documentation-freshness-report.md` distinguishes current vs planned specs (Epic 1 current, Epics 4/5 + Unified Voice Widget planned) ensuring `.codex` docs label statuses appropriately.
+- `docs/tech-spec-epic-1.md`, `tech-spec-epic-4.md`, `tech-spec-epic-5.md`, `tech-spec-unified-voice-widget.md` reviewed to understand implementation vs. future scope so plan/report updates can cite accurate states.
 
 # Research Notes — 2025-10-14 AM
 - Re-read core docs (README, SPEC, ARCHITECTURE, CONTRIBUTING) and GSAP audit bundle; `TASK.md` recreated to track current workstreams.
@@ -103,6 +145,7 @@ npm run preview    # Preview production build on http://localhost:4173
 
 # Historical Log
 
+- **2025-11-03 09:45 PDT:** Completed November 3 doc sweep (bmm-index canon, architecture/development/component catalog, tech specs) and initiated `.codex` documentation realignment plan.
 - **2025-10-13:** Identified ScrollTrigger pinning dead zones; planned segmentation.
 - **2025-10-14 13:30 NZDT:** Segmented timeline + sections implemented; doc suite refreshed; analytics wired.
 - **2025-10-14 14:10 NZDT:** Instruction rail announces active step (`aria-live`); progress rail accessible; “Next” button transitions to “Restart” on final stage.

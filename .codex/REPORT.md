@@ -1,3 +1,22 @@
+# 2025-11-03 – Documentation Canon Realignment (Codex Session 2)
+
+## Summary
+- Reviewed the November 3, 2025 documentation suite (`docs/bmm-index.md`, Current Architecture, Development Guide, Component Catalog, Documentation Freshness Report, Epic tech specs) to establish the new canonical understanding of the project.
+- Updated `.codex/_MEMO.md` with refreshed focus anchors, decisions, opportunities backlog, research notes, and historical log entries reflecting the new documentation baseline.
+- Reorganized `.codex/PLAN.md` so the documentation realignment plan leads, and all prior feature/copy plans are clearly archived as paused until reactivation.
+
+## Verification
+- Manual documentation audit; no code executed. (References captured in `_MEMO` research notes.)
+
+## Risks
+- UI has not been revalidated since pausing animation work; a quick MCP/Lighthouse sweep remains outstanding after documentation updates.
+- Legacy plan sections may still contain actionable items—need explicit stakeholder confirmation before reactivating to avoid misalignment with the new canon.
+
+## Follow-ups
+- Update `TASK.md` to reflect which backlog items remain active vs. paused once documentation sync is signed off.
+- Run a light validation loop (Chrome DevTools MCP + Lighthouse) to ensure current production experience matches documented expectations.
+- Decide which archived plans (responsive optimization, copy overhaul) to revive next and log the decision in PLAN/REPORT when ready.
+
 # 2025-10-09 – Briefing Process Flow Update
 
 ## Summary

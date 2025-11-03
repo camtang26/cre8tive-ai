@@ -1,4 +1,21 @@
-# Copy USP Transcript Synthesis Plan — 2025-10-20
+# Documentation Realignment Plan — 2025-11-03
+
+**Goal:** Sync `.codex` knowledge artifacts with the November 3, 2025 documentation suite (bmm-index + linked guides) so future sessions bootstrap from the latest canon without re-reading 200+ pages.
+
+**Steps**
+- ✅ **S1 – Documentation Intake:** Walk through `docs/bmm-index.md` and every linked core doc (Current Architecture, Development Guide, Component Catalog, Freshness Report, key tech specs, story summaries) to capture factual deltas vs. existing `.codex` guidance. *(Completed 2025-11-03)*
+- ✅ **S2 – Knowledge Synthesis:** Update `.codex/_MEMO.md` focus anchors, decisions, and opportunities with insights from the November 3 scan (tech stack changes, implementation status, research troves). *(Completed 2025-11-03)*
+- ✅ **S3 – Plan Refresh:** Rewrite `.codex/PLAN.md` sections so retired initiatives are archived, new plan reflects documentation realignment, and cross-reference obligations (MCP usage, validation rituals) from the fresh docs. *(Completed 2025-11-03)*
+- ✅ **S4 – Report Update:** Expand `.codex/REPORT.md` with status notes capturing the doc realignment work, outstanding validation loops, and recommendations surfaced in the new doc set. *(Completed 2025-11-03)*
+- ✅ **S5 – Opportunity & Follow-up Logging:** Record newly discovered opportunities, debt, and validation needs in `_MEMO` and `TASK.md` (if scope warrants) to keep backlog truthful. *(Completed 2025-11-03)*
+
+**Impact Set:** `docs/*.md` (bmm-index canon), `.codex/_MEMO.md`, `.codex/PLAN.md`, `.codex/REPORT.md`, `TASK.md` (if changes), `AGENTS.md` (if protocol updates required).
+
+# Archived Plans — Paused as of 2025-11-03
+
+The following plans represent earlier initiatives kept for historical context. Re-activate only after confirming alignment with the November 3 documentation canon and current priorities.
+
+## Copy USP Transcript Synthesis Plan — 2025-10-20
 
 **Goal:** Catalogue Claude session transcripts focused on Cre8tive AI copy differentiation and consolidate all USP-oriented messaging guidance into a single reference.
 
@@ -9,7 +26,7 @@
 
 **Impact Set:** `CLAUDE*.md`, `claude-mode/` transcripts, `.codex/_MEMO.md`, `.codex/REPORT.md`, new copy reference document under `.codex/` (TBD).
 
-# Briefing Engine Recovery Plan — 2025-10-15
+## Briefing Engine Recovery Plan — 2025-10-15
 
 **Goal:** Restore `src/pages/BriefingEngine.tsx` to the segmented timeline architecture so the page renders today’s five-stage flow instead of the legacy pinned animation.
 
@@ -20,7 +37,7 @@
 
 **Impact Set:** `src/pages/BriefingEngine.tsx`, `src/components/briefing/BriefingTimeline.tsx`, section components, `docs` references if structure shifts.
 
-# Hero Section Research Plan — 2025-10-15
+## Hero Section Research Plan — 2025-10-15
 
 **Goal:** Build a contemporary blueprint for the homepage hero that mirrors premium SaaS leaders—covering copy voice, layout structure, CTA placement, trust framing, and resilient background effects.
 
@@ -37,7 +54,7 @@
 3. Background/motion recommendation shortlist (animated gradient shell vs. parallax UI mockups) with reliability considerations.
 4. Update SPEC/ARCHITECTURE once implementation direction chosen.
 
-# Hero Redesign Execution Plan — 2025-10-15
+## Hero Redesign Execution Plan — 2025-10-15
 
 **Vision Snapshot:** Elevate the homepage hero into a cinematic, outcome-first stage that pairs enterprise-grade messaging with tangible platform visuals, immediate proof, and reliable wow-factor motion. Success = stakeholder approval + measurable lift in engagement (scroll depth, CTA clicks) once live.
 
@@ -53,7 +70,7 @@
 
 **Validation:** `npm run build`, targeted UI smoke (manual), Chrome DevTools MCP evidence, analytics check for CTA events after hooking into existing tracking.
 
-# Briefing Timeline Segmentation Plan — 2025-10-14
+## Briefing Timeline Segmentation Plan — 2025-10-14
 
 **Goal:** Deliver the segmented timeline with responsive GSAP tiers so 1024–3440 px desktops feel balanced, animations adapt per viewport, and affordances remain obvious even on scaled displays.
 
@@ -183,7 +200,7 @@ Status: **In Progress — Codex Session 2**
 - Reduced-motion test: `prefers-reduced-motion` media emulation in Chrome DevTools
 - Key files: `src/components/briefing/BriefingTimeline.tsx`, `src/components/briefing/sections/*`, `src/hooks/useScrollTriggerAnimation.ts`, `src/styles/utilities.css`
 
-# Copy Clarity Audit Plan — 2025-10-14
+## Copy Clarity Audit Plan — 2025-10-14
 
 **Goal:** Elevate Briefing Engine & Studios copy so it signals premium expertise, derisks “AI slop” perceptions, and aligns with stakeholder direction (“storyboard to video”, multi-duration specs, proof-backed claims).
 
@@ -241,7 +258,7 @@ S6–S8 **Deprecated** – Orbit hero exploration cancelled per stakeholder dire
 - **Next:** Scope Step 02–05 implementations; align with Sessions 1/2 before committing layout tweaks.
 
 — Codex Session 3
-# USP Copy Transcript Harvest — 2025-10-20
+## USP Copy Transcript Harvest — 2025-10-20
 
 **Goal:** Identify every Claude session that concentrated on copywriting tied to Cre8tive AI’s USP/differentiator messaging and consolidate the insights into a single reference artifact.
 

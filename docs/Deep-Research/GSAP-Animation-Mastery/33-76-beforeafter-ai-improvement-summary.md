@@ -1,0 +1,15 @@
+### 7.6 Before/After AI Improvement Summary
+
+To crystallize, here's a quick scenario: - Project: Interactive Timeline of Company History. - **Before (AI basic):** It might animate each year's block into view with a simple fade when scrolled into viewport. - **After (AI improved via this guide):** - Pin the timeline section so it stays fixed. - As user scrolls, the timeline line might draw (using GSAP drawing an SVG line perhaps), and cards for each year slide in one by one. Possibly using ScrollTrigger scrub to move a marker along the timeline. - Add small highlights (e.g., an icon that appears with each card). - On mobile (reduced space), it might not pin but rather just reveal normally, via matchMedia adjustments. - Ensure reduced-motion mode just shows all timeline items without fancy sliding. - This result is much more engaging and at the level of a case-study site.
+
+We referenced specific lines for authenticity: - Locomotive example about syncing smooth scroll and GSAP[\[13\]](https://www.awwwards.com/case-study-baillat-studio-by-locomotive.html#:~:text=An%20advanced%20scroll,duration%20for%20each%20of%20them), - Zajno's shift to scroll control[\[37\]](https://www.awwwards.com/case-study-7-year-journey-by-zajno.html#:~:text=The%20main%20technical%20challenge%20was,didn%27t%20provide%20the%20desired%20experience), - Their optimization approach[\[38\]](https://www.awwwards.com/case-study-7-year-journey-by-zajno.html#:~:text=The%20third%20challenge%20involved%20optimizing,this%20experience%20on%20mobile%20devices).
+
+These demonstrate that even top teams go through decisions about *how* to animate and often choose GSAP for flexibility.
+
+**Conclusion of Part 7:** By learning from the best (and sometimes learning from initial missteps like Zajno's auto-play idea), one sees the value of GSAP's approach: - Timelines enabling complex choreography. - ScrollTrigger enabling user-driven experience. - Flip enabling state changes without jarring. - And the importance of performance and user preference in each case.
+
+AI should internalize these as patterns to replicate: If asked for an "Apple-like" scroll animation, know to suggest ScrollTrigger with scrub and image sequences. If asked for a "creative text intro", think of SplitText and staggers like we saw.
+
+**Sources (Part 7):** Direct references to Locomotive's case[\[13\]](https://www.awwwards.com/case-study-baillat-studio-by-locomotive.html#:~:text=An%20advanced%20scroll,duration%20for%20each%20of%20them) and Zajno's case[\[37\]](https://www.awwwards.com/case-study-7-year-journey-by-zajno.html#:~:text=The%20main%20technical%20challenge%20was,didn%27t%20provide%20the%20desired%20experience)[\[38\]](https://www.awwwards.com/case-study-7-year-journey-by-zajno.html#:~:text=The%20third%20challenge%20involved%20optimizing,this%20experience%20on%20mobile%20devices) were used. While Apple's site isn't cited here, it's industry knowledge. These examples ground our recommendations in reality.
+
+\<a id="part8">\</a>
