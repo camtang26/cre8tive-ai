@@ -3,11 +3,12 @@ installation:
   installDate: '2025-10-29T01:19:52.726Z'
   lastUpdated: '2025-10-29T01:19:52.726Z'
 modules:
-  - core
   - bmb
   - bmm
+  - bmp
   - cis
   - core
+  - gsap-excellence
 ides:
   - claude-code
   - codex

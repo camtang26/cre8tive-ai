@@ -6,16 +6,19 @@ id: pattern-typewriter-effect-007
 name: "Typewriter Text Effect"
 category: "text-animations"
 complexity: "simple"
-gsap_version: "3.12.0"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+premium_plugins_free: true
 plugins_required: []
 description: "Classic typewriter effect revealing text character by character"
 inspiration_source: "Terminal animations, dev tool sites"
 performance_notes: "Very lightweight, excellent performance"
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+is_modern: true
+is_2025_standard: true
+last_validated: "2025-11-02"
 success_count: 0
 tags: ["text", "typewriter", "simple", "classic"]
-framework: "vanilla"
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';

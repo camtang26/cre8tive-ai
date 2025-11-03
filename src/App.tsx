@@ -22,6 +22,12 @@ import AnalyticsPage from "./pages/Analytics";
 import { SEO } from './components/core/SEO';
 import { VideoTest } from './components/test/VideoTest';
 import VideoPlaceholderDemo from './pages/VideoPlaceholderDemo';
+import ColorPaletteDemo from './pages/ColorPaletteDemo';
+import StudiosColorPaletteDemo from './pages/StudiosColorPaletteDemo';
+import HeroPrototypeDemo from './pages/HeroPrototypeDemo';
+import { HeroPrototypesDemo } from './pages/HeroPrototypesDemo';
+import StudiosHeroPrototypes from './pages/StudiosHeroPrototypes';
+import StudiosHeroPremium from './pages/StudiosHeroPremium';
 
 const queryClient = new QueryClient();
 
@@ -91,6 +97,12 @@ const App = () => {
               <Route path="/analytics" element={<AnalyticsPage />} />
               <Route path="/test/video" element={<VideoTest />} />
               <Route path="/video-placeholder-demo" element={<VideoPlaceholderDemo />} />
+              <Route path="/color-palette-demo" element={<ColorPaletteDemo />} />
+              <Route path="/studios-color-palette-demo" element={<StudiosColorPaletteDemo />} />
+              <Route path="/hero-prototype-demo-codex" element={<HeroPrototypeDemo />} />
+              <Route path="/hero-prototypes-demo" element={<HeroPrototypesDemo />} />
+              <Route path="/studios-hero-prototypes-codex" element={<StudiosHeroPrototypes />} />
+              <Route path="/studios-hero-premium-codex" element={<StudiosHeroPremium />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <CookieConsent />

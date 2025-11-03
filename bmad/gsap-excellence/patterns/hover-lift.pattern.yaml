@@ -6,16 +6,20 @@ id: pattern-hover-lift-009
 name: "Smooth Hover Lift Effect"
 category: "interactive"
 complexity: "simple"
-gsap_version: "3.12.0"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
 plugins_required: []
+premium_plugins_free: true
 description: "Card/element lifts up with shadow on hover - premium interaction pattern"
-inspiration_source: "Material Design elevation, premium card interfaces"
-performance_notes: "60fps with transform and shadow animations"
+year_introduced: 2018
+is_modern: true
+is_2025_standard: true
+inspiration_source: "Material Design elevation, premium card interfaces, Apple hover states"
+performance_notes: "60fps with transform and shadow animations. GPU-accelerated."
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+last_validated: "2025-11-02"
 success_count: 0
-tags: ["hover", "interactive", "cards", "lift", "simple", "premium"]
-framework: "vanilla"
+tags: ["hover", "interactive", "cards", "lift", "simple", "premium", "modern-2025"]
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';

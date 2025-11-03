@@ -1,0 +1,172 @@
+id: pattern-magnetic-hover-advanced-2025
+name: "Magnetic Hover with Distance Tracking"
+category: "interactive"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Advanced magnetic button that tracks cursor distance and pulls element towards cursor with physics-based easing. Closer cursor = stronger magnetic pull. Creates premium, playful interaction."
+inspiration_source: "Premium agency sites + GSAP patterns"
+source_url: "https://gsap.com/docs/v3/GSAP/gsap.quickTo()"
+source_citation: "GSAP quickTo() for performant magnetic tracking"
+performance_notes: "Uses quickTo() for optimized position updates. GPU-accelerated transforms. 60fps mouse tracking."
+accessibility_notes: "Magnetic effect doesn't interfere with keyboard focus or click areas"
+code_example: |
+  import gsap from 'gsap';
+
+  function createMagneticButton(button) {
+    const strength = 0.3; // Magnetic pull strength (0-1)
+    const maxDistance = 100; // Max distance for magnetic effect (px)
+
+    // quickTo for performant updates
+    const xTo = gsap.quickTo(button, "x", { duration: 0.6, ease: "power3.out" });
+    const yTo = gsap.quickTo(button, "y", { duration: 0.6, ease: "power3.out" });
+
+    button.addEventListener('mousemove', (e) => {
+      const rect = button.getBoundingClientRect();
+      const buttonCenterX = rect.left + rect.width / 2;
+      const buttonCenterY = rect.top + rect.height / 2;
+
+      // Calculate distance from cursor to button center
+      const deltaX = e.clientX - buttonCenterX;
+      const deltaY = e.clientY - buttonCenterY;
+      const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+      // Only apply magnetic effect within maxDistance
+      if (distance < maxDistance) {
+        // Calculate magnetic pull (stronger when closer)
+        const pull = 1 - (distance / maxDistance);
+        const moveX = deltaX * strength * pull;
+        const moveY = deltaY * strength * pull;
+
+        xTo(moveX);
+        yTo(moveY);
+      }
+    });
+
+    button.addEventListener('mouseleave', () => {
+      // Return to original position
+      xTo(0);
+      yTo(0);
+    });
+  }
+
+  // Apply to all magnetic buttons
+  document.querySelectorAll('.magnetic-btn').forEach(createMagneticButton);
+
+with_scale_effect: |
+  // Add scale effect on hover
+  function createMagneticWithScale(button) {
+    const xTo = gsap.quickTo(button, "x", { duration: 0.6, ease: "power3.out" });
+    const yTo = gsap.quickTo(button, "y", { duration: 0.6, ease: "power3.out" });
+    const scaleTo = gsap.quickTo(button, "scale", { duration: 0.4, ease: "power2.out" });
+
+    button.addEventListener('mouseenter', () => {
+      scaleTo(1.1); // Grow on hover
+    });
+
+    button.addEventListener('mousemove', (e) => {
+      const rect = button.getBoundingClientRect();
+      const buttonCenterX = rect.left + rect.width / 2;
+      const buttonCenterY = rect.top + rect.height / 2;
+
+      const deltaX = (e.clientX - buttonCenterX) * 0.3;
+      const deltaY = (e.clientY - buttonCenterY) * 0.3;
+
+      xTo(deltaX);
+      yTo(deltaY);
+    });
+
+    button.addEventListener('mouseleave', () => {
+      xTo(0);
+      yTo(0);
+      scaleTo(1); // Return to normal size
+    });
+  }
+
+inner_element_variant: |
+  // Move inner element instead of button itself (better for large buttons)
+  function createMagneticInner(button) {
+    const inner = button.querySelector('.magnetic-inner');
+
+    const xTo = gsap.quickTo(inner, "x", { duration: 0.6, ease: "power3.out" });
+    const yTo = gsap.quickTo(inner, "y", { duration: 0.6, ease: "power3.out" });
+
+    button.addEventListener('mousemove', (e) => {
+      const rect = button.getBoundingClientRect();
+      const buttonCenterX = rect.left + rect.width / 2;
+      const buttonCenterY = rect.top + rect.height / 2;
+
+      const deltaX = (e.clientX - buttonCenterX) * 0.5;
+      const deltaY = (e.clientY - buttonCenterY) * 0.5;
+
+      xTo(deltaX);
+      yTo(deltaY);
+    });
+
+    button.addEventListener('mouseleave', () => {
+      xTo(0);
+      yTo(0);
+    });
+  }
+
+react_usage: |
+  'use client';
+
+  import { useRef } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  export function MagneticButton({ children }) {
+    const buttonRef = useRef();
+
+    useGSAP(() => {
+      const button = buttonRef.current;
+      const xTo = gsap.quickTo(button, "x", { duration: 0.6, ease: "power3.out" });
+      const yTo = gsap.quickTo(button, "y", { duration: 0.6, ease: "power3.out" });
+
+      const handleMove = (e) => {
+        const rect = button.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const deltaX = (e.clientX - centerX) * 0.3;
+        const deltaY = (e.clientY - centerY) * 0.3;
+
+        xTo(deltaX);
+        yTo(deltaY);
+      };
+
+      const handleLeave = () => {
+        xTo(0);
+        yTo(0);
+      };
+
+      button.addEventListener('mousemove', handleMove);
+      button.addEventListener('mouseleave', handleLeave);
+
+      return () => {
+        button.removeEventListener('mousemove', handleMove);
+        button.removeEventListener('mouseleave', handleLeave);
+      };
+    }, { scope: buttonRef });
+
+    return (
+      <button ref={buttonRef} className="magnetic-btn">
+        {children}
+      </button>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["magnetic", "hover", "interactive", "quickto", "micro-animation", "premium", "cursor-tracking"]
+framework: "vanilla"
+use_cases:
+  - "CTA buttons"
+  - "Navigation links"
+  - "Social media icons"
+  - "Premium UI elements"
+  - "Interactive cards"
+why_premium: "Magnetic hover creates playful, premium feel. Used by high-end agencies (Active Theory, Locomotive). quickTo() provides 60fps performance. Distance-based pull strength feels physically realistic."

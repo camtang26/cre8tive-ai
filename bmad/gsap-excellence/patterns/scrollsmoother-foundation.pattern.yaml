@@ -1,0 +1,300 @@
+id: pattern-scrollsmoother-foundation-2025
+name: "ScrollSmoother Foundation - Buttery Smooth Scrolling"
+category: "scroll-effects"
+complexity: "medium"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["ScrollTrigger", "ScrollSmoother"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "$99/year (now FREE in GSAP 3.13+!)"
+cost_note: "🎉 ScrollSmoother was $99/year, now COMPLETELY FREE in GSAP 3.13+ (late 2024)! Use it liberally for premium smooth scrolling!"
+description: "Buttery smooth momentum-based scrolling using ScrollSmoother (formerly premium, now FREE!). Creates the premium feel of high-end agency sites like Locomotive Scroll but with GSAP's performance and control."
+year_introduced: 2020
+made_free: "2024 (GSAP 3.13)"
+is_modern: true
+is_2025_standard: true
+is_premium_feature: true
+replaces: "Locomotive Scroll, Lenis (though can be combined), custom smooth scroll libraries"
+
+inspiration_source: "Awwwards winners, Locomotive demos, premium agency sites"
+performance_notes: "Extremely optimized. 60fps even with heavy content. Works on mobile (can be disabled for native feel)."
+
+accessibility_notes: |
+  - Disable for prefers-reduced-motion users
+  - Can conflict with screen readers (provide toggle)
+  - Ensure keyboard navigation works
+  - Consider mobile native scroll for accessibility
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+"
+  edge: "90+"
+  mobile: "Works but consider native scroll for better UX"
+
+use_cases:
+  - "Any premium website wanting smooth scroll"
+  - "Portfolio sites and case studies"
+  - "Product landing pages"
+  - "Storytelling experiences"
+  - "Replace Locomotive Scroll with GSAP ecosystem"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  // ✅ Basic ScrollSmoother setup (FREE in 3.13+!)
+  const smoother = ScrollSmoother.create({
+    smooth: 1.5,              // Smoothness (0-3, default 1)
+    effects: true,            // Enable data-speed parallax
+    smoothTouch: 0.1,         // Mobile smooth (0 = native, 0.1 = subtle)
+    normalizeScroll: true     // Fix mobile address bar issues
+  });
+
+  // Now all scroll is smooth!
+  // Plus you get .scrollTo() for free:
+  smoother.scrollTo("#section2", true); // Smooth scroll to element
+
+nextjs_15_setup: |
+  // app/components/SmoothScroll.tsx
+  'use client';
+
+  import { useEffect, useRef, ReactNode } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  export default function SmoothScroll({ children }: { children: ReactNode }) {
+    const smootherRef = useRef<ScrollSmoother | null>(null);
+
+    useEffect(() => {
+      // Create smoother (FREE in 3.13+!)
+      smootherRef.current = ScrollSmoother.create({
+        smooth: 1.5,
+        effects: true,
+        smoothTouch: 0.1, // Subtle on mobile
+        normalizeScroll: true
+      });
+
+      return () => {
+        smootherRef.current?.kill();
+      };
+    }, []);
+
+    return (
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+  // Then in app/layout.tsx:
+  import SmoothScroll from './components/SmoothScroll';
+
+  export default function RootLayout({ children }) {
+    return (
+      <html>
+        <body>
+          <SmoothScroll>{children}</SmoothScroll>
+        </body>
+      </html>
+    );
+  }
+
+required_html_structure: |
+  <!-- ScrollSmoother requires specific wrapper structure -->
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <!-- All your page content here -->
+    </div>
+  </div>
+
+css_requirements: |
+  /* Required CSS for ScrollSmoother */
+  #smooth-wrapper {
+    overflow: hidden;
+  }
+
+  #smooth-content {
+    overflow: visible;
+    width: 100%;
+  }
+
+parallax_effects: |
+  // ✅ Built-in parallax with data-speed attribute
+  <div data-speed="0.5">Moves slower (background effect)</div>
+  <div data-speed="1.5">Moves faster (foreground effect)</div>
+
+  // data-speed="1" = normal speed
+  // data-speed="0.5" = half speed (parallax background)
+  // data-speed="1.5" = 1.5x speed (parallax foreground)
+  // data-speed="auto" = automatic depth calculation
+
+smooth_scrollto: |
+  import { gsap } from 'gsap';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+  // Get smoother instance
+  const smoother = ScrollSmoother.get();
+
+  // Smooth scroll to element
+  smoother.scrollTo("#target", true, "top top");
+
+  // Smooth scroll to position
+  smoother.scrollTo(500, true);
+
+  // With custom duration and ease
+  smoother.scrollTo("#target", {
+    duration: 2,
+    ease: "power2.inOut"
+  });
+
+  // Offset from top
+  smoother.scrollTo("#target", true, "top 20%");
+
+advanced_config: |
+  ScrollSmoother.create({
+    smooth: 2,                    // How smooth (0-3)
+    effects: true,                // Enable data-speed
+    smoothTouch: 0.1,             // Mobile smoothness
+    normalizeScroll: true,        // Fix mobile address bar
+    ignoreMobileResize: true,     // Ignore iOS resize events
+    preventDefault: false,        // Don't prevent default
+
+    // Advanced options
+    onUpdate: (self) => {
+      console.log("Scroll progress:", self.progress);
+    },
+    onStop: () => {
+      console.log("Scrolling stopped");
+    },
+    onRefresh: () => {
+      console.log("Smoother refreshed");
+    }
+  });
+
+disable_on_mobile: |
+  // Disable smooth scroll on mobile for better UX
+  import { useEffect } from 'react';
+
+  useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    const smoother = ScrollSmoother.create({
+      smooth: isMobile ? 0 : 1.5,  // Native on mobile
+      effects: true,
+      smoothTouch: 0  // Native touch scroll
+    });
+
+    return () => smoother?.kill();
+  }, []);
+
+accessibility_implementation: |
+  // Respect prefers-reduced-motion
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  ScrollSmoother.create({
+    smooth: prefersReducedMotion ? 0 : 1.5,  // Disable if reduced motion
+    effects: !prefersReducedMotion,
+    smoothTouch: 0
+  });
+
+  // Provide toggle for users
+  const toggleSmoothScroll = () => {
+    const smoother = ScrollSmoother.get();
+    if (smoother) {
+      smoother.paused(!smoother.paused());
+    }
+  };
+
+react_19_complete_example: |
+  'use client';
+
+  import { useEffect, useRef, ReactNode } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, useGSAP);
+
+  export default function PremiumSmoothScroll({ children }: { children: ReactNode }) {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+      // Check for reduced motion
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      // Check if mobile
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+      // Create ScrollSmoother (FREE in 3.13+!)
+      const smoother = ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: prefersReducedMotion ? 0 : (isMobile ? 0.5 : 1.5),
+        effects: !prefersReducedMotion,
+        smoothTouch: isMobile ? 0 : 0.1,
+        normalizeScroll: true,
+        ignoreMobileResize: true
+      });
+
+      return () => smoother?.kill();
+    }, { scope: wrapperRef });
+
+    return (
+      <div id="smooth-wrapper" ref={wrapperRef}>
+        <div id="smooth-content">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+variations:
+  - name: "With Parallax Layers"
+    description: "Add data-speed attributes for depth parallax"
+  - name: "Mobile Native + Desktop Smooth"
+    description: "Smooth on desktop, native on mobile"
+  - name: "Combined with Lenis"
+    description: "Use both for maximum smoothness (experimental)"
+  - name: "Custom easing"
+    description: "Use different easing curves for scroll feel"
+
+common_mistakes:
+  - "Forgetting wrapper/content div structure (won't work!)"
+  - "Not killing smoother on cleanup (memory leak)"
+  - "Using on mobile without testing (can feel janky)"
+  - "Not respecting prefers-reduced-motion"
+  - "Combining with other scroll libraries (conflicts)"
+
+tips:
+  - "Start with smooth: 1, adjust to taste"
+  - "Disable on mobile for better native feel"
+  - "Use data-speed sparingly (too much is distracting)"
+  - "Combine with ScrollTrigger for advanced effects"
+  - "Test on real devices, not just simulators"
+  - "Provide accessibility toggle for users"
+
+performance_optimization: |
+  // Only enable on powerful devices
+  const isLowPowerMode = navigator.getBattery?.()
+    .then(battery => battery.level < 0.2);
+
+  if (!isLowPowerMode) {
+    ScrollSmoother.create({ smooth: 1.5 });
+  }
+
+created_date: "2025-11-02"
+tags: ["scrollsmoother", "premium-free", "smooth-scroll", "modern-2025", "nextjs-15", "react-19", "was-paid"]

@@ -1,0 +1,91 @@
+id: pattern-nav-bar-slide-in-2025
+name: "Navigation Bar Slide-In on Load"
+category: "loading-sequences"
+complexity: "simple"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_2025_standard: true
+description: "Navigation bar slides down from top on page load with slight bounce. Logo and nav items stagger in. Clean, professional page entry."
+inspiration_source: "Modern web app patterns"
+source_url: "https://gsap.com/docs/v3/GSAP/gsap.from()"
+source_citation: "Navigation intro patterns"
+performance_notes: "Uses y transforms (GPU-accelerated). Stagger creates organic reveal."
+accessibility_notes: "Show nav instantly for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+
+  function navSlideIn() {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      gsap.set('.nav-bar', { y: 0, opacity: 1 });
+      gsap.set('.nav-item', { y: 0, opacity: 1 });
+      return;
+    }
+
+    const tl = gsap.timeline();
+
+    // Nav bar slides down
+    tl.from('.nav-bar', {
+      y: -100,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+
+    // Nav items stagger in
+    tl.from('.nav-item', {
+      y: -20,
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: 'power2.out'
+    }, '-=0.4'); // Overlap with nav bar
+  }
+
+  window.addEventListener('load', navSlideIn);
+
+react_usage: |
+  'use client';
+
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+
+  export function NavBar({ items }) {
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(['.nav-bar', '.nav-item'], { y: 0, opacity: 1 });
+        return;
+      }
+
+      const tl = gsap.timeline();
+      tl.from('.nav-bar', { y: -100, opacity: 0, duration: 0.8, ease: 'power3.out' })
+        .from('.nav-item', { y: -20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }, '-=0.4');
+    }, []);
+
+    return (
+      <nav className="nav-bar" style={{ opacity: 0 }}>
+        {items.map((item, i) => (
+          <a key={i} href={item.href} className="nav-item" style={{ opacity: 0 }}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["navigation", "nav-bar", "loading", "slide-in", "intro"]
+framework: "vanilla"
+use_cases:
+  - "Website navigation"
+  - "App headers"
+  - "Dashboard top bars"
+why_premium: "Clean nav intro creates polished feel. Staggered items feel organic."

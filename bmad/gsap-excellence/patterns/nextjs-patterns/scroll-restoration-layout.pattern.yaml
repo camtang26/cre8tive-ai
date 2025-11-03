@@ -1,0 +1,158 @@
+id: pattern-nextjs-scroll-restoration-2025
+name: "Next.js 15 Scroll Restoration with Shared Layouts"
+category: "nextjs-patterns"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: false
+is_2025_standard: true
+react_19_compatible: true
+nextjs_15_compatible: true
+nextjs_app_router: true
+description: "Preserve scroll position and ScrollTrigger state when navigating between pages with shared layouts in Next.js 15 App Router. Prevents jarring scroll jumps and ensures smooth UX with client-side navigation."
+inspiration_source: "Next.js App Router + GSAP ScrollTrigger best practices"
+source_url: "https://nextjs.org/docs/app"
+source_citation: "Next.js 15 App Router + GSAP ScrollTrigger integration"
+performance_notes: "ScrollTrigger.refresh() recalculates positions after navigation. Scroll restoration happens instantly."
+accessibility_notes: "Preserve user's scroll position for better UX"
+code_example: |
+  // app/layout.tsx
+  'use client';
+
+  import { usePathname } from 'next/navigation';
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  export default function RootLayout({ children }) {
+    const pathname = usePathname();
+
+    useLayoutEffect(() => {
+      // Refresh ScrollTrigger on route change
+      ScrollTrigger.refresh();
+
+      // Clean up function
+      return () => {
+        // Kill all ScrollTriggers when layout unmounts
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, [pathname]);
+
+    return (
+      <html>
+        <body>{children}</body>
+      </html>
+    );
+  }
+
+scroll_position_restoration: |
+  // Save and restore scroll position across navigations
+  'use client';
+
+  import { usePathname } from 'next/navigation';
+  import { useLayoutEffect } from 'react';
+
+  const scrollPositions = new Map();
+
+  export function useScrollRestoration() {
+    const pathname = usePathname();
+
+    useLayoutEffect(() => {
+      // Restore scroll position for this route
+      const savedPosition = scrollPositions.get(pathname);
+      if (savedPosition) {
+        window.scrollTo(0, savedPosition);
+      }
+
+      // Save scroll position before unmount
+      return () => {
+        scrollPositions.set(pathname, window.scrollY);
+      };
+    }, [pathname]);
+  }
+
+  // Usage in layout:
+  export default function Layout({ children }) {
+    useScrollRestoration();
+    return <>{children}</>;
+  }
+
+prevent_scrolltrigger_conflicts: |
+  // Prevent ScrollTrigger conflicts in shared layouts
+  'use client';
+
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  export function PageWithScrollTriggers() {
+    useLayoutEffect(() => {
+      // Create context to isolate ScrollTriggers
+      const ctx = gsap.context(() => {
+        gsap.to('.animated-element', {
+          scrollTrigger: {
+            trigger: '.animated-element',
+            start: 'top center',
+            id: 'unique-id-per-page', // Prevent conflicts
+          },
+          opacity: 1
+        });
+      });
+
+      // Refresh after DOM settles
+      setTimeout(() => ScrollTrigger.refresh(), 100);
+
+      // Clean up this page's ScrollTriggers
+      return () => ctx.revert();
+    }, []);
+
+    return <div className="animated-element">Content</div>;
+  }
+
+loading_state_handling: |
+  // Handle loading states with GSAP
+  'use client';
+
+  import { usePathname } from 'next/navigation';
+  import { useState, useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+
+  export function LoadingTransition({ children }) {
+    const pathname = usePathname();
+    const [isLoading, setIsLoading] = useState(false);
+
+    useLayoutEffect(() => {
+      setIsLoading(true);
+
+      // Fade in new page
+      gsap.fromTo(
+        '.page-container',
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.3,
+          onComplete: () => setIsLoading(false)
+        }
+      );
+    }, [pathname]);
+
+    return (
+      <div className="page-container">
+        {isLoading && <div className="loading-indicator">Loading...</div>}
+        {children}
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["nextjs", "nextjs-15", "app-router", "scroll-restoration", "scrolltrigger", "shared-layouts", "navigation"]
+framework: "nextjs"
+use_cases:
+  - "Next.js 15 App Router with ScrollTrigger"
+  - "Shared layouts with scroll animations"
+  - "Preserving scroll position on navigation"
+  - "Preventing ScrollTrigger conflicts"
+  - "Multi-page scroll experiences"
+why_premium: "Scroll restoration + ScrollTrigger integration is ESSENTIAL for Next.js 15 apps with scroll animations. Prevents jarring jumps, ensures smooth navigation. Production-critical pattern."

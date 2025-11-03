@@ -5,6 +5,9 @@
 
 ## In Progress
 - **DOC1: Codex Documentation Realignment** — Sync `.codex/_MEMO.md`, `.codex/PLAN.md`, `.codex/REPORT.md`, and `TASK.md` with the November 3 documentation canon so future work references the latest architecture/roadmap.
+- **P01: Codex Video Placeholder Prototypes** — Research 2025 glassmorphism/GSAP best practices and implement Codex-authored Minimal, Premium Glass, and Bold Cinematic video placeholder components + demo for Epic 2/3 comparison. *(Complete – awaiting Cameron selection)*
+- **P02: Codex Color Palette Prototypes** — Research 2025 luxury + enterprise color trends and deliver Codex palette options (Studios & Conversational AI) alongside Claude’s originals in `/color-palette-demo` for Sprint 1 foundation lock.
+- **P03: Hero Video Prototypes** — Produce premium hero sections (Studios + Conversational AI) with video backgrounds, gradient overlays, multi-phase animations, and reduced-motion fallbacks per 2025 research. *(Completed 2025-11-03 — review via `/hero-prototype-demo`.)*
 - *Legacy animation/copy tasks remain paused until DOC1 concludes:*
   - **T17: Briefing Engine Page Recovery** — Reinstate segmented timeline orchestration in `src/pages/BriefingEngine.tsx` after accidental rollback, ensuring build passes without missing imports.
   - **H1: Homepage Hero Redesign** — Implement premium SaaS-inspired hero with outcome-first copy cluster, trust strip, cinematic product visuals, and animated gradient background. (Ref: `.codex/PLAN.md` Hero Redesign Execution Plan)
@@ -19,3 +22,4 @@
 - **Styles/Handoff GPU Hint Sweep** — Add dynamic `will-change` lifecycle + `force3D` hints to align with performance audit recommendations. (Ref: `docs/gsap-runtime-performance-validation-2025-10-14.md`)
 - **Analytics & QA Validation Loop** — Capture refreshed MCP viewport sweep, analytics payload checks, and Lighthouse runs after responsive tiers land. (Ref: `.codex/PLAN.md` T6)
 - **Lint/Test Debt Resolution** — Address repo unicorn config gaps and legacy `any` usage once responsive work is merged. (Ref: `.codex/_MEMO.md` Outstanding Tasks)
+- **Hero Video KPI Follow-up** — Re-run Lighthouse and user analytics after the lazy-load upgrade to ensure manual activation rates stay healthy and performance metrics improve as expected. (Ref: `.codex/_MEMO.md` Opportunities #6)

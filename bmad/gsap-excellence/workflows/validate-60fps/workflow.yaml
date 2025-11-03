@@ -1,0 +1,71 @@
+# Validate 60fps Workflow - GSAP Excellence Engine
+# Systematic 60fps validation with pass/fail criteria
+# Agent: Tech Director
+# Complexity: Standard
+
+name: validate-60fps
+description: "Systematic 60fps validation with objective pass/fail benchmarks. Tests normal, mid-range, and low-end devices using Chrome DevTools CPU throttling. Generates compliance report."
+author: "GSAP Excellence Engine - Phase 6"
+version: "1.0.0"
+complexity: "standard"
+
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+mcp_servers:
+  chrome_devtools:
+    tools: ["navigate_page", "performance_start_trace", "performance_stop_trace", "emulate_cpu", "take_screenshot", "evaluate_script"]
+    purpose: "Performance profiling, CPU throttling, FPS measurement, visual validation"
+
+  archon:
+    tools: ["rag_search_knowledge_base"]
+    purpose: "Performance benchmarks, optimization patterns"
+
+agents:
+  primary: "gsap-tech-director"
+
+installed_path: "{module_root}/workflows/validate-60fps"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+default_output_file: "{output_folder}/60fps-validation-report-{{date}}.md"
+
+inputs:
+  page_url:
+    description: "Dev server URL to validate"
+    required: true
+
+  animation_selectors:
+    description: "CSS selectors or triggers for animations to test (comma-separated)"
+    required: true
+
+  test_duration_seconds:
+    description: "How long to run each test (default: 5 seconds)"
+    required: false
+    default: 5
+
+outputs:
+  validation_report:
+    format: "Pass/Fail results for 1x, 4x, 6x CPU throttle with FPS metrics"
+
+  optimization_recommendations:
+    format: "Specific fixes for failed tests (if any)"
+
+  compliance_status:
+    format: "PASSED (production-ready) or FAILED (blocking issues)"
+
+estimated_duration: "10-15 minutes"
+
+benchmarks:
+  fps_normal: "60fps sustained @ 1x CPU (normal devices)"
+  fps_midrange: "60fps sustained @ 4x CPU (mid-range devices) - MANDATORY"
+  fps_lowend: "30fps minimum @ 6x CPU (low-end devices)"
+  frame_budget: "16ms per frame total"
+  scripting_budget: "8ms per frame"
+  rendering_budget: "4ms per frame"
+  painting_budget: "4ms per frame"

@@ -1,0 +1,353 @@
+id: pattern-react-19-usegsap-hook-2025
+name: "React 19 + useGSAP Hook Best Practices"
+category: "integration"
+complexity: "medium"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["@gsap/react"]
+premium_plugins_free: true
+cost_note: "useGSAP hook is free, works with ALL premium plugins (now free in 3.13+!)"
+description: "Modern GSAP integration with React 19 using the official useGSAP() hook (2025). Automatic cleanup, scoped selectors, and Server Component compatibility. Use with ALL premium plugins (ScrollSmoother, MorphSVG, etc.) - now FREE!"
+year_introduced: 2024
+is_modern: true
+is_2025_standard: true
+replaces: "Manual useEffect with gsap, useLayoutEffect patterns, manual cleanup"
+
+inspiration_source: "Official @gsap/react package, React 19 best practices"
+performance_notes: "Automatic cleanup prevents memory leaks. Scoped selectors improve performance. Works with React 19 Compiler."
+
+accessibility_notes: |
+  - No accessibility impact (pure integration pattern)
+  - Ensure animations respect prefers-reduced-motion
+  - Use semantic HTML with GSAP
+
+browser_support:
+  all: "Works wherever React 19 runs"
+
+use_cases:
+  - "All GSAP animations in React 19 components"
+  - "Next.js 15 Client Components"
+  - "React 19 with Server Components (use 'use client')"
+  - "TypeScript React projects"
+
+code_example: |
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  // ✅ Register the hook globally (once in app)
+  gsap.registerPlugin(useGSAP);
+
+  export default function AnimatedComponent() {
+    const container = useRef();
+
+    // ✅ Modern useGSAP pattern (2025)
+    useGSAP(() => {
+      // All animations here are automatically cleaned up!
+      gsap.to(".box", { x: 100, rotation: 360 });
+
+      // Timelines also auto-cleanup
+      const tl = gsap.timeline();
+      tl.to(".title", { opacity: 1, y: 0 })
+        .to(".subtitle", { opacity: 1 }, "-=0.3");
+
+    }, { scope: container }); // ← Scope limits selectors to this container
+
+    return (
+      <div ref={container}>
+        <div className="box">Animated Box</div>
+        <h1 className="title">Title</h1>
+        <p className="subtitle">Subtitle</p>
+      </div>
+    );
+  }
+
+react_19_typescript: |
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  interface AnimatedCardProps {
+    title: string;
+    delay?: number;
+  }
+
+  export default function AnimatedCard({ title, delay = 0 }: AnimatedCardProps) {
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+      gsap.from(cardRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        delay,
+        ease: "power2.out"
+      });
+    }, { scope: cardRef });
+
+    return (
+      <div ref={cardRef} className="card">
+        <h2>{title}</h2>
+      </div>
+    );
+  }
+
+dependencies_array: |
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  export default function DynamicAnimation({ count, color }) {
+    const container = useRef();
+
+    // ✅ Re-run animation when dependencies change
+    useGSAP(() => {
+      gsap.to(".box", {
+        x: count * 50,
+        backgroundColor: color,
+        duration: 0.5
+      });
+    }, {
+      scope: container,
+      dependencies: [count, color] // ← Re-animate when these change
+    });
+
+    return (
+      <div ref={container}>
+        <div className="box">Dynamic</div>
+      </div>
+    );
+  }
+
+context_safe: |
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  export default function InteractiveComponent() {
+    const container = useRef();
+
+    // ✅ Use contextSafe for event handlers
+    const { contextSafe } = useGSAP({ scope: container });
+
+    // Wrap event handlers with contextSafe for automatic cleanup
+    const handleClick = contextSafe(() => {
+      gsap.to(".box", {
+        rotation: "+=360",
+        duration: 1,
+        ease: "back.out(1.7)"
+      });
+    });
+
+    return (
+      <div ref={container}>
+        <button onClick={handleClick}>Animate</button>
+        <div className="box">Click to rotate</div>
+      </div>
+    );
+  }
+
+nextjs_15_client_component: |
+  'use client'; // ← Required for Next.js App Router
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+  export default function HeroSection() {
+    const heroRef = useRef();
+
+    useGSAP(() => {
+      // ScrollTrigger with useGSAP (auto-cleanup!)
+      gsap.from(".hero-title", {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        scrollTrigger: {
+          trigger: ".hero-title",
+          start: "top 80%",
+          end: "top 20%",
+          scrub: 1
+        }
+      });
+
+      // Timeline with ScrollTrigger
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+          pin: true
+        }
+      });
+
+      tl.to(".hero-image", { scale: 1.2, opacity: 0.5 })
+        .to(".hero-title", { y: -100 }, "<");
+
+    }, { scope: heroRef });
+
+    return (
+      <section ref={heroRef} className="h-screen">
+        <img src="/hero.jpg" alt="Hero" className="hero-image" />
+        <h1 className="hero-title">Welcome</h1>
+      </section>
+    );
+  }
+
+revert_on_toggle: |
+  import { useRef, useState } from 'react';
+  import { gsap } from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  export default function ToggleAnimation() {
+    const container = useRef();
+    const [isActive, setIsActive] = useState(false);
+
+    useGSAP(() => {
+      if (isActive) {
+        gsap.to(".box", { x: 200, duration: 0.5 });
+      }
+      // Animations automatically revert when isActive becomes false!
+    }, {
+      scope: container,
+      dependencies: [isActive],
+      revertOnUpdate: true // ← Auto-revert when dependencies change
+    });
+
+    return (
+      <div ref={container}>
+        <button onClick={() => setIsActive(!isActive)}>
+          Toggle
+        </button>
+        <div className="box">Animate</div>
+      </div>
+    );
+  }
+
+global_timeline: |
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  export default function ComplexAnimation() {
+    const container = useRef();
+    const tlRef = useRef();
+
+    useGSAP(() => {
+      // Create timeline and store in ref for external control
+      tlRef.current = gsap.timeline({ paused: true })
+        .to(".box1", { x: 100 })
+        .to(".box2", { x: 100 }, "<0.2")
+        .to(".box3", { x: 100 }, "<0.2");
+
+    }, { scope: container });
+
+    const playTimeline = () => tlRef.current?.play();
+    const reverseTimeline = () => tlRef.current?.reverse();
+
+    return (
+      <div ref={container}>
+        <button onClick={playTimeline}>Play</button>
+        <button onClick={reverseTimeline}>Reverse</button>
+        <div className="box1">1</div>
+        <div className="box2">2</div>
+        <div className="box3">3</div>
+      </div>
+    );
+  }
+
+server_component_pattern: |
+  // app/page.tsx (Server Component)
+  import { Suspense } from 'react';
+  import AnimatedHero from './components/AnimatedHero'; // Client Component
+
+  export default function HomePage() {
+    // Server Component (no GSAP here)
+    return (
+      <main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AnimatedHero /> {/* Client Component with GSAP */}
+        </Suspense>
+      </main>
+    );
+  }
+
+  // components/AnimatedHero.tsx (Client Component)
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  export default function AnimatedHero() {
+    const heroRef = useRef();
+
+    useGSAP(() => {
+      gsap.from(".hero-content", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        stagger: 0.2
+      });
+    }, { scope: heroRef });
+
+    return (
+      <section ref={heroRef}>
+        <h1 className="hero-content">Hero Title</h1>
+        <p className="hero-content">Hero Description</p>
+      </section>
+    );
+  }
+
+variations:
+  - name: "With React Query"
+    description: "Combine useGSAP with data fetching hooks"
+  - name: "With Zustand state"
+    description: "Trigger animations from global state changes"
+  - name: "With Framer Motion"
+    description: "Hybrid GSAP + Framer Motion (use carefully)"
+
+common_mistakes:
+  - "Not registering useGSAP plugin (gsap.registerPlugin)"
+  - "Using useEffect instead of useGSAP (manual cleanup required)"
+  - "Forgetting 'use client' in Next.js App Router"
+  - "Not using scope (selectors leak to other components)"
+  - "Not wrapping event handlers with contextSafe"
+
+tips:
+  - "Always use scope to isolate selectors"
+  - "Use contextSafe for all event handlers"
+  - "Store timeline in ref if you need external control"
+  - "Use dependencies array for reactive animations"
+  - "Use revertOnUpdate for toggle animations"
+  - "Call gsap.registerPlugin(useGSAP) globally once"
+
+performance_optimization: |
+  // Memoize expensive animations
+  import { useRef, useMemo } from 'react';
+
+  const { contextSafe } = useGSAP({ scope: container });
+
+  const expensiveAnimation = useMemo(() => {
+    return contextSafe(() => {
+      // Complex animation logic
+    });
+  }, [contextSafe]);
+
+created_date: "2025-11-02"
+tags: ["react-19", "useGSAP", "modern-2025", "nextjs-15", "typescript", "hooks", "cleanup"]

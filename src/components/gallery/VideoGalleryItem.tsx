@@ -19,21 +19,6 @@ const VideoGalleryItem = ({ videoId, title, isActive, onActivate }: VideoGallery
   const playerRef = useRef<VimeoPlayerHandle>(null);
   const { trackEvent } = useAnalytics();
 
-  const handleError = (error: Error) => {
-    console.error(`Video ${videoId} error:`, error);
-    setHasError(true);
-    trackEvent({
-      action: 'error',
-      category: 'video',
-      label: `${videoId}: ${error.message}`
-    });
-  };
-
-  const handleRetry = () => {
-    setHasError(false);
-    onActivate();
-  };
-
   const handleOpenModal = () => {
     setIsModalOpen(true);
     trackEvent({
@@ -50,6 +35,21 @@ const VideoGalleryItem = ({ videoId, title, isActive, onActivate }: VideoGallery
       category: 'video',
       label: videoId
     });
+  };
+
+  const handleError = (error: Error) => {
+    console.error(`Video ${videoId} error:`, error);
+    setHasError(true);
+    trackEvent({
+      action: 'error',
+      category: 'video',
+      label: `${videoId}: ${error.message}`
+    });
+  };
+
+  const handleRetry = () => {
+    setHasError(false);
+    onActivate();
   };
 
   return (

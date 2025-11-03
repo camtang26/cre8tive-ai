@@ -1,0 +1,123 @@
+id: pattern-text-lines-elastic-reveal-2025
+name: "Text Lines Elastic Reveal with ScrollTrigger"
+category: "text-animations"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger", "SplitText"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "SplitText was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Dramatic text reveal where lines animate from the right with randomized skew and rotation, elastic bounce, and scroll-triggered entrance. Each line has unique transform for organic feel. Reverses on scroll back."
+inspiration_source: "Codrops - Ponpon Mania WebGL Comic Sheep"
+source_url: "https://tympanus.net/codrops/2025/10/07/ponpon-mania-how-webgl-and-gsap-bring-a-comic-sheeps-dream-to-life"
+source_citation: "Archon MCP: Codrops tutorials (source_id: d5e16d967143c489)"
+performance_notes: "SplitText splits into lines (GPU-friendly). Transforms use x, skewX, rotation (GPU-accelerated). 60fps sustained."
+accessibility_notes: "Provide instant reveal for prefers-reduced-motion - skip SplitText and animation"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { SplitText } from 'gsap/SplitText'; // FREE in 3.13+!
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  function animateTextLines() {
+    const titleElement = document.querySelector('.hero-title');
+
+    // Check accessibility preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Skip animation entirely
+      gsap.set(titleElement, { opacity: 1 });
+      return;
+    }
+
+    // Split text into lines (SplitText - FREE in 3.13+!)
+    const split = new SplitText(titleElement, { type: "lines" });
+    const lines = split.lines;
+
+    // Create paused timeline
+    const tl = gsap.timeline({ paused: true });
+
+    tl.from(lines, {
+      x: "100%",              // Start from right
+      skewX: () => Math.random() * 50 - 25, // Random skew per line (-25 to 25)
+      rotation: 5,            // Slight rotation
+      opacity: 0,
+      duration: 1,
+      stagger: 0.06,          // 60ms between each line
+      ease: "elastic.out(0.7, 0.7)" // Elastic bounce - KEY to wow factor!
+    });
+
+    // ScrollTrigger controls when timeline plays
+    ScrollTrigger.create({
+      trigger: ".hero-section",
+      start: "top 60%",       // When section hits 60% from top
+      end: "bottom top",      // Until it leaves viewport
+      onEnter: () => tl.play(),     // Play forward on scroll down
+      onLeaveBack: () => tl.reverse() // Reverse on scroll up
+    });
+  }
+
+  // Execute on page load
+  window.addEventListener('load', animateTextLines);
+
+react_usage: |
+  import { useRef, useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { SplitText } from 'gsap/SplitText';
+
+  gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
+
+  function HeroTitle() {
+    const titleRef = useRef();
+
+    useGSAP(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      const split = new SplitText(titleRef.current, { type: "lines" });
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(split.lines, {
+        x: "100%",
+        skewX: () => Math.random() * 50 - 25,
+        rotation: 5,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.06,
+        ease: "elastic.out(0.7, 0.7)"
+      });
+
+      ScrollTrigger.create({
+        trigger: titleRef.current,
+        start: "top 60%",
+        onEnter: () => tl.play(),
+        onLeaveBack: () => tl.reverse()
+      });
+
+      // Cleanup on unmount
+      return () => {
+        split.revert();
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, { scope: titleRef });
+
+    return <h1 ref={titleRef} className="hero-title">Your Title</h1>;
+  }
+
+created_date: "2025-11-03"
+tags: ["text", "splittext", "lines", "elastic", "scrolltrigger", "scroll-reveal", "premium", "codrops"]
+framework: "vanilla"
+use_cases:
+  - "Hero section headlines"
+  - "Section titles"
+  - "Feature headings"
+  - "Quote blocks"
+  - "Testimonial text"
+why_premium: "SplitText was $99/year premium plugin - now FREE! Elastic ease creates playful, memorable entrance. Randomized skew adds organic variation. Scroll-triggered + reversible for polished UX."

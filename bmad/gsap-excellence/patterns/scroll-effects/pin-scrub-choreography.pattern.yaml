@@ -1,0 +1,161 @@
+id: pattern-pin-scrub-choreography-2025
+name: "Pin + Scrub Scroll Choreography"
+category: "scroll-effects"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Pin a section in place while scrolling and scrub-control a timeline of animations synchronized to scroll position. Classic scroll narrative technique for immersive storytelling. Multiple animations play as user scrolls through pinned section."
+inspiration_source: "GSAP Official ScrollTrigger Documentation"
+source_url: "https://gsap.com/scroll"
+source_citation: "Archon MCP: gsap.com official docs (source_id: b9f6b322298feb21)"
+performance_notes: "scrub: true syncs timeline progress to scroll position. pin: true keeps section fixed. GPU-accelerated transforms. 60fps sustained."
+accessibility_notes: "Provide instant reveal for prefers-reduced-motion - skip pin/scrub, show final state"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function createPinScrubSection() {
+    // Check accessibility preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Skip animation - show final state
+      gsap.set("#windmill-svg", { rotation: 900 });
+      return;
+    }
+
+    // Create timeline with scrub-controlled ScrollTrigger
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#pin-section",      // Element to pin
+        start: "50% 50%",              // Pin when section center hits viewport center
+        end: "bottom 50%",             // Unpin when section bottom hits center
+        endTrigger: "#pin-wrap",       // Use different element for end point
+        scrub: 1,                      // Smooth scrubbing (1 second lag)
+        pin: true,                     // Pin the section
+        markers: false                 // Set true for debugging
+      }
+    });
+
+    // Timeline animations - these play as user scrolls
+    tl.to("#windmill-svg", {
+      rotation: 900,   // Rotate 2.5 times as user scrolls
+      ease: "none"     // Linear easing for scrub (very important!)
+    });
+
+    return tl;
+  }
+
+  // Execute on page load
+  window.addEventListener('load', createPinScrubSection);
+
+multi_animation_example: |
+  // Advanced: Multiple coordinated animations in one pinned section
+  function createComplexPinSequence() {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".hero-section",
+        start: "top top",        // Pin when section top hits viewport top
+        end: "+=3000",           // Unpin after 3000px of scrolling
+        scrub: 1,
+        pin: true
+      }
+    });
+
+    // Step 1: Fade in headline (first 33% of scroll)
+    tl.from(".headline", {
+      opacity: 0,
+      y: 100,
+      duration: 1
+    });
+
+    // Step 2: Scale up image (middle 33%)
+    tl.from(".hero-image", {
+      scale: 0.5,
+      opacity: 0,
+      duration: 1
+    }, "+=0.5");
+
+    // Step 3: Slide in CTA (last 33%)
+    tl.from(".cta-button", {
+      x: -200,
+      opacity: 0,
+      duration: 1
+    }, "+=0.5");
+
+    return tl;
+  }
+
+horizontal_scroll_example: |
+  // Horizontal scroll while pinned (carousel-style)
+  function createHorizontalScroll() {
+    const sections = gsap.utils.toArray(".panel");
+
+    gsap.to(sections, {
+      xPercent: -100 * (sections.length - 1), // Slide panels left
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".container",
+        pin: true,
+        scrub: 1,
+        snap: 1 / (sections.length - 1), // Snap to each panel
+        end: () => "+=" + (document.querySelector(".container").offsetWidth * sections.length)
+      }
+    });
+  }
+
+react_usage: |
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function PinnedScrollSection() {
+    useLayoutEffect(() => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        gsap.set("#animated-element", { rotation: 900 });
+        return;
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#pin-section",
+          start: "50% 50%",
+          end: "bottom 50%",
+          scrub: 1,
+          pin: true
+        }
+      });
+
+      tl.to("#animated-element", { rotation: 900, ease: "none" });
+
+      return () => {
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, []);
+
+    return (
+      <section id="pin-section">
+        <div id="animated-element">Pinned & Scrubbed</div>
+      </section>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["scrolltrigger", "pin", "scrub", "scroll-narrative", "timeline", "storytelling"]
+framework: "vanilla"
+use_cases:
+  - "Scroll-based storytelling"
+  - "Product feature reveals"
+  - "Timeline / history narratives"
+  - "Horizontal scroll carousels"
+  - "Multi-step animations synchronized to scroll"
+  - "Parallax narrative sections"
+why_premium: "Pin + scrub is the signature ScrollTrigger technique for scroll narratives. Gives user complete control over animation timeline via scroll. Essential for immersive storytelling. Industry-standard for premium marketing sites (Apple, Stripe, Linear)."

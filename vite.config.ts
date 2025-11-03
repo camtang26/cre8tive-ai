@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import { componentTagger } from "lovable-tagger";
 import type { Plugin } from 'vite';
+import { validateSections } from './src/config/sections/validateSections';
 
 /**
  * Performance Budget Plugin - Story 1.14 (AC#6)
@@ -72,6 +73,36 @@ function performanceBudgetPlugin(): Plugin {
   };
 }
 
+function sectionValidationPlugin(): Plugin {
+  return {
+    name: 'section-validation',
+    async buildStart() {
+      const { errors, warnings } = await validateSections()
+
+      if (warnings.length > 0) {
+        const warningMessages = warnings
+          .map((warning) => `⚠️  [Section Validation] ${warning.sectionId} :: ${warning.rule} — ${warning.message}`)
+          .join('\n')
+        console.warn(warningMessages)
+      }
+
+      if (errors.length > 0) {
+        const errorMessages = errors
+          .map((error) => {
+            const limit = error.limit !== undefined ? ` (limit: ${error.limit})` : ''
+            const actual = error.actual !== undefined ? ` (actual: ${error.actual})` : ''
+            return `• ${error.sectionId} :: ${error.rule}${limit}${actual} — ${error.message}`
+          })
+          .join('\n')
+
+        throw new Error(
+          `❌ Section validation failed. Please review copy and palette constraints:\n${errorMessages}`
+        )
+      }
+    },
+  }
+}
+
 // Determine the base URL based on the environment
 const getBaseUrl = () => {
   // Now that we're using a custom domain, we always want the root path
@@ -86,6 +117,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
+    sectionValidationPlugin(),
     mode === 'development' && componentTagger(),
     mode !== 'development' && performanceBudgetPlugin(), // Story 1.14: Enforce 900kb bundle limit
   ].filter(Boolean),

@@ -1,0 +1,94 @@
+# Validate Modern Workflow - GSAP Excellence Engine
+# Ensure GSAP 3.13+ compliance across codebase
+# Solves: "Is my codebase using modern GSAP 3.13+ syntax?"
+# Transforms it into: "Comprehensive compliance report with upgrade recommendations"
+
+name: validate-modern
+description: "Scan codebase for GSAP 3.13+ compliance. Identifies deprecated syntax, validates version, recommends premium plugin opportunities."
+author: "GSAP Excellence Engine"
+version: "1.0.0"
+complexity: "simple"
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers used (none - this is file scanning workflow)
+mcp_servers: {}
+
+# Agents involved
+agents:
+  primary: "gsap-tech-director"  # Validation specialist
+
+# Module path and component files
+installed_path: "{module_root}/workflows/validate-modern"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false  # This IS a validation workflow but doesn't need checklist
+
+# Output configuration - Compliance report
+default_output_file: "{output_folder}/gsap-compliance-report-{{date}}.md"
+
+# Workflow inputs
+inputs:
+  codebase_root:
+    description: "Root directory of codebase to scan"
+    required: true
+    default: "{project-root}"
+
+  file_extensions:
+    description: "File extensions to scan (js, jsx, ts, tsx)"
+    required: false
+    default: ["js", "jsx", "ts", "tsx"]
+
+  exclude_directories:
+    description: "Directories to exclude (node_modules, dist, build)"
+    required: false
+    default: ["node_modules", "dist", "build", ".next"]
+
+# Expected outputs
+outputs:
+  compliance_report:
+    format: "Markdown report with findings and recommendations"
+    location: "{output_folder}/gsap-compliance-report-{{date}}.md"
+
+  deprecated_syntax_instances:
+    format: "List of file:line locations with deprecated syntax"
+    severity: "HIGH"
+
+  version_compliance:
+    format: "Boolean - is GSAP 3.13.0+ installed?"
+    critical: true
+
+  premium_plugin_opportunities:
+    format: "List of potential premium plugin upgrades"
+    note: "All premium plugins FREE in 3.13+!"
+
+  upgrade_recommendations:
+    format: "Prioritized list (HIGH/MEDIUM/LOW severity)"
+
+# Success criteria
+success_criteria:
+  - "Complete codebase scan performed"
+  - "GSAP version identified (package.json)"
+  - "All deprecated syntax instances found (with file:line)"
+  - "Premium plugin opportunities identified"
+  - "Upgrade recommendations prioritized by severity"
+  - "Compliance report generated"
+
+# Integration
+feeds_into:
+  - "Codebase upgrade planning"
+  - "Technical debt tracking"
+
+# Performance targets
+estimated_duration: "5-15 minutes (depending on codebase size)"
+phases:
+  version_check: "1 min"
+  file_scanning: "2-10 min (codebase size dependent)"
+  analysis: "1-2 min"
+  report_generation: "1-2 min"

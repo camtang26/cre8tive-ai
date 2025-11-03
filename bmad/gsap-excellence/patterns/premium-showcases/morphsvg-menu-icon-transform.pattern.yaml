@@ -1,0 +1,175 @@
+id: pattern-morphsvg-menu-icon-transform-2025
+name: "MorphSVG Menu Icon to X Transformation"
+category: "premium-showcases"
+complexity: "simple"
+gsap_version: "3.13.0+"
+plugins_required: ["MorphSVG"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "MorphSVG was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Classic hamburger menu icon morphs into X close icon using MorphSVG. Smooth shape transformation that was premium ($99/year) - now free for all. Essential for modern navigation."
+inspiration_source: "GSAP Official MorphSVG Documentation + Common Pattern"
+source_url: "https://gsap.com/docs/v3/Plugins/MorphSVGPlugin"
+source_citation: "Archon MCP: gsap.com official docs (source_id: b9f6b322298feb21)"
+performance_notes: "MorphSVG calculates path transformations efficiently. GPU-accelerated rendering. Instant perception of smooth morph."
+accessibility_notes: "Ensure button has aria-label and aria-expanded state"
+code_example: |
+  import gsap from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'; // FREE in 3.13+!
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  // SVG setup: Two path shapes (hamburger and X)
+  // <svg id="menu-icon" viewBox="0 0 100 100">
+  //   <path id="top-line" d="M20,30 L80,30" />
+  //   <path id="mid-line" d="M20,50 L80,50" />
+  //   <path id="bottom-line" d="M20,70 L80,70" />
+  //
+  //   <!-- Hidden target shapes for X -->
+  //   <path id="top-x" d="M25,25 L75,75" style="display:none" />
+  //   <path id="mid-x-hide" d="M50,50 L50,50" style="display:none" />
+  //   <path id="bottom-x" d="M75,25 L25,75" style="display:none" />
+  // </svg>
+
+  let isOpen = false;
+  const menuButton = document.querySelector('#menu-button');
+  const menuIcon = document.querySelector('#menu-icon');
+
+  function toggleMenu() {
+    isOpen = !isOpen;
+
+    if (isOpen) {
+      // Morph to X
+      const tl = gsap.timeline();
+
+      tl.to("#top-line", {
+        morphSVG: "#top-x",
+        duration: 0.4,
+        ease: "power2.inOut"
+      });
+
+      tl.to("#mid-line", {
+        morphSVG: "#mid-x-hide", // Collapse to point (hides middle line)
+        duration: 0.4,
+        ease: "power2.inOut"
+      }, "<"); // Start at same time
+
+      tl.to("#bottom-line", {
+        morphSVG: "#bottom-x",
+        duration: 0.4,
+        ease: "power2.inOut"
+      }, "<");
+
+      // Update ARIA
+      menuButton.setAttribute('aria-expanded', 'true');
+      menuButton.setAttribute('aria-label', 'Close menu');
+    } else {
+      // Morph back to hamburger
+      const tl = gsap.timeline();
+
+      tl.to("#top-line", {
+        morphSVG: "#top-line", // Morph back to original
+        duration: 0.4,
+        ease: "power2.inOut"
+      });
+
+      tl.to("#mid-line", {
+        morphSVG: "#mid-line",
+        duration: 0.4,
+        ease: "power2.inOut"
+      }, "<");
+
+      tl.to("#bottom-line", {
+        morphSVG: "#bottom-line",
+        duration: 0.4,
+        ease: "power2.inOut"
+      }, "<");
+
+      // Update ARIA
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open menu');
+    }
+  }
+
+  menuButton.addEventListener('click', toggleMenu);
+
+simpler_single_path_version: |
+  // Alternative: Single path morphs between two shapes
+  // <svg viewBox="0 0 100 100">
+  //   <path id="icon" d="M20,30 L80,30 M20,50 L80,50 M20,70 L80,70" />
+  // </svg>
+
+  const iconPath = document.querySelector('#icon');
+  let isOpen = false;
+
+  // Define target shapes as strings
+  const hamburger = "M20,30 L80,30 M20,50 L80,50 M20,70 L80,70";
+  const closeX = "M25,25 L75,75 M50,50 L50,50 M75,25 L25,75";
+
+  function toggle() {
+    isOpen = !isOpen;
+
+    gsap.to(iconPath, {
+      morphSVG: isOpen ? closeX : hamburger,
+      duration: 0.4,
+      ease: "power2.inOut"
+    });
+  }
+
+react_usage: |
+  import { useState, useRef } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  gsap.registerPlugin(useGSAP, MorphSVGPlugin);
+
+  function MenuIcon() {
+    const [isOpen, setIsOpen] = useState(false);
+    const iconRef = useRef();
+    const { contextSafe } = useGSAP({ scope: iconRef });
+
+    const toggle = contextSafe(() => {
+      const newState = !isOpen;
+      setIsOpen(newState);
+
+      if (newState) {
+        // Morph to X
+        gsap.to("#top-line", { morphSVG: "#top-x", duration: 0.4, ease: "power2.inOut" });
+        gsap.to("#mid-line", { morphSVG: "#mid-x-hide", duration: 0.4, ease: "power2.inOut" });
+        gsap.to("#bottom-line", { morphSVG: "#bottom-x", duration: 0.4, ease: "power2.inOut" });
+      } else {
+        // Morph back to hamburger
+        gsap.to("#top-line", { morphSVG: "#top-line", duration: 0.4, ease: "power2.inOut" });
+        gsap.to("#mid-line", { morphSVG: "#mid-line", duration: 0.4, ease: "power2.inOut" });
+        gsap.to("#bottom-line", { morphSVG: "#bottom-line", duration: 0.4, ease: "power2.inOut" });
+      }
+    });
+
+    return (
+      <button onClick={toggle} aria-expanded={isOpen} aria-label={isOpen ? 'Close menu' : 'Open menu'}>
+        <svg ref={iconRef} viewBox="0 0 100 100">
+          <path id="top-line" d="M20,30 L80,30" />
+          <path id="mid-line" d="M20,50 L80,50" />
+          <path id="bottom-line" d="M20,70 L80,70" />
+          <path id="top-x" d="M25,25 L75,75" style={{ display: 'none' }} />
+          <path id="mid-x-hide" d="M50,50 L50,50" style={{ display: 'none' }} />
+          <path id="bottom-x" d="M75,25 L25,75" style={{ display: 'none' }} />
+        </svg>
+      </button>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["morphsvg", "menu-icon", "hamburger", "navigation", "premium", "icon-transform", "gsap-official"]
+framework: "vanilla"
+use_cases:
+  - "Mobile navigation menus"
+  - "Drawer toggles"
+  - "Modal open/close icons"
+  - "Expandable sections"
+  - "Any hamburger → X transition"
+why_premium: "MorphSVG was $99/year premium plugin - now FREE in 3.13+! Smooth shape morphing creates polished feel. This menu icon → X transformation is ubiquitous in modern web design. Now accessible to everyone."

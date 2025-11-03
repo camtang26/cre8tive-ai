@@ -1,0 +1,121 @@
+id: pattern-scroll-linked-video-2025
+name: "Scroll-Linked Video Scrubbing"
+category: "scroll-effects"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Scrub through video frames based on scroll position. User controls video playback by scrolling - creates cinematic storytelling effect. Used by Apple, Airbnb."
+inspiration_source: "Apple product pages + premium marketing sites"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollTrigger"
+source_citation: "Scroll-linked video patterns (Apple-style)"
+performance_notes: "Video must be optimized (low file size, proper codec). requestVideoFrameCallback for smooth scrubbing."
+accessibility_notes: "Provide alternative static image or auto-play video for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function scrollLinkedVideo() {
+    const video = document.querySelector('#scroll-video');
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      // Show final frame or auto-play
+      video.currentTime = video.duration;
+      return;
+    }
+
+    // Wait for video metadata to load
+    video.addEventListener('loadedmetadata', () => {
+      ScrollTrigger.create({
+        trigger: '.video-section',
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: '.video-container', // Pin while scrubbing
+        scrub: 0.5,
+        onUpdate: (self) => {
+          // Map scroll progress to video time
+          video.currentTime = video.duration * self.progress;
+        }
+      });
+    });
+
+    // Pause video (controlled by scroll)
+    video.pause();
+  }
+
+  window.addEventListener('load', scrollLinkedVideo);
+
+html_structure: |
+  <div class="video-section" style="height: 300vh;"> <!-- Tall section for scrolling -->
+    <div class="video-container">
+      <video id="scroll-video" muted preload="auto">
+        <source src="scroll-video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+react_usage: |
+  'use client';
+
+  import { useRef, useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  export function ScrollVideo({ src }) {
+    const videoRef = useRef();
+
+    useLayoutEffect(() => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const video = videoRef.current;
+
+      const handleMetadata = () => {
+        ScrollTrigger.create({
+          trigger: '.video-section',
+          start: 'top top',
+          end: 'bottom bottom',
+          pin: '.video-container',
+          scrub: 0.5,
+          onUpdate: (self) => {
+            video.currentTime = video.duration * self.progress;
+          }
+        });
+      };
+
+      video.addEventListener('loadedmetadata', handleMetadata);
+      video.pause();
+
+      return () => {
+        video.removeEventListener('loadedmetadata', handleMetadata);
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, []);
+
+    return (
+      <div className="video-section" style={{ height: '300vh' }}>
+        <div className="video-container">
+          <video ref={videoRef} muted preload="auto">
+            <source src={src} type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["video", "scroll", "scrubbing", "cinematic", "apple-style", "wow-factor"]
+framework: "vanilla"
+use_cases:
+  - "Product reveals (Apple-style)"
+  - "Storytelling experiences"
+  - "Process explanations"
+  - "Premium marketing"
+why_premium: "Scroll-linked video is signature Apple technique. Creates cinematic, controlled narrative. Industry-leading storytelling."

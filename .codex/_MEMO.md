@@ -13,6 +13,11 @@
 - **Target User:** Codex agents and collaborating humans who rely on `.codex/_MEMO.md`, `.codex/PLAN.md`, and `.codex/REPORT.md` to understand current architecture, priorities, and validation workflows.
 - **Success Signal:** All `.codex` docs reference the November 3 documentation canon, highlight deltas versus prior guidance, and give clear next-step hooks so agents entering after today align without re-auditing the full docs set.
 
+# AI Product Charter — Codex Video Placeholder Prototypes (2025-11-03 Codex Session 2)
+- **Problem:** Current video placeholder prototype set was produced by Claude Code; Cameron needs parallel Codex-built versions grounded in latest best practices to compare quality and choose a foundation for Epics 2 and 3.
+- **Target User:** Cameron (creative director) and downstream implementation agents who will adopt the selected pattern across Studios & Conversational AI pages.
+- **Success Signal:** Three Codex-built placeholder variants (Minimal, Premium Glass, Bold Cinematic) matching research-backed accessibility/performance standards, demoed side-by-side with existing versions, accompanied by documented rationale and repository updates ready for evaluation.
+
 # AI Product Charter — Copy Clarity Audit (2025-10-14 Codex Session 2)
 - **Problem:** Briefing Engine & Studios copy reads like generic AI hype; stakeholders flag trust gaps and misaligned messaging.
 - **Target User:** B2B marketing leaders, creative directors, and agency owners evaluating high-stakes AI production partners.
@@ -44,6 +49,12 @@ npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 - Enforce the custom vendor bundle ceiling (≤900 kb) as a hard constraint for any future dependency decisions.
 - Anchor deployment reminders on `master` being production and `npm run deploy` pushing to GitHub Pages.
 - Preserve pending animation/hero initiatives in legacy sections but flag them as paused until documentation realignment completes.
+- Cookie consent toast now guarded via a global flag so Strict Mode no longer double-mounts the notification; developer consoles should drop the duplicate status elements.
+- Removed the invalid `X-Frame-Options` meta tag—security headers remain configured via Vite, which avoids the browser warning and keeps Vimeo embeds functional.
+- Homepage hero reverted to the prior `MobileHero`/`DesktopHero` split so local parity matches production while we revisit performance experiments with stakeholders.
+- Portfolio grid no longer instantiates hidden Vimeo players; cards use lightweight thumbnails with lazy loading and open the modal player on demand.
+- BMAD agent prompt activations under `~/.codex/prompts` now point to `/home/cameronai/projects/cre8tive-website-1006/...`, eliminating accidental cross-project config loads (formerly pointed at CashFlo-AI).
+- **Lighthouse follow-up (2025-11-03, post optimizations):** Desktop audit via headless Chrome yielded Performance **51** (up from 20), Accessibility **90**, Best Practices **93**, SEO **100**. Key improvements: requests ↓ to 191 (from 262), transfer size ≈ 9.6 MB (was 15.7 MB), TBT dropped to 240 ms (from 3.82 s), CLS 0.001. LCP/TTI remain ~57 s due to Vimeo hero stream still loading after manual enable; next step is placeholder poster or MP4 fallback for hero to avoid fetching heavy stream until user clicks.
 
 # Knowledge Intake — 2025-11-03 Highlights
 - Epic 1 (AI Briefing Engine) is the only fully implemented epic; Epics 4 & 5 and the Unified Voice Widget remain plan-only.
@@ -63,11 +74,29 @@ npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 3. Stand up minimal automated testing (Vitest/Playwright) or document why manual-only remains acceptable given current roadmap.
 4. Schedule Epic 5 responsive optimization to tackle fluid typography, Windows scaling, and GSAP mobile tier adjustments.
 5. Prototype the Unified Voice Widget (Level 0 spec) once documentation and responsive debt stabilize; reassess asset requirements.
+6. Re-run the hero lazy-load experiment later (with stakeholder sign-off) and add instrumentation before reintroducing it.
 
 # Next Steps — Documentation Realignment (Codex Session 2)
 - Finish synthesizing November 3 findings into `.codex/_MEMO.md` (in progress) and cascade updates to `.codex/PLAN.md` and `.codex/REPORT.md`.
 - Decide how much of the legacy hero/timeline planning remains actionable vs. archive references; note outcome in PLAN & TASK board.
 - After codex docs align, coordinate with MCP validation playbooks to re-check Briefing Engine/hero visuals before resuming feature work.
+
+# Epic 2/3 Foundation Notes — 2025-11-03 (Codex Session 2)
+- Prototype-first workflow in motion: Sprint 0 locked alternating video/copy 8-section flows for both Studios and Conversational AI pages; Sprint 1 delivered 3 video placeholder systems + four palette options per page.
+- Foundation decision gate is blocking progress – Cameron must choose: Video placeholder (Options A/B/C), Studios palette (A Film Noir ⭐ recommended), Conversational AI palette (A Cool Intelligence ⭐ recommended). No Sprint 2 hero prototypes until this is resolved.
+- Studios emphasis: video showcase cadence (hero autoplay, marketing feature, “Our Work” reuse of 6 homepage Vimeo IDs, platform demos placeholders) interleaved with hybrid-model/process/testimonial copy.
+- Conversational AI emphasis: enterprise-proof cadence (hero autoplay, marketing video, 10 min live demo with chapter markers) backed by use cases, scale-without-headcount proof, brand consistency, and enterprise features sections.
+- Video placeholder components already exist in `/src/components/video-placeholders/*` with demo at `/video-placeholder-demo`; Option B keeps glassmorphism parity with Briefing Engine and offers best mobile UX.
+- Research sweep (Archon NN/g glassmorphism best practices, Context7 `useGSAP` scope/cleanup guidance, Nov 2025 web articles on “accessible glass” and legal pressure) => enforce ≥4.5:1 contrast inside glass cards, reduce blur on mobile/low-perf paths, provide solid fallback themes, preload focus/CTA states, wire GSAP via `useGSAP` with `contextSafe`, and bake reduced-motion toggles into prototype baseline.
+- Codex prototype set shipped (Minimal, Premium, Bold) under `src/components/video-placeholders/codex/*`; demo now compares Claude Code vs Codex implementations side-by-side. Enhancements: `useGSAP`-scoped ScrollTrigger reveals, persistent play affordances, accessible glass fallbacks (`supports-[backdrop-filter]` + solid overlays), pointer-driven spotlight with cleanup, and consolidated build validation (`npm run build` ✅ – vendor 749 kb / 900 kb).
+- **2025 Palette Research (Nov 3):** Luxury trend reports showcase emerald + gold with charcoal/ivory bases to convey premium editorial energy, alongside navy + soft gold pairings for jewel-tone drama.citeturn0search0turn0search2
+- **Enterprise/AI palette cues:** Trusted SaaS palettes continue to lean on deep navy foundations with electric cyan or mint accents, plus slate gray + electric blue combinations highlighted in 2025 roundups.citeturn0search4turn1search0turn1search8
+- **Sustainability & warmth signals:** Warm luxury guidance emphasises brass gold, taupe, and charcoal combinations to introduce human warmth into high-end experiences.citeturn0search5
+- Codex palette prototypes delivered via `/color-palette-demo` (route added in `App.tsx`) with data objects in `src/data/palettes/codex.ts`; comparison renders side-by-side with Claude sets to support Sprint 1 palette lock. `npm run build` ✅ keeps vendor bundle at 749 kb / 900 kb budget.
+- Updated Codex palettes to dark gradient variants (Film Noir Gradient, Abyssal Emerald, Neural Gradient, etc.) so the showcase matches existing homepage + Briefing Engine aesthetics while retaining research-backed accent colors.
+- **Hero Prototype Plan (2025-11-03):** Build premium video-backed hero prototypes for Studios (cinematic) and Conversational AI (enterprise trust) using recent research. Requirements: dual-source background video with autoplay gating + IntersectionObserver, dark gradient overlays with neon glows, GSAP multi-phase entrance, CTA cluster (primary + secondary), metrics pill, reduced-motion fallbacks, and demo route for side-by-side review.
+- **Hero Prototype Delivery (2025-11-03):** Implemented `StudiosHeroPrototype` + `ConversationalHeroPrototype` with gated video playback, layered gradients, CTA clusters, metric bands, tilt/spotlight micro-interactions, and reduced-motion paths. Demo available at `/hero-prototype-demo`; documented in `docs/prototypes/hero-video-prototypes-2025-11-03.md`. Build passes (`npm run build`, vendor 749 kb / 900 kb).
+- **Aurora Command Center Exploration (2025-11-03):** Additional premium hero variant (`StudioHero6_AuroraCommandCenter`) showcasing command-console glass UI, pointer-driven spotlight, and strict autoplay compliance per 2025 accessibility/performance guidance.citeturn0search0turn0search8turn0search11
 
 # Collaboration Note — 2025-10-14 (Codex Session 2)
 - Running two parallel Codex sessions: this terminal is **Codex Session 2**. Codex Session 1 is reviewing MCP screenshots.
@@ -130,6 +159,7 @@ npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 - `docs/component-catalog-exhaustive.md` inventories 178 components with GSAP patterns (ScrollTrigger consolidation, will-change lifecycle) and flags adaptive performance points for future refactors.
 - `docs/documentation-freshness-report.md` distinguishes current vs planned specs (Epic 1 current, Epics 4/5 + Unified Voice Widget planned) ensuring `.codex` docs label statuses appropriately.
 - `docs/tech-spec-epic-1.md`, `tech-spec-epic-4.md`, `tech-spec-epic-5.md`, `tech-spec-unified-voice-widget.md` reviewed to understand implementation vs. future scope so plan/report updates can cite accurate states.
+- **Validation Sweep 2025-11-03:** Homepage rendered correctly at 1707×898 and 1920×1080 (screenshots in `.codex/screenshots/2025-11-03-home-1707.png` & `...-1920.png`). Console surfaced long-standing issues: `UNSAFE_componentWillMount` warning from `SideEffect(NullComponent2)`, repeated Cloudflare Turnstile renders, meta-based `X-Frame-Options` warning, WebGL GPU stall (ReadPixels) from Vimeo iframes, and duplicate cookie consent banners (needs single-source fix). Light Lighthouse audit (headless Chrome) scored **Performance 20**, **Accessibility 91**, **Best Practices 75**, **SEO 100** with LCP/TTI ≈58.7 s and TBT ≈3.8 s; metric inflation driven by autoplaying Vimeo embeds and heavy script payload (262 requests / 15.7 MB transfer). Follow-up: evaluate lazy-loading/placeholder strategy for Vimeo, address duplicate consent + Turnstile mounts, remove meta `X-Frame-Options`, and revisit bundle slimming per 900 kb budget.
 
 # Research Notes — 2025-10-14 AM
 - Re-read core docs (README, SPEC, ARCHITECTURE, CONTRIBUTING) and GSAP audit bundle; `TASK.md` recreated to track current workstreams.
@@ -578,3 +608,28 @@ npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 ### 2025-10-20 08:05 PDT – Source Catalog (Codex Session 2)
 - Added "Quantitative Evidence Source Catalog" to the compendium with approved industry publications (Lemonlight, Tavus, HeyGen), internal analytics pointers, and a lightweight approval workflow so new stats stay defensible.
 - Next: archive each cited report under `docs/insights/external/<slug>/` with summary + license info, and wire analytics exports for time-reduction/first-draft stats.
+# Next Steps (Studios Hero Prototypes)
+- Swap in final brand loop when approved.
+- Wire primary CTA analytics events.
+- Capture Chrome DevTools MCP screenshots (1707×898, 1920×1080) for each variant.
+
+## 2025-11-03 – Studios Hero Prototypes (Codex)
+- Added five premium hero variants under `src/pages/prototypes/studios-hero/`:
+  - `StudioHero1_CinematicSpotlight` — spotlight beam, vignette, glass metrics.
+  - `StudioHero2_MotionCanvas` — animated gradient mesh, parallax, magnetic CTA.
+  - `StudioHero3_StudioReel` — monitor frame + scanlines, faux timeline panels.
+  - `StudioHero4_LiquidGoldFlow` — flowing gold overlays, asymmetric layout.
+  - `StudioHero5_ImmersivePortal` — depth-stacked glass cards, portal vibe.
+- Route exposed at `/studios-hero-prototypes-codex` via `src/App.tsx`.
+- Locked Film Noir Gradient + glass system applied; colors: Champagne headers, Gold primary CTA, Ion Cyan accents, Body text per brief.
+- Reused existing `VideoBackground` (Vimeo `1051821551`), with play/mute controls.
+- GSAP entrance/scroll effects gated by `prefers-reduced-motion`.
+
+## 2025-11-03 – Premium Studios Hero (“Golden Gobo”)
+- Research sweep (Archon + Context7 + web):
+  - GSAP matchMedia and React cleanup patterns (useGSAP context) confirm our reduced‑motion and cleanup approach.
+  - Glassmorphism a11y cautions (NN/g) reinforce strong contrast + sparing blur usage.
+  - MDN autoplay guidance: muted/autoplay + graceful fallbacks.
+- Decision: implement CSS/SVG‑style spotlight/gobo (no added heavy libs) layered over Vimeo background; pointer‑reactive via CSS vars; GSAP entrance + soft parallax.
+- Files: `src/pages/prototypes/studios-hero/StudioHero_PremiumGoldenGobo.tsx`, route `/studios-hero-premium-codex`.
+- Next: capture MCP screenshots (1707×898, 1920×1080), wire CTA analytics, and finalize copy with Claude.

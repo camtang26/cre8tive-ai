@@ -1,0 +1,256 @@
+id: pattern-directional-snap-advanced-2025
+name: "ScrollTrigger Directional Snapping"
+category: "scroll-effects"
+complexity: "medium"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: true
+cost_note: "ScrollTrigger always free, snapDirectional added in 3.12+"
+description: "Advanced directional snapping using ScrollTrigger.snapDirectional() (2025). Snaps to different targets based on scroll direction - forward snaps differently than backward."
+year_introduced: 2024
+is_modern: true
+is_2025_standard: true
+replaces: "Simple snap values or arrays"
+
+inspiration_source: "GSAP 3.12+ ScrollTrigger enhancements"
+performance_notes: "Lightweight, GPU-accelerated snap animations. No performance overhead."
+
+accessibility_notes: |
+  - Snapping provides clear section boundaries
+  - Works with keyboard Page Up/Down
+  - Respect prefers-reduced-motion (disable snapping)
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+"
+  edge: "90+"
+  mobile: "Full support"
+
+use_cases:
+  - "Fullpage scroll experiences with directional logic"
+  - "Card galleries that snap differently forward vs backward"
+  - "Timeline navigation with contextual snapping"
+  - "Story-driven scroll with momentum-aware sections"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Example: Snap to different points based on direction
+  const sections = gsap.utils.toArray('.section');
+  const snapPoints = sections.map((section, i) => i / (sections.length - 1));
+
+  ScrollTrigger.create({
+    trigger: ".scroll-container",
+    start: "top top",
+    end: "bottom bottom",
+    scrub: 1,
+
+    // Advanced directional snapping
+    snap: {
+      // Use snapDirectional for direction-aware snapping
+      snapTo: ScrollTrigger.snapDirectional(snapPoints),
+
+      duration: { min: 0.2, max: 0.6 },
+      delay: 0.1,
+      ease: "power2.inOut",
+
+      // Different behavior based on velocity
+      directional: true,
+
+      // Optional: custom directional function
+      // snapTo: (value, direction) => {
+      //   // direction: 1 (forward), -1 (backward)
+      //   return direction > 0
+      //     ? Math.ceil(value * sections.length) / sections.length
+      //     : Math.floor(value * sections.length) / sections.length;
+      // }
+    },
+
+    onSnapComplete: () => {
+      console.log("Snapped to section");
+    }
+  });
+
+fullpage_example: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Full-page sections with smart directional snapping
+  const sections = gsap.utils.toArray('.fullpage-section');
+
+  // Timeline to control section animations
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".fullpage-container",
+      pin: true,
+      start: "top top",
+      end: () => `+=${sections.length * 100}%`,
+      scrub: 1,
+
+      snap: {
+        // Snap to section boundaries with direction awareness
+        snapTo: ScrollTrigger.snapDirectional((progress) => {
+          const sectionIndex = Math.round(progress * (sections.length - 1));
+          return sectionIndex / (sections.length - 1);
+        }),
+
+        duration: 0.5,
+        delay: 0.2,
+        ease: "power1.inOut",
+
+        // Prevent snapping during fast scrolls
+        onStart: (self) => {
+          if (Math.abs(self.getVelocity()) > 1000) {
+            return false; // Cancel snap if scrolling too fast
+          }
+        }
+      }
+    }
+  });
+
+  // Animate each section
+  sections.forEach((section, i) => {
+    tl.fromTo(section,
+      { opacity: 0, y: 100 },
+      { opacity: 1, y: 0, duration: 1 },
+      i
+    );
+  });
+
+react_example: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+  export default function DirectionalSnapGallery({ items }) {
+    const containerRef = useRef();
+
+    useGSAP(() => {
+      const cards = gsap.utils.toArray('.gallery-card');
+
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+
+        snap: {
+          // Snap behavior changes based on scroll direction
+          snapTo: ScrollTrigger.snapDirectional((progress) => {
+            // Round to nearest card
+            const cardIndex = Math.round(progress * (cards.length - 1));
+            return cardIndex / (cards.length - 1);
+          }),
+
+          duration: { min: 0.3, max: 0.8 },
+          delay: 0.15,
+          ease: "expo.inOut"
+        }
+      });
+
+      // Individual card animations
+      cards.forEach((card, i) => {
+        gsap.from(card, {
+          scale: 0.8,
+          opacity: 0,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1,
+            markers: false
+          }
+        });
+      });
+
+    }, { scope: containerRef });
+
+    return (
+      <div ref={containerRef} className="min-h-screen">
+        {items.map((item, i) => (
+          <div key={i} className="gallery-card h-screen flex items-center justify-center">
+            <h2>{item.title}</h2>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+custom_snap_logic: |
+  // Advanced: Custom snap logic based on scroll velocity
+  function customDirectionalSnap(progress, self) {
+    const velocity = self.getVelocity();
+    const direction = self.direction;
+    const sectionCount = 5;
+
+    // Fast scroll: skip to next major section
+    if (Math.abs(velocity) > 800) {
+      if (direction > 0) {
+        return Math.min(Math.ceil(progress * sectionCount) / sectionCount, 1);
+      } else {
+        return Math.max(Math.floor(progress * sectionCount) / sectionCount, 0);
+      }
+    }
+
+    // Slow scroll: snap to nearest
+    return Math.round(progress * sectionCount) / sectionCount;
+  }
+
+  ScrollTrigger.create({
+    snap: {
+      snapTo: ScrollTrigger.snapDirectional(customDirectionalSnap),
+      duration: 0.4,
+      ease: "power2.inOut"
+    }
+  });
+
+variations:
+  - name: "Velocity-based snap distance"
+    description: "Snap further when scrolling fast, closer when slow"
+  - name: "Hybrid snap points"
+    description: "Combine labels and numeric values for complex snapping"
+  - name: "Conditional snapping"
+    description: "Only snap on certain conditions (screen size, scroll depth)"
+
+common_mistakes:
+  - "Using snapDirectional with non-numeric snap values"
+  - "Forgetting to return false in onStart to cancel snap"
+  - "Not considering mobile touch scroll (can feel jumpy)"
+  - "Setting snap duration too long (feels unresponsive)"
+
+tips:
+  - "Test with keyboard (Page Up/Down) for accessibility"
+  - "Use matchMedia to disable snapping on mobile"
+  - "Combine with anticipatePin for smoother experience"
+  - "Add visual indicators for snap points"
+  - "Consider disabling snap during fast scrolls (> 1000 velocity)"
+
+performance_optimization: |
+  // Disable on mobile for better touch scroll
+  gsap.matchMedia().add({
+    isDesktop: "(min-width: 1024px)",
+    isMobile: "(max-width: 1023px)"
+  }, (context) => {
+    const { isDesktop } = context.conditions;
+
+    ScrollTrigger.create({
+      snap: isDesktop ? {
+        snapTo: ScrollTrigger.snapDirectional(snapPoints),
+        duration: 0.5
+      } : false // No snap on mobile
+    });
+  });
+
+created_date: "2025-11-02"
+tags: ["snap", "directional", "modern-2025", "scroll", "fullpage", "advanced"]

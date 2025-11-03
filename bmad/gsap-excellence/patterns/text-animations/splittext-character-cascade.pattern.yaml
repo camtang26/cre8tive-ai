@@ -1,0 +1,117 @@
+id: pattern-splittext-character-cascade-2025
+name: "SplitText Character Cascade Reveal"
+category: "text-animations"
+complexity: "simple"
+gsap_version: "3.13.0+"
+plugins_required: ["SplitText"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "SplitText was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Classic character-by-character text reveal with staggered fade and vertical motion. Each character moves up from 20px below while fading in. Simple yet effective premium effect now available to all."
+inspiration_source: "GSAP Official Documentation"
+source_url: "https://gsap.com/docs/v3/Plugins/SplitText"
+source_citation: "Archon MCP: gsap.com official docs (source_id: b9f6b322298feb21)"
+performance_notes: "SplitText creates individual <div> per character (GPU-friendly). Transforms use y and autoAlpha (GPU-accelerated). Extremely lightweight."
+accessibility_notes: "Provide instant reveal for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+  import { SplitText } from 'gsap/SplitText'; // FREE in 3.13+!
+
+  gsap.registerPlugin(SplitText);
+
+  function animateHeading() {
+    const heading = document.querySelector('#heading');
+
+    // Accessibility check
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Instant reveal - skip animation
+      gsap.set(heading, { opacity: 1 });
+      return;
+    }
+
+    // Make heading visible (was hidden in CSS)
+    gsap.set(heading, { opacity: 1 });
+
+    // Split into individual characters (SplitText - FREE in 3.13+!)
+    const split = new SplitText(heading, { type: "chars" });
+
+    // Animate each character into place
+    gsap.from(split.chars, {
+      y: 20,           // Start 20px below
+      autoAlpha: 0,    // Start invisible (opacity: 0, visibility: hidden)
+      stagger: 0.05,   // 50ms between each character
+      duration: 0.8,
+      ease: "power2.out"
+    });
+  }
+
+  // Execute on page load
+  window.addEventListener('load', animateHeading);
+
+react_usage: |
+  import { useRef } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+  import { SplitText } from 'gsap/SplitText';
+
+  gsap.registerPlugin(useGSAP, SplitText);
+
+  function AnimatedHeading({ text }) {
+    const headingRef = useRef();
+
+    useGSAP(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        gsap.set(headingRef.current, { opacity: 1 });
+        return;
+      }
+
+      gsap.set(headingRef.current, { opacity: 1 });
+      const split = new SplitText(headingRef.current, { type: "chars" });
+
+      gsap.from(split.chars, {
+        y: 20,
+        autoAlpha: 0,
+        stagger: 0.05,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+
+      // Cleanup on unmount
+      return () => split.revert();
+    }, { scope: headingRef });
+
+    return <h1 ref={headingRef} style={{ opacity: 0 }}>{text}</h1>;
+  }
+
+onSplit_v3_13_usage: |
+  // v3.13.0+ onSplit callback - runs every time text re-splits
+  SplitText.create("#heading", {
+    type: "chars",
+    onSplit(self) {
+      // Runs on initial split AND any future re-splits (autoSplit: true)
+      gsap.from(self.chars, {
+        y: 20,
+        autoAlpha: 0,
+        stagger: 0.05,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    }
+  });
+
+created_date: "2025-11-03"
+tags: ["text", "splittext", "characters", "stagger", "premium", "simple", "gsap-official"]
+framework: "vanilla"
+use_cases:
+  - "Hero headings"
+  - "Page titles"
+  - "Section headers"
+  - "CTAs"
+  - "Taglines"
+why_premium: "SplitText was $99/year premium plugin - now FREE in 3.13+! Simple character cascade is a timeless effect now accessible to everyone. v3.13.0+ onSplit callback adds auto-reanimation on resize."

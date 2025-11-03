@@ -11,6 +11,56 @@
 
 **Impact Set:** `docs/*.md` (bmm-index canon), `.codex/_MEMO.md`, `.codex/PLAN.md`, `.codex/REPORT.md`, `TASK.md` (if changes), `AGENTS.md` (if protocol updates required).
 
+# Codex Video Placeholder Prototype Plan — 2025-11-03
+
+**Goal:** Produce Codex-authored counterparts to the three existing video placeholder prototypes so Cameron can compare quality and select a foundation for Epics 2 & 3.
+
+**Steps**
+- 🔄 **S1 – Research Refresh:** Confirm 2025 guidance via Archon RAG (glassmorphism/accessibility), Context7 GSAP React docs, and live web search; log insights in `_MEMO`. *(In Progress 2025-11-03)*
+- ⏳ **S2 – Principle Synthesis:** Translate research into concrete design/implementation guardrails (contrast, blur fallbacks, GSAP scoping) and document in `_MEMO` plus this plan.
+- ⏳ **S3 – Implementation:** Build Codex variants of Minimal, Premium Glass, and Bold Cinematic placeholders under `src/components/video-placeholders/`, ensuring parity in API and demo coverage (side-by-side comparison page).
+- ⏳ **S4 – Validation & Handoff:** Run `npm run build`, exercise demo page, capture key differences vs Claude versions, and update `_MEMO`, `REPORT`, and `TASK` with outcomes/next steps.
+
+**Impact Set:** `src/components/video-placeholders/`, `src/pages/VideoPlaceholderDemo.tsx`, supporting hooks/utilities, `.codex/_MEMO.md`, `.codex/REPORT.md`, `TASK.md` (status update).
+
+# Hero Video Prototype Plan — 2025-11-03
+
+**Goal:** Deliver premium hero prototypes for Studios and Conversational AI with background video, dark gradients, and GSAP choreography, ready for stakeholder comparison.
+
+**Steps**
+- ✅ **S1 – Strategy & References:** Lock narrative, layout, and motion directives (copy structure, CTA cluster, metric pills, overlay layering) drawing from 2025 research. *(Completed 2025-11-03)*
+- ✅ **S2 – Implementation:** Build `StudiosHeroPrototype` & `ConversationalHeroPrototype` components with video loaders, overlay gradients, `useGSAP` animations, and reduced-motion fallbacks; expose via demo route. *(Completed 2025-11-03)*
+- ✅ **S3 – Documentation & Validation:** Record prototype specs in `docs/prototypes/hero-video-prototypes-2025-11-03.md`, update `_MEMO`/`REPORT`, adjust `TASK.md`, and verify `npm run build`. *(Completed 2025-11-03)*
+
+**Impact Set:** `src/components/hero-prototypes/*`, `src/pages/HeroPrototypeDemo.tsx`, `App.tsx`, video assets/placeholders, `.codex/_MEMO.md`, `.codex/PLAN.md`, `.codex/REPORT.md`, `docs/prototypes/hero-video-prototypes-2025-11-03.md`, `TASK.md`.
+
+# Studios Hero Prototypes — 2025-11-03
+
+**Goal:** Build five ultra-premium hero concepts for the Studios page using the locked Film Noir gradient (codex-studios-a), glassmorphism system, and existing Vimeo video (1051821551).
+
+**Steps**
+- ✅ S1 – Scaffold components: five variants under `src/pages/prototypes/studios-hero/` + shared tokens.
+- ✅ S2 – Implement visuals: spotlight/vignette, animated mesh + parallax, monitor frame + UI panels, liquid gold overlays, depth cards.
+- ✅ S3 – Access & Route: add `/studios-hero-prototypes-codex` page to navigate between variants.
+- ✅ S4 – Motion & A11y: GSAP reveals with reduced-motion guard; maintain WCAG AA contrast + focus-visible.
+- ⏳ S5 – Validation: run MCP viewport screenshots and Lighthouse pass; wire CTA analytics.
+
+**Impact Set:** `src/pages/prototypes/studios-hero/*`, `src/pages/StudiosHeroPrototypes.tsx`, `src/App.tsx`, `.codex/_MEMO.md`.
+
+# Studios Premium Hero — 2025-11-03
+
+**Goal:** Ship a single, top‑tier hero concept that feels award‑level and production‑ready.
+
+**Approach:** “Golden Gobo” — video‑first stage with a gold spotlight/gobo that subtly tracks pointer and scroll, minimal asymmetric glass card, decisive CTA.
+
+**Steps**
+- ✅ Research (Archon/Context7/Web) for 2025 patterns, a11y, and GSAP React cleanup.
+- ✅ Implement `StudioHero_PremiumGoldenGobo` with CSS‑driven beams, GSAP entrances, reduced‑motion fallback.
+- ✅ Add route `/studios-hero-premium-codex` for isolated review.
+- ⏳ Validate visuals via Chrome‑DevTools MCP screenshots; Lighthouse pass; analytics wiring.
+
+**Impact Set:** `src/pages/prototypes/studios-hero/StudioHero_PremiumGoldenGobo.tsx`, `src/pages/StudiosHeroPremium.tsx`, `src/App.tsx`, `.codex/_MEMO.md`, `.codex/REPORT.md`.
+
 # Archived Plans — Paused as of 2025-11-03
 
 The following plans represent earlier initiatives kept for historical context. Re-activate only after confirming alignment with the November 3 documentation canon and current priorities.

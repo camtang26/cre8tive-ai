@@ -1,0 +1,179 @@
+id: pattern-scrollsmoother-dynamic-blur-2025
+name: "ScrollSmoother with Velocity-Based Blur"
+category: "premium-showcases"
+complexity: "high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger", "ScrollSmoother"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "ScrollSmoother was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Apply CSS blur filter based on scroll velocity. Fast scrolling = more blur, slow = less blur. Premium motion effect FREE in 3.13+! Creates realistic speed-blur cinematography."
+inspiration_source: "GSAP ScrollSmoother velocity API, premium agency motion effects"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollSmoother"
+source_citation: "Archon MCP: ScrollSmoother velocity patterns (source_id: b9f6b322298feb21)"
+performance_notes: "CSS filter:blur is expensive. Use will-change:filter and limit number of blurred elements. Test on mid-range devices. 60fps achievable with 2-3 blur targets max."
+accessibility_notes: "Disable blur for prefers-reduced-motion - motion sensitivity triggered by rapid blur changes."
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger, ScrollSmoother } from 'gsap/all';
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  function initVelocityBlur() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      console.log('Velocity blur disabled for accessibility');
+      return;
+    }
+
+    // Create smoother with onUpdate callback
+    const smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 2,
+      effects: true,
+      onUpdate: (self) => {
+        // Get scroll velocity (pixels/second)
+        const velocity = Math.abs(self.getVelocity());
+
+        // Map velocity to blur (0-1000 velocity → 0-10px blur)
+        const blur = gsap.utils.mapRange(0, 1000, 0, 10, velocity);
+
+        // Apply blur to target elements
+        gsap.to('.blur-target', {
+          filter: `blur(${blur}px)`,
+          duration: 0.2,
+          overwrite: true
+        });
+      }
+    });
+
+    return smoother;
+  }
+
+  window.addEventListener('load', initVelocityBlur);
+
+html_structure: |
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <!-- Hero with blur effect -->
+      <section class="hero">
+        <img
+          src="hero-image.jpg"
+          class="blur-target"
+          alt="Hero"
+          style="will-change: filter;"
+        />
+        <h1 class="blur-target" style="will-change: filter;">
+          Premium Motion Blur
+        </h1>
+      </section>
+
+      <!-- Content sections -->
+      <section class="content">
+        <div class="blur-target" style="will-change: filter;">
+          <p>This element blurs during fast scrolling</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <style>
+    .blur-target {
+      will-change: filter; /* GPU optimization */
+      transition: filter 0.2s ease-out;
+    }
+  </style>
+
+advanced_effects: |
+  // Combine blur with scale for "zoom blur" effect
+  onUpdate: (self) => {
+    const velocity = Math.abs(self.getVelocity());
+    const blur = gsap.utils.mapRange(0, 1000, 0, 10, velocity);
+    const scale = gsap.utils.mapRange(0, 1000, 1, 1.05, velocity);
+
+    gsap.to('.blur-target', {
+      filter: `blur(${blur}px)`,
+      scale: scale,
+      duration: 0.2,
+      overwrite: true
+    });
+  }
+
+  // Directional blur based on scroll direction
+  onUpdate: (self) => {
+    const velocity = self.getVelocity(); // Keep sign for direction
+    const blur = Math.abs(velocity) / 100;
+    const skewY = velocity > 0 ? blur * 0.5 : -blur * 0.5;
+
+    gsap.to('.blur-target', {
+      filter: `blur(${blur}px)`,
+      skewY: skewY,
+      duration: 0.2,
+      overwrite: true
+    });
+  }
+
+react_usage: |
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger, ScrollSmoother } from 'gsap/all';
+
+  function VelocityBlurComponent() {
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 2,
+        effects: true,
+        onUpdate: (self) => {
+          const velocity = Math.abs(self.getVelocity());
+          const blur = gsap.utils.mapRange(0, 1000, 0, 10, velocity);
+
+          gsap.to('.blur-target', {
+            filter: `blur(${blur}px)`,
+            duration: 0.2,
+            overwrite: true
+          });
+        }
+      });
+
+      return () => smoother.kill();
+    }, []);
+
+    return (
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <section className="hero">
+            <img
+              src="/hero.jpg"
+              className="blur-target"
+              style={{ willChange: 'filter' }}
+            />
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["scrollsmoother", "velocity", "blur", "motion-effects", "premium", "gsap-3.13", "cinematic"]
+framework: "vanilla"
+use_cases:
+  - "Cinematic hero sections"
+  - "Speed-based visual effects"
+  - "Motion-rich portfolios"
+  - "Storytelling experiences"
+  - "Premium brand sites"
+why_premium: "ScrollSmoother was $99/year premium - now FREE! Velocity API + CSS filters = cinematic motion blur effects. Creates premium motion design typically seen in high-end agency work."

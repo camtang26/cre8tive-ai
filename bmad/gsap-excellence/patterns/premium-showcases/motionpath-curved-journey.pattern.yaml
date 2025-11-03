@@ -1,0 +1,69 @@
+id: pattern-motionpath-curved-journey-2025
+name: "MotionPath Following Complex Curved Path"
+category: "premium-showcases"
+complexity: "high"
+gsap_version: "3.13.0+"
+plugins_required: ["MotionPathPlugin"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "MotionPath was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Animate element along complex SVG path with auto-rotation. Premium path animation FREE in 3.13+!"
+inspiration_source: "GSAP MotionPathPlugin documentation, animated UI journeys"
+source_url: "https://gsap.com/docs/v3/Plugins/MotionPathPlugin"
+source_citation: "Archon MCP: MotionPath autoRotate examples (source_id: 6a6860cfc96e173b)"
+performance_notes: "MotionPath is GPU-accelerated. autoRotate adds minimal overhead. 60fps sustained."
+accessibility_notes: "Pause animation for prefers-reduced-motion. Provide static positioned alternative."
+code_example: |
+  import gsap from 'gsap';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+  gsap.registerPlugin(MotionPathPlugin);
+
+  function initMotionPath() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    gsap.to('#moving-element', {
+      motionPath: {
+        path: '#motion-path',
+        align: '#motion-path',
+        autoRotate: true,
+        alignOrigin: [0.5, 0.5],
+        start: 0,
+        end: 1
+      },
+      duration: 4,
+      ease: 'power1.inOut',
+      repeat: -1,
+      yoyo: true
+    });
+  }
+
+  window.addEventListener('load', initMotionPath);
+
+html_structure: |
+  <svg viewBox="0 0 500 500" width="500" height="500">
+    <!-- Invisible path -->
+    <path
+      id="motion-path"
+      d="M10,100 Q250,10 490,100 T490,400"
+      fill="none"
+      stroke="none"
+    />
+  </svg>
+
+  <div id="moving-element" style="position: absolute; width: 40px; height: 40px; background: #3399CC; border-radius: 50%;"></div>
+
+created_date: "2025-11-03"
+tags: ["motionpath", "svg-path", "autorotate", "premium", "gsap-3.13", "curved"]
+framework: "vanilla"
+use_cases:
+  - "UI element journeys"
+  - "Feature tours"
+  - "Animated icons"
+  - "Product showcases"
+  - "Interactive diagrams"
+why_premium: "MotionPath was $99/year premium - now FREE! Complex curved animations with auto-rotation. Industry standard for premium UI motion design."

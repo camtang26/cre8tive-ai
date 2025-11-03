@@ -6,16 +6,20 @@ id: pattern-smooth-page-transition-011
 name: "Smooth Page Transition"
 category: "interactive"
 complexity: "medium-high"
-gsap_version: "3.12.0"
-plugins_required: []
-description: "Smooth animated transitions between pages/routes - premium SPA experience"
-inspiration_source: "Awwwards page transitions, premium agency sites"
-performance_notes: "60fps with proper z-index layering and GPU acceleration"
+gsap_version: "3.13.0+"
+plugins_required: ["@gsap/react"] # For React/Next.js
+premium_plugins_free: true
+description: "Smooth animated transitions between pages/routes - premium SPA experience with React 19 / Next.js 15 support"
+year_introduced: 2020
+updated_2025: true
+is_modern: true
+inspiration_source: "Awwwards page transitions, premium agency sites, Linear app, Stripe"
+performance_notes: "60fps with proper z-index layering and GPU acceleration. Uses transform/opacity only."
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+last_validated: "2025-11-03"
 success_count: 0
-tags: ["page-transition", "navigation", "SPA", "premium", "interactive"]
-framework: "vanilla"
+tags: ["page-transition", "navigation", "SPA", "premium", "interactive", "nextjs-15", "react-19"]
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';

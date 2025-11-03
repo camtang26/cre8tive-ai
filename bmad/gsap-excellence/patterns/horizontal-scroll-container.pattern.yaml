@@ -1,0 +1,283 @@
+id: pattern-horizontal-scroll-container-2025
+name: "Horizontal Scroll Container with containerAnimation"
+category: "scroll-effects"
+complexity: "high"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: true
+cost_note: "ScrollTrigger always free, containerAnimation is core feature"
+description: "Premium horizontal scrolling section using containerAnimation (2025 feature). Enables ScrollTrigger to work inside horizontally-scrolled containers - critical for modern portfolio and storytelling sites."
+year_introduced: 2024
+is_modern: true
+is_2025_standard: true
+replaces: "Manual horizontal scroll calculations and workarounds"
+
+inspiration_source: "Apple product pages, Awwwards 2024-2025 winners, Stripe landing pages"
+performance_notes: "Uses linear ease for container animation (required). Pin and scrub work seamlessly. 60fps on mid-range devices."
+
+accessibility_notes: |
+  - Ensure keyboard navigation works (arrow keys)
+  - Provide skip links for screen readers
+  - Respect prefers-reduced-motion (disable horizontal scroll)
+  - Consider vertical fallback for accessibility
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+"
+  edge: "90+"
+  mobile: "iOS 14+, Android 90+ (horizontal scroll can be challenging on mobile - test thoroughly)"
+
+use_cases:
+  - "Portfolio case study pages (horizontal image galleries)"
+  - "Timeline storytelling (horizontal scroll through events)"
+  - "Product showcases (horizontal card sequences)"
+  - "Infinite horizontal galleries"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Container must scroll horizontally
+  const sections = gsap.utils.toArray(".horizontal-section");
+  const container = document.querySelector(".horizontal-container");
+
+  // Calculate total scroll width
+  const totalWidth = container.scrollWidth - window.innerWidth;
+
+  // STEP 1: Create the horizontal scroll animation (MUST use linear ease)
+  const horizontalScroll = gsap.to(sections, {
+    xPercent: -100 * (sections.length - 1),
+    ease: "none", // ← CRITICAL: Must be linear
+    scrollTrigger: {
+      trigger: container,
+      pin: true,
+      scrub: 1,
+      end: () => `+=${totalWidth}`,
+      anticipatePin: 1
+    }
+  });
+
+  // STEP 2: Add ScrollTriggers INSIDE the horizontal container
+  sections.forEach((section, i) => {
+    // These triggers work inside the horizontal scroll!
+    gsap.to(section.querySelector(".content"), {
+      opacity: 1,
+      y: 0,
+      scrollTrigger: {
+        trigger: section,
+        containerAnimation: horizontalScroll, // ← Key feature!
+        start: "left center",
+        end: "right center",
+        scrub: true,
+        markers: false
+      }
+    });
+  });
+
+react_example: |
+  'use client';
+
+  import { useRef, useLayoutEffect } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+  export default function HorizontalGallery({ items }) {
+    const containerRef = useRef();
+    const sectionsRef = useRef([]);
+
+    useGSAP(() => {
+      const sections = sectionsRef.current;
+
+      // Horizontal scroll animation
+      const horizontalTween = gsap.to(sections, {
+        xPercent: -100 * (sections.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          pin: true,
+          scrub: 1.5,
+          end: () => `+=${containerRef.current.scrollWidth}`,
+          invalidateOnRefresh: true
+        }
+      });
+
+      // Individual section animations
+      sections.forEach((section) => {
+        gsap.from(section.querySelector('.image'), {
+          scale: 0.8,
+          opacity: 0.3,
+          scrollTrigger: {
+            trigger: section,
+            containerAnimation: horizontalTween,
+            start: "left 80%",
+            end: "left 20%",
+            scrub: true
+          }
+        });
+      });
+
+      // Cleanup
+      return () => {
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, { scope: containerRef, dependencies: [items] });
+
+    return (
+      <div ref={containerRef} className="horizontal-scroll-wrapper overflow-hidden">
+        <div className="flex">
+          {items.map((item, i) => (
+            <div
+              key={i}
+              ref={el => sectionsRef.current[i] = el}
+              className="horizontal-section min-w-screen h-screen flex items-center justify-center"
+            >
+              <div className="content">
+                <img src={item.image} alt={item.title} className="image" />
+                <h2>{item.title}</h2>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+nextjs_tailwind_example: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+  export default function HorizontalTimeline({ events }) {
+    const timelineRef = useRef();
+
+    useGSAP(() => {
+      const sections = gsap.utils.toArray('.timeline-event');
+
+      const tl = gsap.to(sections, {
+        x: () => -(timelineRef.current.scrollWidth - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: timelineRef.current,
+          pin: true,
+          scrub: 2,
+          end: () => `+=${timelineRef.current.scrollWidth}`,
+          invalidateOnRefresh: true
+        }
+      });
+
+      // Fade in each event as it enters
+      sections.forEach((event) => {
+        gsap.from(event, {
+          opacity: 0,
+          scale: 0.9,
+          scrollTrigger: {
+            trigger: event,
+            containerAnimation: tl,
+            start: "left right",
+            end: "center center",
+            scrub: true
+          }
+        });
+      });
+
+    }, { scope: timelineRef });
+
+    return (
+      <section ref={timelineRef} className="h-screen overflow-hidden">
+        <div className="flex h-full">
+          {events.map((event, i) => (
+            <div
+              key={i}
+              className="timeline-event min-w-screen h-full flex items-center justify-center p-20"
+            >
+              <div className="max-w-2xl">
+                <span className="text-sm font-mono text-gray-500">{event.year}</span>
+                <h2 className="text-4xl font-bold mt-2">{event.title}</h2>
+                <p className="text-lg mt-4 text-gray-600">{event.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+css_example: |
+  /* Basic horizontal scroll setup */
+  .horizontal-scroll-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .horizontal-section {
+    min-width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-center;
+  }
+
+  /* Smooth text rendering during transforms */
+  .horizontal-section {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Accessibility: Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .horizontal-scroll-wrapper {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .horizontal-section {
+      scroll-snap-align: start;
+    }
+  }
+
+variations:
+  - name: "With snap points"
+    description: "Add snap: { snapTo: 1 / sections.length } for section snapping"
+  - name: "Variable section widths"
+    description: "Sections can be different widths, calculate dynamically"
+  - name: "Parallax within sections"
+    description: "Layer elements with different scroll speeds inside sections"
+  - name: "Infinite loop"
+    description: "Use seamless looping for continuous horizontal scroll"
+
+common_mistakes:
+  - "NOT using ease: 'none' on container animation (will break)"
+  - "Forgetting invalidateOnRefresh: true (breaks on resize)"
+  - "Not testing on mobile (horizontal scroll is tricky)"
+  - "Pinning individual sections instead of container (conflict)"
+
+tips:
+  - "Use anticipatePin: 1 for smoother pinning start"
+  - "Add invalidateOnRefresh to handle window resize"
+  - "Test keyboard navigation (arrow keys should work)"
+  - "Consider mobile: vertical scroll fallback"
+  - "Use matchMedia for responsive enable/disable"
+
+performance_optimization: |
+  // Only enable on desktop for performance
+  gsap.matchMedia().add("(min-width: 1024px)", () => {
+    // Horizontal scroll animation here
+    return () => {
+      // Cleanup
+    };
+  });
+
+created_date: "2025-11-02"
+tags: ["horizontal-scroll", "containerAnimation", "modern-2025", "scroll-narrative", "premium", "portfolio"]

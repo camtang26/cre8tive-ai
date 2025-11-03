@@ -1,0 +1,226 @@
+id: pattern-drawsvg-line-reveals-2025
+name: "DrawSVG Line Drawing Reveals"
+category: "svg-animations"
+complexity: "medium"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["DrawSVGPlugin"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Part of Club GreenSock ($99/year, now FREE in GSAP 3.13+!)"
+cost_note: "🎉 DrawSVG was premium-only ($99/year), now COMPLETELY FREE in GSAP 3.13+ (late 2024)! This enables stunning SVG line animations for everyone!"
+description: "Animate SVG stroke drawing like writing or revealing. Perfect for signatures, logo reveals, icon animations, and decorative line art. Formerly premium Club GreenSock exclusive, now FREE!"
+year_introduced: 2015
+made_free: "2024 (GSAP 3.13)"
+is_modern: true
+is_2025_standard: true
+is_premium_feature: true
+is_wow_factor: true
+replaces: "Manual stroke-dashoffset calculations, CSS stroke animations"
+
+inspiration_source: "Apple event reveals, Awwwards SVG animations, signature effects"
+performance_notes: "GPU-accelerated SVG stroke animation. 60fps even with complex paths."
+
+accessibility_notes: |
+  - Ensure line reveals don't convey critical information alone
+  - Provide text alternatives for SVG content
+  - Respect prefers-reduced-motion (instant draw)
+  - Don't rely on animation for semantic meaning
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+"
+  edge: "90+"
+  mobile: "Full support"
+
+use_cases:
+  - "Logo reveals and brand animations"
+  - "Signature effects and handwriting"
+  - "Icon line drawings"
+  - "Decorative underlines and borders"
+  - "Infographic line animations"
+  - "Map path reveals"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+
+  gsap.registerPlugin(DrawSVGPlugin);
+
+  // ✅ Draw SVG path from 0% to 100% (FREE in 3.13+!)
+  gsap.from("#logoPath", {
+    drawSVG: "0%",      // Start with path not drawn
+    duration: 2,
+    ease: "power1.inOut"
+  });
+
+  // Path animates from invisible to fully drawn!
+
+signature_effect: |
+  <svg viewBox="0 0 500 200" width="500" height="200">
+    <path
+      id="signature"
+      d="M10,100 Q50,50 100,100 T200,100 Q250,50 300,100"
+      stroke="currentColor"
+      stroke-width="3"
+      fill="none"
+    />
+  </svg>
+
+  <script>
+  import { gsap } from 'gsap';
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+
+  gsap.registerPlugin(DrawSVGPlugin);
+
+  // Signature writing effect (FREE!)
+  gsap.from("#signature", {
+    drawSVG: "0%",
+    duration: 3,
+    ease: "none"  // Linear for handwriting feel
+  });
+  </script>
+
+logo_reveal: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(DrawSVGPlugin, useGSAP);
+
+  export default function LogoReveal() {
+    const logoRef = useRef(null);
+
+    useGSAP(() => {
+      const paths = logoRef.current.querySelectorAll('path');
+
+      // Draw all paths in sequence (FREE in 3.13+!)
+      gsap.from(paths, {
+        drawSVG: "0%",
+        duration: 1.5,
+        stagger: 0.2,  // Stagger each path
+        ease: "power2.out"
+      });
+
+    }, { scope: logoRef });
+
+    return (
+      <svg ref={logoRef} viewBox="0 0 200 200" width="200">
+        <path d="M..." stroke="#000" strokeWidth="2" fill="none" />
+        <path d="M..." stroke="#000" strokeWidth="2" fill="none" />
+        <path d="M..." stroke="#000" strokeWidth="2" fill="none" />
+      </svg>
+    );
+  }
+
+advanced_options: |
+  // Draw from center outward
+  gsap.from("#path", {
+    drawSVG: "50% 50%",  // Start from center
+    duration: 2
+  });
+
+  // Draw from end to start
+  gsap.from("#path", {
+    drawSVG: "100% 100%",  // Start from end
+    duration: 2
+  });
+
+  // Draw from custom range
+  gsap.fromTo("#path",
+    { drawSVG: "25% 25%" },
+    { drawSVG: "0% 100%", duration: 2 }
+  );
+
+underline_reveal: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger, useGSAP);
+
+  export default function HeadlineWithUnderline() {
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+      gsap.from("#underline", {
+        drawSVG: "0%",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          end: "top 50%",
+          scrub: 1
+        }
+      });
+    }, { scope: containerRef });
+
+    return (
+      <div ref={containerRef} className="relative inline-block">
+        <h1>Premium Headline</h1>
+        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 200 10">
+          <path
+            id="underline"
+            d="M0,5 L200,5"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+          />
+        </svg>
+      </div>
+    );
+  }
+
+map_path_reveal: |
+  // Reveal map route paths
+  const routePaths = gsap.utils.toArray('.map-route');
+
+  gsap.from(routePaths, {
+    drawSVG: "0%",
+    duration: 3,
+    stagger: 0.5,
+    ease: "none",
+    onComplete: () => {
+      // Add markers after paths are drawn
+      gsap.to('.map-marker', { scale: 1, duration: 0.3 });
+    }
+  });
+
+variations:
+  - name: "Reverse draw (erase effect)"
+    description: "Animate from 100% to 0% to erase lines"
+  - name: "Center-outward draw"
+    description: "Start from center and draw both directions"
+  - name: "Scroll-triggered draw"
+    description: "Draw paths as user scrolls"
+  - name: "Staggered multi-path"
+    description: "Draw multiple paths in sequence"
+
+common_mistakes:
+  - "SVG path doesn't have stroke (won't work!)"
+  - "Path has fill instead of stroke (use stroke)"
+  - "Not registering DrawSVGPlugin"
+  - "Complex paths draw unevenly (simplify paths)"
+  - "Forgetting fill='none' on paths"
+
+tips:
+  - "Simplify SVG paths in Illustrator/Figma first"
+  - "Use stroke, not fill, for DrawSVG to work"
+  - "Linear ease often looks best for line drawing"
+  - "Combine with scale/opacity for compound effects"
+  - "Use ScrollTrigger for scroll-triggered reveals"
+  - "Stagger multiple paths for sequential reveals"
+
+performance_optimization: |
+  // Optimize complex SVG paths
+  // Simplify paths before animating
+  // Use will-change: transform on SVG container
+
+created_date: "2025-11-02"
+tags: ["drawsvg", "premium-free", "svg", "line-drawing", "wow-factor", "modern-2025", "was-paid"]

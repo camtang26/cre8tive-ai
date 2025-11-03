@@ -1,0 +1,95 @@
+id: pattern-progressive-image-reveal-2025
+name: "Progressive Image Reveal on Load"
+category: "loading-sequences"
+complexity: "simple"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_2025_standard: true
+description: "Reveal images progressively on page load with staggered clip-path animation. Images slide in from bottom with mask effect. Simple yet effective loading sequence."
+inspiration_source: "Modern portfolio sites"
+source_url: "https://gsap.com/docs/v3/GSAP/gsap.from()"
+source_citation: "Progressive reveal patterns"
+performance_notes: "clip-path uses GPU when combined with transforms. Stagger creates organic load feel."
+accessibility_notes: "Ensure images load instantly for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+
+  function progressiveImageReveal() {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      // Instant reveal
+      gsap.set('.reveal-image', { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 });
+      return;
+    }
+
+    gsap.from('.reveal-image', {
+      clipPath: 'inset(100% 0% 0% 0%)', // Start fully clipped from bottom
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power3.out',
+      stagger: 0.2, // 200ms between each image
+      onComplete: () => console.log('All images revealed')
+    });
+  }
+
+  window.addEventListener('load', progressiveImageReveal);
+
+with_scale: |
+  // Add subtle scale for more dynamic reveal
+  gsap.from('.reveal-image', {
+    clipPath: 'inset(100% 0% 0% 0%)',
+    scale: 1.1, // Start slightly larger
+    opacity: 0,
+    duration: 1.2,
+    ease: 'power3.out',
+    stagger: 0.2
+  });
+
+react_usage: |
+  'use client';
+
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+
+  export function ProgressiveGallery({ images }) {
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set('.reveal-image', { clipPath: 'inset(0%)', opacity: 1 });
+        return;
+      }
+
+      gsap.from('.reveal-image', {
+        clipPath: 'inset(100% 0% 0% 0%)',
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        stagger: 0.2
+      });
+    }, []);
+
+    return (
+      <div className="gallery">
+        {images.map((img, i) => (
+          <img key={i} src={img} className="reveal-image" />
+        ))}
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["loading", "images", "reveal", "clip-path", "progressive", "stagger"]
+framework: "vanilla"
+use_cases:
+  - "Portfolio galleries"
+  - "Product showcases"
+  - "Blog post images"
+  - "Landing page visuals"
+why_premium: "Progressive image reveal creates polished page load experience. Staggered clip-path is modern alternative to fade. Used by premium portfolio sites."

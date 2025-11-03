@@ -7,8 +7,6 @@
 <workflow>
 
 <step n="1" goal="Director: Understand Implementation Request">
-<action>Greet {user_name} in {communication_language}</action>
-<action>All written outputs must use {communication_language}</action>
 <action>Director introduces workflow and gathers requirements</action>
 
 **"Let's implement this pattern quickly and correctly. Tell me what you need."**
@@ -178,43 +176,18 @@
 {{accessibility_implementation}}
 ```
 
-**5. Framework Integration**
+**5. Framework Integration (if applicable)**
 ```javascript
 // {{framework}} integration
 
 {{framework_integration_code}}
 ```
 
-<check if="framework == 'vanilla'">
-**6. Vanilla Usage Example**
-```javascript
-{{vanilla_usage_example}}
-```
-</check>
-
 <action>Add inline comments explaining key decisions</action>
 <action>Annotate performance optimizations</action>
 <action>Note any browser-specific considerations</action>
 
-<action>Document performance characteristics:</action>
-- GPU optimization strategy: {{gpu_optimization}}
-- Will-change properties: {{will_change_usage}}
-- Estimated FPS: {{estimated_fps}}
-- Paint time estimate: {{paint_time_estimate}}
-- JS execution estimate: {{js_execution_estimate}}
-- Potential bottlenecks: {{bottleneck_warnings}}
-- Optimization opportunities: {{optimization_suggestions}}
-
-<action>Document browser compatibility:</action>
-- Supported browsers: {{browser_compatibility}}
-- Known issues: {{browser_issues}}
-- Fallback strategies: {{browser_fallbacks}}
-
-<action>Document customization options:</action>
-- Easy customizations: {{easy_customizations}}
-- Advanced customizations: {{advanced_customizations}}
-
-<template-output>import_statements, setup_code, animation_implementation, cleanup_implementation, accessibility_implementation, framework_integration_code, vanilla_usage_example, gpu_optimization, will_change_usage, estimated_fps, paint_time_estimate, js_execution_estimate, bottleneck_warnings, optimization_suggestions, browser_compatibility, browser_issues, browser_fallbacks, easy_customizations, advanced_customizations</template-output>
+<template-output>complete_implementation_code</template-output>
 </step>
 
 <step n="5" goal="VFX Artist: Integration Guide">
@@ -229,25 +202,18 @@
    {{installation_commands}}
    ```
 
-2. **Import Guide**
-   {{import_guide}}
-
+2. **Import in Your File**
    ```javascript
    {{import_example}}
    ```
 
-3. **Component Integration Guide**
-   {{component_integration_guide}}
-
+3. **Add to Component**
    ```{{framework}}
    {{component_integration_example}}
    ```
 
-4. **Target Elements**
-   {{target_elements}}
-
-   **Element Requirements:**
-   {{element_requirements}}
+4. **Configure Elements**
+   {{element_configuration}}
 
 5. **Test Checklist**
    - [ ] Animation runs smoothly (60fps target)
@@ -257,7 +223,7 @@
    - [ ] Cleanup prevents memory leaks
    - [ ] Framework lifecycle respected
 
-<template-output>integration_guide, installation_commands, import_guide, component_integration_guide, target_elements, element_requirements</template-output>
+<template-output>integration_guide, installation_commands, integration_examples</template-output>
 </step>
 
 <step n="6" goal="Tech Director: Quick Validation (Optional - Phase 2)" optional="true">
@@ -282,18 +248,17 @@
    <action>Use take_screenshot to capture animation state</action>
    <action>Verify visual implementation matches expected</action>
 
-4. **Performance Rating**
-   <action>Assess overall performance based on code analysis and estimates</action>
-   - Rating: {{performance_rating}} (e.g., "Excellent", "Good", "Needs Optimization")
+4. **Performance Notes**
+   - Estimated FPS: {{estimated_fps}}
+   - Potential bottlenecks: {{bottleneck_warnings}}
+   - Optimization opportunities: {{optimization_suggestions}}
 
-<template-output>validation_results, console_status, visual_validation, performance_rating, additional_troubleshooting</template-output>
+<template-output>validation_results, console_status, visual_validation</template-output>
 </check>
 
 <check if="else">
 <action>Skip validation in MVP (Tech Director not yet available)</action>
 <action>Provide manual validation checklist instead</action>
-
-<template-output>validation_results, performance_rating, additional_troubleshooting</template-output>
 </check>
 </step>
 
@@ -301,15 +266,6 @@
 <action>Director presents complete implementation to user</action>
 
 **"Implementation complete. Here's your production-ready code."**
-
-<action>Get current date for documentation</action>
-<action>Compile additional resources:</action>
-- Pattern source citation
-- GSAP documentation links relevant to this pattern
-- Related patterns from library
-- Further reading resources
-
-<action>Define next steps for user</action>
 
 <action>Generate final implementation document using template.md</action>
 <action>Save to output file: {{default_output_file}}</action>
@@ -324,25 +280,16 @@
 - ✅ Accessibility: prefers-reduced-motion supported
 - ✅ Performance: {{performance_rating}}
 
-**Next Steps:**
-1. {{next_step_1}}
-2. {{next_step_2}}
-3. {{next_step_3}}
-
-<check if="pattern_source == 'research'">
-**Research Report:** {{research_report_path}}
-</check>
-
-<ask>What would you like to do?
-1. Test implementation in your project
-2. Request performance optimization
-3. Add customizations
-4. Save to pattern library
+<ask>Next steps:
+1. Copy code and test in your project
+2. Request performance optimization (if issues)
+3. Add variation or customize further
+4. Save successful implementation to pattern library
 5. Done</ask>
 
 <action>Capture user response for next action</action>
 
-<template-output>final_implementation, next_action, date, next_step_1, next_step_2, next_step_3, research_report_path, pattern_source_citation, gsap_docs_links, related_patterns, further_reading</template-output>
+<template-output>final_implementation, next_action</template-output>
 </step>
 
 <step n="8" goal="Optional: Add to Pattern Library" optional="true">
@@ -350,12 +297,10 @@
 
 <check if="user_approves">
 <action>Create pattern library entry</action>
-<action>Generate unique pattern_library_id (e.g., pattern-hero-parallax-uuid)</action>
-<action>Determine pattern_library_path in library</action>
 
 **Pattern Library Entry:**
 ```yaml
-id: {{pattern_library_id}}
+id: pattern-{{uuid}}
 name: "{{pattern_name}}"
 category: "{{pattern_category}}"
 complexity: "{{complexity}}"
@@ -371,13 +316,13 @@ framework: "{{framework}}"
 performance_notes: "{{performance_notes}}"
 ```
 
-<action>Save to {{pattern_library_path}}</action>
+<action>Save to {pattern_library}/{{pattern_name}}.pattern.yaml</action>
 <action>Update pattern library index</action>
 
 **"Pattern added to library! It'll be available for quick implementation next time."**
 </check>
 
-<template-output>pattern_library_entry, pattern_library_id, pattern_library_path</template-output>
+<template-output>pattern_library_entry</template-output>
 </step>
 
 </workflow>

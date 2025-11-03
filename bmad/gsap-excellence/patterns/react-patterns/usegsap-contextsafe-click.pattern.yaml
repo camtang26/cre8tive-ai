@@ -1,0 +1,125 @@
+id: pattern-usegsap-contextsafe-click-2025
+name: "useGSAP contextSafe for Click Handlers"
+category: "react-patterns"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_2025_standard: true
+react_19_compatible: true
+nextjs_15_compatible: true
+description: "React 19 pattern for safely animating elements in click handlers using contextSafe. Ensures animations are properly cleaned up when component unmounts and avoids memory leaks. Critical for interactive React components."
+inspiration_source: "GSAP Official React Documentation"
+source_url: "https://gsap.com/resources/react-advanced"
+source_citation: "Archon MCP: gsap.com official docs (source_id: b9f6b322298feb21)"
+performance_notes: "contextSafe ensures animations are tracked and cleaned up on unmount. No memory leaks."
+accessibility_notes: "Pair with prefers-reduced-motion check for click-triggered animations"
+code_example: |
+  import React, { useRef, useState } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  function RemovableBox() {
+    const container = useRef();
+    const [active, setActive] = useState(true);
+
+    // useGSAP with scope for automatic cleanup
+    const { contextSafe } = useGSAP({ scope: container });
+
+    // contextSafe wraps animation functions for safe cleanup
+    const remove = contextSafe(() => {
+      gsap.to(".box", {
+        opacity: 0,
+        scale: 0.5,
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => setActive(false) // Remove from DOM after animation
+      });
+    });
+
+    return (
+      <div className="app" ref={container}>
+        <button
+          className="button"
+          onClick={() => active && remove()}
+        >
+          {active ? "Remove Box" : "Done"}
+        </button>
+        {active ? <div className="box gradient-blue">Box</div> : null}
+      </div>
+    );
+  }
+
+  export default RemovableBox;
+
+advanced_example: |
+  // Multiple contextSafe animations in one component
+  function InteractiveCard() {
+    const cardRef = useRef();
+    const { contextSafe } = useGSAP({ scope: cardRef });
+
+    // All these animations are tracked for cleanup
+    const expand = contextSafe(() => {
+      gsap.to(cardRef.current, { scale: 1.1, duration: 0.3 });
+    });
+
+    const shrink = contextSafe(() => {
+      gsap.to(cardRef.current, { scale: 1, duration: 0.3 });
+    });
+
+    const flip = contextSafe(() => {
+      gsap.to(cardRef.current, { rotationY: 180, duration: 0.6 });
+    });
+
+    return (
+      <div
+        ref={cardRef}
+        onMouseEnter={expand}
+        onMouseLeave={shrink}
+        onClick={flip}
+        className="card"
+      >
+        Interactive Card
+      </div>
+    );
+  }
+
+without_contextsafe_problem: |
+  // ❌ WRONG: Without contextSafe - memory leak risk!
+  function BadExample() {
+    const boxRef = useRef();
+
+    const remove = () => {
+      // This animation won't be cleaned up on unmount!
+      gsap.to(boxRef.current, { opacity: 0 });
+    };
+
+    return <div ref={boxRef} onClick={remove} />;
+  }
+
+  // ✅ CORRECT: With contextSafe - automatic cleanup!
+  function GoodExample() {
+    const boxRef = useRef();
+    const { contextSafe } = useGSAP({ scope: boxRef });
+
+    const remove = contextSafe(() => {
+      // This animation WILL be cleaned up on unmount
+      gsap.to(boxRef.current, { opacity: 0 });
+    });
+
+    return <div ref={boxRef} onClick={remove} />;
+  }
+
+created_date: "2025-11-03"
+tags: ["react", "usegsap", "contextsafe", "click-handler", "cleanup", "react-19", "nextjs-15"]
+framework: "react"
+use_cases:
+  - "Interactive buttons"
+  - "Removable elements"
+  - "Hover effects"
+  - "Click-triggered animations"
+  - "Modal open/close"
+  - "Drawer slide in/out"
+why_premium: "contextSafe is the official GSAP solution for React animation cleanup. Prevents memory leaks that plague naive GSAP + React implementations. Essential for production React 19 / Next.js 15 apps."

@@ -3,19 +3,29 @@
 # GSAP Excellence Engine Pattern Library
 
 id: pattern-split-text-reveal-006
-name: "Split Text Character Reveal"
+name: "Split Text Character Reveal - Premium Text Effects"
 category: "text-animations"
 complexity: "medium-high"
-gsap_version: "3.12.0"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
 plugins_required: ["SplitText"]
-description: "Split text into characters/words and reveal with stagger - premium text effect"
-inspiration_source: "Apple event titles, Awwwards typography"
-performance_notes: "60fps with SplitText plugin, GPU acceleration on characters"
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Part of Club GreenSock ($99/year, now FREE in GSAP 3.13+!)"
+cost_note: "🎉 SplitText was premium-only ($99/year), now COMPLETELY FREE in GSAP 3.13+ (late 2024)! This enables premium text animations for everyone!"
+description: "Split text into characters/words/lines and reveal with stagger - premium text effect formerly exclusive to Club GreenSock members. Now FREE for all!"
+year_introduced: 2015
+made_free: "2024 (GSAP 3.13)"
+is_modern: true
+is_2025_standard: true
+is_premium_feature: true
+is_wow_factor: true
+inspiration_source: "Apple event titles, Awwwards typography, premium agency sites"
+performance_notes: "60fps with SplitText plugin, GPU acceleration on characters. Handles responsive text gracefully."
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+last_validated: "2025-11-02"
 success_count: 0
-tags: ["text", "reveal", "split", "stagger", "premium", "typography"]
-framework: "vanilla"
+tags: ["text", "reveal", "split", "stagger", "premium", "typography", "splittext", "premium-free", "was-paid"]
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';

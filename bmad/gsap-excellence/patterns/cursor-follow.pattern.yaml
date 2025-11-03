@@ -6,16 +6,20 @@ id: pattern-cursor-follow-012
 name: "Custom Cursor Follow Effect"
 category: "interactive"
 complexity: "medium"
-gsap_version: "3.12.0"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
 plugins_required: []
+premium_plugins_free: true
 description: "Custom cursor that smoothly follows mouse with lag - premium interaction detail"
+year_introduced: 2020
+is_modern: true
+is_2025_standard: true
 inspiration_source: "Awwwards custom cursors, creative agency sites"
-performance_notes: "60fps with requestAnimationFrame and transform animations"
+performance_notes: "60fps with requestAnimationFrame and transform animations. Use gsap.quickTo() for optimal performance."
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+last_validated: "2025-11-02"
 success_count: 0
-tags: ["cursor", "follow", "interactive", "premium", "experimental"]
-framework: "vanilla"
+tags: ["cursor", "follow", "interactive", "premium", "experimental", "modern-2025"]
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';

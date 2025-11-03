@@ -1,0 +1,208 @@
+id: pattern-scroll-velocity-scale-2025
+name: "Scroll Velocity-Based Scaling"
+category: "scroll-effects"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Scale elements based on scroll velocity - fast scrolling creates more dramatic scale changes. Adds dynamic, reactive feel to scroll interactions. Smooth easing prevents jarring motion."
+inspiration_source: "Advanced ScrollTrigger patterns"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollTrigger"
+source_citation: "ScrollTrigger velocity tracking patterns"
+performance_notes: "Uses ScrollTrigger getVelocity(). Scale transforms are GPU-accelerated. Smooth easing prevents jank."
+accessibility_notes: "Disable velocity effects for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function createVelocityScale() {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const elements = gsap.utils.toArray('.velocity-scale');
+
+    elements.forEach(element => {
+      let currentScale = 1;
+
+      ScrollTrigger.create({
+        trigger: element,
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: (self) => {
+          // Get scroll velocity (-infinity to +infinity)
+          const velocity = self.getVelocity();
+
+          // Convert velocity to scale factor
+          // Higher velocity = more scale
+          const velocityFactor = Math.abs(velocity) / 3000; // Adjust divisor for sensitivity
+          const targetScale = 1 + Math.min(velocityFactor, 0.3); // Cap at 1.3x
+
+          // Smooth interpolation to target scale
+          currentScale = gsap.utils.interpolate(
+            currentScale,
+            targetScale,
+            0.1 // Smoothing factor (0-1, lower = smoother)
+          );
+
+          gsap.set(element, { scale: currentScale });
+        }
+      });
+    });
+  }
+
+  window.addEventListener('load', createVelocityScale);
+
+velocity_rotation: |
+  // Rotate based on scroll velocity
+  function createVelocityRotation() {
+    ScrollTrigger.create({
+      trigger: '.velocity-rotate',
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: (self) => {
+        const velocity = self.getVelocity();
+
+        // Positive velocity = scroll down, rotate right
+        // Negative velocity = scroll up, rotate left
+        const rotation = velocity / 50; // Adjust for sensitivity
+
+        gsap.to('.velocity-rotate', {
+          rotation: rotation,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    });
+  }
+
+velocity_blur: |
+  // Blur based on scroll velocity (motion blur effect)
+  function createVelocityBlur() {
+    ScrollTrigger.create({
+      trigger: '.velocity-blur',
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: (self) => {
+        const velocity = Math.abs(self.getVelocity());
+
+        // Fast scroll = more blur
+        const blurAmount = Math.min(velocity / 500, 10); // Cap at 10px
+
+        gsap.to('.velocity-blur', {
+          filter: `blur(${blurAmount}px)`,
+          duration: 0.2,
+          ease: 'power2.out',
+          onComplete: () => {
+            // Clear blur when velocity drops
+            if (velocity < 100) {
+              gsap.to('.velocity-blur', {
+                filter: 'blur(0px)',
+                duration: 0.5
+              });
+            }
+          }
+        });
+      }
+    });
+  }
+
+directional_scale: |
+  // Scale differently based on scroll direction
+  function createDirectionalScale() {
+    let lastDirection = 0;
+
+    ScrollTrigger.create({
+      trigger: '.directional-scale',
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: (self) => {
+        const direction = self.direction; // 1 = down, -1 = up
+        const velocity = Math.abs(self.getVelocity());
+
+        let targetScale = 1;
+
+        if (velocity > 500) {
+          if (direction === 1) {
+            // Scrolling down fast - scale up
+            targetScale = 1.2;
+          } else {
+            // Scrolling up fast - scale down
+            targetScale = 0.8;
+          }
+        }
+
+        gsap.to('.directional-scale', {
+          scale: targetScale,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+
+        lastDirection = direction;
+      }
+    });
+  }
+
+react_usage: |
+  'use client';
+
+  import { useRef, useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  export function VelocityScaleElement() {
+    const elementRef = useRef();
+
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) return;
+
+      let currentScale = 1;
+
+      const st = ScrollTrigger.create({
+        trigger: elementRef.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: (self) => {
+          const velocity = self.getVelocity();
+          const velocityFactor = Math.abs(velocity) / 3000;
+          const targetScale = 1 + Math.min(velocityFactor, 0.3);
+
+          currentScale = gsap.utils.interpolate(currentScale, targetScale, 0.1);
+          gsap.set(elementRef.current, { scale: currentScale });
+        }
+      });
+
+      return () => st.kill();
+    }, []);
+
+    return (
+      <div ref={elementRef} className="velocity-scale">
+        Scales based on scroll velocity
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["scroll", "velocity", "scale", "reactive", "scrolltrigger", "advanced", "dynamic"]
+framework: "vanilla"
+use_cases:
+  - "Dynamic scroll feedback"
+  - "Interactive headers"
+  - "Gaming-style UIs"
+  - "Premium scroll experiences"
+  - "Reactive hero sections"
+why_premium: "Velocity-based scaling creates dynamic, reactive feel. Responds to user's scroll speed for organic interaction. Smooth interpolation prevents jank. Advanced ScrollTrigger technique."
