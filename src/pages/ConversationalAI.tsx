@@ -10,7 +10,7 @@ import { FadeIn } from "@/components/shared/FadeIn";
 const ConversationalAI = () => {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "https://elevenlabs.io/convai-widget/index.js";
+    script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
     script.async = true;
     script.type = "text/javascript";
     document.body.appendChild(script);
@@ -54,7 +54,7 @@ const ConversationalAI = () => {
           <ContactCTA />
         </FadeIn>
       </main>
-      <elevenlabs-convai agent-id="lQXvJFg8zSqlerOKPXm6"></elevenlabs-convai>
+      <elevenlabs-convai agent-id="agent_7901k75veexyeanar9ervcwsaz5m"></elevenlabs-convai>
     </div>
   );
 };
