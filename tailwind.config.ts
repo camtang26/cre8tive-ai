@@ -68,6 +68,21 @@ export default {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        studios: {
+          background: '#05060D',
+          'background-accent': '#0B1220',
+          surface: 'rgba(9, 13, 23, 0.75)',
+          'surface-strong': 'rgba(12, 18, 32, 0.88)',
+          primary: '#E1B341',
+          'primary-soft': '#F8CE73',
+          accent: '#31C4FF',
+          'accent-soft': '#8EDCFF',
+          headline: '#F6F8FF',
+          body: 'rgba(222, 231, 255, 0.82)',
+          'body-muted': 'rgba(202, 214, 241, 0.74)',
+          border: 'rgba(255, 255, 255, 0.12)',
+          glow: 'rgba(49, 196, 255, 0.35)',
+        },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           dark: 'hsl(var(--primary-dark))',
@@ -201,6 +216,10 @@ export default {
         'gradient-radial-at-b': 'radial-gradient(ellipse at bottom, var(--tw-gradient-stops))',
         'gradient-radial-at-l': 'radial-gradient(ellipse at left, var(--tw-gradient-stops))',
         'gradient-radial-at-r': 'radial-gradient(ellipse at right, var(--tw-gradient-stops))',
+        'studios-hero-base': 'linear-gradient(145deg, rgba(5,6,13,0.78) 0%, rgba(12,18,32,0.72) 38%, rgba(16,26,44,0.68) 70%, rgba(8,15,29,0.82) 100%)',
+        'studios-hero-spotlight': 'radial-gradient(75% 95% at 20% 35%, rgba(49,196,255,0.32) 0%, rgba(5,6,13,0.0) 70%, rgba(5,6,13,0) 100%)',
+        'studios-hero-rim': 'radial-gradient(60% 70% at 80% 40%, rgba(225,179,65,0.28) 0%, rgba(225,179,65,0.06) 55%, rgba(225,179,65,0) 100%)',
+        'studios-hero-noise': 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\' preserveAspectRatio=\'none\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.6\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.9\'/%3E%3C/svg%3E")',
       }
     }
   },

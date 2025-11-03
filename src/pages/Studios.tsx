@@ -1,7 +1,11 @@
 import { Navigation } from "@/components/Navigation";
 import { StudiosHero } from "@/components/studios/StudiosHero";
-import { StudiosIntro } from "@/components/studios/StudiosIntro";
-import { ExpertiseBenefits } from "@/components/studios/ExpertiseBenefits";
+import { StudiosChallengeSection } from "@/components/studios/StudiosChallengeSection";
+import { StudiosPortfolioSection } from "@/components/studios/StudiosPortfolioSection";
+import { StudiosProductionStackSection } from "@/components/studios/StudiosProductionStackSection";
+import { StudiosWorkflowSection } from "@/components/studios/StudiosWorkflowSection";
+import { StudiosStandardsSection } from "@/components/studios/StudiosStandardsSection";
+import { StudiosPlatformDemoSection } from "@/components/studios/StudiosPlatformDemoSection";
 import { WhoWeServe } from "@/components/studios/WhoWeServe";
 import { Testimonials } from "@/components/studios/Testimonials";
 import { ContactCTA } from "@/components/shared/ContactCTA";
@@ -29,13 +33,22 @@ const Studios = () => {
         <main className="pt-20">
           <StudiosHero />
           <FadeIn>
-            <StudiosIntro />
+            <StudiosChallengeSection />
           </FadeIn>
-          <div className="container mx-auto px-4">
-            <FilmStripDivider />
-          </div>
           <FadeIn>
-            <ExpertiseBenefits />
+            <StudiosPortfolioSection />
+          </FadeIn>
+          <FadeIn>
+            <StudiosProductionStackSection />
+          </FadeIn>
+          <FadeIn>
+            <StudiosWorkflowSection />
+          </FadeIn>
+          <FadeIn>
+            <StudiosStandardsSection />
+          </FadeIn>
+          <FadeIn>
+            <StudiosPlatformDemoSection />
           </FadeIn>
           <div className="container mx-auto px-4">
             <FilmStripDivider />
