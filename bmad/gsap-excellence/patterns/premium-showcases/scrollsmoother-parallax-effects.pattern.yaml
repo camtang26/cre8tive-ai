@@ -1,0 +1,157 @@
+id: pattern-scrollsmoother-parallax-effects-2025
+name: "ScrollSmoother with Parallax Depth Effects"
+category: "premium-showcases"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger", "ScrollSmoother"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "ScrollSmoother was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Buttery smooth scrolling combined with depth-layered parallax effects using data-speed attributes. Background layers scroll at different speeds for immersive depth. ScrollSmoother was premium ($99/year) - now FREE!"
+inspiration_source: "GSAP Official ScrollSmoother Documentation"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollSmoother"
+source_citation: "Archon MCP: gsap.com official docs (source_id: b9f6b322298feb21)"
+performance_notes: "ScrollSmoother uses transforms (GPU-accelerated). data-speed and data-lag are calculated efficiently. 60fps sustained on mid-range devices."
+accessibility_notes: "Disable smooth scrolling for prefers-reduced-motion - use native scroll"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother'; // FREE in 3.13+!
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  // HTML structure required:
+  // <div id="smooth-wrapper">
+  //   <div id="smooth-content">
+  //     <div class="parallax-bg" data-speed="0.5">Slow layer</div>
+  //     <div class="parallax-mid" data-speed="0.8">Mid layer</div>
+  //     <div class="parallax-fg" data-speed="1.2">Fast layer</div>
+  //   </div>
+  // </div>
+
+  function initSmoothScroll() {
+    // Check accessibility preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Disable smooth scrolling - use native scroll
+      console.log('Smooth scrolling disabled for accessibility');
+      return;
+    }
+
+    // Create ScrollSmoother (must be created FIRST!)
+    const smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 2,        // Seconds to "catch up" to native scroll (2 = buttery smooth)
+      effects: true,    // Enable data-speed and data-lag attributes
+      smoothTouch: 0.1  // Enable smooth scrolling on mobile (lower value)
+    });
+
+    // Optional: Programmatic scrollTo
+    document.querySelector('.scroll-to-section').addEventListener('click', () => {
+      smoother.scrollTo('#target-section', true, "top 100px");
+    });
+
+    return smoother;
+  }
+
+  // Execute on page load
+  window.addEventListener('load', initSmoothScroll);
+
+html_structure: |
+  <!DOCTYPE html>
+  <html>
+  <body>
+    <!-- Required wrapper structure for ScrollSmoother -->
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+
+        <!-- Hero section with parallax layers -->
+        <section class="hero">
+          <!-- Background layer: slowest (data-speed < 1) -->
+          <div class="bg-layer" data-speed="0.5">
+            <img src="mountains-bg.jpg" alt="Mountains">
+          </div>
+
+          <!-- Mid layer: medium speed (data-speed ≈ 0.8) -->
+          <div class="mid-layer" data-speed="0.8">
+            <img src="trees.png" alt="Trees">
+          </div>
+
+          <!-- Foreground: faster than scroll (data-speed > 1) -->
+          <div class="fg-layer" data-speed="1.2">
+            <h1>Smooth Parallax Hero</h1>
+          </div>
+        </section>
+
+        <!-- Add data-lag for "laggy" follow effect -->
+        <section class="content">
+          <div data-lag="0.5">
+            This element "lags behind" the scroll
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </body>
+  </html>
+
+advanced_effects: |
+  // Combine data-speed AND data-lag for complex effects
+  <div data-speed="0.8" data-lag="0.3">
+    Slow scroll + lag = dreamy float effect
+  </div>
+
+  // Negative speed = scroll opposite direction!
+  <div data-speed="-0.5">
+    This scrolls UP when page scrolls DOWN
+  </div>
+
+  // Blur effect on scroll (via CSS)
+  <div data-speed="0.9" style="will-change: transform, filter;">
+    This can be blurred via CSS filter
+  </div>
+
+react_usage: |
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+  function SmoothScrollApp() {
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 2,
+        effects: true
+      });
+
+      return () => smoother.kill(); // Cleanup
+    }, []);
+
+    return (
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <div data-speed="0.5">Parallax layer</div>
+        </div>
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["scrollsmoother", "parallax", "depth", "smooth-scroll", "premium", "data-speed", "gsap-official"]
+framework: "vanilla"
+use_cases:
+  - "Hero sections with depth"
+  - "Immersive storytelling pages"
+  - "Portfolio showcases"
+  - "Product landing pages"
+  - "Premium marketing sites"
+why_premium: "ScrollSmoother was $99/year premium plugin - now FREE in 3.13+! Buttery smooth scrolling + parallax effects create premium feel. data-speed/data-lag are dead simple to implement. Industry-leading smooth scroll."

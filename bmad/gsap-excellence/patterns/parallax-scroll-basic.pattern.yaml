@@ -6,16 +6,21 @@ id: pattern-parallax-scroll-basic-001
 name: "Basic Parallax Scroll"
 category: "scroll-effects"
 complexity: "simple"
-gsap_version: "3.12.0"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
 plugins_required: ["ScrollTrigger"]
-description: "Multi-layer parallax scrolling effect with different speeds for depth perception"
-inspiration_source: "Apple product pages, Awwwards parallax sites"
-performance_notes: "60fps achievable with transform-only animations and GPU acceleration"
+premium_plugins_free: true
+cost_note: "ScrollTrigger always free. Consider ScrollSmoother (now FREE in 3.13+!) for automatic parallax with data-speed attributes!"
+description: "Multi-layer parallax scrolling effect with different speeds for depth perception. Can also use ScrollSmoother (now FREE!) for easier parallax."
+year_introduced: 2018
+is_modern: true
+is_2025_standard: true
+inspiration_source: "Apple product pages, Awwwards parallax sites, Stripe landing pages"
+performance_notes: "60fps achievable with transform-only animations and GPU acceleration. ScrollSmoother offers built-in parallax!"
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+last_validated: "2025-11-02"
 success_count: 0
-tags: ["parallax", "scroll", "depth", "simple", "premium"]
-framework: "vanilla"
+tags: ["parallax", "scroll", "depth", "simple", "premium", "modern-2025"]
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';

@@ -7,8 +7,6 @@
 <workflow>
 
 <step n="1" goal="Define Research Scope">
-<action>Greet {user_name} in {communication_language}</action>
-<action>All written outputs must use {communication_language}</action>
 <action>Introduce the research workflow with cinematographer precision</action>
 
 **"Let's dive deep into GSAP technique research. I'll find you the best patterns and examples."**
@@ -27,43 +25,160 @@
 <template-output>pattern_name, use_case, complexity_preference</template-output>
 </step>
 
-<step n="2" goal="Multi-Source Research Execution">
-<critical>Execute research across ALL THREE MCP sources in parallel</critical>
+<step n="2" goal="Systematic Multi-Source Research (TIER 1/2/3 PROTOCOL)">
+<critical>KNOWLEDGE SOURCE HIERARCHY: Tier 1 (Archon + Deep-Research) → Tier 2 (WebSearch) → Tier 3 (Context7)</critical>
 
-<action>Cinematographer conducts comprehensive multi-source research</action>
+<action>Cinematographer conducts systematic 89-source research</action>
 
-**"Researching {{pattern_name}} across my sources. This will take a few minutes..."**
+**"Researching {{pattern_name}} across ALL 5 priority Archon sources + Deep-Research frameworks..."**
 
-**Research Protocol (Execute in parallel where possible):**
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 1A: ARCHON MCP 89-SOURCE SYSTEMATIC PROTOCOL                       -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 
-**1. Archon MCP (GSAP Technical Documentation)**
-<action>Use rag_search_knowledge_base:</action>
-- Query: "{{pattern_name}} GSAP"
-- Query: "{{pattern_name}} implementation patterns"
-- Query: "{{pattern_name}} best practices"
-<action>Use rag_search_code_examples:</action>
-- Query: "{{pattern_name}} code examples"
-- Query: "{{pattern_name}} {{use_case}}"
-<action>Use rag_get_available_sources to verify GSAP docs coverage</action>
+**TIER 1A: Archon MCP Systematic Querying (5 Priority Sources)**
 
-**2. Context7 (Latest GSAP APIs)**
-<action>Use resolve-library-id to find GSAP library</action>
-<action>Use get-library-docs to fetch latest API documentation:</action>
-- Focus on: Features related to {{pattern_name}}
-- Check: Plugin requirements (ScrollTrigger, MorphSVG, SplitText, etc.)
-- Verify: API compatibility with current GSAP version
-- Identify: New features in latest release relevant to pattern
+<action>Query ALL 5 Archon sources with pattern-specific searches:</action>
 
-**3. Perplexity Research (Premium Examples)**
-<action>Use perplexity_research:</action>
-- Query: "{{pattern_name}} GSAP premium examples 2024-2025"
-- Query: "best {{pattern_name}} animations Awwwards FWA"
-- Query: "{{pattern_name}} GSAP tutorial advanced"
-<action>Use perplexity_ask for quick clarifications if needed</action>
+**Source 1: gsap.com Official Docs (2.2M+ words) - PRIMARY**
+```
+rag_search_knowledge_base("{{pattern_name}} GSAP", source_id="b9f6b322298feb21", match_count=10)
+rag_search_knowledge_base("{{pattern_name}} best practices", source_id="b9f6b322298feb21", match_count=8)
+rag_search_code_examples("{{pattern_name}} implementation", source_id="b9f6b322298feb21", match_count=10)
+rag_search_code_examples("{{pattern_name}} {{use_case}}", source_id="b9f6b322298feb21", match_count=8)
+```
 
-<critical>Document ALL findings with full citations</critical>
+**Source 2: Tympanus/Codrops Tutorials - PREMIUM QUALITY**
+```
+rag_search_knowledge_base("{{pattern_name}} tutorial", source_id="1e5cc3bd5125be3c", match_count=8)
+rag_search_code_examples("{{pattern_name}} Codrops", source_id="1e5cc3bd5125be3c", match_count=8)
+```
 
-<template-output>archon_findings, context7_api_info, perplexity_examples, all_citations</template-output>
+**Source 3: FreeFrontend Examples**
+```
+rag_search_code_examples("{{pattern_name}} examples", source_id="90c2ef5e8fa816b7", match_count=6)
+```
+
+**Source 4: CodePen Collections**
+```
+rag_search_code_examples("{{pattern_name}} CodePen", source_id="020e9f31a8c5cdb7", match_count=6)
+```
+
+**Source 5: Lenis Integration (if scroll-related)**
+```
+rag_search_knowledge_base("{{pattern_name}} smooth scroll", source_id="77ae0ef68a867aa9", match_count=4)
+```
+
+<critical>🎉 PREMIUM PLUGIN DEEP DIVE (ALL FREE in 3.13+!)</critical>
+<action>Actively search premium plugin patterns across sources:</action>
+```
+rag_search_code_examples("ScrollSmoother {{pattern_name}}", match_count=8)
+rag_search_code_examples("MorphSVG {{pattern_name}}", match_count=8)
+rag_search_code_examples("SplitText {{pattern_name}}", match_count=8)
+rag_search_code_examples("DrawSVG {{pattern_name}}", match_count=6)
+rag_search_code_examples("MotionPath {{pattern_name}}", match_count=6)
+```
+
+**Why Premium Plugin Priority:**
+- ScrollSmoother (was $99/year) → NOW FREE!
+- MorphSVG (was $99/year) → NOW FREE!
+- SplitText (was $99/year) → NOW FREE!
+- **Default to BEST solutions** - no cost barrier!
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 1B: DEEP-RESEARCH FRAMEWORK                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**TIER 1B: Deep-Research Framework for Pattern Analysis**
+
+<action>Reference relevant Deep-Research sections based on pattern type:</action>
+
+**For ALL Patterns - Core Principles:**
+- **Section 2.2:** Mastering Timeline Techniques → Choreography and coordination
+- **Section 2.3:** Understanding Tweens and Staggers → Motion fundamentals
+
+**For Scroll Patterns:**
+- **Section 3.2:** Content Reveal on Scroll → ScrollTrigger reveal patterns
+- **Section 3.3:** Sticky Scroll-triggered Animation → Pin and scrub techniques
+
+**For Text Patterns:**
+- **Section 3.5:** Text Split and Reveal → SplitText techniques (now FREE!)
+
+**For Layout Patterns:**
+- **Section 3.6:** Flip State Transitions → FLIP technique (now FREE!)
+
+**For Performance-Critical Patterns:**
+- **Section 5.1:** GPU Rule → Efficient properties only (transform, opacity)
+- **Section 5.2:** Keep Main Thread Free → <16ms per frame
+- **Section 5.5:** Optimize for 60fps → Sustained performance targets
+
+**For Accessibility:**
+- **Section 6.1:** prefers-reduced-motion → MANDATORY fallback
+- **Section 6.2:** Other Considerations → Keyboard, focus, screen readers
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 2: WEBSEARCH (2024-2025 Trends)                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**TIER 2: WebSearch for Recent Premium Examples**
+
+<action>Use WebSearch for cutting-edge 2024-2025 implementations:</action>
+```
+WebSearch("{{pattern_name}} GSAP Awwwards 2025")
+WebSearch("{{pattern_name}} premium animation examples 2024")
+WebSearch("Linear Stripe Vercel {{pattern_name}} breakdown")
+WebSearch("{{pattern_name}} GSAP tutorial 2025")
+```
+
+<action>Target premium agencies and brands:</action>
+- Awwwards Site of the Day winners
+- Linear app (GSAP excellence)
+- Stripe (scroll storytelling)
+- Codrops latest (2024-2025 tutorials)
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 3: CONTEXT7 (Minimal - API Verification)                           -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**TIER 3: Context7 (ONLY if API verification needed)**
+
+<action>Use Context7 ONLY for version-specific API questions:</action>
+```
+resolve-library-id("gsap")
+get-library-docs(context7CompatibleLibraryID="/greensock/gsap", topic="{{pattern_name}}", tokens=3000)
+```
+
+**Use sparingly:**
+- Archon already has gsap.com docs!
+- Only for brand-new GSAP 3.13+ features not in Archon
+- Verify plugin API syntax if uncertain
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SYNTHESIS & CITATION                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**Research Synthesis & Documentation**
+
+<action>Document findings by source with citations:</action>
+
+**Citation Format (MANDATORY):**
+```
+Pattern: {{pattern_name}}
+Sources:
+- Archon: gsap.com (source: b9f6b322298feb21) - [specific_technique]
+- Archon: Codrops (source: 1e5cc3bd5125be3c) - [tutorial_name]
+- Deep-Research: Section [X.X] - [principle_applied]
+- WebSearch: [agency/brand] [year] - [url]
+```
+
+<critical>Document ALL findings with full citations including source IDs</critical>
+
+<template-output>
+archon_findings_by_source,
+deep_research_sections_relevant,
+websearch_premium_examples,
+all_citations_with_source_ids
+</template-output>
 </step>
 
 <step n="3" goal="Synthesize Technical Approach">
@@ -72,50 +187,28 @@
 **Analysis Framework:**
 
 1. **Core Technique Overview**
-   <action>Document what {{pattern_name}} is technically</action>
-   - Pattern description: {{pattern_description}}
-   - How GSAP enables this: {{gsap_enablement}}
-   - Why this pattern is effective: {{pattern_effectiveness}}
+   - What is {{pattern_name}} technically?
+   - How does GSAP enable this pattern?
+   - What makes this pattern effective?
 
-2. **Implementation Approaches** (3 levels)
-
-   **Basic Approach (Simple Complexity):**
-   - When to use: {{basic_when_to_use}}
-   - Technical strategy: {{basic_technical_strategy}}
-   - GSAP features: {{basic_gsap_features}}
-   - Code example: {{basic_code_example}}
-   - Performance: {{basic_performance}}
-
-   **Intermediate Approach (Medium Complexity):**
-   - When to use: {{intermediate_when_to_use}}
-   - Technical strategy: {{intermediate_technical_strategy}}
-   - GSAP features: {{intermediate_gsap_features}}
-   - Code example: {{intermediate_code_example}}
-   - Performance: {{intermediate_performance}}
-
-   **Advanced Approach (High Complexity):**
-   - When to use: {{advanced_when_to_use}}
-   - Technical strategy: {{advanced_technical_strategy}}
-   - GSAP features: {{advanced_gsap_features}}
-   - Code example: {{advanced_code_example}}
-   - Performance: {{advanced_performance}}
+2. **Implementation Approaches**
+   - Basic approach (simple complexity)
+   - Intermediate approach (medium complexity)
+   - Advanced approach (high complexity)
+   - Which GSAP features/plugins for each?
 
 3. **Common Variations**
-   <action>Document pattern variations found in research</action>
-   - Variations in the wild: {{variations}}
-   - Trending implementations: {{trending_implementations}}
-   - Award-winning examples: {{awwwards_examples}}
+   - What variations exist in the wild?
+   - Different use cases requiring different approaches?
+   - Trending vs. classic implementations?
 
 4. **Technical Requirements**
-   - GSAP version minimum: {{gsap_version_minimum}}
-   - Required plugins: {{required_plugins}}
-   - Complexity range: {{complexity_range}} (e.g., "Simple to Advanced")
-   - Performance summary: {{performance_summary}}
-   - Browser support summary: {{browser_support_summary}}
-   - Bundle size impact: {{bundle_size_impact}}
-   - Optional enhancements: {{optional_enhancements}}
+   - GSAP version minimum
+   - Required plugins
+   - Browser compatibility
+   - Performance considerations
 
-<template-output>technical_overview, pattern_description, gsap_enablement, pattern_effectiveness, basic_when_to_use, basic_technical_strategy, basic_gsap_features, basic_code_example, basic_performance, intermediate_when_to_use, intermediate_technical_strategy, intermediate_gsap_features, intermediate_code_example, intermediate_performance, advanced_when_to_use, advanced_technical_strategy, advanced_gsap_features, advanced_code_example, advanced_performance, variations, trending_implementations, awwwards_examples, gsap_version_minimum, required_plugins, complexity_range, performance_summary, browser_support_summary, bundle_size_impact, optional_enhancements</template-output>
+<template-output>technical_overview, implementation_approaches, variations, requirements</template-output>
 </step>
 
 <step n="4" goal="Extract Code Examples">
@@ -123,7 +216,7 @@
 
 <action>Extract and annotate code examples from research</action>
 
-**For EACH code example, provide 8 attributes:**
+**For EACH code example, provide:**
 
 1. **Example Title** - Descriptive name (e.g., "Basic Parallax Scroll")
 2. **Complexity Level** - Simple / Medium / Advanced
@@ -134,102 +227,184 @@
 7. **Browser Support** - Compatibility notes
 8. **Source** - Citation from research (Archon, Context7, Perplexity)
 
+**Example Structure:**
+```javascript
+// Example: {{example_title}} ({{complexity}})
+// {{description}}
+// GSAP 3.13.0+ (premium plugins FREE!)
+// Source: {{citation}}
+
+gsap.to(element, {
+  // Annotate each parameter
+  duration: 1,
+  x: 100,
+  ease: "power2.out" // Explain easing choice
+});
+```
+
+<critical>Prioritize Premium Plugin Examples (FREE in 3.13+)</critical>
+When extracting code examples, PREFER examples using:
+- ScrollSmoother (smooth scrolling - was $99/year, now FREE!)
+- MorphSVG (icon morphing - was premium, now FREE!)
+- SplitText (text reveals - was premium, now FREE!)
+- DrawSVG (SVG animations - was premium, now FREE!)
+- MotionPath (path animations - was premium, now FREE!)
+
+**Why:** Show users the BEST techniques without cost concerns!
+
 <action>Ensure examples cover range from simple to advanced</action>
 <action>Annotate WHY certain choices are made (easing, duration, properties)</action>
 
-**Example 1 (typically Simple):**
-- Title: {{example_1_title}}
-- Complexity: {{example_1_complexity}}
-- Source: {{example_1_source}}
-- Description: {{example_1_description}}
-- Code: {{example_1_code}}
-- Key Features: {{example_1_key_features}}
-- Performance: {{example_1_performance}}
-- Browser Support: {{example_1_browser_support}}
-
-**Example 2 (typically Simple-Medium):**
-- Title: {{example_2_title}}
-- Complexity: {{example_2_complexity}}
-- Source: {{example_2_source}}
-- Description: {{example_2_description}}
-- Code: {{example_2_code}}
-- Key Features: {{example_2_key_features}}
-- Performance: {{example_2_performance}}
-- Browser Support: {{example_2_browser_support}}
-
-**Example 3 (typically Medium):**
-- Title: {{example_3_title}}
-- Complexity: {{example_3_complexity}}
-- Source: {{example_3_source}}
-- Description: {{example_3_description}}
-- Code: {{example_3_code}}
-- Key Features: {{example_3_key_features}}
-- Performance: {{example_3_performance}}
-- Browser Support: {{example_3_browser_support}}
-
-<check if="complexity_preference includes 'advanced' or 'all'">
-**Example 4 (Medium-High):**
-- Title: {{example_4_title}}
-- Complexity: {{example_4_complexity}}
-- Source: {{example_4_source}}
-- Description: {{example_4_description}}
-- Code: {{example_4_code}}
-- Key Features: {{example_4_key_features}}
-- Performance: {{example_4_performance}}
-- Browser Support: {{example_4_browser_support}}
-
-**Example 5 (High):**
-- Title: {{example_5_title}}
-- Complexity: {{example_5_complexity}}
-- Source: {{example_5_source}}
-- Description: {{example_5_description}}
-- Code: {{example_5_code}}
-- Key Features: {{example_5_key_features}}
-- Performance: {{example_5_performance}}
-- Browser Support: {{example_5_browser_support}}
-</check>
-
-<action>Calculate example_count for summary (3-5 depending on complexity preference)</action>
-
-<template-output>example_1_title, example_1_complexity, example_1_source, example_1_description, example_1_code, example_1_key_features, example_1_performance, example_1_browser_support, example_2_title, example_2_complexity, example_2_source, example_2_description, example_2_code, example_2_key_features, example_2_performance, example_2_browser_support, example_3_title, example_3_complexity, example_3_source, example_3_description, example_3_code, example_3_key_features, example_3_performance, example_3_browser_support, example_4_title, example_4_complexity, example_4_source, example_4_description, example_4_code, example_4_key_features, example_4_performance, example_4_browser_support, example_5_title, example_5_complexity, example_5_source, example_5_description, example_5_code, example_5_key_features, example_5_performance, example_5_browser_support, example_count</template-output>
+<template-output>example_1, example_2, example_3, example_4, example_5</template-output>
 </step>
 
-<step n="5" goal="Document Best Practices">
-<action>Compile best practices and gotchas from research</action>
+<step n="5" goal="Document Best Practices (Deep-Research Guided)">
+<action>Compile best practices using Deep-Research sections 5.1-5.6, 6.1-6.4, 8.1-8.10</action>
 
 **Best Practices for {{pattern_name}}:**
 
-**Performance Optimization:**
-- GPU acceleration strategies: {{best_practices_performance_gpu}}
-- Avoiding layout thrashing: {{best_practices_performance_layout}}
-- 60fps achievement: {{best_practices_performance_60fps}}
-- Bundle size considerations: {{best_practices_performance_bundle}}
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- PERFORMANCE (Deep-Research Sections 5.1-5.6)                            -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**Performance (60fps Mandatory - Section 5.5):**
+
+**Section 5.1: GPU Rule - Efficient Properties ONLY**
+- ✅ **ALWAYS animate:** `transform` (x, y, scale, rotate), `opacity`
+- ❌ **NEVER animate:** `top/left`, `width/height`, `margin/padding` (layout thrashing!)
+- GPU-accelerated properties: transform, opacity, filter (cautiously)
+
+**Section 5.2: Keep Main Thread Free**
+- Target: <16ms per frame (60fps budget)
+- Offload heavy JS to Web Workers if needed
+- Use RequestAnimationFrame for calculations
+- Minimize JavaScript during animations
+
+**Section 5.3: Debugging Jank (Chrome DevTools)**
+- Use Performance tab to profile
+- Identify long tasks (>50ms)
+- Spot layout thrashing in Timeline
+- Test with 4x CPU throttle
+
+**Section 5.4: Memory Management**
+- Kill timelines/tweens on cleanup: `timeline.kill()`
+- Use `ScrollTrigger.getAll().forEach(st => st.kill())`
+- Monitor memory usage in DevTools
+- Avoid orphaned animations
+
+**Section 5.5: Optimize for 60fps**
+- Sustained 60fps on mid-range devices (CRITICAL)
+- Fallback: 30fps minimum on low-end
+- Use `will-change` sparingly (adds layers!)
+- Simplify if dropping frames
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- ACCESSIBILITY (Deep-Research Sections 6.1-6.4)                          -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**Accessibility (MANDATORY - Section 6.1):**
+
+**Section 6.1: prefers-reduced-motion (CRITICAL)**
+```javascript
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (prefersReducedMotion) {
+  // Instant transitions or subtle fades ONLY
+  gsap.set(element, { opacity: 1, y: 0 }); // No animation
+} else {
+  // Full animation
+  gsap.to(element, { opacity: 1, y: 0, duration: 1 });
+}
+```
+
+**Section 6.2: Other Accessibility Considerations**
+- No seizure-inducing flashing (>3 flashes/sec)
+- Keyboard navigation works during animations
+- Focus states remain visible
+- Screen readers announce state changes
+- Animations don't block user interaction
+
+**Section 6.3: Accessible Styling**
+- Maintain color contrast during transitions
+- Don't animate critical UI during loading
+- Ensure text remains readable
+- Animations enhance, don't block UX
+
+**Section 6.4: User Control**
+- Provide pause/play for long animations (>5s)
+- Allow users to skip intro animations
+- Respect OS-level motion preferences
+- Document keyboard controls
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- COMMON PITFALLS (Deep-Research Sections 8.1-8.10)                       -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**Common Pitfalls (Check ALL 10 - Sections 8.1-8.10):**
+
+**8.1: Forgetting Cleanup (HIGH severity)**
+- ❌ Memory leaks from orphaned animations
+- ✅ Kill timelines on unmount: `useGSAP(() => { ... }, { scope: ref })`
+
+**8.2: Animating Wrong Properties (HIGH severity)**
+- ❌ Animating `top/left`, `width/height` causes jank
+- ✅ Animate `x/y`, `scale` for GPU acceleration
+
+**8.3: Ignoring immediateRender (MEDIUM severity)**
+- ❌ `from()` sets properties immediately (flicker!)
+- ✅ Set `immediateRender: false` or use `fromTo()`
+
+**8.4: Multiple ScrollTriggers on Same Element (MEDIUM severity)**
+- ❌ ScrollTrigger conflicts
+- ✅ One ScrollTrigger per element (usually)
+
+**8.5: Not Using overwrite Mode (MEDIUM severity)**
+- ❌ Animations conflict
+- ✅ Use `overwrite: "auto"` or `overwrite: true`
+
+**8.6: Missing refresh() After Content Load (MEDIUM severity)**
+- ❌ ScrollTrigger positions wrong
+- ✅ Call `ScrollTrigger.refresh()` after images/fonts load
+
+**8.7: Deprecated Syntax (LOW severity)**
+- ❌ Using GSAP 2.x syntax
+- ✅ Update to GSAP 3.13+ syntax
+
+**8.8: Uncontrolled Infinite Loops (LOW severity)**
+- ❌ Infinite `repeat: -1` without cleanup
+- ✅ Kill loops on unmount
+
+**8.9: Not Testing on Different Devices (HIGH severity)**
+- ❌ Works on desktop, fails on mobile
+- ✅ Test on iOS Safari, Android Chrome
+
+**8.10: Misusing from() vs fromTo() (MEDIUM severity)**
+- ❌ `from()` causes flicker
+- ✅ Use `fromTo()` for explicit control
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- CODE QUALITY & BROWSER COMPATIBILITY                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 
 **Code Quality:**
-- Clean code patterns: {{best_practices_code_patterns}}
-- Proper cleanup (kill animations on unmount): {{best_practices_code_cleanup}}
-- TypeScript typing: {{best_practices_code_typescript}}
-- Error handling: {{best_practices_code_errors}}
-
-**Accessibility:**
-- prefers-reduced-motion support: {{best_practices_accessibility_reduced_motion}}
-- Keyboard accessibility: {{best_practices_accessibility_keyboard}}
-- Focus management: {{best_practices_accessibility_focus}}
-- Screen reader support: {{best_practices_accessibility_screen_reader}}
-
-**Common Pitfalls:**
-- Anti-patterns to avoid: {{common_pitfalls}}
-- Edge cases to handle: {{edge_cases}}
+- Clean, well-annotated patterns
+- Proper cleanup (kill animations on unmount)
+- TypeScript typed if applicable
+- Error handling for edge cases
 
 **Browser Compatibility:**
-- Chrome/Edge: {{browser_compatibility_chrome}}
-- Firefox: {{browser_compatibility_firefox}}
-- Safari: {{browser_compatibility_safari}}
-- Mobile browsers: {{browser_compatibility_mobile}}
-- Known issues: {{browser_compatibility_issues}}
-- Fallback strategies: {{browser_compatibility_fallbacks}}
+- Chrome, Firefox, Safari (latest 2 versions)
+- Safari quirks (will-change, transform-origin)
+- iOS mobile animation issues
+- Fallbacks for unsupported features
 
-<template-output>best_practices_performance_gpu, best_practices_performance_layout, best_practices_performance_60fps, best_practices_performance_bundle, best_practices_code_patterns, best_practices_code_cleanup, best_practices_code_typescript, best_practices_code_errors, best_practices_accessibility_reduced_motion, best_practices_accessibility_keyboard, best_practices_accessibility_focus, best_practices_accessibility_screen_reader, common_pitfalls, edge_cases, browser_compatibility_chrome, browser_compatibility_firefox, browser_compatibility_safari, browser_compatibility_mobile, browser_compatibility_issues, browser_compatibility_fallbacks</template-output>
+<template-output>
+performance_best_practices_5_1_to_5_6,
+accessibility_requirements_6_1_to_6_4,
+common_pitfalls_8_1_to_8_10,
+code_quality_standards,
+browser_compatibility_notes
+</template-output>
 </step>
 
 <step n="6" goal="Identify Premium Inspiration">
@@ -247,10 +422,8 @@ For each premium example:
 <action>Focus on 2024-2025 examples showing cutting-edge usage</action>
 <action>Include Awwwards/FWA winners if found</action>
 <action>Cite design studios known for GSAP excellence</action>
-<action>Count total premium examples found</action>
-<action>Compile list of premium example URLs for Additional Resources section</action>
 
-<template-output>premium_examples, premium_example_count, premium_example_links, inspiration_sources</template-output>
+<template-output>premium_examples, inspiration_sources</template-output>
 </step>
 
 <step n="7" goal="Assess Pattern Library Fit">
@@ -258,39 +431,32 @@ For each premium example:
 
 **Pattern Library Assessment:**
 
-**Reusability Score:** {{reusability_score}}/10
+**Reusability Score:** [1-10]
 - How often would this pattern be used?
 - Is it broadly applicable or niche?
 
-**Implementation Complexity:** {{implementation_complexity}} [Simple/Medium/High]
+**Implementation Complexity:** [Simple/Medium/High]
 - How difficult to implement?
 - How much customization needed per use?
 
-**Documentation Quality:** {{documentation_quality}}/10
+**Documentation Quality:** [1-10]
 - Do we have enough information to create a reusable pattern?
 - Are code examples production-ready?
 
-**Recommendation:** {{library_recommendation}}
+**Recommendation:**
 - [ ] Add to pattern library (high reusability + good docs)
 - [ ] Document for reference (medium reusability)
 - [ ] Keep as research only (low reusability or incomplete)
 
-**Rationale:** {{library_rationale}}
-
 <action if="add_to_pattern_library">Note: Pattern will be added after successful implementation</action>
 
-<template-output>reusability_score, implementation_complexity, documentation_quality, library_recommendation, library_rationale</template-output>
+<template-output>pattern_assessment, library_recommendation</template-output>
 </step>
 
 <step n="8" goal="Present Research Report">
 <action>Compile all findings into comprehensive research report</action>
 
 **"Research complete. Here's everything you need to know about {{pattern_name}}."**
-
-<action>Get current date for documentation</action>
-<action>Compile GSAP documentation links relevant to this pattern</action>
-<action>Identify related patterns from pattern library</action>
-<action>Define next steps for user</action>
 
 <action>Generate final research report using template.md</action>
 <action>Save to output file: {{default_output_file}}</action>
@@ -300,16 +466,8 @@ For each premium example:
 - ✅ Sources consulted: Archon + Context7 + Perplexity
 - ✅ Code examples: {{example_count}}
 - ✅ Premium inspiration: {{premium_example_count}}
-- ✅ Latest GSAP version compatibility: {{gsap_version_minimum}}
+- ✅ Latest GSAP version compatibility: {{gsap_version}}
 - ✅ Required plugins: {{required_plugins}}
-
-**Next Steps:**
-{{next_steps}}
-
-**Related Resources:**
-- GSAP Docs: {{gsap_docs_links}}
-- Premium Examples: {{premium_example_links}}
-- Related Patterns: {{related_patterns}}
 
 <ask>Would you like me to:
 1. Implement this pattern now (invoke implement-from-pattern workflow)
@@ -317,7 +475,7 @@ For each premium example:
 3. Add successful implementation to pattern library later
 4. Done - save report for reference</ask>
 
-<template-output>final_research_report, next_action, date, next_steps, gsap_docs_links, related_patterns</template-output>
+<template-output>final_research_report, next_action</template-output>
 </step>
 
 </workflow>
@@ -343,23 +501,46 @@ For each premium example:
 
 ## Quality Standards
 
+**Research Hierarchy (TIER 1/2/3 MANDATORY):**
+- **TIER 1 PRIMARY:** Archon MCP (ALL 5 sources) + Deep-Research frameworks ALWAYS queried first
+  - Source 1: gsap.com (b9f6b322298feb21) - PRIMARY
+  - Source 2: Codrops (1e5cc3bd5125be3c) - Premium quality
+  - Source 3: FreeFrontend (90c2ef5e8fa816b7)
+  - Source 4: CodePen (020e9f31a8c5cdb7)
+  - Source 5: Lenis (77ae0ef68a867aa9)
+- **TIER 2 GAP FILLING:** WebSearch for 2024-2025 trends not in Archon
+- **TIER 3 MINIMAL:** Context7 only for API verification if needed
+
 **Research Depth:**
-- All 3 MCP sources consulted
-- Minimum 3 code examples (preferably 5)
-- At least 2 premium inspiration sources
-- Latest GSAP API compatibility confirmed
+- Minimum 3 code examples (preferably 5+)
+- At least 2 premium inspiration sources (2024-2025)
+- Latest GSAP 3.13.0+ compatibility confirmed
+- Deep-Research sections applied (5.1-5.6, 6.1-6.4, 8.1-8.10)
 
 **Code Quality:**
 - Examples are clean, well-annotated, production-ready
 - Comments explain WHY, not just WHAT
-- Performance considerations noted
-- Accessibility notes included
+- Performance considerations noted (60fps mandatory)
+- Accessibility fallbacks included (prefers-reduced-motion CRITICAL)
+- All 10 pitfalls checked (sections 8.1-8.10)
 
-**Citation Standards:**
-- All sources cited with URLs where available
+**Citation Standards (MANDATORY FORMAT):**
+```
+Sources:
+- Archon: [pattern] (source: [source_id]) - [technique]
+- Deep-Research: Section [X.X] - [principle]
+- WebSearch: [agency/brand] [year] - [url]
+```
+- All sources cited with source IDs
 - Premium examples credited to agencies/sites
-- GSAP documentation versions noted
+- GSAP 3.13.0+ version noted
 - Research date documented
+
+**Deep-Research Framework Application:**
+- Performance: Sections 5.1-5.6 applied
+- Accessibility: Sections 6.1-6.4 applied
+- Pitfalls: ALL 10 sections (8.1-8.10) checked
+- Pattern-specific: Sections 2.2, 2.3, 3.X as relevant
 
 ## Success Metrics
 

@@ -1,0 +1,98 @@
+# Harvest Patterns Workflow - GSAP Excellence Engine
+# Extract successful animations as reusable patterns for pattern library
+# Solves: "How do I capture this successful animation for future reuse?"
+# Transforms it into: "Pattern added to library - available for quick implementation"
+
+name: harvest-patterns
+description: "Extract successful animations as reusable patterns. Captures implementation, metadata, and research citations for pattern library growth."
+author: "GSAP Excellence Engine"
+version: "1.0.0"
+complexity: "simple"
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+pattern_library: "{module_root}/patterns"
+date: system-generated
+
+# MCP Servers used (none - this is extraction/documentation workflow)
+mcp_servers: {}
+
+# Agents involved
+agents:
+  primary: "gsap-director"  # Lead, orchestrates pattern extraction
+  support: "gsap-cinematographer"  # Categorization and metadata specialist
+
+# Module path and component files
+installed_path: "{module_root}/workflows/harvest-patterns"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false  # No validation needed for documentation workflow
+
+# Output configuration - Pattern YAML file
+default_output_file: "{pattern_library}/{{category}}/{{pattern_name}}.pattern.yaml"
+
+# Workflow inputs (gathered from user or animation-production output)
+inputs:
+  animation_code:
+    description: "Production-ready animation code to extract as pattern"
+    required: true
+
+  performance_metrics:
+    description: "Performance data from Tech Director (FPS, paint time, etc.)"
+    required: true
+
+  research_citations:
+    description: "Research sources used (Archon source IDs, Deep-Research sections, WebSearch URLs)"
+    required: true
+
+  framework:
+    description: "Framework used (vanilla, react, nextjs, vue)"
+    required: true
+    default: "vanilla"
+
+  animation_request:
+    description: "Original animation request/description"
+    required: true
+
+  brand_personality:
+    description: "Brand personality used (if applicable)"
+    required: false
+
+# Expected outputs
+outputs:
+  pattern_yaml:
+    format: "YAML file with all required metadata"
+    location: "{pattern_library}/{{category}}/{{pattern_name}}.pattern.yaml"
+
+  pattern_count:
+    description: "Updated pattern library count"
+    format: "Integer (currently 50, growing)"
+
+# Success criteria
+success_criteria:
+  - "Pattern YAML file created with all required metadata"
+  - "Pattern categorized correctly (scroll-effects, text-animations, etc.)"
+  - "Pattern includes accessibility (prefers-reduced-motion)"
+  - "Pattern includes React/Next.js examples"
+  - "Pattern cites sources (Archon source IDs + Deep-Research sections)"
+  - "Pattern added to appropriate category directory"
+  - "Pattern library count incremented"
+
+# Integration
+fed_by:
+  - "animation-production"  # Successful animations become patterns
+
+feeds_into:
+  - "implement-from-pattern"  # New patterns available for quick implementation
+
+# Performance targets
+estimated_duration: "5-10 minutes"
+phases:
+  extraction: "2-3 min"
+  categorization: "1-2 min"
+  metadata_documentation: "2-3 min"
+  yaml_creation: "1-2 min"

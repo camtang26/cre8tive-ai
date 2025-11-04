@@ -1,0 +1,76 @@
+id: pattern-nextjs-intersection-observer-gsap-2025
+name: "Next.js IntersectionObserver + GSAP Animations"
+category: "nextjs-patterns"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_2025_standard: true
+react_19_compatible: true
+nextjs_15_compatible: true
+nextjs_app_router: true
+description: "Use native IntersectionObserver to trigger GSAP animations in Next.js 15. More performant than ScrollTrigger for simple viewport reveals. Works with Server Components."
+inspiration_source: "Next.js performance best practices"
+source_url: "https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
+source_citation: "IntersectionObserver + GSAP integration"
+performance_notes: "IntersectionObserver is native browser API - zero overhead. GSAP only animates when element enters viewport."
+accessibility_notes: "Instant reveal for prefers-reduced-motion"
+code_example: |
+  'use client';
+
+  import { useRef, useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+
+  export function FadeInOnView({ children }) {
+    const elementRef = useRef();
+
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(elementRef.current, { opacity: 1, y: 0 });
+        return;
+      }
+
+      // Set initial state
+      gsap.set(elementRef.current, { opacity: 0, y: 50 });
+
+      // Create observer
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Animate in when visible
+              gsap.to(entry.target, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out'
+              });
+
+              // Unobserve after animating (only animate once)
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 } // Trigger when 20% visible
+      );
+
+      observer.observe(elementRef.current);
+
+      return () => observer.disconnect();
+    }, []);
+
+    return <div ref={elementRef}>{children}</div>;
+  }
+
+created_date: "2025-11-03"
+tags: ["nextjs", "intersection-observer", "performance", "viewport-reveal", "react-19"]
+framework: "nextjs"
+use_cases:
+  - "Performance-optimized reveals"
+  - "Simple viewport animations"
+  - "Lazy-loaded content"
+why_premium: "IntersectionObserver is more performant than ScrollTrigger for simple reveals. Works with Next.js Server Components. Production-optimized pattern."

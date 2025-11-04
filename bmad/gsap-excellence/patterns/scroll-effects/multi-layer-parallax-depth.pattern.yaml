@@ -1,0 +1,195 @@
+id: pattern-multi-layer-parallax-depth-2025
+name: "Multi-Layer Parallax Depth (3+ Layers)"
+category: "scroll-effects"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Create immersive depth with 3+ parallax layers scrolling at different speeds. Background layers scroll slower than foreground for realistic depth perception. Each layer has independent ScrollTrigger for granular control."
+inspiration_source: "Premium marketing sites (Apple, Stripe) + GSAP patterns"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollTrigger"
+source_citation: "Industry-standard multi-layer parallax technique"
+performance_notes: "Uses y transforms (GPU-accelerated). Each layer is independent ScrollTrigger. 60fps sustained with 3-5 layers."
+accessibility_notes: "Disable all layers for prefers-reduced-motion - show static scene"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function createMultiLayerParallax() {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      // Static scene - no parallax
+      return;
+    }
+
+    // Layer 1: Far background (slowest)
+    gsap.to(".bg-mountains", {
+      y: (i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
+      ease: "none",
+      scrollTrigger: {
+        start: 0,
+        end: "max",
+        invalidateOnRefresh: true, // Recalc on resize
+        scrub: 0  // Instant sync (no lag)
+      }
+    });
+
+    // Layer 2: Mid background (medium speed)
+    gsap.to(".bg-trees", {
+      y: (i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
+      ease: "none",
+      scrollTrigger: {
+        start: 0,
+        end: "max",
+        invalidateOnRefresh: true,
+        scrub: 0
+      }
+    });
+
+    // Layer 3: Foreground (fastest)
+    gsap.to(".fg-grass", {
+      y: (i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
+      ease: "none",
+      scrollTrigger: {
+        start: 0,
+        end: "max",
+        invalidateOnRefresh: true,
+        scrub: 0
+      }
+    });
+
+    // Layer 4: Content (normal scroll speed)
+    // No animation - scrolls naturally with page
+  }
+
+  window.addEventListener('load', createMultiLayerParallax);
+
+html_structure: |
+  <!-- HTML with data-speed attributes -->
+  <div class="parallax-scene">
+    <!-- Far background: slowest (0.2 = 20% of scroll speed) -->
+    <div class="bg-mountains" data-speed="0.2">
+      <img src="mountains.jpg" alt="Mountains">
+    </div>
+
+    <!-- Mid background: medium (0.5 = 50% of scroll speed) -->
+    <div class="bg-trees" data-speed="0.5">
+      <img src="trees.png" alt="Trees">
+    </div>
+
+    <!-- Foreground: fastest (0.8 = 80% of scroll speed) -->
+    <div class="fg-grass" data-speed="0.8">
+      <img src="grass.png" alt="Grass">
+    </div>
+
+    <!-- Content: normal scroll (1.0 = 100% - no parallax) -->
+    <div class="content">
+      <h1>Your Content</h1>
+      <p>Scrolls normally while layers create depth</p>
+    </div>
+  </div>
+
+simplified_version: |
+  // Simpler approach using quickSetter for better performance
+  function createParallaxQuick() {
+    const layers = gsap.utils.toArray('[data-speed]');
+
+    layers.forEach(layer => {
+      const speed = parseFloat(layer.dataset.speed);
+      const setter = gsap.quickSetter(layer, 'y', 'px');
+
+      ScrollTrigger.create({
+        start: 0,
+        end: 'max',
+        onUpdate: self => {
+          setter(self.progress * -window.innerHeight * speed);
+        }
+      });
+    });
+  }
+
+with_horizontal_offset: |
+  // Add horizontal movement for more dynamic parallax
+  gsap.to(".bg-clouds", {
+    y: (i, target) => -ScrollTrigger.maxScroll(window) * 0.3,
+    x: (i, target) => -ScrollTrigger.maxScroll(window) * 0.1, // Drift left
+    ease: "none",
+    scrollTrigger: {
+      start: 0,
+      end: "max",
+      scrub: 0
+    }
+  });
+
+react_usage: |
+  'use client';
+
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  export function ParallaxScene() {
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) return;
+
+      const layers = gsap.utils.toArray('[data-speed]');
+
+      layers.forEach(layer => {
+        gsap.to(layer, {
+          y: () => -ScrollTrigger.maxScroll(window) * layer.dataset.speed,
+          ease: "none",
+          scrollTrigger: {
+            start: 0,
+            end: "max",
+            invalidateOnRefresh: true,
+            scrub: 0
+          }
+        });
+      });
+
+      return () => {
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, []);
+
+    return (
+      <div className="parallax-scene">
+        <div className="bg-mountains" data-speed="0.2">
+          <img src="/mountains.jpg" alt="Mountains" />
+        </div>
+        <div className="bg-trees" data-speed="0.5">
+          <img src="/trees.png" alt="Trees" />
+        </div>
+        <div className="fg-grass" data-speed="0.8">
+          <img src="/grass.png" alt="Grass" />
+        </div>
+        <div className="content">
+          <h1>Content</h1>
+        </div>
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["parallax", "depth", "multi-layer", "scrolltrigger", "immersive", "wow-factor"]
+framework: "vanilla"
+use_cases:
+  - "Hero sections with depth"
+  - "Immersive storytelling"
+  - "Product showcases"
+  - "Gaming-style landing pages"
+  - "Premium marketing sites"
+why_premium: "Multi-layer parallax creates cinematic depth used by Apple, Stripe, Linear. 3+ independent layers with different speeds create realistic depth perception. Industry-standard for premium sites."

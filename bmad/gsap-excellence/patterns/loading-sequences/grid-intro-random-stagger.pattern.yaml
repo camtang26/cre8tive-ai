@@ -1,0 +1,118 @@
+id: pattern-grid-intro-random-stagger-2025
+name: "Grid Intro with Random Stagger"
+category: "loading-sequences"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Dramatic grid entrance animation with randomized stagger pattern. Products/items scale and fade in from 0 with random distribution, creating organic, high-energy intro. Container zooms into place simultaneously for layered depth effect."
+inspiration_source: "Codrops - Recreating Palmer's Draggable Product Grid"
+source_url: "https://tympanus.net/codrops/2025/09/01/recreating-palmers-draggable-product-grid-with-gsap"
+source_citation: "Archon MCP: Codrops tutorials (source_id: 1e5cc3bd5125be3c)"
+performance_notes: "Uses scale and opacity (GPU-accelerated). 60fps on mid-range devices. Stagger randomization creates unique entrance on each load."
+accessibility_notes: "Provide instant fallback for prefers-reduced-motion - skip to final state"
+code_example: |
+  // Container and grid items setup
+  const container = document.querySelector('.grid');
+  const products = gsap.utils.toArray('.grid-item');
+
+  function intro() {
+    const timeline = gsap.timeline();
+
+    // Initial state: scale down container and hide items
+    timeline.set(container, { scale: 0.5 });
+    timeline.set(products, {
+      scale: 0.5,
+      opacity: 0,
+    });
+
+    // Animate items with random stagger - creates organic feel
+    timeline.to(products, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.6,
+      ease: "power3.out",
+      stagger: {
+        amount: 1.2,  // Total time to distribute across all items
+        from: "random" // Randomize order - KEY to wow factor!
+      }
+    });
+
+    // Simultaneously zoom container into place
+    timeline.to(container, {
+      scale: 1,
+      duration: 1.2,
+      ease: "power3.inOut"
+    }, "<"); // "<" starts at same time as previous animation
+
+    return timeline;
+  }
+
+  // Execute on page load
+  window.addEventListener('load', () => {
+    // Accessibility: Check prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Instant reveal for accessibility
+      gsap.set([container, products], { scale: 1, opacity: 1 });
+    } else {
+      // Full animation
+      intro();
+    }
+  });
+
+react_usage: |
+  import { useRef } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  function GridIntro() {
+    const container = useRef();
+    const { contextSafe } = useGSAP({ scope: container });
+
+    const intro = contextSafe(() => {
+      const products = gsap.utils.toArray('.grid-item');
+      const timeline = gsap.timeline();
+
+      timeline.set(container.current, { scale: 0.5 });
+      timeline.set(products, { scale: 0.5, opacity: 0 });
+
+      timeline.to(products, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power3.out",
+        stagger: { amount: 1.2, from: "random" }
+      });
+
+      timeline.to(container.current, {
+        scale: 1,
+        duration: 1.2,
+        ease: "power3.inOut"
+      }, "<");
+    });
+
+    useEffect(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) intro();
+    }, [intro]);
+
+    return (
+      <div ref={container} className="grid">
+        {/* Grid items */}
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["loading", "grid", "random-stagger", "intro", "wow-factor", "codrops"]
+framework: "vanilla"
+use_cases:
+  - "E-commerce product grids"
+  - "Portfolio project showcases"
+  - "Gallery entrances"
+  - "Hero section item reveals"
+why_premium: "Randomized stagger creates unique, organic entrance every time. Multi-layer depth (items + container) adds sophistication. Codrops-quality wow factor."

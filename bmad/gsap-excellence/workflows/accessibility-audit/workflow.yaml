@@ -1,0 +1,95 @@
+# Accessibility Audit Workflow - GSAP Excellence Engine
+# Validate WCAG compliance using Deep-Research 6.1-6.4
+# Solves: "Is my animation accessible?"
+# Transforms it into: "Comprehensive accessibility report with WCAG compliance validation"
+
+name: accessibility-audit
+description: "Validate WCAG compliance for GSAP animations. Checks prefers-reduced-motion (MANDATORY), keyboard navigation, color contrast, user controls."
+author: "GSAP Excellence Engine"
+version: "1.0.0"
+complexity: "simple"
+
+# Critical variables from module config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# MCP Servers used
+mcp_servers:
+  chrome-devtools:
+    tools: ["navigate_page", "evaluate_script", "take_screenshot", "list_console_messages"]
+    purpose: "Live accessibility testing on page (if URL provided)"
+    optional: true  # Can do code review if no URL
+
+# Agents involved
+agents:
+  primary: "gsap-tech-director"  # Accessibility and production readiness specialist
+
+# Module path and component files
+installed_path: "{module_root}/workflows/accessibility-audit"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+# Output configuration - Accessibility report
+default_output_file: "{output_folder}/accessibility-audit-{{date}}.md"
+
+# Workflow inputs
+inputs:
+  page_url:
+    description: "Page URL for live testing (optional - will do code review if not provided)"
+    required: false
+
+  animation_code:
+    description: "Animation code to audit (if no page URL provided)"
+    required: false
+
+# Expected outputs
+outputs:
+  accessibility_report:
+    format: "Markdown report with Deep-Research 6.1-6.4 compliance"
+    location: "{output_folder}/accessibility-audit-{{date}}.md"
+
+  section_6_1_compliance:
+    description: "prefers-reduced-motion fallback (MANDATORY - BLOCKING)"
+    critical: true
+
+  section_6_2_compliance:
+    description: "Keyboard nav, focus, screen readers"
+
+  section_6_3_compliance:
+    description: "Color contrast, readability"
+
+  section_6_4_compliance:
+    description: "User controls (pause/skip)"
+
+  wcag_compliance_status:
+    format: "Boolean - WCAG AA compliant?"
+    critical: true
+
+# Success criteria
+success_criteria:
+  - "Section 6.1 validated (prefers-reduced-motion MANDATORY)"
+  - "Section 6.2 validated (keyboard, focus, screen readers)"
+  - "Section 6.3 validated (color contrast WCAG AA 4.5:1)"
+  - "Section 6.4 validated (user controls)"
+  - "Accessibility report generated with violations (if any)"
+  - "Recommendations provided for non-compliant items"
+
+# Integration
+feeds_into:
+  - "Production readiness validation"
+  - "Quality gate assessment"
+
+# Performance targets
+estimated_duration: "5-10 minutes"
+phases:
+  initialization: "1 min"
+  section_6_1_validation: "2-3 min (CRITICAL)"
+  section_6_2_validation: "1-2 min"
+  section_6_3_validation: "1-2 min"
+  section_6_4_validation: "1 min"
+  report_generation: "1-2 min"

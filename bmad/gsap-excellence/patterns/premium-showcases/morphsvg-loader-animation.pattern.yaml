@@ -1,0 +1,130 @@
+id: pattern-morphsvg-loader-animation-2025
+name: "MorphSVG Loading State Transitions"
+category: "premium-showcases"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["MorphSVGPlugin"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "MorphSVGPlugin was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Morph SVG shapes for loading states: spinner → check mark → error X. Premium plugin FREE in 3.13+! Perfect for form submissions and async operations."
+inspiration_source: "Stripe loading animations, Material Design transitions, GSAP MorphSVG docs"
+source_url: "https://gsap.com/docs/v3/Plugins/MorphSVGPlugin"
+source_citation: "Archon MCP: MorphSVGPlugin examples (source_id: b9f6b322298feb21)"
+performance_notes: "MorphSVG is GPU-accelerated and efficient. Precompile morphs for best performance. 60fps easily achievable."
+accessibility_notes: "Provide aria-live announcements for state changes. Respect prefers-reduced-motion."
+code_example: |
+  import gsap from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  function createLoadingAnimation() {
+    const tl = gsap.timeline({ paused: true });
+
+    // Spinner → Check mark (success)
+    tl.to('#loader-shape', {
+      morphSVG: '#check-shape',
+      duration: 0.6,
+      ease: 'back.out(1.7)'
+    });
+
+    // OR Spinner → X (error)
+    const errorTl = gsap.timeline({ paused: true });
+    errorTl.to('#loader-shape', {
+      morphSVG: '#error-shape',
+      duration: 0.5,
+      ease: 'power2.out'
+    });
+
+    return { success: tl, error: errorTl };
+  }
+
+  // Usage
+  const loader = createLoadingAnimation();
+
+  // On success:
+  loader.success.play();
+
+  // On error:
+  loader.error.play();
+
+html_structure: |
+  <svg viewBox="0 0 100 100" width="100" height="100">
+    <!-- Visible loader (spinning circle) -->
+    <path
+      id="loader-shape"
+      d="M50,10 A40,40 0 1,1 49.99,10"
+      fill="none"
+      stroke="#3399CC"
+      stroke-width="8"
+      stroke-linecap="round"
+    />
+
+    <!-- Hidden target shapes -->
+    <path
+      id="check-shape"
+      d="M20,50 L40,70 L80,30"
+      visibility="hidden"
+      fill="none"
+      stroke="#00CC66"
+      stroke-width="8"
+      stroke-linecap="round"
+    />
+
+    <path
+      id="error-shape"
+      d="M25,25 L75,75 M75,25 L25,75"
+      visibility="hidden"
+      fill="none"
+      stroke="#CC0000"
+      stroke-width="8"
+      stroke-linecap="round"
+    />
+  </svg>
+
+react_usage: |
+  import { useRef, useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  function LoaderComponent({ status }) {
+    const timelineRef = useRef({});
+
+    useLayoutEffect(() => {
+      gsap.registerPlugin(MorphSVGPlugin);
+
+      timelineRef.current.success = gsap.timeline({ paused: true })
+        .to('#loader-shape', { morphSVG: '#check-shape', duration: 0.6, ease: 'back.out(1.7)' });
+
+      timelineRef.current.error = gsap.timeline({ paused: true })
+        .to('#loader-shape', { morphSVG: '#error-shape', duration: 0.5, ease: 'power2.out' });
+    }, []);
+
+    useLayoutEffect(() => {
+      if (status === 'success') timelineRef.current.success?.play();
+      if (status === 'error') timelineRef.current.error?.play();
+    }, [status]);
+
+    return (
+      <svg viewBox="0 0 100 100">
+        <path id="loader-shape" d="M50,10 A40,40 0 1,1 49.99,10" fill="none" stroke="#3399CC" strokeWidth="8" />
+        <path id="check-shape" d="M20,50 L40,70 L80,30" visibility="hidden" fill="none" stroke="#00CC66" strokeWidth="8" />
+        <path id="error-shape" d="M25,25 L75,75 M75,25 L25,75" visibility="hidden" fill="none" stroke="#CC0000" strokeWidth="8" />
+      </svg>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["morphsvg", "loader", "state-transitions", "premium", "gsap-3.13", "forms", "ui"]
+framework: "vanilla"
+use_cases:
+  - "Form submission feedback"
+  - "Async operation status"
+  - "File upload progress"
+  - "API request states"
+  - "Button state transitions"
+why_premium: "MorphSVGPlugin was $99/year premium - now FREE! Smooth shape morphing for professional loading states. Industry standard for premium UI micro-interactions."

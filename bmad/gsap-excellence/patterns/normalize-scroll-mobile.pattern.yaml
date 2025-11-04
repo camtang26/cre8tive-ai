@@ -1,0 +1,256 @@
+id: pattern-normalize-scroll-mobile-2025
+name: "Normalize Scroll for Mobile Address Bar"
+category: "scroll-effects"
+complexity: "simple"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: true
+cost_note: "ScrollTrigger always free, normalizeScroll critical for mobile"
+description: "Fix mobile Safari address bar show/hide issues using ScrollTrigger.normalizeScroll() (2025). Ensures smooth scrolling and prevents address bar from breaking ScrollTrigger animations."
+year_introduced: 2024
+is_modern: true
+is_2025_standard: true
+replaces: "Manual viewport height calculations and scroll event hacks"
+
+inspiration_source: "GSAP 3.12+ mobile scroll improvements, iOS Safari quirks"
+performance_notes: "Forces scrolling on JavaScript thread for synchronization. Minimal performance impact."
+
+accessibility_notes: |
+  - Improves mobile experience (no jarring jumps)
+  - Maintains native scroll behavior
+  - No accessibility barriers
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+" # ← Critical for iOS Safari
+  edge: "90+"
+  mobile: "Essential for iOS, beneficial for Android"
+
+use_cases:
+  - "Any ScrollTrigger animation on mobile"
+  - "Pinned sections on mobile Safari"
+  - "Full-height sections (100vh) on mobile"
+  - "Scroll-driven hero animations on mobile"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ✅ Call ONCE at app initialization (2025 mobile fix)
+  ScrollTrigger.normalizeScroll(true);
+
+  // Now all ScrollTriggers work smoothly on mobile
+  ScrollTrigger.create({
+    trigger: ".hero",
+    pin: true,
+    start: "top top",
+    end: "bottom top",
+    // Address bar won't cause issues anymore!
+  });
+
+react_global_setup: |
+  // app/layout.tsx (Next.js 15)
+  'use client';
+
+  import { useEffect } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  export default function RootLayout({ children }) {
+    useEffect(() => {
+      // Initialize ONCE globally (mobile fix)
+      ScrollTrigger.normalizeScroll(true);
+
+      return () => {
+        ScrollTrigger.normalizeScroll(false);
+      };
+    }, []);
+
+    return (
+      <html>
+        <body>{children}</body>
+      </html>
+    );
+  }
+
+advanced_config: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Advanced configuration (optional)
+  ScrollTrigger.normalizeScroll({
+    allowNestedScroll: true, // Allow nested scrollable containers
+    lockAxis: false, // Don't lock scroll direction
+    momentum: (velocity, maxVelocity) => {
+      // Custom momentum calculation
+      return Math.min(Math.max(velocity, -maxVelocity), maxVelocity) * 0.8;
+    },
+    onRelease: () => {
+      console.log("User released scroll");
+    }
+  });
+
+react_component_example: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+  export default function MobileHero() {
+    const heroRef = useRef();
+
+    useGSAP(() => {
+      // normalizeScroll should be called globally (in layout)
+      // This component just uses ScrollTrigger normally
+
+      gsap.to(heroRef.current, {
+        opacity: 0,
+        scale: 0.8,
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+          pin: true,
+          // Works perfectly on mobile now!
+        }
+      });
+    }, { scope: heroRef });
+
+    return (
+      <section ref={heroRef} className="h-screen flex items-center justify-center">
+        <h1 className="text-6xl">Smooth on Mobile</h1>
+      </section>
+    );
+  }
+
+nextjs_app_router_setup: |
+  // app/providers.tsx
+  'use client';
+
+  import { useEffect, ReactNode } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  export function GSAPProvider({ children }: { children: ReactNode }) {
+    useEffect(() => {
+      // Mobile scroll normalization (once per app)
+      ScrollTrigger.normalizeScroll(true);
+
+      // Refresh on route change (Next.js App Router)
+      const handleRouteChange = () => {
+        ScrollTrigger.refresh();
+      };
+
+      window.addEventListener('popstate', handleRouteChange);
+
+      return () => {
+        ScrollTrigger.normalizeScroll(false);
+        window.removeEventListener('popstate', handleRouteChange);
+      };
+    }, []);
+
+    return <>{children}</>;
+  }
+
+  // Then in app/layout.tsx:
+  import { GSAPProvider } from './providers';
+
+  export default function RootLayout({ children }) {
+    return (
+      <html>
+        <body>
+          <GSAPProvider>{children}</GSAPProvider>
+        </body>
+      </html>
+    );
+  }
+
+css_mobile_fixes: |
+  /* Complement normalizeScroll with CSS fixes */
+
+  /* Fix 100vh on mobile */
+  .full-height {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height (newer browsers) */
+  }
+
+  /* Prevent bounce scroll on iOS */
+  body {
+    overscroll-behavior: none;
+  }
+
+  /* Smooth scroll polyfill for older devices */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
+  }
+
+variations:
+  - name: "Desktop only"
+    description: "Enable normalizeScroll only on mobile using matchMedia"
+  - name: "With Lenis"
+    description: "Combine with Lenis smooth scrolling for premium feel"
+  - name: "Custom momentum"
+    description: "Fine-tune scroll momentum for brand feel"
+
+common_mistakes:
+  - "Calling normalizeScroll() multiple times (call ONCE globally)"
+  - "Not calling it early enough (call in layout/provider)"
+  - "Forgetting to disable on cleanup (memory leak)"
+  - "Using with third-party scroll libraries (can conflict)"
+
+tips:
+  - "Call in app initialization (layout.tsx for Next.js)"
+  - "Test on real iOS device (simulators aren't accurate)"
+  - "Use with 100dvh instead of 100vh for modern browsers"
+  - "Consider combining with Lenis for buttery smooth scroll"
+  - "Add overscroll-behavior: none to prevent bounce"
+
+debugging: |
+  // Check if normalizeScroll is active
+  console.log(ScrollTrigger.isNormalizing); // true/false
+
+  // Disable temporarily for debugging
+  ScrollTrigger.normalizeScroll(false);
+
+  // Re-enable
+  ScrollTrigger.normalizeScroll(true);
+
+performance_optimization: |
+  // Enable only on mobile for best performance
+  import { useEffect } from 'react';
+
+  useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      ScrollTrigger.normalizeScroll(true);
+    }
+
+    return () => {
+      if (isMobile) {
+        ScrollTrigger.normalizeScroll(false);
+      }
+    };
+  }, []);
+
+created_date: "2025-11-02"
+tags: ["mobile", "iOS", "Safari", "normalize-scroll", "modern-2025", "address-bar", "viewport"]

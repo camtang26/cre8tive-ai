@@ -1,0 +1,69 @@
+id: pattern-splittext-scroll-cascade-2025
+name: "SplitText Character Cascade Triggered by Scroll"
+category: "premium-showcases"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["SplitText", "ScrollTrigger"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "SplitText was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Split text into characters, reveal with staggered cascade as element enters viewport. Premium combo FREE in 3.13+!"
+inspiration_source: "Scroll-triggered typography, GSAP SplitText + ScrollTrigger patterns"
+source_url: "https://gsap.com/docs/v3/Plugins/SplitText"
+source_citation: "Archon MCP: SplitText ScrollTrigger examples (source_id: b9f6b322298feb21)"
+performance_notes: "Character splitting + ScrollTrigger is optimized. Use stagger carefully with long text. 60fps achievable."
+accessibility_notes: "Text remains accessible to screen readers. Respect prefers-reduced-motion."
+code_example: |
+  import gsap from 'gsap';
+  import { SplitText, ScrollTrigger } from 'gsap/all';
+
+  gsap.registerPlugin(SplitText, ScrollTrigger);
+
+  function initScrollCascade() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const split = SplitText.create('.scroll-text', {
+      type: 'chars',
+      charsClass: 'char'
+    });
+
+    // Set initial state
+    gsap.set(split.chars, {
+      opacity: 0,
+      y: 50,
+      rotateX: -90
+    });
+
+    // ScrollTrigger animation
+    ScrollTrigger.create({
+      trigger: '.scroll-text',
+      start: 'top 80%',
+      onEnter: () => {
+        gsap.to(split.chars, {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          duration: 0.8,
+          stagger: 0.03,
+          ease: 'back.out(1.7)'
+        });
+      }
+    });
+  }
+
+  window.addEventListener('load', initScrollCascade);
+
+created_date: "2025-11-03"
+tags: ["splittext", "scrolltrigger", "cascade", "characters", "premium", "gsap-3.13"]
+framework: "vanilla"
+use_cases:
+  - "Scroll-triggered headlines"
+  - "Section reveals"
+  - "Storytelling text"
+  - "Immersive narratives"
+  - "Portfolio descriptions"
+why_premium: "SplitText was $99/year premium - now FREE! Character cascade + ScrollTrigger = cinematic text reveals. Industry standard for premium storytelling sites."

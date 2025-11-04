@@ -1,0 +1,411 @@
+---
+name: reference-material-research
+description: Systematic research protocol for building comprehensive knowledge bases. Enforces multi-source research (Archon MCP, Context7, Perplexity, web, GitHub clones), structured documentation, and exhaustive coverage. Use when conducting deep research for skill creation or domain expertise.
+version: 1.0.0
+---
+
+# Reference Material Research Protocol
+
+## Mission
+
+Conduct exhaustive research on a specific domain topic to produce comprehensive, structured knowledge base documentation that will be referenced by multiple skills over time.
+
+## When to Use This Protocol
+
+- Building knowledge base for new skill creation
+- Expanding existing knowledge with deeper research
+- Documenting best practices for any domain
+- Curating code examples and implementation patterns
+- Creating authoritative reference material
+
+## Research Philosophy
+
+**Comprehensive > Concise**: You have 160-170k tokens. Use them. Thousands of lines of output is expected and valuable.
+
+**Multi-Source Validation**: Never rely on single source. Cross-reference findings across all available tools.
+
+**Permanent Value**: This research will be used by future skills. Make it exhaustive and timeless.
+
+---
+
+## Output Structure (MANDATORY - Follow Exactly)
+
+Your research output MUST follow this structure:
+
+```markdown
+# Knowledge Base: [Topic]
+
+**Research Date**: [YYYY-MM-DD]
+**Domain**: [backend/frontend/testing/architecture/etc]
+**Depth**: [Quick/Moderate/Deep]
+**Token Count**: ~[estimated tokens]
+
+---
+
+## Executive Summary
+
+[3-5 sentences: What you researched, key findings, main themes discovered]
+
+**Coverage**: [X] examples found, [Y] best practices identified, [Z] sources consulted
+
+---
+
+## Table of Contents
+
+1. [Core Concepts & Theory](#core-concepts)
+2. [Best Practices](#best-practices)
+3. [Code Examples](#code-examples) or [Implementation Patterns](#implementation-patterns)
+4. [Visual References](#visual-references) *(if applicable)*
+5. [Anti-Patterns & Pitfalls](#anti-patterns)
+6. [Advanced Techniques](#advanced-techniques)
+7. [Tool & Framework Integration](#integration) *(if applicable)*
+8. [Sources & References](#sources)
+
+---
+
+## 1. Core Concepts & Theory
+
+### 1.1 Fundamental Principles
+
+[Deep explanation of WHY this topic matters]
+
+**Principle 1: [Name]**
+- **What**: [Clear definition]
+- **Why**: [Reasoning and benefit]
+- **When**: [Use cases and scenarios]
+- **Research Source**: [Archon MCP / Context7 / Perplexity / Web / GitHub]
+
+[Repeat for 5-10 core principles]
+
+### 1.2 Theoretical Foundation
+
+[Research from Perplexity reasoning mode on theory, if applicable]
+
+[Or if empirical: Summary of consensus patterns discovered across sources]
+
+---
+
+## 2. Best Practices
+
+### 2.1 [Practice Category 1]
+
+**Practice**: [Clear, actionable guidance]
+
+**Rationale**: [Why this is recommended - cite sources]
+
+**Implementation**:
+```[language]
+// Example implementation
+// Explain WHY this approach works
+```
+
+**Avoid**:
+```[language]
+// Anti-pattern to avoid
+// Explain WHY this fails
+```
+
+**Sources**: [List sources that recommend this]
+
+[Repeat for 10-20 best practices organized by category]
+
+---
+
+## 3. Code Examples / Implementation Patterns
+
+### Example 1: [Descriptive Name]
+
+**Context**: [When to use this]
+**Complexity**: [Beginner/Intermediate/Advanced]
+**Source**: [GitHub repo URL / Official docs / CodePen / Original]
+
+```[language]
+// Complete, runnable code/pattern
+// Heavily commented to explain WHY, not just WHAT
+// Include versions if relevant
+
+[Full code example - can be 50-200 lines]
+```
+
+**Why This Works**: [Detailed explanation of technique]
+
+**Variations**:
+```[language]
+// Alternative approach 1
+```
+
+```[language]
+// Alternative approach 2
+```
+
+**Related Patterns**: [Link to other examples in this doc]
+
+**Pattern Frequency**: [If from GitHub research: "Found in X/Y repos analyzed"]
+
+[Repeat until comprehensive coverage achieved - could be 10, 50, or 100+ examples depending on pattern diversity in domain]
+
+---
+
+## 4. Visual References *(if applicable)*
+
+### Reference 1: **[Site/Design/Example Name]**
+
+**URL**: [exact URL if applicable]
+**Source**: [Where found]
+
+**What To Notice**:
+- [Specific element or pattern]
+- [Implementation technique used]
+- [Why it's effective]
+
+**Analysis**:
+[Deep dive into what makes this reference valuable]
+
+**How To Inspect/Replicate** *(if applicable)*:
+[Steps to analyze or reproduce]
+
+[Repeat for 10-50 visual references if research involves visual elements]
+
+---
+
+## 5. Anti-Patterns & Pitfalls
+
+| ❌ Anti-Pattern | Why It Fails | ✅ Better Approach | Source |
+|----------------|-------------|-------------------|--------|
+| [Bad practice] | [Explanation] | [Good practice] | [Where you found this] |
+
+[20-30 anti-patterns with sources]
+
+### Common Mistakes Deep Dive
+
+**Mistake 1: [Common Error]**
+
+**Why People Do This**: [Reasoning behind the mistake]
+
+**Why It's Problematic**: [Impact and consequences]
+
+**How To Avoid**: [Solution with code example if applicable]
+
+**Frequency**: [If from GitHub research: "Found in X repos, indicates common pitfall"]
+
+[Repeat for 10-15 common mistakes]
+
+---
+
+## 6. Advanced Techniques
+
+### Technique 1: [Advanced Pattern Name]
+
+**Complexity**: Advanced
+**Prerequisites**: [What you need to know first]
+**Use Cases**: [When this is appropriate]
+
+**Explanation**:
+[Deep technical explanation]
+
+**Implementation**:
+```[language]
+// Advanced example with detailed comments
+// Can be 100-300 lines for complex patterns
+```
+
+**Performance Considerations**: [If applicable]
+
+**Compatibility**: [Browser/Framework/Version support if applicable]
+
+**Trade-offs**: [When NOT to use this technique]
+
+[Repeat for 10-20 advanced techniques]
+
+---
+
+## 7. Tool & Framework Integration *(if applicable)*
+
+### Integration with [Tool/Framework 1]
+
+**Official Documentation**: [URL from Context7 MCP or web]
+
+**Version**: [Specify versions researched]
+
+**Best Practices**:
+- [Practice 1]
+- [Practice 2]
+
+**Code Example**:
+```[language]
+// Integration example
+```
+
+[Repeat for all relevant tools/frameworks]
+
+---
+
+## 8. Sources & References
+
+### Primary Sources
+
+**Archon MCP (RAG Database)**:
+- Query: "[query 1]" - [X] results, [confidence level]
+- Query: "[query 2]" - [Y] results, [confidence level]
+[List all Archon queries used and their value]
+
+**Library Documentation (Context7 MCP)**:
+- [Library 1]: [URL/ID] - [Version] - [What extracted]
+- [Library 2]: [URL/ID] - [Version] - [What extracted]
+[List all libraries researched]
+
+**Theoretical Analysis (Perplexity Reasoning)**:
+- Query: "[reasoning query]" - [Key insights gained]
+[List key insights from reasoning mode]
+
+**GitHub Repositories Analyzed**:
+- [Repo 1]: [URL] - [Stars] - [What patterns extracted]
+- [Repo 2]: [URL] - [Stars] - [What patterns extracted]
+[List all repos cloned and analyzed - 5-10 typically]
+
+**Web Sources**:
+- [Site 1]: [URL] - [What you extracted]
+- [Site 2]: [URL] - [What you extracted]
+[List 10-30 authoritative web sources]
+
+**Visual Analysis (Chrome DevTools MCP)** *(if applicable)*:
+- [Site 1]: [URL] - [What analyzed: colors, typography, etc.]
+- [Site 2]: [URL] - [What analyzed]
+- [Site 3]: [URL] - [What analyzed]
+[Maximum 3 sites for visual research]
+
+### Source Quality Assessment
+
+**High Authority Sources** (official docs, established authorities):
+- [List sources with highest credibility]
+
+**Medium Authority Sources** (community best practices, established repos):
+- [List mid-tier sources]
+
+**Experimental/Emerging** (new patterns, low adoption):
+- [List if any experimental findings included]
+
+### Confidence Assessment
+
+**Overall Confidence**: [High/Medium/Low]
+
+**High Confidence Areas** (consensus across 3+ sources):
+- [Topics with strong agreement]
+
+**Medium Confidence Areas** (2 sources or single authoritative source):
+- [Topics with moderate support]
+
+**Low Confidence Areas** (single source or contradictory findings):
+- [Topics needing more research]
+
+---
+
+## Appendices
+
+### Appendix A: Terminology
+
+**[Term 1]**: [Definition in context of this research]
+**[Term 2]**: [Definition]
+
+[Define all domain-specific terms used]
+
+### Appendix B: Related Research
+
+**Related Knowledge Base Docs**:
+- [Link to related doc 1] - [How they relate]
+- [Link to related doc 2] - [How they relate]
+
+**Suggested Future Research**:
+- [Topic that could be explored deeper]
+- [Adjacent topic worth researching]
+
+### Appendix C: Research Methodology
+
+**Tools Used**:
+- Archon MCP: [Percentage of research time, value provided]
+- Context7 MCP: [Percentage, value]
+- GitHub Clone: [Number of repos, percentage of time]
+- Chrome DevTools MCP: [Number of sites analyzed, if applicable]
+- Web Search/Fetch: [Number of sources]
+- Perplexity Reasoning: [Number of queries]
+
+**Adaptive Strategy Applied**:
+[Explain how you adapted tool usage based on availability]
+
+**Challenges Encountered**:
+[Any difficulties in research and how you overcame them]
+
+---
+
+## Research Metadata
+
+**Total Examples/Patterns Collected**: [X]
+**Total Sources Consulted**: [Y]
+**GitHub Repos Analyzed**: [Z] *(if applicable)*
+**Visual Sites Analyzed**: [W] *(if applicable, max 3)*
+**Primary Domain**: [domain]
+**Secondary Domains**: [if cross-domain research]
+**Tags**: #[tag1] #[tag2] #[tag3]
+**Estimated Reading Time**: [X] minutes
+**Last Updated**: [YYYY-MM-DD]
+**Research Duration**: [Hours spent]
+
+```
+
+---
+
+## Quality Standards
+
+**Excellent Research** includes:
+- ✅ Comprehensive examples covering major patterns and edge cases
+- ✅ All examples verified and tested (where possible)
+- ✅ Sources cited for every claim
+- ✅ Anti-patterns documented with explanations
+- ✅ Visual references analyzed deeply (not just URLs)
+- ✅ Cross-referenced findings (no single-source claims)
+- ✅ Version/date context provided where relevant
+- ✅ Confidence assessment included
+- ✅ Pattern frequency data (if from GitHub: "X/Y repos use pattern Z")
+
+**Poor Research** has:
+- ❌ Insufficient coverage (major patterns missing)
+- ❌ Unverified or broken examples
+- ❌ No source citations
+- ❌ Missing anti-patterns
+- ❌ URLs without analysis
+- ❌ Single-source claims
+- ❌ No version/date context
+- ❌ No pattern frequency or consensus data
+
+---
+
+## Context Window Strategy
+
+**You have 160-170k tokens available. Use them to achieve comprehensive coverage.**
+
+**Determine Appropriate Depth Based On**:
+- Coverage completeness (all major aspects addressed?)
+- Pattern consensus (enough examples to identify common patterns?)
+- Source diversity (cross-validated from multiple sources?)
+- Anti-pattern documentation (common mistakes identified?)
+- Quality threshold met (can someone use this effectively?)
+
+**Guiding Philosophy**:
+- Comprehensive coverage > hitting line counts
+- Stop when coverage complete, not when reaching arbitrary number
+- Quality examples > quantity of examples
+- Deep analysis > superficial breadth
+- Useful reference > padded content
+
+---
+
+## Adaptive Research Notes
+
+This protocol works for ANY research domain by adapting tool usage:
+
+**For code-heavy domains**: Emphasize GitHub clones, Context7 docs
+**For visual domains**: Emphasize Chrome DevTools MCP (3 sites max), web research
+**For theoretical domains**: Emphasize Perplexity reasoning, Archon KB, authoritative web sources
+**For emerging domains**: Emphasize web search, GitHub trends, experimentation
+
+The structure remains constant - only your tool allocation adapts based on what's available and what's needed for your specific research topic.

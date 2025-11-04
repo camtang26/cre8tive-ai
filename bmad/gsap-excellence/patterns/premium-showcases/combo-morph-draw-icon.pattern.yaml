@@ -1,0 +1,63 @@
+id: pattern-combo-morph-draw-icon-2025
+name: "MorphSVG + DrawSVG Animated Icon Transition"
+category: "premium-showcases"
+complexity: "high"
+gsap_version: "3.13.0+"
+plugins_required: ["MorphSVGPlugin", "DrawSVGPlugin"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Both plugins were premium ($198/year total) - now ALL FREE in GSAP 3.13+!"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Draw SVG line, then morph it into different icon. Premium combo for micro-interactions, FREE in 3.13+!"
+inspiration_source: "Premium UI micro-interactions, GSAP SVG plugin combinations"
+source_url: "https://gsap.com/docs/v3/Plugins/MorphSVGPlugin"
+source_citation: "Archon MCP: MorphSVG + DrawSVG patterns (source_id: b9f6b322298feb21)"
+performance_notes: "Both plugins GPU-accelerated. Timeline choreography efficient. 60fps sustained."
+accessibility_notes: "Provide instant state change for prefers-reduced-motion."
+code_example: |
+  import gsap from 'gsap';
+  import { MorphSVGPlugin, DrawSVGPlugin } from 'gsap/all';
+
+  gsap.registerPlugin(MorphSVGPlugin, DrawSVGPlugin);
+
+  function createDrawMorphIcon() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return null;
+
+    const tl = gsap.timeline({ paused: true });
+
+    // 1. Draw the line
+    tl.from('#icon-path', {
+      drawSVG: '0%',
+      duration: 1,
+      ease: 'power2.inOut'
+    });
+
+    // 2. Morph into icon
+    tl.to('#icon-path', {
+      morphSVG: '#target-icon',
+      duration: 0.8,
+      ease: 'back.out(1.7)'
+    }, '+=0.2');
+
+    return tl;
+  }
+
+  // Usage: On hover
+  const iconAnimation = createDrawMorphIcon();
+  document.querySelector('#icon-container').addEventListener('mouseenter', () => {
+    iconAnimation?.play();
+  });
+
+created_date: "2025-11-03"
+tags: ["morphsvg", "drawsvg", "combo", "icon", "micro-interaction", "premium", "gsap-3.13"]
+framework: "vanilla"
+use_cases:
+  - "Icon hover effects"
+  - "Button state transitions"
+  - "UI micro-interactions"
+  - "Menu animations"
+  - "Feature reveals"
+why_premium: "2 premium plugins (formerly $198/year) - now ALL FREE! Professional icon animations with draw + morph sequencing. Industry standard for premium UI micro-interactions."

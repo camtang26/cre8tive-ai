@@ -5,8 +5,6 @@
 <workflow>
 
 <step n="1" goal="Setup Profiling">
-<action>Greet {user_name} in {communication_language}</action>
-<action>All written outputs must use {communication_language}</action>
 <ask response="page_url">Dev server URL?</ask>
 <ask response="animation_trigger">How to trigger animation?</ask>
 
@@ -61,16 +59,10 @@ Target: 60fps on mid-range devices (4x CPU throttle)
 </step>
 
 <step n="6" goal="Present Performance Report">
-<action>Get current date for documentation</action>
-<action>Determine overall performance status based on analysis:</action>
-- ✅ "Excellent" (60fps+ normal and throttled)
-- ⚠️ "Needs Optimization" (<60fps throttled)
-- 🔴 "Poor" (<60fps normal)
-
 <action>Generate report using template.md</action>
 <action>Save to: {{default_output_file}}</action>
 
-<template-output>final_performance_report, date, performance_status</template-output>
+<template-output>final_performance_report</template-output>
 </step>
 
 </workflow>

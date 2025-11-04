@@ -1,0 +1,244 @@
+id: pattern-modal-flip-open-2025
+name: "Modal Open with FLIP Transition"
+category: "layout-transitions"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["Flip"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Flip was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Animate a card/thumbnail expanding into a fullscreen modal using FLIP technique. Element seamlessly transitions from small preview to large modal overlay. Clicking outside reverses animation back to original position."
+inspiration_source: "Modern UI patterns + GSAP Flip"
+source_url: "https://gsap.com/docs/v3/Plugins/Flip/"
+source_citation: "FLIP technique for modal transitions (FREE in 3.13+!)"
+performance_notes: "Flip calculates transforms for smooth expansion. Uses scale, position, opacity (all GPU-accelerated). 60fps transition."
+accessibility_notes: "Focus management: trap focus in modal, restore focus on close. ESC key to close. Announce state to screen readers."
+code_example: |
+  import gsap from 'gsap';
+  import { Flip } from 'gsap/Flip'; // FREE in 3.13+!
+
+  gsap.registerPlugin(Flip);
+
+  let isModalOpen = false;
+
+  function openModal(card) {
+    if (isModalOpen) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    // 1. Capture card state
+    const state = Flip.getState(card);
+
+    // 2. Apply modal classes (CSS handles fullscreen positioning)
+    card.classList.add('modal-open');
+    document.body.classList.add('modal-active');
+
+    if (prefersReducedMotion) {
+      // Instant transition
+      isModalOpen = true;
+      return;
+    }
+
+    // 3. Animate the FLIP
+    Flip.from(state, {
+      duration: 0.6,
+      ease: "power2.inOut",
+      absolute: true,
+      scale: true,
+      onComplete: () => {
+        isModalOpen = true;
+        // Set focus to modal for accessibility
+        card.querySelector('.modal-close-btn')?.focus();
+      }
+    });
+
+    // Fade in overlay
+    gsap.from('.modal-overlay', {
+      opacity: 0,
+      duration: 0.4,
+      ease: "power2.out"
+    });
+  }
+
+  function closeModal(card) {
+    if (!isModalOpen) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    // 1. Capture modal state
+    const state = Flip.getState(card);
+
+    // 2. Remove modal classes (returns to original position)
+    card.classList.remove('modal-open');
+    document.body.classList.remove('modal-active');
+
+    if (prefersReducedMotion) {
+      // Instant transition
+      isModalOpen = false;
+      return;
+    }
+
+    // 3. Animate the reverse FLIP
+    Flip.from(state, {
+      duration: 0.6,
+      ease: "power2.inOut",
+      absolute: true,
+      scale: true,
+      onComplete: () => {
+        isModalOpen = false;
+      }
+    });
+
+    // Fade out overlay
+    gsap.to('.modal-overlay', {
+      opacity: 0,
+      duration: 0.4,
+      ease: "power2.in"
+    });
+  }
+
+  // Event listeners
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => openModal(card));
+  });
+
+  document.querySelector('.modal-overlay')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal(document.querySelector('.modal-open'));
+    }
+  });
+
+  // ESC key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isModalOpen) {
+      closeModal(document.querySelector('.modal-open'));
+    }
+  });
+
+html_structure: |
+  <!-- Card/Thumbnail -->
+  <div class="card">
+    <img src="preview.jpg" alt="Preview">
+    <h3>Click to expand</h3>
+    <!-- Hidden modal content (revealed when modal-open class added) -->
+    <div class="modal-content" style="display: none;">
+      <button class="modal-close-btn" aria-label="Close modal">×</button>
+      <h2>Full Modal Content</h2>
+      <p>Detailed information...</p>
+    </div>
+  </div>
+
+  <!-- Modal overlay (fades in/out) -->
+  <div class="modal-overlay" style="opacity: 0; pointer-events: none;"></div>
+
+css_structure: |
+  .card {
+    width: 300px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .card.modal-open {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 800px;
+    height: 80vh;
+    z-index: 1000;
+  }
+
+  .card.modal-open .modal-content {
+    display: block !important;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+  }
+
+  body.modal-active {
+    overflow: hidden; /* Prevent background scroll */
+  }
+
+react_usage: |
+  'use client';
+
+  import { useState } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+  import { Flip } from 'gsap/Flip';
+
+  gsap.registerPlugin(useGSAP, Flip);
+
+  export function ModalCard({ children }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const { contextSafe } = useGSAP();
+
+    const open = contextSafe(() => {
+      const state = Flip.getState('.card');
+      setIsOpen(true);
+
+      requestAnimationFrame(() => {
+        Flip.from(state, {
+          duration: 0.6,
+          ease: "power2.inOut",
+          absolute: true,
+          scale: true
+        });
+      });
+    });
+
+    const close = contextSafe(() => {
+      const state = Flip.getState('.card');
+      setIsOpen(false);
+
+      requestAnimationFrame(() => {
+        Flip.from(state, {
+          duration: 0.6,
+          ease: "power2.inOut",
+          absolute: true,
+          scale: true
+        });
+      });
+    });
+
+    return (
+      <>
+        <div
+          className={`card ${isOpen ? 'modal-open' : ''}`}
+          onClick={open}
+        >
+          {children}
+          {isOpen && (
+            <button onClick={(e) => { e.stopPropagation(); close(); }}>
+              Close
+            </button>
+          )}
+        </div>
+        {isOpen && <div className="modal-overlay" onClick={close} />}
+      </>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["flip", "modal", "overlay", "expand", "layout-transition", "premium", "accessibility"]
+framework: "vanilla"
+use_cases:
+  - "Card → fullscreen modal"
+  - "Thumbnail → lightbox"
+  - "Product preview → details"
+  - "Gallery image expansion"
+  - "Profile card → full profile"
+why_premium: "Flip was $99/year premium plugin - now FREE in 3.13+! Seamless card-to-modal expansion feels native and polished. Used by premium apps. Proper focus management and ESC key support for accessibility."

@@ -1,0 +1,112 @@
+id: pattern-hero-text-sequence-2025
+name: "Hero Text Intro Sequence (Multi-Element)"
+category: "loading-sequences"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_2025_standard: true
+description: "Coordinated hero section intro: headline, subheading, CTA button animate in sequence on page load. Professional page entry animation with proper timing and easing."
+inspiration_source: "Premium marketing sites (Stripe, Linear, Vercel)"
+source_url: "https://gsap.com/docs/v3/GSAP/Timeline"
+source_citation: "Industry-standard hero intro patterns"
+performance_notes: "Uses opacity and y transforms (GPU-accelerated). Timeline coordinates all elements."
+accessibility_notes: "Show all hero elements instantly for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+
+  function heroIntroSequence() {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      gsap.set(['.hero-headline', '.hero-subheading', '.hero-cta'], {
+        opacity: 1,
+        y: 0
+      });
+      return;
+    }
+
+    const tl = gsap.timeline({ delay: 0.3 }); // Small delay before start
+
+    // Step 1: Headline fades in from below
+    tl.from('.hero-headline', {
+      opacity: 0,
+      y: 60,
+      duration: 1,
+      ease: 'power3.out'
+    });
+
+    // Step 2: Subheading follows (slight overlap)
+    tl.from('.hero-subheading', {
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, '-=0.4'); // Start 0.4s before headline finishes
+
+    // Step 3: CTA button scales in
+    tl.from('.hero-cta', {
+      opacity: 0,
+      scale: 0.9,
+      duration: 0.6,
+      ease: 'back.out(1.4)' // Slight overshoot for playfulness
+    }, '-=0.2');
+
+    // Step 4: Optional background image fade
+    tl.from('.hero-bg', {
+      opacity: 0,
+      scale: 1.1,
+      duration: 1.5,
+      ease: 'power2.out'
+    }, 0); // Start at same time as headline
+  }
+
+  window.addEventListener('load', heroIntroSequence);
+
+react_usage: |
+  'use client';
+
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+
+  export function HeroSection() {
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(['.hero-headline', '.hero-subheading', '.hero-cta'], {
+          opacity: 1,
+          y: 0
+        });
+        return;
+      }
+
+      const tl = gsap.timeline({ delay: 0.3 });
+
+      tl.from('.hero-headline', { opacity: 0, y: 60, duration: 1, ease: 'power3.out' })
+        .from('.hero-subheading', { opacity: 0, y: 40, duration: 0.8, ease: 'power2.out' }, '-=0.4')
+        .from('.hero-cta', { opacity: 0, scale: 0.9, duration: 0.6, ease: 'back.out(1.4)' }, '-=0.2');
+    }, []);
+
+    return (
+      <section className="hero">
+        <h1 className="hero-headline">Welcome</h1>
+        <p className="hero-subheading">Subheading text</p>
+        <button className="hero-cta">Get Started</button>
+      </section>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["hero", "intro", "loading-sequence", "timeline", "coordinated"]
+framework: "vanilla"
+use_cases:
+  - "Landing page heroes"
+  - "Marketing site intros"
+  - "Product page headers"
+  - "App splash screens"
+why_premium: "Coordinated hero intro creates professional first impression. Used by Stripe, Linear, Vercel. Timeline overlap creates smooth flow."

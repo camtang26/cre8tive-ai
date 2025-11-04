@@ -7,8 +7,6 @@
 <workflow>
 
 <step n="1" goal="Context Gathering">
-<action>Greet {user_name} in {communication_language}</action>
-<action>All written outputs must use {communication_language}</action>
 <action>Introduce the creative ideation workflow with film director energy</action>
 
 **"Let's create something exceptional. Tell me about your animation needs."**
@@ -24,75 +22,299 @@
 <template-output>component_context, brand_personality, user_goals, constraints, anti_patterns</template-output>
 </step>
 
-<step n="2" goal="Multi-Source Research">
-<critical>This is where we leverage THREE MCP servers for comprehensive research</critical>
+<step n="2" goal="Multi-Source Research - Cinematographer (TIER 1/2/3 PROTOCOL)">
+<critical>KNOWLEDGE SOURCE HIERARCHY: Tier 1 (Archon + Deep-Research) → Tier 2 (WebSearch) → Tier 3 (Context7)</critical>
 
-<action>Execute multi-source research using MCP integrations</action>
+<action>Invoke Cinematographer agent for systematic multi-source research</action>
 
-**Research Protocol (Execute in parallel where possible):**
+**Research Protocol (Cinematographer's 89-Source Systematic Querying):**
 
-**1. Perplexity Research (Premium Examples)**
-<action>Use perplexity_research tool with these queries:</action>
-- "award-winning {{component_context}} animations 2024-2025 Awwwards FWA"
-- "cutting-edge GSAP animation techniques 2025"
-- "premium web animation trends design studios"
-- "interactive animation examples {{industry_if_known}}"
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 1: ARCHON MCP RAG DATABASE (Primary - Cameron's Curated Knowledge) -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 
-**2. Archon MCP (GSAP Technical Knowledge)**
-<action>Use rag_search_knowledge_base and rag_search_code_examples:</action>
-- Search for GSAP showcase examples related to {{component_context}}
-- Find advanced GSAP technique documentation
-- Discover plugin ecosystem capabilities (ScrollTrigger, MorphSVG, SplitText)
-- Locate performance best practices
+**TIER 1A: Archon MCP Systematic Queries**
 
-**3. Context7 (Latest GSAP APIs)**
-<action>Use get-library-docs:</action>
-- Fetch latest GSAP version capabilities
-- Identify new plugins and features in current release
-- Check API compatibility and requirements
+<action>Query ALL 5 priority Archon sources systematically:</action>
 
-<critical>Document ALL sources with citations (URLs, examples, agencies)</critical>
+**Source 1: gsap.com Official Docs (2.2M+ words)**
+```
+rag_search_knowledge_base("{{component_context}} animation patterns", source_id="b9f6b322298feb21", match_count=8)
+rag_search_knowledge_base("{{brand_personality}} GSAP techniques", source_id="b9f6b322298feb21", match_count=8)
+rag_search_code_examples("{{component_context}} GSAP implementation", source_id="b9f6b322298feb21", match_count=8)
+```
 
-<template-output>perplexity_findings, archon_patterns, context7_api_info, research_citations</template-output>
+**Source 2: Tympanus/Codrops Tutorials (Premium Quality)**
+```
+rag_search_knowledge_base("premium {{component_context}} animations", source_id="1e5cc3bd5125be3c", match_count=8)
+rag_search_code_examples("Codrops {{animation_type}} examples", source_id="1e5cc3bd5125be3c", match_count=8)
+```
+
+**Source 3: FreeFrontend Examples**
+```
+rag_search_code_examples("{{component_context}} showcase", source_id="90c2ef5e8fa816b7", match_count=6)
+```
+
+**Source 4: CodePen Collections**
+```
+rag_search_code_examples("GSAP {{animation_type}} CodePen", source_id="020e9f31a8c5cdb7", match_count=6)
+```
+
+**Source 5: Lenis Integration Patterns**
+```
+rag_search_knowledge_base("smooth scroll {{component_context}}", source_id="77ae0ef68a867aa9", match_count=4)
+```
+
+<critical>🎉 PREMIUM PLUGIN QUERIES (ALL FREE in 3.13+!)</critical>
+<action>Actively search for premium plugin examples:</action>
+```
+rag_search_code_examples("ScrollSmoother {{component_context}}", match_count=6)
+rag_search_code_examples("MorphSVG icon transitions", match_count=6)
+rag_search_code_examples("SplitText {{text_animation_type}}", match_count=6)
+rag_search_code_examples("DrawSVG line reveals", match_count=4)
+rag_search_code_examples("MotionPath custom trajectories", match_count=4)
+```
+
+**Why Premium Plugins Matter:**
+- ScrollSmoother (was $99/year) → NOW FREE!
+- MorphSVG (was $99/year) → NOW FREE!
+- SplitText (was $99/year) → NOW FREE!
+- NO COST BARRIER = RECOMMEND LIBERALLY!
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 1B: DEEP-RESEARCH FRAMEWORK (Cameron's Synthesized Wisdom)        -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**TIER 1B: Deep-Research Framework Application**
+
+<action>Apply Cameron's Deep-Research frameworks to guide creative thinking:</action>
+
+**Section 1.1: Animator's Mindset**
+- Think like storyteller, not coder
+- Design narrative beats, not just "effects"
+- Ask: "What story does this animation tell?"
+- Every animation should have clear objective
+
+**Section 1.2: Visual Inspiration → Technical Translation**
+- Translate design vision into GSAP implementations
+- Map brand personality to motion design systems:
+  - Playful → Bouncy easing (elastic, back), physics-based
+  - Professional → Smooth easing (power2, expo), controlled
+  - Edgy → Sharp easing (power4), dramatic contrast
+  - Minimal → Subtle easing (sine, power1), refined
+- Document easing curve specifications for implementation
+
+**Section 1.3: Storyboarding Complex Sequences**
+- Apply Pixar Story Spine to animation narrative:
+  - Once upon a time... (establish context)
+  - Every day... (show status quo)
+  - Until one day... (introduce change/feature)
+  - Because of that... (show consequences/benefits)
+  - Until finally... (resolution/CTA)
+- Break animation into "sequence" and "shot" levels
+- Choreograph timing for narrative beats
+
+**Section 2.2: Mastering Timeline Techniques**
+- Coordinate multiple elements for cohesive story
+- Plan stagger patterns (sequential, random, grid-based)
+- Design label-based timeline structure for maintainability
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 2: WEBSEARCH (For 2024-2025 Trends & Gaps)                        -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**TIER 2: WebSearch for 2025-Specific Trends**
+
+<action>Use WebSearch for recent premium examples not in Archon:</action>
+```
+WebSearch("{{component_context}} animation Awwwards 2025")
+WebSearch("GSAP {{animation_type}} premium trends 2025")
+WebSearch("Linear Stripe Vercel {{component_context}} animation breakdown")
+WebSearch("{{brand_personality}} web animation agency examples 2024")
+```
+
+<action>Target cutting-edge agencies and brands:</action>
+- Linear app (GSAP excellence)
+- Stripe (scroll storytelling)
+- Vercel (minimal sophistication)
+- Apple (cinematic parallax)
+- Codrops latest tutorials (2024-2025)
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TIER 3: CONTEXT7 (Minimal - API Verification Only)                     -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**TIER 3: Context7 (Minimal Use - API Verification)**
+
+<action>ONLY if needed for version-specific API questions:</action>
+```
+resolve-library-id("gsap")
+get-library-docs(context7CompatibleLibraryID="/greensock/gsap", topic="{{specific_plugin}}", tokens=3000)
+```
+
+**Use Context7 sparingly:**
+- Archon already has gsap.com docs (redundant!)
+- Only for brand-new 3.13+ features not yet in Archon
+- Verify specific plugin API syntax if uncertain
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SYNTHESIS & CITATION                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+**Synthesis & Documentation**
+
+<action>Synthesize findings across ALL sources:</action>
+
+1. **Pattern Identification**
+   - What patterns appear across multiple sources?
+   - Which are battle-tested (Archon verified)?
+   - Which are cutting-edge (WebSearch 2025)?
+
+2. **Quality Assessment**
+   - Premium vs. basic examples
+   - Complexity levels (simple, medium, high)
+   - Performance implications (60fps achievable?)
+
+3. **Citation Format** (CRITICAL - Must Document Sources)
+   ```
+   Pattern: "Cinematic Parallax Depth"
+   Sources:
+   - Archon MCP: gsap.com ScrollTrigger docs (source: b9f6b322298feb21)
+   - Archon MCP: Codrops "Multi-Layer Parallax" tutorial (source: 1e5cc3bd5125be3c)
+   - WebSearch: Apple iPhone 15 product page (2024)
+   - Deep-Research: Section 1.2 (Visual Translation), Section 2.2 (Timeline Choreography)
+   ```
+
+4. **Deep-Research Framework Applied**
+   - Document which sections informed creative direction
+   - Reference specific principles used (Pixar Story Spine, easing curves, etc.)
+
+<template-output>
+archon_findings_by_source,
+deep_research_frameworks_applied,
+websearch_premium_trends,
+research_citations,
+brand_personality_motion_mapping
+</template-output>
 </step>
 
-<step n="3" goal="Trend Analysis & Synthesis">
-<action>Analyze research findings to identify patterns</action>
+<step n="3" goal="Trend Analysis & Synthesis (Deep-Research Guided)">
+<action>Director + Cinematographer synthesize research using Deep-Research frameworks</action>
 
-**Analysis approach:**
+**1. Pattern Recognition & Trend Analysis**
 
-1. **Identify cutting-edge vs overdone**
-   - What's fresh and exciting in 2025?
-   - What's become cliché or tired?
-   - What fits the brand personality?
+<action>Identify cutting-edge vs overdone (Deep-Research 1.4: Decision Framework):</action>
+- **Fresh & Exciting (2025):**
+  - What emerged from WebSearch 2025 trends?
+  - What premium agencies are doing (Linear, Stripe, Vercel)?
+  - What's in Archon's latest Codrops tutorials?
+- **Cliché & Tired:**
+  - Overdone parallax without purpose?
+  - Generic fade-in-up animations?
+  - Cookie-cutter scroll reveals?
+- **Brand Personality Fit:**
+  - Does this align with user's brand personality from Step 1?
+  - Would this feel authentic or forced?
 
-2. **Assess technical feasibility**
-   - Can current GSAP version achieve this?
-   - What plugins are required?
-   - Performance implications for 60fps target?
+**2. Technical Feasibility Assessment**
 
-3. **Map to brand personality**
-   - Playful → physics, bouncy easing
-   - Professional → smooth, controlled, precise
-   - Edgy → unexpected, bold, dramatic
-   - Minimal → subtle, elegant, refined
+<action>Assess implementation viability:</action>
+- GSAP 3.13.0+ can achieve this? (verify with Archon findings)
+- Which plugins required? (prioritize premium - they're FREE!)
+- Performance implications:
+  - 60fps achievable? (Deep-Research 5.5: Optimize for 60fps)
+  - GPU-accelerated properties? (Deep-Research 5.1: GPU Rule)
+  - Bundle size impact?
 
-4. **Consider constraints**
-   - Performance budget → simpler or optimized
-   - Timeline → proven patterns vs experimental
-   - Accessibility → reduced-motion alternatives
+**3. Brand Personality → Motion Design Mapping**
 
-<action>Synthesize findings into concept themes</action>
+<action>Apply Deep-Research Section 1.2 (Visual Inspiration Translation):</action>
 
-<template-output>trend_analysis, technical_feasibility, brand_mapping</template-output>
+**Easing Curve Specifications:**
+- **Playful** → Bouncy, organic motion
+  - Easing: `elastic.out(1, 0.5)`, `back.out(1.7)`, physics-based
+  - Plugins: MorphSVG transformations, physics-driven animations
+  - Examples: Icons that bounce, elements that overshoot
+
+- **Professional** → Smooth, controlled precision
+  - Easing: `power2.inOut`, `expo.out`, refined curves
+  - Plugins: ScrollSmoother for buttery scrolling, controlled timelines
+  - Examples: Apple-style polish, enterprise-grade sophistication
+
+- **Edgy** → Sharp, dramatic contrast
+  - Easing: `power4.inOut`, `circ.inOut`, aggressive curves
+  - Plugins: MotionPath for dynamic trajectories, dramatic morphing
+  - Examples: Unexpected movements, bold visual statements
+
+- **Minimal** → Subtle, refined elegance
+  - Easing: `sine.inOut`, `power1.out`, gentle curves
+  - Plugins: DrawSVG for line reveals, SplitText for sophisticated text
+  - Examples: Quiet sophistication, intentional restraint
+
+<critical>🎉 PREMIUM PLUGIN MAPPING (ALL FREE in 3.13+!):</critical>
+```
+Need smooth scrolling? → ScrollSmoother (was $99/year → FREE!)
+Icon state transitions? → MorphSVG (was $99/year → FREE!)
+Text choreography? → SplitText (was $99/year → FREE!)
+SVG line animations? → DrawSVG (was $99/year → FREE!)
+Custom motion paths? → MotionPath (was $99/year → FREE!)
+
+COMBINE multiple premium plugins for maximum wow factor!
+Example: ScrollSmoother + SplitText = Scroll-driven text parallax
+```
+
+**4. Narrative Structure Planning**
+
+<action>Apply Deep-Research Section 1.3 (Storyboarding) to animation concepts:</action>
+
+**Pixar Story Spine Framework:**
+- **Once upon a time...** (What's the initial state?)
+- **Every day...** (What's normal/expected?)
+- **Until one day...** (What changes? User scrolls? Hovers? Clicks?)
+- **Because of that...** (What animates? What reveals?)
+- **Until finally...** (What's the resolution/CTA?)
+
+**Timeline Structure Planning (Deep-Research 2.2):**
+- Break into sequences and shots
+- Plan stagger patterns (sequential? random? grid-based?)
+- Design label-based timeline for maintainability
+- Coordinate multiple elements for cohesive story
+
+**5. Constraint Integration**
+
+<action>Apply practical constraints to concept generation:</action>
+- **Performance budget** → Simpler or GPU-optimized (Section 5.1-5.5)
+- **Timeline pressure** → Proven patterns (Archon verified) vs experimental
+- **Accessibility** → Reduced-motion alternatives (Section 6.1 MANDATORY)
+- **Device support** → Mobile-first or desktop-enhanced?
+
+**6. Concept Theme Synthesis**
+
+<action>Synthesize all findings into 3-5 distinct concept themes:</action>
+
+For each theme, document:
+- **Pattern sources** (Archon source_id, WebSearch URLs)
+- **Deep-Research sections** applied (1.1, 1.2, 1.3, 2.2, etc.)
+- **Easing specifications** (exact curve names from brand mapping)
+- **Premium plugins** leveraged (FREE in 3.13+!)
+- **Narrative structure** (Pixar Story Spine beats)
+- **Technical approach** (timeline, ScrollTrigger, physics, etc.)
+
+<template-output>
+trend_analysis,
+technical_feasibility,
+brand_motion_mapping_with_easing,
+narrative_structure_outline,
+deep_research_frameworks_applied
+</template-output>
 </step>
 
 <step n="4" goal="Concept Generation">
 <critical>Generate 3-5 DISTINCT premium concepts</critical>
 
-<action>Create concepts based on research synthesis</action>
+<action>Director creates concepts based on research synthesis</action>
 
-**For EACH concept, provide ALL 10 attributes:**
+**For EACH concept, provide:**
 
 1. **Name** - Evocative, memorable title (e.g., "Cinematic Depth Parallax")
 2. **Visual Description** - How it looks and feels (sensory language, cinematic references)
@@ -111,16 +333,26 @@
 - Variety in visual styles (subtle, dramatic, playful, cinematic)
 - At least one concept should be cutting-edge (2024-2025 trends)
 
-<action>For comparison table in template, extract key attributes from first 3 concepts:</action>
-- Concept 1: name, complexity, performance, wow factor rating, best suited for
-- Concept 2: name, complexity, performance, wow factor rating, best suited for
-- Concept 3: name, complexity, performance, wow factor rating, best suited for
+<example>
+**Concept 1: "Cinematic Depth Parallax"**
+- Multi-layer parallax with dramatic depth of field effect
+- Background elements move at different speeds creating 3D illusion
+- Text reveals with custom bezier easing that feels organic
+- GSAP: ScrollTrigger + timeline coordination + custom easing
+- Wow Factor: Feels like a movie title sequence
+- Inspiration: Apple product launches 2024, Awwwards winners
+- Complexity: Medium-High
+- Performance: 60fps achievable with GPU acceleration
+- Accessibility: Reduced motion shows static layout with fade-ins
+</example>
 
-<template-output>concept_1, concept_2, concept_3, concept_4, concept_5, concept_1_name, concept_1_complexity, concept_1_performance, concept_1_wow, concept_1_best_for, concept_2_name, concept_2_complexity, concept_2_performance, concept_2_wow, concept_2_best_for, concept_3_name, concept_3_complexity, concept_3_performance, concept_3_wow, concept_3_best_for</template-output>
+<template-output>concept_1, concept_2, concept_3, concept_4, concept_5</template-output>
 </step>
 
 <step n="5" goal="Presentation">
-<action>Present concepts in decision-friendly format with film director energy</action>
+<action>Present concepts in decision-friendly format</action>
+
+**Director presents with film director energy:**
 
 🎬 **"I've researched premium {{component_context}} animations. Here are [N] stunning options:"**
 
@@ -142,22 +374,8 @@
 <step n="6" goal="Selection & Handoff">
 <check if="user_selects_concept">
 <action>Confirm selection and prepare for implementation</action>
-<action>Get current date for documentation</action>
 
 **"Excellent choice! [concept_name] will create genuine wow factor."**
-
-<action>Extract implementation details from selected concept:</action>
-- Technical details: {{selected_concept_technical_details}}
-- GSAP features required: {{required_gsap_features}}
-- Plugins needed: {{required_plugins}}
-- Performance notes: {{performance_notes}}
-- Inspiration sources: {{inspiration_sources}}
-
-<action>Document selection rationale and next steps:</action>
-- Why this concept: {{selection_rationale}}
-- Next step 1: {{next_step_1}}
-- Next step 2: {{next_step_2}}
-- Next step 3: {{next_step_3}}
 
 <action>Offer next steps:</action>
 1. **Implement now** - Invoke animation-production workflow with selected concept
@@ -175,10 +393,10 @@
 <goto step="4">Regenerate concepts with new direction</goto>
 </check>
 
-<action>If user wants to implement: Guide them to run /gsap-vfx with the research context</action>
-<action>Research findings should be shared with VFX Artist for implementation</action>
+<action>If implementing: Pass FULL research context to VFX Artist</action>
+<action>Cinematographer's findings become implementation blueprint</action>
 
-<template-output>final_selection, handoff_context, user_selection, date, selected_concept_technical_details, required_gsap_features, required_plugins, performance_notes, inspiration_sources, selection_rationale, next_step_1, next_step_2, next_step_3</template-output>
+<template-output>final_selection, handoff_context</template-output>
 </step>
 
 </workflow>
@@ -204,20 +422,36 @@
 **Concept Quality:**
 - Each concept must be AMBITIOUS, not safe
 - Clear wow factor articulated
-- Backed by research citations
-- Technically feasible with current GSAP
+- Backed by research citations (Archon source_id + WebSearch URLs + Deep-Research sections)
+- Technically feasible with GSAP 3.13.0+
+- Premium plugins leveraged (they're FREE!)
 
-**Research Quality:**
-- Multiple sources consulted (all 3 MCPs minimum)
-- Prioritize 2024-2025 examples
-- Beyond basic tutorials - find premium patterns
-- Cite sources with URLs
+**Research Quality (TIER 1/2/3 HIERARCHY MANDATORY):**
+- **TIER 1 PRIMARY:** Archon MCP (5 sources) + Deep-Research frameworks ALWAYS queried first
+- **TIER 2 GAP FILLING:** WebSearch for 2024-2025 trends not in Archon
+- **TIER 3 MINIMAL:** Context7 only for API verification if needed
+- Prioritize battle-tested patterns (Archon verified) over experimental
+- Beyond basic tutorials - find premium agency patterns
+- **Citation Format Required:**
+  ```
+  Sources:
+  - Archon: [pattern_name] (source: [source_id])
+  - Deep-Research: Section [X.X] ([principle_name])
+  - WebSearch: [agency/brand] [year]
+  ```
+
+**Deep-Research Framework Application:**
+- Section 1.1: Animator's Mindset (storytelling approach)
+- Section 1.2: Visual Translation (brand → motion design mapping)
+- Section 1.3: Storyboarding (Pixar Story Spine narrative structure)
+- Section 2.2: Timeline Techniques (choreography planning)
+- Document which sections guided each concept
 
 **Presentation Quality:**
 - Decision-friendly format
-- Clear tradeoffs explained
-- Professional yet engaging tone
-- Film director energy throughout
+- Clear tradeoffs explained (performance vs wow factor, proven vs cutting-edge)
+- Professional yet engaging tone (film director energy)
+- Every concept includes easing specifications from brand mapping
 
 ## Success Metrics
 

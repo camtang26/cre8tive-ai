@@ -319,6 +319,139 @@ Transform the existing Studios Engine page into a flagship AI Briefing Engine pr
 
 ---
 
+### Epic 2: Studios Page Overhaul - Video-Showcase Redesign
+
+**Epic Goal:**
+
+Transform Studios page into a premium video-showcase destination positioning Studios as AI-powered Studio partners delivering platform-native video in days, featuring prominent video portfolio, platform-specific format demos (YouTube 16:9, TikTok 9:16, Instagram 1:1), and unique cinematic brand identity with GSAP 3.13-enhanced scroll experience—achieving visual parity with Briefing Engine flagship quality through prototype-first methodology.
+
+**Epic Scope:**
+- Hero video background (autoplay loop, 720p, <10MB, Vimeo-hosted with mobile fallback strategy)
+- Enhanced "Our Work" portfolio (SAME videos as homepage, redesigned presentation using research-validated GSAP patterns)
+- Platform-specific demos gallery (16:9/1:1/9:16 placeholders for post-launch video uploads)
+- Full Studios marketing video section (Vimeo embed, click-to-play, lazy-loaded)
+- Copy sections with Trinity framework (Hybrid Model explanation, Process/Timeline, Benefits)
+- Testimonials restyle (existing text content, updated to match new design system)
+- Unique cinematic color palette (NOT orange/teal - options: Film Noir, Purple/Magenta, Teal Evolution, Red Carpet Glam)
+- GSAP 3.13 + Lenis smooth scroll (8 research-validated animation patterns, 60fps GPU-accelerated)
+- Video placeholder design system (consistent treatment across all video elements)
+- Responsive design (375px - 1920px) with mobile-optimized video strategy
+
+**Epic Approach - Prototype-First Methodology:**
+- **Phase 1:** Prototype development (40-50 prototypes: color palettes, hero variations, video gallery layouts, animation patterns)
+- **Phase 2:** Cameron approval + lock-ins (iterative selection process, no implementation until approved)
+- **Phase 3:** Story creation (reference locked prototypes with deterministic acceptance criteria)
+- **Phase 4:** Production implementation (build from approved prototypes, visual diff validation)
+
+**Video Assets (Vimeo placeholders):**
+- Hero bg video (marketing cuts - autoplay loop)
+- "Our Work" videos (from homepage OurWork.tsx component)
+- Platform demos (3 placeholders: you'll create videos post-launch)
+- Full marketing video (Vimeo embed placeholder)
+- Testimonials (text only, no video testimonials)
+
+**Service Positioning (cre8tive-copy-excellence):**
+- **Primary Outcome:** Platform-native video (YouTube, TikTok, Instagram, LinkedIn, X, Facebook)
+- **Timeline Accuracy:** DAYS for video (never minutes - critical guardrail)
+- **Differentiator:** Hybrid "AI-powered Studio partners" model (always explicit)
+- **Proof Point:** 60% first-draft approval rate
+- **Copy Standards:** Trinity framework (User-Outcome Focus + Word Precision + Emotional Resonance)
+
+**Research-Informed GSAP Patterns:**
+- Pattern 1: Smooth Page Load Sequence (Power4.out easing, staggered reveals)
+- Pattern 2: Content Reveal on Scroll (ScrollTrigger.batch() for video grids)
+- Pattern 4: Horizontal Scroll Gallery (containerAnimation for featured work)
+- Pattern 6: Video + Text Parallax (depth effect for hero sections)
+- Pattern 7: Lazy-Loaded Video (Intersection Observer, 100px margin)
+- Pattern 8: Prefers-Reduced-Motion (WCAG AA accessibility)
+
+**Stories:** 6-8 stories (exact count determined after prototype lock-in, stories reference `/docs/prototypes/[ID]/`)
+
+**Integration Requirements:**
+- Reuse GSAP + Lenis from Epic 1 (already installed, no reinstall)
+- Maintain compatibility with existing React 18.3 + TypeScript 5.5 + Vite 5.4 stack
+- Follow established responsive breakpoint patterns (375px, 768px, 1024px, 1920px)
+- Vimeo embed integration (lazy-loading, click-to-play, accessibility)
+- Video optimization (720p @ 24-30fps, <10MB, H.264 + WebM formats)
+
+**Epic Status:** Prototype Planning (Phase 1 sprint schedule in progress)
+
+**Success Criteria:**
+- ✅ Videos are the hero (prominent showcase, not decoration)
+- ✅ Copy excellence (Trinity framework: pain eliminated "no agency juggling", proof "60% approval")
+- ✅ Visual parity with Briefing Engine flagship quality
+- ✅ 60fps GSAP animations (GPU-accelerated properties only: x, y, scale, rotation, opacity)
+- ✅ Performance (Lighthouse 80+/90+, lazy-loading below fold, mobile video strategy)
+- ✅ Accessibility (WCAG AA, prefers-reduced-motion, keyboard nav, video captions)
+- ✅ NO "plan → implement → realize it's wrong" failures (prototype-first eliminates visual uncertainty)
+
+---
+
+### Epic 3: Conversational AI Page Overhaul - Video-Showcase Redesign
+
+**Epic Goal:**
+
+Transform Conversational AI page into a premium video-showcase destination positioning Conversational AI as enterprise-grade support scaling without headcount, featuring full marketing video, live demo showcase (~10min unedited testing), and unique intelligent brand identity with GSAP 3.13-enhanced scroll experience—achieving visual parity with Briefing Engine flagship quality through prototype-first methodology.
+
+**Epic Scope:**
+- Hero video background (autoplay loop, 720p, <10MB, Vimeo-hosted with mobile fallback strategy)
+- Full Conversational AI marketing video section (Vimeo embed, click-to-play, lazy-loaded)
+- Live demo video section (~10min video with chapter markers OR single showcase - TBD during prototyping)
+- Copy sections with Trinity framework (Scale Without Headcount proof, Use Cases, Brand Consistency, Enterprise Features)
+- NO testimonials (service differentiation)
+- Unique enterprise AI color palette (options: Cool Intelligence, Neural Network, Enterprise Green, Warm Trust)
+- GSAP 3.13 + Lenis smooth scroll (8 research-validated animation patterns, 60fps GPU-accelerated)
+- Video placeholder design system (consistent with Studios, unified treatment)
+- Responsive design (375px - 1920px) with mobile-optimized video strategy
+
+**Epic Approach - Prototype-First Methodology:**
+- **Phase 1:** Prototype development (30-40 prototypes: color palettes, hero variations, video section layouts, long-form video treatments)
+- **Phase 2:** Cameron approval + lock-ins (iterative selection, no implementation until approved)
+- **Phase 3:** Story creation (reference locked prototypes with deterministic acceptance criteria)
+- **Phase 4:** Production implementation (build from approved prototypes, visual diff validation)
+
+**Video Assets (Vimeo placeholders):**
+- Hero bg video (marketing cuts - autoplay loop)
+- Full marketing video (Vimeo embed placeholder)
+- Live demo video (~10min, chapter markers support for engagement, Vimeo embed)
+- NO testimonials, NO portfolio videos (service separation from Studios)
+
+**Service Positioning (cre8tive-copy-excellence):**
+- **Primary Outcome:** Scale support without headcount (hiring bottleneck eliminated)
+- **Secondary:** 24/7 availability, enterprise-grade security/compliance
+- **NO video/storyboard outcomes** (strict service separation from Studios/Briefing Engine)
+- **Differentiator:** AI that understands your brand (trained on brand voice)
+- **Copy Standards:** Trinity framework (User-Outcome Focus + Word Precision + Emotional Resonance)
+
+**Research-Informed GSAP Patterns:**
+- Pattern 1: Smooth Page Load Sequence (hero video + text orchestration)
+- Pattern 2: Content Reveal on Scroll (use case cards, feature sections)
+- Pattern 3: Sticky Scroll-Triggered Animation (demo walkthrough, pinned sections)
+- Pattern 7: Lazy-Loaded Video (critical for multiple videos, Intersection Observer)
+- Pattern 8: Prefers-Reduced-Motion (WCAG AA accessibility)
+
+**Stories:** 6-8 stories (exact count determined after prototype lock-in, stories reference `/docs/prototypes/[ID]/`)
+
+**Integration Requirements:**
+- Reuse GSAP + Lenis from Epic 1 (already installed)
+- Maintain compatibility with existing React 18.3 + TypeScript 5.5 + Vite 5.4 stack
+- Follow established responsive breakpoint patterns
+- Vimeo embed integration with chapter marker support (long-form video engagement)
+- Video optimization (720p @ 24-30fps, <10MB for loops, full quality for marketing/demo videos)
+
+**Epic Status:** Prototype Planning (Phase 1 sprint schedule in progress)
+
+**Success Criteria:**
+- ✅ Videos are the hero (prominent showcase, not decoration)
+- ✅ Copy excellence (Trinity framework: pain "hiring bottleneck", outcome "scale 24/7 support")
+- ✅ Visual parity with Briefing Engine flagship quality
+- ✅ 60fps GSAP animations (GPU-accelerated properties only)
+- ✅ Performance (Lighthouse 80+/90+, lazy-loading, mobile video strategy)
+- ✅ Accessibility (WCAG AA, prefers-reduced-motion, keyboard nav, video captions, chapter markers for long demo)
+- ✅ NO "plan → implement → realize it's wrong" failures (prototype-first methodology)
+
+---
+
 ## Out of Scope
 
 **Components Removed (Replaced by New Components):**

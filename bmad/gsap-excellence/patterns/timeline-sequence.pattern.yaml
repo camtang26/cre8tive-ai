@@ -6,16 +6,19 @@ id: pattern-timeline-sequence-005
 name: "Timeline Sequence Choreography"
 category: "timelines"
 complexity: "medium"
-gsap_version: "3.12.0"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+premium_plugins_free: true
 plugins_required: []
 description: "Complex multi-step animation sequence with precise timing control"
 inspiration_source: "Product launch animations, hero sequences"
 performance_notes: "60fps with properly choreographed timeline and GPU properties"
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+is_modern: true
+is_2025_standard: true
+last_validated: "2025-11-02"
 success_count: 0
 tags: ["timeline", "sequence", "choreography", "complex", "premium"]
-framework: "vanilla"
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';

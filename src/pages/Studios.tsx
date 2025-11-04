@@ -1,13 +1,15 @@
 import { Navigation } from "@/components/Navigation";
 import { StudiosHero } from "@/components/studios/StudiosHero";
-import { StudiosIntro } from "@/components/studios/StudiosIntro";
-import { ExpertiseBenefits } from "@/components/studios/ExpertiseBenefits";
-import { WhoWeServe } from "@/components/studios/WhoWeServe";
-import { Testimonials } from "@/components/studios/Testimonials";
-import { ContactCTA } from "@/components/shared/ContactCTA";
+import { StudiosChallengeSection } from "@/components/studios/StudiosChallengeSection";
+import { StudiosPortfolioSection } from "@/components/studios/StudiosPortfolioSection";
+import { StudiosProductionStackSection } from "@/components/studios/StudiosProductionStackSection";
+import { StudiosWorkflowSection } from "@/components/studios/StudiosWorkflowSection";
+import { StudiosStandardsSection } from "@/components/studios/StudiosStandardsSection";
+import { StudiosPlatformDemoSection } from "@/components/studios/StudiosPlatformDemoSection";
+import { StudiosTestimonialsSection } from "@/components/studios/StudiosTestimonialsSection";
+import { StudiosContactCTASection } from "@/components/studios/StudiosContactCTASection";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { PageLayout } from "@/components/layouts/PageLayout";
-import { FilmStripDivider } from "@/components/studios/FilmStripDivider";
 
 const Studios = () => {
   return (
@@ -29,29 +31,25 @@ const Studios = () => {
         <main className="pt-20">
           <StudiosHero />
           <FadeIn>
-            <StudiosIntro />
-          </FadeIn>
-          <div className="container mx-auto px-4">
-            <FilmStripDivider />
-          </div>
-          <FadeIn>
-            <ExpertiseBenefits />
-          </FadeIn>
-          <div className="container mx-auto px-4">
-            <FilmStripDivider />
-          </div>
-          <FadeIn>
-            <WhoWeServe />
-          </FadeIn>
-          <div className="container mx-auto px-4">
-            <FilmStripDivider />
-          </div>
-          <FadeIn>
-            <Testimonials />
+            <StudiosChallengeSection />
           </FadeIn>
           <FadeIn>
-            <ContactCTA />
+            <StudiosPortfolioSection />
           </FadeIn>
+          <FadeIn>
+            <StudiosProductionStackSection />
+          </FadeIn>
+          <FadeIn>
+            <StudiosWorkflowSection />
+          </FadeIn>
+          <FadeIn>
+            <StudiosStandardsSection />
+          </FadeIn>
+          <FadeIn>
+            <StudiosPlatformDemoSection />
+          </FadeIn>
+          <StudiosTestimonialsSection />
+          <StudiosContactCTASection />
         </main>
       </PageLayout>
     </div>

@@ -1,0 +1,31 @@
+# KB Integration - Knowledge Base Integration Workflow Configuration
+name: kb-integration
+description: "Interactive workflow that analyzes SKILL.md and knowledge-base documents to inject contextual inline references with section-level granularity and conditional loading guidance, transforming generic KB lists into intelligent progressive disclosure architecture."
+author: "Cameron"
+
+# Critical variables from config
+config_source: "{project-root}/bmad/bmb/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+date: system-generated
+
+# Module path and component files
+installed_path: "{project-root}/bmad/bmb/skill-factory/workflows/kb-integration"
+template: false # This is an action workflow - modifies existing files, no template needed
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+# Runtime inputs (user provides these when workflow executes)
+skill_md_path: "" # Path to SKILL.md file to integrate
+kb_directory_path: "" # Path to knowledge-base directory
+
+# Reference templates for generating citation blocks
+reference_templates:
+  inline_citation: "{installed_path}/templates/inline-citation.md"
+  decision_tree: "{installed_path}/templates/decision-tree.md"
+
+# Output configuration
+# This workflow modifies the input SKILL.md file in-place
+# Integration report saved to output_folder
+integration_report_file: "{output_folder}/kb-integration-report-{{date}}.md"

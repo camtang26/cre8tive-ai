@@ -5,8 +5,6 @@
 <workflow>
 
 <step n="1" goal="Analyze Current Timing">
-<action>Greet {user_name} in {communication_language}</action>
-<action>All written outputs must use {communication_language}</action>
 <ask response="animation_code">Provide animation code</ask>
 <ask response="timing_issues">What feels wrong about the timing?</ask>
 
@@ -33,10 +31,9 @@
 - Exits: power2.in
 - Natural motion: power3.inOut
 
-<action>Document timing analysis from step 1</action>
-<action>Generate refined animation code with improved timing</action>
+<action>Generate refined animation code</action>
 
-<template-output>timing_analysis, refined_code, refinement_explanation</template-output>
+<template-output>refined_code, refinement_explanation</template-output>
 </step>
 
 <step n="3" goal="Present Refinement">

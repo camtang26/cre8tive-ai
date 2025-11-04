@@ -1,0 +1,190 @@
+id: pattern-observer-unified-events-2025
+name: "ScrollTrigger Observer - Unified Event Detection"
+category: "interactions"
+complexity: "medium"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: true
+cost_note: "ScrollTrigger always free, enhanced in 3.13+"
+description: "Modern unified event detection using ScrollTrigger.observe() API (2025). Replaces manual event listeners with a single, performant API for touch, mouse, and pointer events across devices."
+year_introduced: 2024
+is_modern: true
+is_2025_standard: true
+replaces: "Manual addEventListener for scroll, touch, drag, hover events"
+
+inspiration_source: "GSAP 3.12+ official docs - ScrollTrigger.observe()"
+performance_notes: "Single observer for all input types - more efficient than multiple event listeners. Automatic cleanup and memory management."
+
+accessibility_notes: |
+  - Works with keyboard navigation
+  - Supports touch, mouse, and pointer events uniformly
+  - No accessibility barriers
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+"
+  edge: "90+"
+  mobile: "Full support iOS 14+, Android 90+"
+
+use_cases:
+  - "Unified drag/swipe detection across desktop and mobile"
+  - "Custom scroll behavior without scroll event listeners"
+  - "Hover and click tracking with single API"
+  - "Velocity-based interactions"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Modern unified event detection (2025)
+  const observer = ScrollTrigger.observe({
+    target: window,
+    type: "touch,pointer,wheel,scroll",
+
+    onUp: (self) => {
+      console.log("Up event", self.event);
+      // Handle swipe up, mouse up, etc.
+    },
+
+    onDown: (self) => {
+      console.log("Down event", self.velocityY);
+      // Access velocity for momentum-based animations
+    },
+
+    onHover: (self) => {
+      console.log("Hover", self.target);
+      // Unified hover detection
+    },
+
+    onPress: (self) => {
+      console.log("Press", self.event);
+    },
+
+    onDrag: (self) => {
+      console.log("Drag delta", self.deltaX, self.deltaY);
+      // Smooth drag tracking
+    },
+
+    onWheel: (self) => {
+      console.log("Wheel velocity", self.velocityY);
+      // Wheel event with velocity
+    },
+
+    // Advanced options
+    tolerance: 10, // Minimum pixels before drag
+    preventDefault: true,
+    onStop: () => console.log("Stopped")
+  });
+
+  // Cleanup when component unmounts
+  // observer.kill();
+
+react_example: |
+  import { useRef, useEffect } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+  function InteractiveComponent() {
+    const container = useRef();
+
+    useGSAP(() => {
+      // Observer automatically cleans up with useGSAP
+      const observer = ScrollTrigger.observe({
+        target: container.current,
+        type: "touch,pointer",
+
+        onDrag: (self) => {
+          gsap.to(container.current, {
+            x: self.deltaX,
+            y: self.deltaY,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        },
+
+        onDragEnd: () => {
+          gsap.to(container.current, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "elastic.out(1, 0.5)"
+          });
+        }
+      });
+
+      return () => observer.kill(); // Cleanup
+    }, { scope: container });
+
+    return <div ref={container} className="draggable-element">Drag me</div>;
+  }
+
+nextjs_example: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+  export default function CustomScrollNav() {
+    const navRef = useRef();
+
+    useGSAP(() => {
+      let lastScrollY = 0;
+
+      // Observer for custom scroll behavior
+      ScrollTrigger.observe({
+        target: window,
+        type: "wheel,touch,scroll",
+
+        onChangeY: (self) => {
+          const velocity = self.velocityY;
+          const scrollingDown = self.scrollY() > lastScrollY;
+
+          // Hide nav on scroll down, show on scroll up
+          gsap.to(navRef.current, {
+            y: scrollingDown && velocity < -5 ? -100 : 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+
+          lastScrollY = self.scrollY();
+        }
+      });
+    }, { scope: navRef });
+
+    return (
+      <nav ref={navRef} className="fixed top-0 w-full">
+        {/* Nav content */}
+      </nav>
+    );
+  }
+
+variations:
+  - name: "Velocity-based momentum"
+    description: "Use velocityX/velocityY for physics-based interactions"
+  - name: "Multi-touch gestures"
+    description: "Detect pinch, rotate with touch events"
+  - name: "Custom scroll hijacking"
+    description: "Override native scroll with custom animations"
+
+common_mistakes:
+  - "Forgetting to kill() observer on cleanup (memory leak)"
+  - "Not setting preventDefault when hijacking native behavior"
+  - "Using tolerance too low (jittery on touch devices)"
+
+tips:
+  - "Combine with gsap.quickTo() for ultra-smooth tracking"
+  - "Use onStop to trigger 'settle' animations"
+  - "Check self.isTouch to differentiate touch vs mouse"
+
+created_date: "2025-11-02"
+tags: ["observer", "unified-events", "modern-2025", "touch", "drag", "scroll", "interaction"]

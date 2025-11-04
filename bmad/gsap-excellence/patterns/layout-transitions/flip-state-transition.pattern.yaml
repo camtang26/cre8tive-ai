@@ -1,0 +1,167 @@
+id: pattern-flip-state-transition-2025
+name: "Flip State Transition (First-Last-Invert-Play)"
+category: "layout-transitions"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["Flip"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Flip was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Seamlessly animate elements between two DOM states using the FLIP technique (First, Last, Invert, Play). Even sweeping DOM structure changes appear smooth. Captures initial state, applies changes, then animates offsets. Was premium ($99/year) - now free!"
+inspiration_source: "GSAP Official Flip Documentation + Paul Lewis FLIP Technique"
+source_url: "https://gsap.com/docs/v3/Plugins/Flip/"
+source_citation: "Archon MCP: gsap.com official docs (source_id: 6a6860cfc96e173b)"
+performance_notes: "Flip calculates position/size/rotation offsets and animates using transforms (GPU-accelerated). Extremely efficient for complex layout changes."
+accessibility_notes: "Provide instant state change for prefers-reduced-motion - skip Flip animation"
+code_example: |
+  import gsap from 'gsap';
+  import { Flip } from 'gsap/Flip'; // FREE in 3.13+!
+
+  gsap.registerPlugin(Flip);
+
+  function toggleDetails() {
+    const detailsElement = document.querySelector('.details');
+
+    // Check accessibility preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. FIRST: Capture current state
+    const state = Flip.getState(".details, .full-screen");
+
+    // 2. LAST: Make DOM or style changes (toggle class)
+    detailsElement.classList.toggle("active");
+
+    if (prefersReducedMotion) {
+      // Skip animation - instant state change
+      return;
+    }
+
+    // 3. INVERT & 4. PLAY: Flip animates from old state to new state
+    Flip.from(state, {
+      duration: 1,
+      ease: "power1.inOut",
+      absolute: true, // Use absolute positioning during animation
+      scale: true,    // Animate scale changes
+      onComplete: () => console.log('Flip complete!')
+    });
+  }
+
+  // Execute on button click
+  document.querySelector('.toggle-btn').addEventListener('click', toggleDetails);
+
+grid_reorder_example: |
+  // Example: Grid item reordering (drag-and-drop feel)
+  let currentIndex = 0;
+  const items = gsap.utils.toArray('.grid-item');
+
+  function reorderGrid() {
+    // 1. Capture state
+    const state = Flip.getState(items);
+
+    // 2. Make DOM changes (reorder elements)
+    const container = document.querySelector('.grid');
+    const itemToMove = items[currentIndex];
+    container.appendChild(itemToMove); // Move to end
+
+    // 3. Animate the reorder
+    Flip.from(state, {
+      duration: 0.5,
+      ease: "power2.inOut",
+      stagger: 0.05, // Stagger if multiple elements
+      absolute: true
+    });
+
+    currentIndex = (currentIndex + 1) % items.length;
+  }
+
+  setInterval(reorderGrid, 2000); // Auto-reorder every 2s
+
+card_expand_example: |
+  // Example: Card expands to full screen
+  function expandCard(card) {
+    const state = Flip.getState(card);
+
+    // Add fullscreen class (CSS handles positioning/sizing)
+    card.classList.add('fullscreen');
+
+    Flip.from(state, {
+      duration: 0.6,
+      ease: "power2.inOut",
+      absolute: true,
+      scale: true,
+      onComplete: () => {
+        // Now card is fullscreen
+      }
+    });
+  }
+
+  function collapseCard(card) {
+    const state = Flip.getState(card);
+
+    card.classList.remove('fullscreen');
+
+    Flip.from(state, {
+      duration: 0.6,
+      ease: "power2.inOut",
+      absolute: true,
+      scale: true
+    });
+  }
+
+react_usage: |
+  import { useState } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+  import { Flip } from 'gsap/Flip';
+
+  gsap.registerPlugin(useGSAP, Flip);
+
+  function ToggleableDetails() {
+    const [isActive, setIsActive] = useState(false);
+    const { contextSafe } = useGSAP();
+
+    const toggle = contextSafe(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Capture state
+      const state = Flip.getState(".details");
+
+      // Toggle state
+      setIsActive(!isActive);
+
+      if (prefersReducedMotion) return;
+
+      // Animate after React re-renders
+      requestAnimationFrame(() => {
+        Flip.from(state, {
+          duration: 1,
+          ease: "power1.inOut",
+          absolute: true
+        });
+      });
+    });
+
+    return (
+      <div>
+        <button onClick={toggle}>Toggle</button>
+        <div className={`details ${isActive ? 'active' : ''}`}>
+          Content that changes position/size
+        </div>
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["flip", "layout-transition", "state-change", "premium", "gsap-official", "first-last-invert-play"]
+framework: "vanilla"
+use_cases:
+  - "Card expand to fullscreen"
+  - "Grid reordering / drag-and-drop"
+  - "Accordion expand/collapse"
+  - "Modal open/close with position change"
+  - "Layout switching (grid to list)"
+  - "Filter/sort animations"
+why_premium: "Flip was $99/year premium plugin - now FREE in 3.13+! FLIP technique makes complex DOM layout changes appear seamless. Codrops' Manoela Ilic: 'blown away by how much this accelerates development!' Essential for modern UI transitions."

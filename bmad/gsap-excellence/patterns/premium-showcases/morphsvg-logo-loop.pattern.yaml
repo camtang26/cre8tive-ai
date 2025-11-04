@@ -1,0 +1,66 @@
+id: pattern-morphsvg-logo-loop-2025
+name: "MorphSVG Continuous Logo Animation"
+category: "premium-showcases"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["MorphSVGPlugin"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "MorphSVGPlugin was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Morph logo through multiple brand shapes in continuous loop. Premium effect for brand storytelling, FREE in 3.13+!"
+inspiration_source: "Brand identity animations, GSAP MorphSVG documentation"
+source_url: "https://gsap.com/docs/v3/Plugins/MorphSVGPlugin"
+source_citation: "Archon MCP: MorphSVGPlugin timeline examples (source_id: b9f6b322298feb21)"
+performance_notes: "MorphSVGPlugin is highly optimized. Looping animations use minimal resources. 60fps sustained."
+accessibility_notes: "Pause animation for prefers-reduced-motion. Provide static logo fallback."
+code_example: |
+  import gsap from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  function createLogoMorphLoop() {
+    const tl = gsap.timeline({
+      repeat: -1,
+      yoyo: true,
+      defaults: { duration: 2, ease: 'power2.inOut' }
+    });
+
+    tl.to('#logo-path', { morphSVG: '#shape-1' })
+      .to('#logo-path', { morphSVG: '#shape-2' }, '+=0.5')
+      .to('#logo-path', { morphSVG: '#shape-3' }, '+=0.5')
+      .to('#logo-path', { morphSVG: '#logo-path' }, '+=0.5'); // Back to original
+
+    return tl;
+  }
+
+  // Pause for accessibility
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion) {
+    createLogoMorphLoop();
+  }
+
+html_structure: |
+  <svg viewBox="0 0 200 200">
+    <!-- Visible logo -->
+    <path id="logo-path" d="M50,50 L150,50 L100,150 Z" fill="#3399CC"/>
+
+    <!-- Hidden target shapes -->
+    <path id="shape-1" d="M100,100 m-40,0 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0" visibility="hidden"/>
+    <path id="shape-2" d="M50,100 L100,50 L150,100 L100,150 Z" visibility="hidden"/>
+    <path id="shape-3" d="M60,60 L140,60 L140,140 L60,140 Z" visibility="hidden"/>
+  </svg>
+
+created_date: "2025-11-03"
+tags: ["morphsvg", "logo", "loop", "brand", "premium", "gsap-3.13"]
+framework: "vanilla"
+use_cases:
+  - "Brand storytelling"
+  - "Logo animations"
+  - "Hero sections"
+  - "Loading screens"
+  - "Brand identity showcases"
+why_premium: "MorphSVGPlugin was $99/year premium - now FREE! Professional logo morphing creates memorable brand experiences. Industry standard for premium brand sites."

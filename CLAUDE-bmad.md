@@ -120,6 +120,34 @@ npm run deploy       # Deploy to GitHub Pages (CI/CD preferred)
 
 <!-- Run: mcp docs sync -->
 
+**CONTEXT:**
+  Cameron's laptop has 150% OS scaling, resulting in 1707×898px CSS viewport (DPR
+  1.5).
+  He reports content looking "too big and bleeding out of the page."
+
+  **CONFIRMED DIMENSIONS:**
+  - CSS Viewport: 1707×898px
+  - Device Pixel Ratio: 1.5
+  - Physical Resolution: 2560×1600px
+
+ ### STEP 1: Emulate Cameron's Viewport
+
+  Use Chrome DevTools Device Emulation:
+  - Width: 1707px
+  - Height: 898px (or 1067px for full screen)
+  - Device Pixel Ratio: 1.5
+
+  Take screenshot at this size.
+
+  ### STEP 2: Compare to Standard Desktop
+
+  Test at 1920×1080 (DPR 1.0):
+  - Take screenshot for comparison
+  - Does the layout look different?
+
+  ### STEP 3: Identify Layout Issues
+
+
 ---
 
 ## 📞 Escalation (HALT and ask Cameron)

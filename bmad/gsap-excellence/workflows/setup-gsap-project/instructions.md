@@ -7,8 +7,6 @@
 <workflow>
 
 <step n="1" goal="Gather Project Requirements">
-<action>Greet {user_name} in {communication_language}</action>
-<action>All written outputs must use {communication_language}</action>
 <action>VFX Artist (or Tech Director) introduces setup workflow</action>
 
 **"Let's get GSAP set up correctly from the start. Tell me about your project."**
@@ -69,10 +67,7 @@
 {{plugin_install_commands}}
 ```
 
-<action>Document plugin notes:</action>
-{{plugin_notes}}
-
-Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, SplitText)
+<action>Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, SplitText)</action>
 </check>
 
 <check if="typescript == true">
@@ -91,7 +86,7 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 }
 ```
 
-<template-output>gsap_install_command, plugin_install_commands, plugin_notes, typescript_types_install, dependency_entries</template-output>
+<template-output>installation_commands, dependency_entries</template-output>
 </step>
 
 <step n="4" goal="Create Project Structure">
@@ -142,42 +137,30 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 ```json
 {{typescript_config}}
 ```
-
-**TypeScript Notes:**
-{{typescript_notes}}
 </check>
 
 <check if="bundler == 'webpack'">
-**3. Webpack Configuration ({{config_file_name}})**
+**3. Webpack Configuration**
 ```javascript
 {{webpack_config}}
 ```
-
-**Configuration Notes:**
-{{bundler_config_notes}}
 </check>
 
 <check if="bundler == 'vite'">
-**3. Vite Configuration ({{config_file_name}})**
+**3. Vite Configuration**
 ```javascript
 {{vite_config}}
 ```
-
-**Configuration Notes:**
-{{bundler_config_notes}}
 </check>
 
 <check if="bundler == 'rollup'">
-**3. Rollup Configuration ({{config_file_name}})**
+**3. Rollup Configuration**
 ```javascript
 {{rollup_config}}
 ```
-
-**Configuration Notes:**
-{{bundler_config_notes}}
 </check>
 
-<template-output>gsap_config_file, webpack_config, vite_config, rollup_config, config_file_name, bundler_config_notes, typescript_config, typescript_notes</template-output>
+<template-output>gsap_config_file, bundler_config, typescript_config</template-output>
 </step>
 
 <step n="6" goal="Create Import Examples">
@@ -190,9 +173,6 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 ```javascript
 {{vanilla_import_example}}
 ```
-
-**Usage Notes:**
-{{vanilla_usage_notes}}
 </check>
 
 <check if="project_type == 'react'">
@@ -200,9 +180,6 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 ```jsx
 {{react_import_example}}
 ```
-
-**Usage Notes:**
-{{react_usage_notes}}
 </check>
 
 <check if="project_type == 'vue'">
@@ -210,9 +187,6 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 ```vue
 {{vue_import_example}}
 ```
-
-**Usage Notes:**
-{{vue_usage_notes}}
 </check>
 
 <check if="project_type == 'svelte'">
@@ -220,9 +194,6 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 ```svelte
 {{svelte_import_example}}
 ```
-
-**Usage Notes:**
-{{svelte_usage_notes}}
 </check>
 
 <check if="project_type == 'next'">
@@ -230,12 +201,9 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 ```jsx
 {{next_import_example}}
 ```
-
-**Usage Notes:**
-{{next_usage_notes}}
 </check>
 
-<template-output>vanilla_import_example, vanilla_usage_notes, react_import_example, react_usage_notes, vue_import_example, vue_usage_notes, svelte_import_example, svelte_usage_notes, next_import_example, next_usage_notes</template-output>
+<template-output>import_examples, usage_examples</template-output>
 </step>
 
 <step n="7" goal="Create Example Animation">
@@ -341,14 +309,8 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 
 <step n="11" goal="Present Complete Setup Guide">
 <action>Compile all setup information into final document</action>
-<action>Get current date for documentation</action>
 
 **"Setup complete! Here's your comprehensive GSAP setup guide."**
-
-<action>Create installation summary (concise list of all install commands)</action>
-<action>Create folder creation guide (step-by-step folder setup)</action>
-<action>Create config file checklist (files to create/modify)</action>
-<action>Create test commands (commands to verify setup)</action>
 
 <action>Generate final setup guide using template.md</action>
 <action>Save to output file: {{default_output_file}}</action>
@@ -364,27 +326,16 @@ Note: Some plugins require GreenSock Club membership (ScrollSmoother, MorphSVG, 
 - ✅ Performance Monitoring: Configured
 - ✅ Accessibility: Enabled
 
-**Next Steps:**
+<ask>Next steps:
+1. Run installation commands
+2. Create folder structure
+3. Add configuration files
+4. Run test animation
+5. Start building animations!
 
-1. **Installation Summary:**
-   ```bash
-   {{installation_summary}}
-   ```
+Ready to proceed? [y/n]</ask>
 
-2. **Folder Creation Guide:**
-   {{folder_creation_guide}}
-
-3. **Configuration Checklist:**
-   {{config_file_checklist}}
-
-4. **Test Commands:**
-   ```bash
-   {{test_commands}}
-   ```
-
-<ask>Ready to proceed with installation? [y/n]</ask>
-
-<template-output>final_setup_guide, next_action, date, installation_summary, folder_creation_guide, config_file_checklist, test_commands</template-output>
+<template-output>final_setup_guide, next_action</template-output>
 </step>
 
 <step n="12" goal="Optional: Quick Setup Execution" optional="true">

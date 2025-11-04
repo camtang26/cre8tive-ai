@@ -1,0 +1,216 @@
+id: pattern-nextjs-route-change-transitions-2025
+name: "Next.js 15 Route Change Transitions"
+category: "nextjs-patterns"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_2025_standard: true
+react_19_compatible: true
+nextjs_15_compatible: true
+nextjs_app_router: true
+description: "Animate page transitions in Next.js 15 App Router using GSAP. Fade out current page, navigate, fade in new page. Works with next/link and programmatic navigation. Handles cleanup and prevents animation conflicts."
+inspiration_source: "Next.js App Router + GSAP Patterns"
+source_url: "https://gsap.com/resources/React/"
+source_citation: "Next.js 15 + GSAP integration patterns"
+performance_notes: "Uses opacity + y transforms (GPU-accelerated). Prevents navigation until animation complete for smooth UX."
+accessibility_notes: "Respect prefers-reduced-motion - instant navigation without animation"
+code_example: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { useRouter, usePathname } from 'next/navigation';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  export function PageTransition({ children }) {
+    const container = useRef();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const { contextSafe } = useGSAP({ scope: container });
+
+    // Wrap navigation in contextSafe for cleanup
+    const animateToRoute = contextSafe((href) => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        // Instant navigation
+        router.push(href);
+        return;
+      }
+
+      // Animate out current page
+      gsap.to(container.current, {
+        opacity: 0,
+        y: -50,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => {
+          // Navigate after animation
+          router.push(href);
+        }
+      });
+    });
+
+    // Animate in new page on route change
+    useGSAP(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(container.current, { opacity: 1, y: 0 });
+        return;
+      }
+
+      // Fade in new page
+      gsap.fromTo(
+        container.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+      );
+    }, [pathname]); // Re-run when pathname changes
+
+    return (
+      <div ref={container}>
+        {/* Clone children and inject navigation handler */}
+        {children}
+      </div>
+    );
+  }
+
+link_component_version: |
+  // Custom Link component with GSAP transitions
+  'use client';
+
+  import Link from 'next/link';
+  import { useRouter } from 'next/navigation';
+  import gsap from 'gsap';
+
+  export function AnimatedLink({ href, children, ...props }) {
+    const router = useRouter();
+
+    const handleClick = (e) => {
+      e.preventDefault();
+
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        router.push(href);
+        return;
+      }
+
+      // Animate out
+      gsap.to('#page-container', {
+        opacity: 0,
+        y: -50,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => router.push(href)
+      });
+    };
+
+    return (
+      <Link href={href} onClick={handleClick} {...props}>
+        {children}
+      </Link>
+    );
+  }
+
+  // Usage:
+  // <AnimatedLink href="/about">About</AnimatedLink>
+
+layout_persistent_version: |
+  // app/layout.tsx - Wrap entire app
+  'use client';
+
+  import { usePathname } from 'next/navigation';
+  import { useRef } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(useGSAP);
+
+  export default function RootLayout({ children }) {
+    const container = useRef();
+    const pathname = usePathname();
+
+    useGSAP(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(container.current, { opacity: 1 });
+        return;
+      }
+
+      // Fade in on every route change
+      gsap.fromTo(
+        container.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4 }
+      );
+    }, [pathname]);
+
+    return (
+      <html>
+        <body>
+          <div ref={container}>{children}</div>
+        </body>
+      </html>
+    );
+  }
+
+advanced_flip_transition: |
+  // Use FLIP for more complex transitions (card to fullscreen, etc.)
+  'use client';
+
+  import { useRouter } from 'next/navigation';
+  import gsap from 'gsap';
+  import { Flip } from 'gsap/Flip';
+
+  gsap.registerPlugin(Flip);
+
+  export function CardToPageTransition({ cardRef, href }) {
+    const router = useRouter();
+
+    const navigateWithFlip = () => {
+      // Capture card state
+      const state = Flip.getState(cardRef.current);
+
+      // Store state in sessionStorage for next page
+      sessionStorage.setItem('flipState', JSON.stringify(state));
+
+      // Navigate
+      router.push(href);
+    };
+
+    return (
+      <button onClick={navigateWithFlip}>
+        View Details
+      </button>
+    );
+  }
+
+  // On destination page:
+  // const state = JSON.parse(sessionStorage.getItem('flipState'));
+  // Flip.from(state, { duration: 0.6 });
+
+created_date: "2025-11-03"
+tags: ["nextjs", "nextjs-15", "app-router", "route-transitions", "page-transitions", "navigation", "react-19"]
+framework: "nextjs"
+use_cases:
+  - "Next.js 15 App Router page transitions"
+  - "Smooth navigation between routes"
+  - "Custom link animations"
+  - "Persistent layout animations"
+  - "Card → detail page transitions"
+why_premium: "Route transitions are ESSENTIAL for premium Next.js apps. Prevents jarring page changes, creates polished UX. Works with App Router's client-side navigation. Production-ready pattern."

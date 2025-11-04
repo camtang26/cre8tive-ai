@@ -3,6 +3,8 @@
      **Date:** 2025-10-09
      **Research-Validated | Industry-Cited | Ready for Immediate Implementation**
 
+     > ⚠️ **Validation Warning:** Any quantitative claim (percentages, ratios, dollar savings, speed multipliers, approval rates, etc.) must be backed by published industry research or internal analytics before public release. Treat every metric in this document as a placeholder until verified; remove or replace numbers you cannot substantiate.
+
      ---
 
      ## Table of Contents

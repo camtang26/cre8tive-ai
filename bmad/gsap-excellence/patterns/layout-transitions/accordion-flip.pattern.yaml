@@ -1,0 +1,210 @@
+id: pattern-accordion-flip-2025
+name: "Accordion Expand/Collapse with FLIP"
+category: "layout-transitions"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["Flip"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Flip was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Smooth accordion expand/collapse using FLIP technique. Content height changes animate smoothly regardless of final height. Handles dynamic content and multiple accordions. Was premium ($99/year) - now FREE!"
+inspiration_source: "Modern UI patterns + GSAP Flip"
+source_url: "https://gsap.com/docs/v3/Plugins/Flip/"
+source_citation: "FLIP technique for accordion transitions (FREE in 3.13+!)"
+performance_notes: "Flip handles height changes efficiently. No manual height calculations needed. GPU-accelerated transforms."
+accessibility_notes: "Use aria-expanded, aria-controls. Focus management. Keyboard support (Enter/Space to toggle)."
+code_example: |
+  import gsap from 'gsap';
+  import { Flip } from 'gsap/Flip'; // FREE in 3.13+!
+
+  gsap.registerPlugin(Flip);
+
+  function createAccordion() {
+    const accordionItems = document.querySelectorAll('.accordion-item');
+
+    accordionItems.forEach(item => {
+      const header = item.querySelector('.accordion-header');
+      const content = item.querySelector('.accordion-content');
+      const button = header.querySelector('button');
+
+      button.addEventListener('click', () => {
+        const isExpanded = item.classList.contains('expanded');
+
+        const prefersReducedMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches;
+
+        // 1. Capture state before change
+        const state = Flip.getState(item);
+
+        // 2. Toggle expanded class (CSS handles height)
+        item.classList.toggle('expanded');
+
+        // Update ARIA
+        button.setAttribute('aria-expanded', !isExpanded);
+
+        if (prefersReducedMotion) {
+          // Instant toggle - no animation
+          return;
+        }
+
+        // 3. Animate the FLIP
+        Flip.from(state, {
+          duration: 0.5,
+          ease: "power2.inOut",
+          absolute: false, // Keep in document flow
+          onEnter: elements => {
+            // Fade in content
+            return gsap.from(elements, {
+              opacity: 0,
+              duration: 0.3
+            });
+          },
+          onLeave: elements => {
+            // Fade out content
+            return gsap.to(elements, {
+              opacity: 0,
+              duration: 0.3
+            });
+          }
+        });
+      });
+    });
+  }
+
+  window.addEventListener('load', createAccordion);
+
+html_structure: |
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <button aria-expanded="false" aria-controls="content-1">
+          Section 1
+          <span class="icon">+</span>
+        </button>
+      </div>
+      <div id="content-1" class="accordion-content">
+        <p>Content that expands and collapses smoothly</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <button aria-expanded="false" aria-controls="content-2">
+          Section 2
+          <span class="icon">+</span>
+        </button>
+      </div>
+      <div id="content-2" class="accordion-content">
+        <p>More content with dynamic height</p>
+      </div>
+    </div>
+  </div>
+
+css_structure: |
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .accordion-item.expanded .accordion-content {
+    max-height: none; /* Let content determine height */
+    opacity: 1;
+  }
+
+  .accordion-item.expanded .icon {
+    transform: rotate(45deg); /* + becomes × */
+  }
+
+close_others_variant: |
+  // Close other accordions when one opens
+  function toggleAccordion(clickedItem) {
+    const allItems = document.querySelectorAll('.accordion-item');
+
+    allItems.forEach(item => {
+      const state = Flip.getState(item);
+
+      if (item === clickedItem) {
+        // Toggle clicked item
+        item.classList.toggle('expanded');
+      } else {
+        // Close others
+        item.classList.remove('expanded');
+      }
+
+      Flip.from(state, {
+        duration: 0.5,
+        ease: "power2.inOut"
+      });
+    });
+  }
+
+react_usage: |
+  'use client';
+
+  import { useState } from 'react';
+  import gsap from 'gsap';
+  import { useGSAP } from '@gsap/react';
+  import { Flip } from 'gsap/Flip';
+
+  gsap.registerPlugin(useGSAP, Flip);
+
+  export function Accordion({ items }) {
+    const [expandedIndex, setExpandedIndex] = useState(null);
+    const { contextSafe } = useGSAP();
+
+    const toggle = contextSafe((index) => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      const state = Flip.getState('.accordion-item');
+
+      setExpandedIndex(expandedIndex === index ? null : index);
+
+      if (prefersReducedMotion) return;
+
+      requestAnimationFrame(() => {
+        Flip.from(state, {
+          duration: 0.5,
+          ease: "power2.inOut"
+        });
+      });
+    });
+
+    return (
+      <div className="accordion">
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className={`accordion-item ${expandedIndex === index ? 'expanded' : ''}`}
+          >
+            <button
+              onClick={() => toggle(index)}
+              aria-expanded={expandedIndex === index}
+            >
+              {item.title}
+            </button>
+            <div className="accordion-content">
+              {item.content}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["flip", "accordion", "expand-collapse", "layout-transition", "premium", "accessibility"]
+framework: "vanilla"
+use_cases:
+  - "FAQ sections"
+  - "Product feature lists"
+  - "Tabbed content alternatives"
+  - "Mobile navigation menus"
+  - "Settings panels"
+why_premium: "Flip was $99/year premium plugin - now FREE in 3.13+! No manual height calculations needed - Flip handles complex height transitions automatically. Proper ARIA attributes for accessibility. Industry-standard pattern."

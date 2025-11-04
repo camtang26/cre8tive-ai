@@ -1,3 +1,139 @@
+# 2025-11-03 – Studios Workflow Flex Section (Codex Session B)
+
+## Summary
+- Created `StudiosWorkflowSection` featuring the “Start Anywhere. Finish Strong.” copy cluster, embedded BriefingEngine YouTube workflow video, and three workflow steps that reuse caption phrasing exactly as provided.
+- Applied premium glassmorphism frame consistent with locked foundation (gradient border, blur, noise) while wiring `data-motion="workflow-*"` hooks for GSAP.
+- Integrated the section into `src/pages/Studios.tsx` after the production stack module; copy audit confirms no additional text outside the deck.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Needs DevTools MCP viewport captures (1707×898, 1920×1080) to validate spacing around the video embed and timeline rail.
+- YouTube embed relies on external content; confirm final hosting/branding before launch.
+
+## Follow-ups
+- Capture viewport results, adjust spacing if needed, and log GSAP animation intentions in `_MEMO`/`REPORT` once motion brief is ready.
+- Confirm whether the workflow video requires a modal transcript or additional accessibility hooks.
+
+# 2025-11-03 – Studios Portfolio Section (Codex Session B)
+
+## Summary
+- Implemented `StudiosPortfolioSection` (`src/components/studios/StudiosPortfolioSection.tsx`) delivering the “Judge Yourself” six-card gallery with gradient media frames, hover metadata trays, and GSAP-ready hooks (`data-motion="portfolio*"`).
+- Integrated section into `src/pages/Studios.tsx` behind `FadeIn`, keeping legacy modules in place until the broader rebuild replaces them.
+- Reserved cinematic hover overlays (`ArrowUpRight`, `Play` badges) and focus-visible treatments so motion team can add scale/tilt timelines without reworking markup.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Poster assets are still gradient placeholders; real footage/thumbs needed before launch to avoid repetition.
+- Chrome DevTools MCP viewport captures (1707×898, 1920×1080) still pending; spacing tweaks may be required once captured.
+
+## Follow-ups
+- Capture viewport screenshots via MCP tooling, note spacing observations in `_MEMO`, and feed adjustments into PLAN before moving to Section 4.
+- Align with Session A on shared ambient particle layer so hero → challenge → portfolio transition reads cohesive.
+
+# 2025-11-03 – Hero Video Prototypes (Codex Session 2)
+
+## Summary
+- Implemented premium hero experiences for Studios and Conversational AI using dark-gradient video backgrounds, multi-layer overlays, and GSAP entrance timelines.
+- Added reusable components `StudiosHeroPrototype` and `ConversationalHeroPrototype` (`src/components/hero-prototypes/*`) featuring autoplay-gated video (IntersectionObserver + reduced-motion fallback), CTA pairs, metrics rows, and interactive micro-interactions (tilt and reactive spotlight).
+- Created `/hero-prototype-demo` (`src/pages/HeroPrototypeDemo.tsx`) for comparison and documented execution in `docs/prototypes/hero-video-prototypes-2025-11-03.md`.
+- `npm run build` passes with vendor bundle at 749 kb / 900 kb.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Currently using placeholder stock footage; final cinematic loops will be required for production.
+- Pointer-based interactions rely on modern pointer events—verify touch devices degrade gracefully.
+
+## Follow-ups
+- Swap in final brand-approved video loops (≤10 s, ≤10 MB) and optimize encoding (H.265/VP9).
+- Hook hero CTAs into analytics once event schema is confirmed.
+- Capture MCP viewport screenshots (1707×898 & 1920×1080) for stakeholder approval.
+
+# 2025-11-03 – Studios Hero Prototypes (Codex)
+
+## Summary
+- Implemented five radically different Studios hero explorations, all using the Film Noir gradient and premium glass system with the existing Vimeo video (1051821551):
+  1) Cinematic Spotlight — spotlight beam + vignette, offset glass card, metric chips.
+  2) Motion Canvas — animated gradient mesh as kinetic layer, parallax, magnetic CTA.
+  3) Studio Reel — monitor frame with scanlines and faux editing UI panels.
+  4) Liquid Gold Flow — flowing gold overlays via layered gradients, asymmetric composition.
+  5) Immersive Portal — depth-stacked glass cards that reveal forward on scroll.
+- Added shared tokens in `StudioHeroShared.tsx` and a demo page at `/studios-hero-prototypes-codex`.
+
+## Verification
+- `npm run build` ✅ (vendor ~749kb/900kb).
+
+## Risks
+- Motion layers are intentionally subtle; confirm balance on calibrated displays.
+- Mobile behavior is basic for the demo; production variants may need tighter typography scale and video poster fallbacks.
+
+## Follow-ups
+- Wire analytics for primary/secondary CTAs.
+- Capture MCP viewport screenshots at 1707×898 and 1920×1080 for each variant.
+- Swap in final brand video loops if different from 1051821551.
+
+# 2025-11-03 – Documentation Canon Realignment (Codex Session 2)
+
+## Summary
+- Reviewed the November 3, 2025 documentation suite (`docs/bmm-index.md`, Current Architecture, Development Guide, Component Catalog, Documentation Freshness Report, Epic tech specs) to establish the new canonical understanding of the project.
+- Updated `.codex/_MEMO.md` with refreshed focus anchors, decisions, opportunities backlog, research notes, and historical log entries reflecting the new documentation baseline.
+- Reorganized `.codex/PLAN.md` so the documentation realignment plan leads, and all prior feature/copy plans are clearly archived as paused until reactivation.
+
+## Verification
+- Manual documentation audit; no code executed. (References captured in `_MEMO` research notes.)
+
+## Risks
+- UI has not been revalidated since pausing animation work; a quick MCP/Lighthouse sweep remains outstanding after documentation updates.
+- Legacy plan sections may still contain actionable items—need explicit stakeholder confirmation before reactivating to avoid misalignment with the new canon.
+
+## Follow-ups
+- Update `TASK.md` to reflect which backlog items remain active vs. paused once documentation sync is signed off.
+- Run a light validation loop (Chrome DevTools MCP + Lighthouse) to ensure current production experience matches documented expectations.
+- Decide which archived plans (responsive optimization, copy overhaul) to revive next and log the decision in PLAN/REPORT when ready.
+
+# 2025-11-03 – Codex Video Placeholder Prototypes (Codex Session 2)
+
+## Summary
+- Captured 2025 guidance on glassmorphism, accessibility, and React + GSAP integration (Archon NN/g article, Context7 `@gsap/react` docs, Nov 2025 web trends) to ground a Codex-built prototype set matching Epic 2/3 needs.
+- Implemented Codex variants for Minimal, Premium Glass, and Bold Cinematic placeholders (`src/components/video-placeholders/codex/*`) with `useGSAP`-scoped ScrollTrigger, persistent play affordances, solid fallbacks for browsers without `backdrop-filter`, reduced-motion awareness, and pointer-driven cinematic spotlight.
+- Updated `/src/pages/VideoPlaceholderDemo.tsx` to show Claude Code vs Codex implementations side-by-side for each option, highlighting stylistic/technical differences while reusing shared props and hooks.
+- Verified build health via `npm run build` (vendor bundle 749 kb / 900 kb cap) to confirm new components integrate cleanly with existing stack.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Demo comparison page still relies on `alert` for interactions; ensure this is swapped for non-blocking telemetry before productionizing.
+- Pointer spotlight uses modern pointer events; older assistive technology fallback relies on consistent keyboard focus styling—monitor during accessibility review.
+
+## Follow-ups
+- Capture Chrome DevTools MCP screenshots showcasing both prototype sets at 1707×898 and 1920×1080 to document visual parity.
+- Align with Cameron on chosen foundation (Claude vs Codex variant per option) before promoting into Epic 2/3 story breakdown.
+
+# 2025-11-03 – Codex Color Palette Prototypes (Codex Session 2)
+
+## Summary
+- Conducted November 2025 research sweep (luxury/interior trend boards, AI/SaaS color guides) and translated findings into four Codex palette options each for Studios and Conversational AI.
+- Added data modules (`src/data/palettes/{claude,codex}.ts`) plus reusable `PaletteCard` component and comparison page (`/color-palette-demo`) so Cameron can review Claude vs Codex palettes side-by-side.
+- Authored `docs/prototypes/codex-color-palettes-2025.md` summarizing the new palettes with research citations and implementation pointers.
+- Validated build after additions (`npm run build`) — vendor bundle remains 749 kb (≤900 kb budget).
+
+## Verification
+- `npm run build`
+
+## Risks
+- Palette demo uses research reference labels rather than direct citations inside UI; ensure final documentation captures exact sources when locking foundation.
+- Accessibility depends on the recorded color pairings; any palette edits must re-run contrast checks before adoption.
+
+## Follow-ups
+- Await Cameron’s selection of one Studios palette + one Conversational AI palette to lock in `foundation-locked.md`.
+- Once locked, push palette tokens into hero prototypes (Sprint 2) and update Tailwind config / theme utilities if needed.
+
 # 2025-10-09 – Briefing Process Flow Update
 
 ## Summary
@@ -162,3 +298,34 @@
 
 ## Follow-ups
 - Populate each source entry with actual files and summaries; align with analytics team to schedule quarterly metric audits.
+# 2025-11-03 – Studios Standards Filter Section (Codex Session B)
+
+## Summary
+- Implemented `StudiosStandardsSection` using the exact copy deck headline and paragraphs to act as the qualification gate.
+- Wrapped messaging in a premium glass shell with cyan/gold ambient lighting and `data-motion="standards-*"` hooks so GSAP can choreograph entrances later.
+- Inserted the section after the workflow block on the Studios page; no extra text or badges were added beyond the approved copy.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Needs viewport screenshot pass (1707×898, 1920×1080) to confirm breathing room around the enlarged frame.
+
+## Follow-ups
+- Document intended motion cues (fade/scale) for the GSAP team once viewport QA completes.
+# 2025-11-03 – Studios Platform Demo Section (Codex Session B)
+
+## Summary
+- Implemented `StudiosPlatformDemoSection` to present the “Six Formats. One Production.” copy with three aspect-specific media frames that hint at YouTube, Instagram, and TikTok deliverables without adding visible text beyond the copy deck.
+- Each frame uses gradient placeholders, glass depth, and `data-motion="platform-demo-*"` hooks so GSAP can choreograph platform reveals later; platform names are sr-only for accessibility compliance.
+- Integrated directly after the standards gate on the Studios page.
+- Implemented a horizontal depth carousel: the 16:9 frame stays centered in front while the other formats sit offset behind it; clicking any card rotates the order so the selected format moves into the lead. Mobile retains the stacked presentation.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Requires MCP viewport capture to confirm spacing and ensure the taller 9:16 frame doesn’t compress adjacent copy on narrow breakpoints.
+
+## Follow-ups
+- Document intended animation sequencing (stagger order, parallax ideas) in `_MEMO`/GSAP brief after viewport QA.

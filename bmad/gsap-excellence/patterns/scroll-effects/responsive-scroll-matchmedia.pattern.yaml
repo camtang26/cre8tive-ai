@@ -1,0 +1,161 @@
+id: pattern-responsive-scroll-matchmedia-2025
+name: "Responsive Scroll Animations with matchMedia"
+category: "scroll-effects"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: false
+is_2025_standard: true
+description: "Create different scroll-triggered animations for desktop vs mobile using ScrollTrigger.matchMedia. Animations automatically adapt to viewport size and are cleaned up when media queries change. Essential for responsive scroll experiences."
+inspiration_source: "GSAP Official ScrollTrigger Documentation"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollTrigger/static.matchMedia()"
+source_citation: "Archon MCP: gsap.com official docs (source_id: 6a6860cfc96e173b)"
+performance_notes: "matchMedia automatically cleans up ScrollTriggers when breakpoints change. No manual cleanup needed. saveStyles() preserves inline styles across breakpoints."
+accessibility_notes: "Pair with prefers-reduced-motion check - can add as another media query"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Save inline styles before matchMedia changes them
+  // (optional but prevents style leakage between breakpoints)
+  ScrollTrigger.saveStyles(".mobile, .desktop");
+
+  // Different ScrollTrigger setups for various screen sizes
+  ScrollTrigger.matchMedia({
+
+    // Desktop (min-width: 800px)
+    "(min-width: 800px)": function() {
+      // Desktop-specific scroll animations
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".section",
+          scrub: 1,       // Smooth scrubbing
+          end: "200%",    // Longer scroll distance
+          pin: true       // Pin section while scrolling
+        }
+      });
+
+      tl.to(".desktop", { scale: 2, rotation: 360 })
+        .to(".desktop", { scale: 1 });
+    },
+
+    // Mobile (max-width: 799px)
+    "(max-width: 799px)": function() {
+      // Mobile-specific scroll animations (simpler, faster)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".section",
+          scrub: 0.5,     // Faster scrubbing for mobile
+          end: "150%",    // Shorter scroll distance
+          pin: true
+        }
+      });
+
+      tl.to(".mobile", { scale: 1.5, rotation: 180 })
+        .to(".mobile", { scale: 1 });
+    },
+
+    // Tablet (optional middle ground)
+    "(min-width: 600px) and (max-width: 799px)": function() {
+      // Tablet-specific animations
+      gsap.to(".tablet", {
+        scrollTrigger: {
+          trigger: ".section",
+          scrub: 0.75,
+          pin: true
+        },
+        scale: 1.75,
+        rotation: 270
+      });
+    },
+
+    // All breakpoints (always active)
+    "all": function() {
+      // ScrollTriggers created here aren't tied to a breakpoint
+      // They persist across all screen sizes
+      gsap.to(".persistent-element", {
+        scrollTrigger: {
+          trigger: ".footer",
+          start: "top center"
+        },
+        opacity: 1
+      });
+    }
+
+  });
+
+with_prefers_reduced_motion: |
+  // Combine matchMedia with accessibility
+  ScrollTrigger.matchMedia({
+    // Reduced motion (accessibility first!)
+    "(prefers-reduced-motion: reduce)": function() {
+      // Instant reveals, no scrubbing
+      gsap.set(".animated-element", { opacity: 1, scale: 1 });
+    },
+
+    // Desktop + no motion preference
+    "(min-width: 800px) and (prefers-reduced-motion: no-preference)": function() {
+      // Full desktop animations
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: ".section", scrub: 1, pin: true }
+      });
+      tl.to(".desktop", { scale: 2, rotation: 360 });
+    },
+
+    // Mobile + no motion preference
+    "(max-width: 799px) and (prefers-reduced-motion: no-preference)": function() {
+      // Simplified mobile animations
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: ".section", scrub: 0.5, pin: true }
+      });
+      tl.to(".mobile", { scale: 1.5 });
+    }
+  });
+
+react_usage: |
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function ResponsiveScrollSection() {
+    useLayoutEffect(() => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      ScrollTrigger.saveStyles(".mobile, .desktop");
+
+      const mm = ScrollTrigger.matchMedia({
+        "(min-width: 800px)": () => {
+          // Desktop animations
+          gsap.to(".desktop", {
+            scrollTrigger: { trigger: ".section", scrub: 1, pin: true },
+            scale: 2
+          });
+        },
+        "(max-width: 799px)": () => {
+          // Mobile animations
+          gsap.to(".mobile", {
+            scrollTrigger: { trigger: ".section", scrub: 0.5, pin: true },
+            scale: 1.5
+          });
+        }
+      });
+
+      // Cleanup on unmount
+      return () => mm.revert();
+    }, []);
+
+    return <section className="section">{/* content */}</section>;
+  }
+
+created_date: "2025-11-03"
+tags: ["scroll", "scrolltrigger", "responsive", "matchmedia", "desktop", "mobile", "accessibility"]
+framework: "vanilla"
+use_cases:
+  - "Responsive hero sections"
+  - "Different mobile vs desktop scroll experiences"
+  - "Tablet-specific animations"
+  - "Accessibility-first responsive design"
+  - "Multi-device scroll narratives"
+why_premium: "matchMedia is the official GSAP solution for responsive scroll animations. Automatic cleanup prevents memory leaks. saveStyles prevents style conflicts. Essential for production responsive sites."

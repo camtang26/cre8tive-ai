@@ -1,0 +1,302 @@
+id: pattern-scrollsmoother-video-scrub-2025
+name: "ScrollSmoother with Scroll-Linked Video"
+category: "premium-showcases"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger", "ScrollSmoother"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "ScrollSmoother was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Scrub through video frames as user scrolls, combined with ScrollSmoother's buttery smooth scrolling. Video playback syncs to scroll progress. Premium effect now FREE! Perfect for product reveals and storytelling."
+inspiration_source: "Apple product pages, GSAP ScrollSmoother documentation, Codrops video scrub tutorials"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollSmoother"
+source_citation: "Archon MCP: gsap.com official docs (source_id: b9f6b322298feb21)"
+performance_notes: "Video must be encoded for scrubbing (short GOP, all I-frames ideal). Use poster frame for initial load. 60fps on desktop achievable, 30fps acceptable on mobile. preload='metadata' recommended."
+accessibility_notes: "Disable for prefers-reduced-motion - show static poster frame. Provide play/pause controls for users who prefer standard video playback."
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother'; // FREE in 3.13+!
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  // HTML structure required:
+  // <div id="smooth-wrapper">
+  //   <div id="smooth-content">
+  //     <section id="video-section" style="height: 300vh;">
+  //       <video id="scroll-video" preload="metadata" muted playsinline>
+  //         <source src="product-reveal.mp4" type="video/mp4">
+  //       </video>
+  //     </section>
+  //   </div>
+  // </div>
+
+  function initVideoScrub() {
+    // Check accessibility preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Show static poster, disable scrolling video
+      console.log('Video scrubbing disabled for accessibility');
+      return;
+    }
+
+    // Create ScrollSmoother FIRST (required for smooth experience)
+    const smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 2,        // Buttery smooth catch-up
+      effects: true,    // Enable data-speed parallax
+      smoothTouch: 0.1  // Mobile support
+    });
+
+    // Get video element
+    const video = document.querySelector('#scroll-video');
+
+    // Wait for video metadata to load
+    video.addEventListener('loadedmetadata', () => {
+      // Pin video section and scrub through frames
+      ScrollTrigger.create({
+        trigger: '#video-section',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.5,  // Smooth scrubbing
+        pin: '#scroll-video',  // Keep video in view
+        onUpdate: (self) => {
+          // Sync video currentTime to scroll progress
+          video.currentTime = video.duration * self.progress;
+        }
+      });
+    });
+
+    return { smoother, video };
+  }
+
+  // Execute on page load
+  window.addEventListener('load', initVideoScrub);
+
+html_structure: |
+  <!DOCTYPE html>
+  <html>
+  <body>
+    <!-- ScrollSmoother wrapper structure -->
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+
+        <!-- Tall section for scroll-triggered video -->
+        <section id="video-section" style="height: 300vh; position: relative;">
+
+          <!-- Video element -->
+          <video
+            id="scroll-video"
+            preload="metadata"
+            muted
+            playsinline
+            poster="poster-frame.jpg"
+            style="position: sticky; top: 0; width: 100%; height: 100vh; object-fit: cover;"
+          >
+            <source src="product-reveal.mp4" type="video/mp4">
+            Your browser does not support video.
+          </video>
+
+        </section>
+
+        <!-- Content after video -->
+        <section style="padding: 100px 20px;">
+          <h2>Product Details</h2>
+          <p>Content flows naturally after video section...</p>
+        </section>
+
+      </div>
+    </div>
+
+    <style>
+      * { margin: 0; padding: 0; }
+      body { overflow-x: hidden; }
+    </style>
+  </body>
+  </html>
+
+advanced_effects: |
+  // Add parallax layers behind video for depth
+  <div data-speed="0.5" class="video-bg-layer">
+    <div class="gradient-overlay"></div>
+  </div>
+
+  // Add text reveals synchronized with video progress
+  ScrollTrigger.create({
+    trigger: '#video-section',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 0.5,
+    onUpdate: (self) => {
+      video.currentTime = video.duration * self.progress;
+
+      // Reveal text at 50% progress
+      if (self.progress > 0.5) {
+        gsap.to('.reveal-text', { opacity: 1, y: 0 });
+      }
+    }
+  });
+
+  // Add velocity-based motion blur (advanced)
+  ScrollSmoother.create({
+    wrapper: '#smooth-wrapper',
+    content: '#smooth-content',
+    smooth: 2,
+    onUpdate: (self) => {
+      const velocity = Math.abs(self.getVelocity());
+      const blur = gsap.utils.mapRange(0, 1000, 0, 8, velocity);
+      video.style.filter = `blur(${blur}px)`;
+    }
+  });
+
+react_usage: |
+  import { useLayoutEffect, useRef } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger, ScrollSmoother } from 'gsap/all';
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  function VideoScrubComponent() {
+    const videoRef = useRef(null);
+
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      // Create smoother
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 2,
+        effects: true
+      });
+
+      // Setup video scrubbing
+      const video = videoRef.current;
+      video.addEventListener('loadedmetadata', () => {
+        ScrollTrigger.create({
+          trigger: '#video-section',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.5,
+          pin: video,
+          onUpdate: (self) => {
+            video.currentTime = video.duration * self.progress;
+          }
+        });
+      });
+
+      // Cleanup
+      return () => {
+        smoother.kill();
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, []);
+
+    return (
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <section id="video-section" style={{ height: '300vh' }}>
+            <video
+              ref={videoRef}
+              preload="metadata"
+              muted
+              playsInline
+              poster="/poster.jpg"
+              style={{ position: 'sticky', top: 0, width: '100%', height: '100vh' }}
+            >
+              <source src="/product-reveal.mp4" type="video/mp4" />
+            </video>
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+nextjs_usage: |
+  'use client'; // Next.js App Router
+
+  import { useLayoutEffect, useRef } from 'react';
+  import gsap from 'gsap/dist/gsap'; // SSR-safe import
+  import { ScrollTrigger, ScrollSmoother } from 'gsap/dist/ScrollTrigger'; // SSR-safe
+
+  export default function VideoScrubPage() {
+    const videoRef = useRef(null);
+
+    useLayoutEffect(() => {
+      // SSR safety check
+      if (typeof window === 'undefined') return;
+
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 2
+      });
+
+      const video = videoRef.current;
+      video?.addEventListener('loadedmetadata', () => {
+        ScrollTrigger.create({
+          trigger: '#video-section',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.5,
+          pin: video,
+          onUpdate: (self) => {
+            video.currentTime = video.duration * self.progress;
+          }
+        });
+      });
+
+      return () => {
+        smoother?.kill();
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, []);
+
+    return (
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <section id="video-section" style={{ height: '300vh' }}>
+            <video ref={videoRef} preload="metadata" muted playsInline poster="/poster.jpg">
+              <source src="/product-reveal.mp4" type="video/mp4" />
+            </video>
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+video_encoding_tips: |
+  // For best scrubbing performance, encode video with:
+  // - All I-frames (no B/P frames): -g 1
+  // - Lower resolution for web: 1920x1080 or 1280x720
+  // - H.264 profile for compatibility
+
+  // FFmpeg command for scrub-friendly video:
+  ffmpeg -i input.mp4 -vf scale=1920:1080 -c:v libx264 -g 1 -preset slow -crf 20 output.mp4
+
+  // Tips:
+  // - Keep duration under 10 seconds for smooth scrubbing
+  // - Use poster frame for initial load (faster perceived performance)
+  // - Consider WebM format for Chrome/Firefox (better compression)
+
+created_date: "2025-11-03"
+tags: ["scrollsmoother", "video-scrub", "scroll-linked", "premium", "gsap-3.13", "parallax", "storytelling"]
+framework: "vanilla"
+use_cases:
+  - "Product reveal videos (Apple-style)"
+  - "Storytelling narratives"
+  - "Portfolio showcases"
+  - "Brand identity videos"
+  - "Interactive documentaries"
+why_premium: "ScrollSmoother was $99/year premium plugin - now FREE in 3.13+! Combines buttery smooth scrolling with video scrubbing for cinematic effects. Industry-leading smooth scroll + video sync. Creates premium product reveal experiences."

@@ -1,0 +1,107 @@
+id: pattern-scroll-snap-sections-2025
+name: "Scroll-Snap Sections with GSAP Enhancements"
+category: "interactive"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger"]
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Combine CSS scroll-snap with GSAP animations for smooth full-page scrolling. Each section snaps into place with coordinated animations. Modern alternative to fullPage.js."
+inspiration_source: "Modern full-page scroll sites"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollTrigger"
+source_citation: "Scroll-snap + GSAP integration patterns"
+performance_notes: "CSS scroll-snap is native and performant. GSAP adds polish with animations on snap."
+accessibility_notes: "Ensure keyboard navigation works. Respect prefers-reduced-motion."
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function scrollSnapSections() {
+    const sections = gsap.utils.toArray('.snap-section');
+
+    sections.forEach((section, i) => {
+      // Animate content when section enters
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 20%',
+        end: 'bottom 80%',
+        onEnter: () => {
+          gsap.from(section.querySelectorAll('.content'), {
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out'
+          });
+        },
+        once: true // Only animate once
+      });
+    });
+  }
+
+  window.addEventListener('load', scrollSnapSections);
+
+css_setup: |
+  .snap-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+  }
+
+  .snap-section {
+    height: 100vh;
+    scroll-snap-align: start;
+  }
+
+react_usage: |
+  'use client';
+
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  export function SnapSections({ sections }) {
+    useLayoutEffect(() => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      sections.forEach((_, i) => {
+        ScrollTrigger.create({
+          trigger: `.snap-section-${i}`,
+          start: 'top 20%',
+          onEnter: () => {
+            gsap.from(`.snap-section-${i} .content`, {
+              opacity: 0,
+              y: 50,
+              duration: 0.8,
+              stagger: 0.2
+            });
+          },
+          once: true
+        });
+      });
+
+      return () => ScrollTrigger.getAll().forEach(st => st.kill());
+    }, [sections]);
+
+    return (
+      <div className="snap-container">
+        {sections.map((section, i) => (
+          <section key={i} className={`snap-section snap-section-${i}`}>
+            <div className="content">{section.content}</div>
+          </section>
+        ))}
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["scroll-snap", "full-page", "sections", "scrolltrigger", "modern"]
+framework: "vanilla"
+use_cases:
+  - "Full-page scroll sites"
+  - "Portfolio showcases"
+  - "Product presentations"
+why_premium: "Native scroll-snap + GSAP creates modern full-page experience. More performant than libraries like fullPage.js."

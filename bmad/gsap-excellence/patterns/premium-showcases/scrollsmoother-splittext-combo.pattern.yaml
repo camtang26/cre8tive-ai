@@ -1,0 +1,72 @@
+id: pattern-scrollsmoother-splittext-combo-2025
+name: "ScrollSmoother + SplitText Parallax Text"
+category: "premium-showcases"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger", "ScrollSmoother", "SplitText"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "ScrollSmoother + SplitText were $198/year combined (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Combine ScrollSmoother's buttery scrolling with SplitText character parallax. Individual characters move at different speeds creating dynamic text depth. Was $198/year total - now FREE!"
+inspiration_source: "Premium typography sites"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollSmoother + SplitText"
+source_citation: "Combined premium plugin showcases (BOTH FREE in 3.13+!)"
+performance_notes: "SplitText + ScrollSmoother optimized for 60fps. GPU-accelerated character transforms."
+accessibility_notes: "Show static text for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother'; // FREE in 3.13+!
+  import { SplitText } from 'gsap/SplitText'; // FREE in 3.13+!
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
+
+  function scrollSmootherSplitText() {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    // Initialize ScrollSmoother
+    const smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 2,
+      effects: true
+    });
+
+    // Split headline into characters
+    const headline = document.querySelector('.parallax-text');
+    const split = new SplitText(headline, { type: "chars" });
+
+    // Each character moves at slightly different speed
+    split.chars.forEach((char, i) => {
+      gsap.to(char, {
+        y: () => -100 - (i * 5), // Each char moves different amount
+        ease: 'none',
+        scrollTrigger: {
+          trigger: headline,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.5
+        }
+      });
+    });
+  }
+
+  window.addEventListener('load', scrollSmootherSplitText);
+
+created_date: "2025-11-03"
+tags: ["scrollsmoother", "splittext", "combo", "premium", "parallax-text", "typography"]
+framework: "vanilla"
+use_cases:
+  - "Premium hero headlines"
+  - "Typography showcases"
+  - "Creative agency sites"
+why_premium: "ScrollSmoother ($99/yr) + SplitText ($99/yr) = $198/year - now BOTH FREE! Character-level parallax creates stunning typography effects."

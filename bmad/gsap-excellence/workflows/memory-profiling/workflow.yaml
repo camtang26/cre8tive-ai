@@ -1,0 +1,74 @@
+# Memory Profiling Workflow - GSAP Excellence Engine
+# Heap snapshot-based memory leak detection for SPAs
+# Agent: Tech Director
+# Complexity: Standard
+
+name: memory-profiling
+description: "Systematic memory leak detection using Chrome DevTools heap snapshots. Tests navigation cycles to detect leaks from uncleaned GSAP animations, ScrollTriggers, and DOM nodes. Generates memory health report."
+author: "GSAP Excellence Engine - Phase 6"
+version: "1.0.0"
+complexity: "standard"
+
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+mcp_servers:
+  chrome_devtools:
+    tools: ["navigate_page", "evaluate_script", "take_screenshot"]
+    purpose: "Heap snapshot capture, DOM inspection, navigation simulation"
+
+  archon:
+    tools: ["rag_search_knowledge_base", "rag_search_code_examples"]
+    purpose: "Memory leak patterns, cleanup strategies"
+
+agents:
+  primary: "gsap-tech-director"
+
+installed_path: "{module_root}/workflows/memory-profiling"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+default_output_file: "{output_folder}/memory-profile-report-{{date}}.md"
+
+inputs:
+  page_url:
+    description: "SPA page URL to profile (must support navigation)"
+    required: true
+
+  navigation_route:
+    description: "Route to navigate to/from (e.g., /about) for leak testing"
+    required: true
+
+  navigation_cycles:
+    description: "Number of navigation cycles (default: 5)"
+    required: false
+    default: 5
+
+  has_gsap_animations:
+    description: "Does page have GSAP animations? (yes/no)"
+    required: true
+
+outputs:
+  memory_report:
+    format: "Heap size before/after, detached DOM nodes, memory growth, pass/fail"
+
+  leak_diagnosis:
+    format: "Suspected memory leak sources (if any)"
+
+  cleanup_recommendations:
+    format: "Code fixes for detected leaks"
+
+  memory_health_status:
+    format: "HEALTHY (no leaks) or LEAKING (issues detected)"
+
+estimated_duration: "5-10 minutes"
+
+benchmarks:
+  heap_growth_acceptable: "< 5MB increase after 5 navigation cycles"
+  detached_nodes_acceptable: "< 10 detached DOM nodes"
+  memory_health_threshold: "Both heap and detached node limits passed"

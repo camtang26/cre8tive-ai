@@ -1,0 +1,111 @@
+# Universal Skill Creation Workflow
+name: create-skill
+description: "Create production-ready Claude Skills with test-driven development methodology. Supports both Type 1 (procedural/discipline) and Type 2 (domain expertise) skills. Interactive assessment determines approach, automated research with ruthless distillation, multi-model testing, and official Anthropic compliance (<500 lines, progressive disclosure, CSO optimization)."
+author: "BMad Builder"
+version: "2.0.0"
+
+# Critical variables from config
+config_source: "{project-root}/bmad/bmb/config.yaml"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+# Workflow configuration
+installed_path: "{project-root}/bmad/bmb/skill-factory/workflows/create-skill"
+template: false  # Action workflow - no template.md
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+# Type classification variables (set during workflow execution)
+skill_type: ""  # "type1" or "type2" - determined by interactive assessment
+skill_name: ""  # User-provided skill name (kebab-case)
+skill_description: ""  # User-provided initial description
+clone_source: ""  # Path to existing skill if cloning/adapting
+
+# Requirements gathering configuration (Step 0.5)
+requirements_context: ""  # Comprehensive requirements from Step 0.5 iterative questioning
+requirements_document_path: ""  # Path to saved requirements document
+
+# Research configuration (Type 2 only)
+research_enabled: false  # Set to true for Type 2 skills
+research_areas: []  # List of areas to research (e.g., ["performance", "scrolltrigger", "cleanup"])
+total_kb_token_limit: 40000  # Maximum total KB tokens across all reference docs (agents distill to fit within this)
+
+# Testing configuration
+test_scenario_count_min: 3
+test_scenario_count_max: 5
+test_scenarios: []  # Populated during workflow
+baseline_results: {}  # Results from testing without skill
+skill_enabled_results: {}  # Results from testing with skill
+
+# Iteration configuration
+max_auto_iterations: 10  # Safety limit for automatic iteration
+current_iteration: 0
+iteration_history: []  # Track iteration progress
+
+# Validation configuration
+skill_md_line_limit: 500  # Hard limit per official requirements
+kb_reference_section_token_limit: 150  # Total tokens for all KB pointers
+kb_reference_pointer_word_limit: 20  # Max words per individual pointer
+multi_model_testing_required: true  # Test on Haiku, Sonnet, Opus
+models_to_test: ["haiku", "sonnet", "opus"]
+
+# Output configuration
+save_location: ""  # User chooses: personal (~/.claude/skills/) or project (.claude/skills/)
+
+# Anthropic tooling integration
+use_anthropic_init_skill: true  # Use official init_skill.py if available
+use_anthropic_package_skill: true  # Use official package_skill.py if available
+
+# Template and guide paths
+templates:
+  type_assessment: "{installed_path}/templates/type-assessment.md"
+  requirements_template: "{installed_path}/templates/requirements-context-template.md"
+  skill_type1: "{installed_path}/templates/skill-template-type1.md"
+  skill_type2: "{installed_path}/templates/skill-template-type2.md"
+  pressure_scenario: "{installed_path}/templates/pressure-scenario.md"
+  implementation_scenario: "{installed_path}/templates/implementation-scenario.md"
+  reference_pointer: "{installed_path}/templates/reference-pointer.md"
+  quality_report: "{installed_path}/templates/quality-report.md"
+
+guides:
+  type_classification: "{installed_path}/guides/type-classification.md"
+  description_optimization: "{installed_path}/guides/description-optimization.md"
+  distillation_guide: "{installed_path}/guides/distillation-guide.md"
+  kb_integration: "{installed_path}/guides/kb-integration.md"
+  content_allocation: "{installed_path}/guides/content-allocation-guide.md"
+  official_requirements: "{installed_path}/guides/official-requirements.md"
+  universal_research_framing: "{installed_path}/guides/universal-research-framing.md"
+
+# Web bundle configuration (for distribution)
+web_bundle:
+  name: "create-skill"
+  description: "Universal skill creation workflow with test-driven development"
+  author: "BMad Builder"
+  instructions: "bmad/bmb/skill-factory/workflows/create-skill/instructions.md"
+  validation: "bmad/bmb/skill-factory/workflows/create-skill/checklist.md"
+  template: false
+
+  web_bundle_files:
+    - "bmad/bmb/skill-factory/workflows/create-skill/instructions.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/checklist.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/type-assessment.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/requirements-context-template.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/skill-template-type1.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/skill-template-type2.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/pressure-scenario.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/implementation-scenario.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/reference-pointer.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/templates/quality-report.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/guides/type-classification.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/guides/description-optimization.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/guides/distillation-guide.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/guides/kb-integration.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/guides/content-allocation-guide.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/guides/official-requirements.md"
+    - "bmad/bmb/skill-factory/workflows/create-skill/guides/universal-research-framing.md"
+
+# Progress tracking
+workflow_phase: "initialization"  # initialization, requirements_gathering, testing_setup, baseline_testing, research, creation, testing, refinement, finalization
+phases_completed: []

@@ -3,7 +3,7 @@ import { Volume2, VolumeX, Play, Pause } from "lucide-react"
 import { Button } from "../ui/button"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useToast } from "../ui/use-toast"
-import VimeoPlayer from "../video/VimeoPlayer"
+import VimeoPlayer from "../core/VimeoPlayer"
 
 interface VideoBackgroundProps {
   isMuted: boolean

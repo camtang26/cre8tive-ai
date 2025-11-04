@@ -30,8 +30,10 @@ mcp_servers:
     purpose: "Latest GSAP API documentation"
 
   perplexity:
-    tools: ["perplexity_research"]
+    tools: ["perplexity_reason"]
     purpose: "Premium animation examples and trends"
+    # NOTE: perplexity_research (deep research) DISABLED - extremely expensive and inefficient
+    # Using perplexity_reason for comprehensive analysis with better cost/quality ratio
 
   chrome_devtools:
     tools: ["take_screenshot", "list_console_messages", "performance_start_trace", "performance_stop_trace", "emulate_cpu"]

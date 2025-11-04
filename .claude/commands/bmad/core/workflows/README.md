@@ -10,10 +10,6 @@
 - Path: `bmad/core/workflows/party-mode/workflow.yaml`
 - Orchestrates group discussions between all installed BMAD agents, enabling natural multi-agent conversations
 
-**sync-runtime**
-- Path: `bmad/core/workflows/sync-runtime/workflow.yaml`
-- Sync bmad/ source files to .claude/commands/ runtime location with 3-way conflict detection and resolution options
-
 
 ## Execution
 

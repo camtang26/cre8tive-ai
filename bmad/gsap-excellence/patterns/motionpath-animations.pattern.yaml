@@ -1,0 +1,261 @@
+id: pattern-motionpath-animations-2025
+name: "MotionPath - Animate Along SVG Paths"
+category: "svg-animations"
+complexity: "medium-high"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["MotionPathPlugin"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Part of Club GreenSock ($99/year, now FREE in GSAP 3.13+!)"
+cost_note: "🎉 MotionPath was premium-only ($99/year), now COMPLETELY FREE in GSAP 3.13+ (late 2024)! This enables stunning path-following animations for everyone!"
+description: "Animate any element along a custom SVG path - perfect for orbital motion, custom trajectories, flying objects, and creative motion design. Formerly premium, now FREE!"
+year_introduced: 2015
+made_free: "2024 (GSAP 3.13)"
+is_modern: true
+is_2025_standard: true
+is_premium_feature: true
+is_wow_factor: true
+replaces: "Manual path calculations, CSS offset-path (limited browser support)"
+
+inspiration_source: "Apple product reveals, creative agency sites, game UI animations"
+performance_notes: "GPU-accelerated path following. 60fps even with complex curved paths."
+
+accessibility_notes: |
+  - Motion paths are decorative, don't convey critical info alone
+  - Respect prefers-reduced-motion (move directly to end)
+  - Ensure animated elements are keyboard accessible if interactive
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+"
+  edge: "90+"
+  mobile: "Full support"
+
+use_cases:
+  - "Flying/floating UI elements"
+  - "Product reveals following custom paths"
+  - "Orbital animations around points"
+  - "Character/object movement along routes"
+  - "Cursor trail effects"
+  - "Decorative particle paths"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+  gsap.registerPlugin(MotionPathPlugin);
+
+  // ✅ Animate element along SVG path (FREE in 3.13+!)
+  gsap.to("#element", {
+    motionPath: {
+      path: "#customPath",     // SVG path to follow
+      align: "#customPath",    // Align to path
+      autoRotate: true,        // Rotate to face direction
+      alignOrigin: [0.5, 0.5]  // Center point
+    },
+    duration: 3,
+    ease: "power1.inOut"
+  });
+
+circular_orbit: |
+  <div id="planet" class="w-8 h-8 bg-blue-500 rounded-full"></div>
+
+  <svg class="absolute inset-0 w-full h-full">
+    <path
+      id="orbit"
+      d="M 250,250 m -100,0 a 100,100 0 1,0 200,0 a 100,100 0 1,0 -200,0"
+      fill="none"
+      stroke="rgba(255,255,255,0.1)"
+      stroke-width="1"
+    />
+  </svg>
+
+  <script>
+  import { gsap } from 'gsap';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+  gsap.registerPlugin(MotionPathPlugin);
+
+  // Planet orbiting in circle (FREE!)
+  gsap.to("#planet", {
+    motionPath: {
+      path: "#orbit",
+      align: "#orbit",
+      autoRotate: true,
+      alignOrigin: [0.5, 0.5]
+    },
+    duration: 10,
+    repeat: -1,
+    ease: "none"  // Constant speed
+  });
+  </script>
+
+react_19_flying_element: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(MotionPathPlugin, useGSAP);
+
+  export default function FlyingIcon() {
+    const iconRef = useRef(null);
+    const pathRef = useRef(null);
+
+    useGSAP(() => {
+      // Fly along custom path (FREE in 3.13+!)
+      gsap.to(iconRef.current, {
+        motionPath: {
+          path: pathRef.current,
+          align: pathRef.current,
+          autoRotate: true,
+          start: 0,
+          end: 1
+        },
+        duration: 4,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true
+      });
+    }, { scope: iconRef });
+
+    return (
+      <>
+        <div ref={iconRef} className="absolute">
+          ✈️
+        </div>
+
+        <svg className="absolute inset-0 w-full h-full pointer-events-none">
+          <path
+            ref={pathRef}
+            d="M 100,300 Q 300,100 500,300 T 900,300"
+            fill="none"
+            stroke="rgba(0,0,0,0.1)"
+            strokeWidth="2"
+          />
+        </svg>
+      </>
+    );
+  }
+
+advanced_options: |
+  gsap.to("#element", {
+    motionPath: {
+      path: "#svgPath",
+      align: "#svgPath",
+      autoRotate: true,        // Rotate to face direction
+      alignOrigin: [0.5, 0.5], // Alignment point
+      start: 0,                // Start at beginning (0-1)
+      end: 1,                  // End at end (0-1)
+      offsetX: 50,             // Offset from path (pixels)
+      offsetY: -20
+    },
+    duration: 3
+  });
+
+raw_path_coordinates: |
+  // Use raw path string (no SVG needed!)
+  gsap.to("#element", {
+    motionPath: {
+      path: "M0,0 Q50,-50 100,0 T200,0",
+      autoRotate: true
+    },
+    duration: 2
+  });
+
+  // Or use coordinate array
+  gsap.to("#element", {
+    motionPath: {
+      path: [
+        {x: 0, y: 0},
+        {x: 100, y: 50},
+        {x: 200, y: 0},
+        {x: 300, y: 100}
+      ],
+      curviness: 1.5  // Smoothness of curve
+    },
+    duration: 3
+  });
+
+scroll_triggered_path: |
+  'use client';
+
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(MotionPathPlugin, ScrollTrigger, useGSAP);
+
+  export default function ScrollPathAnimation() {
+    const elementRef = useRef(null);
+    const pathRef = useRef(null);
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+      gsap.to(elementRef.current, {
+        motionPath: {
+          path: pathRef.current,
+          align: pathRef.current,
+          autoRotate: true
+        },
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1  // Tied to scroll position
+        }
+      });
+    }, { scope: containerRef });
+
+    return (
+      <div ref={containerRef} className="h-[300vh] relative">
+        <div ref={elementRef} className="fixed">🚀</div>
+        <svg className="fixed inset-0 w-full h-screen">
+          <path
+            ref={pathRef}
+            d="M 100,100 Q 400,300 700,100"
+            stroke="rgba(0,0,0,0.1)"
+            fill="none"
+          />
+        </svg>
+      </div>
+    );
+  }
+
+variations:
+  - name: "Orbital motion"
+    description: "Circular/elliptical paths with constant rotation"
+  - name: "Scroll-triggered path"
+    description: "Element follows path as user scrolls"
+  - name: "Multi-element path"
+    description: "Multiple elements following same path with stagger"
+  - name: "Reverse direction"
+    description: "Animate backwards along path"
+
+common_mistakes:
+  - "Path isn't valid SVG path syntax (won't work)"
+  - "Not registering MotionPathPlugin"
+  - "Forgetting autoRotate (element doesn't face direction)"
+  - "Complex paths perform poorly (simplify)"
+  - "alignOrigin incorrect (element positioned wrong)"
+
+tips:
+  - "Use autoRotate: true for natural motion"
+  - "Simplify SVG paths for better performance"
+  - "Use curviness parameter with coordinate arrays"
+  - "Combine with ScrollTrigger for scroll-driven paths"
+  - "Use offsetX/offsetY to fine-tune positioning"
+  - "Ease: 'none' for constant speed orbits"
+
+performance_optimization: |
+  // Simplify complex paths before animating
+  // Use will-change: transform
+  // Limit number of simultaneous path animations
+
+created_date: "2025-11-02"
+tags: ["motionpath", "premium-free", "svg", "path-animation", "wow-factor", "modern-2025", "was-paid", "orbital"]

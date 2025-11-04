@@ -1,0 +1,128 @@
+id: pattern-cart-drawer-entrance-2025
+name: "Cart/Drawer Multi-Layer Entrance"
+category: "loading-sequences"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: []
+premium_plugins_free: false
+is_wow_factor: true
+is_2025_standard: true
+description: "Sophisticated cart or drawer panel entrance with coordinated multi-layer staggers. Background slides in, close button fades, cart items cascade with individual staggers, and total scales into place. Each layer has precise timing for polished feel."
+inspiration_source: "Codrops - From Product to Cart Shopping Experience"
+source_url: "https://tympanus.net/codrops/2024/11/21/from-product-to-cart-adding-guiding-animations-to-the-shopping-experience"
+source_citation: "Archon MCP: Codrops tutorials (source_id: 7755050b8408ef57)"
+performance_notes: "GPU-accelerated transforms (xPercent, x, scale). Queries DOM elements dynamically to handle cart item count changes. 60fps on mid-range devices."
+accessibility_notes: "Provide instant reveal for prefers-reduced-motion"
+code_example: |
+  function cartAnimationEnter() {
+    const cart = document.querySelector('.cart');
+    const bg = cart.querySelector('.cart-background');
+    const innerBg = cart.querySelector('.cart-inner-bg');
+    const closeBtn = cart.querySelector('.cart-close');
+    const items = [...cart.querySelectorAll('.cart-item')]; // Dynamic query
+    const noProds = cart.querySelector('.cart-empty-state');
+    const total = cart.querySelector('.cart-total');
+
+    // Prepare initial states for items (dynamic count)
+    if (items.length > 0) {
+      gsap.set(items, { x: 30, autoAlpha: 0 });
+    }
+
+    // Build coordinated timeline with labels
+    const tl = gsap.timeline({
+      onStart: () => gsap.set(cart, { xPercent: 0 }) // Make visible
+    });
+
+    tl.addLabel('start');
+
+    // Layer 1: Background slides in (staggered for depth)
+    tl.to([bg, innerBg], {
+      xPercent: 0,
+      stagger: 0.1,
+      duration: 2.2,
+      ease: 'expo.inOut',
+    }, 'start');
+
+    // Layer 2: Close button fades in (coordinated timing)
+    tl.to(closeBtn, {
+      x: 0,
+      autoAlpha: 1,
+      duration: 1,
+      ease: 'power2.out',
+    }, 'start+=1.3'); // 1.3s after start label
+
+    // Layer 3: Cart items cascade (if any exist)
+    if (items.length > 0) {
+      tl.to(items, {
+        x: 0,
+        autoAlpha: 1,
+        stagger: 0.1, // Each item 0.1s apart
+        duration: 1,
+        ease: 'power2.out',
+      }, 'start+=1.4');
+    }
+
+    // Layer 3 (alt): Empty state (if no items)
+    if (noProds) {
+      tl.to(noProds, {
+        x: 0,
+        autoAlpha: 1,
+        duration: 1,
+        ease: 'power2.out',
+      }, 'start+=1.4');
+    }
+
+    // Layer 4: Total scales into place (final flourish)
+    tl.to(total, {
+      scale: 1,
+      autoAlpha: 1,
+      duration: 1,
+      ease: 'power2.out',
+    }, 'start+=1.6');
+
+    return tl;
+  }
+
+  // Execute when cart opens
+  document.querySelector('.open-cart-btn').addEventListener('click', () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Instant reveal
+      gsap.set('.cart', { xPercent: 0 });
+      gsap.set('.cart *', { x: 0, autoAlpha: 1, scale: 1 });
+    } else {
+      // Full multi-layer animation
+      cartAnimationEnter();
+    }
+  });
+
+react_usage: |
+  import { useGSAP } from '@gsap/react';
+
+  function Cart({ isOpen }) {
+    const { contextSafe } = useGSAP();
+
+    const enter = contextSafe(() => {
+      const items = [...document.querySelectorAll('.cart-item')];
+      // ... (same timeline logic as vanilla)
+    });
+
+    useEffect(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (isOpen && !prefersReducedMotion) enter();
+    }, [isOpen, enter]);
+
+    return <div className="cart">{/* cart UI */}</div>;
+  }
+
+created_date: "2025-11-03"
+tags: ["loading", "drawer", "cart", "multi-layer", "stagger", "e-commerce", "codrops"]
+framework: "vanilla"
+use_cases:
+  - "E-commerce cart panels"
+  - "Side navigation drawers"
+  - "Filter panels"
+  - "Settings sidebars"
+  - "Mobile menu slides"
+why_premium: "Multi-layer coordination with precise label-based timing creates polished, professional feel. Dynamic DOM querying handles changing cart states. Codrops-level sophistication."

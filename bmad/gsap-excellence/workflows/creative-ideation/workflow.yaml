@@ -29,8 +29,10 @@ mcp_servers:
     purpose: "Latest GSAP API capabilities and new plugins"
 
   perplexity:
-    tools: ["perplexity_research"]
+    tools: ["perplexity_reason"]
     purpose: "Award-winning animations, premium examples, industry trends"
+    # NOTE: perplexity_research (deep research) DISABLED - extremely expensive and inefficient
+    # Using perplexity_reason instead for comprehensive analysis with better cost/quality ratio
 
 # Agents involved
 agents:

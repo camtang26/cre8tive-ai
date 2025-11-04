@@ -1,0 +1,227 @@
+id: pattern-scrollsmoother-image-sequence-2025
+name: "ScrollSmoother with Image Sequence Animation"
+category: "premium-showcases"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger", "ScrollSmoother"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "ScrollSmoother was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Load image sequence (PNG/JPG frames) and scrub through on scroll. Combined with ScrollSmoother buttery smoothness. Premium effect FREE in 3.13+! Perfect for product 360° views and animations."
+inspiration_source: "Apple AirPods Pro site, GSAP ScrollSmoother documentation"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollSmoother"
+source_citation: "Archon MCP: gsap.com official docs (source_id: b9f6b322298feb21)"
+performance_notes: "Preload all frames for smooth scrubbing. Use canvas rendering for best performance. Keep frame count under 150 for memory efficiency. 60fps achievable on desktop, 30fps on mobile."
+accessibility_notes: "Provide static fallback image for prefers-reduced-motion. Show first and last frames for context."
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger, ScrollSmoother } from 'gsap/all';
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  function initImageSequence() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      console.log('Image sequence disabled for accessibility');
+      return;
+    }
+
+    // Create smoother
+    const smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 2
+    });
+
+    // Preload image sequence (001.png - 100.png)
+    const frameCount = 100;
+    const images = [];
+    const canvas = document.querySelector('#sequence-canvas');
+    const context = canvas.getContext('2d');
+
+    // Set canvas size
+    canvas.width = 1920;
+    canvas.height = 1080;
+
+    // Preload frames
+    let imagesLoaded = 0;
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new Image();
+      img.src = `frames/frame-${String(i).padStart(3, '0')}.png`;
+      img.onload = () => {
+        imagesLoaded++;
+        if (imagesLoaded === frameCount) {
+          console.log('All frames loaded');
+        }
+      };
+      images.push(img);
+    }
+
+    // Initial render
+    images[0].onload = () => {
+      context.drawImage(images[0], 0, 0, canvas.width, canvas.height);
+    };
+
+    // Scrub through frames
+    const animation = { frame: 0 };
+
+    gsap.to(animation, {
+      frame: frameCount - 1,
+      snap: 'frame',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#sequence-section',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.5,
+        pin: '#sequence-canvas',
+        onUpdate: () => {
+          const frameIndex = Math.round(animation.frame);
+          if (images[frameIndex] && images[frameIndex].complete) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(images[frameIndex], 0, 0, canvas.width, canvas.height);
+          }
+        }
+      }
+    });
+
+    return { smoother, animation };
+  }
+
+  window.addEventListener('load', initImageSequence);
+
+html_structure: |
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <section id="sequence-section" style="height: 300vh;">
+        <canvas
+          id="sequence-canvas"
+          style="position: sticky; top: 0; width: 100%; height: 100vh; object-fit: contain;"
+        ></canvas>
+      </section>
+
+      <section style="padding: 100px 20px;">
+        <h2>Product Details</h2>
+      </section>
+
+    </div>
+  </div>
+
+react_usage: |
+  import { useLayoutEffect, useRef } from 'react';
+  import gsap from 'gsap';
+  import { ScrollTrigger, ScrollSmoother } from 'gsap/all';
+
+  function ImageSequenceComponent() {
+    const canvasRef = useRef(null);
+
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 2
+      });
+
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+      const frameCount = 100;
+      const images = [];
+
+      canvas.width = 1920;
+      canvas.height = 1080;
+
+      for (let i = 1; i <= frameCount; i++) {
+        const img = new Image();
+        img.src = `/frames/frame-${String(i).padStart(3, '0')}.png`;
+        images.push(img);
+      }
+
+      images[0].onload = () => {
+        context.drawImage(images[0], 0, 0, canvas.width, canvas.height);
+      };
+
+      const animation = { frame: 0 };
+
+      gsap.to(animation, {
+        frame: frameCount - 1,
+        snap: 'frame',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#sequence-section',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.5,
+          pin: canvas,
+          onUpdate: () => {
+            const frameIndex = Math.round(animation.frame);
+            if (images[frameIndex]?.complete) {
+              context.clearRect(0, 0, canvas.width, canvas.height);
+              context.drawImage(images[frameIndex], 0, 0, canvas.width, canvas.height);
+            }
+          }
+        }
+      });
+
+      return () => {
+        smoother.kill();
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+    }, []);
+
+    return (
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <section id="sequence-section" style={{ height: '300vh' }}>
+            <canvas
+              ref={canvasRef}
+              style={{ position: 'sticky', top: 0, width: '100%', height: '100vh' }}
+            />
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+optimization_tips: |
+  // 1. Reduce frame count if possible (every 2nd or 3rd frame)
+  const frameCount = 50; // Instead of 100
+
+  // 2. Use WebP format for better compression
+  img.src = `frames/frame-${i.toString().padStart(3, '0')}.webp`;
+
+  // 3. Lazy load frames as user scrolls
+  ScrollTrigger.create({
+    trigger: '#sequence-section',
+    start: 'top bottom',
+    once: true,
+    onEnter: () => {
+      // Start preloading frames
+      preloadFrames();
+    }
+  });
+
+  // 4. Use lower resolution for mobile
+  const isMobile = window.innerWidth < 768;
+  const resolution = isMobile ? '720p' : '1080p';
+  img.src = `frames/${resolution}/frame-${i}.png`;
+
+created_date: "2025-11-03"
+tags: ["scrollsmoother", "image-sequence", "canvas", "premium", "gsap-3.13", "360-view", "product"]
+framework: "vanilla"
+use_cases:
+  - "Product 360° rotation views"
+  - "Character animation sequences"
+  - "Exploded product views"
+  - "Step-by-step process visualization"
+  - "Interactive storytelling"
+why_premium: "ScrollSmoother was $99/year premium - now FREE! Buttery smooth scrolling + canvas-based image sequence = cinematic product reveals. Industry standard for premium e-commerce and portfolio sites."

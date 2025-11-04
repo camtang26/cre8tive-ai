@@ -1,0 +1,181 @@
+id: pattern-drag-momentum-snap-2025
+name: "Draggable with Momentum and Snap"
+category: "interactive"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["Draggable", "InertiaPlugin"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Draggable + InertiaPlugin were $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Create draggable elements with physics-based momentum and magnetic snap points. Draggable tracks pointer, InertiaPlugin adds realistic deceleration, snap makes elements magnetically stick to grid/custom points. Was premium ($99/year each) - now FREE!"
+inspiration_source: "GSAP Official Draggable + Inertia Documentation"
+source_url: "https://gsap.com/docs/v3/Plugins/Draggable"
+source_citation: "GSAP official docs - Draggable + InertiaPlugin (FREE in 3.13+!)"
+performance_notes: "Uses transforms (GPU-accelerated). InertiaPlugin calculates momentum physics efficiently. 60fps dragging and momentum."
+accessibility_notes: "Provide keyboard controls (arrow keys) for draggable elements as alternative to mouse/touch"
+code_example: |
+  import gsap from 'gsap';
+  import { Draggable } from 'gsap/Draggable'; // FREE in 3.13+!
+  import { InertiaPlugin } from 'gsap/InertiaPlugin'; // FREE in 3.13+!
+
+  gsap.registerPlugin(Draggable, InertiaPlugin);
+
+  function createDraggableWithSnap() {
+    Draggable.create(".draggable-box", {
+      type: "x,y",          // Drag horizontally and vertically
+      edgeResistance: 0.65, // Resist edges (0-1, higher = more resistance)
+      bounds: ".container", // Keep within container
+      inertia: true,        // Enable momentum (InertiaPlugin - FREE!)
+
+      // Snap to grid points
+      snap: {
+        x: function(endValue) {
+          // Snap to 50px grid
+          return Math.round(endValue / 50) * 50;
+        },
+        y: function(endValue) {
+          return Math.round(endValue / 50) * 50;
+        }
+      },
+
+      // Callbacks for interactivity
+      onDragStart: function() {
+        console.log("Drag started");
+        this.target.style.cursor = "grabbing";
+      },
+
+      onDrag: function() {
+        // Called continuously while dragging
+        // this.x, this.y = current position
+      },
+
+      onDragEnd: function() {
+        console.log("Drag ended - momentum active");
+        this.target.style.cursor = "grab";
+      },
+
+      onThrowComplete: function() {
+        // Called after momentum finishes
+        console.log("Momentum complete, snapped to grid");
+      }
+    });
+  }
+
+  window.addEventListener('load', createDraggableWithSnap);
+
+custom_snap_points: |
+  // Snap to specific custom points (magnetic snap)
+  const snapPoints = [
+    { x: 0, y: 0 },
+    { x: 200, y: 100 },
+    { x: 400, y: 200 },
+    { x: 600, y: 300 }
+  ];
+
+  Draggable.create(".box", {
+    type: "x,y",
+    inertia: true,
+    snap: {
+      x: function(endValue) {
+        // Find closest point
+        let closest = snapPoints[0].x;
+        let minDist = Math.abs(endValue - closest);
+
+        snapPoints.forEach(point => {
+          const dist = Math.abs(endValue - point.x);
+          if (dist < minDist) {
+            minDist = dist;
+            closest = point.x;
+          }
+        });
+
+        return closest;
+      },
+      y: function(endValue) {
+        // Same for y
+        let closest = snapPoints[0].y;
+        let minDist = Math.abs(endValue - closest);
+
+        snapPoints.forEach(point => {
+          const dist = Math.abs(endValue - point.y);
+          if (dist < minDist) {
+            minDist = dist;
+            closest = point.y;
+          }
+        });
+
+        return closest;
+      }
+    }
+  });
+
+horizontal_carousel: |
+  // Horizontal carousel with momentum and bounds
+  Draggable.create(".carousel", {
+    type: "x",                    // Only horizontal
+    inertia: true,
+    bounds: { minX: -1000, maxX: 0 }, // Min/max X values
+    snap: {
+      x: function(endValue) {
+        // Snap to slide widths (300px each)
+        return Math.round(endValue / 300) * 300;
+      }
+    },
+    onDragEnd: function() {
+      // Update slide indicators
+      const slideIndex = Math.abs(Math.round(this.x / 300));
+      updateActiveSlide(slideIndex);
+    }
+  });
+
+react_usage: |
+  'use client';
+
+  import { useRef, useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { Draggable } from 'gsap/Draggable';
+  import { InertiaPlugin } from 'gsap/InertiaPlugin';
+
+  gsap.registerPlugin(Draggable, InertiaPlugin);
+
+  export function DraggableBox() {
+    const boxRef = useRef();
+
+    useLayoutEffect(() => {
+      const instance = Draggable.create(boxRef.current, {
+        type: "x,y",
+        inertia: true,
+        bounds: ".container",
+        snap: {
+          x: (val) => Math.round(val / 50) * 50,
+          y: (val) => Math.round(val / 50) * 50
+        }
+      });
+
+      // Cleanup on unmount
+      return () => instance[0].kill();
+    }, []);
+
+    return (
+      <div className="container">
+        <div ref={boxRef} className="draggable-box" style={{ cursor: 'grab' }}>
+          Drag me!
+        </div>
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["draggable", "inertia", "momentum", "snap", "interactive", "premium", "physics", "gsap-official"]
+framework: "vanilla"
+use_cases:
+  - "Draggable UI elements"
+  - "Carousel/slider with momentum"
+  - "Grid-based drag-and-drop"
+  - "Interactive game elements"
+  - "Product configurators"
+  - "Sortable lists with physics"
+why_premium: "Draggable + InertiaPlugin were EACH $99/year premium plugins - now BOTH FREE in 3.13+! Physics-based momentum feels premium and polished. Magnetic snap creates satisfying UX. Essential for interactive web apps."

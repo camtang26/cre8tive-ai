@@ -1,0 +1,105 @@
+id: pattern-morphsvg-drawsvg-combo-2025
+name: "MorphSVG + DrawSVG Combined Animation"
+category: "premium-showcases"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["MorphSVG", "DrawSVG"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "MorphSVG + DrawSVG were $198/year combined (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Combine MorphSVG shape morphing with DrawSVG line drawing for powerful SVG animations. Shape morphs while stroke draws - double premium effect. Was $198/year total - now FREE!"
+inspiration_source: "Premium SVG animation patterns"
+source_url: "https://gsap.com/docs/v3/Plugins/MorphSVG + DrawSVG"
+source_citation: "Combined premium plugin showcases (BOTH FREE in 3.13+!)"
+performance_notes: "Both plugins use efficient path calculations. GPU-accelerated rendering. 60fps SVG animation."
+accessibility_notes: "Show final state instantly for prefers-reduced-motion"
+code_example: |
+  import gsap from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'; // FREE in 3.13+!
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'; // FREE in 3.13+!
+
+  gsap.registerPlugin(MorphSVGPlugin, DrawSVGPlugin);
+
+  function createMorphDrawCombo() {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      gsap.set('#morph-path', { morphSVG: '#target-shape', drawSVG: '100%' });
+      return;
+    }
+
+    const tl = gsap.timeline({ repeat: -1, yoyo: true });
+
+    // Simultaneously morph shape AND draw stroke
+    tl.to('#morph-path', {
+      morphSVG: '#target-shape',   // Morph to new shape
+      drawSVG: '0% 100%',           // Draw stroke as it morphs
+      duration: 2,
+      ease: 'power2.inOut'
+    });
+
+    // Morph back while erasing stroke
+    tl.to('#morph-path', {
+      morphSVG: '#original-shape', // Morph back
+      drawSVG: '0% 0%',             // Erase stroke
+      duration: 2,
+      ease: 'power2.inOut'
+    });
+  }
+
+  window.addEventListener('load', createMorphDrawCombo);
+
+logo_reveal_pattern: |
+  // Logo reveals: Draw stroke while morphing from simple to complex
+  function logoReveal() {
+    const tl = gsap.timeline();
+
+    // Start with simple shape, stroke hidden
+    tl.set('#logo-path', {
+      morphSVG: '#simple-shape',
+      drawSVG: '0%'
+    });
+
+    // Draw stroke while morphing to complex logo
+    tl.to('#logo-path', {
+      morphSVG: '#complex-logo',
+      drawSVG: '100%',
+      duration: 2.5,
+      ease: 'power3.inOut'
+    });
+
+    // Final flourish: fill color
+    tl.to('#logo-path', {
+      fill: '#000000',
+      duration: 0.5
+    });
+  }
+
+icon_transformation: |
+  // Icon state changes with draw effect
+  function iconTransform() {
+    // Play icon → Pause icon with stroke draw
+    gsap.to('#icon-path', {
+      morphSVG: '#pause-shape',
+      drawSVG: '0% 100%',
+      stroke: '#ff0000',
+      duration: 0.6,
+      ease: 'power2.inOut'
+    });
+  }
+
+created_date: "2025-11-03"
+tags: ["morphsvg", "drawsvg", "combo", "premium", "svg", "wow-factor"]
+framework: "vanilla"
+use_cases:
+  - "Logo reveals"
+  - "Icon state transitions"
+  - "Animated illustrations"
+  - "Loading indicators"
+  - "Premium branding"
+why_premium: "MorphSVG ($99/yr) + DrawSVG ($99/yr) = $198/year total - now BOTH FREE in 3.13+! Combining creates powerful double premium effect. Industry-leading SVG animation."

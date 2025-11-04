@@ -1,0 +1,203 @@
+id: pattern-scrollsmoother-blur-effects-2025
+name: "ScrollSmoother with Scroll-Synced Blur Effects"
+category: "premium-showcases"
+complexity: "medium-high"
+gsap_version: "3.13.0+"
+plugins_required: ["ScrollTrigger", "ScrollSmoother"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "ScrollSmoother was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Combine ScrollSmoother's buttery scrolling with scroll-synced blur effects. Elements blur/unblur based on scroll position for dreamy, premium feel. Was $99/year premium - now FREE!"
+inspiration_source: "Premium marketing sites + GSAP ScrollSmoother docs"
+source_url: "https://gsap.com/docs/v3/Plugins/ScrollSmoother"
+source_citation: "ScrollSmoother + CSS filters integration (FREE in 3.13+!)"
+performance_notes: "CSS filter: blur() uses GPU when combined with will-change. ScrollSmoother optimizes scroll performance. 60fps on modern devices."
+accessibility_notes: "Disable blur effects for prefers-reduced-motion AND users with vestibular disorders"
+code_example: |
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother'; // FREE in 3.13+!
+
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+  function createBlurScrollEffect() {
+    // Check accessibility
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      console.log('Blur effects disabled for accessibility');
+      return;
+    }
+
+    // Initialize ScrollSmoother
+    const smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 2,
+      effects: true // Enable data-speed
+    });
+
+    // Blur effect synced to scroll position
+    gsap.to('.blur-on-scroll', {
+      filter: 'blur(10px)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.blur-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.5, // Smooth blur transition
+      }
+    });
+
+    // Reverse blur (unblur on scroll)
+    gsap.fromTo('.unblur-on-scroll',
+      { filter: 'blur(10px)' },
+      {
+        filter: 'blur(0px)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.unblur-section',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 0.5
+        }
+      }
+    );
+
+    return smoother;
+  }
+
+  window.addEventListener('load', createBlurScrollEffect);
+
+advanced_depth_blur: |
+  // Blur background layers more than foreground for depth
+  function createDepthBlur() {
+    const smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 2,
+      effects: true
+    });
+
+    // Far background: heavy blur on scroll
+    gsap.to('.bg-layer', {
+      filter: 'blur(20px)',
+      ease: 'none',
+      scrollTrigger: {
+        start: 0,
+        end: 'max',
+        scrub: 0.5
+      }
+    });
+
+    // Mid layer: medium blur
+    gsap.to('.mid-layer', {
+      filter: 'blur(8px)',
+      ease: 'none',
+      scrollTrigger: {
+        start: 0,
+        end: 'max',
+        scrub: 0.5
+      }
+    });
+
+    // Foreground: no blur (stays sharp)
+    // Content scrolls normally without blur
+  }
+
+blur_with_opacity: |
+  // Combine blur with opacity for fade-out effect
+  gsap.to('.hero-background', {
+    filter: 'blur(15px)',
+    opacity: 0.3,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1
+    }
+  });
+
+css_setup: |
+  /* Add will-change for GPU optimization */
+  .blur-on-scroll,
+  .unblur-on-scroll,
+  .bg-layer,
+  .mid-layer {
+    will-change: filter;
+    /* Prevents blur from cutting off edges */
+    padding: 20px;
+    margin: -20px;
+  }
+
+  /* Fallback for browsers without filter support */
+  @supports not (filter: blur(0px)) {
+    .blur-on-scroll,
+    .unblur-on-scroll {
+      opacity: 0.7; /* Graceful degradation */
+    }
+  }
+
+react_usage: |
+  'use client';
+
+  import { useLayoutEffect } from 'react';
+  import gsap from 'gsap';
+  import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+  export function BlurScrollSection() {
+    useLayoutEffect(() => {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) return;
+
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 2,
+        effects: true
+      });
+
+      gsap.to('.blur-element', {
+        filter: 'blur(10px)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.5
+        }
+      });
+
+      return () => smoother.kill();
+    }, []);
+
+    return (
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <div className="blur-element" style={{ willChange: 'filter' }}>
+            Blurs on scroll
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+created_date: "2025-11-03"
+tags: ["scrollsmoother", "blur", "scroll-effects", "premium", "depth", "css-filters", "wow-factor"]
+framework: "vanilla"
+use_cases:
+  - "Dreamy hero sections"
+  - "Depth-enhanced parallax"
+  - "Premium marketing pages"
+  - "Product showcases with focus shift"
+  - "Storytelling with visual emphasis"
+why_premium: "ScrollSmoother was $99/year - now FREE in 3.13+! Scroll-synced blur creates premium, dreamy feel. Combined with smooth scrolling, creates cinema-quality experience. Used by high-end agencies."

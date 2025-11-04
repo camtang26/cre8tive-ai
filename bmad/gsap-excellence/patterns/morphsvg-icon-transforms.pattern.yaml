@@ -1,0 +1,331 @@
+id: pattern-morphsvg-icon-transforms-2025
+name: "MorphSVG Icon Transformations - Premium Morphs"
+category: "interactive"
+complexity: "medium-high"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+plugins_required: ["MorphSVG"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "Part of Club GreenSock ($99/year, now FREE in GSAP 3.13+!)"
+cost_note: "🎉 MorphSVG was premium-only ($99/year), now COMPLETELY FREE in GSAP 3.13+ (late 2024)! This enables WOW-FACTOR animations for everyone!"
+description: "Morph SVG paths into completely different shapes - the ultimate wow-factor animation. Perfect for icon transformations (hamburger → X), logo reveals, button states, and UI transitions. Formerly premium, now FREE!"
+year_introduced: 2015
+made_free: "2024 (GSAP 3.13)"
+is_modern: true
+is_2025_standard: true
+is_premium_feature: true
+is_wow_factor: true
+replaces: "Manual SVG path tweening, multiple icon files, CSS transforms (limited)"
+
+inspiration_source: "Awwwards micro-interactions, Material Design morphs, iOS animations"
+performance_notes: "GPU-accelerated SVG morphing. 60fps even with complex paths. Lightweight plugin."
+
+accessibility_notes: |
+  - Ensure morphed icons maintain semantic meaning
+  - Provide aria-labels for icon states
+  - Respect prefers-reduced-motion (instant switch)
+  - Don't rely solely on icon shape for meaning
+
+browser_support:
+  chrome: "90+"
+  firefox: "88+"
+  safari: "14+"
+  edge: "90+"
+  mobile: "Full support"
+
+use_cases:
+  - "Hamburger menu → X icon"
+  - "Play → Pause button transforms"
+  - "Logo reveals and state changes"
+  - "Loading spinner → checkmark"
+  - "Search icon → close icon"
+  - "Heart outline → filled heart"
+  - "UI state transitions"
+
+code_example: |
+  import { gsap } from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  // ✅ Basic morph (FREE in 3.13+!)
+  gsap.to("#shape1", {
+    morphSVG: "#shape2",  // Morph to shape2
+    duration: 0.8,
+    ease: "power2.inOut"
+  });
+
+  // The magic: #shape1 morphs INTO #shape2's path!
+
+hamburger_to_x: |
+  <svg viewBox="0 0 24 24" width="24" height="24">
+    <!-- Hamburger (initial state) -->
+    <path
+      id="menuIcon"
+      d="M3 6h18M3 12h18M3 18h18"
+      stroke="currentColor"
+      stroke-width="2"
+      fill="none"
+    />
+
+    <!-- X icon (hidden, used as morph target) -->
+    <path
+      id="closeIcon"
+      style="visibility: hidden"
+      d="M6 6l12 12M18 6L6 18M12 12"
+      stroke="currentColor"
+      stroke-width="2"
+      fill="none"
+    />
+  </svg>
+
+  <script>
+  import { gsap } from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  let isOpen = false;
+
+  function toggleMenu() {
+    if (isOpen) {
+      // Morph back to hamburger
+      gsap.to("#menuIcon", {
+        morphSVG: "#menuIcon",  // Reset to original
+        duration: 0.4,
+        ease: "power2.inOut"
+      });
+    } else {
+      // Morph to X
+      gsap.to("#menuIcon", {
+        morphSVG: "#closeIcon",
+        duration: 0.4,
+        ease: "power2.inOut"
+      });
+    }
+    isOpen = !isOpen;
+  }
+  </script>
+
+react_19_hamburger_menu: |
+  'use client';
+
+  import { useRef, useState } from 'react';
+  import { gsap } from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+  import { useGSAP } from '@gsap/react';
+
+  gsap.registerPlugin(MorphSVGPlugin, useGSAP);
+
+  export default function MenuIcon() {
+    const [isOpen, setIsOpen] = useState(false);
+    const iconRef = useRef(null);
+
+    const handleClick = () => {
+      const icon = iconRef.current;
+
+      if (!isOpen) {
+        // Morph to X (FREE in 3.13+!)
+        gsap.to(icon.querySelector("#menuPath"), {
+          morphSVG: icon.querySelector("#closePath"),
+          duration: 0.4,
+          ease: "power2.inOut"
+        });
+      } else {
+        // Morph back to hamburger
+        gsap.to(icon.querySelector("#menuPath"), {
+          morphSVG: icon.querySelector("#hamburgerPath"),
+          duration: 0.4,
+          ease: "power2.inOut"
+        });
+      }
+
+      setIsOpen(!isOpen);
+    };
+
+    return (
+      <button
+        onClick={handleClick}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        className="p-2"
+      >
+        <svg ref={iconRef} viewBox="0 0 24 24" width="24" height="24">
+          {/* Visible path (will morph) */}
+          <path
+            id="menuPath"
+            d="M3 6h18M3 12h18M3 18h18"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+          />
+
+          {/* Hidden morph targets */}
+          <path
+            id="closePath"
+            d="M6 6l12 12M18 6L6 18"
+            style={{ visibility: 'hidden' }}
+          />
+          <path
+            id="hamburgerPath"
+            d="M3 6h18M3 12h18M3 18h18"
+            style={{ visibility: 'hidden' }}
+          />
+        </svg>
+      </button>
+    );
+  }
+
+play_pause_toggle: |
+  <svg viewBox="0 0 24 24" width="48" height="48">
+    <!-- Play button (triangle) -->
+    <path
+      id="playBtn"
+      d="M8 5v14l11-7z"
+      fill="currentColor"
+    />
+
+    <!-- Pause button (two bars) - hidden -->
+    <path
+      id="pauseBtn"
+      style="visibility: hidden"
+      d="M6 4h4v16H6zM14 4h4v16h-4z"
+      fill="currentColor"
+    />
+  </svg>
+
+  <script>
+  function togglePlayPause() {
+    if (isPlaying) {
+      gsap.to("#playBtn", {
+        morphSVG: "#pauseBtn",
+        duration: 0.3,
+        ease: "power1.inOut"
+      });
+    } else {
+      gsap.to("#playBtn", {
+        morphSVG: "#playBtn", // Reset
+        duration: 0.3
+      });
+    }
+    isPlaying = !isPlaying;
+  }
+  </script>
+
+loading_to_checkmark: |
+  'use client';
+
+  import { useRef, useEffect } from 'react';
+  import { gsap } from 'gsap';
+  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+
+  gsap.registerPlugin(MorphSVGPlugin);
+
+  export default function LoadingCheckmark({ isLoading }) {
+    const pathRef = useRef(null);
+
+    useEffect(() => {
+      if (!isLoading) {
+        // Morph spinner to checkmark when done
+        gsap.to(pathRef.current, {
+          morphSVG: "#checkmark",
+          duration: 0.6,
+          ease: "back.out(1.7)"
+        });
+      }
+    }, [isLoading]);
+
+    return (
+      <svg viewBox="0 0 24 24" width="32" height="32">
+        {/* Spinner circle */}
+        <path
+          ref={pathRef}
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
+
+        {/* Checkmark (hidden morph target) */}
+        <path
+          id="checkmark"
+          style={{ visibility: 'hidden' }}
+          d="M9 12l2 2 4-4"
+          stroke="currentColor"
+          strokeWidth="2"
+          fill="none"
+        />
+      </svg>
+    );
+  }
+
+advanced_options: |
+  gsap.to("#shape1", {
+    morphSVG: {
+      shape: "#shape2",        // Target shape
+      shapeIndex: "auto",      // How to match points (auto, 1, 2, etc.)
+      origin: "50% 50%",       // Transform origin
+      type: "rotational"       // Morph type: linear or rotational
+    },
+    duration: 1,
+    ease: "power2.inOut"
+  });
+
+  // shapeIndex options:
+  // "auto" - GSAP figures out best match
+  // Number (1-10) - Manual control of point matching
+  // "reverse" - Reverse direction
+
+complex_multi_path: |
+  // Morph between multi-path SVGs
+  gsap.to(".logo-paths", {
+    morphSVG: {
+      shape: ".logo-alternate-paths",
+      map: "complexity"  // Match by path complexity
+    },
+    duration: 1.2,
+    stagger: 0.1  // Stagger multiple paths
+  });
+
+morphsvg_utils: |
+  // Find optimal shapeIndex
+  MorphSVGPlugin.pathFilter("#shape1");
+
+  // Get path data
+  const pathData = MorphSVGPlugin.pathDataToBezier("#shape1");
+
+  // Convert string to path data
+  MorphSVGPlugin.stringToRawPath("M10 10 L20 20");
+
+variations:
+  - name: "Three-way morph"
+    description: "Hamburger → X → Search icon"
+  - name: "Color morph combo"
+    description: "Morph shape AND change fill color"
+  - name: "Scale + morph"
+    description: "Scale up while morphing for emphasis"
+  - name: "Staggered multi-path"
+    description: "Morph multiple paths with stagger"
+
+common_mistakes:
+  - "SVG paths have different number of points (use shapeIndex)"
+  - "Not hiding morph targets (they show on page)"
+  - "Complex paths morph poorly (simplify paths first)"
+  - "Not testing different shapeIndex values"
+  - "Forgetting to register MorphSVGPlugin"
+
+tips:
+  - "Simplify SVG paths in Illustrator/Figma first"
+  - "Use shapeIndex: 'auto' first, adjust if needed"
+  - "Hide morph targets with visibility: hidden (not display: none)"
+  - "Test different easing functions for best feel"
+  - "Combine with scale/rotation for compound effects"
+  - "Use rotational type for circular paths"
+
+performance_optimization: |
+  // Optimize complex paths
+  MorphSVGPlugin.pathFilter("#complex-path", {
+    precision: 1  // Reduce precision for performance
+  });
+
+created_date: "2025-11-02"
+tags: ["morphsvg", "premium-free", "icon-animation", "wow-factor", "modern-2025", "was-paid", "svg"]

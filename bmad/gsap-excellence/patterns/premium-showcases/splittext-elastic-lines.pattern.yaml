@@ -1,0 +1,66 @@
+id: pattern-splittext-elastic-lines-2025
+name: "SplitText Lines with Elastic Bounce Reveal"
+category: "premium-showcases"
+complexity: "medium"
+gsap_version: "3.13.0+"
+plugins_required: ["SplitText"]
+premium_plugins_free: true
+was_premium: true
+premium_cost_before: "SplitText was $99/year (now FREE in GSAP 3.13+!)"
+made_free: "2024 (GSAP 3.13)"
+is_wow_factor: true
+is_2025_standard: true
+description: "Split text by lines, reveal each line with elastic bounce easing. Premium text effect FREE in 3.13+! Uses GSAP 3.13+ onSplit callback."
+inspiration_source: "Premium typography animations, GSAP SplitText 3.13 docs"
+source_url: "https://gsap.com/docs/v3/Plugins/SplitText"
+source_citation: "Archon MCP: SplitText onSplit examples (source_id: 6a6860cfc96e173b)"
+performance_notes: "SplitText creates DOM nodes efficiently. Elastic easing is GPU-accelerated. 60fps sustained."
+accessibility_notes: "Text remains readable for screen readers. Disable animation for prefers-reduced-motion."
+code_example: |
+  import gsap from 'gsap';
+  import { SplitText } from 'gsap/SplitText';
+
+  gsap.registerPlugin(SplitText);
+
+  function initElasticLines() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    // GSAP 3.13+ onSplit callback
+    SplitText.create('.headline', {
+      type: 'lines',
+      linesClass: 'line',
+      autoSplit: true, // Re-split on resize
+      onSplit(self) {
+        // Wrap lines for overflow hidden
+        self.lines.forEach(line => {
+          const wrapper = document.createElement('div');
+          wrapper.style.overflow = 'hidden';
+          line.parentNode.insertBefore(wrapper, line);
+          wrapper.appendChild(line);
+        });
+
+        // Animate from below with elastic bounce
+        gsap.from(self.lines, {
+          yPercent: 100,
+          opacity: 0,
+          duration: 1.2,
+          ease: 'elastic.out(1, 0.5)',
+          stagger: 0.1
+        });
+      }
+    });
+  }
+
+  window.addEventListener('load', initElasticLines);
+
+created_date: "2025-11-03"
+tags: ["splittext", "elastic", "lines", "typography", "premium", "gsap-3.13", "bounce"]
+framework: "vanilla"
+use_cases:
+  - "Hero headlines"
+  - "Section titles"
+  - "Quote reveals"
+  - "Typography showcases"
+  - "Brand messaging"
+why_premium: "SplitText was $99/year premium - now FREE! onSplit callback (3.13+) + elastic easing = professional typography animations. Industry standard for premium text reveals."

@@ -6,16 +6,19 @@ id: pattern-sticky-header-shrink-003
 name: "Sticky Header with Shrink Effect"
 category: "scroll-effects"
 complexity: "medium"
-gsap_version: "3.12.0"
+gsap_version: "3.13.0+" # GSAP 3.13+ ALL premium plugins FREE!
+premium_plugins_free: true
 plugins_required: ["ScrollTrigger"]
 description: "Header shrinks and changes style as user scrolls down - premium navigation pattern"
 inspiration_source: "Apple, Stripe, modern product sites"
 performance_notes: "60fps with careful CSS class toggling and transform animations"
 created_date: "2025-10-11"
-last_validated: "2025-10-11"
+is_modern: true
+is_2025_standard: true
+last_validated: "2025-11-02"
 success_count: 0
 tags: ["scroll", "header", "navigation", "sticky", "shrink", "premium"]
-framework: "vanilla"
+framework: "vanilla, react, nextjs"
 
 code_example: |
   import { gsap } from 'gsap';
