@@ -1,3 +1,7 @@
+import MuxPlayer from "@mux/mux-player-react"
+
+const WORKFLOW_VIDEO_PLAYBACK_ID = "4NnXGTRPk600YHQcWNp02txb01yZ3jMHXRqFQMpOimXCQE"
+
 export function StudiosWorkflowSection() {
   return (
     <section
@@ -42,13 +46,20 @@ export function StudiosWorkflowSection() {
                 <div className="relative overflow-hidden rounded-[32px] bg-white/[0.06] backdrop-blur-[22px]">
                   <div className="absolute inset-0 rounded-[32px] opacity-80 mix-blend-screen [background-image:radial-gradient(circle_at_18%_24%,rgba(49,196,255,0.38),rgba(49,196,255,0)_62%),radial-gradient(circle_at_82%_76%,rgba(225,179,65,0.28),rgba(225,179,65,0)_65%)]" aria-hidden />
                   <div className="relative aspect-[16/9] overflow-hidden rounded-[32px]">
-                    <iframe
-                      src="https://www.youtube.com/embed/ISXjl_7Yc0g?rel=0&modestbranding=1&playsinline=1"
-                      title="BriefingEngine workflow video"
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="absolute inset-0 h-full w-full"
+                    <MuxPlayer
+                      playbackId={WORKFLOW_VIDEO_PLAYBACK_ID}
+                      metadata={{
+                        video_title: "Studios Workflow - Start Anywhere, Finish Strong",
+                        viewer_user_id: "anonymous"
+                      }}
+                      streamType="on-demand"
+                      controls
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        '--media-object-fit': 'cover',
+                        '--media-object-position': 'center',
+                      } as React.CSSProperties}
                     />
                   </div>
                   <div className="pointer-events-none absolute inset-0 rounded-[32px] ring-1 ring-inset ring-white/12" aria-hidden />

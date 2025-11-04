@@ -6,12 +6,10 @@ import { StudiosProductionStackSection } from "@/components/studios/StudiosProdu
 import { StudiosWorkflowSection } from "@/components/studios/StudiosWorkflowSection";
 import { StudiosStandardsSection } from "@/components/studios/StudiosStandardsSection";
 import { StudiosPlatformDemoSection } from "@/components/studios/StudiosPlatformDemoSection";
-import { WhoWeServe } from "@/components/studios/WhoWeServe";
-import { Testimonials } from "@/components/studios/Testimonials";
-import { ContactCTA } from "@/components/shared/ContactCTA";
+import { StudiosTestimonialsSection } from "@/components/studios/StudiosTestimonialsSection";
+import { StudiosContactCTASection } from "@/components/studios/StudiosContactCTASection";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { PageLayout } from "@/components/layouts/PageLayout";
-import { FilmStripDivider } from "@/components/studios/FilmStripDivider";
 
 const Studios = () => {
   return (
@@ -50,21 +48,8 @@ const Studios = () => {
           <FadeIn>
             <StudiosPlatformDemoSection />
           </FadeIn>
-          <div className="container mx-auto px-4">
-            <FilmStripDivider />
-          </div>
-          <FadeIn>
-            <WhoWeServe />
-          </FadeIn>
-          <div className="container mx-auto px-4">
-            <FilmStripDivider />
-          </div>
-          <FadeIn>
-            <Testimonials />
-          </FadeIn>
-          <FadeIn>
-            <ContactCTA />
-          </FadeIn>
+          <StudiosTestimonialsSection />
+          <StudiosContactCTASection />
         </main>
       </PageLayout>
     </div>

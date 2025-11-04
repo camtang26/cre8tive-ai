@@ -7,7 +7,39 @@
 - Palette invariant: dark indigo/cyan/fuchsia + holographic highlights; preserve cinematographer aesthetic while tuning layouts.
 - Adaptive performance stack (Story 1.14) stays enabled via `performance-adapter`, `adaptive-config`, `useAdaptivePerformance`.
 - Build still passes (`npm run build`); lint blocked by repo unicorn config + legacy `any` in perf tests (logged for future cleanup).
- 
+
+## 2025-11-03 — Studios Section 4 Kickoff
+
+- **Context:** Returning to the Studios page with Section 3 handled by the parallel session; our scope advances to Section 4 “What You Actually Get,” anchored to the copy in `docs/prototypes/studios-copy-final-2025-11-04.md`.
+- **New directives:** Cameron reiterated a zero-tolerance rule for filler copy/components and introduced a mandatory post-implementation audit to ensure no stray text or badges slip in—only approved copy allowed.
+- **Parallel work:** Another Codex agent is actively shaping Section 3; avoid conflicting edits and surface any shared token changes promptly.
+- **Immediate next steps:** Execute the research triad (Archon, Context7, native web search) dated 2025-11-03, log a Section 4 capsule here, update `.codex/PLAN.md` with fresh intent, then design and build a bespoke production-stack visualization with animation-ready hooks.
+
+### Section 4 — Production Stack (Research Capsule · 2025-11-03)
+
+- **Goal:** Visualize the full Cre8tive Studios production pipeline so prospects instantly feel the “complete stack” promise—minimal copy, cinematic depth, clear handoff to GSAP for progressive reveals.
+- **Patterns (Archon RAG · Awwwards luxury studios · 2025-11-03):**
+  1. Luminous gradient spines to tie vertical timelines together while keeping surrounding space calm (FUTURE THREE®).
+  2. Thin typographic columns with halo dividers and glass depth to spotlight premium process wayfinding (The Missing Element).
+  3. Hover-activated glow passes that trace over stack layers without adding extra copy, delivering motion-ready cues (Stack VC).
+- **Patterns (Native Web Search · 2025-11-03):**
+  4. Advids’ video production landing advice highlights a clear Concept→Scripting→Storyboarding→Filming→Editing ladder that reads well as a vertical stack with concise labelsciteturn0search0.
+  5. Vimeo’s cinematic landing roundup shows that pairing minimal copy with immersive media and standout CTAs keeps premium experiences focused and high-convertingciteturn0search1.
+  6. Mailchimp’s guidance reinforces the need for supportive on-page copy in case visitors can’t play video, so typography must balance brevity with clarityciteturn0search3.
+- **Implementation notes:**
+  - Components: build a vertical “stack column” with layered translucent slabs, a cyan rim-lit spine, and `data-motion` hooks (`data-motion="stack-layer"` and `data-motion="platform-rail"`). Adjacent platform rail renders custom SVG glyphs (no off-the-shelf icon sets) for YouTube/TikTok/Instagram/LinkedIn/X/Facebook.
+  - Tokens: may need new gradient tokens (`--gradient-stack-spine`, `--glow-stack-layer`); keep palette within midnight/cyan/gold references from `.archive/codex-redesign-2025-11-04/Studios/components`.
+  - Tailwind gradients: Context7 pull reminded that `bg-radial-*`/`bg-conic-*` utilities accept arbitrary values, enabling layered glow treatments without custom CSS files.
+  - Animation handoff: note desired entrance—stagger layers upwards, parallax glow sweep on scroll, platform icons shimmer sequentially.
+  - Accessibility: ensure text is strictly from copy doc; use structured lists for screen readers; maintain ≥4.5:1 contrast on body copy over glass backgrounds; prepare reduced-motion alternative (static glow only).
+
+#### Implementation status — 2025-11-03
+
+- `StudiosProductionStackSection` now lives under `src/components/studios/` with glass stack layers, cyan spine, and a bespoke platform rail. Stack labels reuse copy sentences but are marked `aria-hidden` so screen readers follow the paragraph order in the text column.
+- Updated `src/pages/Studios.tsx` to swap in the new section (wrapped in `FadeIn`) and removed the legacy `ExpertiseBenefits` import/usage to keep off-brief content off the page.
+- Hooks for GSAP documented in-code: `data-motion-group="production-stack"`, layer elements with sequential `data-motion-order`, platform rail tagged separately for shimmer sequencing.
+- `npm run build` (2025-11-03) passed; vendor bundle 340 kb / 900 kb ceiling. Viewport validation via Chrome DevTools MCP (1707×898 and 1920×1080) plus GSAP timing notes remain on the todo list for the post-implementation sweep.
+
 # AI Product Charter — Documentation Realignment (2025-11-03 Codex Session 2)
 - **Problem:** `.codex` knowledge artifacts drifted from the freshly generated November 3, 2025 documentation suite (bmm-index + derivatives), creating conflicting guidance for agents resuming work.
 - **Target User:** Codex agents and collaborating humans who rely on `.codex/_MEMO.md`, `.codex/PLAN.md`, and `.codex/REPORT.md` to understand current architecture, priorities, and validation workflows.
@@ -62,6 +94,25 @@ npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 - Adaptive performance system (Story 1.14) governs particle counts/timeScale across tiers; will-change lifecycle policies documented in Component Catalog.
 - Documentation bundle includes 24 GSAP mastery references plus exhaustive GSAP debugging/performance audits—leverage before shipping new timelines.
 - No automated tests exist; validation scripts rely on manual MCP viewport sweeps, Lighthouse, and performance traces as per Development Guide.
+- **Studios copy intake (2025-11-04):** docs/prototypes/studios-copy-final-2025-11-04.md defines nine sections following a challenge→validation→empowerment arc. Key beats: five-word hero headline, "Every Option Has Flaws" comparison grid, "Judge Yourself" six-video gallery, full-stack production explainer, flexible workflow section with BriefingEngine video, qualifying standards filter, platform-native showcase, testimonial proof, and broadcast-grade CTA.
+- **Studios palette references:** Archived components under `.archive/codex-redesign-2025-11-04/Studios/components` + `sections/theme-utils.ts` lock premium hues (deep midnight base, cyan accent `#31C4FF`, golden primary `#E1B341`), gradient layering, and glass/blur treatments to reuse while rebuilding bespoke.
+- **Layout cues from archive:** Hero layouts combine radial glows, bespoke masks, and artifact-grade video frames; portfolio grid uses rounded 28px frames with border + glow stacks; process section pairs copy with timeline bullet rail; CTA/testimonial components lean on sculpted pods and accent bullets—baseline references for bespoke rebuild.
+- **Hero Research Capsule (2025-11-03):** Recent redesign case studies and 2025 B2B trend reports stress cinematic hero sections with full-screen product video, stripped-back copy, bold typography, and trust cues. Key takeaways: foreground the demo video under the headline, keep gradients dark and uncluttered (Medium Browser Use case), pair headline/subhead with high-impact CTAs (Contra AI SaaS hero), maintain minimalist layout with deliberate whitespace and limited palette (Hero.tt B2B trends), and reinforce credibility via trust badges or proof strips (AIAIAI 2025 landing guide). citeturn0search0turn0search1turn0search4turn0search5
+- **Studios hero foundation:** Palette tokens added to Tailwind (`studios.*` colors + hero gradients/noise), new utilities for particle/noise layers, and hero rebuilt with background Vimeo loop, layered gradients, deluxe CTAs, and bespoke right-column showcase panel. Copy adheres exactly to final deck (headline, subhead, CTAs, trust signal pill).
+- **Right-column concept brainstorm (2025-11-03):** Developed five high-end hero companion ideas—Director’s Control HUD, Platform Output Carousel, Live Brief→Shot Pairing, Color-Gel Spotlight, and Holobox Director View—to evaluate before prototyping. Captured details for stakeholder selection.
+- **Studios hero polish pass (2025-11-03):** Layered iridescent/scanline headline treatments, magnetic primary CTA with chromatic aberration arrow, trailing-dot secondary CTA, ambient pointer highlight, and timeline markers overlay to hit the premium interaction bar while honoring reduced-motion preferences.
+- **Challenge section research (2025-11-03):** 2025 B2B trend reports highlight reductive storytelling, micro animations, and high-contrast split layouts for comparison content; modern motion guidance favors gentle cursor-triggered shifts and fluid typography ≥16 px for readability. Authentic process imagery + interactive helpers outperform stock art, and AI-driven contextual tooltips are rising. citeturn0search0turn0search1turn0search3turn0search4turn0search6turn0search7turn0search11
+- **Challenge section implementation (2025-11-03):** Built `StudiosChallengeSection` with copy-perfect body text and a four-card comparison grid (Traditional / AI Tools / In-House / Cre8tive Studios). Cards use sculpted surfaces, hover depth, and cyan accent for the Cre8tive column—no filler badges, only narrative-supporting content.
+- Studios & Conversational page overhauls now follow a static-first build: ingest new copy/palette, craft responsive layouts/components in one pass (section-by-section if needed), and prepare animation hooks while the dedicated GSAP team handles timelines later.
+- Copy direction will arrive via a new doc (Trinity framework retired); color palette notes will follow separately—no typography or token updates until both inputs land.
+- AGENTS playbook rewritten (2025-11-03) to enforce minimalist, copy-driven delivery and motion-ready static builds; see `AGENTS.md` for updated session primer and guardrails.
+- AGENTS playbook refined again (2025-11-03 PM) with deeper frontend design directives, dual-viewport Chrome DevTools validation, native web search requirements, explicit mandate to take whatever time/tools are needed for bold premium execution, and a creative-direction toolkit outlining narrative sprint, motion spec prep, advanced asset creation, and interaction polish expectations.
+- Visual guardrails now include direct execution mandates: hero depth layering, deluxe CTAs, artifact-grade media frames, sculpted metric pods, ambient particle layers, and copy spotlight treatments (excluding divider system per stakeholder direction).
+- Research workflow codified: every section demands Archon RAG, Context7 doc pull, native web search (dated 2025-11-03), and a synthesized pattern capsule logged in `_MEMO` plus references filed under `.codex/external/`.
+- Baked in a bespoke-first rule—avoid generic shadcn/common patterns unless they deliver clear value; handcraft premium components tailored to Cre8tive’s brand.
+- Added a viewport-fit protocol: immediate 1707×898 validation after every section, secondary checks at 1920×1080/1440×900, and responsive sweeps logged with fixes.
+- Reinforced AGENTS guardrails: explicitly banned filler boxes/badges that don’t convey essential info; every supporting element must feel bespoke, valuable, and purposeful.
+- AGENTS now includes copy fidelity + succinct contrast mandates: adhere strictly to provided wording and keep comparison statements punchy (≤130 characters).
 
 # Open Questions — 2025-11-03
 - Should we archive or condense legacy hero/timeline plans in `.codex/PLAN.md` to prevent confusion for future sessions once this realignment lands?
@@ -633,3 +684,84 @@ npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 - Decision: implement CSS/SVG‑style spotlight/gobo (no added heavy libs) layered over Vimeo background; pointer‑reactive via CSS vars; GSAP entrance + soft parallax.
 - Files: `src/pages/prototypes/studios-hero/StudioHero_PremiumGoldenGobo.tsx`, route `/studios-hero-premium-codex`.
 - Next: capture MCP screenshots (1707×898, 1920×1080), wire CTA analytics, and finalize copy with Claude.
+
+## 2025-11-03 16:35 PST – Studios Section 3 Research Capsule (Codex Session B)
+- Palette check: confirmed the Studios token suite is already live in `tailwind.config.ts` (midnight base `#05060D`, cyan accent `#31C4FF`, gold primary `#E1B341`) from the partner session; no additional color decisions required before Section 3 build.
+- Section focus: "Our Work" video portfolio grid (copy: headline “Judge Yourself”, subhead celebrating broadcast standards, six-video showcase, no extra copy). Goal is to deliver a museum-grade gallery that underscores craft and future GSAP motion hooks.
+- Research references (2025-11-03):
+  - Awwwards 2025 luxury winners emphasize staggered vertical rhythm, glass overlays, and vignette lighting for video galleries (e.g., Celeres Investments, Gemma Wright Design) — inspiration for tiered card heights and soft glow wraps. [Archon › Best Luxury Websites]
+  - Fjord’s 2025 immersive brand experiences roundup recommends cinematic product reels with restrained typography, spotlight beams, and layered grain to imply motion. [Web search › Fjord Avenue – 2025 Immersive Brand Experiences]
+  - Studio Andor’s 2025 portfolio highlights the benefit of crossfading hover reveals and metadata overlays to telegraph narrative depth without autoplay. [Web search › Studio Andor – 2025 Portfolio Showcase]
+  - Graphic Folks’ “Cinematic Web Trends 2025” article stresses using masked shimmer passes, editorial captions, and responsive clamp spacing so galleries look premium on mobile. [Web search › Graphic Folks – Cinematic Web Trends 2025]
+- Actionable visual patterns for Section 3:
+  1. Staggered media grid (2×3) with alternating card heights and vertical offset to create motion-ready depth.
+  2. Premium frames: glass-inset border, cyan rim light, golden corner pin or glyph per tile; overlay subtle grain layer for cohesion.
+  3. Hover/focus states: delay-reveal of caption bar with “Client · Deliverables” and micro-icon; plan `data-motion="portfolio-card"` hooks for GSAP scale/tilt.
+  4. Ambient light layer behind grid (radial cyan/gold) to extend hero atmosphere into portfolio.
+  5. CTA follow-up: include discreet “View case study” link/per tile with icon to encourage engagement when GSAP adds interactions.
+- Implementation notes:
+  - Use responsive CSS grid with `clamp` spacing, maintain 16:9 aspect ratio wrappers for video posters, apply `loading="lazy"`.
+  - Create reusable `PortfolioCard` subcomponent (props: title, client, description, poster, duration) with data attributes for animation and future video modal hook.
+  - Reserve DOM wrappers for GSAP: `data-motion-group="portfolio"` around grid, `data-motion-order` on each tile, `data-tilt-axis` for hover micro-interactions.
+  - Ensure focus accessibility: `button` or `a` wrappers with visible outline + chromatic aberration ring, degrade gracefully when reduced motion preferred.
+- Next steps: update `/.codex/PLAN.md` + `TASK.md` to mark Section 3 execution, build component under `src/components/studios/StudiosPortfolioSection.tsx`, wire into Studios page once Section 2 merges, then run viewport QA (1707×898 + 1920×1080) before moving forward.
+
+## 2025-11-03 18:05 PST – Studios Section 3 Implementation (Codex Session B)
+- Built `src/components/studios/StudiosPortfolioSection.tsx`: six-card “Judge Yourself” gallery with stagger-ready layout, gradient media frames, cyan/gold rim lights, and hover metadata trays. Added `data-motion` hooks (`portfolio`, `portfolio-card`, `portfolio-card-media`) plus focus-visible states for accessibility.
+- Integrated section into `src/pages/Studios.tsx` behind `FadeIn` after the Challenge grid. Existing legacy sections remain while the broader rebuild progresses; added plan/TASK entries for coordination.
+- Placeholder media uses crafted gradient/noise layers to stay on brand until final video posters arrive. Each card exposes deliverables + turnaround copy per deck and reserves CTA overlay for GSAP reveal.
+- Ran `npm run build` post-implementation (2025-11-03 18:00 PST) — ✅ passes, vendor bundle 348 kB (<900 kB ceiling).
+- Next: run Chrome DevTools MCP viewport checks (1707×898 + 1920×1080) once preview server is up, capture findings, and log in `_MEMO`/`REPORT`; coordinate with Session A on Challenge section adjustments before layering shared particle field.
+
+### 2025-11-03 18:40 PST – Studios Portfolio Revision
+- Removed all non-copy-deck text from the Section 3 gallery per direction; tiles now present full-bleed 16:9 frames with gradient placeholders only, no badges or turnaround tags.
+- Updated hover treatment to rely on light bloom/noise layers without visible copy so GSAP team can add motion without reworking markup.
+- Preserved accessibility via sr-only labels while keeping visible surface copy confined to headline, subhead, and section tag from the provided deck.
+- Swapped gradient placeholders for live Vimeo embeds (IDs mirrored from home “Our Work” section: 1051824336, 1055446411, 1051820049, 1051819670, 1052203361, 1052204241). Each tile now opens `VideoModal` on click; no visible copy added per directive.
+- Applied premium glassmorphism treatment per foundation spec: gradient border, backdrop blur, neon play button, noise overlay, while preserving 16:9 Vimeo embeds; design mirrors `VideoPlaceholderPremium` without introducing extra copy.
+
+## 2025-11-03 19:25 PST – Studios Section 5 Research Capsule (Codex Session B)
+- Section focus: “Start Anywhere. Finish Strong.” — flexible production stack + workflow explainer featuring BriefingEngine video (YouTube `ISXjl_7Yc0g`).
+- Archon scan (Codrops WebGL/Three.js showcases) reinforces layering interactive gradients, glass rails, and depth cues for tech-forward storytelling.
+- Asana 2025 creative workflow study highlights enterprise demand for standardized intake + modular delivery (Discovery Digital Studios, Benefit Cosmetics pipelines). citeturn0search7
+- Digital Silk (Apr 23 2025) forecasts immersive, scroll-activated storytelling for LA creative brands—useful for sequencing workflow stages with motion readiness. citeturn0search1
+- Webflow trends (2025) stresses container queries + scroll-driven animations with performance discipline, guiding our responsive + motion implementation. citeturn0search8
+- Implementation targets:
+  1. Timeline rail with three beats (BriefingEngine Intake, Hybrid Production, Platform Delivery) mapped to copy.
+  2. Embedded workflow video (responsive 16:9 frame) with premium glass frame + `data-motion="workflow-video"` hook.
+  3. Info pods for client flex messaging (e.g., “Bring your storyboards” vs “Start with our BriefingEngine”) using copy deck language only.
+  4. Scroll-ready radial glow backdrop aligning with hero + challenge sections.
+  5. CTA style: subtle “View full workflow” link anchored to video modal.
+- Next: update PLAN/TASK status, draft layout wire in PLAN, implement component under `src/components/studios/` with strict copy compliance, then run post-implementation audit for stray text.
+### 2025-11-03 19:55 PST – Studios Section 5 Implementation + Audit
+- Added `StudiosWorkflowSection` with premium glassmorphism frame for the BriefingEngine YouTube embed, using copy-deck text exclusively (headline, subhead, three body paragraphs, caption, and workflow phrases).
+- Timeline rail reuses caption phrases (“BriefingEngine (brief analysis)”, “Our Studios (production execution)”, “Platform-native delivery”) so no invented labels appear; all elements wired with `data-motion="workflow-*"` hooks.
+- Wrapped section into `src/pages/Studios.tsx` after the production stack module; confirmed `npm run build` ✅ (vendor 348 kB) and performed post-implementation badge/text audit — no stray language beyond the supplied copy.
+- **2025-11-03 21:25 PST – Section 6 Implementation + Audit**
+  - Created `StudiosStandardsSection` with the copy deck headline and three paragraphs verbatim; no additional text or badges introduced.
+  - Applied premium glass shell (radial cyan/gold glow, blur, noise) and `data-motion="standards-*"` wrappers while keeping typography dominant.
+  - Integrated after the workflow section in `src/pages/Studios.tsx`; re-ran `npm run build` ✅ and confirmed zero copy deviations.
+- Removed the interim workflow step rail per feedback; section now presents only the copy-deck paragraphs + caption with an oversized premium video frame.
+- **2025-11-03 21:05 PST – Studios Section 6 Research Capsule (Codex Session B)**
+  - Section focus: “This Isn’t for Everyone” — acts as qualification gate that reinforces premium standards and filters price shoppers.
+  - Trend alignment: 2025 B2B guides emphasize evidence-first, buyer-filtering UX and minimalist clarity so high-intent visitors see standards fast.citeturn0search1
+  - Luxury/enterprise references call for dynamic grids + micro-interactions to keep premium feel without clutter, while maintaining accessibility rigor for credibility.citeturn0search4turn0search8
+  - Minimalist storytelling with bold typography remains core to 2025 B2B design—supports copy-led layouts and keeps this gate unmistakably premium.citeturn0search5
+  - Implementation targets:
+    1. Copy deck paragraphs rendered verbatim with luxurious typographic hierarchy, ample breathing room, and responsive clamp sizing.
+    2. Create sculpted qualification pod background (ambient gradients, glass depth) with zero added text; rely on motion-ready wrappers (`data-motion="standards-*"`).
+    3. Provide subtle micro-interaction (e.g., gradient shimmer) that respects prefers-reduced-motion.
+    4. Link visually with upstream sections via palette continuity (midnight/cyan/gold) and radial spotlight.
+  - Next: Update PLAN/TASK to mark Section 6 in progress, then implement component under `src/components/studios/` with strict copy audit post-build.
+- **2025-11-03 21:40 PST – Studios Section 7 Research Capsule (Codex Session B)**
+  - Section focus: “Six Formats. One Production.” — showcase platform-native delivery across six destinations while staying slavishly true to the copy deck.
+  - 2025 landing page analyses highlight cinematic media frames, staggered transitions, and performance-aware loading for multi-format video galleries. citeturn0search7turn0search1
+  - Awwwards video showcases provide direction on glass layering, aspect-varied grids, and hover lightplay for premium multi-format storytelling. citeturn0search0turn0search2
+  - Implementation targets: (1) render headline, subhead, and body exactly; (2) three aspect-driven frames (16:9, 1:1, 9:16) with gradient placeholders + `data-motion="platform-demo-*"`; (3) platform names limited to sr-only labels; (4) responsive stack using clamp spacing and prefers-reduced-motion fallbacks.
+- **2025-11-03 21:55 PST – Section 7 Implementation + Audit**
+  - Added `StudiosPlatformDemoSection` featuring the copy deck headline, subhead, and two body paragraphs verbatim; no other visible text introduced.
+  - Crafted three aspect-specific media frames (16:9, 1:1, 9:16) with gradient placeholders, ambient glow, and `data-motion="platform-demo-*"` hooks; platform identifiers exist only as sr-only labels.
+  - Inserted after the standards section in `src/pages/Studios.tsx`; reran `npm run build` ✅ (vendor 348 kB) and completed copy audit—clean.
+- Section 7 carousel now uses a 3D depth layout: active 16:9 lead frame centered, inactive formats staged with lower opacity/translateZ and carousel controls (icon-only buttons) for cycling. Mobile fallback stacks frames vertically; all visible text remains copy-deck only.
+- Carousel interaction updated: cards now sit on a horizontal depth rail with click-to-focus behavior; inactive frames slide back with rotateY/translateZ while mobile keeps stacked view. No navigation buttons or extra copy added.
+- Platform carousel refactored to rotate the frame order (stateful array) so the clicked card rotates to the lead; desktop layout keeps the centered 16:9 with the other two offset horizontally into the background, no vertical shift.

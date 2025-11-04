@@ -1,4 +1,12 @@
 import type { CSSProperties } from "react"
+import MuxPlayer from "@mux/mux-player-react"
+
+// Mux Playback IDs for platform-specific demo videos
+const PLAYBACK_IDS = {
+  youtube: "nu3R359NW5Hp9OoNhrMTjixxBvG02fLgjY801lyuJYeSw",      // 16:9 landscape
+  instagram: "B02GR14h5RZ5KbLLhJI027E5ebPgZcB6dYCNgCrrAfSsM",   // 1:1 square
+  tiktok: "013eJs2BVMMvDtX5DbSJsG9SqCiMMAZOHRpCM8ngxojI",      // 9:16 portrait
+} as const
 
 const FRAMES = [
   {
@@ -6,18 +14,21 @@ const FRAMES = [
     srLabel: "YouTube 16:9",
     aspect: "aspect-[16/9]",
     gradient: "from-[rgba(49,196,255,0.36)] via-[rgba(49,196,255,0.12)] to-transparent",
+    playbackId: PLAYBACK_IDS.youtube,
   },
   {
     id: "instagram",
     srLabel: "Instagram 1:1",
     aspect: "aspect-square",
     gradient: "from-[rgba(225,179,65,0.32)] via-[rgba(225,179,65,0.12)] to-transparent",
+    playbackId: PLAYBACK_IDS.instagram,
   },
   {
     id: "tiktok",
     srLabel: "TikTok 9:16",
     aspect: "aspect-[9/16]",
     gradient: "from-[rgba(142,220,255,0.32)] via-[rgba(49,196,255,0.14)] to-transparent",
+    playbackId: PLAYBACK_IDS.tiktok,
   },
 ] as const
 
@@ -64,6 +75,7 @@ export function StudiosPlatformDemoSection() {
                 aspect={frame.aspect}
                 gradient={frame.gradient}
                 srLabel={frame.srLabel}
+                playbackId={frame.playbackId}
                 order={index + 1}
                 className="mx-auto w-full max-w-[26rem]"
               />
@@ -77,7 +89,7 @@ export function StudiosPlatformDemoSection() {
             style={{
               perspective: "1400px",
               perspectiveOrigin: "50% 50%",
-              minHeight: "32rem",
+              height: "60rem",
             }}
           >
             <div
@@ -92,13 +104,14 @@ export function StudiosPlatformDemoSection() {
                 aspect="aspect-square"
                 gradient="from-[rgba(225,179,65,0.32)] via-[rgba(225,179,65,0.12)] to-transparent"
                 srLabel="Instagram 1:1"
+                playbackId={PLAYBACK_IDS.instagram}
                 order={1}
                 className="absolute max-w-[26rem]"
                 style={{
-                  top: "-8rem",
-                  left: "34rem",
-                  transform: "rotateY(-48deg) translateZ(-400px) scale(0.72)",
-                  opacity: 0.55,
+                  top: "-5rem",
+                  left: "41rem",
+                  transform: "rotateY(-60deg) translateZ(-400px) scale(1.0)",
+                  opacity: 0.9,
                   zIndex: 2,
                 }}
               />
@@ -109,13 +122,14 @@ export function StudiosPlatformDemoSection() {
                 aspect="aspect-[9/16]"
                 gradient="from-[rgba(142,220,255,0.32)] via-[rgba(49,196,255,0.14)] to-transparent"
                 srLabel="TikTok 9:16"
+                playbackId={PLAYBACK_IDS.tiktok}
                 order={2}
                 className="absolute max-w-[22rem]"
                 style={{
-                  top: "-18rem",
-                  left: "20rem",
-                  transform: "rotateY(60deg) translateZ(-400px) scale(0.72)",
-                  opacity: 0.55,
+                  top: "-30rem",
+                  left: "10rem",
+                  transform: "rotateY(60deg) translateZ(-400px) scale(1.0)",
+                  opacity: 0.9,
                   zIndex: 2,
                 }}
               />
@@ -126,12 +140,13 @@ export function StudiosPlatformDemoSection() {
                 aspect="aspect-[16/9]"
                 gradient="from-[rgba(49,196,255,0.36)] via-[rgba(49,196,255,0.12)] to-transparent"
                 srLabel="YouTube 16:9"
+                playbackId={PLAYBACK_IDS.youtube}
                 order={3}
                 className="absolute"
                 style={{
-                  top: "-19rem",
-                  left: "50%",
-                  transform: "translateX(calc(-50% + 6rem)) rotateY(-25deg) translateZ(-200px)",
+                  top: "-65rem",
+                  left: "43%",
+                  transform: "translateX(calc(-50% + 6rem)) rotateY(0deg) translateZ(-200px) scale(1.2)",
                   opacity: 0.9,
                   zIndex: 3,
                   width: "37.5rem",
@@ -150,12 +165,13 @@ type MediaFrameProps = {
   aspect: string
   gradient: string
   srLabel: string
+  playbackId: string
   order: number
   className?: string
   style?: CSSProperties
 }
 
-function MediaFrame({ id, aspect, gradient, srLabel, order, className, style }: MediaFrameProps) {
+function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, className, style }: MediaFrameProps) {
   return (
     <div
       className={`group relative overflow-hidden rounded-[32px] border border-white/12 bg-white/[0.02] p-[1.5px] shadow-[0_80px_200px_-110px_rgba(8,15,32,0.92)] transition-all duration-500 ease-out hover:border-white/18 hover:shadow-[0_120px_260px_-120px_rgba(9,18,36,0.95)] ${className ?? ""}`}
@@ -168,11 +184,31 @@ function MediaFrame({ id, aspect, gradient, srLabel, order, className, style }: 
       <div className="relative overflow-hidden rounded-[28px] bg-white/[0.05] backdrop-blur-[18px]">
         <div className={`absolute inset-0 rounded-[28px] opacity-80 mix-blend-screen bg-gradient-to-br ${gradient}`} aria-hidden />
         <div
-          className={`relative ${aspect} overflow-hidden rounded-[28px] bg-[radial-gradient(circle_at_50%_50%,rgba(8,12,26,0.6),rgba(8,12,26,0)_80%)]`}
-          data-motion="platform-demo-placeholder"
+          className={`relative ${aspect} overflow-hidden rounded-[28px]`}
+          data-motion="platform-demo-video"
         >
-          <div className="absolute inset-0 rounded-[28px] bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.32),rgba(255,255,255,0)_55%),radial-gradient(circle_at_70%_80%,rgba(0,0,0,0.4),rgba(0,0,0,0)_65%)]" aria-hidden />
-          <div className="absolute inset-0 rounded-[28px] bg-gradient-to-t from-black/55 via-black/25 to-transparent opacity-70" aria-hidden />
+          <MuxPlayer
+            playbackId={playbackId}
+            autoPlay
+            loop
+            muted
+            playsInline
+            metadata={{
+              video_title: `${srLabel} Platform Demo`,
+              viewer_user_id: "anonymous"
+            }}
+            streamType="on-demand"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              '--controls': 'none',
+              '--media-object-fit': 'cover',
+              '--media-object-position': 'center',
+            } as React.CSSProperties}
+          />
+          {/* Subtle overlay for depth and polish */}
+          <div className="absolute inset-0 rounded-[28px] bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" aria-hidden />
           <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/14" aria-hidden />
         </div>
       </div>

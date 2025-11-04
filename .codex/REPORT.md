@@ -1,3 +1,39 @@
+# 2025-11-03 – Studios Workflow Flex Section (Codex Session B)
+
+## Summary
+- Created `StudiosWorkflowSection` featuring the “Start Anywhere. Finish Strong.” copy cluster, embedded BriefingEngine YouTube workflow video, and three workflow steps that reuse caption phrasing exactly as provided.
+- Applied premium glassmorphism frame consistent with locked foundation (gradient border, blur, noise) while wiring `data-motion="workflow-*"` hooks for GSAP.
+- Integrated the section into `src/pages/Studios.tsx` after the production stack module; copy audit confirms no additional text outside the deck.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Needs DevTools MCP viewport captures (1707×898, 1920×1080) to validate spacing around the video embed and timeline rail.
+- YouTube embed relies on external content; confirm final hosting/branding before launch.
+
+## Follow-ups
+- Capture viewport results, adjust spacing if needed, and log GSAP animation intentions in `_MEMO`/`REPORT` once motion brief is ready.
+- Confirm whether the workflow video requires a modal transcript or additional accessibility hooks.
+
+# 2025-11-03 – Studios Portfolio Section (Codex Session B)
+
+## Summary
+- Implemented `StudiosPortfolioSection` (`src/components/studios/StudiosPortfolioSection.tsx`) delivering the “Judge Yourself” six-card gallery with gradient media frames, hover metadata trays, and GSAP-ready hooks (`data-motion="portfolio*"`).
+- Integrated section into `src/pages/Studios.tsx` behind `FadeIn`, keeping legacy modules in place until the broader rebuild replaces them.
+- Reserved cinematic hover overlays (`ArrowUpRight`, `Play` badges) and focus-visible treatments so motion team can add scale/tilt timelines without reworking markup.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Poster assets are still gradient placeholders; real footage/thumbs needed before launch to avoid repetition.
+- Chrome DevTools MCP viewport captures (1707×898, 1920×1080) still pending; spacing tweaks may be required once captured.
+
+## Follow-ups
+- Capture viewport screenshots via MCP tooling, note spacing observations in `_MEMO`, and feed adjustments into PLAN before moving to Section 4.
+- Align with Session A on shared ambient particle layer so hero → challenge → portfolio transition reads cohesive.
+
 # 2025-11-03 – Hero Video Prototypes (Codex Session 2)
 
 ## Summary
@@ -262,3 +298,34 @@
 
 ## Follow-ups
 - Populate each source entry with actual files and summaries; align with analytics team to schedule quarterly metric audits.
+# 2025-11-03 – Studios Standards Filter Section (Codex Session B)
+
+## Summary
+- Implemented `StudiosStandardsSection` using the exact copy deck headline and paragraphs to act as the qualification gate.
+- Wrapped messaging in a premium glass shell with cyan/gold ambient lighting and `data-motion="standards-*"` hooks so GSAP can choreograph entrances later.
+- Inserted the section after the workflow block on the Studios page; no extra text or badges were added beyond the approved copy.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Needs viewport screenshot pass (1707×898, 1920×1080) to confirm breathing room around the enlarged frame.
+
+## Follow-ups
+- Document intended motion cues (fade/scale) for the GSAP team once viewport QA completes.
+# 2025-11-03 – Studios Platform Demo Section (Codex Session B)
+
+## Summary
+- Implemented `StudiosPlatformDemoSection` to present the “Six Formats. One Production.” copy with three aspect-specific media frames that hint at YouTube, Instagram, and TikTok deliverables without adding visible text beyond the copy deck.
+- Each frame uses gradient placeholders, glass depth, and `data-motion="platform-demo-*"` hooks so GSAP can choreograph platform reveals later; platform names are sr-only for accessibility compliance.
+- Integrated directly after the standards gate on the Studios page.
+- Implemented a horizontal depth carousel: the 16:9 frame stays centered in front while the other formats sit offset behind it; clicking any card rotates the order so the selected format moves into the lead. Mobile retains the stacked presentation.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Requires MCP viewport capture to confirm spacing and ensure the taller 9:16 frame doesn’t compress adjacent copy on narrow breakpoints.
+
+## Follow-ups
+- Document intended animation sequencing (stagger order, parallax ideas) in `_MEMO`/GSAP brief after viewport QA.
