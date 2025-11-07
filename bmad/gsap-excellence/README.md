@@ -13,9 +13,9 @@ This module provides specialized agents and workflows that fight AI's natural te
 ### Key Features
 
 - **5 Specialized Agents** - Film studio crew backed by Archon MCP + Deep-Research knowledge base
-- **11 Production Workflows** - From creative ideation to performance-validated delivery
+- **28 Production Workflows** - From creative ideation to performance-validated delivery
 - **GSAP 3.13.0+ Standard** - All premium plugins FREE (ScrollSmoother, MorphSVG, SplitText, DrawSVG, MotionPath)
-- **50 Pattern Library** - All 2025-current, showcasing premium plugins ✅ TARGET ACHIEVED!
+- **60 Pattern Library** - All 2025-current, showcasing premium plugins ✅ TARGET ACHIEVED!
 - **Multi-Source Research** - Archon MCP (89 sources, 2.2M+ words) + Deep-Research + WebSearch
 - **Visual Validation** - Chrome DevTools MCP for performance and quality testing
 - **Knowledge Base Integration** - Each agent has domain-specific KB access
@@ -120,15 +120,32 @@ Successful animations are added to the pattern library for future reuse.
 - Initialize GSAP with best practices
 - **Status:** Ready to build
 
-### Phase 2+ Workflows (7 more - All Complete! ✅)
+### Phase 2+ Workflows (24 more - All Complete! ✅)
 
 5. **animation-production** ⭐ FLAGSHIP - Full production pipeline with all 5 agents
 6. **debug-animation** - Fix underperforming animations
 7. **optimize-performance** - 60fps profiling
 8. **refine-timing** - Polish easing and timing
-9. **harvest-patterns** - Extract successful animations as reusable patterns (NEW Session 4!)
-10. **validate-modern** - Ensure GSAP 3.13+ compliance across codebase (NEW Session 4!)
-11. **accessibility-audit** - WCAG validation using Deep-Research 6.1-6.4 (NEW Session 4!)
+9. **harvest-patterns** - Extract successful animations as reusable patterns
+10. **validate-modern** - Ensure GSAP 3.13+ compliance across codebase
+11. **accessibility-audit** - WCAG validation using Deep-Research 6.1-6.4
+12. **analyze-animation** - Systematic pitfall analysis using 10-point checklist
+13. **analyze-motion** - Translate visual inspiration to GSAP specs
+14. **analyze-timing** - Deep timing and easing analysis
+15. **create-morph-animation** - SVG morphing with MorphSVG (FREE in 3.13+)
+16. **create-physics-animation** - Physics-based motion with InertiaPlugin
+17. **create-scroll-animation** - ScrollTrigger animations
+18. **create-text-animation** - Text reveals with SplitText (FREE in 3.13+)
+19. **create-timeline** - Complex timeline choreography
+20. **find-examples** - Premium GSAP examples from Archon
+21. **memory-profiling** - Detect memory leaks in SPAs
+22. **optimize-animation** - Performance optimization recommendations
+23. **plan-narrative** - Pixar Story Spine narrative planning
+24. **research-trends** - Latest premium animation trends
+25. **review-quality** - Quality assessment against excellence standards
+26. **ship-ready-check** - 6-part production readiness checklist
+27. **validate-60fps** - Systematic 60fps validation with objective benchmarks
+28. **validate-complete** - Comprehensive validation (60fps + visual + console + accessibility)
 
 ## MCP Server Requirements
 
@@ -344,19 +361,19 @@ Created by Cameron on 2025-10-11
 
 **What's Complete:**
 - ✅ ALL 5 agents (Director, Cinematographer, VFX Artist, Editor, Tech Director) with Deep-Research integration
-- ✅ ALL 13 workflows (8 original + 5 new: harvest-patterns, validate-modern, accessibility-audit, validate-60fps, memory-profiling)
+- ✅ ALL 28 workflows (complete production suite from ideation to validation)
 - ✅ **60 production-ready patterns** organized by category (50 → 60: +10 premium showcases) ✅ **100% PLAN COMPLIANCE**
 - ✅ **15/15 premium showcase patterns** (ScrollSmoother, MorphSVG, SplitText, MotionPath combos) ✅ **TARGET ACHIEVED**
 - ✅ **100% GSAP 3.13+ compliance** (zero 3.12 references) ✅ **VALIDATED**
 - ✅ **animation-production** ⭐ FLAGSHIP workflow (1,116 lines, 25 Deep-Research sections, 3 quality gates)
 - ✅ **3 reference checklists** (pitfalls, performance, accessibility)
 - ✅ **2 validation workflows** (60fps performance + memory leak detection)
-- ✅ **Complete documentation** (QUICKSTART.md + 13 workflow READMEs + EXAMPLES.md - 4,600+ lines)
+- ✅ **Complete documentation** (QUICKSTART.md + 28 workflow READMEs + EXAMPLES.md - 4,600+ lines)
 
 **Production Ready NOW:**
 1. ✅ All 5 agents compiled and ready
-2. ✅ All 13 workflows production-ready (including 2 validation workflows)
-3. ✅ 50 pattern library with comprehensive examples
+2. ✅ All 28 workflows production-ready (including 2 validation workflows)
+3. ✅ 60 pattern library with comprehensive examples
 4. ✅ 3 reference checklists (pitfalls, performance, accessibility)
 5. ✅ 2 systematic validation workflows (60fps + memory profiling)
 6. ✅ MCP servers configured (Archon, Context7, Chrome DevTools)
@@ -374,7 +391,7 @@ Created by Cameron on 2025-10-11
 **Documentation:**
 - **📖 QUICKSTART.md** - Comprehensive quick start guide (800+ lines) ✅ **START HERE!**
 - **📖 EXAMPLES.md** - 7 real-world usage scenarios (600+ lines)
-- **📖 Workflow READMEs** - All 13 workflows fully documented (3,200+ lines)
+- **📖 Workflow READMEs** - All 28 workflows fully documented (3,200+ lines)
 - Complete Brief: `docs/module-brief-gsap-2025-10-11.md` (1,650 lines)
 - Session Handoffs: `docs/BMAD-module-edit/GSAP-excellence-HANDOFF-SESSION-*.md`
 - This README: Current file
