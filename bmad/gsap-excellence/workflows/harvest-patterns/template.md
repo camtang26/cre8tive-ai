@@ -6,89 +6,41 @@
 
 ---
 
-## Pattern Details
+## Extraction Approval
 
-**Pattern Name:** {{pattern_name}}
-**Category:** {{category}}
-**Complexity:** {{complexity}}
-**GSAP Version:** 3.13.0+
-**Premium Plugins:** {{premium_plugins_list}} (FREE in 3.13+!)
-
-**Description:**
-{{description}}
-
-**Inspiration Source:**
-{{inspiration_source}}
+{{extraction_approval}}
 
 ---
 
-## Research Sources
+## Pattern Category
 
-**Archon MCP:**
-{{archon_sources_list}}
+**Category:** {{pattern_category}}
 
-**Deep-Research Sections:**
-{{deep_research_sections_list}}
-
-**WebSearch:**
-{{websearch_sources_list}}
+{{core_technique}}
 
 ---
 
-## Performance Metrics
+## Pattern Metadata
 
-- **Average FPS:** {{average_fps}}
-- **FPS @ 4x Throttle:** {{fps_4x_throttle}}
-- **Paint Time:** {{paint_time_ms}}ms
-- **JS Execution:** {{js_execution_ms}}ms
+{{pattern_metadata_complete}}
 
 ---
 
-## Accessibility Compliance
+## Pattern YAML File
 
-- ✅ prefers-reduced-motion fallback
-- {{keyboard_accessible_status}}
-- ✅ WCAG AA compliant
+{{pattern_yaml_content}}
 
 ---
 
-## Pattern File
+## Pattern Library Status
 
-**Location:** `{pattern_library}/{{category}}/{{pattern_name}}.pattern.yaml`
-
-**Pattern Library Status:**
-- **Total Patterns:** {{new_pattern_count}}
-- **Category Patterns:** {{category_count}}
+{{pattern_library_status}}
 
 ---
 
-## Use Cases
+## Harvest Summary
 
-{{use_cases_list}}
-
----
-
-## Next Steps
-
-1. **Pattern is immediately available** for quick implementation
-2. **Use implement-from-pattern workflow** to apply this pattern to new projects
-3. **Pattern contributes to library growth** (targeting 50+ patterns)
-
----
-
-## Pattern YAML Preview
-
-```yaml
-id: {{pattern_id}}
-name: "{{pattern_name}}"
-category: "{{category}}"
-complexity: "{{complexity}}"
-gsap_version: "3.13.0+"
-plugins_required: {{plugins_list}}
-# ... (full YAML in file)
-```
-
-**Full pattern file:** `{pattern_library}/{{category}}/{{pattern_name}}.pattern.yaml`
+{{harvest_summary}}
 
 ---
 
