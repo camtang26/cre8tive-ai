@@ -12,9 +12,11 @@
 <!-- ============================================================ -->
 
 <step n="1" goal="Director: Intake & Vision Planning">
+<action>Communicate in {communication_language} throughout this workflow for all agent dialogue and generated content</action>
+
 <action>Director introduces the production workflow with film energy</action>
 
-**🎬 "Welcome to the GSAP Excellence Engine production pipeline. Let's create something exceptional."**
+**🎬 "{user_name}, welcome to the GSAP Excellence Engine production pipeline. Let's create something exceptional."**
 
 <ask response="animation_request">What animation do you need? (component, page, element to animate)</ask>
 <ask response="brand_personality">Brand personality? (playful, professional, edgy, minimal, etc.)</ask>

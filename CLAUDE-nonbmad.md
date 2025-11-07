@@ -48,9 +48,18 @@ npm run deploy       # Deploy to GitHub Pages
 
 ## 🔌 MCP Servers
 
-**Archon MCP:**
-- Research GSAP, Lenis, React, Tailwind best practices
-- `rag_search_knowledge_base(query="...", match_count=5)`
+**Configuration Location:**
+- MCP servers for this project are configured in `~/.claude.json`
+- Project-specific settings: **Lines 906-957** in `~/.claude.json`
+- Use this for: Manual MCP installation, debugging connection issues, or troubleshooting MCP server problems
+
+**Archon MCP - Knowledge Base & RAG:**
+- `rag_get_available_sources()` - List all indexed documentation sources
+- `rag_search_knowledge_base(query, source_id, return_mode="pages")` - Semantic search (use SHORT 2-5 keyword queries)
+- `rag_search_code_examples(query, source_id)` - Find code snippets with AI summaries
+- `rag_list_pages_for_source(source_id, section)` - Browse documentation structure by source
+- `rag_read_full_page(page_id)` - Get complete page content with metadata
+- **📖 Full Guide:** @~/.claude/mcp-configs/ArchonMCP_Comprehensive_Guide.md (13 tools, best practices, troubleshooting)
 
 **Chrome DevTools MCP:**
 - Visual QA, performance profiling

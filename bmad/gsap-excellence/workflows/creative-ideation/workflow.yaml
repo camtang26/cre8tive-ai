@@ -101,3 +101,16 @@ phases:
   research: "5-7 min (parallel MCP calls)"
   synthesis: "2-3 min"
   presentation: "1-2 min"
+
+# Web bundle configuration
+web_bundle:
+  workflow_name: "creative-ideation"
+  web_bundle_files:
+    - "bmad/gsap-excellence/workflows/creative-ideation/workflow.yaml"
+    - "bmad/gsap-excellence/workflows/creative-ideation/instructions.md"
+    - "bmad/gsap-excellence/workflows/creative-ideation/template.md"
+
+  # Related workflows (feeds_into - not directly invoked)
+  related_workflows:
+    - "bmad/gsap-excellence/workflows/animation-production/workflow.yaml"
+    - "bmad/gsap-excellence/workflows/implement-from-pattern/workflow.yaml"

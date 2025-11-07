@@ -7,9 +7,11 @@
 <workflow>
 
 <step n="1" goal="Gather Project Requirements">
-<action>VFX Artist (or Tech Director) introduces setup workflow</action>
+<action>Communicate in {communication_language} throughout this workflow for all agent dialogue and generated content</action>
 
-**"Let's get GSAP set up correctly from the start. Tell me about your project."**
+<action>VFX Artist (or Tech Director) greets {user_name} and introduces setup workflow</action>
+
+**"{user_name}, let's get GSAP set up correctly from the start. Tell me about your project."**
 
 <ask response="project_name">Project name?</ask>
 <ask response="project_type">Project type? [vanilla/react/vue/svelte/next/vite/other]</ask>
@@ -86,7 +88,36 @@
 }
 ```
 
-<template-output>installation_commands, dependency_entries</template-output>
+<action>Generate template section variables for plugin and TypeScript installation</action>
+
+<check if="plugins_needed != 'none' and plugins_needed != ''">
+  <action>Create plugin_installation_section with complete content:
+  "```bash
+{{plugin_install_commands}}
+```
+
+**Plugin Notes:**
+{{plugin_notes}}"
+  </action>
+</check>
+
+<check if="plugins_needed == 'none' or plugins_needed == ''">
+  <action>Set plugin_installation_section to: "No additional plugins required."</action>
+</check>
+
+<check if="typescript == 'yes' or typescript == true">
+  <action>Create typescript_installation_section with complete content:
+  "```bash
+{{typescript_types_install}}
+```"
+  </action>
+</check>
+
+<check if="typescript == 'no' or typescript == false">
+  <action>Set typescript_installation_section to: "TypeScript not used - skipping type definitions."</action>
+</check>
+
+<template-output>gsap_install_command, plugin_install_commands, plugin_notes, typescript_types_install, dependency_entries, plugin_installation_section, typescript_installation_section</template-output>
 </step>
 
 <step n="4" goal="Create Project Structure">
@@ -160,7 +191,51 @@
 ```
 </check>
 
-<template-output>gsap_config_file, bundler_config, typescript_config</template-output>
+<action>Generate template section variables for bundler and TypeScript configuration</action>
+
+<check if="bundler != 'none'">
+  <action>Determine config file name based on bundler:
+  - webpack: webpack.config.js
+  - vite: vite.config.js
+  - rollup: rollup.config.js
+  - parcel: .parcelrc
+  - esbuild: esbuild.config.js
+  </action>
+
+  <action>Create bundler_configuration_section with complete content:
+  "**File:** `{{config_file_name}}`
+
+```javascript
+{{bundler_config}}
+```
+
+**Configuration Notes:**
+{{bundler_config_notes}}"
+  </action>
+</check>
+
+<check if="bundler == 'none'">
+  <action>Set bundler_configuration_section to empty string</action>
+</check>
+
+<check if="typescript == 'yes' or typescript == true">
+  <action>Create typescript_configuration_section with complete content:
+  "**File:** `tsconfig.json` (updates)
+
+```json
+{{typescript_config}}
+```
+
+**TypeScript Notes:**
+{{typescript_notes}}"
+  </action>
+</check>
+
+<check if="typescript == 'no' or typescript == false">
+  <action>Set typescript_configuration_section to empty string</action>
+</check>
+
+<template-output>gsap_config_file, bundler_config, typescript_config, config_file_name, bundler_config_notes, typescript_notes, bundler_configuration_section, typescript_configuration_section</template-output>
 </step>
 
 <step n="6" goal="Create Import Examples">
@@ -203,7 +278,101 @@
 ```
 </check>
 
-<template-output>import_examples, usage_examples</template-output>
+<action>Generate template section variable for framework integration</action>
+
+<check if="project_type == 'vanilla'">
+  <action>Create framework_integration_section:
+  "**Vanilla JavaScript:**
+
+```javascript
+{{vanilla_import_example}}
+```
+
+**Usage:**
+{{vanilla_usage_notes}}"
+  </action>
+</check>
+
+<check if="project_type == 'react'">
+  <action>Create framework_integration_section:
+  "**React Integration:**
+
+```jsx
+{{react_import_example}}
+```
+
+**Usage Notes:**
+{{react_usage_notes}}"
+  </action>
+</check>
+
+<check if="project_type == 'vue'">
+  <action>Create framework_integration_section:
+  "**Vue Integration:**
+
+```vue
+{{vue_import_example}}
+```
+
+**Usage Notes:**
+{{vue_usage_notes}}"
+  </action>
+</check>
+
+<check if="project_type == 'svelte'">
+  <action>Create framework_integration_section:
+  "**Svelte Integration:**
+
+```svelte
+{{svelte_import_example}}
+```
+
+**Usage Notes:**
+{{svelte_usage_notes}}"
+  </action>
+</check>
+
+<check if="project_type == 'next'">
+  <action>Create framework_integration_section:
+  "**Next.js Integration:**
+
+```jsx
+{{next_import_example}}
+```
+
+**Usage Notes:**
+{{next_usage_notes}}"
+  </action>
+</check>
+
+<check if="project_type == 'vite' or project_type == 'other' or project_type == 'webpack' or project_type == 'rollup' or project_type == 'parcel' or project_type == 'esbuild'">
+  <action>Create framework_integration_section for generic/build-tool-only projects:
+  "**Generic JavaScript Integration:**
+
+```javascript
+import { gsap } from 'gsap';
+
+// Register plugins
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
+// Your animation code
+gsap.to('.element', {
+  x: 100,
+  duration: 1
+});
+```
+
+**Usage Notes:**
+- Import GSAP at the top of your entry file
+- Register plugins in your main configuration file (animations/utils/gsap-config.js)
+- Ensure proper cleanup when modules unload
+- Follow your build tool's best practices for module imports
+- For framework-specific integration, consult GSAP docs at https://greensock.com/get-started/"
+  </action>
+</check>
+
+<template-output>vanilla_import_example, vanilla_usage_notes, react_import_example, react_usage_notes, vue_import_example, vue_usage_notes, svelte_import_example, svelte_usage_notes, next_import_example, next_usage_notes, framework_integration_section</template-output>
 </step>
 
 <step n="7" goal="Create Example Animation">

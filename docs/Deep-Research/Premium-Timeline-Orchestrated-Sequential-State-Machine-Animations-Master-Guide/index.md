@@ -1,0 +1,26 @@
+# Premium Timeline-Orchestrated Sequential State Machine Animations -- Master Guide
+
+## Table of Contents
+
+- [Premium Timeline-Orchestrated Sequential State Machine Animations -- Master Guide](#table-of-contents)
+  - [1. First Principles Foundation (Physics, Purpose, Perception, Constraints)](./1-first-principles-foundation-physics-purpose-perception-constraints.md)
+  - [2. Human Perception & Psychology of Motion (60 FPS, Attention & Cognitive Load)](./2-human-perception-psychology-of-motion-60-fps-attention-cognitive-load.md)
+  - [3. Creative Mindset & Planning Methodology (Brainstorming World-Class Animations)](./3-creative-mindset-planning-methodology-brainstorming-world-class-animations.md)
+  - [4. Visual Design Principles of Animation (Timing, Rhythm, Easing, Restraint, Typography)](./4-visual-design-principles-of-animation-timing-rhythm-easing-restraint-typography.md)
+  - [5. Animation Architecture Patterns (FSMs, State Machines, Timeline Orchestration)](./5-animation-architecture-patterns-fsms-state-machines-timeline-orchestration.md)
+  - [6. Performance & Optimization (60fps, Scheduling, Memory, Enhancement)](./6-performance-optimization-60fps-scheduling-memory-enhancement.md)
+  - [7. Technical Implementation Patterns (Sequential Animations, Scroll Triggers, Typewriter Effects)](./7-technical-implementation-patterns-sequential-animations-scroll-triggers-typewriter-effects.md)
+  - [8. Code Examples & Patterns (Production-Ready, Accessible, Error-Handled)](./8-code-examples-patterns-production-ready-accessible-error-handled.md)
+    - [Example 8.1: Accessible Typewriter Effect (React + TS)](./8-code-examples-patterns-production-ready-accessible-error-handled.md#example-81-accessible-typewriter-effect-react-ts)
+    - [Example 8.2: Scroll Reveal with IntersectionObserver (Vanilla JS)](./8-code-examples-patterns-production-ready-accessible-error-handled.md#example-82-scroll-reveal-with-intersectionobserver-vanilla-js)
+    - [Example 8.3: Finite State Machine for Modal (TypeScript/React)](./8-code-examples-patterns-production-ready-accessible-error-handled.md#example-83-finite-state-machine-for-modal-typescriptreact)
+    - [Example 8.4: Scroll-Linked Progress Bar (React Hook + throttle)](./8-code-examples-patterns-production-ready-accessible-error-handled.md#example-84-scroll-linked-progress-bar-react-hook-throttle)
+  - [9. Cross-Domain Techniques (Film, Music, Game Design, Dance Principles Adapted to Web)](./9-cross-domain-techniques-film-music-game-design-dance-principles-adapted-to-web.md)
+  - [10. Case Studies (Linear, Stripe, Vercel, Figma -- Real Implementations)](./10-case-studies-linear-stripe-vercel-figma-real-implementations.md)
+    - [Linear](./10-case-studies-linear-stripe-vercel-figma-real-implementations.md#linear)
+    - [Stripe](./10-case-studies-linear-stripe-vercel-figma-real-implementations.md#stripe)
+    - [Vercel](./10-case-studies-linear-stripe-vercel-figma-real-implementations.md#vercel)
+    - [Figma](./10-case-studies-linear-stripe-vercel-figma-real-implementations.md#figma)
+  - [11. Decision Framework (When to Use Which Patterns, Trade-offs, Dependencies)](./11-decision-framework-when-to-use-which-patterns-trade-offs-dependencies.md)
+  - [12. Common Pitfalls & Anti-Patterns (What NOT to Do)](./12-common-pitfalls-anti-patterns-what-not-to-do.md)
+  - [13. Strategic Constraints & Alternative Models (Elimination Patterns, Alternative Mental Models)](./13-strategic-constraints-alternative-models-elimination-patterns-alternative-mental-models.md)

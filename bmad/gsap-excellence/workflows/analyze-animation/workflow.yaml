@@ -1,0 +1,157 @@
+# Animation Analysis Workflow
+# Editor - Systematic code review using 10-point pitfalls framework
+
+name: 'analyze-animation'
+description: 'Systematic animation code analysis using 10-point pitfalls framework (Deep-Research Sections 8.1-8.10) with KB-powered pattern matching. PROACTIVE code review for learning and prevention.'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/analyze-animation'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+default_output_file: '{output_folder}/animation-analysis-{timestamp}.md'
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from Editor agent menu)
+
+# Web bundle configuration
+web_bundle:
+  web_bundle_name: "analyze-animation"
+  web_bundle_description: "Systematic GSAP animation code review using 10-point pitfalls framework (Deep-Research Sections 8.1-8.10) with KB-powered pattern matching"
+  web_bundle_author: "GSAP Excellence Engine"
+
+  # Core workflow files
+  web_bundle_files:
+    - "bmad/gsap-excellence/workflows/analyze-animation/instructions.md"
+    - "bmad/gsap-excellence/workflows/analyze-animation/template.md"
+
+    # Deep-Research dependencies (Sections 8.1-8.10 - PRIMARY pitfalls framework)
+    - "docs/Deep-Research/GSAP-Animation-Mastery/34-pitfall-81-forgetting-to-clean-up-memory-leaks-double-animations.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/35-pitfall-82-animating-the-wrong-properties-no-gpu-acceleration.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/36-pitfall-83-ignoring-in-from-tweens.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/37-pitfall-84-multiple-scrolltriggers-on-the-same-elements-property.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/38-pitfall-85-not-using-leading-to-conflict.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/39-pitfall-86-overlooking-refresh-after-content-load.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/40-pitfall-87-use-of-deprecated-or-old-syntax.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/41-pitfall-88-uncontrolled-infinite-loops.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/42-pitfall-89-not-testing-on-different-devices.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/43-pitfall-810-misusing-vs-causing-flicker.md"
+
+    # Supporting Deep-Research sections (referenced in instructions)
+    - "docs/Deep-Research/GSAP-Animation-Mastery/20-53-debugging-jank.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/21-54-memory-management-garbage-collection.md"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/17-37-pattern-cleanup-and-reinitialization-fullpage-transitions.md"
+
+# Workflow Metadata
+metadata:
+  agent: 'editor'
+  priority: 'P1'
+  complexity: 'high'
+  research_intensity: 'very-high'
+  estimated_duration: '15-25 minutes'
+  output_type: 'analysis-report'
+  use_case: 'proactive-code-review'  # NOT reactive debugging
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (91 sources) - PRIMARY
+  - context7  # Latest GSAP API docs (fallback)
+
+# Deep-Research Sections Referenced (THE CORE)
+deep_research_sections:
+  - '8.1'   # Cleanup/Memory Leaks (PRIMARY - HIGH severity)
+  - '8.2'   # Wrong Properties (PRIMARY - HIGH severity)
+  - '8.3'   # immediateRender issues (MEDIUM severity)
+  - '8.4'   # Multiple ScrollTriggers (MEDIUM severity)
+  - '8.5'   # Missing overwrite mode (MEDIUM severity)
+  - '8.6'   # Missing refresh() (MEDIUM severity)
+  - '8.7'   # Deprecated syntax (LOW severity)
+  - '8.8'   # Infinite loops without cleanup (LOW severity)
+  - '8.9'   # Not tested on mobile (HIGH severity)
+  - '8.10'  # from() vs fromTo() confusion (MEDIUM severity)
+  - '5.3'   # Debugging Jank (supporting section)
+  - '5.4'   # Memory Management (supporting section)
+  - '3.7'   # Cleanup patterns (supporting section)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (442K words)
+  - '6a6860cfc96e173b'  # ScrollTrigger docs (526K words)
+  - '1e5cc3bd5125be3c'  # Codrops tutorials (42K words)
+
+# 10-Point Pitfalls Framework (Severity Pre-Assigned)
+pitfalls_framework:
+  8.1:
+    name: 'Cleanup/Memory Leaks'
+    severity: 'HIGH'
+    description: 'Animations not killed on unmount, ScrollTriggers not cleaned up'
+    file: '34-pitfall-81-forgetting-to-clean-up-memory-leaks-double-animations.md'
+  8.2:
+    name: 'Wrong Properties'
+    severity: 'HIGH'
+    description: 'Animating layout properties (width, height, top, left) instead of transforms'
+    file: '35-pitfall-82-animating-the-wrong-properties-no-gpu-acceleration.md'
+  8.3:
+    name: 'immediateRender Issues'
+    severity: 'MEDIUM'
+    description: 'from() causing flicker, missing immediateRender: false'
+    file: '36-pitfall-83-ignoring-in-from-tweens.md'
+  8.4:
+    name: 'Multiple ScrollTriggers'
+    severity: 'MEDIUM'
+    description: 'ScrollTrigger conflicts, duplicate triggers on same element'
+    file: '37-pitfall-84-multiple-scrolltriggers-on-the-same-elements-property.md'
+  8.5:
+    name: 'Missing overwrite Mode'
+    severity: 'MEDIUM'
+    description: 'Animation conflicts, previous tweens not overwritten'
+    file: '38-pitfall-85-not-using-leading-to-conflict.md'
+  8.6:
+    name: 'Missing refresh()'
+    severity: 'MEDIUM'
+    description: 'ScrollTrigger positioning wrong after layout changes'
+    file: '39-pitfall-86-overlooking-refresh-after-content-load.md'
+  8.7:
+    name: 'Deprecated Syntax'
+    severity: 'LOW'
+    description: 'Using GSAP 2.x syntax in GSAP 3.x (TweenMax, TweenLite)'
+    file: '40-pitfall-87-use-of-deprecated-or-old-syntax.md'
+  8.8:
+    name: 'Infinite Loops Without Cleanup'
+    severity: 'LOW'
+    description: 'repeat: -1 without proper lifecycle management'
+    file: '41-pitfall-88-uncontrolled-infinite-loops.md'
+  8.9:
+    name: 'Not Tested on Mobile'
+    severity: 'HIGH'
+    description: 'iOS Safari issues, mobile performance problems'
+    file: '42-pitfall-89-not-testing-on-different-devices.md'
+  8.10:
+    name: 'from() vs fromTo() Confusion'
+    severity: 'MEDIUM'
+    description: 'Using from() when fromTo() is more appropriate'
+    file: '43-pitfall-810-misusing-vs-causing-flicker.md'
+
+# Framework Support
+frameworks:
+  - 'react'      # useGSAP() hook patterns
+  - 'nextjs'     # SSR considerations, Next.js 15
+  - 'vue'        # Vue 3 composition API
+  - 'vanilla'    # Pure JavaScript implementation
+
+# Latest Validation (2024-2025)
+validation_sources:
+  web_search:
+    - 'Marmelab GSAP pitfalls (May 2024)'
+    - 'InfiniteJS GSAP mastery (August 2024)'
+    - 'Next.js 15 cleanup patterns (September 2025)'
+    - 'iOS Safari compatibility (2024-2025)'
+  archon_mcp:
+    - 'gsap.com/resources/st-mistakes (ScrollTrigger mistakes)'
+    - 'gsap.com/resources/React (cleanup patterns)'
+    - 'gsap.com docs (performance, transforms)'
+  gsap_version: '3.13+ (all plugins FREE since April 2025)'

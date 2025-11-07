@@ -109,3 +109,12 @@ phases:
   adaptation_planning: "3-5 min"
   implementation: "5-10 min"
   validation: "2-5 min (if Tech Director available)"
+
+# Web bundle configuration
+web_bundle:
+  id: "gsap-excellence/implement-from-pattern"
+
+  web_bundle_files:
+    - "bmad/gsap-excellence/workflows/implement-from-pattern/workflow.yaml"
+    - "bmad/gsap-excellence/workflows/implement-from-pattern/instructions.md"
+    - "bmad/gsap-excellence/workflows/implement-from-pattern/template.md"

@@ -1,10 +1,13 @@
 # Memory Profiling Workflow Instructions
 
 <critical>Load: {project-root}/bmad/core/tasks/workflow.xml</critical>
+<critical>Communicate all instructions and responses in {communication_language}</critical>
 
 <workflow>
 
 <step n="1" goal="Setup & Context">
+<action>Greet {user_name} and explain the memory profiling workflow purpose</action>
+
 <ask response="page_url">What is the SPA page URL to profile?</ask>
 <ask response="navigation_route">What route should be used for navigation testing? (e.g., /about, /products)</ask>
 <ask response="navigation_cycles" default="5">How many navigation cycles? (default: 5)</ask>
@@ -48,8 +51,6 @@ Guide user to prepare for heap snapshot capture:
 - Page loaded successfully
 - Memory panel accessible
 - Ready to capture baseline snapshot
-
-<template-output>memory_panel_ready</template-output>
 </step>
 
 <step n="3" goal="Capture Baseline Heap Snapshot">
@@ -74,7 +75,9 @@ Guide user to prepare for heap snapshot capture:
 - **Baseline Listeners:** _____
 - **Timestamp:** {{current_time}}
 
-<template-output>baseline_heap_size, baseline_dom_nodes, baseline_listeners</template-output>
+<action>Capture baseline_timestamp with current date/time</action>
+
+<template-output>baseline_heap_size, baseline_dom_nodes, baseline_listeners, baseline_timestamp</template-output>
 </step>
 
 <step n="4" goal="Stress Test - Navigation Cycles">
@@ -104,8 +107,6 @@ Simulate typical SPA usage by navigating away and back multiple times. This expo
 **Expected Behavior:**
 - If cleanup is proper: Memory should stabilize or decrease
 - If leaks exist: Memory grows with each cycle
-
-<template-output>stress_test_complete, cycles_executed</template-output>
 </step>
 
 <step n="5" goal="Capture Post-Stress Heap Snapshot">
@@ -127,11 +128,17 @@ Simulate typical SPA usage by navigating away and back multiple times. This expo
 - **Post-Stress Listeners:** _____
 - **Timestamp:** {{current_time}}
 
+<action>Capture poststress_timestamp with current date/time</action>
+
 **Calculate Growth:**
 - **Heap Growth:** (Post-Stress - Baseline) = _____ MB
-- **DOM Node Growth:** (Post-Stress - Baseline) = _____
+- **Listener Growth:** (Post-Stress Listeners - Baseline Listeners) = _____
 
-<template-output>poststress_heap_size, heap_growth, dom_node_growth</template-output>
+<action>Calculate listener_growth: poststress_listeners - baseline_listeners</action>
+
+<action>Capture test_duration: Calculate time elapsed from baseline_timestamp to poststress_timestamp</action>
+
+<template-output>poststress_heap_size, poststress_dom_nodes, poststress_listeners, poststress_timestamp, heap_growth, listener_growth, test_duration</template-output>
 </step>
 
 <step n="6" goal="Analyze Detached DOM Nodes">
@@ -154,7 +161,11 @@ Detached DOM nodes are a primary indicator of memory leaks. These are nodes that
 **Detached Node Analysis:**
 - **Detached DOM Nodes Found:** _____
 - **Largest Detached Node Type:** _____ (e.g., HTMLDivElement)
+- **Shallow Size:** _____ bytes
+- **Retained Size:** _____ bytes
 - **Retaining Path:** What's keeping them in memory? (e.g., event listener, GSAP timeline)
+
+<action>If detached nodes found, capture largest_detached_size (shallow size in bytes) and largest_retained_size (retained size in bytes) from DevTools</action>
 
 **Common Leak Sources (if has_gsap_animations=yes):**
 - ❌ ScrollTriggers not killed on navigation
@@ -168,7 +179,7 @@ Detached DOM nodes are a primary indicator of memory leaks. These are nodes that
 
 **Reference:** Archon Chrome DevTools heap snapshot documentation
 
-<template-output>detached_nodes_count, largest_detached_type, retaining_paths</template-output>
+<template-output>detached_nodes_count, largest_detached_type, largest_detached_size, largest_retained_size, retaining_paths</template-output>
 </step>
 
 <step n="7" goal="Compare Snapshots & Detect Leaks">
@@ -188,49 +199,65 @@ Detached DOM nodes are a primary indicator of memory leaks. These are nodes that
 
 **Memory Growth Analysis:**
 
-**Heap Size Growth:**
-- Baseline: {{baseline_heap_size}} MB
-- Post-Stress: {{poststress_heap_size}} MB
-- **Growth:** {{heap_growth}} MB
-- **Result:** {{#if heap_growth < 5}}✅ PASS (<5MB){{else}}❌ FAIL (≥5MB){{/if}}
+**Calculate Status Indicators:**
 
-**Detached Nodes:**
-- **Count:** {{detached_nodes_count}}
-- **Result:** {{#if detached_nodes_count < 10}}✅ PASS (<10){{else}}❌ FAIL (≥10){{/if}}
+<action>Calculate heap_status based on heap_growth:
+- If heap_growth < 5MB: heap_status = "✅ PASS (<5MB)"
+- If heap_growth >= 5MB: heap_status = "❌ FAIL (≥5MB)"
+</action>
 
-**Leak Diagnosis (if failing):**
+<action>Calculate detached_status based on detached_nodes_count:
+- If detached_nodes_count < 10: detached_status = "✅ PASS (<10)"
+- If detached_nodes_count >= 10: detached_status = "❌ FAIL (≥10)"
+</action>
 
+<action>Calculate heap_growth_percent:
+- heap_growth_percent = (heap_growth / 5.0) * 100
+- Format as integer percentage
+</action>
+
+**Leak Diagnosis:**
+
+<check if="heap_growth >= 5 or detached_nodes_count >= 10">
 <action>Query Archon MCP: rag_search_code_examples("GSAP memory leak cleanup React")</action>
 <action>Query Archon MCP: rag_search_knowledge_base("ScrollTrigger kill cleanup SPA")</action>
 
-**Suspected Leak Sources:**
-{{#if heap_growth >= 5 or detached_nodes_count >= 10}}
+<action>Generate suspected_causes based on has_gsap_animations:
 
-**If has_gsap_animations=yes:**
+If has_gsap_animations = "yes":
 - ❌ **Likely cause:** ScrollTriggers not killed on route change
 - ❌ **Likely cause:** GSAP timelines not cleaned up
 - ❌ **Likely cause:** gsap.context() not reverted in React cleanup
 
-**If has_gsap_animations=no:**
+If has_gsap_animations = "no":
 - ❌ **Likely cause:** Event listeners not removed
 - ❌ **Likely cause:** Third-party libraries leaking
 - ❌ **Likely cause:** Closures retaining DOM references
+</action>
+</check>
 
-{{/if}}
+<check if="heap_growth < 5 and detached_nodes_count < 10">
+<action>Set suspected_causes = "No leaks detected - cleanup working properly"</action>
+</check>
 
-<template-output>leak_diagnosis, suspected_causes</template-output>
+<template-output>heap_status, detached_status, heap_growth_percent, leak_diagnosis, suspected_causes</template-output>
 </step>
 
 <step n="8" goal="Cleanup Recommendations">
-**Provide Targeted Cleanup Strategies:**
+**Generate Targeted Cleanup Strategies:**
 
-{{#if heap_growth >= 5 or detached_nodes_count >= 10}}
+<check if="heap_growth >= 5 or detached_nodes_count >= 10">
+<action>Generate cleanup_strategies for MEMORY LEAK DETECTED scenario</action>
+
+<action>Start cleanup_strategies with:
 
 ### ❌ MEMORY LEAK DETECTED
 
 **Critical Cleanup Required:**
+</action>
 
-{{#if has_gsap_animations = "yes"}}
+<check if="has_gsap_animations equals yes">
+<action>Add GSAP-specific cleanup patterns to cleanup_strategies:</action>
 
 **GSAP Cleanup Patterns:**
 
@@ -332,12 +359,13 @@ window.addEventListener('mousemove', (e) => {
 ```
 
 **Reference:** Deep-Research Section 3.7 (Cleanup Patterns), Archon gsap.com/docs/v3/GSAP/gsap.context()
+</action>
+</check>
 
-{{/if}}
+<check if="has_gsap_animations equals no">
+<action>Add general cleanup patterns to cleanup_strategies:
 
-{{#if has_gsap_animations = "no"}}
-
-**General Cleanup Patterns:**
+**General Cleanup Patterns:**</action>
 
 **✅ Remove Event Listeners:**
 ```javascript
@@ -380,12 +408,14 @@ useEffect(() => {
   };
 }, []);
 ```
+</action>
+</check>
+</check>
 
-{{/if}}
+<check if="heap_growth < 5 and detached_nodes_count < 10">
+<action>Generate cleanup_strategies for HEALTHY scenario:
 
-{{else}}
-
-### ✅ NO MEMORY LEAKS DETECTED
+### ✅ NO MEMORY LEAKS DETECTED</action>
 
 **Memory Health:** HEALTHY
 - Heap growth within acceptable limits (<5MB)
@@ -393,45 +423,24 @@ useEffect(() => {
 - Proper cleanup implemented
 
 **Cleanup is working correctly!**
+</action>
+</check>
 
-{{/if}}
-
-<template-output>cleanup_strategies, code_examples</template-output>
+<template-output>cleanup_strategies</template-output>
 </step>
 
 <step n="9" goal="Generate Memory Profile Report">
 **Compile Memory Health Report:**
 
-<action>Calculate overall memory health status:</action>
+<action>Calculate overall memory health status:
+- If heap_growth < 5 AND detached_nodes_count < 10:
+  - memory_health_status = "✅ HEALTHY"
+- If heap_growth >= 5 OR detached_nodes_count >= 10:
+  - memory_health_status = "❌ LEAKING"
+</action>
 
-**Health Logic:**
-- If Heap Growth <5MB AND Detached Nodes <10 → **HEALTHY**
-- If Heap Growth ≥5MB OR Detached Nodes ≥10 → **LEAKING**
-
-**Report Structure:**
-
-```markdown
-# Memory Profile Report
-
-**Date:** {{date}}
-**Page URL:** {{page_url}}
-**Navigation Route:** {{navigation_route}}
-**Cycles Executed:** {{navigation_cycles}}
-**GSAP Animations:** {{has_gsap_animations}}
-
----
-
-## Memory Health Status: {{memory_health_status}}
-
-{{#if_healthy}}
-✅ **HEALTHY** - No memory leaks detected
-{{/if_healthy}}
-
-{{#if_leaking}}
-❌ **LEAKING** - Memory leaks detected (must fix before production)
-{{/if_leaking}}
-
----
+<action>Note: The complete report structure is defined in template.md
+The workflow generates all variable values, and the template displays them.</action>
 
 ## Test Results
 
@@ -467,15 +476,11 @@ useEffect(() => {
 
 **Detached Nodes Found:** {{detached_nodes_count}}
 
-{{#if detached_nodes_count > 0}}
-
-**Largest Detached Node:**
+**Largest Detached Node:** (if nodes found)
 - Type: {{largest_detached_type}}
 - Retaining Path: {{retaining_paths}}
 
 **Suspected Leak Source:** {{suspected_causes}}
-
-{{/if}}
 
 ---
 
@@ -497,11 +502,11 @@ useEffect(() => {
 
 <action>Save report to: {{default_output_file}}</action>
 
-<template-output>final_memory_report, memory_health_status</template-output>
+<template-output>memory_health_status</template-output>
 </step>
 
 <step n="10" goal="Present Report & Next Actions">
-<action>Display memory profile report with clear health status</action>
+<action>Display memory profile report to {user_name} with clear health status in {communication_language}</action>
 
 **If HEALTHY:**
 ✅ **NO MEMORY LEAKS DETECTED**
@@ -531,8 +536,6 @@ useEffect(() => {
 - Save report to: {{default_output_file}}
 - Reference performance.md for detailed cleanup guidance
 - Review Deep-Research Section 3.7 (Cleanup Patterns)
-
-<template-output>next_actions, final_status</template-output>
 </step>
 
 </workflow>

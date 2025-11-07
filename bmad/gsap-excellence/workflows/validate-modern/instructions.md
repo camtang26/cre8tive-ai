@@ -12,9 +12,11 @@
 <!-- ============================================================ -->
 
 <step n="1" goal="Tech Director: Initialize Compliance Scan">
-<action>Tech Director prepares to scan codebase for GSAP 3.13+ compliance</action>
+<action>Communicate in {communication_language} throughout this workflow for all agent dialogue and generated content</action>
 
-**🔧 "Initiating GSAP compliance scan..."**
+<action>Tech Director greets {user_name} and prepares to scan codebase for GSAP 3.13+ compliance</action>
+
+**🔧 "{user_name}, initiating GSAP compliance scan..."**
 
 <ask response="codebase_root">Codebase root directory to scan? [default: current project root]</ask>
 
@@ -27,7 +29,7 @@
 
 **🔧 "Starting compliance scan with these parameters..."**
 
-<template-output>scan_configuration</template-output>
+<template-output>date, codebase_root, scan_configuration</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -108,7 +110,7 @@ yarn upgrade gsap@latest
 
 </check>
 
-<template-output>gsap_version, version_compliance_status, upgrade_priority</template-output>
+<template-output>gsap_version, version_compliance_status, version_pass_fail, version_details, upgrade_priority</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -200,7 +202,7 @@ grep "CSSPlugin" {codebase_root}
 
 </check>
 
-<template-output>deprecated_syntax_report, deprecated_instances_list, deprecated_count</template-output>
+<template-output>deprecated_syntax_status, deprecated_count, tweenmax_count, tweenlite_count, timeline_count, old_import_count, cssplugin_count, deprecated_syntax_report, deprecated_instances_list</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -279,7 +281,7 @@ grep -i "follow.*path\|motion.*path" {codebase_root}
 
 </check>
 
-<template-output>premium_opportunities_report, premium_opportunities_list</template-output>
+<template-output>premium_opportunities_count, scrollsmoother_opportunities, morphsvg_opportunities, splittext_opportunities, drawsvg_opportunities, motionpath_opportunities, total_savings_if_paid, premium_opportunities_report, premium_opportunities_list</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -342,7 +344,7 @@ gsap.registerPlugin({{unregistered_plugins}});
 
 </check>
 
-<template-output>plugin_registration_report, unregistered_plugins_list</template-output>
+<template-output>imported_plugins_list, registered_plugins_list, unregistered_plugins_list, unregistered_plugins_count, plugin_registration_status, plugin_registration_report</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -413,7 +415,7 @@ gsap.registerPlugin({{unregistered_plugins}});
 
 **Report saved to:** {{default_output_file}}
 
-<template-output>compliance_report_complete</template-output>
+<template-output>overall_compliance_status, compliance_summary_table, default_output_file, compliance_report_complete</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -475,7 +477,7 @@ gsap.registerPlugin({{unregistered_plugins}});
 
 <ask>Compliance scan complete. Review report? [done]</ask>
 
-<template-output>upgrade_recommendations, next_steps</template-output>
+<template-output>high_priority_recommendations, medium_priority_recommendations, low_priority_recommendations, next_step_1, next_step_2, next_step_3, upgrade_recommendations, next_steps</template-output>
 </step>
 
 </workflow>

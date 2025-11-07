@@ -1,0 +1,68 @@
+# Timeline Choreography Workflow
+# VFX - KB-powered GSAP timeline creation with systematic research
+
+name: 'create-timeline'
+description: 'Create sophisticated GSAP timeline choreography using KB-powered pattern matching, Deep-Research frameworks, and framework integration best practices'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-timeline'
+instructions: '{installed_path}/instructions.md'
+template: null  # Generates code directly, no template needed
+default_output_file: null  # Code output provided inline
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
+
+# Workflow Metadata
+metadata:
+  agent: 'vfx'
+  priority: 'P1'
+  complexity: 'high'
+  research_intensity: 'high'
+  estimated_duration: '15-25 minutes'
+  output_type: 'code'  # Generates production code, not documentation
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (91 sources) - PRIMARY
+  - context7  # Latest GSAP API docs (fallback)
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '2.2'  # Mastering Timeline Techniques (PRIMARY - advanced choreography)
+  - '2.1'  # Core GSAP Concepts: Tweens, Staggers, Easing (CORRECTED from 2.3)
+  - '3.1'  # Page Load Sequence (intro timeline patterns)
+  - '3.7'  # Cleanup and Reinitialization (lifecycle management)
+  - '2.5'  # React/Next.js Integration (if framework needed)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (442K words)
+  - '1e5cc3bd5125be3c'  # Codrops timeline tutorials (42K words)
+  - '90c2ef5e8fa816b7'  # FreeFrontend timeline examples (207K words)
+
+# Framework Support
+frameworks:
+  - 'react'      # useGSAP() hook patterns
+  - 'nextjs'     # SSR considerations, Next.js 15
+  - 'vue'        # Vue 3 composition API
+  - 'vanilla'    # Pure JavaScript implementation
+
+# Premium Plugin Support (FREE in GSAP 3.13+)
+premium_plugins:
+  enabled: true
+  note: 'MorphSVG, SplitText, DrawSVG, ScrambleText, InertiaPlugin, etc. are FREE in GSAP 3.13+'
+  reference: 'https://gsap.com/blog/gsap-3-13-0-release'
+
+# Web bundle configuration
+web_bundle:
+  name: 'create-timeline'
+  description: 'Create sophisticated GSAP timeline choreography using KB-powered pattern matching'
+  path: 'bmad/gsap-excellence/workflows/create-timeline'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/create-timeline/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/create-timeline/instructions.md'

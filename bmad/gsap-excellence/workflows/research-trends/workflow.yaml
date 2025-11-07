@@ -1,0 +1,48 @@
+# GSAP Animation Trends Research Workflow
+# Cinematographer - 2024-2025 Trend Discovery (WebSearch PRIMARY)
+
+name: 'research-trends'
+description: 'Research latest 2024-2025 premium animation trends using multi-source strategy (WebSearch PRIMARY, Archon secondary for established patterns)'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/research-trends'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+
+# Web bundle configuration for portability
+web_bundle:
+  - "{installed_path}/instructions.md"
+  - "{installed_path}/template.md"
+  - "{config_source}"
+
+default_output_file: '{output_folder}/animation-trends-{timestamp}.md'
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from Cinematographer agent menu)
+
+# Workflow Metadata
+metadata:
+  agent: 'cinematographer'
+  priority: 'P2'
+  complexity: 'medium'
+  research_intensity: 'high'
+  estimated_duration: '20-25 minutes'
+  research_strategy: 'WebSearch PRIMARY (current trends), Archon SECONDARY (established patterns)'
+
+# Required MCP Servers
+required_mcp:
+  - perplexity  # WebSearch - PRIMARY for 2024-2025 trends
+  - archon  # GSAP knowledge base - SECONDARY for established pattern context
+
+# Deep-Research Sections Referenced
+deep_research_sections: []  # No Deep-Research sections (trends are current, not historical)
+
+# Archon Priority Sources (SECONDARY role in this workflow)
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (for established patterns)
+  - 'd571ab8468f31305'  # Awwwards GSAP sites (for premium context)

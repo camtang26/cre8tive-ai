@@ -1,0 +1,44 @@
+# Timing & Easing Analysis Workflow
+# Cinematographer - KB-powered motion analysis with systematic research
+
+name: 'analyze-timing'
+description: 'Analyze animation timing and easing using KB-powered motion analysis with systematic Archon queries and Deep-Research frameworks'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/analyze-timing'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+default_output_file: '{output_folder}/timing-analysis-{timestamp}.md'
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from Cinematographer agent menu)
+
+# Workflow Metadata
+metadata:
+  agent: 'cinematographer'
+  priority: 'P1'
+  complexity: 'medium'
+  research_intensity: 'high'
+  estimated_duration: '10-15 minutes'
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources)
+  - perplexity  # Premium examples (fallback)
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '1.2'  # Visual Inspiration Translation → Design to timing specs
+  - '2.1'  # Core GSAP Concepts: Tween, Timeline, Stagger, Ease (CORRECTED from 2.3)
+  - '2.2'  # Mastering Timeline Techniques → Timing coordination
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs
+  - '1e5cc3bd5125be3c'  # Codrops tutorials
+  - '90c2ef5e8fa816b7'  # FreeFrontend examples

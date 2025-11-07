@@ -1,0 +1,22 @@
+name: 'review-quality'
+description: 'Assess animation quality using KB-powered analysis against excellence standards'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/review-quality'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+
+# Web bundle configuration for portability
+web_bundle:
+  - "{installed_path}/instructions.md"
+  - "{installed_path}/template.md"
+  - "{config_source}"
+
+default_output_file: '{output_folder}/animation-quality-review.md'
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from Director agent menu)

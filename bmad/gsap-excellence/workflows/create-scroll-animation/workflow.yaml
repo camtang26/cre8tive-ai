@@ -1,0 +1,75 @@
+# ScrollTrigger Animation Workflow
+# VFX - KB-powered ScrollTrigger implementation with systematic research
+
+name: 'create-scroll-animation'
+description: 'Create sophisticated ScrollTrigger animations using KB-powered pattern matching, Deep-Research frameworks (Sections 3.2, 3.3), and proven scroll effect implementations'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-scroll-animation'
+instructions: '{installed_path}/instructions.md'
+template: null  # Generates code directly
+default_output_file: null
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
+
+# Workflow Metadata
+metadata:
+  agent: 'vfx'
+  priority: 'P1'
+  complexity: 'medium-high'
+  research_intensity: 'high'
+  estimated_duration: '12-20 minutes'
+  output_type: 'code'
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base - PRIMARY for ScrollTrigger patterns
+  - context7  # Latest ScrollTrigger API (fallback)
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '3.2'  # Scroll-Based Reveals (PRIMARY - reveal patterns)
+  - '3.3'  # Parallax and Depth Effects (PRIMARY - parallax/pin patterns)
+  - '2.5'  # React/Next.js Integration (if framework needed)
+  - '3.7'  # Cleanup and Reinitialization (ScrollTrigger lifecycle)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (442K words)
+  - '6a6860cfc96e173b'  # ScrollTrigger docs (526K words)
+  - '1e5cc3bd5125be3c'  # Codrops ScrollTrigger tutorials (42K words)
+  - '90c2ef5e8fa816b7'  # FreeFrontend scroll examples (207K words)
+
+# ScrollTrigger Effect Types
+effect_types:
+  - 'reveal'      # Elements appear as you scroll to them
+  - 'parallax'    # Multi-layer depth scrolling
+  - 'scrub'       # Animation tied to scroll position
+  - 'pin'         # Pin element during scroll
+  - 'horizontal'  # Horizontal scroll transformation
+
+# Framework Support
+frameworks:
+  - 'react'      # useGSAP with ScrollTrigger
+  - 'nextjs'     # SSR considerations
+  - 'vue'        # Vue 3 patterns
+  - 'vanilla'    # Pure JavaScript
+
+# Web Bundle Configuration (for workflow portability)
+web_bundle:
+  name: 'create-scroll-animation'
+  description: 'Create sophisticated ScrollTrigger animations using KB-powered pattern matching, Deep-Research frameworks (Sections 3.2, 3.3), and proven scroll effect implementations'
+  path: 'bmad/gsap-excellence/workflows/create-scroll-animation'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/create-scroll-animation/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/create-scroll-animation/instructions.md'
+    # Deep-Research dependencies (Step 2 Research Gate - MANDATORY)
+    - 'docs/Deep-Research/GSAP-Animation-Mastery/12-32-pattern-content-reveal-on-scroll-scrolltrigger-basics.md'
+    - 'docs/Deep-Research/GSAP-Animation-Mastery/13-33-pattern-sticky-scroll-triggered-animation-pinning-parallax.md'
+    - 'docs/Deep-Research/GSAP-Animation-Mastery/17-37-pattern-cleanup-and-reinitialization-fullpage-transitions.md'
+    - 'docs/Deep-Research/GSAP-Animation-Mastery/09-25-integration-patterns-gsap-react-nextjs-other-frameworks.md'

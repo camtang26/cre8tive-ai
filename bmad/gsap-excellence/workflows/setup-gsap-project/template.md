@@ -27,30 +27,11 @@
 
 ### Step 2: Install Plugins
 
-<check if="plugins_needed != 'none'">
-```bash
-{{plugin_install_commands}}
-```
-
-**Plugin Notes:**
-{{plugin_notes}}
-</check>
-
-<check if="plugins_needed == 'none'">
-No additional plugins required.
-</check>
+{{plugin_installation_section}}
 
 ### Step 3: Install TypeScript Types
 
-<check if="typescript == true">
-```bash
-{{typescript_types_install}}
-```
-</check>
-
-<check if="typescript == false">
-TypeScript not used - skipping type definitions.
-</check>
+{{typescript_installation_section}}
 
 ### package.json Dependencies
 
@@ -98,31 +79,13 @@ TypeScript not used - skipping type definitions.
 
 ### 2. Build Tool Configuration
 
-<check if="bundler != 'none'">
-**File:** `{{config_file_name}}`
-
-```javascript
-{{bundler_config}}
-```
-
-**Configuration Notes:**
-{{bundler_config_notes}}
-</check>
+{{bundler_configuration_section}}
 
 ---
 
 ### 3. TypeScript Configuration
 
-<check if="typescript == true">
-**File:** `tsconfig.json` (updates)
-
-```json
-{{typescript_config}}
-```
-
-**TypeScript Notes:**
-{{typescript_notes}}
-</check>
+{{typescript_configuration_section}}
 
 ---
 
@@ -130,60 +93,7 @@ TypeScript not used - skipping type definitions.
 
 ### Framework Integration
 
-<check if="project_type == 'vanilla'">
-**Vanilla JavaScript:**
-
-```javascript
-{{vanilla_import_example}}
-```
-
-**Usage:**
-{{vanilla_usage_notes}}
-</check>
-
-<check if="project_type == 'react'">
-**React Integration:**
-
-```jsx
-{{react_import_example}}
-```
-
-**Usage Notes:**
-{{react_usage_notes}}
-</check>
-
-<check if="project_type == 'vue'">
-**Vue Integration:**
-
-```vue
-{{vue_import_example}}
-```
-
-**Usage Notes:**
-{{vue_usage_notes}}
-</check>
-
-<check if="project_type == 'svelte'">
-**Svelte Integration:**
-
-```svelte
-{{svelte_import_example}}
-```
-
-**Usage Notes:**
-{{svelte_usage_notes}}
-</check>
-
-<check if="project_type == 'next'">
-**Next.js Integration:**
-
-```jsx
-{{next_import_example}}
-```
-
-**Usage Notes:**
-{{next_usage_notes}}
-</check>
+{{framework_integration_section}}
 
 ---
 

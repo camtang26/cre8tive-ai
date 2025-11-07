@@ -1,0 +1,52 @@
+# Physics Animation Workflow
+# VFX - KB-powered physics-based animation implementation
+
+name: 'create-physics-animation'
+description: 'Create realistic physics-based animations using KB-powered pattern matching: springs, elasticity, drag-and-throw, gravity effects, and custom physics simulations'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-physics-animation'
+instructions: '{installed_path}/instructions.md'
+template: null
+default_output_file: null
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
+
+metadata:
+  agent: 'vfx'
+  priority: 'P2'
+  complexity: 'medium'
+  research_intensity: 'medium-high'
+  estimated_duration: '10-15 minutes'
+  output_type: 'code'
+
+required_mcp:
+  - archon  # PRIMARY - Physics animation patterns
+  - context7  # Draggable/Inertia API docs
+
+deep_research_sections:
+  - '2.1'  # Core GSAP Concepts: Tweens, Staggers, Easing (CORRECTED from 2.3)
+
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (442K words)
+
+# IMPORTANT: InertiaPlugin is FREE in GSAP 3.13+
+# Documentation only - not dynamically referenced in instructions
+# Information is hardcoded in instructions.md lines 171-172
+plugin_status:
+  name: 'InertiaPlugin'
+  availability: 'FREE in GSAP 3.13+'
+  reference: 'https://gsap.com/blog/gsap-3-13-0-release'
+
+# Documentation only - not dynamically referenced in instructions
+# Physics types are hardcoded in instructions.md lines 28-33
+physics_types:
+  - 'spring'      # elastic.out, back.out easing
+  - 'inertia'     # Draggable with throw (InertiaPlugin - FREE in 3.13+!)
+  - 'gravity'     # Acceleration, bounce on land
+  - 'custom'      # gsap.ticker frame-by-frame

@@ -1,0 +1,80 @@
+# ship-ready-check Workflow - GSAP Excellence Engine
+# Production readiness checklist
+# Agent: Tech Director
+
+name: 'ship-ready-check'
+description: 'Production readiness checklist for GSAP animations using Deep-Research Sections 6.1-6.3 and 2024-2025 deployment standards'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/ship-ready-check'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+
+# Web bundle configuration for portability
+web_bundle:
+  - "{installed_path}/instructions.md"
+  - "{installed_path}/template.md"
+  - "{config_source}"
+
+default_output_file: '{output_folder}/gsap-ship-ready-report-{timestamp}.md'
+
+# Standard config
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Tech Director only
+
+metadata:
+  agent: 'tech-director'
+  priority: 'P1'
+  complexity: 'medium'
+  research_intensity: 'medium'
+  estimated_duration: '15-20 minutes'
+  output_type: 'ship-readiness-report'
+
+required_mcp:
+  - archon  # Production best practices
+  - chrome-devtools  # Final validation (optional)
+
+# Deep-Research Sections
+deep_research_sections:
+  - '6.1'  # Browser Compatibility
+  - '6.2'  # Accessibility
+  - '6.3'  # Production Readiness
+
+# Production Readiness Checklist (6 Categories)
+readiness_categories:
+  performance:
+    - '60fps on target devices'
+    - 'Paint time <16ms'
+    - 'JS execution <5ms'
+    - 'No memory leaks'
+
+  visual_quality:
+    - 'No visual glitches'
+    - 'Responsive behavior'
+    - 'Cross-browser compatibility'
+
+  console_health:
+    - 'Zero errors'
+    - 'Zero warnings'
+    - 'Clean console output'
+
+  accessibility:
+    - 'prefers-reduced-motion fallback'
+    - 'Keyboard navigation (if interactive)'
+    - 'Focus management'
+    - 'No seizure risks'
+
+  code_quality:
+    - 'Cleanup implemented'
+    - 'Error handling'
+    - 'Documentation'
+
+  browser_compatibility:
+    - 'Chrome/Edge tested'
+    - 'Firefox tested'
+    - 'Safari tested (desktop + iOS)'
+    - 'Mobile browsers tested'
