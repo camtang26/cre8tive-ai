@@ -1,0 +1,72 @@
+# optimize-animation Workflow - GSAP Excellence Engine
+# Performance optimization using Deep-Research 5.1-5.6 frameworks
+# Agent: Tech Director
+
+name: 'optimize-animation'
+description: 'Optimize GSAP animation performance using KB-powered optimization frameworks from Deep-Research Sections 5.1-5.6 and latest 2024-2025 techniques'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/optimize-animation'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+default_output_file: '{output_folder}/gsap-optimization-plan-{timestamp}.md'
+
+# Standard config
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Tech Director only
+
+metadata:
+  agent: 'tech-director'
+  priority: 'P1'
+  complexity: 'high'
+  research_intensity: 'very-high'
+  estimated_duration: '25-35 minutes'
+  output_type: 'optimization-plan'
+
+required_mcp:
+  - archon  # PRIMARY - optimization patterns from 2M+ words
+  - chrome-devtools  # Performance profiling (optional but recommended)
+  - context7  # Latest GSAP optimization APIs
+
+# Deep-Research Sections (PRIMARY)
+deep_research_sections:
+  - '5.1'  # GPU-Efficient Properties (transforms vs layout)
+  - '5.2'  # Keep Main Thread Free
+  - '5.3'  # Debugging Jank
+  - '5.4'  # Memory Management
+  - '5.5'  # 60fps Optimization
+  - '5.6'  # Testing & Validation
+
+# Latest 2024-2025 Optimization Techniques
+optimization_techniques_2025:
+  gpu_acceleration:
+    - 'Use x, y, scale, rotation (GPU-accelerated)'
+    - 'Avoid left, top, width, height (triggers layout recalculation)'
+    - 'force3D: "auto" (default) - switches to 3D during animation'
+    - 'force3D: true - maintains 3D throughout (use sparingly)'
+    - 'will-change: transform (browser optimization hint)'
+
+  performance_features:
+    - 'requestAnimationFrame default (syncs with refresh rate)'
+    - 'Animation packing (groups duplicate animations)'
+    - 'Timeline batching (reduces reflows)'
+    - 'Hardware acceleration (transform, opacity offload to GPU)'
+
+  best_practices:
+    - 'GSAP animates up to 20x faster than jQuery'
+    - 'Transforms use GPU, not main thread'
+    - 'scaleX/scaleY instead of width/height'
+    - 'WebGL with GSAP for heavy transformations'
+
+# Optimization Categories
+optimization_categories:
+  - 'Property Selection (transforms vs layout)'
+  - 'GPU Acceleration (force3D, will-change)'
+  - 'Timeline Batching (reduce reflows)'
+  - 'Memory Management (cleanup, leaks)'
+  - 'Main Thread Efficiency (reduce JS execution)'
+  - 'Jank Elimination (smooth 60fps)'

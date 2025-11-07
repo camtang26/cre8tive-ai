@@ -1,0 +1,38 @@
+# Generate Optimization Plan Workflow
+name: generate-optimization-plan
+description: "Generate comprehensive GSAP optimization plan with before/after code examples and GPU acceleration recommendations"
+author: "GSAP Excellence Engine"
+version: "1.0.0"
+complexity: "standard"
+
+# Standard config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+agents:
+  primary: "gsap-tech-director"
+
+installed_path: "{module_root}/workflows/generate-optimization-plan"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+default_output_file: "{output_folder}/gsap-optimization-plan-{date}.md"
+
+# Inputs: animation code, performance issues (gathered via ask tags)
+# Outputs: Comprehensive optimization plan with code examples
+
+estimated_duration: "15-20 minutes"
+
+web_bundle:
+  name: 'generate-optimization-plan'
+  description: 'Generate comprehensive optimization plan with code examples'
+  path: 'bmad/gsap-excellence/workflows/generate-optimization-plan'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/generate-optimization-plan/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/generate-optimization-plan/instructions.md'
+    - 'bmad/gsap-excellence/workflows/generate-optimization-plan/template.md'

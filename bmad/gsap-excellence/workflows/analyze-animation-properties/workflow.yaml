@@ -1,0 +1,38 @@
+# Analyze Animation Properties Workflow
+name: analyze-animation-properties
+description: "Analyze GSAP animation properties and identify GPU optimization opportunities"
+author: "GSAP Excellence Engine"
+version: "1.0.0"
+complexity: "simple"
+
+# Standard config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+
+agents:
+  primary: "gsap-tech-director"
+
+installed_path: "{module_root}/workflows/analyze-animation-properties"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: false
+
+default_output_file: "{output_folder}/animation-property-analysis-{date}.md"
+
+# Inputs: animation code (gathered via ask tag)
+# Outputs: Property analysis report with optimization opportunities
+
+estimated_duration: "5-10 minutes"
+
+web_bundle:
+  name: 'analyze-animation-properties'
+  description: 'Analyze animation properties for GPU optimization'
+  path: 'bmad/gsap-excellence/workflows/analyze-animation-properties'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/analyze-animation-properties/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/analyze-animation-properties/instructions.md'
+    - 'bmad/gsap-excellence/workflows/analyze-animation-properties/template.md'
