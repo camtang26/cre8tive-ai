@@ -39,38 +39,38 @@
 
 **Source 1: gsap.com Official Docs (2.2M+ words)**
 ```
-rag_search_knowledge_base("{{component_context}} animation patterns", source_id="b9f6b322298feb21", match_count=8)
-rag_search_knowledge_base("{{brand_personality}} GSAP techniques", source_id="b9f6b322298feb21", match_count=8)
-rag_search_code_examples("{{component_context}} GSAP implementation", source_id="b9f6b322298feb21", match_count=8)
+rag_search_knowledge_base("[component_context] animation patterns", source_id="b9f6b322298feb21", match_count=8)
+rag_search_knowledge_base("[brand_personality] GSAP techniques", source_id="b9f6b322298feb21", match_count=8)
+rag_search_code_examples("[component_context] GSAP implementation", source_id="b9f6b322298feb21", match_count=8)
 ```
 
 **Source 2: Tympanus/Codrops Tutorials (Premium Quality)**
 ```
-rag_search_knowledge_base("premium {{component_context}} animations", source_id="1e5cc3bd5125be3c", match_count=8)
-rag_search_code_examples("Codrops {{animation_type}} examples", source_id="1e5cc3bd5125be3c", match_count=8)
+rag_search_knowledge_base("premium [component_context] animations", source_id="1e5cc3bd5125be3c", match_count=8)
+rag_search_code_examples("Codrops [animation_type] examples", source_id="1e5cc3bd5125be3c", match_count=8)
 ```
 
 **Source 3: FreeFrontend Examples**
 ```
-rag_search_code_examples("{{component_context}} showcase", source_id="90c2ef5e8fa816b7", match_count=6)
+rag_search_code_examples("[component_context] showcase", source_id="90c2ef5e8fa816b7", match_count=6)
 ```
 
 **Source 4: CodePen Collections**
 ```
-rag_search_code_examples("GSAP {{animation_type}} CodePen", source_id="020e9f31a8c5cdb7", match_count=6)
+rag_search_code_examples("GSAP [animation_type] CodePen", source_id="020e9f31a8c5cdb7", match_count=6)
 ```
 
 **Source 5: Lenis Integration Patterns**
 ```
-rag_search_knowledge_base("smooth scroll {{component_context}}", source_id="77ae0ef68a867aa9", match_count=4)
+rag_search_knowledge_base("smooth scroll [component_context]", source_id="77ae0ef68a867aa9", match_count=4)
 ```
 
 <critical>🎉 PREMIUM PLUGIN QUERIES (ALL FREE in 3.13+!)</critical>
 <action>Actively search for premium plugin examples:</action>
 ```
-rag_search_code_examples("ScrollSmoother {{component_context}}", match_count=6)
+rag_search_code_examples("ScrollSmoother [component_context]", match_count=6)
 rag_search_code_examples("MorphSVG icon transitions", match_count=6)
-rag_search_code_examples("SplitText {{text_animation_type}}", match_count=6)
+rag_search_code_examples("SplitText [text_animation_type]", match_count=6)
 rag_search_code_examples("DrawSVG line reveals", match_count=4)
 rag_search_code_examples("MotionPath custom trajectories", match_count=4)
 ```
@@ -127,10 +127,10 @@ rag_search_code_examples("MotionPath custom trajectories", match_count=4)
 
 <action>Use WebSearch for recent premium examples not in Archon:</action>
 ```
-WebSearch("{{component_context}} animation Awwwards 2025")
-WebSearch("GSAP {{animation_type}} premium trends 2025")
-WebSearch("Linear Stripe Vercel {{component_context}} animation breakdown")
-WebSearch("{{brand_personality}} web animation agency examples 2024")
+WebSearch("[component_context] animation Awwwards 2025")
+WebSearch("GSAP [animation_type] premium trends 2025")
+WebSearch("Linear Stripe Vercel [component_context] animation breakdown")
+WebSearch("[brand_personality] web animation agency examples 2024")
 ```
 
 <action>Target cutting-edge agencies and brands:</action>
@@ -149,7 +149,7 @@ WebSearch("{{brand_personality}} web animation agency examples 2024")
 <action>ONLY if needed for version-specific API questions:</action>
 ```
 resolve-library-id("gsap")
-get-library-docs(context7CompatibleLibraryID="/greensock/gsap", topic="{{specific_plugin}}", tokens=3000)
+get-library-docs(context7CompatibleLibraryID="/greensock/gsap", topic="[specific_plugin]", tokens=3000)
 ```
 
 **Use Context7 sparingly:**
@@ -354,7 +354,7 @@ deep_research_frameworks_applied
 
 **Director presents with film director energy:**
 
-🎬 **"I've researched premium {{component_context}} animations. Here are [N] stunning options:"**
+🎬 **"I've researched premium [component_context] animations. Here are [N] stunning options:"**
 
 [Present each concept with all 10 attributes clearly formatted]
 
@@ -377,10 +377,64 @@ deep_research_frameworks_applied
 
 **"Excellent choice! [concept_name] will create genuine wow factor."**
 
-<action>Offer next steps:</action>
+<action>Capture selection rationale - why user chose this concept:</action>
+- What resonated most (visual appeal, technical feasibility, wow factor)
+- How it aligns with their brand personality and goals
+- Any specific aspects they're excited about
+
+<template-output>selection_rationale</template-output>
+
+<action>Define next steps for user:</action>
 1. **Implement now** - Invoke animation-production workflow with selected concept
 2. **Refine concept** - Adjust technical approach or visual details
 3. **Save for later** - Document concept for future implementation
+
+<template-output>next_step_1, next_step_2, next_step_3</template-output>
+
+<action>Extract technical implementation details from selected concept:</action>
+- Timeline structure and sequence planning
+- ScrollTrigger configuration requirements
+- Easing curve specifications
+- Stagger patterns and choreography
+- Label-based timeline organization
+
+<template-output>selected_concept_technical_details</template-output>
+
+<action>List required GSAP features from selected concept:</action>
+- Core GSAP features (gsap.to, gsap.from, timeline, etc.)
+- ScrollTrigger requirements
+- Observer/Flip requirements (if applicable)
+- Custom easing functions needed
+
+<template-output>required_gsap_features</template-output>
+
+<action>List required plugins (emphasize ALL are FREE in 3.13+!):</action>
+- ScrollSmoother (if smooth scrolling needed)
+- MorphSVG (if icon/shape transitions)
+- SplitText (if text choreography)
+- DrawSVG (if line reveals)
+- MotionPath (if custom trajectories)
+- Note: All premium plugins now FREE in GSAP 3.13+!
+
+<template-output>required_plugins</template-output>
+
+<action>Document performance considerations:</action>
+- Expected FPS (should be 60fps)
+- GPU-accelerated properties used
+- Bundle size impact of plugins
+- Optimization strategies for target devices
+- Reduced-motion fallback approach
+
+<template-output>performance_notes</template-output>
+
+<action>Compile inspiration sources from research:</action>
+- Archon MCP sources (with source_ids)
+- WebSearch premium examples (URLs)
+- Deep-Research framework sections applied
+- Agency examples referenced
+- CodePen/Codrops links
+
+<template-output>inspiration_sources</template-output>
 
 <check if="user_requests_variations">
 <action>Generate 2-3 variations of selected concept</action>
@@ -397,6 +451,7 @@ deep_research_frameworks_applied
 <action>Cinematographer's findings become implementation blueprint</action>
 
 <template-output>final_selection, handoff_context</template-output>
+</check>
 </step>
 
 </workflow>

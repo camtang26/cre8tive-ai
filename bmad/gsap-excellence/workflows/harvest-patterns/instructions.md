@@ -15,7 +15,8 @@
 
 **🎬 "Let's capture this successful animation as a reusable pattern..."**
 
-<ask response="animation_source">Where is this animation from? (animation-production workflow output, existing project, manual submission)</ask>
+<ask>Where is this animation from? (animation-production workflow output, existing project, manual submission)</ask>
+<action>Store response as animation_source</action>
 
 <action>Director assesses pattern extraction eligibility</action>
 
@@ -27,16 +28,12 @@
 - [ ] Animation has research citations (Archon, Deep-Research, WebSearch)?
 
 <check if="eligible">
-**🎬 "Animation is pattern-worthy! Proceeding with extraction."**
-
-<action>Director authorizes pattern extraction</action>
+<action>Set extraction_approval = "✅ **APPROVED FOR EXTRACTION**\n\nAnimation meets all pattern library eligibility criteria:\n- Passed quality gates (60fps, accessibility, pitfalls)\n- Production-ready code\n- Reusable technique identified\n- Research citations available\n\nProceeding with pattern extraction..."</action>
 </check>
 
 <check if="not_eligible">
-**🎬 "This animation needs refinement before pattern extraction. Address these issues first:"**
-
 <ask>What issues prevent pattern extraction?</ask>
-
+<action>Set extraction_approval = "❌ **NOT ELIGIBLE**\n\nIssues preventing extraction:\n" + issues + "\n\nReturn to source workflow for fixes."</action>
 <action>Return to source workflow for fixes</action>
 </check>
 
@@ -71,7 +68,8 @@
 - Is it framework-specific? (React, Next.js → `react-patterns/` or `nextjs-patterns/`)
 - Is it a 2025 GSAP feature? (Observer, containerAnimation → `2025-features/`)
 
-<ask response="pattern_category">What category should this pattern be in?</ask>
+<ask>What category should this pattern be in? (scroll-effects, text-animations, premium-showcases, layout-transitions, nextjs-patterns, interactive, loading-sequences, react-patterns, 2025-features)</ask>
+<action>Store response as pattern_category</action>
 
 <action>Cinematographer confirms category selection</action>
 
@@ -92,7 +90,8 @@
 **Extraction Process:**
 
 **1. Identify Core Technique:**
-<ask response="core_technique">What is the reusable technique? (timeline choreography, scroll-linked animation, text reveal, etc.)</ask>
+<ask>What is the reusable technique? (timeline choreography, scroll-linked animation, text reveal, etc.)</ask>
+<action>Store response as core_technique</action>
 
 **2. Remove Project-Specific Details:**
 <action>Strip out:</action>
@@ -228,6 +227,14 @@ why_premium: "{{Why this pattern is premium quality - reference to agencies/bran
 
 <action>Compile all metadata from animation-production workflow outputs</action>
 
+<action>Generate comprehensive metadata summary including:
+- Pattern description and use cases
+- Performance metrics (FPS, paint time, JS execution)
+- Accessibility compliance details
+- Research source citations (Archon IDs, Deep-Research sections, WebSearch URLs)
+- Framework support (Vanilla, React, Next.js)
+- Premium plugin usage (if applicable)</action>
+
 <template-output>pattern_metadata_complete</template-output>
 </step>
 
@@ -325,16 +332,13 @@ why_premium: "{{why_premium}}"
 
 <action>Confirm file written successfully</action>
 
-**🎬 "Pattern successfully added to library!"**
+<action>Generate pattern library status summary:
+- Total patterns in library (increment from 50)
+- Category breakdown
+- Pattern file location
+- Availability status</action>
 
-**Pattern Details:**
-- **Name:** {{pattern_name}}
-- **Category:** {{category}}
-- **Complexity:** {{complexity}}
-- **Premium Plugins:** {{premium_plugins_if_any}} (FREE in 3.13+!)
-- **Location:** {pattern_library}/{{category}}/{{pattern_name}}.pattern.yaml
-
-<template-output>pattern_file_path, pattern_library_count</template-output>
+<template-output>pattern_file_path, pattern_library_count, pattern_library_status</template-output>
 </step>
 
 <!-- ============================================================ -->
@@ -344,35 +348,17 @@ why_premium: "{{why_premium}}"
 <step n="7" goal="Director: Confirm Pattern Addition">
 <action>Director confirms pattern is available for future use</action>
 
-**🎬 "Pattern harvest complete! Here's what was added:"**
-
-**New Pattern Summary:**
-- **Name:** {{pattern_name}}
-- **Category:** {{category}}
-- **Complexity:** {{complexity}}
-- **Premium Features:** {{premium_plugins_list}}
-- **Performance:** {{fps}} fps average, {{fps_throttled}} fps @ 4x throttle
-- **Accessibility:** ✅ prefers-reduced-motion fallback
-- **Research Sources:**
-  - Archon MCP: {{archon_source_count}} sources
-  - Deep-Research: {{deep_research_section_count}} sections
-  - WebSearch: {{websearch_source_count}} sources
-- **Use Cases:**
-  {{use_cases_list}}
-
-**Pattern Library Status:**
-- **Total Patterns:** {{new_pattern_count}}
-- **Category:** {{category}} ({{category_count}} patterns)
-- **Available For:** implement-from-pattern workflow
-
-**Next Steps:**
-1. Pattern is immediately available for quick implementation
-2. Use implement-from-pattern workflow to apply this pattern
-3. Pattern contributes to growing library (targeting 50+)
+<action>Generate comprehensive harvest summary including:
+- Pattern name, category, complexity
+- Performance metrics summary
+- Research sources count (Archon, Deep-Research, WebSearch)
+- Use cases list
+- Next steps for using the pattern
+- Contribution to library growth</action>
 
 <ask>Pattern successfully harvested! Continue? [done]</ask>
 
-<template-output>harvest_summary, pattern_library_status</template-output>
+<template-output>harvest_summary</template-output>
 </step>
 
 </workflow>

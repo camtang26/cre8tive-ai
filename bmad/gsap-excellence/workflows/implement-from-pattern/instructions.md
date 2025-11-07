@@ -95,7 +95,7 @@
 
 <action>Use Context7 to verify API compatibility if needed</action>
 
-<template-output>pattern_details, gsap_features, required_plugins, adaptation_strategy</template-output>
+<template-output>pattern_details, gsap_features, required_plugins, adaptation_strategy, gsap_version</template-output>
 </step>
 
 <step n="3" goal="VFX Artist: Plan Implementation">
@@ -131,7 +131,7 @@
    - prefers-reduced-motion fallback: {{reduced_motion_code}}
    - Focus management (if interactive): {{focus_management}}
 
-<template-output>implementation_strategy, setup_code, animation_code, cleanup_code, accessibility_code</template-output>
+<template-output>implementation_strategy, setup_code, animation_code, cleanup_code, accessibility_code, target_elements</template-output>
 </step>
 
 <step n="4" goal="VFX Artist: Implement Animation">
@@ -253,7 +253,7 @@
    - Potential bottlenecks: {{bottleneck_warnings}}
    - Optimization opportunities: {{optimization_suggestions}}
 
-<template-output>validation_results, console_status, visual_validation</template-output>
+<template-output>validation_results, console_status, visual_validation, estimated_fps, performance_rating</template-output>
 </check>
 
 <check if="else">

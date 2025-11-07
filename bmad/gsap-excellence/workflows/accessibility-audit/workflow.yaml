@@ -34,6 +34,12 @@ template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
 validation: false
 
+# Web bundle configuration for portability
+web_bundle:
+  - "{installed_path}/instructions.md"
+  - "{installed_path}/template.md"
+  - "{config_source}"
+
 # Output configuration - Accessibility report
 default_output_file: "{output_folder}/accessibility-audit-{{date}}.md"
 

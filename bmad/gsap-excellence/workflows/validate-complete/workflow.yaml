@@ -1,0 +1,28 @@
+# validate-complete Workflow - GSAP Excellence Engine
+# Comprehensive validation suite: performance + visual + console + accessibility
+# Agent: Tech Director (lead validator)
+# Documentation: See README.md for full specification
+
+name: 'validate-complete'
+description: 'Run comprehensive GSAP animation validation: 60fps compliance, visual verification, console checks, accessibility gates using Chrome DevTools MCP'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/validate-complete'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+
+# Web bundle configuration for portability
+web_bundle:
+  - "{installed_path}/instructions.md"
+  - "{installed_path}/template.md"
+  - "{config_source}"
+
+default_output_file: '{output_folder}/gsap-validation-report-{timestamp}.md'
+
+# Standard config block
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Agent-context-dependent workflow (Tech Director only)

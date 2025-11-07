@@ -1,0 +1,46 @@
+# Motion Analysis & Technical Translation Workflow
+# Cinematographer - Visual inspiration to GSAP implementation (Section 1.2)
+
+name: 'analyze-motion'
+description: 'Translate visual inspiration into technical GSAP implementation specifications using Section 1.2 Visual Translation framework and KB-powered pattern matching'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/analyze-motion'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+default_output_file: '{output_folder}/motion-analysis-{timestamp}.md'
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from Cinematographer agent menu)
+
+# Workflow Metadata
+metadata:
+  agent: 'cinematographer'
+  priority: 'P1'
+  complexity: 'high'
+  research_intensity: 'high'
+  estimated_duration: '15-20 minutes'
+  deep_research_framework: 'Section 1.2 - Visual Inspiration Translation'
+
+# Required MCP Servers
+required_mcp:
+  - archon  # Pattern matching (89 sources)
+  - perplexity  # Premium example discovery (fallback)
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '1.2'  # Visual Inspiration Translation (PRIMARY - 5-step framework)
+  - '2.1'  # Core GSAP Concepts (Tweens and Staggers) (CORRECTED from 2.3)
+  - '2.2'  # Timeline Techniques (if coordination needed)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs
+  - '1e5cc3bd5125be3c'  # Codrops tutorials
+  - '90c2ef5e8fa816b7'  # FreeFrontend examples
+  - '020e9f31a8c5cdb7'  # CodePen collections

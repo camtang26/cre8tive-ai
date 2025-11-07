@@ -1,0 +1,49 @@
+# Text Animation Workflow
+# VFX - SplitText plugin implementation with KB patterns
+
+name: 'create-text-animation'
+description: 'Create sophisticated text animations using SplitText plugin (FREE in GSAP 3.13+) with KB-powered pattern matching: char-by-char, word reveals, line animations, advanced effects'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-text-animation'
+instructions: '{installed_path}/instructions.md'
+template: null
+default_output_file: null
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
+
+metadata:
+  agent: 'vfx'
+  priority: 'P2'
+  complexity: 'medium'
+  research_intensity: 'medium'
+  estimated_duration: '10-15 minutes'
+  output_type: 'code'
+
+required_mcp:
+  - archon  # SplitText examples
+  - context7  # SplitText API docs
+
+deep_research_sections:
+  - '2.1'  # Core GSAP Concepts: Tweens, Staggers, Easing (CORRECTED from 2.3)
+  - '3.5'  # Text Split and Reveal - SplitText (CORRECTED from 4.4)
+  - '2.3'  # The 2024 GSAP Plugin Ecosystem - All FREE (SplitText status)
+
+# IMPORTANT: SplitText is FREE in GSAP 3.13+
+plugin_status:
+  name: 'SplitText'
+  availability: 'FREE in GSAP 3.13+ (was paid before Webflow acquisition)'
+  reference: 'https://gsap.com/blog/gsap-3-13-0-release'
+  note: 'Section 2.3 documents the FREE plugin ecosystem, Section 3.5 has SplitText patterns'
+
+# Text Animation Types
+animation_types:
+  - 'chars'    # Character-by-character animations
+  - 'words'    # Word-by-word reveals
+  - 'lines'    # Line-by-line animations
+  - 'advanced' # Scramble, wave, 3D rotation

@@ -30,6 +30,12 @@ template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
 validation: false  # This IS a validation workflow but doesn't need checklist
 
+# Web bundle configuration for portability
+web_bundle:
+  - "{installed_path}/instructions.md"
+  - "{installed_path}/template.md"
+  - "{config_source}"
+
 # Output configuration - Compliance report
 default_output_file: "{output_folder}/gsap-compliance-report-{{date}}.md"
 

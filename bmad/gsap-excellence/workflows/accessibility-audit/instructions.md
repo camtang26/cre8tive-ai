@@ -12,9 +12,11 @@
 <!-- ============================================================ -->
 
 <step n="1" goal="Tech Director: Initialize Accessibility Audit">
-<action>Tech Director prepares to audit animation accessibility using Deep-Research 6.1-6.4</action>
+<action>Communicate in {communication_language} throughout this workflow for all agent dialogue and generated content</action>
 
-**🔧 "Initiating accessibility audit using Deep-Research frameworks..."**
+<action>Tech Director greets {user_name} and prepares to audit animation accessibility using Deep-Research 6.1-6.4</action>
+
+**🔧 "{user_name}, initiating accessibility audit using Deep-Research frameworks..."**
 
 <ask response="page_url">Page URL for live testing? (optional - can do code review instead)</ask>
 

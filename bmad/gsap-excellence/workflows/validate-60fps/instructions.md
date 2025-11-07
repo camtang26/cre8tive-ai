@@ -5,6 +5,12 @@
 <workflow>
 
 <step n="1" goal="Setup & Context">
+<action>Communicate in {communication_language} throughout this workflow for all agent dialogue and generated content</action>
+
+<action>Tech Director greets {user_name} and prepares 60fps validation suite</action>
+
+**"{user_name}, let's validate your animation performance. I'll test at 3 CPU throttle levels to ensure 60fps across all device tiers."**
+
 <ask response="page_url">What is the dev server URL to validate?</ask>
 <ask response="animation_selectors">What animations should be tested? (CSS selectors or trigger descriptions, comma-separated)</ask>
 <ask response="test_duration_seconds" default="5">Test duration in seconds? (default: 5)</ask>

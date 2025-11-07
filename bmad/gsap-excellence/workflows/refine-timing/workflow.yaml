@@ -43,3 +43,12 @@ outputs:
     format: "Analysis of timing improvements"
 
 estimated_duration: "10-15 minutes"
+
+web_bundle:
+  name: 'refine-timing'
+  description: 'Polish animation timing, adjust easing curves, perfect choreography'
+  path: 'bmad/gsap-excellence/workflows/refine-timing'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/refine-timing/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/refine-timing/instructions.md'
+    - 'bmad/gsap-excellence/workflows/refine-timing/template.md'

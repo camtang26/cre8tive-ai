@@ -9,3 +9,6 @@ user_name: Cameron
 communication_language: English
 document_output_language: English
 output_folder: '{project-root}/docs'
+
+# Module-specific paths
+module_root: '{project-root}/bmad/gsap-excellence'

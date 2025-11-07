@@ -96,3 +96,12 @@ phases:
   categorization: "1-2 min"
   metadata_documentation: "2-3 min"
   yaml_creation: "1-2 min"
+
+web_bundle:
+  name: 'harvest-patterns'
+  description: 'Extract successful animations as reusable patterns. Captures implementation, metadata, and research citations for pattern library growth.'
+  path: 'bmad/gsap-excellence/workflows/harvest-patterns'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/harvest-patterns/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/harvest-patterns/instructions.md'
+    - 'bmad/gsap-excellence/workflows/harvest-patterns/template.md'

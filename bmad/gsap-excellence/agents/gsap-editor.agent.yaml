@@ -7,7 +7,7 @@ agent:
   name: "gsap-editor"
   title: "The Editor"
   icon: "✂️"
-  type: "expert"
+  type: "module"
   module: "gsap-excellence"
   version: "1.0.0-alpha"
   author: "Cameron"
@@ -160,132 +160,13 @@ menu:
     workflow: "{module_root}/workflows/debug-animation/workflow.yaml"
     desc: "Diagnose and fix animation issues (jank, timing, visual glitches)"
 
+  - cmd: "*analyze"
+    workflow: "{module_root}/workflows/analyze-animation/workflow.yaml"
+    desc: "Systematic code review using 10-point pitfalls framework"
+
   - cmd: "*refine"
     workflow: "{module_root}/workflows/refine-timing/workflow.yaml"
     desc: "Polish animation timing and easing curves"
-
-  - cmd: "*analyze"
-    action: "inline"
-    desc: "Analyze animation code for issues and opportunities"
-    prompt: |
-      ✂️ **Animation Analysis**
-
-      Let me review your animation code for issues and improvement opportunities.
-
-      Please provide:
-      1. Animation code (GSAP timeline or tween)
-      2. What issues you're experiencing (if any)
-      3. What you want the animation to achieve
-
-      I'll analyze for:
-      - ❌ Jank and performance issues
-      - ⏱️ Timing and easing problems
-      - 🧹 Unnecessary complexity
-      - 🎯 Best practice violations
-      - ✨ Opportunities for improvement
-
-      *"Let me clean this up for you..."*
-
-  - cmd: "*simplify"
-    action: "inline"
-    desc: "Remove cruft and simplify animation implementation"
-    prompt: |
-      ✂️ **Code Simplification**
-
-      I'll help remove unnecessary complexity and clean up your animation code.
-
-      Provide your current animation implementation, and I'll:
-      - Remove redundant code
-      - Simplify timeline structure
-      - Consolidate repeated patterns
-      - Eliminate unnecessary variables
-      - Clean up animation logic
-
-      The goal: Achieve the same result with less code and clearer intent.
-
-      *"Elegance through simplicity."*
-
-  - cmd: "*smooth"
-    action: "inline"
-    desc: "Make animations buttery smooth (fix jank and transitions)"
-    prompt: |
-      ✂️ **Smoothness Pass**
-
-      I'll make your animation silky smooth by fixing jank and awkward transitions.
-
-      Share your animation code and describe what feels "off" about it.
-
-      I'll address:
-      - Frame drops and jank
-      - Awkward transitions
-      - Robotic motion (wrong easing)
-      - Timing that feels rushed or sluggish
-      - Coordination between elements
-
-      *"Let's make this buttery smooth..."*
-
-  - cmd: "*timing"
-    action: "inline"
-    desc: "Deep dive into animation timing and choreography"
-    prompt: |
-      ✂️ **Timing Deep Dive**
-
-      Timing is everything in animation. Let me analyze yours.
-
-      Provide your animation timeline, and I'll examine:
-      - Duration appropriateness for each tween
-      - Easing curve selection
-      - Stagger timing
-      - Overlap and gap timing
-      - Overall pacing and rhythm
-
-      I'll suggest frame-perfect timing adjustments.
-
-      *"Frame-perfect timing matters."*
-
-  - cmd: "*easing"
-    action: "inline"
-    desc: "Refine easing curves for natural motion"
-    prompt: |
-      ✂️ **Easing Curve Refinement**
-
-      Easing is what makes animation feel natural vs. robotic.
-
-      Tell me about your animation and current easing, and I'll recommend:
-      - Better easing functions (power, elastic, back, etc.)
-      - Custom bezier curves if needed
-      - Appropriate ease-in vs. ease-out
-      - Coordinated easing across related elements
-
-      **Common Patterns:**
-      - UI reveals: `power2.out`
-      - Bouncy interactions: `back.out(1.7)`
-      - Elastic: `elastic.out(1, 0.5)`
-      - Natural physics: `power3.inOut`
-
-      *"The right curve makes all the difference."*
-
-  - cmd: "*compare"
-    action: "inline"
-    desc: "Compare before/after implementations"
-    prompt: |
-      ✂️ **Before/After Comparison**
-
-      I'll help you compare animation implementations objectively.
-
-      Provide:
-      1. Original implementation
-      2. Revised implementation
-      3. What changed and why
-
-      I'll assess:
-      - Performance impact
-      - Code complexity change
-      - Visual smoothness difference
-      - Timing improvements
-      - Overall quality delta
-
-      *"Let's see what improved..."*
 
   - cmd: "*checklist"
     action: "inline"

@@ -33,6 +33,12 @@ template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
 validation: false
 
+# Web bundle configuration for portability
+web_bundle:
+  - "{installed_path}/instructions.md"
+  - "{installed_path}/template.md"
+  - "{config_source}"
+
 default_output_file: "{output_folder}/60fps-validation-report-{{date}}.md"
 
 inputs:

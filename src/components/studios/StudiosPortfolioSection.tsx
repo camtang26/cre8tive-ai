@@ -2,6 +2,7 @@ import { useState } from "react"
 
 import VideoModal from "@/components/core/VideoModal"
 import VimeoPlayer from "@/components/core/VimeoPlayer"
+import { usePortfolioAnimation } from '@/hooks/usePortfolioAnimation'
 
 type PortfolioItem = {
   id: string
@@ -56,6 +57,8 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
 ]
 
 export function StudiosPortfolioSection() {
+  usePortfolioAnimation();
+
   return (
     <section
       id="studios-portfolio"

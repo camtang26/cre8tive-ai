@@ -60,7 +60,7 @@ outputs:
   leak_diagnosis:
     format: "Suspected memory leak sources (if any)"
 
-  cleanup_recommendations:
+  cleanup_strategies:
     format: "Code fixes for detected leaks"
 
   memory_health_status:
@@ -72,3 +72,12 @@ benchmarks:
   heap_growth_acceptable: "< 5MB increase after 5 navigation cycles"
   detached_nodes_acceptable: "< 10 detached DOM nodes"
   memory_health_threshold: "Both heap and detached node limits passed"
+
+# Web bundle configuration for web portability
+web_bundle:
+  name: "memory-profiling"
+  web_bundle_files:
+    - "bmad/gsap-excellence/workflows/memory-profiling/workflow.yaml"
+    - "bmad/gsap-excellence/workflows/memory-profiling/instructions.md"
+    - "bmad/gsap-excellence/workflows/memory-profiling/template.md"
+    - "bmad/gsap-excellence/config.yaml"

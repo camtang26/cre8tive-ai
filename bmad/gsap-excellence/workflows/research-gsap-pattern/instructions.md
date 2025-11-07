@@ -7,9 +7,11 @@
 <workflow>
 
 <step n="1" goal="Define Research Scope">
-<action>Introduce the research workflow with cinematographer precision</action>
+<action>Communicate in {communication_language} throughout this workflow for all agent dialogue and generated content</action>
 
-**"Let's dive deep into GSAP technique research. I'll find you the best patterns and examples."**
+<action>Cinematographer greets {user_name} and introduces the research workflow with precision</action>
+
+**"{user_name}, let's dive deep into GSAP technique research. I'll find you the best patterns and examples."**
 
 <ask response="pattern_name">What GSAP technique or pattern should I research? (e.g., 'parallax scrolling', 'text reveal animations', 'SVG morphing', 'timeline sequencing')</ask>
 <ask response="use_case">What's your specific use case or context? (Optional - helps focus research)</ask>

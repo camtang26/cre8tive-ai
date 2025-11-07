@@ -48,3 +48,12 @@ outputs:
     format: "Specific optimization strategies"
 
 estimated_duration: "15-25 minutes"
+
+web_bundle:
+  name: 'optimize-performance'
+  description: 'Profile animation performance, identify bottlenecks, optimize for 60fps'
+  path: 'bmad/gsap-excellence/workflows/optimize-performance'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/optimize-performance/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/optimize-performance/instructions.md'
+    - 'bmad/gsap-excellence/workflows/optimize-performance/template.md'

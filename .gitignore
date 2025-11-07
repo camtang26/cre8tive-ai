@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 .vercel
 .mcp.json
+
+# Testing artifacts and temporary files
+Screenshots/StudiosConversation_Overhauls/
+*.tgz

@@ -5,8 +5,11 @@
 <workflow>
 
 <step n="1" goal="Analyze Current Timing">
-<ask response="animation_code">Provide animation code</ask>
-<ask response="timing_issues">What feels wrong about the timing?</ask>
+<ask>Provide the animation code you want to refine</ask>
+<action>Store response as animation_code</action>
+
+<ask>What feels wrong about the timing? (too fast, too slow, robotic, awkward, etc.)</ask>
+<action>Store response as timing_issues</action>
 
 <action>Analyze timing elements:</action>
 - Duration (too fast/slow?)
@@ -14,7 +17,7 @@
 - Stagger timing (choreography)
 - Overlap/gaps between animations
 
-<template-output>timing_analysis</template-output>
+<template-output>animation_code, timing_issues, timing_analysis</template-output>
 </step>
 
 <step n="2" goal="Refine Timing">
@@ -39,8 +42,6 @@
 <step n="3" goal="Present Refinement">
 <action>Generate report using template.md</action>
 <action>Save to: {{default_output_file}}</action>
-
-<template-output>final_report</template-output>
 </step>
 
 </workflow>

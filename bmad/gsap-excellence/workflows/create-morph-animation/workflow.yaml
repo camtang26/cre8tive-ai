@@ -1,0 +1,58 @@
+# SVG Morph Animation Workflow
+# VFX - MorphSVG plugin implementation with KB patterns
+
+name: 'create-morph-animation'
+description: 'Create liquid SVG shape morphing animations using MorphSVG plugin (FREE in GSAP 3.13+) with KB-powered pattern matching'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-morph-animation'
+instructions: '{installed_path}/instructions.md'
+template: null
+default_output_file: null
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
+
+metadata:
+  agent: 'vfx'
+  priority: 'P2'
+  complexity: 'medium'
+  research_intensity: 'medium'
+  estimated_duration: '10-15 minutes'
+  output_type: 'code'
+
+required_mcp:
+  - archon  # MorphSVG examples
+  - context7  # MorphSVG API docs
+
+deep_research_sections:
+  - '2.3'  # The 2024 GSAP Plugin Ecosystem - All FREE (CORRECTED - perfect match!)
+
+# IMPORTANT: MorphSVG is FREE in GSAP 3.13+
+plugin_status:
+  name: 'MorphSVG'
+  availability: 'FREE in GSAP 3.13+ (was paid before Webflow acquisition)'
+  reference: 'https://gsap.com/blog/gsap-3-13-0-release'
+  note: 'Section 2.3 documents the FREE plugin ecosystem'
+
+# Morph Types
+morph_types:
+  - 'icon'     # Menu to X, play to pause
+  - 'shape'    # Circle to square, geometric transitions
+  - 'blob'     # Organic, liquid morphing
+  - 'text'     # Letters to shapes
+
+# Web bundle configuration
+web_bundle:
+  files:
+    - bmad/gsap-excellence/workflows/create-morph-animation/workflow.yaml
+    - bmad/gsap-excellence/workflows/create-morph-animation/instructions.md
+  dependencies:
+    - bmad/gsap-excellence/config.yaml
+  mcp_servers:
+    - archon
+    - context7

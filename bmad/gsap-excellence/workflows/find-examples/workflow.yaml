@@ -1,0 +1,44 @@
+# Premium Example Discovery Workflow
+# Cinematographer - CodePen/Awwwards example finding with quality analysis
+
+name: 'find-examples'
+description: 'Find premium CodePen/Awwwards GSAP examples with quality analysis using combined Archon + WebSearch research protocol'
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/find-examples'
+instructions: '{installed_path}/instructions.md'
+template: '{installed_path}/template.md'
+default_output_file: '{output_folder}/premium-examples-{timestamp}.md'
+
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+output_folder: '{config_source}:output_folder'
+user_name: '{config_source}:user_name'
+communication_language: '{config_source}:communication_language'
+date: system-generated
+timestamp: system-generated
+
+standalone: false  # Agent-context-dependent workflow (only callable from Cinematographer agent menu)
+
+# Workflow Metadata
+metadata:
+  agent: 'cinematographer'
+  priority: 'P2'
+  complexity: 'medium'
+  research_intensity: 'high'
+  estimated_duration: '20-25 minutes'
+  research_strategy: 'Archon + WebSearch combined (CodePen archive + current Awwwards)'
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (CodePen, Awwwards, FreeFrontend archives)
+  - perplexity  # WebSearch for current examples
+
+# Deep-Research Framework Path
+deep_research_decision_framework: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery/04-14-deciding-between-gsap-and-alternatives.md'
+
+# Archon Priority Sources
+archon_sources:
+  - '020e9f31a8c5cdb7'  # CodePen GSAP examples (672K words)
+  - 'd571ab8468f31305'  # Awwwards GSAP sites (919K words)
+  - '90c2ef5e8fa816b7'  # FreeFrontend examples (207K words)
+  - '076246bf07da0977'  # GSAP Demos (229K words)
+  - '1e5cc3bd5125be3c'  # Codrops tutorials (42K words)

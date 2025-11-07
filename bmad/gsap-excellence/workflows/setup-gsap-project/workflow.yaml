@@ -34,6 +34,18 @@ template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
 validation: "{installed_path}/checklist.md"
 
+# Web bundle configuration for portability
+web_bundle:
+  name: 'setup-gsap-project'
+  description: 'Initialize GSAP in your project with best practices, optimal configuration, and proper structure for premium animations.'
+  path: 'bmad/gsap-excellence/workflows/setup-gsap-project'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/setup-gsap-project/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/setup-gsap-project/instructions.md'
+    - 'bmad/gsap-excellence/workflows/setup-gsap-project/template.md'
+    - 'bmad/gsap-excellence/workflows/setup-gsap-project/checklist.md'
+    - 'bmad/gsap-excellence/workflows/setup-gsap-project/README.md'
+
 # Output configuration - Setup guide + configuration files
 default_output_file: "{output_folder}/gsap-setup-{{project_name}}-{{date}}.md"
 
