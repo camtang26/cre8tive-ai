@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 import { Play, CheckCircle2 } from "lucide-react"
-import MuxPlayer from "@mux/mux-player-react"
+import MuxPlayer from "@mux/mux-player-react/lazy"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
 
 const MARKETING_VIDEO_PLAYBACK_ID = "FFH4ldVB00HBEO1iLXm9xWmBNvK501vBQ6Fj9PixEHcJA"
@@ -72,16 +72,18 @@ export function ConversationalMarketingVideoSection() {
                 <MuxPlayer
                   ref={playerRef}
                   playbackId={MARKETING_VIDEO_PLAYBACK_ID}
+                  loading="viewport"
+                  preload="none"
                   metadata={{
                     video_title: "Conversational AI Marketing Video",
                     viewer_user_id: "anonymous"
                   }}
                   streamType="on-demand"
                   controls
-                  preload="metadata"
                   style={{
                     width: '100%',
                     height: '100%',
+                    aspectRatio: '16/9',
                     '--media-object-fit': 'cover',
                     '--media-object-position': 'center',
                   } as React.CSSProperties}

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import type { PointerEvent as ReactPointerEvent } from "react"
 import { ArrowRight } from "lucide-react"
 
-import MuxPlayer from "@mux/mux-player-react"
+import MuxPlayer from "@mux/mux-player-react/lazy"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
@@ -112,6 +112,7 @@ export const StudiosHero = () => {
         <div className="absolute inset-0 bg-studios-hero-base" />
         <div className="absolute inset-0 bg-studios-hero-spotlight opacity-70 md:opacity-80" />
         <div className="absolute inset-0 bg-studios-hero-rim blur-[80px] opacity-70" />
+        <div className="hero-aperture-overlay" aria-hidden />
         <div className="studios-hero-particles" />
         <div className="studios-hero-noise" />
       </div>
@@ -135,7 +136,10 @@ export const StudiosHero = () => {
               >
                 <span className="headline-premium">Premium Video. Without Premium Budgets.</span>
               </h1>
-              <p className="max-w-xl text-lg leading-relaxed text-studios-body md:text-[1.35rem]" data-motion="hero-tagline">
+              <p
+                className="hero-subhead max-w-xl text-lg leading-relaxed text-studios-body md:text-[1.35rem]"
+                data-motion="hero-tagline"
+              >
                 Broadcast-grade work shouldn&apos;t require broadcast-size budgets. AI mastery changes the equation—when done right.
               </p>
             </div>
@@ -202,6 +206,8 @@ const HeroVideoBackdrop = ({ playerRef, isVideoReady, setIsVideoReady, isMobile 
         <MuxPlayer
           ref={playerRef}
           playbackId={HERO_VIDEO_PLAYBACK_ID}
+          loading="viewport"
+          preload="none"
           autoPlay={!isMobile && !prefersReducedMotion}
           loop
           muted
@@ -211,6 +217,7 @@ const HeroVideoBackdrop = ({ playerRef, isVideoReady, setIsVideoReady, isMobile 
             inset: 0,
             width: '100%',
             height: '100%',
+            aspectRatio: '16/9',
             objectFit: 'cover',
             transform: 'scale(1.17) translate3d(0, 0, 0)',
             willChange: 'transform',

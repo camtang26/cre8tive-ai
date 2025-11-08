@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import type { PointerEvent as ReactPointerEvent } from "react"
 import { ArrowRight } from "lucide-react"
-import MuxPlayer from "@mux/mux-player-react"
+import MuxPlayer from "@mux/mux-player-react/lazy"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
@@ -88,6 +88,8 @@ export const ConversationalHero = () => {
           <MuxPlayer
             ref={playerRef}
             playbackId={HERO_VIDEO_PLAYBACK_ID}
+            loading="viewport"
+            preload="none"
             autoPlay={!isMobile && !prefersReducedMotion}
             loop
             muted
@@ -97,6 +99,7 @@ export const ConversationalHero = () => {
               inset: 0,
               width: '100%',
               height: '100%',
+              aspectRatio: '16/9',
               objectFit: 'cover',
               transform: 'scale(1.17) translate3d(0, 0, 0)',
               willChange: 'transform',

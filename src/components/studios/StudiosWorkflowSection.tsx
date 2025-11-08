@@ -1,4 +1,4 @@
-import MuxPlayer from "@mux/mux-player-react"
+import MuxPlayer from "@mux/mux-player-react/lazy"
 
 const WORKFLOW_VIDEO_PLAYBACK_ID = "4NnXGTRPk600YHQcWNp02txb01yZ3jMHXRqFQMpOimXCQE"
 
@@ -48,6 +48,8 @@ export function StudiosWorkflowSection() {
                   <div className="relative aspect-[16/9] overflow-hidden rounded-[32px]">
                     <MuxPlayer
                       playbackId={WORKFLOW_VIDEO_PLAYBACK_ID}
+                      loading="viewport"
+                      preload="none"
                       metadata={{
                         video_title: "Studios Workflow - Start Anywhere, Finish Strong",
                         viewer_user_id: "anonymous"
@@ -57,6 +59,7 @@ export function StudiosWorkflowSection() {
                       style={{
                         width: '100%',
                         height: '100%',
+                        aspectRatio: '16/9',
                         '--media-object-fit': 'cover',
                         '--media-object-position': 'center',
                       } as React.CSSProperties}

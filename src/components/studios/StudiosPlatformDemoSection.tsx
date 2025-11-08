@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react"
-import MuxPlayer from "@mux/mux-player-react"
+import MuxPlayer from "@mux/mux-player-react/lazy"
 
 // Mux Playback IDs for platform-specific demo videos
 const PLAYBACK_IDS = {
@@ -189,6 +189,8 @@ function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, classNam
         >
           <MuxPlayer
             playbackId={playbackId}
+            loading="viewport"
+            preload="none"
             autoPlay
             loop
             muted
@@ -201,6 +203,7 @@ function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, classNam
             style={{
               width: '100%',
               height: '100%',
+              aspectRatio: aspect === 'aspect-[16/9]' ? '16/9' : aspect === 'aspect-square' ? '1/1' : '9/16',
               objectFit: 'cover',
               '--controls': 'none',
               '--media-object-fit': 'cover',

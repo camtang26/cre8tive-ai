@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { Play, Clock } from "lucide-react"
-import MuxPlayer from "@mux/mux-player-react"
+import MuxPlayer from "@mux/mux-player-react/lazy"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
 import { cn } from "@/lib/utils"
 
@@ -132,16 +132,18 @@ export function ConversationalLiveDemoSection() {
               <MuxPlayer
                 ref={playerRef}
                 playbackId={DEMO_VIDEO_PLAYBACK_ID}
+                loading="viewport"
+                preload="none"
                 metadata={{
                   video_title: "Conversational AI Live Demo - 10 Minutes",
                   viewer_user_id: "anonymous"
                 }}
                 streamType="on-demand"
                 controls
-                preload="metadata"
                 style={{
                   width: '100%',
                   height: '100%',
+                  aspectRatio: '16/9',
                   '--media-object-fit': 'cover',
                   '--media-object-position': 'center',
                 } as React.CSSProperties}
