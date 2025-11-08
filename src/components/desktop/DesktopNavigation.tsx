@@ -3,6 +3,8 @@ import { Button } from "../ui/button";
 import { ENABLE_AUTH_FEATURES } from "../../constants/featureFlags";
 import { ASSETS } from '@/constants/assets';
 import { OptimizedImage } from '@/components/core/OptimizedImage';
+import { Phone } from "lucide-react";
+import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 export const DesktopNavigation = () => {
@@ -56,12 +58,12 @@ export const DesktopNavigation = () => {
       aria-label="Desktop navigation"
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center h-16">
-          {/* Logo and brand name - pushed to left */}
-          <div className="flex-shrink-0">
-            <Link 
-              to="/" 
-              className="flex items-center space-x-4" 
+        <div className="flex items-center justify-center h-16 relative">
+          {/* Logo and brand name - positioned absolutely on left */}
+          <div className="absolute left-0 flex-shrink-0">
+            <Link
+              to="/"
+              className="flex items-center space-x-3"
               aria-label="Go to homepage"
             >
               <OptimizedImage
@@ -70,14 +72,14 @@ export const DesktopNavigation = () => {
                 alt="Cre8tive AI Logo"
                 className="h-10 w-auto"
               />
-              <span className="text-white font-geist font-bold text-2xl tracking-[-0.02em] leading-none">
+              <span className="text-white font-geist font-bold text-lg tracking-[-0.02em] leading-none">
                 Cre8tive AI
               </span>
             </Link>
           </div>
 
-          {/* Navigation links - centered with flex-grow and justify-center */}
-          <div className="flex-grow flex justify-center items-center">
+          {/* Navigation links - centered */}
+          <div className="flex justify-center items-center">
             <div className="flex items-center space-x-8 h-full" role="menubar">
               <Link
                 to="/studios"
@@ -155,18 +157,41 @@ export const DesktopNavigation = () => {
             </div>
           </div>
 
-          {/* Sign in button - maintains position */}
-          {ENABLE_AUTH_FEATURES && (
-            <div className="flex-shrink-0">
-              <Button 
-                variant="outline" 
-                className="bg-transparent text-white border-white/20 hover:bg-white/10 font-geist font-medium tracking-[-0.01em] text-lg flex items-center"
+          {/* Right section: Call Agent button + optional Sign in - positioned absolutely */}
+          <div className="absolute right-0 flex items-center gap-3 h-full">
+            {/* Call Agent Mobile button */}
+            <motion.a
+              href="tel:+61756258275"
+              className="hidden sm:flex glass-card-medium hover:glass-card-heavy
+                         px-4 py-2 rounded-full
+                         items-center gap-2
+                         text-white font-bold text-sm
+                         transition-all duration-300
+                         hover:shadow-glow-lg
+                         group
+                         border border-cyan-400/20 hover:border-cyan-400/40"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Call agent at +61 7 5625 8275"
+            >
+              <Phone className="w-4 h-4 text-cyan-400" />
+              <span className="gradient-text text-xs font-semibold">Call Agent</span>
+            </motion.a>
+
+            {/* Sign in button */}
+            {ENABLE_AUTH_FEATURES && (
+              <Button
+                variant="outline"
+                className="bg-transparent text-white border-white/20 hover:bg-white/10 font-geist font-medium tracking-[-0.01em] text-sm flex items-center"
                 aria-label="Sign in to your account"
               >
                 Sign in
               </Button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </nav>

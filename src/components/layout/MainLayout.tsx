@@ -36,7 +36,10 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       {/* Fixed-position widgets OUTSIDE #smooth-content to prevent transform stacking context issues */}
       {/* Reason: GSAP ScrollSmoother's transform on #smooth-content breaks position:fixed for descendants */}
       {/* Moving outside #smooth-content ensures widgets are truly fixed to viewport, not affected by scroll transform */}
-      <FloatingCallButton />
+      {/* FloatingCallButton only shown on mobile (hidden on md+) since it's in DesktopNavigation on desktop */}
+      <div className="md:hidden">
+        <FloatingCallButton />
+      </div>
       <elevenlabs-convai agent-id="agent_7901k75veexyeanar9ervcwsaz5m"></elevenlabs-convai>
     </div>
   );
