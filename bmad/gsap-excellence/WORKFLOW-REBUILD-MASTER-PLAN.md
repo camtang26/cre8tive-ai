@@ -53,13 +53,14 @@ If you catch yourself thinking "I should simplify this to save tokens" - STOP. Y
 
 ### Current Status
 
-**Completed Workflows (3/19):**
+**Completed Workflows (4/19):**
 - ✅ `refine-timing` (Editor) - Fixed Deep-Research file paths, added systematic timing protocol
 - ✅ `debug-animation` (Editor) - Fixed Deep-Research file paths, added conditional pitfall mapping (8.1-8.10)
 - ✅ `optimize-performance` (Tech Director) - Complete rebuild: 184 → 2,905 lines (+1,479%)
+- ✅ `validate-complete` (Tech Director) - Ultra-rigorous rebuild: 1,020 → 2,445 lines (+140%)
 
-**Remaining Pathetic Workflows (17/19):**
-- 🔥 Priority Tier 1: validate-complete, ship-ready-check (2 workflows)
+**Remaining Pathetic Workflows (16/19):**
+- 🔥 Priority Tier 1: ship-ready-check (1 workflow)
 - 🔥 Priority Tier 2: validate-modern, plan-narrative, accessibility-audit, memory-profiling, harvest-patterns (5 workflows)
 - 🔥 Priority Tier 3: create-timeline, create-scroll-animation, creative-ideation, implement-from-pattern, research-gsap-pattern (5 workflows)
 - 🔥 Priority Tier 4: animation-production, workflow-status (2 workflows)
@@ -270,7 +271,7 @@ Attempting to create multiple workflows simultaneously leads to generic pattern 
 
 ## The Proven Correct Methodology
 
-This 7-step process (Step 0 + Steps 1-6) transformed optimize-performance from 184 lines of generic advice into 2,905 lines of systematic expertise. **This is the ONLY acceptable methodology for all remaining workflows.**
+This 6-step process (Step 0 + Steps 1-5) transformed optimize-performance from 184 lines of generic advice into 2,905 lines of systematic expertise. **This is the ONLY acceptable methodology for all remaining workflows.**
 
 ### Step 0: Load BMAD Convention References (Structure Compliance)
 
@@ -585,272 +586,7 @@ gsap.to(element, { top: 100, left: 200 });
 gsap.to(element, { y: 100, x: 200 });
 ```
 
-### Step 4: Research Validation Gate (Quality Control)
-
-**Purpose:** Validate extracted workflow design against current 2025 best practices BEFORE building workflow files. Catches outdated info, deprecated features, and conflicts between sources.
-
-**Why This Matters:**
-- Conversion specs written by dense agents (could have errors)
-- Deep-Research docs created at some point (could be outdated)
-- GSAP 3.13+ released new features (sources may predate)
-- 2025 Chrome DevTools updated recommendations
-- Blind trust = risk of building workflows with wrong assumptions
-
-**Critical Rule:** This validation happens AFTER reading all sources, BEFORE building any workflow files.
-
----
-
-#### 4a: Synthesize Workflow Design
-
-**Extract from conversion spec + Deep-Research:**
-
-```markdown
-**Core Frameworks/Methodologies:**
-- [List systematic approaches extracted]
-- [Key frameworks identified]
-- [Step-by-step protocols found]
-
-**GSAP Features/APIs Used:**
-- [gsap.to/from/fromTo]
-- [ScrollTrigger methods]
-- [Premium plugins referenced]
-- [Specific properties animated]
-
-**Deep-Research Sections Referenced:**
-- Section X.Y: [Title] - [Key points]
-- Section X.Y: [Title] - [Key points]
-
-**Validation Criteria:**
-- [Performance metrics: 60fps, frame budgets]
-- [Quality gates: zero errors, accessibility]
-- [Browser compatibility requirements]
-
-**Key Metrics/Thresholds:**
-- [Specific numbers from research]
-- [Performance budgets]
-- [Limits and constraints]
-```
-
-**Output:** Workflow design summary document (bullet points, no prose)
-
----
-
-#### 4b: Multi-Source Validation Research
-
-**Execute validation research against CURRENT 2025 sources:**
-
-**Archon MCP (Priority: HIGH):**
-```markdown
-For EACH core framework/feature extracted:
-- rag_search_knowledge_base("[framework] GSAP best practices")
-- rag_search_code_examples("[feature] GSAP implementation")
-- Minimum 3 searches total
-- Focus on official gsap.com sources (highest priority)
-```
-
-**WebSearch (Priority: MEDIUM):**
-```markdown
-- WebSearch("GSAP [workflow topic] best practices 2025")
-- WebSearch("GSAP 3.13+ [key features] latest techniques")
-- Filter results: 2024-2025 publications only
-- Prioritize: gsap.com, CSS-Tricks, Codrops, MDN, Chrome DevTools blog
-```
-
-**Context7 MCP (Priority: LOW):**
-```markdown
-- Verify GSAP 3.13+ API compatibility for features mentioned
-- Check for deprecated methods/properties
-- Confirm plugin availability (especially premium plugins now FREE)
-```
-
----
-
-#### 4c: Validation Analysis
-
-**Compare extracted design vs. current research:**
-
-**Alignment Check:**
-```markdown
-✅ Does extracted framework match current best practices?
-   - Compare conversion spec approach to Archon findings
-   - Verify Deep-Research sections are still accurate
-   - Check code examples validate the approach
-
-✅ Are Deep-Research sections still current (2025)?
-   - Cross-reference with WebSearch results (2024-2025)
-   - Verify metrics/thresholds haven't changed
-   - Confirm browser APIs still work same way
-
-✅ Do latest code examples support this approach?
-   - Archon code examples align with extracted patterns?
-   - WebSearch examples show same techniques?
-   - No new/better approaches discovered?
-
-✅ Any new techniques available since Deep-Research written?
-   - GSAP 3.13+ added features not in Deep-Research?
-   - Chrome DevTools new profiling methods?
-   - Browser performance improvements change best practices?
-```
-
-**Deprecation Check:**
-```markdown
-⚠️ Any GSAP features deprecated since 3.13+?
-   - Check Context7 for deprecated methods
-   - Verify all APIs still supported
-   - Confirm plugins still available
-
-⚠️ Any browser APIs changed?
-   - Chrome DevTools recommendations updated?
-   - Performance metrics changed?
-   - New accessibility requirements?
-
-⚠️ Any performance metrics outdated?
-   - Frame budget still 16ms?
-   - CPU throttle multiplier still 4x?
-   - will-change limits changed?
-```
-
-**Conflict Detection:**
-```markdown
-🚨 Conflicts between conversion spec and current research?
-   - Document specific contradictions
-   - Note which source says what
-   - Identify which is more recent/authoritative
-
-🚨 Conflicts between Deep-Research sections?
-   - Contradictory recommendations found?
-   - Different sections suggest different approaches?
-   - Need to reconcile or choose one?
-
-🚨 Multiple valid approaches (need to choose)?
-   - Several ways to accomplish goal?
-   - Trade-offs between approaches?
-   - Need Cameron's decision on which to use?
-```
-
----
-
-#### 4d: Validation Report & Decision Gate
-
-**Generate Validation Report:**
-
-```markdown
-# Validation Report: [workflow-name]
-
-## Workflow Design Extracted
-
-**Core Frameworks:**
-- [Framework 1]: [Description]
-- [Framework 2]: [Description]
-
-**GSAP Features Used:**
-- [Feature 1], [Feature 2], [Feature 3]
-
-**Deep-Research Sections:**
-- Section X.Y: [Title] - [Key points]
-
-**Validation Criteria:**
-- [Metric 1], [Metric 2]
-
----
-
-## Validation Results
-
-### ✅ CONFIRMED (Still Accurate)
-- [Framework X] validated by Archon search (3 sources confirm)
-- [Feature Y] code examples match extracted approach
-- [Metric Z] still current per 2025 Chrome DevTools blog
-- [Deep-Research Section X.Y] accurate (cross-referenced with WebSearch)
-
-### ⚠️ UPDATED (Changed Since Sources Written)
-- **will-change limit**: Conversion spec says <10 layers
-  - **2025 Update**: Chrome blog (Jan 2025) recommends <5 on mobile
-  - **Recommendation**: Update to "<5 mobile, <10 desktop"
-
-- **ScrollSmoother**: Not mentioned in Deep-Research
-  - **2025 Update**: Now FREE in GSAP 3.13+ (was premium)
-  - **Recommendation**: Add ScrollSmoother examples to protocol
-
-### 🚨 CONFLICTS DETECTED
-- [If any conflicts, detail them here with both versions]
-
-### 💡 ENHANCEMENTS AVAILABLE
-- [New techniques/features available since sources written]
-
----
-
-## Recommendation
-
-**Status:** [PASS / PASS WITH UPDATES / ESCALATE]
-
-**Action Required:**
-- [List specific changes to incorporate]
-- [Or: Proceed as extracted (no changes needed)]
-- [Or: Escalate conflicts to Cameron for decision]
-```
-
-**Decision Logic:**
-
-```xml
-<if condition="NO CONFLICTS + CONFIRMED ACCURATE">
-  <action>Display: "✅ Validation PASSED - Workflow design verified against 2025 sources"</action>
-  <action>Show validation report summary</action>
-  <action>Continue to Step 5 (Build Systematic Protocol)</action>
-</if>
-
-<if condition="MINOR UPDATES NEEDED">
-  <action>Display: "⚠️ Validation PASSED with updates"</action>
-  <action>Show validation report with specific updates</action>
-  <action>List changes to incorporate during build</action>
-  <ask>Continue with updates? [y/n]</ask>
-  <if user="y">Continue to Step 5 with update notes</if>
-  <if user="n">HALT for Cameron review</if>
-</if>
-
-<if condition="MAJOR CONFLICTS DETECTED">
-  <action>Display: "🚨 Validation FAILED - Conflicts require resolution"</action>
-  <action>Present detailed conflict analysis</action>
-  <action>Show both versions of contradictory information</action>
-  <action>Provide recommendation (if clear winner exists)</action>
-  <action>HALT - MANDATORY escalation to Cameron</action>
-  <wait>Cameron resolves conflict and provides direction</wait>
-  <then>Update extracted design with Cameron's decision</then>
-  <then>Continue to Step 5 with resolved design</then>
-</if>
-```
-
-**Examples of Each Outcome:**
-
-**Example 1 - PASS:**
-```
-✅ Validation PASSED
-- GPU Rule confirmed (Archon + WebSearch)
-- 60fps @ 4x throttle still standard
-- All Deep-Research sections accurate
-→ Proceed to build workflow files
-```
-
-**Example 2 - PASS WITH UPDATES:**
-```
-⚠️ Validation PASSED with updates
-- Main approach confirmed valid
-- Update: will-change <5 mobile (was <10 general)
-- Enhancement: Add ScrollSmoother (FREE in 3.13+)
-→ Incorporate updates during build
-```
-
-**Example 3 - ESCALATE:**
-```
-🚨 Validation FAILED - Conflict detected
-- Conversion spec recommends approach A
-- 2025 WebSearch shows approach B preferred
-- Both valid but incompatible
-→ Cameron: Which approach should we use?
-```
-
----
-
-### Step 5: Build Systematic Protocol with REAL Expertise
+### Step 4: Build Systematic Protocol with REAL Expertise
 
 **Purpose:** Create instructions.md with research-backed protocols, not generic inference.
 
@@ -900,11 +636,9 @@ Read: {project-root}/docs/Deep-Research/GSAP-Animation-Mastery/XX-YY-title.md
 - ❌ Generic advice that could apply to any library
 - ❌ Inferring what research "should say"
 
-### Step 6: Create All 4 Workflow Files
+### Step 5: Create All 4 Workflow Files
 
 **Purpose:** Complete the workflow with config, protocol, report template, and validation checklist.
-
-**Note:** By this point, Step 4 validation has confirmed the workflow design is accurate and current. Build with confidence!
 
 #### File 1: workflow.yaml (Configuration)
 
@@ -1234,62 +968,7 @@ For EACH Deep-Research file:
 - [ ] **Extract metrics and thresholds** (specific numbers)
 - [ ] **Document in notes** (organized by section number)
 
-### Step 4: Research Validation Gate (QUALITY CONTROL - MANDATORY)
-
-**Purpose:** Validate extracted workflow design against 2025 sources BEFORE building files
-
-**4a: Synthesize Workflow Design**
-- [ ] **Document extracted frameworks/methodologies** (from conversion spec + Deep-Research)
-- [ ] **List GSAP features/APIs used** (gsap.to, ScrollTrigger, plugins, etc.)
-- [ ] **List Deep-Research sections referenced** (with key points)
-- [ ] **Document validation criteria** (60fps, metrics, quality gates)
-- [ ] **Note key metrics/thresholds** (performance budgets, limits)
-
-**4b: Multi-Source Validation Research**
-- [ ] **Archon MCP research** (for EACH core framework/feature)
-  - [ ] Search: "[framework] GSAP best practices"
-  - [ ] Search code examples: "[feature] GSAP implementation"
-  - [ ] Minimum 3 searches total
-  - [ ] Focus on official gsap.com sources
-- [ ] **WebSearch** (2024-2025 sources only)
-  - [ ] Search: "GSAP [workflow topic] best practices 2025"
-  - [ ] Search: "GSAP 3.13+ [key features] latest"
-  - [ ] Prioritize: gsap.com, CSS-Tricks, Codrops, MDN, Chrome DevTools blog
-- [ ] **Context7 MCP** (API verification)
-  - [ ] Verify GSAP 3.13+ API compatibility
-  - [ ] Check for deprecated features
-  - [ ] Confirm plugin availability
-
-**4c: Validation Analysis**
-- [ ] **Alignment Check**
-  - [ ] Extracted framework matches current best practices?
-  - [ ] Deep-Research sections still accurate (2025)?
-  - [ ] Code examples validate the approach?
-  - [ ] Any new techniques since Deep-Research written?
-- [ ] **Deprecation Check**
-  - [ ] Any GSAP features deprecated since 3.13+?
-  - [ ] Any browser APIs changed?
-  - [ ] Any performance metrics outdated?
-- [ ] **Conflict Detection**
-  - [ ] Conflicts between conversion spec and current research?
-  - [ ] Conflicts between Deep-Research sections?
-  - [ ] Multiple valid approaches (need to choose)?
-
-**4d: Validation Report & Decision**
-- [ ] **Generate validation report**
-  - [ ] Document what's CONFIRMED (still accurate)
-  - [ ] Document what's UPDATED (changed since sources written)
-  - [ ] Document CONFLICTS (if any)
-  - [ ] Document ENHANCEMENTS (new techniques available)
-- [ ] **Make decision**
-  - [ ] ✅ PASS: No conflicts, proceed to build
-  - [ ] ⚠️ PASS WITH UPDATES: Minor changes to incorporate
-  - [ ] 🚨 ESCALATE: Major conflicts, need Cameron's decision
-- [ ] **If ESCALATE:** HALT and get Cameron's resolution before continuing
-
-**Critical:** This step prevents building workflows with outdated/wrong information!
-
-### Step 6: Build workflow.yaml (Configuration)
+### Step 4: Build workflow.yaml (Configuration)
 
 - [ ] **Update name and description**
 - [ ] **Configure config_source** (`{project-root}/bmad/gsap-excellence/config.yaml`)
@@ -1303,7 +982,7 @@ For EACH Deep-Research file:
 - [ ] **Set standalone: true**
 - [ ] **Verify growth target** (150-200+ lines)
 
-### Step 7: Build instructions.md (Systematic Protocol)
+### Step 5: Build instructions.md (Systematic Protocol)
 
 - [ ] **Write workflow overview** (what this accomplishes)
 - [ ] **List prerequisites** (what user needs)
@@ -1323,7 +1002,7 @@ For EACH Deep-Research file:
 - [ ] **Verify 10+ verbatim quotes with source citations**
 - [ ] **Verify growth target** (1,000-1,700+ lines)
 
-### Step 8: Build template.md (Report Structure)
+### Step 6: Build template.md (Report Structure)
 
 - [ ] **Create Executive Summary section**
   - What was analyzed/implemented
@@ -1349,7 +1028,7 @@ For EACH Deep-Research file:
 - [ ] **Verify template uses {{placeholders}} for dynamic content**
 - [ ] **Verify growth target** (400-600+ lines)
 
-### Step 9: Build checklist.md (Validation Protocol)
+### Step 7: Build checklist.md (Validation Protocol)
 
 - [ ] **Create Research Enforcement Test section** (CRITICAL)
   - Can research be skipped? NO = PASS, YES = FAIL
@@ -2025,13 +1704,13 @@ For EACH proposed fix:
 ### Overall Completion
 
 **Total Workflows:** 19
-**Completed (Premium):** 3
-**Remaining (Pathetic):** 17
-**Completion Percentage:** 15.8%
+**Completed (Premium):** 4
+**Remaining (Pathetic):** 16
+**Completion Percentage:** 21.1%
 
 **Progress Bar:**
 ```
-[███░░░░░░░░░░░░░░░░░] 15.8% Complete (3/19)
+[████░░░░░░░░░░░░░░░░] 21.1% Complete (4/19)
 ```
 
 ### By Priority Tier
@@ -2434,37 +2113,6 @@ A workflow is **COMPLETE and PRODUCTION-READY** when ALL of the following criter
   - Attempted to skip research gate
   - Gate blocked progression
   - Required user "Continue [c]" input
-
-### Research Validation Gate (Quality Control)
-
-- [x] **Validation completed before building workflow files**
-  - Step 4 of methodology executed
-  - Workflow design extracted and documented
-  - Multi-source research performed (Archon + WebSearch + Context7)
-
-- [x] **Validation report generated**
-  - Documents what's CONFIRMED (still accurate)
-  - Documents what's UPDATED (changed since sources written)
-  - Documents CONFLICTS (if any - must be resolved)
-  - Documents ENHANCEMENTS (new techniques available)
-
-- [x] **Validation outcome documented**
-  - ✅ PASS: Workflow design verified against 2025 sources, OR
-  - ⚠️ PASS WITH UPDATES: Minor changes incorporated, OR
-  - 🚨 ESCALATED & RESOLVED: Conflicts resolved by Cameron
-
-- [x] **Sources confirmed current (2025)**
-  - Conversion spec recommendations align with current best practices
-  - Deep-Research sections verified accurate
-  - No deprecated GSAP features in extracted design
-  - No outdated performance metrics
-
-- [x] **Updates incorporated (if applicable)**
-  - All "UPDATED" items from validation report addressed
-  - All "ENHANCEMENTS" considered and integrated where appropriate
-  - Workflow design reflects latest 2025 best practices
-
-**Critical:** This validation prevents building workflows with outdated/wrong information!
 
 ### File Path Verification
 
