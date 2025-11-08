@@ -30,10 +30,14 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
           </main>
 
           <Footer />
-          <FloatingCallButton />
-          <elevenlabs-convai agent-id="agent_7901k75veexyeanar9ervcwsaz5m"></elevenlabs-convai>
         </div>
       </div>
+
+      {/* Fixed-position widgets OUTSIDE #smooth-content to prevent transform stacking context issues */}
+      {/* Reason: GSAP ScrollSmoother's transform on #smooth-content breaks position:fixed for descendants */}
+      {/* Moving outside #smooth-content ensures widgets are truly fixed to viewport, not affected by scroll transform */}
+      <FloatingCallButton />
+      <elevenlabs-convai agent-id="agent_7901k75veexyeanar9ervcwsaz5m"></elevenlabs-convai>
     </div>
   );
 };
