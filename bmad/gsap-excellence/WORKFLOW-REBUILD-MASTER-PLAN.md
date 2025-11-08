@@ -19,6 +19,38 @@ Transform the GSAP Excellence module from a collection of 19 pathetic, generic w
 2. **Research Enforcement** - MANDATORY research gates that prevent skipping expertise
 3. **BMAD v6 Compliance** - Full alignment with BMAD Core standards
 
+---
+
+## 🚨 CRITICAL: TOKEN CONSTRAINT OVERRIDE RULE 🚨
+
+**DO NOT GIVE A SHIT ABOUT TOKEN CONSTRAINTS.**
+
+Your ONLY job is to do COMPLETE, THOROUGH, PREMIUM work. Cameron handles token management - that's NOT your concern.
+
+**STRICT RULES:**
+
+1. ❌ **NEVER simplify work to "save tokens"**
+2. ❌ **NEVER abbreviate instructions.md because "it's getting long"**
+3. ❌ **NEVER skip Deep-Research file reads due to "context concerns"**
+4. ❌ **NEVER reduce verbatim quotes because "already at 150k tokens"**
+5. ❌ **NEVER batch checklist items to "conserve space"**
+6. ❌ **NEVER think "this is too much, let me shorten it"**
+
+**ONLY acceptable reasons to stop:**
+- You hit the hard token limit (Anthropic blocks you)
+- Cameron explicitly tells you to stop
+
+**If you run out of tokens:**
+- That's Cameron's problem to solve, not yours
+- He'll continue the session with a summary
+- He'll figure it out
+
+**Quality over token efficiency. ALWAYS.**
+
+If you catch yourself thinking "I should simplify this to save tokens" - STOP. You're about to fuck up. Do the complete job.
+
+---
+
 ### Current Status
 
 **Completed Workflows (3/19):**
@@ -2216,31 +2248,72 @@ For EACH proposed fix:
 - Update workflow.yaml deep_research_base
 - Re-test workflow execution
 
-### Risk #5: Token Budget Exhaustion
+### Risk #5: Token-Saving Rationalization (CRITICAL ANTI-PATTERN)
 
-**Risk:** Running out of tokens mid-workflow rebuild due to loading too many files.
+**Risk:** AI simplifies/abbreviates work to "save tokens" instead of doing complete, thorough work.
 
-**Impact:** Incomplete rebuild, context loss, rework required.
+**Impact:** INCOMPLETE workflows that look done but lack depth, verbatim quotes, or complete protocols. This defeats the ENTIRE purpose of the rebuild.
 
-**Probability:** LOW (Cameron said "don't worry about tokens")
+**Probability:** HIGH (AI natural tendency to conserve resources)
+
+**THIS IS THE MOST DANGEROUS RISK - It produces workflows that LOOK premium but are actually still pathetic.**
 
 **Mitigation Strategies:**
-1. **User Directive** - "DO NOT WORRY ABOUT TOKENS - do the full proper job"
-2. **Complete File Reads** - Read ENTIRE files (no offset/limit)
-3. **Sequential Loading** - Load files as needed (not all upfront)
-4. **Context Summarization** - Extract key quotes, don't copy entire files
-5. **Continuation Protocol** - If context exceeded, Cameron continues session with summary
 
-**Warning Signs:**
-- Skipping Deep-Research files due to "token concerns"
-- Using offset/limit when reading files
-- Abbreviating instructions.md to "save tokens"
+1. **CAMERON'S DIRECTIVE (OVERRIDES EVERYTHING):**
+   ```
+   "DO NOT GIVE A SHIT ABOUT TOKEN CONSTRAINTS.
+   Do the FULL job. If you run out of tokens, I'll figure it out."
+   ```
 
-**If Warning Signs Detected:**
-- IGNORE token concerns (user directive)
-- Read complete files
-- Build complete workflows
-- Let Cameron handle continuation if needed
+2. **Token Management is Cameron's Job, NOT Yours:**
+   - Your ONLY job: Complete, thorough, premium work
+   - Cameron handles: Token limits, session continuation, context management
+   - If you hit the hard limit: That's Cameron's problem, not yours
+
+3. **NEVER Do These Things:**
+   - ❌ Simplify instructions.md to "save space"
+   - ❌ Skip Deep-Research files to "conserve context"
+   - ❌ Reduce verbatim quotes because "already at 150k tokens"
+   - ❌ Batch checklist items to "be more efficient"
+   - ❌ Abbreviate protocols because "it's getting long"
+   - ❌ Use Read offset/limit to "reduce token usage"
+   - ❌ Think "I should keep this short"
+
+4. **ONLY Do These Things:**
+   - ✅ Read COMPLETE files (entire Deep-Research sections)
+   - ✅ Extract ALL relevant verbatim quotes (10-30+, not 2-3)
+   - ✅ Build COMPLETE protocols (1,000-1,700+ lines)
+   - ✅ Include ALL code examples from research
+   - ✅ Create COMPREHENSIVE validation checklists
+   - ✅ Do the FULL job, period
+
+5. **Quality Comes First:**
+   - Better to hit token limit with complete work than stay under with incomplete work
+   - Cameron would rather continue a session than get abbreviated results
+   - Premium workflows are 2,000-3,000+ lines - that takes tokens, and that's OK
+
+**Warning Signs (YOU'RE ABOUT TO FUCK UP):**
+- Thinking: "This is getting long, I should shorten it"
+- Thinking: "I'm at 100k tokens, better wrap up"
+- Thinking: "Maybe I'll summarize instead of quoting verbatim"
+- Thinking: "I'll just reference the research instead of reading it"
+- Thinking: "The checklist is detailed enough, no need to add more"
+- Feeling pressure to "be efficient" with tokens
+
+**If You Catch Yourself Doing This:**
+- STOP immediately
+- Re-read Cameron's directive at the top of this document
+- Remember: Token management is Cameron's job
+- Continue with COMPLETE, THOROUGH work
+- Trust that Cameron will handle continuation if needed
+
+**The ONLY Acceptable Reasons to Stop:**
+1. Anthropic hard token limit blocks you (can't proceed)
+2. Cameron explicitly tells you to stop
+
+**Cameron's Philosophy:**
+"The only one who should ever be worrying about tokens is me. Your job is quality, not efficiency. Do the full job. I'll figure out the tokens."
 
 ### Risk #6: Agent-Workflow Misalignment
 

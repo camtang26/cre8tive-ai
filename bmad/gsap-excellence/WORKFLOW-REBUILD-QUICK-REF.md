@@ -8,6 +8,27 @@
 
 ---
 
+## 🚨 CRITICAL: DO NOT GIVE A SHIT ABOUT TOKEN CONSTRAINTS 🚨
+
+**Cameron's Directive:**
+```
+"DO NOT GIVE A SHIT ABOUT TOKEN CONSTRAINTS.
+Do the FULL job. If you run out of tokens, I'll figure it out."
+```
+
+**Your ONLY job:** Complete, thorough, premium work
+**Cameron's job:** Token management, session continuation, context handling
+
+**NEVER simplify work to "save tokens"**
+**NEVER abbreviate protocols because "it's getting long"**
+**NEVER skip Deep-Research reads due to "context concerns"**
+
+**If you hit the token limit:** That's Cameron's problem, not yours.
+
+**Quality over token efficiency. ALWAYS.**
+
+---
+
 ## ✅ COMPLETED (3/19)
 
 - ✅ **refine-timing** (Editor) - Completed 2025-11-09
@@ -603,7 +624,7 @@ Update this after EACH workflow completion:
 **1. Fresh Session = Fresh Focus**
 - Each workflow gets its own clean session
 - Prevents carrying over batch mindset
-- Reduces token usage issues
+- Starts with clean context for single-workflow focus
 
 **2. TodoWrite is MANDATORY**
 - Track all ~160 checklist items
@@ -620,7 +641,15 @@ Update this after EACH workflow completion:
 - Don't skip steps to "save time"
 - Quality over speed
 
-**5. One Workflow = 1-2 Hours**
+**5. IGNORE TOKEN CONSTRAINTS (CRITICAL)**
+- DO NOT simplify work to "save tokens"
+- DO NOT abbreviate because "it's getting long"
+- DO NOT skip files due to "context concerns"
+- Cameron handles token management - you handle quality
+- If you hit token limit: Cameron will continue session
+- Better to hit limit with complete work than stay under with incomplete work
+
+**6. One Workflow = 1-2 Hours**
 - This is normal and expected
 - Premium quality takes time
 - 17 workflows × 2 hours = ~34 hours total work
