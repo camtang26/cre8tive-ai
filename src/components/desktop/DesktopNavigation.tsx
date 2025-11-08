@@ -178,7 +178,7 @@ export const DesktopNavigation = () => {
               aria-label="Call agent at +61 7 5625 8275"
             >
               <Phone className="w-4 h-4 text-cyan-400" />
-              <span className="gradient-text text-xs font-semibold">Call Agent</span>
+              <span className="gradient-text text-xs font-semibold">Call Agent Mobile</span>
             </motion.a>
 
             {/* Sign in button */}
