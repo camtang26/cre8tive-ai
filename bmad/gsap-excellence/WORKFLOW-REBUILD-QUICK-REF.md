@@ -571,36 +571,62 @@ Target: Maintain 1000+ lines, add research backing.
 
 ---
 
-### 16. workflow-status (Director)
+### 16. workflow-status (ALL AGENTS)
 
 **Current Status:** 617 lines, NO Deep-Research, NO Archon
-**Action Needed:** Full rebuild as routing workflow
+**Action Needed:** Adapt BMM core workflow-status (pristine reference)
+**Owner:** ALL 5 agents should have this in their menus
 
 **Copy-Paste Prompt:**
 ```
-Rebuild **workflow-status** workflow as routing system.
+Adapt **workflow-status** from BMM core module (pristine reference).
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-Current state: 617 lines, NO research infrastructure.
+🎯 CRITICAL: Use BMM workflow-status as template, NOT conversion spec.
 
-This is a META/ROUTING workflow - may not need full premium treatment.
+This workflow already exists in premium form at:
+@bmad/bmm/workflows/workflow-status/
 
-Process - Follow Step 1 Path B (simplified):
-1. Check DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for workflow-status
-2. This is likely NOT in conversion spec (routing workflow)
-3. Build intelligent routing logic:
-   - Reads current project state
-   - Recommends next workflow based on context
-   - Maps 29 workflows to appropriate triggers
-4. May NOT need heavy Deep-Research sections (routing logic, not technical)
-5. Add basic research gates if applicable
-6. Focus on clarity and decision tree logic
-7. Version: "1.0.0" OR "2.0.0-premium" if complex
+Process - ADAPTATION, not rebuild:
+1. Read ALL files from BMM workflow-status:
+   - @bmad/bmm/workflows/workflow-status/workflow.yaml
+   - @bmad/bmm/workflows/workflow-status/instructions.md
+   - @bmad/bmm/workflows/workflow-status/workflow-status-template.md
+   - @bmad/bmm/workflows/workflow-status/README.md
 
-Target: Smart routing logic, may be lighter than other workflows.
+2. Understand BMM's multi-mode architecture:
+   - Mode: interactive (show status and options)
+   - Mode: validate (check if workflow should proceed)
+   - Mode: data (extract specific information)
+   - Mode: init-check (simple existence check)
+   - Mode: update (centralized status updates)
 
-Note: This may be an exception to premium requirements - focus on routing clarity.
+3. Design gsap-workflow-status.md format:
+   ```
+   CURRENT_WORKFLOW: debug-animation
+   LAST_COMPLETED: refine-timing
+   WORKFLOWS_COMPLETE: 13/29
+   COMPLETED_LIST: create-scroll-animation, creative-ideation, ...
+   NEXT_SUGGESTED: analyze-animation
+   NEXT_CATEGORY: Category A (version bump)
+   NEXT_AGENT: Editor
+   ```
+
+4. Adapt BMM's instructions.md for GSAP context:
+   - Replace BMM project phases with GSAP workflow categories
+   - Map 29 GSAP workflows instead of BMM workflows
+   - Keep multi-mode service architecture
+   - Maintain simple key-value parsing
+
+5. Create workflow.yaml (adapt BMM structure)
+6. Create gsap-workflow-status template
+7. Add to ALL 5 agent menus (Director, Cinematographer, VFX, Editor, Tech Director)
+8. Version: "2.0.0-premium" (this IS premium via adaptation)
+
+Target: 300-400 line multi-mode service adapted from BMM's 325-line implementation.
+
+🚨 This is NOT a rebuild - it's adapting existing premium work for GSAP context.
 ```
 
 ---
