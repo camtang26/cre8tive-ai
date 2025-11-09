@@ -130,7 +130,7 @@ These workflows have research infrastructure but need expansion to premium quali
 
 ---
 
-### 3. analyze-motion (Editor)
+### 3. analyze-motion (Cinematographer)
 
 **Current Status:** 972 lines, has Deep-Research + Archon (borderline size)
 **Action Needed:** Expand to 1500+ lines, add mandatory gates
@@ -145,7 +145,7 @@ Current state: 972 lines with research infrastructure - needs expansion.
 
 Process:
 1. Read current workflow.yaml and instructions.md
-2. Check EDITOR-WORKFLOW-CONVERSION-SPEC.md for analyze-motion section
+2. Check CINEMATOGRAPHER-WORKFLOW-CONVERSION-SPEC.md for analyze-motion section
 3. If found in conversion spec:
    - Follow Step 1 Path A (use conversion spec)
    - Expand existing content with deeper research
@@ -162,7 +162,7 @@ Target: 1500+ lines with mandatory gates.
 
 ---
 
-### 4. analyze-timing (Editor)
+### 4. analyze-timing (Cinematographer)
 
 **Current Status:** 816 lines, has Deep-Research + Archon (borderline size)
 **Action Needed:** Expand to 1500+ lines, add mandatory gates
@@ -177,7 +177,7 @@ Current state: 816 lines with research infrastructure - needs expansion.
 
 Process:
 1. Read current workflow.yaml and instructions.md
-2. Check EDITOR-WORKFLOW-CONVERSION-SPEC.md for analyze-timing section
+2. Check CINEMATOGRAPHER-WORKFLOW-CONVERSION-SPEC.md for analyze-timing section
 3. If found in conversion spec:
    - Follow Step 1 Path A (use conversion spec)
    - Expand existing content with deeper research
@@ -535,7 +535,7 @@ Target: 2000+ lines - comprehensive quality gate.
 
 ---
 
-### 15. setup-gsap-project (Tech Director)
+### 15. setup-gsap-project (Director)
 
 **Current Status:** 1,075 lines but NO Deep-Research, NO Archon
 **Action Needed:** Add research infrastructure despite good size
@@ -552,7 +552,7 @@ This has decent size but lacks research foundation.
 
 Process - Follow Step 1 Path B (build from research):
 1. Read current workflow.yaml and instructions.md
-2. Check TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for setup-gsap-project
+2. Check DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for setup-gsap-project
 3. Research GSAP setup best practices via Archon MCP:
    - Modern GSAP 3.13+ installation
    - Plugin registration patterns
@@ -571,7 +571,7 @@ Target: Maintain 1000+ lines, add research backing.
 
 ---
 
-### 16. workflow-status (Tech Director)
+### 16. workflow-status (Director)
 
 **Current Status:** 617 lines, NO Deep-Research, NO Archon
 **Action Needed:** Full rebuild as routing workflow
@@ -587,7 +587,7 @@ Current state: 617 lines, NO research infrastructure.
 This is a META/ROUTING workflow - may not need full premium treatment.
 
 Process - Follow Step 1 Path B (simplified):
-1. Check TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for workflow-status
+1. Check DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for workflow-status
 2. This is likely NOT in conversion spec (routing workflow)
 3. Build intelligent routing logic:
    - Reads current project state
@@ -619,11 +619,11 @@ Update this after EACH workflow completion:
 - Category C (Full Rebuild): 0/8 complete (0%)
 
 **By Agent:**
-- Director: 3/6 complete (50%)
-- Cinematographer: 1/3 complete (33%)
-- Tech Director: 5/8 complete (63%)
-- VFX Artist: 2/6 complete (33%)
-- Editor: 2/6 complete (33%)
+- Director: 3/8 complete (38%) - 5 remaining
+- Cinematographer: 1/5 complete (20%) - 4 remaining
+- Tech Director: 5/6 complete (83%) - 1 remaining
+- VFX Artist: 2/6 complete (33%) - 4 remaining
+- Editor: 2/4 complete (50%) - 2 remaining
 
 ---
 
