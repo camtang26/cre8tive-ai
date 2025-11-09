@@ -1,15 +1,17 @@
 # Implement From Pattern Workflow - GSAP Excellence Engine
-# Quick implementation based on researched GSAP pattern or pattern library entry
-# Multi-agent coordination: Director → Cinematographer → VFX Artist → (Tech Director)
-# Complexity: Standard
+# Fast pattern-based implementation with systematic adaptation and validation
+# Multi-agent coordination: Director → Cinematographer → VFX Artist → Tech Director
+# Research-backed: Deep-Research Sections 2.5 (Framework Integration) + 3.7 (Cleanup/Lifecycle)
+# Complexity: Medium (Pattern adaptation with framework integration)
 
 name: implement-from-pattern
-description: "Fast implementation pipeline using researched GSAP patterns or pattern library. Adapts proven patterns to your specific context with quality validation."
-author: "GSAP Excellence Engine"
-version: "1.0.0-alpha"
-complexity: "standard"
+description: "Systematic pattern adaptation workflow using 60+ proven GSAP patterns from library. Research-backed framework integration (Section 2.5), cleanup protocols (Section 3.7), and quality validation with Chrome DevTools."
+author: "GSAP Excellence Engine - Multi-Agent Team"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
 
-# Critical variables from module config
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
 pattern_library: "{module_root}/patterns"
@@ -17,104 +19,227 @@ user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
 
-# MCP Servers used (selective usage)
-mcp_servers:
-  archon:
-    tools: ["rag_search_code_examples"]
-    purpose: "Load pattern details from knowledge base if needed"
+# Workflow Metadata
+metadata:
+  agent_team: 'multi-agent-coordination'
+  primary_agent: 'gsap-vfx'  # VFX Artist implements
+  orchestrator: 'gsap-director'  # Director orchestrates
+  research_agent: 'gsap-cinematographer'  # Cinematographer analyzes patterns
+  validator: 'gsap-tech-director'  # Tech Director validates (optional)
+  priority: 'P2'
+  research_intensity: 'medium-high'
+  estimated_duration: '10-20 minutes'
+  methodology: 'pattern-adaptation-with-research-validation'
+  pattern_library_size: '60+ proven patterns'
 
-  context7:
-    tools: ["get-library-docs"]
-    purpose: "Verify API compatibility for pattern"
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources) - Pattern discovery and adaptation research
+  - context7  # Latest GSAP API docs - Framework compatibility verification
+  - chrome_devtools  # Visual validation, console error checking (Phase 2 - optional)
 
-  chrome_devtools:
-    tools: ["take_screenshot", "list_console_messages"]
-    purpose: "Visual validation and console error checking (Phase 2)"
-    phase: 2
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '2.5'  # Integration Patterns: GSAP + React/Next.js/Other Frameworks (PRIMARY - adaptation foundation)
+  - '3.7'  # Pattern: Cleanup and Reinitialization (FullPage Transitions) (CRITICAL - lifecycle management)
 
-# Agents involved (multi-agent coordination)
+# Archon Priority Sources (pattern adaptation research)
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - framework integration guides)
+  - '1e5cc3bd5125be3c'  # Codrops GSAP tutorials (pattern library examples)
+  - '90c2ef5e8fa816b7'  # FreeFrontend animation examples (pattern variations)
+  - 'gsap-react-patterns'  # React-specific GSAP patterns
+  - 'gsap-nextjs-patterns'  # Next.js SSR considerations
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Framework Integration Research:
+# - 09-25-integration-patterns-gsap-react-nextjs-other-frameworks.md (Section 2.5)
+# - 17-37-pattern-cleanup-and-reinitialization-fullpage-transitions.md (Section 3.7)
+
+# Pattern Library Integration
+pattern_library_config:
+  location: '{module_root}/patterns'
+  total_patterns: '60+'
+  categories:
+    - 'scroll-effects'  # 8 patterns (parallax, reveals, pinning)
+    - 'premium-plugins'  # 9 patterns (MorphSVG, SplitText, DrawSVG - FREE in 3.13+!)
+    - 'text-animations'  # 6 patterns (char-by-char, word reveals, scramble)
+    - 'loading-sequences'  # 5 patterns (page intro, content reveals)
+    - 'react-nextjs'  # 6 patterns (framework-specific implementations)
+    - 'interactive'  # 5 patterns (drag, hover, click triggers)
+  file_format: '.pattern.yaml'
+  pattern_structure:
+    - 'metadata'  # Name, category, complexity, GSAP version
+    - 'code_example'  # Working vanilla implementation
+    - 'plugins_required'  # GSAP plugins needed
+    - 'framework_variations'  # React/Next.js/Vue adaptations
+    - 'performance_notes'  # GPU optimization, will-change usage
+    - 'accessibility_notes'  # prefers-reduced-motion handling
+
+# Multi-Agent Coordination
 agents:
-  director: "gsap-director"  # Orchestrator
-  cinematographer: "gsap-cinematographer"  # Loads pattern research
-  vfx_artist: "gsap-vfx"  # Implementation
-  tech_director: "gsap-tech-director"  # Validation (Phase 2, optional in MVP)
+  director:
+    name: "gsap-director"
+    role: "Orchestrator - Gathers requirements, coordinates team, presents final implementation"
+    responsibilities:
+      - "Collect pattern source, target context, framework requirements"
+      - "Coordinate agent handoffs (Director → Cinematographer → VFX → Tech Director)"
+      - "Present final implementation with integration guide"
+      - "Facilitate pattern library updates (successful implementations)"
 
-# Module path and component files
+  cinematographer:
+    name: "gsap-cinematographer"
+    role: "Pattern Analyst - Loads and analyzes pattern details for adaptation"
+    responsibilities:
+      - "Load pattern from library/research/url/description"
+      - "Analyze GSAP features, plugins, complexity"
+      - "Consult Deep-Research Section 2.5 for framework integration patterns"
+      - "Plan adaptation strategy based on target context"
+      - "Use Archon MCP for pattern discovery if pattern not in library"
+
+  vfx_artist:
+    name: "gsap-vfx"
+    role: "Implementation Specialist - Adapts pattern to target context"
+    responsibilities:
+      - "Adapt pattern code to target framework (React/Next.js/Vue/Vanilla)"
+      - "Apply Deep-Research Section 2.5 framework integration protocols"
+      - "Apply Deep-Research Section 3.7 cleanup/lifecycle protocols"
+      - "Generate production-ready code with proper cleanup"
+      - "Implement prefers-reduced-motion accessibility fallback"
+      - "Optimize for GPU acceleration (transform/opacity)"
+
+  tech_director:
+    name: "gsap-tech-director"
+    role: "Validator - Quick validation of implementation (Phase 2 - optional)"
+    responsibilities:
+      - "Visual validation via Chrome DevTools screenshot"
+      - "Console error checking"
+      - "Performance quick-check"
+      - "Cleanup verification"
+
+# File paths
 installed_path: "{module_root}/workflows/implement-from-pattern"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false
+validation: "{installed_path}/checklist.md"
 
-# Output configuration - Implementation notes + code
-default_output_file: "{output_folder}/gsap-implementation-{{pattern_name}}-{{date}}.md"
+# Output configuration - Implementation report with code
+default_output_file: "{output_folder}/gsap-implementation-{{pattern_name}}-{{timestamp}}.md"
 
-# Workflow inputs
+# Workflow Inputs
 inputs:
   pattern_source:
-    description: "Source of pattern: library, research-report, or url"
+    description: "Source of pattern: library, research-report, url, or describe"
     required: true
     options: ["library", "research", "url", "describe"]
+    rationale: "Determines how Cinematographer loads pattern details"
 
   pattern_identifier:
-    description: "Pattern name, research report path, or URL"
+    description: "Pattern name (from library), research report path, URL, or description"
     required: true
+    type: "string"
+    examples:
+      - "parallax-scroll-basic (library)"
+      - "docs/research-reports/hero-animation-2025-11-09.md (research)"
+      - "https://codepen.io/... (url)"
+      - "Scroll-triggered card reveals with stagger (describe)"
 
   target_context:
-    description: "Where to implement: component name, file path, elements"
+    description: "Where to implement: component name, file path, element selectors"
     required: true
-
-  customizations:
-    description: "Any customizations needed from base pattern"
-    required: false
+    type: "string"
+    examples:
+      - "src/components/Hero.tsx - .hero-title, .hero-image"
+      - "Homepage - #intro-section .card-grid"
+      - "ProductPage - .product-showcase"
 
   framework:
-    description: "Framework context: vanilla, react, vue, svelte"
+    description: "Framework context: vanilla, react, vue, svelte, nextjs"
     required: false
     default: "vanilla"
+    options: ["vanilla", "react", "nextjs", "vue", "svelte"]
+    research_section: "2.5 - Framework integration patterns"
 
-# Expected outputs
+  customizations:
+    description: "Any customizations needed from base pattern (timing, colors, easing, etc.)"
+    required: false
+    type: "string"
+    examples:
+      - "Slower timing (1.5s instead of 0.8s)"
+      - "Elastic easing instead of power2.out"
+      - "Different stagger amount (0.3s instead of 0.15s)"
+
+# Expected Outputs
 outputs:
-  implementation_code:
-    format: "Production-ready GSAP code with comments"
-    includes: ["setup", "animation code", "cleanup"]
+  adapted_code:
+    format: "Production-ready GSAP code adapted to target framework"
+    includes: ["imports", "setup", "animation_code", "cleanup", "accessibility_fallback"]
+    research_backing: "Section 2.5 (Framework), Section 3.7 (Cleanup)"
 
-  integration_notes:
-    format: "How to integrate into existing codebase"
+  integration_guide:
+    format: "Step-by-step integration instructions for target codebase"
+    includes: ["installation", "import_examples", "component_integration", "testing_checklist"]
 
-  validation_checklist:
-    format: "Testing checklist before shipping"
+  research_citations:
+    format: "Deep-Research sections consulted and Archon sources referenced"
+    purpose: "Verify research-backed adaptation (not trial-and-error)"
 
-# Success criteria
+  pattern_analysis:
+    format: "GSAP features, plugins, complexity, adaptation requirements"
+    source: "Cinematographer analysis phase"
+
+  validation_results:
+    format: "Visual check, console status, cleanup verification (if Tech Director available)"
+    optional: true
+    phase: 2
+
+# Success Criteria
 success_criteria:
   - "Pattern successfully adapted to target context"
-  - "Code is production-ready with proper cleanup"
-  - "Framework integration handled correctly"
-  - "Performance considerations documented"
-  - "Accessibility fallback included"
+  - "Framework integration follows Deep-Research Section 2.5 protocols"
+  - "Cleanup follows Deep-Research Section 3.7 protocols (ctx.revert() on unmount)"
+  - "Code is production-ready with inline comments"
+  - "prefers-reduced-motion accessibility fallback included"
+  - "GPU acceleration optimized (transform/opacity properties)"
+  - "No console errors or warnings"
+  - "Integration guide provided for target codebase"
+  - "Research citations document Deep-Research + Archon sources consulted"
 
-# Integration
+# Integration with Other Workflows
 feeds_into:
-  - "Pattern library"  # Successful adaptations can update pattern
-  - "optimize-performance"  # If performance issues detected
+  - "Pattern library"  # Successful adaptations can be added to library
+  - "optimize-performance"  # If performance issues detected after implementation
+  - "debug-animation"  # If bugs arise during implementation
 
 fed_by:
-  - "research-gsap-pattern"  # Research report feeds implementation
-  - "creative-ideation"  # Concept feeds implementation
+  - "research-gsap-pattern"  # Research report feeds pattern_source (research)
+  - "creative-ideation"  # Selected concept feeds pattern_source (describe)
+  - "Pattern library"  # Existing patterns feed pattern_source (library)
 
-# Performance targets
+# Performance Targets
 estimated_duration: "10-20 minutes"
 phases:
-  pattern_loading: "2-3 min"
-  adaptation_planning: "3-5 min"
-  implementation: "5-10 min"
-  validation: "2-5 min (if Tech Director available)"
+  pattern_loading: "2-3 min (Cinematographer analyzes pattern)"
+  adaptation_planning: "3-5 min (VFX Artist plans framework integration)"
+  implementation: "5-10 min (VFX Artist generates adapted code)"
+  validation: "2-5 min (Tech Director quick-check - optional Phase 2)"
 
-# Web bundle configuration
+# Research Enforcement
+research_enforcement:
+  pattern_analysis_gate: "MANDATORY - Cinematographer must analyze pattern before VFX implements"
+  framework_integration_gate: "MANDATORY - Must consult Section 2.5 for framework adaptation"
+  cleanup_protocol_gate: "MANDATORY - Must consult Section 3.7 for lifecycle management"
+  quality_validation: "Checklist.md validates research compliance"
+
+# Web Bundle Configuration
 web_bundle:
   id: "gsap-excellence/implement-from-pattern"
-
   web_bundle_files:
     - "bmad/gsap-excellence/workflows/implement-from-pattern/workflow.yaml"
     - "bmad/gsap-excellence/workflows/implement-from-pattern/instructions.md"
     - "bmad/gsap-excellence/workflows/implement-from-pattern/template.md"
+    - "bmad/gsap-excellence/workflows/implement-from-pattern/checklist.md"
