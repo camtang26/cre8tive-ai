@@ -1,15 +1,17 @@
 # Harvest Patterns Workflow - GSAP Excellence Engine
-# Extract successful animations as reusable patterns for pattern library
-# Solves: "How do I capture this successful animation for future reuse?"
-# Transforms it into: "Pattern added to library - available for quick implementation"
+# Extract successful animations as reusable patterns with research-backed quality standards
+# Agent: The Director
+# Complexity: Medium (Quality assessment + documentation workflow)
+# Version: 2.0.0-premium (Research-backed rebuild)
 
 name: harvest-patterns
-description: "Extract successful animations as reusable patterns. Captures implementation, metadata, and research citations for pattern library growth."
-author: "GSAP Excellence Engine"
-version: "1.0.0"
-complexity: "simple"
+description: "Extract successful animations as reusable patterns for pattern library. Research-backed quality assessment ensures only premium, reusable, accessible patterns are captured."
+author: "GSAP Excellence Engine - The Director"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from Director agent menu)
 
-# Critical variables from module config
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
 user_name: "{config_source}:user_name"
@@ -17,70 +19,174 @@ communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 pattern_library: "{module_root}/patterns"
 date: system-generated
+timestamp: system-generated
 
-# MCP Servers used (none - this is extraction/documentation workflow)
-mcp_servers: {}
+# Workflow Metadata
+metadata:
+  agent: 'gsap-director'
+  priority: 'P2'
+  research_intensity: 'medium'
+  estimated_duration: '15-20 minutes'
+  persona: 'pattern-curator'
+  harvest_approach: 'research-backed-quality-assessment'
 
-# Agents involved
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources) - Pattern validation against premium examples
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '1.1'  # Animator's Mindset (pattern quality standards - meaningful vs decorative)
+  - '1.4'  # Decision Framework (categorization by GSAP features/plugins)
+  - '2.2'  # Timeline Techniques (reusable pattern structures - modular timelines)
+  - '5.5'  # Optimize for 60fps (performance criteria - 16ms frame budget)
+  - '6.1'  # prefers-reduced-motion (MANDATORY accessibility requirement)
+
+# Archon Priority Sources (Pattern Library Context)
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (pattern best practices)
+  - '1e5cc3bd5125be3c'  # Codrops tutorials (premium pattern examples)
+  - '6a6860cfc96e173b'  # ScrollTrigger performance (scroll pattern optimization)
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Pattern-specific Deep-Research files:
+# - 01-11-the-animators-mindset-vs-code-generator.md (Section 1.1)
+# - 04-14-deciding-between-gsap-and-alternatives.md (Section 1.4)
+# - 06-22-mastering-gsap-timeline-techniques.md (Section 2.2)
+# - 22-55-optimize-animations-for-60fps.md (Section 5.5)
+# - 24-61-respecting-prefers-reduced-motion.md (Section 6.1)
+
+# Archon MCP Integration (Pattern Validation)
+archon_capabilities:
+  - rag_search_knowledge_base  # Validate pattern against premium examples
+  - rag_search_code_examples  # Find similar patterns for categorization
+  - rag_read_full_page  # Deep dive into specific pattern techniques
+
 agents:
-  primary: "gsap-director"  # Lead, orchestrates pattern extraction
-  support: "gsap-cinematographer"  # Categorization and metadata specialist
+  primary: "gsap-director"
+  supporting: "gsap-cinematographer"  # Categorization specialist
 
-# Module path and component files
 installed_path: "{module_root}/workflows/harvest-patterns"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false  # No validation needed for documentation workflow
+validation: "{installed_path}/checklist.md"
 
-# Output configuration - Pattern YAML file
-default_output_file: "{pattern_library}/{{category}}/{{pattern_name}}.pattern.yaml"
+default_output_file: "{output_folder}/pattern-harvest-{timestamp}.md"
 
 # Workflow inputs (gathered from user or animation-production output)
 inputs:
   animation_code:
     description: "Production-ready animation code to extract as pattern"
     required: true
+    type: "code"
 
   performance_metrics:
-    description: "Performance data from Tech Director (FPS, paint time, etc.)"
+    description: "Performance data (FPS, paint time, frame budget compliance)"
     required: true
+    type: "metrics"
 
   research_citations:
     description: "Research sources used (Archon source IDs, Deep-Research sections, WebSearch URLs)"
     required: true
+    type: "documentation"
 
   framework:
     description: "Framework used (vanilla, react, nextjs, vue)"
     required: true
     default: "vanilla"
+    type: "classification"
 
   animation_request:
-    description: "Original animation request/description"
+    description: "Original animation request/description (design intent)"
     required: true
+    type: "description"
 
   brand_personality:
     description: "Brand personality used (if applicable)"
     required: false
+    type: "context"
+
+  quality_validation:
+    description: "Quality gate results (60fps, accessibility, pitfalls check)"
+    required: true
+    type: "validation_results"
 
 # Expected outputs
 outputs:
   pattern_yaml:
-    format: "YAML file with all required metadata"
+    format: "YAML file with complete metadata and research citations"
     location: "{pattern_library}/{{category}}/{{pattern_name}}.pattern.yaml"
 
   pattern_count:
-    description: "Updated pattern library count"
-    format: "Integer (currently 50, growing)"
+    description: "Updated pattern library count (currently 60 patterns)"
+    format: "Integer"
 
-# Success criteria
+  quality_assessment:
+    description: "Research-backed quality assessment per Deep-Research standards"
+    format: "Markdown report"
+
+  categorization:
+    description: "Pattern category based on Section 1.4 decision framework"
+    format: "Category classification"
+
+# Success criteria (research-backed standards)
 success_criteria:
-  - "Pattern YAML file created with all required metadata"
-  - "Pattern categorized correctly (scroll-effects, text-animations, etc.)"
-  - "Pattern includes accessibility (prefers-reduced-motion)"
-  - "Pattern includes React/Next.js examples"
-  - "Pattern cites sources (Archon source IDs + Deep-Research sections)"
+  # Section 1.1 - Animator's Mindset Quality Standards
+  - "Pattern demonstrates MEANINGFUL motion (not just decorative) - Section 1.1"
+  - "Clear design intent identified (purpose-driven animation) - Section 1.1"
+  - "Choreography and timing show intentional design - Section 1.1"
+
+  # Section 1.4 - Categorization Framework
+  - "Pattern categorized by GSAP features/plugins used - Section 1.4"
+  - "Technique appropriateness validated - Section 1.4"
+
+  # Section 2.2 - Reusable Pattern Structure
+  - "Pattern uses modular timeline structure - Section 2.2"
+  - "Code is maintainable and reusable (not project-specific) - Section 2.2"
+  - "Relative positioning used for flexibility - Section 2.2"
+
+  # Section 5.5 - Performance Criteria
+  - "Pattern meets 60fps standard (16ms frame budget) - Section 5.5"
+  - "Performance metrics documented (FPS, paint time, scripting time) - Section 5.5"
+  - "autoAlpha used where applicable for optimization - Section 5.5"
+
+  # Section 6.1 - Accessibility Requirement
+  - "Pattern includes prefers-reduced-motion fallback (MANDATORY) - Section 6.1"
+  - "Accessibility tested with OS setting toggle - Section 6.1"
+  - "gsap.matchMedia() integration verified - Section 6.1"
+
+  # Pattern Library Standards
+  - "Pattern YAML file created with ALL required metadata"
+  - "Pattern includes React/Next.js examples (where applicable)"
+  - "Pattern cites ALL sources (Archon IDs + Deep-Research sections)"
   - "Pattern added to appropriate category directory"
   - "Pattern library count incremented"
+
+# Pattern Quality Standards (Deep-Research Backed)
+quality_standards:
+  # From Section 1.1 - Animator's Mindset
+  eligibility_criteria:
+    meaningful_motion: "Animation must be meaningful, not just decorative"
+    design_intent: "Clear purpose identified (attention, delight, storytelling)"
+    choreography: "Elements move with intentional timing and coordination"
+    imagination: "Shows creative vision, not generic effects"
+
+  # From Section 5.5 - Performance Standards
+  performance_requirements:
+    frame_budget: "16ms per frame maximum (60fps sustained)"
+    scripting: "Less than 8ms scripting per frame"
+    style_layout: "Less than 4ms style/layout per frame"
+    paint: "Less than 4ms paint per frame"
+    fps_minimum: "FPS ≥ 55 across all frames (minimum)"
+
+  # From Section 6.1 - Accessibility Requirements
+  accessibility_requirements:
+    reduced_motion: "MANDATORY prefers-reduced-motion fallback"
+    detection: "Uses window.matchMedia() or gsap.matchMedia()"
+    testing: "Verified with OS setting toggle"
+    fallback_type: "Minimal motion, instant changes, or subtle fades"
 
 # Integration
 fed_by:
@@ -90,18 +196,20 @@ feeds_into:
   - "implement-from-pattern"  # New patterns available for quick implementation
 
 # Performance targets
-estimated_duration: "5-10 minutes"
+estimated_duration: "15-20 minutes"
 phases:
-  extraction: "2-3 min"
-  categorization: "1-2 min"
-  metadata_documentation: "2-3 min"
-  yaml_creation: "1-2 min"
+  quality_assessment: "4-5 min (research-backed validation)"
+  extraction: "3-4 min (strip project-specific details)"
+  categorization: "2-3 min (Section 1.4 framework)"
+  metadata_documentation: "4-5 min (complete metadata with citations)"
+  yaml_creation: "2-3 min (generate pattern file)"
 
 web_bundle:
   name: 'harvest-patterns'
-  description: 'Extract successful animations as reusable patterns. Captures implementation, metadata, and research citations for pattern library growth.'
+  description: 'Extract successful animations as reusable patterns. Research-backed quality assessment ensures only premium, reusable, accessible patterns are captured.'
   path: 'bmad/gsap-excellence/workflows/harvest-patterns'
   web_bundle_files:
     - 'bmad/gsap-excellence/workflows/harvest-patterns/workflow.yaml'
     - 'bmad/gsap-excellence/workflows/harvest-patterns/instructions.md'
     - 'bmad/gsap-excellence/workflows/harvest-patterns/template.md'
+    - 'bmad/gsap-excellence/workflows/harvest-patterns/checklist.md'
