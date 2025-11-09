@@ -4,7 +4,9 @@
 
 **Rule:** ONE workflow per session. Start fresh session for EACH workflow.
 
-**Progress:** 3/19 Complete (15.8%)
+**Progress:** 13/29 Complete (44.8%)
+
+**Updated:** 2025-11-09 (Post-validation audit)
 
 ---
 
@@ -29,578 +31,599 @@ Do the FULL job. If you run out of tokens, I'll figure it out."
 
 ---
 
-## ✅ COMPLETED (3/19)
+## ✅ COMPLETED (13/29 - All Validated)
 
-- ✅ **refine-timing** (Editor) - Completed 2025-11-09
-- ✅ **debug-animation** (Editor) - Completed 2025-11-09
-- ✅ **optimize-performance** (Tech Director) - Completed 2025-11-09
+All workflows below have passed validation:
+- ✅ Premium version (2.0.0-premium)
+- ✅ Mandatory research gates (enforcement="MANDATORY" blocking="true")
+- ✅ Substantial content (1000+ lines)
+
+1. ✅ **create-scroll-animation** (VFX Artist)
+2. ✅ **creative-ideation** (Director)
+3. ✅ **debug-animation** (Editor)
+4. ✅ **harvest-patterns** (Director)
+5. ✅ **implement-from-pattern** (VFX Artist)
+6. ✅ **memory-profiling** (Tech Director)
+7. ✅ **optimize-performance** (Tech Director)
+8. ✅ **plan-narrative** (Director)
+9. ✅ **refine-timing** (Editor)
+10. ✅ **research-gsap-pattern** (Cinematographer)
+11. ✅ **validate-60fps** (Tech Director)
+12. ✅ **validate-complete** (Tech Director)
+13. ✅ **validate-modern** (Tech Director)
 
 ---
 
-## 🔥 PRIORITY TIER 1: Critical Workflows (2 workflows)
+## 📋 CATEGORY A: Quick Version Bump (2 workflows)
 
-### 1. validate-complete (Tech Director)
+These workflows are substantial (1000+ lines), have Deep-Research sections and Archon integration. They may only need mandatory gate verification and version bump to 2.0.0-premium.
 
-**Status:** [ ] Not Started
+---
+
+### 1. analyze-animation (Editor)
+
+**Current Status:** 1,269 lines, has Deep-Research + Archon
+**Action Needed:** Check for mandatory gates, add if missing, bump to 2.0.0-premium
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **validate-complete** workflow following the master plan.
+Audit and upgrade **analyze-animation** workflow to premium status.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on validate-complete only.
+This workflow has 1,269 lines and research infrastructure. Quick audit needed:
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+Steps:
+1. Read workflow.yaml and instructions.md
+2. Check if mandatory research gates exist:
+   - Look for enforcement="MANDATORY" blocking="true"
+   - OR look for MANDATORY RESEARCH CHECKPOINT patterns
+3. If gates exist and are strong:
+   - Bump version to "2.0.0-premium"
+   - Verify deep_research_sections in workflow.yaml
+   - Run validation (should pass)
+4. If gates missing or weak:
+   - Follow full rebuild methodology (Steps 1-5 from master plan)
+   - May need conversion spec: EDITOR-WORKFLOW-CONVERSION-SPEC.md
+   - Add mandatory research gates
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on validate-complete.
+DO NOT rebuild from scratch if gates already exist. Just upgrade.
 ```
 
 ---
 
-### 2. ship-ready-check (Director + Tech Director)
+### 2. create-timeline (VFX Artist)
 
-**Status:** [ ] Not Started
+**Current Status:** 1,370 lines, has Deep-Research + Archon, has checklist
+**Action Needed:** Check for mandatory gates, add if missing, bump to 2.0.0-premium
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **ship-ready-check** workflow following the master plan.
+Audit and upgrade **create-timeline** workflow to premium status.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on ship-ready-check only.
+This workflow has 1,370 lines and research infrastructure. Quick audit needed:
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+Steps:
+1. Read workflow.yaml and instructions.md
+2. Check if mandatory research gates exist:
+   - Look for enforcement="MANDATORY" blocking="true"
+   - OR look for MANDATORY RESEARCH CHECKPOINT patterns
+3. If gates exist and are strong:
+   - Bump version to "2.0.0-premium"
+   - Verify deep_research_sections in workflow.yaml
+   - Run validation (should pass)
+4. If gates missing or weak:
+   - Follow full rebuild methodology (Steps 1-5 from master plan)
+   - Use conversion spec: VFX-WORKFLOW-CONVERSION-SPEC.md
+   - Add mandatory research gates
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on ship-ready-check.
+DO NOT rebuild from scratch if gates already exist. Just upgrade.
 ```
 
 ---
 
-## 🔥 PRIORITY TIER 2: Quality & Validation (5 workflows)
+## 🔨 CATEGORY B: Need Enhancement (6 workflows)
 
-### 3. validate-modern (Tech Director)
+These workflows have research infrastructure but need expansion to premium quality (1500+ lines, mandatory gates).
 
-**Status:** [ ] Not Started
+---
+
+### 3. analyze-motion (Editor)
+
+**Current Status:** 972 lines, has Deep-Research + Archon (borderline size)
+**Action Needed:** Expand to 1500+ lines, add mandatory gates
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **validate-modern** workflow following the master plan.
+Enhance **analyze-motion** workflow to premium quality.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on validate-modern only.
+Current state: 972 lines with research infrastructure - needs expansion.
 
 Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+1. Read current workflow.yaml and instructions.md
+2. Check EDITOR-WORKFLOW-CONVERSION-SPEC.md for analyze-motion section
+3. If found in conversion spec:
+   - Follow Step 1 Path A (use conversion spec)
+   - Expand existing content with deeper research
+4. If NOT in conversion spec:
+   - Follow Step 1 Path B (build from research)
+   - Research motion analysis patterns via Archon MCP
+   - Identify relevant Deep-Research sections
+5. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+6. Expand to 1500+ lines total
+7. Bump version to "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on validate-modern.
+Target: 1500+ lines with mandatory gates.
 ```
 
 ---
 
-### 4. plan-narrative (Director)
+### 4. analyze-timing (Editor)
 
-**Status:** [ ] Not Started
+**Current Status:** 816 lines, has Deep-Research + Archon (borderline size)
+**Action Needed:** Expand to 1500+ lines, add mandatory gates
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **plan-narrative** workflow following the master plan.
+Enhance **analyze-timing** workflow to premium quality.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on plan-narrative only.
+Current state: 816 lines with research infrastructure - needs expansion.
 
 Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+1. Read current workflow.yaml and instructions.md
+2. Check EDITOR-WORKFLOW-CONVERSION-SPEC.md for analyze-timing section
+3. If found in conversion spec:
+   - Follow Step 1 Path A (use conversion spec)
+   - Expand existing content with deeper research
+4. If NOT in conversion spec:
+   - Follow Step 1 Path B (build from research)
+   - Research timing analysis patterns via Archon MCP
+   - Identify relevant Deep-Research sections (likely 2.1, 2.2 - easing/timing)
+5. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+6. Expand to 1500+ lines total
+7. Bump version to "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on plan-narrative.
+Target: 1500+ lines with mandatory gates.
 ```
 
 ---
 
-### 5. accessibility-audit (Tech Director)
+### 5. animation-production (Director)
 
-**Status:** [ ] Not Started
+**Current Status:** 1,594 lines, has Archon but NO Deep-Research sections
+**Action Needed:** Add Deep-Research sections, add mandatory gates
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **accessibility-audit** workflow following the master plan.
+Enhance **animation-production** workflow to premium quality.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on accessibility-audit only.
+Current state: 1,594 lines BUT missing Deep-Research sections (critical gap).
+
+This is the Director's FLAGSHIP orchestration workflow.
 
 Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+1. Read current workflow.yaml and instructions.md
+2. Read DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for animation-production section
+3. Identify ALL Deep-Research sections needed for complete production pipeline:
+   - Likely needs sections from multiple categories (creative, technical, validation)
+   - This orchestrates ALL crew agents, so references ALL their domains
+4. Add deep_research_sections to workflow.yaml
+5. Add MANDATORY research gates to instructions.md
+6. Update instructions with Deep-Research frameworks
+7. Bump version to "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
+CRITICAL: This is meta-workflow that orchestrates others. Make it comprehensive.
 
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on accessibility-audit.
+Target: Add Deep-Research integration + mandatory gates.
 ```
 
 ---
 
-### 6. memory-profiling (Tech Director)
+### 6. find-examples (Cinematographer)
 
-**Status:** [ ] Not Started
+**Current Status:** 869 lines, has Archon but NO Deep-Research
+**Action Needed:** Add Deep-Research sections, expand, add mandatory gates
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **memory-profiling** workflow following the master plan.
+Enhance **find-examples** workflow to premium quality.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on memory-profiling only.
+Current state: 869 lines BUT missing Deep-Research sections.
 
 Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+1. Read current workflow.yaml and instructions.md
+2. Check CINEMATOGRAPHER-WORKFLOW-CONVERSION-SPEC.md for find-examples section
+3. If found in conversion spec:
+   - Follow Step 1 Path A
+4. If NOT in conversion spec:
+   - Follow Step 1 Path B (build from research)
+   - Research example-finding patterns via Archon MCP
+   - Identify relevant Deep-Research sections
+5. Add deep_research_sections to workflow.yaml
+6. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+7. Expand to 1500+ lines with research integration
+8. Bump version to "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on memory-profiling.
+Target: 1500+ lines with Deep-Research + mandatory gates.
 ```
 
 ---
 
-### 7. harvest-patterns (Director)
+### 7. research-trends (Cinematographer)
 
-**Status:** [ ] Not Started
+**Current Status:** 919 lines, has Deep-Research + Archon (borderline size)
+**Action Needed:** Expand to 1500+ lines, add mandatory gates
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **harvest-patterns** workflow following the master plan.
+Enhance **research-trends** workflow to premium quality.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on harvest-patterns only.
+Current state: 919 lines with research infrastructure - needs expansion.
 
 Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+1. Read current workflow.yaml and instructions.md
+2. Check CINEMATOGRAPHER-WORKFLOW-CONVERSION-SPEC.md for research-trends section
+3. If found in conversion spec:
+   - Follow Step 1 Path A
+   - Expand with deeper trend analysis frameworks
+4. If NOT in conversion spec:
+   - Follow Step 1 Path B (build from research)
+   - Research trend-spotting patterns via Archon MCP
+   - Likely needs Section 7.5 (Notable Agencies & Patterns)
+5. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+6. Expand to 1500+ lines
+7. Bump version to "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on harvest-patterns.
+Target: 1500+ lines with mandatory gates.
 ```
 
 ---
 
-## 🔥 PRIORITY TIER 3: Creation & Implementation (5 workflows)
+### 8. ship-ready-check (Director)
 
-### 8. create-timeline (VFX Artist)
-
-**Status:** [ ] Not Started
+**Current Status:** 623 lines, has Deep-Research + Archon (too small)
+**Action Needed:** Expand to 2000+ lines (critical workflow), add mandatory gates
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **create-timeline** workflow following the master plan.
+Enhance **ship-ready-check** workflow to premium quality.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on create-timeline only.
+Current state: 623 lines - WAY too small for production readiness workflow.
+
+This is CRITICAL TIER 1 workflow - final green light for production.
 
 Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (VFX-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+1. Read current workflow.yaml and instructions.md
+2. Read DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for ship-ready-check section
+3. This should have 6-part production readiness checklist
+4. Expand ALL 6 parts with:
+   - Deep-Research frameworks (Sections 5.1-5.6 performance, 6.1-6.4 accessibility)
+   - Comprehensive validation criteria
+   - Tech Director coordination protocols
+5. Add MANDATORY research gates for EACH part
+6. Expand to 2000+ lines minimum
+7. Bump version to "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on create-timeline.
+Target: 2000+ lines - this is THE final quality gate.
 ```
 
 ---
 
-### 9. create-scroll-animation (VFX Artist)
+## 🔥 CATEGORY C: Need Full Rebuild (8 workflows)
 
-**Status:** [ ] Not Started
+These workflows are genuinely pathetic (<500 lines OR no research infrastructure). Full rebuild required.
+
+---
+
+### 9. accessibility-audit (Tech Director)
+
+**Current Status:** 821 lines, NO Deep-Research, NO Archon
+**Action Needed:** Full rebuild with Deep-Research 6.1-6.4 (Accessibility)
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **create-scroll-animation** workflow following the master plan.
+Rebuild **accessibility-audit** workflow from scratch.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on create-scroll-animation only.
+Current state: 821 lines but NO research infrastructure.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (VFX-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+Process - Follow Step 1 Path B (build from research):
+1. Read current workflow.yaml for basic intent
+2. Check TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for accessibility-audit section
+3. If NOT in conversion spec:
+   - Research accessibility patterns via Archon MCP
+   - Identify Deep-Research Sections 6.1-6.4 (Accessibility)
+   - Read ALL 4 accessibility sections
+4. Build systematic accessibility audit protocol:
+   - WCAG compliance checks
+   - prefers-reduced-motion handling
+   - Keyboard navigation
+   - Screen reader compatibility
+   - Color contrast
+5. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+6. Build all 4 files (workflow.yaml, instructions.md, template.md, checklist.md)
+7. Version: "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on create-scroll-animation.
+Target: 2000+ lines with Deep-Research Sections 6.1-6.4.
 ```
 
 ---
 
-### 10. creative-ideation (Director)
+### 10. create-morph-animation (VFX Artist)
 
-**Status:** [ ] Not Started
+**Current Status:** 308 lines (pathetic)
+**Action Needed:** Full rebuild with MorphSVG research
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **creative-ideation** workflow following the master plan.
+Rebuild **create-morph-animation** workflow from scratch.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on creative-ideation only.
+Current state: 308 lines - pathetic quality.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+Process - Follow Step 1 Path B (build from research):
+1. Check VFX-WORKFLOW-CONVERSION-SPEC.md for create-morph-animation section
+2. If NOT in conversion spec:
+   - Research MorphSVG patterns via Archon MCP
+   - Search: "MorphSVG GSAP patterns"
+   - Search: "MorphSVG best practices"
+   - Identify relevant Deep-Research sections (likely 2.3 - Plugin Ecosystem)
+3. Build systematic MorphSVG implementation protocol:
+   - Path preparation and optimization
+   - Shape complexity handling
+   - Morph timing and easing
+   - Browser compatibility
+4. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+5. Build all 4 files
+6. Version: "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on creative-ideation.
+Target: 1500+ lines with MorphSVG expertise.
 ```
 
 ---
 
-### 11. implement-from-pattern (VFX Artist)
+### 11. create-physics-animation (VFX Artist)
 
-**Status:** [ ] Not Started
+**Current Status:** 316 lines (pathetic)
+**Action Needed:** Full rebuild with physics/inertia research
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **implement-from-pattern** workflow following the master plan.
+Rebuild **create-physics-animation** workflow from scratch.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on implement-from-pattern only.
+Current state: 316 lines - pathetic quality.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (VFX-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+Process - Follow Step 1 Path B (build from research):
+1. Check VFX-WORKFLOW-CONVERSION-SPEC.md for create-physics-animation section
+2. If NOT in conversion spec:
+   - Research physics/inertia animation patterns via Archon MCP
+   - Search: "GSAP physics inertia"
+   - Search: "GSAP Inertia plugin" (if it exists)
+   - Identify relevant Deep-Research sections
+3. Build systematic physics animation protocol:
+   - Velocity-based animations
+   - Drag/friction simulation
+   - Momentum and inertia
+   - Natural motion curves
+4. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+5. Build all 4 files
+6. Version: "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on implement-from-pattern.
+Target: 1500+ lines with physics animation expertise.
 ```
 
 ---
 
-### 12. research-gsap-pattern (Cinematographer)
+### 12. create-text-animation (VFX Artist)
 
-**Status:** [ ] Not Started
+**Current Status:** 378 lines (pathetic)
+**Action Needed:** Full rebuild with SplitText research
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **research-gsap-pattern** workflow following the master plan.
+Rebuild **create-text-animation** workflow from scratch.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on research-gsap-pattern only.
+Current state: 378 lines - pathetic quality.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (CINEMATOGRAPHER-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+Process - Follow Step 1 Path B (build from research):
+1. Check VFX-WORKFLOW-CONVERSION-SPEC.md for create-text-animation section
+2. If NOT in conversion spec:
+   - Research SplitText patterns via Archon MCP
+   - Search: "SplitText GSAP patterns"
+   - Search: "SplitText best practices"
+   - Identify relevant Deep-Research sections (likely 2.3 - Plugin Ecosystem)
+3. Build systematic SplitText implementation protocol:
+   - Text splitting strategies (chars, words, lines)
+   - Stagger patterns for text reveals
+   - Performance optimization for large text blocks
+   - Accessibility considerations (screen readers)
+4. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+5. Build all 4 files
+6. Version: "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on research-gsap-pattern.
+Target: 1500+ lines with SplitText expertise.
 ```
 
 ---
 
-## 🔥 PRIORITY TIER 4: Meta & Orchestration (2 workflows)
+### 13. optimize-animation (Editor)
 
-### 13. animation-production (Director)
-
-**Status:** [ ] Not Started
+**Current Status:** 427 lines (pathetic)
+**Action Needed:** Full rebuild - NOTE: Different from optimize-performance (Tech Director)
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **animation-production** workflow following the master plan.
+Rebuild **optimize-animation** workflow from scratch.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on animation-production only.
+Current state: 427 lines - pathetic quality.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+IMPORTANT DISTINCTION:
+- optimize-performance (Tech Director) = Frame rate, GPU, memory (COMPLETED ✅)
+- optimize-animation (Editor) = Polish timing, refine easing, improve feel
 
-4. Mark each checklist item complete as you go (NEVER batch)
+Process - Follow Step 1 Path B (build from research):
+1. Check EDITOR-WORKFLOW-CONVERSION-SPEC.md for optimize-animation section
+2. If NOT in conversion spec:
+   - Research animation polish/refinement via Archon MCP
+   - Identify Deep-Research sections (likely 2.1, 2.2 - easing/timing)
+3. Build systematic animation optimization protocol:
+   - Easing curve selection
+   - Duration refinement
+   - Stagger pattern optimization
+   - Motion feel improvement
+4. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+5. Build all 4 files
+6. Version: "2.0.0-premium"
 
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on animation-production.
+Target: 1500+ lines focusing on animation FEEL, not performance.
 ```
-
-**Note:** Rebuild LAST after all other workflows are premium (meta-workflow that orchestrates others).
 
 ---
 
-### 14. workflow-status (ALL - routing)
+### 14. review-quality (Director)
 
-**Status:** [ ] Not Started
+**Current Status:** 483 lines, NO Deep-Research, NO Archon
+**Action Needed:** Full rebuild with quality review frameworks
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **workflow-status** workflow following the master plan.
+Rebuild **review-quality** workflow from scratch.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on workflow-status only.
+Current state: 483 lines, NO research infrastructure.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (if exists - routing workflow may not have one)
-   - Step 2: Identify Deep-Research sections (routing workflow - likely minimal)
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+Process - Follow Step 1 Path B (build from research):
+1. Check DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for review-quality section
+2. If NOT in conversion spec:
+   - Research quality review patterns via Archon MCP
+   - Identify Deep-Research sections across all categories
+   - This likely needs to check against ALL quality standards
+3. Build comprehensive quality review checklist:
+   - Technical quality (performance, accessibility)
+   - Creative quality (motion feel, timing)
+   - Code quality (structure, maintainability)
+   - Production readiness
+4. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+5. Build all 4 files
+6. Version: "2.0.0-premium"
 
-4. Mark each checklist item complete as you go (NEVER batch)
-
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on workflow-status.
+Target: 2000+ lines - comprehensive quality gate.
 ```
-
-**Note:** Lightweight by design (routing only). May not need full premium treatment.
 
 ---
 
-## 🔥 OTHER WORKFLOWS (2 workflows)
+### 15. setup-gsap-project (Tech Director)
 
-### 15. validate-60fps (Tech Director)
-
-**Status:** [ ] Not Started
+**Current Status:** 1,075 lines but NO Deep-Research, NO Archon
+**Action Needed:** Add research infrastructure despite good size
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **validate-60fps** workflow following the master plan.
+Rebuild **setup-gsap-project** workflow with research backing.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on validate-60fps only.
+Current state: 1,075 lines but NO Deep-Research or Archon MCP.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+This has decent size but lacks research foundation.
 
-4. Mark each checklist item complete as you go (NEVER batch)
+Process - Follow Step 1 Path B (build from research):
+1. Read current workflow.yaml and instructions.md
+2. Check TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for setup-gsap-project
+3. Research GSAP setup best practices via Archon MCP:
+   - Modern GSAP 3.13+ installation
+   - Plugin registration patterns
+   - Framework integration (React, Vue, Next.js)
+   - Performance configuration
+4. Identify Deep-Research sections:
+   - Section 2.5 (React/Next.js Integration)
+   - Section 1.1-1.4 (GSAP 3.13+ features)
+5. Add deep_research_sections to workflow.yaml
+6. Add MANDATORY research gates (enforcement="MANDATORY" blocking="true")
+7. Rebuild instructions with research frameworks
+8. Version: "2.0.0-premium"
 
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
-
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on validate-60fps.
+Target: Maintain 1000+ lines, add research backing.
 ```
 
 ---
 
-### 16. review-quality (Director)
+### 16. workflow-status (Tech Director)
 
-**Status:** [ ] Not Started
+**Current Status:** 617 lines, NO Deep-Research, NO Archon
+**Action Needed:** Full rebuild as routing workflow
 
 **Copy-Paste Prompt:**
 ```
-Rebuild the **review-quality** workflow following the master plan.
+Rebuild **workflow-status** workflow as routing system.
 
 Master Plan: @bmad/gsap-excellence/WORKFLOW-REBUILD-MASTER-PLAN.md
 
-CRITICAL: ONE workflow at a time. Do NOT think about other workflows. Focus 100% on review-quality only.
+Current state: 617 lines, NO research infrastructure.
 
-Process:
-1. Copy the "Workflow Rebuild Checklist" section from the master plan
-2. Use TodoWrite to track ALL checklist items (~160 checkboxes)
-3. Follow Steps 0-6 methodically:
-   - Step 0: Load BMAD conventions + existing pathetic workflow
-   - Step 1: Read conversion spec (DIRECTOR-WORKFLOW-CONVERSION-SPEC.md)
-   - Step 2: Identify Deep-Research sections
-   - Step 3: Read ALL Deep-Research sections
-   - Step 4: Research Validation Gate (MANDATORY)
-   - Step 5: Build systematic protocol
-   - Step 6: Create all 4 workflow files
+This is a META/ROUTING workflow - may not need full premium treatment.
 
-4. Mark each checklist item complete as you go (NEVER batch)
+Process - Follow Step 1 Path B (simplified):
+1. Check TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md for workflow-status
+2. This is likely NOT in conversion spec (routing workflow)
+3. Build intelligent routing logic:
+   - Reads current project state
+   - Recommends next workflow based on context
+   - Maps 29 workflows to appropriate triggers
+4. May NOT need heavy Deep-Research sections (routing logic, not technical)
+5. Add basic research gates if applicable
+6. Focus on clarity and decision tree logic
+7. Version: "1.0.0" OR "2.0.0-premium" if complex
 
-Target: Transform pathetic workflow → 2,000-3,000+ lines of research-backed premium quality.
+Target: Smart routing logic, may be lighter than other workflows.
 
-DO NOT mention other workflows. DO NOT plan multiple workflows. Focus ONLY on review-quality.
+Note: This may be an exception to premium requirements - focus on routing clarity.
 ```
 
 ---
-
 ## 📊 Progress Tracking
 
 Update this after EACH workflow completion:
 
-**Completed:** 3/19 (15.8%)
+**Completed:** 13/29 (44.8%)
 ```
-[███░░░░░░░░░░░░░░░░░] 15.8%
+[█████████░░░░░░░░░░░] 44.8%
 ```
 
-**By Priority Tier:**
-- Tier 1: 0/2 complete (0%)
-- Tier 2: 0/5 complete (0%)
-- Tier 3: 0/5 complete (0%)
-- Tier 4: 0/2 complete (0%)
-- Other: 3/5 complete (60%)
+**By Category:**
+- Category A (Version Bump): 0/2 complete (0%)
+- Category B (Enhancement): 0/6 complete (0%)
+- Category C (Full Rebuild): 0/8 complete (0%)
 
 **By Agent:**
-- Director: 0/6 complete (0%)
-- Cinematographer: 0/2 complete (0%)
-- Tech Director: 1/7 complete (14%)
-- VFX Artist: 0/3 complete (0%)
-- Editor: 2/2 complete (100%) ✅
+- Director: 3/6 complete (50%)
+- Cinematographer: 1/3 complete (33%)
+- Tech Director: 5/8 complete (63%)
+- VFX Artist: 2/6 complete (33%)
+- Editor: 2/6 complete (33%)
 
 ---
 
@@ -609,11 +632,12 @@ Update this after EACH workflow completion:
 **After completing EACH workflow:**
 
 1. **Verify Definition of Done** - All criteria met from master plan
-2. **Commit changes** - `git add . && git commit -m "rebuild: [workflow-name] - pathetic → premium (+X%)"`
-3. **Update this quick-ref** - Change [ ] to [x] and update progress tracker
-4. **Update master plan progress tracker** - Update "By Agent" section
-5. **End session** - Close Claude Code completely
-6. **Start fresh for next workflow** - New session, new focus
+2. **Run validation** - Ensure premium version + mandatory gates exist
+3. **Commit changes** - `git add . && git commit -m "rebuild: [workflow-name] - pathetic → premium (+X%)"`
+4. **Update this quick-ref** - Update category progress
+5. **Update master plan progress tracker** - Update "By Agent" section
+6. **End session** - Close Claude Code completely
+7. **Start fresh for next workflow** - New session, new focus
 
 **NEVER continue to next workflow in same session - prevents batch thinking!**
 
@@ -626,18 +650,19 @@ Update this after EACH workflow completion:
 - Prevents carrying over batch mindset
 - Starts with clean context for single-workflow focus
 
-**2. TodoWrite is MANDATORY**
-- Track all ~160 checklist items
-- Mark complete as you go (not batched)
-- Prevents skipping steps
+**2. Mandatory Research Gates for ALL Workflows**
+- Category A: Check if gates exist, add if missing
+- Category B: Add gates during enhancement
+- Category C: Build gates during rebuild
+- Two valid patterns: `<research-gate>` OR `MANDATORY CHECKPOINT`
 
-**3. Step 4 Validation is CRITICAL**
-- ALWAYS execute research validation gate
-- Catches outdated conversion specs
-- Verifies 2025 best practices alignment
+**3. Conversion Spec vs Research-Driven**
+- Path A: Workflow in conversion spec → follow spec
+- Path B: Workflow NOT in spec → build from Deep-Research + Archon
+- Both paths require mandatory gates
 
 **4. Trust the Process**
-- Follow Steps 0-6 in order
+- Follow Steps 0-6 (or 1-5 for enhancements)
 - Don't skip steps to "save time"
 - Quality over speed
 
@@ -652,7 +677,7 @@ Update this after EACH workflow completion:
 **6. One Workflow = 1-2 Hours**
 - This is normal and expected
 - Premium quality takes time
-- 17 workflows × 2 hours = ~34 hours total work
+- 16 workflows × 1.5 hours average = ~24 hours remaining work
 
 ---
 
