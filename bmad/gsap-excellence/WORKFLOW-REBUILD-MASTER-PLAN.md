@@ -1,8 +1,8 @@
 # GSAP Excellence Module - Workflow Rebuild Master Plan
 
-**Project:** Transform 17 pathetic workflows into premium research-backed systematic protocols
-**Version:** 1.0
-**Status:** IN PROGRESS (3/19 Complete)
+**Project:** Transform 16 remaining workflows into premium research-backed systematic protocols
+**Version:** 1.1
+**Status:** IN PROGRESS (13/29 Complete - 45%)
 **Owner:** Cameron + BMad Builder
 **Created:** 2025-11-09
 **Last Updated:** 2025-11-09
@@ -13,11 +13,12 @@
 
 ### The Mission
 
-Transform the GSAP Excellence module from a collection of 19 pathetic, generic workflows into a premium, research-backed system that delivers world-class GSAP implementation guidance. This is **Version 3** of the GSAP Excellence module - a complete rebuild focused on:
+Transform the GSAP Excellence module from a collection of 29 workflows (13 complete, 16 remaining) into a premium, research-backed system that delivers world-class GSAP implementation guidance. This is **Version 3** of the GSAP Excellence module - a complete rebuild focused on:
 
 1. **Token Efficiency** - Streamlined workflows that maximize value per token
 2. **Research Enforcement** - MANDATORY research gates that prevent skipping expertise
 3. **BMAD v6 Compliance** - Full alignment with BMAD Core standards
+4. **Quality Validation** - All workflows must pass validation: premium version + mandatory gates
 
 ---
 
@@ -53,18 +54,59 @@ If you catch yourself thinking "I should simplify this to save tokens" - STOP. Y
 
 ### Current Status
 
-**Completed Workflows (4/19):**
-- ✅ `refine-timing` (Editor) - Fixed Deep-Research file paths, added systematic timing protocol
-- ✅ `debug-animation` (Editor) - Fixed Deep-Research file paths, added conditional pitfall mapping (8.1-8.10)
-- ✅ `optimize-performance` (Tech Director) - Complete rebuild: 184 → 2,905 lines (+1,479%)
-- ✅ `validate-complete` (Tech Director) - Ultra-rigorous rebuild: 1,020 → 2,445 lines (+140%)
+**✅ COMPLETED WORKFLOWS (13/29 - 45% COMPLETE)**
 
-**Remaining Pathetic Workflows (16/19):**
-- 🔥 Priority Tier 1: ship-ready-check (1 workflow)
-- 🔥 Priority Tier 2: validate-modern, plan-narrative, accessibility-audit, memory-profiling, harvest-patterns (5 workflows)
-- 🔥 Priority Tier 3: create-timeline, create-scroll-animation, creative-ideation, implement-from-pattern, research-gsap-pattern (5 workflows)
-- 🔥 Priority Tier 4: animation-production, workflow-status (2 workflows)
-- 🔥 Other: validate-60fps, review-quality (2 workflows + 1 unknown)
+All workflows below have passed validation:
+- ✅ Premium version (2.0.0-premium)
+- ✅ Mandatory research gates (enforcement="MANDATORY" blocking="true")
+- ✅ Substantial content (1000+ lines)
+- ✅ Deep-Research sections integrated
+
+1. ✅ `create-scroll-animation` (VFX Artist) - ScrollTrigger mastery with Deep-Research 3.2, 3.3
+2. ✅ `creative-ideation` (Director) - SIGNATURE WORKFLOW: Multi-source research (Archon + Context7 + Perplexity)
+3. ✅ `debug-animation` (Editor) - Systematic debugging with conditional pitfall mapping (8.1-8.10)
+4. ✅ `harvest-patterns` (Director) - Pattern extraction for library growth
+5. ✅ `implement-from-pattern` (VFX Artist) - Fast implementation from researched patterns
+6. ✅ `memory-profiling` (Tech Director) - Heap snapshot analysis with Deep-Research 5.4
+7. ✅ `optimize-performance` (Tech Director) - Complete rebuild: 184 → 2,905 lines (+1,479%)
+8. ✅ `plan-narrative` (Director) - Pixar Story Spine framework (Deep-Research 4.1)
+9. ✅ `refine-timing` (Editor) - Systematic timing polish with easing curve research
+10. ✅ `research-gsap-pattern` (Cinematographer) - PRIMARY WORKFLOW: Multi-source research specialist
+11. ✅ `validate-60fps` (Tech Director) - CPU throttle testing (1x, 4x, 6x) with frame budget analysis
+12. ✅ `validate-complete` (Tech Director) - Ultra-rigorous production readiness validation
+13. ✅ `validate-modern` (Tech Director) - GSAP 3.13+ compliance scanning
+
+---
+
+**📝 REMAINING WORKFLOWS (16/29 - 55% REMAINING)**
+
+**Category A: Need Version Bump Only (2 workflows)**
+These have substantial content (1000+ lines), Deep-Research sections, and Archon integration - just need mandatory gate verification and version bump to 2.0.0-premium:
+
+1. 📋 `analyze-animation` (Editor) - 1,269 lines, has Deep-Research + Archon
+2. 📋 `create-timeline` (VFX Artist) - 1,370 lines, has Deep-Research + Archon, has checklist
+
+**Category B: Need Enhancement (6 workflows)**
+These have research infrastructure but need expansion to premium quality (1500+ lines, mandatory gates):
+
+3. 🔨 `analyze-motion` (Editor) - 972 lines, has Deep-Research + Archon (expand)
+4. 🔨 `analyze-timing` (Editor) - 816 lines, has Deep-Research + Archon (expand)
+5. 🔨 `animation-production` (Director) - 1,594 lines, has Archon but NO Deep-Research sections (add research)
+6. 🔨 `find-examples` (Cinematographer) - 869 lines, has Archon but NO Deep-Research (add research)
+7. 🔨 `research-trends` (Cinematographer) - 919 lines, has Deep-Research + Archon (expand)
+8. 🔨 `ship-ready-check` (Director) - 623 lines, has Deep-Research + Archon (expand)
+
+**Category C: Need Full Rebuild (8 workflows)**
+These are genuinely pathetic (<500 lines OR no research infrastructure):
+
+9. 🔥 `accessibility-audit` (Tech Director) - 821 lines, NO Deep-Research, NO Archon
+10. 🔥 `create-morph-animation` (VFX Artist) - 308 lines (pathetic)
+11. 🔥 `create-physics-animation` (VFX Artist) - 316 lines (pathetic)
+12. 🔥 `create-text-animation` (VFX Artist) - 378 lines (pathetic)
+13. 🔥 `optimize-animation` (Editor) - 427 lines (pathetic)
+14. 🔥 `review-quality` (Director) - 483 lines, NO Deep-Research, NO Archon
+15. 🔥 `setup-gsap-project` (Tech Director) - 1,075 lines but NO Deep-Research, NO Archon
+16. 🔥 `workflow-status` (Tech Director) - 617 lines, NO Deep-Research, NO Archon
 
 ### Why This Matters
 
@@ -87,9 +129,10 @@ Rebuild each workflow **ONE AT A TIME** using the proven methodology that transf
 
 1. **The Correct Methodology** (proven in optimize-performance rebuild)
 2. **Deep-Research Knowledge Base** - 43 sections, 2.2M+ words of GSAP expertise
-3. **3 Premium Workflows** - refine-timing, debug-animation, optimize-performance
+3. **13 Complete Premium Workflows** (45% complete) - All with mandatory research gates
 4. **BMAD v6 Infrastructure** - workflow.yaml, instructions.md, template.md, checklist.md structure
 5. **5 Film Crew Agents** - Director, Cinematographer, Tech Director, VFX Artist, Editor
+6. **Quality Validation Process** - Automated checking for premium version + mandatory gates
 
 ### What's Broken
 
@@ -272,6 +315,29 @@ Attempting to create multiple workflows simultaneously leads to generic pattern 
 ## The Proven Correct Methodology
 
 This 6-step process (Step 0 + Steps 1-5) transformed optimize-performance from 184 lines of generic advice into 2,905 lines of systematic expertise. **This is the ONLY acceptable methodology for all remaining workflows.**
+
+---
+
+### 🚨 CRITICAL: Mandatory Research Gates Required for ALL Workflows
+
+**EVERY workflow MUST have mandatory research gates**, regardless of whether it has conversion spec coverage:
+
+✅ **Workflows WITH conversion spec:** Follow Step 1 Path A → Extract Deep-Research sections from spec
+✅ **Workflows WITHOUT conversion spec:** Follow Step 1 Path B → Research purpose + identify relevant Deep-Research sections
+
+**Both paths lead to the same requirement:**
+- MANDATORY research gates in instructions.md
+- `enforcement="MANDATORY"` and `blocking="true"` attributes
+- Deep-Research sections must be read BEFORE implementation
+- Archon MCP research where applicable
+
+**Gate Pattern (use one of these):**
+1. `<research-gate enforcement="MANDATORY" blocking="true">` (preferred for workflows WITH conversion specs)
+2. `<critical>MANDATORY RESEARCH CHECKPOINT - BLOCKING - CANNOT SKIP</critical>` (acceptable for workflows built purely from research)
+
+**No exceptions. No shortcuts.**
+
+---
 
 ### Step 0: Load BMAD Convention References (Structure Compliance)
 
@@ -469,9 +535,13 @@ WRITE premium workflow.yaml (structure preserved, content transformed)
 
 ---
 
-### Step 1: Read Conversion Spec
+### Step 1: Read Conversion Spec (IF EXISTS) OR Research Workflow Purpose
 
-**Purpose:** Understand the original domain expertise and intent from the dense agent that initially designed this workflow.
+**Purpose:** Understand the original domain expertise and intent - either from conversion spec OR by researching the workflow's purpose.
+
+---
+
+#### Path A: Workflow HAS Conversion Spec Coverage
 
 **Location:** `/docs/archive/gsap-excellence-build-sessions/conversion-specs/[AGENT]-WORKFLOW-CONVERSION-SPEC.md`
 
@@ -488,6 +558,41 @@ WRITE premium workflow.yaml (structure preserved, content transformed)
 - Frameworks and methodologies described
 - Systematic protocols outlined
 - Archon MCP priority sources
+
+---
+
+#### Path B: Workflow NOT in Conversion Spec (Build from Research)
+
+**If workflow is not detailed in conversion spec**, build it purely from Deep-Research + Archon MCP:
+
+**Step 1b-1: Research Workflow Purpose**
+
+Use Archon MCP to research what this workflow should do:
+```
+rag_search_knowledge_base("[workflow-topic] GSAP patterns")
+rag_search_knowledge_base("[workflow-topic] best practices")
+rag_search_code_examples("[workflow-topic] GSAP")
+```
+
+**Step 1b-2: Examine Existing Workflow (if exists)**
+
+Read current `workflow.yaml` and `instructions.md` to understand:
+- Current description and intent
+- Current inputs/outputs
+- Current complexity level
+- What's missing (research, depth, mandatory gates)
+
+**Step 1b-3: Identify Relevant Deep-Research Sections**
+
+Based on workflow topic, identify which Deep-Research sections apply:
+- For timing/easing workflows → Sections 2.1, 2.2
+- For ScrollTrigger workflows → Sections 3.2, 3.3, 3.4
+- For animation creation → Sections 4.1-4.4
+- For performance → Sections 5.1-5.6
+- For accessibility → Sections 6.1-6.4
+- For debugging → Sections 8.1-8.10
+
+**Then proceed to Step 2 with your identified sections.**
 
 **Example (optimize-performance):**
 ```markdown
@@ -1232,41 +1337,57 @@ For EACH proposed fix:
 
 ---
 
-## 17 Workflow Rebuild Plan
+## 16 Remaining Workflows - Rebuild Strategy
 
-### Priority Tier 1: Critical Workflows (2 workflows)
+> **NOTE:** See "Current Status" section above for complete categorization of all 16 remaining workflows.
+> This section has been preserved for historical reference but many workflows listed here have been completed.
+> Current accurate status: **13/29 workflows complete (45%), 16/29 remaining (55%)**
+
+**Completed workflows that were previously in this plan:**
+- ✅ validate-complete (Tech Director) - COMPLETED
+- ✅ validate-modern (Tech Director) - COMPLETED
+- ✅ validate-60fps (Tech Director) - COMPLETED
+- ✅ plan-narrative (Director) - COMPLETED
+- ✅ create-scroll-animation (VFX Artist) - COMPLETED
+- ✅ implement-from-pattern (VFX Artist) - COMPLETED
+- ✅ harvest-patterns (Director) - COMPLETED
+
+**For current rebuild priorities, see:**
+- **Category A (2 workflows):** Just need version bump verification
+- **Category B (6 workflows):** Need enhancement (add research, expand)
+- **Category C (8 workflows):** Need full rebuild (pathetic quality)
+
+---
+
+### ARCHIVED: Original Rebuild Plan (For Reference)
+
+#### Priority Tier 1: Critical Workflows (2 workflows)
 
 **Rebuild Order:** First (highest impact, most critical)
 
-#### 1. validate-complete
+#### 1. validate-complete ✅ COMPLETED
 
 **Owner Agent:** Tech Director
-**Current Status:** PATHETIC (unknown lines, needs assessment)
+**Current Status:** ✅ COMPLETE - Ultra-rigorous rebuild: 1,020 → 2,445 lines (+140%)
 **Conversion Spec:** `/docs/archive/gsap-excellence-build-sessions/conversion-specs/TECH-DIRECTOR-WORKFLOW-CONVERSION-SPEC.md`
-**Deep-Research Sections:** TBD (likely 5.1-5.6 Performance + 6.1-6.4 Accessibility)
+**Deep-Research Sections:** 5.1-5.6 Performance + 6.1-6.4 Accessibility
 **Estimated Complexity:** High
 **Dependencies:** Chrome DevTools MCP
 **Priority:** HIGH
 
 **Purpose:** Comprehensive validation (60fps + visual + console + accessibility) - final quality gate.
 
-**Menu Reference:** Tech Director menu `*validate` - "Comprehensive validation (60fps + visual + console + accessibility)"
-
 **Rebuild Checklist:**
-- [ ] Read conversion spec
-- [ ] Identify Deep-Research sections
-- [ ] Read ALL Deep-Research sections
-- [ ] Build workflow.yaml
-- [ ] Build instructions.md
-- [ ] Build template.md
-- [ ] Build checklist.md
-- [ ] Test research enforcement
-- [ ] Audit agent config
-- [ ] Mark COMPLETE
-
-**Target Metrics:**
-- Total: 2,000-3,000+ lines
-- Growth: TBD% (baseline unknown)
+- [x] Read conversion spec
+- [x] Identify Deep-Research sections
+- [x] Read ALL Deep-Research sections
+- [x] Build workflow.yaml
+- [x] Build instructions.md
+- [x] Build template.md
+- [x] Build checklist.md
+- [x] Test research enforcement
+- [x] Audit agent config
+- [x] Mark COMPLETE
 
 #### 2. ship-ready-check
 
@@ -1490,31 +1611,55 @@ For EACH proposed fix:
 - [ ] Audit agent config
 - [ ] Mark COMPLETE
 
-#### 10. creative-ideation
+#### 10. creative-ideation ✅ COMPLETE
 
 **Owner Agent:** Director
-**Current Status:** PATHETIC (unknown lines, needs assessment)
-**Conversion Spec:** `/docs/archive/gsap-excellence-build-sessions/conversion-specs/DIRECTOR-WORKFLOW-CONVERSION-SPEC.md`
-**Deep-Research Sections:** TBD (likely 1.1 Animator's Mindset, 1.3 Storyboarding, 1.4 Decision Framework)
+**Current Status:** ✅ PREMIUM (764 → 2,587 lines, +239% growth)
+**Conversion Spec:** No conversion spec exists (created from pathetic workflow analysis)
+**Deep-Research Sections:** 1.1, 1.2, 1.3, 4.1, 2.3, 7.5 (6 sections)
 **Estimated Complexity:** Medium
-**Dependencies:** Archon MCP (pattern discovery), Perplexity (2025 trends)
+**Dependencies:** Archon MCP (5 sources), WebSearch (2024-2025 trends), Context7 (API verification)
 **Priority:** MEDIUM
+**Completion Date:** 2025-11-09
 
-**Purpose:** Generate 3-5 premium animation concepts (SIGNATURE WORKFLOW).
+**Purpose:** Generate 3-5 premium animation concepts backed by multi-source research (SIGNATURE WORKFLOW).
 
 **Menu Reference:** Director menu `*plan` - "Generate 3-5 premium animation concepts (SIGNATURE WORKFLOW)"
 
+**Deep-Research Sections Applied:**
+- Section 1.1: Animator's Mindset (*"Great animations are meaningful, not just decorative"*)
+- Section 1.2: Visual Inspiration → Technical Translation (Brand → Motion mapping)
+- Section 1.3: Storyboarding Complex Sequences (Choreography planning)
+- Section 4.1: Pixar Story Spine Framework (7-beat narrative structure)
+- Section 2.3: GSAP Plugin Ecosystem (*"All plugins FREE as of 2024"*)
+- Section 7.5: Notable Agencies & Patterns (Active Theory, Resn, ToyFight, MediaMonks)
+
+**Transformation Metrics:**
+- workflow.yaml: 118 → 200 lines (+70%)
+- instructions.md: 531 → 952 lines (+79%)
+- template.md: 115 → 772 lines (+571%)
+- checklist.md: 0 → 663 lines (NEW FILE)
+- **Total: 764 → 2,587 lines (+239% growth)**
+
+**Key Improvements:**
+- ✅ 6 MANDATORY research gates with blocking="true"
+- ✅ 6 actual Read commands to Deep-Research files
+- ✅ 1 blocking approval checkpoint (cannot skip)
+- ✅ 20+ verbatim quotes with source citations
+- ✅ Multi-source research protocol (Archon + WebSearch + Context7)
+- ✅ Comprehensive validation checklist
+
 **Rebuild Checklist:**
-- [ ] Read conversion spec
-- [ ] Identify Deep-Research sections
-- [ ] Read ALL Deep-Research sections
-- [ ] Build workflow.yaml
-- [ ] Build instructions.md
-- [ ] Build template.md
-- [ ] Build checklist.md
-- [ ] Test research enforcement
-- [ ] Audit agent config
-- [ ] Mark COMPLETE
+- [x] Read conversion spec (N/A - none exists)
+- [x] Identify Deep-Research sections (6 sections: 1.1, 1.2, 1.3, 4.1, 2.3, 7.5)
+- [x] Read ALL Deep-Research sections
+- [x] Build workflow.yaml
+- [x] Build instructions.md
+- [x] Build template.md
+- [x] Build checklist.md
+- [x] Test research enforcement
+- [ ] Audit agent config (pending)
+- [x] Mark COMPLETE
 
 #### 11. implement-from-pattern
 
@@ -1703,87 +1848,95 @@ For EACH proposed fix:
 
 ### Overall Completion
 
-**Total Workflows:** 19
-**Completed (Premium):** 4
-**Remaining (Pathetic):** 16
-**Completion Percentage:** 21.1%
+**Total Workflows:** 29
+**Completed (Premium + Mandatory Gates):** 13
+**Remaining:** 16
+  - Category A (Version Bump Only): 2
+  - Category B (Need Enhancement): 6
+  - Category C (Need Full Rebuild): 8
+**Completion Percentage:** 44.8% (13/29)
 
 **Progress Bar:**
 ```
-[████░░░░░░░░░░░░░░░░] 21.1% Complete (4/19)
+[█████████░░░░░░░░░░░] 44.8% Complete (13/29)
 ```
 
-### By Priority Tier
+### By Quality Category (Updated 2025-11-09)
 
-| Tier | Total | Complete | Remaining | % Complete |
-|------|-------|----------|-----------|------------|
-| **Tier 1** | 2 | 0 | 2 | 0% |
-| **Tier 2** | 5 | 0 | 5 | 0% |
-| **Tier 3** | 5 | 0 | 5 | 0% |
-| **Tier 4** | 2 | 0 | 2 | 0% |
-| **Other** | 2+ | 3 | TBD | ~60%? |
+| Category | Description | Total | Completion Strategy |
+|----------|-------------|-------|---------------------|
+| **Complete** | Premium + Mandatory Gates | 13 | ✅ Done |
+| **Category A** | Need version bump only | 2 | Quick validation + version bump |
+| **Category B** | Need enhancement | 6 | Add research, expand to 1500+ lines |
+| **Category C** | Need full rebuild | 8 | Complete rebuild from scratch |
 
-**Note:** refine-timing, debug-animation, optimize-performance are not in priority tiers (completed during discovery phase).
+**Note:** Previous "Priority Tier" system replaced with quality-based categorization. See "Current Status" section for detailed workflow lists.
 
-### By Agent (VERIFIED)
+### By Agent (Updated 2025-11-09)
 
 | Agent | Total Workflows | Complete | Remaining | % Complete |
 |-------|----------------|----------|-----------|------------|
-| **Director** | 6 | 0 | 6 | 0% |
-| **Cinematographer** | 2 | 0 | 2 | 0% |
-| **Tech Director** | 7 | 1 (optimize-performance) | 6 | ~14% |
-| **VFX Artist** | 3+ | 0 | 3+ | 0% |
-| **Editor** | 2+ | 2 (refine-timing, debug-animation) | 0+ | ~100%* |
+| **Director** | 6 | 3 | 3 | 50% |
+| **Cinematographer** | 3 | 1 | 2 | 33% |
+| **Tech Director** | 8 | 5 | 3 | 63% |
+| **VFX Artist** | 6 | 2 | 4 | 33% |
+| **Editor** | 6 | 2 | 4 | 33% |
+| **TOTAL** | **29** | **13** | **16** | **45%** |
 
-**Verified Workflow Ownership:**
+**Complete Workflows by Agent:**
 
-**Director (6 workflows):**
-1. creative-ideation (`*plan`) - SIGNATURE WORKFLOW
-2. plan-narrative (`*narrative`)
-3. harvest-patterns (`*harvest`)
-4. review-quality (`*review`)
-5. ship-ready-check (`*ship-ready`) - shared with Tech Director
-6. animation-production (`*production`) - FLAGSHIP WORKFLOW
+**Director (3/6 complete - 50%):**
+- ✅ creative-ideation (SIGNATURE WORKFLOW)
+- ✅ harvest-patterns
+- ✅ plan-narrative
+- ❌ animation-production (needs enhancement)
+- ❌ review-quality (needs rebuild)
+- ❌ ship-ready-check (needs enhancement)
 
-**Cinematographer (2 workflows):**
-1. research-gsap-pattern (`*research`) - PRIMARY WORKFLOW
-2. *(likely other research workflows not yet identified)*
+**Cinematographer (1/3 complete - 33%):**
+- ✅ research-gsap-pattern (PRIMARY WORKFLOW)
+- ❌ find-examples (needs enhancement)
+- ❌ research-trends (needs enhancement)
 
-**Tech Director (7 workflows):**
-1. ✅ optimize-performance (`*profile`) - COMPLETE
-2. validate-complete (`*validate`)
-3. validate-60fps (`*fps`)
-4. validate-modern (`*modern`)
-5. accessibility-audit (`*accessibility`)
-6. memory-profiling (`*memory`)
-7. ship-ready-check (`*ship-ready`) - shared with Director
+**Tech Director (5/8 complete - 63%):**
+- ✅ memory-profiling
+- ✅ optimize-performance
+- ✅ validate-60fps
+- ✅ validate-complete
+- ✅ validate-modern
+- ❌ accessibility-audit (needs rebuild)
+- ❌ setup-gsap-project (needs rebuild)
+- ❌ workflow-status (needs rebuild)
 
-**VFX Artist (3+ workflows):**
-1. create-timeline (`*timeline`)
-2. create-scroll-animation (`*scroll`)
-3. implement-from-pattern (`*implement`)
-4. *(likely create-physics, create-morph, create-text workflows exist but not yet listed)*
+**VFX Artist (2/6 complete - 33%):**
+- ✅ create-scroll-animation
+- ✅ implement-from-pattern
+- ❌ create-timeline (possibly just needs version bump)
+- ❌ create-morph-animation (needs rebuild - 308 lines)
+- ❌ create-physics-animation (needs rebuild - 316 lines)
+- ❌ create-text-animation (needs rebuild - 378 lines)
 
-**Editor (2+ workflows):**
-1. ✅ refine-timing (`*refine`) - COMPLETE
-2. ✅ debug-animation (`*debug`) - COMPLETE
-3. *(likely analyze-animation, optimize-animation workflows exist but not yet listed)*
-
-**Note:** *Editor at ~100% because both known workflows complete, but other Editor workflows may exist that aren't yet identified.
+**Editor (2/6 complete - 33%):**
+- ✅ debug-animation
+- ✅ refine-timing
+- ❌ analyze-animation (possibly just needs version bump)
+- ❌ analyze-motion (needs enhancement)
+- ❌ analyze-timing (needs enhancement)
+- ❌ optimize-animation (needs rebuild - 427 lines)
 
 ### Weekly Progress Goal
 
 **Target:** 2-3 workflows per week (1-2 hours per workflow)
 
 **Week 1 (2025-11-09 to 2025-11-15):**
-- [ ] validate-complete
+- [x] validate-complete (COMPLETE 2025-11-09)
 - [ ] ship-ready-check
 - [ ] validate-modern
 
 **Week 2 (2025-11-16 to 2025-11-22):**
 - [ ] plan-narrative
 - [ ] accessibility-audit
-- [ ] memory-profiling
+- [x] memory-profiling (COMPLETE 2025-11-09)
 
 **Week 3 (2025-11-23 to 2025-11-29):**
 - [ ] harvest-patterns
@@ -1791,7 +1944,7 @@ For EACH proposed fix:
 - [ ] create-scroll-animation
 
 **Week 4 (2025-11-30 to 2025-12-06):**
-- [ ] creative-ideation
+- [x] creative-ideation (COMPLETE 2025-11-09)
 - [ ] implement-from-pattern
 - [ ] research-gsap-pattern
 
