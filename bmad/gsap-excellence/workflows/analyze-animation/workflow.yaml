@@ -2,10 +2,12 @@
 # Editor - Systematic code review using 10-point pitfalls framework
 
 name: 'analyze-animation'
+version: '2.0.0-premium'
 description: 'Systematic animation code analysis using 10-point pitfalls framework (Deep-Research Sections 8.1-8.10) with KB-powered pattern matching. PROACTIVE code review for learning and prevention.'
 installed_path: '{project-root}/bmad/gsap-excellence/workflows/analyze-animation'
 instructions: '{installed_path}/instructions.md'
 template: '{installed_path}/template.md'
+validation: '{installed_path}/checklist.md'
 default_output_file: '{output_folder}/animation-analysis-{timestamp}.md'
 
 # Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
