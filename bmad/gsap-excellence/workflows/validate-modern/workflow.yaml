@@ -1,13 +1,14 @@
 # Validate Modern Workflow - GSAP Excellence Engine
 # Ensure GSAP 3.13+ compliance across codebase
 # Solves: "Is my codebase using modern GSAP 3.13+ syntax?"
-# Transforms it into: "Comprehensive compliance report with upgrade recommendations"
+# Transforms it into: "Comprehensive compliance report with research-backed upgrade recommendations"
 
 name: validate-modern
-description: "Scan codebase for GSAP 3.13+ compliance. Identifies deprecated syntax, validates version, recommends premium plugin opportunities."
-author: "GSAP Excellence Engine"
-version: "1.0.0"
-complexity: "simple"
+description: "Scan codebase for GSAP 3.13+ compliance using research-backed validation frameworks. Identifies deprecated syntax (TweenMax/TweenLite), validates version, detects missing plugin registration, and recommends premium plugin opportunities (ALL FREE in 3.13+)."
+author: "GSAP Excellence Engine - Tech Director"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: true
 
 # Critical variables from module config
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
@@ -17,26 +18,46 @@ communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
 
-# MCP Servers used (none - this is file scanning workflow)
-mcp_servers: {}
+# MCP Servers used
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources, 2.2M+ words) for migration best practices
+
+mcp_servers:
+  archon:
+    tools: ["rag_search_knowledge_base", "rag_search_code_examples"]
+    purpose: "GSAP 3.13+ migration patterns, plugin ecosystem research, modern syntax validation"
 
 # Agents involved
 agents:
-  primary: "gsap-tech-director"  # Validation specialist
+  primary: "gsap-tech-director"  # Validation specialist and modernization expert
+
+# Deep-Research Knowledge Base
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Deep-Research sections referenced (research-backed validation)
+deep_research_sections:
+  - '2.1'  # Core GSAP Concepts: gsap.to/from/fromTo, timeline(), registerPlugin
+  - '2.3'  # The 2024 GSAP Plugin Ecosystem (All Free!) - Premium plugins, registration patterns
+  - '2.5'  # Integration Patterns: React/Next.js/Vue, SSR considerations, useGSAP hook
+
+# Archon MCP Priority Sources (official GSAP documentation)
+archon_sources:
+  - 'gsap.com'  # Official GSAP documentation and migration guides
 
 # Module path and component files
 installed_path: "{module_root}/workflows/validate-modern"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false  # This IS a validation workflow but doesn't need checklist
+validation: "{installed_path}/checklist.md"
 
 # Web bundle configuration for portability
 web_bundle:
   - "{installed_path}/instructions.md"
   - "{installed_path}/template.md"
+  - "{installed_path}/checklist.md"
   - "{config_source}"
 
-# Output configuration - Compliance report
+# Output configuration - Research-backed compliance report
 default_output_file: "{output_folder}/gsap-compliance-report-{{date}}.md"
 
 # Workflow inputs
@@ -54,47 +75,90 @@ inputs:
   exclude_directories:
     description: "Directories to exclude (node_modules, dist, build)"
     required: false
-    default: ["node_modules", "dist", "build", ".next"]
+    default: ["node_modules", "dist", "build", ".next", "out"]
+
+  include_premium_opportunities:
+    description: "Scan for premium plugin upgrade opportunities (all FREE in 3.13+)"
+    required: false
+    default: true
 
 # Expected outputs
 outputs:
   compliance_report:
-    format: "Markdown report with findings and recommendations"
+    format: "Markdown report with research-backed findings and migration framework"
     location: "{output_folder}/gsap-compliance-report-{{date}}.md"
 
   deprecated_syntax_instances:
-    format: "List of file:line locations with deprecated syntax"
+    format: "List of file:line locations with deprecated syntax (TweenMax, TweenLite, TimelineMax)"
     severity: "HIGH"
+    migration_guide: "Deep-Research Section 2.1 - Modern GSAP 3.x syntax"
 
   version_compliance:
     format: "Boolean - is GSAP 3.13.0+ installed?"
     critical: true
+    validation_framework: "Deep-Research Section 2.3 - Plugin ecosystem requirements"
+
+  plugin_registration_issues:
+    format: "List of unregistered plugins (tree shaking risk)"
+    severity: "MEDIUM"
+    fix_pattern: "Deep-Research Section 2.5 - gsap.registerPlugin() requirement"
 
   premium_plugin_opportunities:
-    format: "List of potential premium plugin upgrades"
-    note: "All premium plugins FREE in 3.13+!"
+    format: "List of potential premium plugin upgrades (ScrollSmoother, SplitText, MorphSVG, DrawSVG, MotionPath)"
+    note: "All premium plugins FREE in 3.13+ - no cost upgrade!"
+    value_prop: "Previously $99/year per plugin - now FREE (Webflow sponsorship)"
 
   upgrade_recommendations:
-    format: "Prioritized list (HIGH/MEDIUM/LOW severity)"
+    format: "Prioritized list (HIGH/MEDIUM/LOW severity) with research-backed migration paths"
+    framework_source: "Deep-Research Sections 2.1, 2.3, 2.5"
 
-# Success criteria
+# Success criteria (research-backed)
 success_criteria:
-  - "Complete codebase scan performed"
-  - "GSAP version identified (package.json)"
-  - "All deprecated syntax instances found (with file:line)"
-  - "Premium plugin opportunities identified"
-  - "Upgrade recommendations prioritized by severity"
-  - "Compliance report generated"
+  - "Complete codebase scan performed (all file extensions)"
+  - "GSAP version identified and validated against 3.13.0+ requirement"
+  - "All deprecated syntax instances found with file:line precision"
+  - "Plugin registration validated using Deep-Research Section 2.5 patterns"
+  - "Premium plugin opportunities identified using Section 2.3 framework"
+  - "Research-backed upgrade recommendations generated with priority levels"
+  - "Comprehensive compliance report generated with Deep-Research citations"
+
+# Validation standards (from Deep-Research)
+validation_standards:
+  version_compliance:
+    gsap_3_13_plus: "✅ PASS - All premium plugins FREE, modern API"
+    gsap_3_0_to_3_12: "⚠️ UPGRADE RECOMMENDED - Missing FREE premium plugins"
+    gsap_2_x: "🔴 CRITICAL - Major upgrade required (breaking changes)"
+
+  syntax_compliance:
+    modern_gsap_3x: "✅ PASS - gsap.to/from/fromTo, gsap.timeline()"
+    deprecated_gsap_2x: "🔴 FAIL - TweenMax/TweenLite/TimelineMax detected"
+
+  plugin_registration:
+    all_registered: "✅ PASS - All imported plugins registered with gsap.registerPlugin()"
+    some_unregistered: "⚠️ WARNING - Tree shaking may remove plugins"
+    none_registered: "🔴 FAIL - Plugins will not work in production build"
+
+  framework_integration:
+    react_cleanup: "✅ PASS - useGSAP() or gsap.context() with cleanup"
+    react_no_cleanup: "⚠️ WARNING - Memory leaks in React strict mode"
+    ssr_safe: "✅ PASS - GSAP code only runs client-side"
+    ssr_unsafe: "🔴 FAIL - GSAP runs during SSR (window/document errors)"
 
 # Integration
 feeds_into:
-  - "Codebase upgrade planning"
-  - "Technical debt tracking"
+  - "Codebase modernization planning"
+  - "Technical debt reduction"
+  - "Premium plugin migration (FREE upgrade opportunity)"
 
 # Performance targets
-estimated_duration: "5-15 minutes (depending on codebase size)"
+estimated_duration: "5-15 minutes (codebase size dependent)"
 phases:
+  research_gate: "2-3 min (MANDATORY - loads Deep-Research frameworks)"
   version_check: "1 min"
   file_scanning: "2-10 min (codebase size dependent)"
-  analysis: "1-2 min"
-  report_generation: "1-2 min"
+  pattern_analysis: "1-2 min (research-backed validation)"
+  report_generation: "1-2 min (with citations)"
+
+# Research enforcement
+autonomous: false  # MANDATORY research gates require user continuation
+research_enforcement: "MANDATORY - Cannot skip Deep-Research framework loading"
