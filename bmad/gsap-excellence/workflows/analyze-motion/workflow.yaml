@@ -2,10 +2,12 @@
 # Cinematographer - Visual inspiration to GSAP implementation (Section 1.2)
 
 name: 'analyze-motion'
+version: '2.0.0-premium'
 description: 'Translate visual inspiration into technical GSAP implementation specifications using Section 1.2 Visual Translation framework and KB-powered pattern matching'
 installed_path: '{project-root}/bmad/gsap-excellence/workflows/analyze-motion'
 instructions: '{installed_path}/instructions.md'
 template: '{installed_path}/template.md'
+validation: '{installed_path}/checklist.md'
 default_output_file: '{output_folder}/motion-analysis-{timestamp}.md'
 
 # Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
