@@ -28,9 +28,7 @@ export const PurpleMagentaDarkGradient: ColorPalette = {
   name: 'Purple/Magenta - Dark Gradient',
   category: 'studios',
   variant: 'b',
-  description: 'Futuristic innovation with Briefing Engine aestheti
-
-c. Purple particle effects on deep space gradients.',
+  description: 'Futuristic innovation with Briefing Engine aesthetic. Purple particle effects on deep space gradients.',
 
   researchScore: 8, // Strong 2025 trend + matches existing brand
   accessibilityScore: 9, // White on dark = excellent

@@ -142,7 +142,7 @@ export async function detectDeviceCapabilities(): Promise<DeviceCapabilities> {
 
   // Memory Detection (navigator.deviceMemory - Chromium only)
   // Fallback: 4GB (mid-range assumption for Firefox/Safari without API support)
-  // @ts-ignore - deviceMemory is not in TypeScript types (Chromium-only API)
+  // @ts-expect-error - deviceMemory is not in TypeScript types (Chromium-only API)
   const memoryGB = navigator.deviceMemory || 4;
   const memoryScore = calculateMemoryScore(memoryGB);
 
@@ -202,7 +202,7 @@ export function detectDeviceCapabilitiesSync(): DeviceCapabilities {
   const cores = navigator.hardwareConcurrency || 2;
   const cpuScore = calculateCPUScore(cores);
 
-  // @ts-ignore
+  // @ts-expect-error - deviceMemory is not in TypeScript types (Chromium-only API)
   const memoryGB = navigator.deviceMemory || 4;
   const memoryScore = calculateMemoryScore(memoryGB);
 

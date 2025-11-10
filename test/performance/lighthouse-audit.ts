@@ -55,7 +55,7 @@ export async function runLighthouseAudit(
   url: string,
   routeConfig: RouteConfig,
   warmupRun: boolean = false
-): Promise<{ metrics: LighthouseMetrics; lhr: any }> {
+): Promise<{ metrics: LighthouseMetrics; lhr: unknown }> {
   let browser: Browser | null = null;
 
   try {
@@ -157,7 +157,7 @@ export async function runLighthouseWithRetry(
   url: string,
   routeConfig: RouteConfig,
   maxAttempts: number = 3
-): Promise<{ metrics: LighthouseMetrics; lhr: any }> {
+): Promise<{ metrics: LighthouseMetrics; lhr: unknown }> {
   // Step 1: Warmup run (R2 mitigation - reduces cold start variance)
   try {
     await runLighthouseAudit(url, routeConfig, true);
@@ -207,7 +207,7 @@ export async function runLighthouseWithRetry(
  * @returns Web Vitals metrics with ratings
  */
 export function extractWebVitalsFromLighthouse(
-  lhr: any,
+  lhr: Record<string, unknown>,
   thresholds: RouteConfig['thresholds']['webVitals']
 ): WebVitalsMetrics {
   // Extract raw values from Lighthouse audits

@@ -232,7 +232,7 @@ function TestimonialCard({ testimonial, index, isMobile = false, style }: Testim
 
         /* Mobile blur optimization */
         @media (max-width: 767px) {
-          .backdrop-blur-\[18px\] {
+          .backdrop-blur-[18px] {
             backdrop-filter: blur(8px);
           }
         }

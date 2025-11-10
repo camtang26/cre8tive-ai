@@ -133,7 +133,7 @@ async function injectWebVitalsLibrary(page: Page): Promise<void> {
 
   // Verify library loaded
   const loaded = await page.evaluate(() => {
-    return typeof (window as any).webVitals !== 'undefined';
+    return typeof (window as Record<string, unknown>).webVitals !== 'undefined';
   });
 
   if (!loaded) {
@@ -171,7 +171,7 @@ async function collectWebVitalsMetrics(page: Page): Promise<{
 
       // Collect INP (Interaction to Next Paint)
       // reportAllChanges: true forces immediate reporting (critical for headless mode)
-      (window as any).webVitals.onINP((metric: any) => {
+      (window as Record<string, unknown>).webVitals.onINP((metric: { value: number }) => {
         metrics.INP = metric.value;
         metricsCollected++;
         console.log('[Web Vitals] INP captured:', metric.value);
@@ -179,7 +179,7 @@ async function collectWebVitalsMetrics(page: Page): Promise<{
       }, { reportAllChanges: true });
 
       // Collect LCP (Largest Contentful Paint)
-      (window as any).webVitals.onLCP((metric: any) => {
+      (window as Record<string, unknown>).webVitals.onLCP((metric: { value: number }) => {
         metrics.LCP = metric.value;
         metricsCollected++;
         console.log('[Web Vitals] LCP captured:', metric.value);
@@ -187,7 +187,7 @@ async function collectWebVitalsMetrics(page: Page): Promise<{
       }, { reportAllChanges: true });
 
       // Collect CLS (Cumulative Layout Shift)
-      (window as any).webVitals.onCLS((metric: any) => {
+      (window as Record<string, unknown>).webVitals.onCLS((metric: { value: number }) => {
         metrics.CLS = metric.value;
         metricsCollected++;
         console.log('[Web Vitals] CLS captured:', metric.value);

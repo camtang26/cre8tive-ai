@@ -1,6 +1,6 @@
 import type { SectionConfig, SectionValidationIssue } from '../types'
 
-const USER_OUTCOME_KEYWORDS = [/\byou\b/i, /\byour\b/i, /\byou\'ll\b/i, /^deploy/i, /^scale/i]
+const USER_OUTCOME_KEYWORDS = [/\byou\b/i, /\byour\b/i, /\byou'll\b/i, /^deploy/i, /^scale/i]
 const PRECISION_KEYWORDS = [/\b\d+%?\b/, /days?/i, /hours?/i, /minutes?/i, /platform/i, /storyboard/i, /platform-native/i]
 const EMOTION_KEYWORDS = [/no\s+.*?juggling/i, /without/i, /unlock/i, /fuel/i, /elevate/i, /confidence/i, /perfect/i, /transform/i]
 

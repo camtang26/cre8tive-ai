@@ -250,7 +250,7 @@ function DemoCard({
   number: string;
   title: string;
   children: React.ReactNode;
-  [key: string]: any;
+  [key: string]: unknown;
 }) {
   return (
     <div
