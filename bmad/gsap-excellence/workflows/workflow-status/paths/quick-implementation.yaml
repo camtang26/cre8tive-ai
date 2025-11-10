@@ -1,0 +1,49 @@
+# Quick Implementation Path
+# Fast path using pattern library for experienced developers
+
+scenario_type: "quick-implementation"
+description: "Fast implementation using 60+ proven patterns from library"
+
+phases:
+  - phase: 1
+    name: "Implementation"
+    required: true
+    workflows:
+      - id: "implement-from-pattern"
+        required: true
+        agent: "gsap-vfx"
+        command: "implement"
+        output: "Production-ready GSAP code adapted from pattern library"
+        next_action: "VFX Artist adapts pattern to your specific context"
+
+  - phase: 2
+    name: "Polish (Optional)"
+    optional: true
+    workflows:
+      - id: "refine-timing"
+        optional: true
+        agent: "gsap-editor"
+        command: "refine"
+        output: "Refined timing and easing curves"
+
+      - id: "debug-animation"
+        optional: true
+        agent: "gsap-editor"
+        command: "debug"
+        output: "Diagnosis and fixes for any issues"
+
+  - phase: 3
+    name: "Validation"
+    required: true
+    workflows:
+      - id: "validate-60fps"
+        required: true
+        agent: "gsap-tech-director"
+        command: "fps"
+        output: "60fps validation @ 4x CPU throttle"
+
+      - id: "accessibility-audit"
+        required: true
+        agent: "gsap-tech-director"
+        command: "accessibility"
+        output: "WCAG compliance check (prefers-reduced-motion MANDATORY)"

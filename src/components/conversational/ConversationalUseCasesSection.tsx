@@ -1,7 +1,13 @@
-import { useState, useCallback } from "react"
+import { useState, useCallback, useRef } from "react"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
 import { Headset, Target, TrendingUp, Rocket, Users, MessageSquare } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface UseCase {
   id: string
@@ -67,8 +73,67 @@ const USE_CASES: UseCase[] = [
 ]
 
 export function ConversationalUseCasesSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const desktopGridRef = useRef<HTMLDivElement>(null)
+  const tabletGridRef = useRef<HTMLDivElement>(null)
+  const mobileGridRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
+
+  // 🎬 GSAP Scroll Animations - Random Stagger for Organic Feel
+  useGSAP(() => {
+    if (prefersReducedMotion) return
+
+    // Animate desktop grid with random stagger
+    gsap.from(desktopGridRef.current?.children || [], {
+      opacity: 0,
+      y: 60,
+      scale: 0.9,
+      duration: 0.8,
+      stagger: {
+        amount: 0.6, // Total stagger time
+        from: "random", // Random order (not sequential!)
+        ease: "power2.out"
+      },
+      ease: "back.out(1.2)",
+      scrollTrigger: {
+        trigger: desktopGridRef.current,
+        start: "top 75%",
+        toggleActions: "play none none none"
+      }
+    })
+
+    // Tablet grid
+    gsap.from(tabletGridRef.current?.children || [], {
+      opacity: 0,
+      y: 50,
+      duration: 0.7,
+      stagger: 0.15,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: tabletGridRef.current,
+        start: "top 75%",
+        toggleActions: "play none none none"
+      }
+    })
+
+    // Mobile grid
+    gsap.from(mobileGridRef.current?.children || [], {
+      opacity: 0,
+      x: -30,
+      duration: 0.6,
+      stagger: 0.12,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: mobileGridRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    })
+  }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
+
   return (
     <section
+      ref={sectionRef}
       id="conversational-use-cases"
       aria-labelledby="conversational-use-cases-title"
       data-motion-group="use-cases"
@@ -102,21 +167,21 @@ export function ConversationalUseCasesSection() {
         </div>
 
         {/* Bento Grid - Desktop */}
-        <div className="hidden lg:grid lg:grid-cols-3 lg:grid-rows-3 lg:gap-8">
+        <div ref={desktopGridRef} className="hidden lg:grid lg:grid-cols-3 lg:grid-rows-3 lg:gap-8">
           {USE_CASES.map((useCase) => (
             <UseCaseCard key={useCase.id} useCase={useCase} />
           ))}
         </div>
 
         {/* Standard Grid - Tablet */}
-        <div className="hidden md:grid md:grid-cols-2 md:gap-8 lg:hidden">
+        <div ref={tabletGridRef} className="hidden md:grid md:grid-cols-2 md:gap-8 lg:hidden">
           {USE_CASES.map((useCase) => (
             <UseCaseCardSimple key={useCase.id} useCase={useCase} />
           ))}
         </div>
 
         {/* Vertical Stack - Mobile */}
-        <div className="flex flex-col gap-8 md:hidden">
+        <div ref={mobileGridRef} className="flex flex-col gap-8 md:hidden">
           {USE_CASES.map((useCase) => (
             <UseCaseCardSimple key={useCase.id} useCase={useCase} />
           ))}
@@ -163,7 +228,6 @@ function UseCaseCard({ useCase }: UseCaseCardProps) {
       accentGlow={useCase.accentGlow}
       style={{
         gridArea: useCase.gridArea,
-        animation: `use-case-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) ${useCase.animationDelay}ms both`,
         transform: `perspective(1400px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translateZ(0)`,
         transition: "transform 0.2s ease-out",
         transformStyle: "preserve-3d",
@@ -197,27 +261,6 @@ function UseCaseCard({ useCase }: UseCaseCardProps) {
         {/* Description - trimmed and line-clamped */}
         <p className="text-base leading-relaxed text-conversational-body line-clamp-3">{useCase.description}</p>
       </div>
-
-      {/* Inline keyframe animation */}
-      <style jsx>{`
-        @keyframes use-case-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(60px) perspective(1000px) rotateX(0deg) rotateY(0deg);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) perspective(1000px) rotateX(0deg) rotateY(0deg);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div {
-            animation: none !important;
-            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) !important;
-          }
-        }
-      `}</style>
     </GlassmorphicCard>
   )
 }
@@ -230,9 +273,6 @@ function UseCaseCardSimple({ useCase }: UseCaseCardProps) {
       accentColor={useCase.accentColor}
       accentGradient={useCase.accentGradient}
       accentGlow={useCase.accentGlow}
-      style={{
-        animation: `use-case-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) ${useCase.animationDelay}ms both`,
-      }}
     >
       <div className="p-10 md:p-12">
         {/* Premium icon container - responsive sizing */}
@@ -257,25 +297,6 @@ function UseCaseCardSimple({ useCase }: UseCaseCardProps) {
         <h3 className="mb-5 text-xl md:text-2xl font-black text-conversational-headline">{useCase.title}</h3>
         <p className="text-sm md:text-base leading-relaxed text-conversational-body line-clamp-3">{useCase.description}</p>
       </div>
-
-      <style jsx>{`
-        @keyframes use-case-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div {
-            animation: none !important;
-          }
-        }
-      `}</style>
     </GlassmorphicCard>
   )
 }

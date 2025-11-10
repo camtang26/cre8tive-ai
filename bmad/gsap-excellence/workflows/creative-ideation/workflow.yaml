@@ -1,116 +1,200 @@
 # Creative Ideation Workflow - GSAP Excellence Engine
-# SIGNATURE WORKFLOW: Generate 3-5 premium animation concepts
-# Solves: "I don't know what animation I want"
-# Transforms it into: "I'm choosing between multiple excellent options backed by research"
+# SIGNATURE WORKFLOW: Generate 3-5 premium animation concepts backed by research
+# Agent: Director (with Cinematographer research support)
+# Complexity: Medium (Research-intensive creative direction)
 
 name: creative-ideation
-description: "Generate premium animation concepts backed by multi-source research (Archon + Context7 + Perplexity). Provides expert creative direction that AI typically lacks."
-author: "GSAP Excellence Engine"
-version: "1.0.0-alpha"
-complexity: "standard"
-signature_workflow: true
+description: "Generate premium animation concepts backed by multi-source research (Archon + Context7 + Perplexity) and Deep-Research frameworks. Provides expert creative direction that AI typically lacks. Solves: 'I don't know what animation I want' → 'I'm choosing between multiple excellent research-backed options'"
+author: "GSAP Excellence Engine - The Director"
+version: "2.0.0-premium"
+complexity: "medium"
+signature_workflow: true  # Director's primary creative workflow
+standalone: false  # Agent-context-dependent workflow (only callable from Director agent menu)
 
-# Critical variables from module config
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
 
-# MCP Servers used (ALL THREE research sources)
-mcp_servers:
-  archon:
-    tools: ["rag_search_knowledge_base", "rag_search_code_examples"]
-    purpose: "GSAP showcase examples and technical patterns"
+# Workflow Metadata
+metadata:
+  agent: 'gsap-director'
+  supporting_agent: 'gsap-cinematographer'
+  priority: 'P1'
+  research_intensity: 'very-high'
+  estimated_duration: '10-15 minutes'
+  persona: 'creative-director'
+  creative_approach: 'research-backed-concept-generation'
 
-  context7:
-    tools: ["get-library-docs"]
-    purpose: "Latest GSAP API capabilities and new plugins"
+# Required MCP Servers (ALL THREE research sources)
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources) - Premium patterns, technical examples
+  - context7  # Latest GSAP API capabilities and new plugin documentation
+  - perplexity  # Award-winning animations, premium examples, industry trends (2024-2025)
 
-  perplexity:
-    tools: ["perplexity_reason"]
-    purpose: "Award-winning animations, premium examples, industry trends"
-    # NOTE: perplexity_research (deep research) DISABLED - extremely expensive and inefficient
-    # Using perplexity_reason instead for comprehensive analysis with better cost/quality ratio
+# Deep-Research Sections Referenced (6 sections - Creative Foundation)
+deep_research_sections:
+  - '1.1'  # The Animator's Mindset vs Code Generator (creative vision, imagination first)
+  - '1.2'  # Visual Inspiration → Technical Translation (brand → motion mapping)
+  - '1.3'  # Storyboarding Complex Sequences (timeline planning, parallel vs sequential)
+  - '4.1'  # Pixar Story Spine Framework for GSAP (7-beat narrative structure)
+  - '2.3'  # The 2024 GSAP Plugin Ecosystem (ALL FREE - premium tools awareness)
+  - '7.5'  # Notable Agencies & Patterns (Active Theory, Resn, ToyFight, MediaMonks)
 
-# Agents involved
+# Archon Priority Sources (Premium Pattern Discovery)
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - comprehensive GSAP reference)
+  - '1e5cc3bd5125be3c'  # Tympanus/Codrops tutorials (premium quality creative patterns)
+  - '90c2ef5e8fa816b7'  # FreeFrontend examples (showcase implementations)
+  - '020e9f31a8c5cdb7'  # CodePen collections (community creative patterns)
+  - '77ae0ef68a867aa9'  # Lenis smooth scroll integration patterns
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 46 sections, 2.2M+ words)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Creative-ideation-specific Deep-Research files:
+# - 01-11-the-animators-mindset-vs-code-generator.md (Section 1.1)
+#   → "Great animations are meaningful, not just decorative"
+#   → Imagination first, choreography thinking, design intent
+#
+# - 02-12-visual-inspiration-technical-translation-workflow.md (Section 1.2)
+#   → 5-step translation: Gather → Deconstruct → Choreograph → Choose → Prototype
+#   → Brand personality → motion design mapping
+#
+# - 03-13-storyboarding-complex-sequences.md (Section 1.3)
+#   → Timeline sketching, temporal landmarks, parallel vs sequential
+#   → "AI models should avoid triggering everything at once"
+#
+# - 04-41-pixar-story-spine-framework-for-gsap.md (Section 4.1)
+#   → 7-beat narrative: Once upon a time... → Until finally...
+#   → "Every scroll tells a story. Make it a good one."
+#
+# - 07-23-the-2024-gsap-plugin-ecosystem-all-free.md (Section 2.3)
+#   → "GSAP and all its official plugins are free for everyone"
+#   → ScrollTrigger, ScrollSmoother, MorphSVG, SplitText, DrawSVG, MotionPath
+#   → "This is a windfall for AI coding models"
+#
+# - 32-75-notable-agencies-patterns.md (Section 7.5)
+#   → Active Theory (WebGL + GSAP), Resn (quirky interactive), ToyFight (precision)
+#   → MediaMonks (product showcases), 2023-2025 trends
+#   → "Approach each animation challenge by thinking 'How would Active Theory do this?'"
+
+# Multi-Source Research Protocol (Tier 1/2/3 hierarchy)
+research_protocol:
+  tier_1_primary:
+    - archon_mcp_5_sources  # Cameron's curated knowledge (89 sources)
+    - deep_research_6_sections  # Synthesized frameworks (2.2M+ words)
+  tier_2_gap_filling:
+    - web_search_2025_trends  # Cutting-edge examples not in Archon
+  tier_3_minimal:
+    - context7_api_verification  # Only for version-specific API questions
+
 agents:
-  primary: "gsap-director"  # Lead, orchestrates
-  support: "gsap-cinematographer"  # Research specialist
+  primary: "gsap-director"  # Lead, creative vision keeper, concept generation
+  supporting: "gsap-cinematographer"  # Research specialist (Archon + Deep-Research + WebSearch)
 
-# Module path and component files
 installed_path: "{module_root}/workflows/creative-ideation"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false  # No checklist for creative workflow
+validation: "{installed_path}/checklist.md"
 
-# Output configuration - Concept presentation document
-default_output_file: "{output_folder}/animation-concepts-{{component_name}}-{{date}}.md"
+default_output_file: "{output_folder}/animation-concepts-{timestamp}.md"
 
 # Workflow inputs (gathered from user)
 inputs:
   component_context:
     description: "What component/page needs animation"
     required: true
+    type: "component_description"
 
   brand_personality:
-    description: "Brand personality and design language"
-    required: false
+    description: "Brand personality and design language (playful, professional, edgy, minimal, etc.)"
+    required: true
+    type: "brand_classification"
 
   user_goals:
-    description: "Goals: engagement, storytelling, interaction, delight"
-    required: false
-    default: "Create wow factor and premium feel"
+    description: "Goals: engagement, storytelling, interaction, delight, wow factor"
+    required: true
+    type: "objectives"
 
   constraints:
-    description: "Performance budget, accessibility, timeline"
+    description: "Performance budget, accessibility needs, timeline, device targets"
     required: false
+    type: "constraints"
 
   anti_patterns:
     description: "Trends to avoid, competitor patterns to differ from"
     required: false
+    type: "exclusions"
 
 # Expected outputs
 outputs:
   concepts:
-    count: "3-5"
-    format: "Structured concept with name, description, technical approach, wow factor, complexity"
+    count: "3-5 premium concepts"
+    format: "Structured concept with name, description, technical approach, wow factor, complexity, research citations"
+    type: "creative_proposals"
 
-  research_citations:
-    sources: ["perplexity", "archon", "context7"]
-    format: "URLs and references from premium examples"
+  research_synthesis:
+    sources: ["archon_mcp", "deep_research", "web_search", "context7"]
+    format: "Multi-source findings with citations (Archon source_ids + Deep-Research sections + WebSearch URLs)"
+    type: "research_report"
 
-# Success criteria
+  brand_motion_mapping:
+    format: "Brand personality → easing curves, plugin selection, visual approach (from Section 1.2)"
+    type: "translation_framework"
+
+  narrative_structure:
+    format: "Pixar Story Spine 7-beat breakdown (from Section 4.1)"
+    type: "storytelling_framework"
+
+  premium_plugin_opportunities:
+    format: "ScrollSmoother, MorphSVG, SplitText, DrawSVG, MotionPath recommendations (ALL FREE per Section 2.3)"
+    type: "technical_recommendations"
+
+# Success criteria (Research-Backed)
 success_criteria:
-  - "User excited by at least one concept"
-  - "Concepts backed by research citations"
-  - "Mix of complexity levels (medium, medium-high, high)"
-  - "Each concept explains wow factor clearly"
-  - "Technical approaches are ambitious, not safe"
+  - "User excited by at least one concept (80%+ selection rate)"
+  - "Each concept backed by research citations (Archon source_id + Deep-Research section + WebSearch URL)"
+  - "Mix of complexity levels (at least one Medium, one Medium-High or High)"
+  - "Each concept explains wow factor clearly with specific techniques"
+  - "Technical approaches are AMBITIOUS, not safe (per Section 1.1: 'meaningful, not decorative')"
+  - "Concepts leverage premium plugins aggressively (ALL FREE per Section 2.3)"
+  - "Brand personality mapped to motion design (per Section 1.2 framework)"
+  - "At least one concept uses Pixar Story Spine narrative (per Section 4.1)"
+  - "Premium agency patterns referenced (Active Theory, Resn, etc. per Section 7.5)"
 
-# Integration
+# Integration with other workflows
 feeds_into:
   - "animation-production"  # Selected concept becomes vision for full implementation
-  - "implement-from-pattern"  # If concept matches existing pattern
+  - "implement-from-pattern"  # If concept matches existing pattern library entry
+  - "plan-narrative"  # If user wants to expand narrative planning for selected concept
 
 # Performance targets
 estimated_duration: "10-15 minutes"
 phases:
   context_gathering: "2-3 min"
-  research: "5-7 min (parallel MCP calls)"
-  synthesis: "2-3 min"
+  multi_source_research: "5-7 min (parallel MCP calls to Archon + WebSearch + Context7)"
+  deep_research_synthesis: "2-3 min (apply 6 framework sections)"
+  concept_generation: "2-3 min"
   presentation: "1-2 min"
 
 # Web bundle configuration
 web_bundle:
-  workflow_name: "creative-ideation"
+  name: 'creative-ideation'
+  description: 'Generate premium animation concepts backed by multi-source research and Deep-Research frameworks'
+  path: 'bmad/gsap-excellence/workflows/creative-ideation'
   web_bundle_files:
-    - "bmad/gsap-excellence/workflows/creative-ideation/workflow.yaml"
-    - "bmad/gsap-excellence/workflows/creative-ideation/instructions.md"
-    - "bmad/gsap-excellence/workflows/creative-ideation/template.md"
+    - 'bmad/gsap-excellence/workflows/creative-ideation/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/creative-ideation/instructions.md'
+    - 'bmad/gsap-excellence/workflows/creative-ideation/template.md'
+    - 'bmad/gsap-excellence/workflows/creative-ideation/checklist.md'
 
-  # Related workflows (feeds_into - not directly invoked)
+  # Related workflows (feeds_into - not directly invoked during this workflow)
   related_workflows:
-    - "bmad/gsap-excellence/workflows/animation-production/workflow.yaml"
-    - "bmad/gsap-excellence/workflows/implement-from-pattern/workflow.yaml"
+    - 'bmad/gsap-excellence/workflows/animation-production/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/implement-from-pattern/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/plan-narrative/workflow.yaml'

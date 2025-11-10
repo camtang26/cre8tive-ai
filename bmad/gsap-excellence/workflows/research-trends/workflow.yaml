@@ -1,38 +1,32 @@
 # GSAP Animation Trends Research Workflow
 # Cinematographer - 2024-2025 Trend Discovery (WebSearch PRIMARY)
+# Version 2.0.0-premium - Research-backed systematic trend analysis
 
 name: 'research-trends'
-description: 'Research latest 2024-2025 premium animation trends using multi-source strategy (WebSearch PRIMARY, Archon secondary for established patterns)'
-installed_path: '{project-root}/bmad/gsap-excellence/workflows/research-trends'
-instructions: '{installed_path}/instructions.md'
-template: '{installed_path}/template.md'
-
-# Web bundle configuration for portability
-web_bundle:
-  - "{installed_path}/instructions.md"
-  - "{installed_path}/template.md"
-  - "{config_source}"
-
-default_output_file: '{output_folder}/animation-trends-{timestamp}.md'
+description: 'Research latest 2024-2025 premium animation trends using multi-source strategy (WebSearch PRIMARY for current examples, Archon SECONDARY for established pattern context, Deep-Research framework for pattern analysis)'
+author: "GSAP Excellence Engine - The Cinematographer"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from Cinematographer agent menu)
 
 # Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+module_root: "{project-root}/bmad/gsap-excellence"
 output_folder: '{config_source}:output_folder'
 user_name: '{config_source}:user_name'
 communication_language: '{config_source}:communication_language'
 date: system-generated
 timestamp: system-generated
 
-standalone: false  # Agent-context-dependent workflow (only callable from Cinematographer agent menu)
-
 # Workflow Metadata
 metadata:
   agent: 'cinematographer'
   priority: 'P2'
-  complexity: 'medium'
   research_intensity: 'high'
   estimated_duration: '20-25 minutes'
-  research_strategy: 'WebSearch PRIMARY (current trends), Archon SECONDARY (established patterns)'
+  research_strategy: 'WebSearch PRIMARY (current trends), Archon SECONDARY (established patterns), Deep-Research framework (pattern analysis)'
+  persona: 'trend-discovery-specialist'
+  output_type: 'comprehensive-trend-report'
 
 # Required MCP Servers
 required_mcp:
@@ -40,9 +34,152 @@ required_mcp:
   - archon  # GSAP knowledge base - SECONDARY for established pattern context
 
 # Deep-Research Sections Referenced
-deep_research_sections: []  # No Deep-Research sections (trends are current, not historical)
+deep_research_sections:
+  - '7.5'  # Notable Agencies & Patterns (Active Theory, Resn, ToyFight, MediaMonks)
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Deep-Research file for Section 7.5:
+# - 32-75-notable-agencies-patterns.md (Agency pattern framework, 2023-2025 trends context)
 
 # Archon Priority Sources (SECONDARY role in this workflow)
 archon_sources:
   - 'b9f6b322298feb21'  # gsap.com official docs (for established patterns)
   - 'd571ab8468f31305'  # Awwwards GSAP sites (for premium context)
+  - '1e5cc3bd5125be3c'  # Codrops tutorials (for educational patterns)
+
+agents:
+  primary: "gsap-cinematographer"
+  supporting: "gsap-director"  # For creative ideation from trends
+
+installed_path: '{project-root}/bmad/gsap-excellence/workflows/research-trends'
+template: '{installed_path}/template.md'
+instructions: '{installed_path}/instructions.md'
+validation: '{installed_path}/checklist.md'
+
+default_output_file: '{output_folder}/animation-trends-{timestamp}.md'
+
+# Web bundle configuration for portability
+web_bundle:
+  name: 'research-trends'
+  description: 'Research latest premium animation trends using multi-source strategy'
+  path: 'bmad/gsap-excellence/workflows/research-trends'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/research-trends/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/research-trends/instructions.md'
+    - 'bmad/gsap-excellence/workflows/research-trends/template.md'
+    - 'bmad/gsap-excellence/workflows/research-trends/checklist.md'
+
+inputs:
+  trend_focus:
+    description: "Trend category or aspect to research (scroll effects, text animations, 3D, etc., or 'all trends' for comprehensive overview)"
+    required: true
+    type: "category_selection"
+
+  context:
+    description: "Context for research (upcoming project, client industry, competitive analysis, learning/skill development, staying current)"
+    required: false
+    type: "freeform_text"
+
+outputs:
+  websearch_trend_discoveries:
+    format: "15-20 trend patterns with URLs, examples, adoption analysis"
+    type: "research_data"
+
+  deep_research_framework:
+    format: "Agency pattern framework from Section 7.5 (Active Theory, Resn, ToyFight, MediaMonks patterns)"
+    type: "analysis_framework"
+
+  archon_established_patterns:
+    format: "Historical pattern context for comparison (what's been trending vs. truly new)"
+    type: "comparison_data"
+
+  trend_synthesis:
+    format: "Top 5 trends with innovation assessment (truly new, refined, rehashed)"
+    type: "strategic_analysis"
+
+  comprehensive_report:
+    format: "Multi-category trend analysis with examples, code patterns, recommendations"
+    type: "markdown_document"
+
+success_criteria:
+  - "15-20 trend patterns discovered (with URLs and examples)"
+  - "5-7 WebSearch queries executed (PRIMARY research complete)"
+  - "Archon queries executed (established pattern context)"
+  - "Section 7.5 framework applied (agency pattern analysis)"
+  - "Trends categorized by innovation level (truly new, refined, rehashed)"
+  - "Top 5 trends clearly identified with rationale"
+  - "Practical recommendations (adopt now, watch, avoid)"
+  - "All research citations dated (for currency tracking)"
+
+estimated_duration: "20-25 minutes"
+
+# Research Philosophy
+research_philosophy: |
+  Trends live at the bleeding edge - they're signals of where premium design is heading.
+
+  WebSearch captures what's happening NOW (2024-2025 cutting-edge).
+  Archon provides historical context (what's been trending vs. truly new).
+  Deep-Research Section 7.5 provides framework (agency patterns, quality markers).
+
+  This is NOT guesswork or hype - it's systematic analysis backed by:
+  - Award-winning examples (Awwwards, FWA)
+  - Premium agency patterns (Active Theory, Resn, ToyFight, MediaMonks)
+  - Established pattern context (Archon MCP)
+  - Research-backed framework (Section 7.5)
+
+# MCP Usage Strategy
+mcp_strategy: |
+  TIER 1: WebSearch/Perplexity (PRIMARY) - Execute FIRST
+  - Awwwards winners 2024-2025
+  - FWA animation examples
+  - Premium agency showcases
+  - Industry trend reports
+  - GSAP community innovations
+
+  TIER 2: Deep-Research Section 7.5 (FRAMEWORK)
+  - Load agency pattern framework
+  - Apply quality markers
+  - Identify innovation level
+
+  TIER 3: Archon MCP (SECONDARY) - Execute AFTER WebSearch
+  - Query established patterns
+  - Compare new vs. historical
+  - Validate truly innovative vs. rehashed
+
+# Quality Standards
+quality_standards:
+  trend_discovery:
+    minimum_examples: 15
+    minimum_websearch_queries: 5
+    minimum_archon_queries: 2
+    required_deep_research_sections: 1
+
+  trend_analysis:
+    categories_required: true
+    innovation_assessment_required: true
+    adoption_level_required: true
+    practicality_evaluation_required: true
+
+  trend_synthesis:
+    top_trends_count: 5
+    examples_per_trend: 2
+    code_patterns_required: true
+    recommendations_required: true
+
+  report_quality:
+    research_citations_required: true
+    all_urls_dated: true
+    framework_applied: true
+    actionable_insights: true
+
+# Version History
+version_history:
+  - version: "1.0.0"
+    date: "2025-11-07"
+    changes: "Initial workflow with WebSearch PRIMARY, basic research gate"
+
+  - version: "2.0.0-premium"
+    date: "2025-11-09"
+    changes: "Enhanced to premium quality - Added Deep-Research Section 7.5, MANDATORY research gates, comprehensive validation, 1500+ lines total"

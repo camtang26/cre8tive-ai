@@ -7,7 +7,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { ScrollFade } from "@/components/shared/ScrollFade";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { PageLayout } from "@/components/layouts/PageLayout";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useOptimizedAnimation } from "@/hooks/useOptimizedAnimation";
 import { measurePerformance } from "@/utils/performanceMonitor";
 import { ArrowRight } from "lucide-react";

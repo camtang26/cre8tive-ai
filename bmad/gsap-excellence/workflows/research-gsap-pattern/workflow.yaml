@@ -1,104 +1,180 @@
 # Research GSAP Pattern Workflow - GSAP Excellence Engine
-# Deep research into specific GSAP technique
-# Agent: Cinematographer (Research Specialist)
-# Complexity: Simple
+# Deep research into specific GSAP technique using multi-source integration
+# Agent: Cinematographer (Research Specialist - PRIMARY WORKFLOW)
+# Complexity: Medium (Research-intensive pattern discovery)
 
 name: research-gsap-pattern
-description: "Deep dive research into specific GSAP technique using multi-source integration (Archon + Context7 + Perplexity). Returns comprehensive research report with patterns, examples, and code."
-author: "GSAP Excellence Engine"
-version: "1.0.0-alpha"
-complexity: "simple"
+description: "Deep dive research into specific GSAP technique using multi-source integration (Archon + Context7 + WebSearch). Returns comprehensive research report with patterns, examples, and code backed by 2.2M+ word Deep-Research knowledge base."
+author: "GSAP Excellence Engine - The Cinematographer"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: true  # Can be invoked directly or from Cinematographer agent menu
 
-# Critical variables from module config
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
 
-# MCP Servers used (ALL THREE research sources)
-mcp_servers:
-  archon:
-    tools: ["rag_search_knowledge_base", "rag_search_code_examples", "rag_get_available_sources"]
-    purpose: "GSAP docs, patterns, and technical implementation examples"
+# Workflow Metadata
+metadata:
+  agent: 'gsap-cinematographer'
+  priority: 'P1'
+  research_intensity: 'very-high'
+  estimated_duration: '10-20 minutes'
+  persona: 'research-specialist'
+  research_approach: 'multi-source-systematic-with-deep-research-validation'
 
-  context7:
-    tools: ["resolve-library-id", "get-library-docs"]
-    purpose: "Latest GSAP API documentation and plugin capabilities"
+# Required MCP Servers (ALL THREE - Tier 1/2/3 Protocol)
+required_mcp:
+  - archon      # TIER 1 PRIMARY: GSAP knowledge base (89 sources, 2.2M+ words)
+  - perplexity  # TIER 2 GAP FILLING: 2024-2025 trends, premium examples (perplexity_reason for research)
+  # Context7 available but TIER 3 MINIMAL (only for API verification if needed)
 
-  perplexity:
-    tools: ["perplexity_ask", "perplexity_reason"]
-    purpose: "Real-world premium examples and cutting-edge usage"
-    # NOTE: perplexity_research (deep research) DISABLED - extremely expensive and inefficient
-    # Using perplexity_reason for comprehensive research, perplexity_ask for quick lookups
+# Deep-Research Sections Referenced (UNIVERSAL sections that apply to ALL patterns)
+deep_research_sections:
+  - '5.1'  # Animate Efficient Properties: The GPU Rule (transform/opacity only)
+  - '5.2'  # Keep Main Thread Free: Avoid Long Tasks (<16ms per frame)
+  - '5.3'  # Debugging Jank (Chrome DevTools profiling)
+  - '5.4'  # Memory Management & Garbage Collection (cleanup protocols)
+  - '5.5'  # Optimize Animations for 60fps (sustained performance targets)
+  - '5.6'  # When to Use WebGL/Canvas (alternative approaches)
+  - '6.1'  # Respecting prefers-reduced-motion (MANDATORY accessibility)
+  - '6.2'  # Other Motion Accessibility Considerations (keyboard, focus, screen readers)
+  - '6.3'  # Styling Considerations for Motion (color contrast, readability)
+  - '6.4'  # Educate Users and Offer Control (pause/play, skip options)
+  - '8.1'  # Pitfall: Forgetting Cleanup (memory leaks, double animations)
+  - '8.2'  # Pitfall: Animating Wrong Properties (no GPU acceleration)
+  - '8.3'  # Pitfall: Ignoring immediateRender in from() tweens
+  - '8.4'  # Pitfall: Multiple ScrollTriggers on same element
+  - '8.5'  # Pitfall: Not using overwrite mode (animation conflicts)
+  - '8.6'  # Pitfall: Overlooking refresh() after content load
+  - '8.7'  # Pitfall: Deprecated/old syntax (GSAP 2.x vs 3.x)
+  - '8.8'  # Pitfall: Uncontrolled infinite loops
+  - '8.9'  # Pitfall: Not testing on different devices
+  - '8.10' # Pitfall: Misusing from() vs fromTo() (flicker issues)
 
-# Agents involved
+# Archon Priority Sources (5 priority sources for systematic querying)
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - 2.2M+ words)
+  - '1e5cc3bd5125be3c'  # Tympanus/Codrops tutorials (PREMIUM QUALITY)
+  - '90c2ef5e8fa816b7'  # FreeFrontend examples
+  - '020e9f31a8c5cdb7'  # CodePen collections
+  - '77ae0ef68a867aa9'  # Lenis smooth scroll integration
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections, 2.2M+ words)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Deep-Research file paths (UNIVERSAL sections - apply to ALL patterns):
+# Performance (Sections 5.1-5.6):
+# - 18-51-animate-efficient-properties-the-gpu-rule.md
+# - 19-52-keep-the-main-thread-free-avoid-long-tasks.md
+# - 20-53-debugging-jank.md
+# - 21-54-memory-management-garbage-collection.md
+# - 22-55-optimize-animations-for-60fps.md
+# - 23-56-when-to-use-webglcanvas.md
+#
+# Accessibility (Sections 6.1-6.4):
+# - 24-61-respecting-prefers-reduced-motion.md
+# - 25-62-other-motion-accessibility-considerations.md
+# - 26-63-styling-considerations-for-motion.md
+# - 27-64-educate-users-and-offer-control.md
+#
+# Common Pitfalls (Sections 8.1-8.10):
+# - 34-pitfall-81-forgetting-to-clean-up-memory-leaks-double-animations.md
+# - 35-pitfall-82-animating-the-wrong-properties-no-gpu-acceleration.md
+# - 36-pitfall-83-ignoring-in-from-tweens.md
+# - 37-pitfall-84-multiple-scrolltriggers-on-the-same-elements-property.md
+# - 38-pitfall-85-not-using-leading-to-conflict.md
+# - 39-pitfall-86-overlooking-refresh-after-content-load.md
+# - 40-pitfall-87-use-of-deprecated-or-old-syntax.md
+# - 41-pitfall-88-uncontrolled-infinite-loops.md
+# - 42-pitfall-89-not-testing-on-different-devices.md
+# - 43-pitfall-810-misusing-vs-causing-flicker.md
+
 agents:
-  primary: "gsap-cinematographer"  # Research specialist
+  primary: "gsap-cinematographer"  # Research specialist (PRIMARY workflow)
 
-# Module path and component files
 installed_path: "{module_root}/workflows/research-gsap-pattern"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false  # No checklist for research workflow
+validation: "{installed_path}/checklist.md"
 
-# Web bundle configuration for portability
-web_bundle:
-  - "{installed_path}/instructions.md"
-  - "{installed_path}/template.md"
-  - "{config_source}"
-
-# Output configuration - Research report document
 default_output_file: "{output_folder}/gsap-research-{{pattern_name}}-{{date}}.md"
 
 # Workflow inputs (gathered from user)
 inputs:
   pattern_name:
-    description: "GSAP technique or pattern to research (e.g., 'parallax scrolling', 'text reveal', 'morphing')"
+    description: "GSAP technique or pattern to research (e.g., 'parallax scrolling', 'text reveal', 'SVG morphing')"
     required: true
+    type: "text"
 
   use_case:
     description: "Specific use case or context for this pattern"
     required: false
     default: "General GSAP implementation"
+    type: "text"
 
   complexity_preference:
     description: "Preferred complexity level: simple, medium, advanced, or all"
     required: false
     default: "all"
+    type: "classification"
 
 # Expected outputs
 outputs:
   research_report:
-    format: "Markdown document with sections: Overview, Technical Approach, Code Examples, Best Practices, Performance, Inspiration"
+    format: "Markdown document with sections: Overview, Technical Approach, Code Examples (3-5), Best Practices (research-backed), Performance (60fps), Accessibility (prefers-reduced-motion), Pitfalls (all 10), Premium Inspiration"
+    type: "comprehensive_research_document"
+
+  deep_research_citations:
+    count: "20 sections (Performance 5.1-5.6, Accessibility 6.1-6.4, Pitfalls 8.1-8.10)"
+    format: "Verbatim quotes with source file citations"
+    type: "research_validation"
+
+  archon_findings:
+    count: "5 priority sources systematically queried"
+    format: "Pattern discoveries with source IDs"
+    type: "knowledge_base_research"
 
   code_examples:
     count: "3-5 examples from basic to advanced"
-    format: "Annotated code with explanations"
+    format: "Annotated code with explanations and performance notes"
+    type: "implementation_guidance"
 
-  citations:
-    sources: ["archon", "context7", "perplexity"]
-    format: "URLs, documentation links, premium example sites"
+  premium_examples:
+    count: "2-4 award-winning sites (Awwwards, FWA, agency work)"
+    format: "URLs with technical analysis"
+    type: "inspiration"
 
 # Success criteria
 success_criteria:
-  - "Research covers all 3 MCP sources"
-  - "3-5 code examples provided with annotations"
-  - "Performance considerations documented"
-  - "Real-world premium examples cited"
-  - "Latest GSAP API compatibility confirmed"
+  - "ALL 3 MCP sources queried (Archon 5 sources + WebSearch 2024-2025 + Context7 if needed)"
+  - "ALL 20 Deep-Research sections applied (Performance 5.1-5.6, Accessibility 6.1-6.4, Pitfalls 8.1-8.10)"
+  - "3-5 code examples provided with performance annotations"
+  - "10+ verbatim quotes from Deep-Research with source citations"
+  - "prefers-reduced-motion fallback documented (MANDATORY)"
+  - "All 10 pitfalls checked and documented"
+  - "2-4 premium examples cited (2024-2025 preferred)"
+  - "Latest GSAP 3.13+ compatibility confirmed"
+
+estimated_duration: "10-20 minutes"
 
 # Integration
 feeds_into:
-  - "implement-from-pattern"  # Research informs implementation
-  - "creative-ideation"  # Enriches concept generation
-  - "Pattern library"  # Successful patterns added to library
+  - "implement-from-pattern"  # VFX Artist uses research to implement
+  - "creative-ideation"  # Director uses research to enrich concept generation
+  - "pattern-library"  # Successful patterns added as reusable templates
 
-# Performance targets
-estimated_duration: "5-10 minutes"
-phases:
-  query_formulation: "1 min"
-  parallel_research: "3-5 min (all 3 MCPs)"
-  synthesis: "2-3 min"
-  documentation: "1-2 min"
+web_bundle:
+  name: 'research-gsap-pattern'
+  description: 'Deep dive research into specific GSAP technique using multi-source integration (Archon + Context7 + WebSearch)'
+  path: 'bmad/gsap-excellence/workflows/research-gsap-pattern'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/research-gsap-pattern/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/research-gsap-pattern/instructions.md'
+    - 'bmad/gsap-excellence/workflows/research-gsap-pattern/template.md'
+    - 'bmad/gsap-excellence/workflows/research-gsap-pattern/checklist.md'

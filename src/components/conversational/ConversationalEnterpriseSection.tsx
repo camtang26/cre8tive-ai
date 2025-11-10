@@ -1,6 +1,13 @@
+import { useRef } from "react"
 import { Shield, Globe, Server, Key, Headphones, Plug } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface EnterpriseFeature {
   id: string
@@ -94,8 +101,48 @@ const ENTERPRISE_FEATURES: EnterpriseFeature[] = [
 ]
 
 export function ConversationalEnterpriseSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const desktopGridRef = useRef<HTMLDivElement>(null)
+  const tabletGridRef = useRef<HTMLDivElement>(null)
+  const mobileGridRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
+
+  // 🎬 Simple Scroll Reveals
+  useGSAP(() => {
+    if (prefersReducedMotion) return
+
+    // Desktop asymmetric grid
+    gsap.from(desktopGridRef.current?.children || [], {
+      opacity: 0,
+      y: 50,
+      duration: 0.7,
+      stagger: 0.15,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: desktopGridRef.current,
+        start: "top 75%",
+        toggleActions: "play none none none"
+      }
+    })
+
+    // Tablet/mobile grids
+    gsap.from([...tabletGridRef.current?.children || [], ...mobileGridRef.current?.children || []], {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      stagger: 0.12,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: tabletGridRef.current || mobileGridRef.current,
+        start: "top 75%",
+        toggleActions: "play none none none"
+      }
+    })
+  }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
+
   return (
     <section
+      ref={sectionRef}
       id="conversational-enterprise"
       aria-labelledby="conversational-enterprise-title"
       data-motion-group="enterprise-features"
@@ -129,21 +176,21 @@ export function ConversationalEnterpriseSection() {
         </div>
 
         {/* Feature Grid - Desktop Asymmetric Layout */}
-        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8">
+        <div ref={desktopGridRef} className="hidden lg:grid lg:grid-cols-3 lg:gap-8">
           {ENTERPRISE_FEATURES.map((feature) => (
             <EnterpriseFeatureCard key={feature.id} feature={feature} />
           ))}
         </div>
 
         {/* Feature Grid - Tablet 2-column */}
-        <div className="hidden md:grid md:grid-cols-2 md:gap-8 lg:hidden">
+        <div ref={tabletGridRef} className="hidden md:grid md:grid-cols-2 md:gap-8 lg:hidden">
           {ENTERPRISE_FEATURES.map((feature) => (
             <EnterpriseFeatureCardSimple key={feature.id} feature={feature} />
           ))}
         </div>
 
         {/* Feature List - Mobile Vertical */}
-        <div className="flex flex-col gap-8 md:hidden">
+        <div ref={mobileGridRef} className="flex flex-col gap-8 md:hidden">
           {ENTERPRISE_FEATURES.map((feature) => (
             <EnterpriseFeatureCardSimple key={feature.id} feature={feature} />
           ))}
@@ -161,12 +208,7 @@ function EnterpriseFeatureCard({ feature }: EnterpriseFeatureCardProps) {
   const Icon = feature.icon
 
   return (
-    <div
-      style={{
-        marginTop: feature.marginTop,
-        animation: `enterprise-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) ${feature.animationDelay}ms both`,
-      }}
-    >
+    <div style={{ marginTop: feature.marginTop }}>
       <GlassmorphicCard
         accentColor={feature.accentColor}
         accentGradient={feature.accentGradient}
@@ -214,26 +256,6 @@ function EnterpriseFeatureCard({ feature }: EnterpriseFeatureCardProps) {
           <p className="text-sm leading-relaxed text-conversational-body">{feature.description}</p>
         </div>
       </GlassmorphicCard>
-
-      <style jsx>{`
-        @keyframes enterprise-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div {
-            animation: none !important;
-            margin-top: 0 !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }
@@ -242,11 +264,7 @@ function EnterpriseFeatureCardSimple({ feature }: EnterpriseFeatureCardProps) {
   const Icon = feature.icon
 
   return (
-    <div
-      style={{
-        animation: `enterprise-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) ${feature.animationDelay}ms both`,
-      }}
-    >
+    <div>
       <GlassmorphicCard
         accentColor={feature.accentColor}
         accentGradient={feature.accentGradient}
@@ -289,25 +307,6 @@ function EnterpriseFeatureCardSimple({ feature }: EnterpriseFeatureCardProps) {
           <p className="text-sm leading-relaxed text-conversational-body">{feature.description}</p>
         </div>
       </GlassmorphicCard>
-
-      <style jsx>{`
-        @keyframes enterprise-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div {
-            animation: none !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }

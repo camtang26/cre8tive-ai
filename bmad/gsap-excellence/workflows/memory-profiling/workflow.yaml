@@ -1,13 +1,14 @@
 # Memory Profiling Workflow - GSAP Excellence Engine
-# Heap snapshot-based memory leak detection for SPAs
-# Agent: Tech Director
-# Complexity: Standard
+# Systematic memory leak detection using Chrome DevTools heap snapshots
+# Agent: Tech Director (memory specialist)
+# Complexity: High (research-intensive, Chrome DevTools MCP required)
 
 name: memory-profiling
-description: "Systematic memory leak detection using Chrome DevTools heap snapshots. Tests navigation cycles to detect leaks from uncleaned GSAP animations, ScrollTriggers, and DOM nodes. Generates memory health report."
-author: "GSAP Excellence Engine - Phase 6"
-version: "1.0.0"
-complexity: "standard"
+description: "Systematic memory leak detection using Chrome DevTools heap snapshots. Tests navigation cycles to detect leaks from uncleaned GSAP animations, ScrollTriggers, and DOM nodes. Generates memory health report backed by Deep-Research 5.4 memory management framework."
+author: "GSAP Excellence Engine - Premium Rebuild"
+version: "2.0.0-premium"
+complexity: "high"
+standalone: true
 
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
@@ -16,14 +17,24 @@ communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
 
+# MCP integration (EXTENSIVE - Chrome DevTools required)
 mcp_servers:
   chrome_devtools:
-    tools: ["navigate_page", "evaluate_script", "take_screenshot"]
-    purpose: "Heap snapshot capture, DOM inspection, navigation simulation"
+    tools:
+      - "navigate_page"
+      - "evaluate_script"
+      - "take_screenshot"
+      - "reload_page"
+      - "emulate_cpu"
+    purpose: "Heap snapshot capture, DOM inspection, navigation simulation, memory profiling"
 
   archon:
     tools: ["rag_search_knowledge_base", "rag_search_code_examples"]
-    purpose: "Memory leak patterns, cleanup strategies"
+    purpose: "Memory leak patterns, GSAP cleanup strategies, ScrollTrigger best practices"
+
+  context7:
+    tools: ["get-library-docs"]
+    purpose: "Latest GSAP 3.13+ cleanup APIs (gsap.context, kill patterns)"
 
 agents:
   primary: "gsap-tech-director"
@@ -31,10 +42,11 @@ agents:
 installed_path: "{module_root}/workflows/memory-profiling"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false
+validation: "{installed_path}/checklist.md"
 
 default_output_file: "{output_folder}/memory-profile-report-{{date}}.md"
 
+# Inputs
 inputs:
   page_url:
     description: "SPA page URL to profile (must support navigation)"
@@ -45,7 +57,7 @@ inputs:
     required: true
 
   navigation_cycles:
-    description: "Number of navigation cycles (default: 5)"
+    description: "Number of navigation cycles (default: 5, minimum: 3)"
     required: false
     default: 5
 
@@ -53,25 +65,103 @@ inputs:
     description: "Does page have GSAP animations? (yes/no)"
     required: true
 
+  framework:
+    description: "Frontend framework (react/vue/vanilla/other) for targeted cleanup recommendations"
+    required: false
+    default: "react"
+
+# Outputs
 outputs:
   memory_report:
-    format: "Heap size before/after, detached DOM nodes, memory growth, pass/fail"
+    format: "Comprehensive memory health report with heap size analysis, detached DOM nodes, leak diagnosis"
 
   leak_diagnosis:
-    format: "Suspected memory leak sources (if any)"
+    format: "Research-backed diagnosis of memory leak sources (if detected)"
 
   cleanup_strategies:
-    format: "Code fixes for detected leaks"
+    format: "Code fixes with GSAP Context patterns from Deep-Research 5.4"
 
   memory_health_status:
-    format: "HEALTHY (no leaks) or LEAKING (issues detected)"
+    format: "HEALTHY (no leaks) | LEAKING (issues detected) | CRITICAL (major leaks)"
 
-estimated_duration: "5-10 minutes"
+# Performance standards (research-backed)
+performance_standards:
+  heap_growth:
+    acceptable: 5  # MB - After 5 navigation cycles (validated by Chrome DevTools best practices, current as of Nov 2025)
+    warning: 10    # MB - Indicates potential leak
+    critical: 20   # MB - Definite leak
 
+  detached_nodes:
+    acceptable: 10     # nodes - Normal SPA churn (validated by Chrome DevTools methodology, Nov 2025)
+    warning: 25        # nodes - Investigate
+    critical: 50       # nodes - Major leak
+
+  memory_health_threshold: "Both heap and detached node limits must pass for HEALTHY status"
+
+# Success criteria
+success_criteria:
+  - "Heap growth < 5MB after {{navigation_cycles}} cycles"
+  - "Detached DOM nodes < 10"
+  - "Memory trend: stable or decreasing (not continuously growing)"
+  - "Zero console errors during profiling"
+  - "All GSAP animations/ScrollTriggers properly cleaned up"
+
+# Deep-Research sections (MANDATORY for research gate)
+deep_research_sections:
+  - "5.4"  # Memory Management & Garbage Collection (ScrollTrigger cleanup, kill patterns, detached DOM detection)
+
+# Deep-Research knowledge base
+deep_research_base: "{project-root}/docs/Deep-Research/GSAP-Animation-Mastery"
+
+# Archon MCP priority sources (GSAP knowledge base)
+archon_sources:
+  - "b9f6b322298feb21"  # gsap.com official docs (highest priority)
+  - "6a6860cfc96e173b"  # ScrollTrigger documentation
+  # Note: Memory-specific content sparse in Archon, supplement with Chrome DevTools WebSearch
+
+# Chrome DevTools references (verified November 2025)
+chrome_devtools_references:
+  - "Official Chrome DevTools Memory Problems guide (current as of Dec 2024, verified Nov 2025)"
+  - "Heap Snapshot comparison methodology (unchanged, current)"
+  - "Detached DOM tree detection (standard approach as of Nov 2025)"
+  - "Size Delta analysis (current methodology)"
+  - "GSAP 3.13+ (released April 2025) - automatic cleanup features"
+
+# Common memory leak sources (from Deep-Research 5.4)
+common_leak_sources:
+  gsap_specific:
+    - "ScrollTriggers not killed on navigation"
+    - "GSAP timelines not cleaned up with tl.kill()"
+    - "gsap.context() not reverted in React cleanup"
+    - "Event listeners not removed"
+    - "Excessive tweens created without overwrite: 'auto'"
+
+  general_spa:
+    - "Detached DOM nodes from component unmount"
+    - "Global variables holding references"
+    - "Third-party libraries without cleanup"
+    - "Closures retaining DOM references"
+
+# Benchmarks (research-backed thresholds)
 benchmarks:
   heap_growth_acceptable: "< 5MB increase after 5 navigation cycles"
   detached_nodes_acceptable: "< 10 detached DOM nodes"
   memory_health_threshold: "Both heap and detached node limits passed"
+
+  # Additional granular metrics
+  listener_growth_acceptable: "< 5 new listeners per cycle"
+  memory_trend: "Stable or decreasing (not linear growth)"
+
+# Testing protocol summary
+testing_protocol:
+  - "Baseline heap snapshot (clean state)"
+  - "Stress test: Navigate away/back {{navigation_cycles}} times"
+  - "Post-stress heap snapshot (detect leaks)"
+  - "Compare snapshots: heap growth + detached DOM nodes"
+  - "Pass/Fail based on objective thresholds"
+
+# Estimated duration
+estimated_duration: "10-15 minutes"
 
 # Web bundle configuration for web portability
 web_bundle:
@@ -80,4 +170,6 @@ web_bundle:
     - "bmad/gsap-excellence/workflows/memory-profiling/workflow.yaml"
     - "bmad/gsap-excellence/workflows/memory-profiling/instructions.md"
     - "bmad/gsap-excellence/workflows/memory-profiling/template.md"
+    - "bmad/gsap-excellence/workflows/memory-profiling/checklist.md"
     - "bmad/gsap-excellence/config.yaml"
+    - "docs/Deep-Research/GSAP-Animation-Mastery/21-54-memory-management-garbage-collection.md"

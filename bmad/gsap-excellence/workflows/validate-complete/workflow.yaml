@@ -1,28 +1,175 @@
-# validate-complete Workflow - GSAP Excellence Engine
-# Comprehensive validation suite: performance + visual + console + accessibility
+# Validate-Complete Workflow - GSAP Excellence Engine
+# Comprehensive validation suite: 60fps + visual + console + accessibility
 # Agent: Tech Director (lead validator)
-# Documentation: See README.md for full specification
+# Complexity: High (Chrome DevTools MCP + multi-part validation)
 
-name: 'validate-complete'
-description: 'Run comprehensive GSAP animation validation: 60fps compliance, visual verification, console checks, accessibility gates using Chrome DevTools MCP'
-installed_path: '{project-root}/bmad/gsap-excellence/workflows/validate-complete'
-instructions: '{installed_path}/instructions.md'
-template: '{installed_path}/template.md'
+name: validate-complete
+description: "Comprehensive GSAP animation validation: 60fps compliance, visual verification, console checks, accessibility gates using Chrome DevTools MCP"
+author: "GSAP Excellence Engine - The Tech Director"
+version: "2.0.0-premium"
+complexity: "high"
+standalone: false  # Agent-context-dependent workflow (only callable from Tech Director agent menu)
 
-# Web bundle configuration for portability
-web_bundle:
-  - "{installed_path}/instructions.md"
-  - "{installed_path}/template.md"
-  - "{config_source}"
-
-default_output_file: '{output_folder}/gsap-validation-report-{timestamp}.md'
-
-# Standard config block
-config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
-output_folder: '{config_source}:output_folder'
-user_name: '{config_source}:user_name'
-communication_language: '{config_source}:communication_language'
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
 date: system-generated
 timestamp: system-generated
 
-standalone: false  # Agent-context-dependent workflow (Tech Director only)
+# Workflow Metadata
+metadata:
+  agent: 'gsap-tech-director'
+  priority: 'P1'
+  research_intensity: 'high'
+  estimated_duration: '20-30 minutes'
+  persona: 'validation-engineer'
+  validation_approach: 'systematic-5-part-chrome-devtools'
+
+# Required MCP Servers
+required_mcp:
+  - chrome_devtools  # CRITICAL: Performance profiling, CPU throttling, visual validation
+  - archon  # GSAP knowledge base (89 sources) - Validation best practices
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '5.5'  # Optimize Animations for 60fps (frame budgets, paint time)
+  - '6.1'  # Respecting prefers-reduced-motion (MANDATORY accessibility)
+  - '8.9'  # Pitfall: Not Testing on Different Devices
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - validation guides)
+  - '06ecb8dc74a38966'  # Chrome DevTools documentation (performance testing)
+  - '72a7518336415f26'  # web.dev performance guides
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Validation-specific Deep-Research files:
+# - 22-55-optimize-animations-for-60fps.md (Section 5.5)
+# - 24-61-respecting-prefers-reduced-motion.md (Section 6.1 - MANDATORY)
+# - 42-pitfall-89-not-testing-on-different-devices.md (Pitfall 8.9)
+
+# Chrome DevTools Integration (CRITICAL for this workflow)
+chrome_devtools_capabilities:
+  - navigate_page  # Load page for testing
+  - take_screenshot  # Visual state capture (desktop + mobile viewports)
+  - list_console_messages  # Error/warning detection
+  - evaluate_script  # Runtime checks (prefers-reduced-motion, memory usage)
+  - performance_start_trace  # Begin performance recording
+  - performance_stop_trace  # End performance recording + analysis
+  - emulate_cpu  # CPU throttling (4x mid-range, 6x low-end, 20x extreme)
+  - resize_page  # Mobile viewport emulation
+
+agents:
+  primary: "gsap-tech-director"
+  supporting: "gsap-editor"  # For timing refinement post-validation
+
+installed_path: "{module_root}/workflows/validate-complete"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+default_output_file: "{output_folder}/validation-report-{timestamp}.md"
+
+inputs:
+  page_url:
+    description: "Dev server URL or live page URL for Chrome DevTools testing"
+    required: true
+    type: "url"
+
+  animation_description:
+    description: "What animation is being validated? (e.g., 'Hero parallax scroll')"
+    required: true
+    type: "text"
+
+  target_devices:
+    description: "Target device profile (desktop, mobile, both)"
+    required: true
+    type: "classification"
+    default: "both"
+
+  test_conditions:
+    description: "Performance test conditions (normal, throttled, both)"
+    required: true
+    type: "classification"
+    default: "both"
+
+outputs:
+  performance_metrics:
+    format: "FPS results across 3 throttle levels (high/mid/low-end)"
+    type: "metrics"
+
+  visual_validation:
+    format: "Screenshots (desktop/mobile) with pass/fail assessment"
+    type: "screenshots"
+
+  console_validation:
+    format: "Console errors/warnings with zero-tolerance enforcement"
+    type: "diagnostic"
+
+  accessibility_validation:
+    format: "prefers-reduced-motion compliance (MANDATORY)"
+    type: "compliance"
+
+  code_quality_assessment:
+    format: "Cleanup, memory leaks, browser compatibility"
+    type: "analysis"
+
+  validation_report:
+    format: "Comprehensive 5-part validation report with final verdict"
+    type: "document"
+
+success_criteria:
+  - "60fps sustained on high-end (≥55fps minimum)"
+  - "60fps sustained on mid-range (4x CPU throttle)"
+  - "30fps minimum on low-end (6x CPU throttle)"
+  - "Zero console errors (MANDATORY)"
+  - "Zero console warnings (MANDATORY)"
+  - "prefers-reduced-motion fallback present (MANDATORY)"
+  - "No memory leaks detected (<5MB growth)"
+  - "Visual validation passed (no glitches)"
+
+# Performance Standards (GSAP Excellence - 2025)
+performance_standards:
+  fps:
+    high_end: 60  # No throttling
+    mid_range: 60  # 4x CPU throttle (GSAP 2024 benchmark)
+    low_end: 30   # 6x CPU throttle (minimum acceptable)
+    extreme_test: 20  # 20x CPU throttle (optional - 2025 extreme low-end)
+
+  timing:
+    frame_budget_total: 16.67  # ms (1000ms / 60fps)
+    scripting_max: 8  # ms per frame
+    style_layout_max: 4  # ms per frame
+    paint_max: 4  # ms per frame (Deep-Research 5.5)
+
+  console:
+    errors: 0  # REQUIRED
+    warnings: 0  # REQUIRED
+
+  memory:
+    growth_acceptable: 5  # MB (sustained growth <5MB = PASS)
+    growth_warning: 10  # MB (5-10MB = WARNING)
+
+# Testing Environment (2025 Best Practices)
+testing_environment:
+  browser_mode: "Incognito or Guest Mode"  # Eliminates extension noise (Chrome DevTools 2025)
+  chrome_version: "129+"  # Core Web Vitals now shown in DevTools
+  viewport_desktop: "1920×1080"
+  viewport_mobile: "375×667"  # iPhone size
+
+estimated_duration: "20-30 minutes"
+
+web_bundle:
+  name: 'validate-complete'
+  description: 'Comprehensive GSAP animation validation: 60fps compliance, visual verification, console checks, accessibility gates using Chrome DevTools MCP'
+  path: 'bmad/gsap-excellence/workflows/validate-complete'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/validate-complete/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/validate-complete/instructions.md'
+    - 'bmad/gsap-excellence/workflows/validate-complete/template.md'
+    - 'bmad/gsap-excellence/workflows/validate-complete/checklist.md'

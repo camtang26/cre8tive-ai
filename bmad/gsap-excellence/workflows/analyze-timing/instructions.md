@@ -288,76 +288,298 @@ framework_count
 </step>
 
 <step n="3" goal="Motion Analysis - Synthesize Research Findings">
-<action>Now that research is complete, synthesize findings into actionable timing recommendations</action>
+<action>Now that research is complete, synthesize findings into actionable timing recommendations using Deep-Research frameworks and Archon patterns</action>
 
-### 3.1: Analyze Easing Options
+### 3.1: Easing Curve Selection (Research-Backed Framework)
 
-Based on research, evaluate easing curves for this animation:
+**Apply Deep-Research Section 2.1 easing expertise to select optimal curves:**
 
-**From Archon + Deep-Research, identify:**
-- **Primary easing recommendation** - Most appropriate for {{desired_feel}}
-- **Alternative options** - 2-3 other valid choices with trade-offs
-- **Anti-patterns** - Easings to AVOID for this animation type
+#### Easing Categories by Desired Feel (Verbatim from Section 2.1):
 
-**Easing Categories (from Section 2.1 research):**
+**Smooth & Subtle (Gentle, Premium, Barely Noticeable):**
+- **power1.out** - GSAP's default, gentle ease-out
+- **power2.inOut** - *"Use power2.inOut for gentle, smooth transitions"* (Source: 05-21-core-gsap-concepts.md)
+- **sine.inOut** - Sinusoidal ease, very smooth
+- **Use when:** Luxury brands, professional interfaces, background animations
+- **Example:** Subtle fade-in of testimonial cards, smooth menu transitions
+
+**Dramatic & Bold (Hero Moments, Attention-Grabbing):**
+- **power4.out** - *"Use power4.out or expo.out for a dramatic, fast-to-slow entrance"* (Source: 05-21-core-gsap-concepts.md)
+- **expo.out** - Exponential ease-out, very dramatic deceleration
+- **circ.inOut** - Circular ease, strong acceleration/deceleration
+- **Use when:** Hero sections, call-to-action animations, important state changes
+- **Example:** Hero title entrance, modal open animation, product reveal
+
+**Bouncy & Playful (Personality, Fun, Gamified):**
+- **back.out(1.2-1.7)** - Slight overshoot then settle (adjustable overshoot amount)
+- **elastic.out(1, 0.3)** - Spring-like bounce (strength, duration parameters)
+- **bounce.out** - *"Use bounce.out or elastic.out for playful, bouncy elements (e.g. cartoonish UI)"* (Source: 05-21-core-gsap-concepts.md)
+- **Use when:** Gamification, children's apps, personality-driven brands, micro-interactions
+- **Example:** Like button bounce, achievement badge animation, playful icon hover
+
+**Quick & Snappy (Instant Feedback, Responsive):**
+- **power2.out** - Quick with short duration (0.2s - 0.3s)
+- **expo.out** - Very fast with short duration (0.15s - 0.25s)
+- **Use when:** Button clicks, micro-interactions, instant user feedback
+- **Example:** Toggle switch, checkbox check animation, ripple effect
+- **Key insight:** *"Premium sites rarely stick to default; they tailor easing per animation"* (Source: 05-21-core-gsap-concepts.md)
+
+**Slow & Cinematic (Luxury, Storytelling, Immersive):**
+- **power2.inOut** - Gentle acceleration and deceleration
+- **power3.out** - Strong deceleration with long duration (1.5s - 3s)
+- **Use when:** Premium brands, storytelling sequences, immersive experiences
+- **Example:** Luxury product reveals, hero image parallax, cinematic page transitions
+
+#### Easing Decision Matrix (Research-Backed):
+
+Based on {{animation_type}} + {{desired_feel}}, select primary easing:
+
+**Decision Process:**
+1. **Match feel to category** - Use easing category framework above
+2. **Verify with Archon patterns** - Cross-reference with researched premium examples
+3. **Test alternatives** - Identify 2-3 alternatives for comparison
+4. **Document rationale** - Explain WHY this easing matches desired feel (cite research)
+
+**Anti-Patterns (Avoid These):**
+- ❌ **linear** - Only for scrubbing animations or precise timing control (not organic motion)
+- ❌ **Default ease** - *"Premium sites rarely stick to default"* - always customize
+- ❌ **Random easing** - Every easing choice should have intentional rationale
+- ❌ **Over-bouncing** - back.out(3+) or elastic with high strength feels unnatural
+
+### 3.2: Duration Selection (Research-Backed Framework)
+
+**Apply Animation Type duration guidelines from Archon research:**
+
+#### Duration Guidelines by Animation Type:
+
+**Micro-interactions (Buttons, Toggles, Icons):**
+- **Range:** 0.2s - 0.4s
+- **Rationale:** Instant feedback, responsive feel, perceived performance
+- **Research backing:** Fast interactions convey responsiveness (Disney Principle #8 - Timing)
+- **Example:** Button click: 0.25s with power2.out
+
+**Button Hovers:**
+- **Range:** 0.15s - 0.3s
+- **Rationale:** Must be faster than click to feel responsive, not laggy
+- **Research backing:** Hover should be subtle, not intrusive
+- **Example:** Hover state: 0.2s with power1.out
+
+**Scroll Reveals (Elements Appearing on Scroll):**
+- **Range:** 0.6s - 1.2s
+- **Rationale:** Noticeable but not slow, matches scroll speed perception
+- **Research backing:** Coordinated with scroll velocity for natural feel
+- **Example:** Card reveal: 0.8s with power2.out
+
+**Page Load Sequences (Intro Animations, Content Reveals):**
+- **Range:** 0.8s - 1.5s per element
+- **Rationale:** Orchestrated timing, allows user to absorb each element
+- **Research backing:** Timeline sequencing (Section 2.2 - modular composition)
+- **Example:** Hero sequence: 1.2s per layer with 0.3s staggers
+
+**Hero Animations (Cinematic, Storytelling):**
+- **Range:** 1.5s - 3s
+- **Rationale:** Slow enough to appreciate, fast enough not to bore
+- **Research backing:** Cinematic timing (film principle: slower = weightier)
+- **Example:** Hero title reveal: 2s with power3.out
+
+**Physics-Based Motion (Springs, Bounces):**
+- **Range:** Variable (depends on spring/bounce parameters)
+- **Rationale:** Match real-world physics (mass, tension, friction)
+- **Research backing:** Elastic/bounce eases simulate physical motion
+- **Example:** Spring bounce: elastic.out(1, 0.5) with auto-calculated duration
+
+#### Duration Adjustment Factors (Contextual):
+
+**Brand Personality:**
+- **Luxury brands:** +20-30% slower (conveys premium, weightiness)
+- **Tech/startup brands:** -20-30% faster (conveys speed, efficiency)
+- **Playful brands:** Varies by animation (bounces can be longer)
+
+**User Expectations:**
+- **E-commerce:** Faster (users expect responsiveness)
+- **Portfolio/agency:** Slower (storytelling, immersive)
+- **SaaS/tools:** Snappier (productivity-focused)
+
+**Device Context:**
+- **Mobile:** Consider -10-20% faster (perceived performance on slower devices)
+- **Desktop:** Standard timing (users expect richer animations)
+- **Low-end devices:** Reduce duration OR disable decorative animations
+
+**Research Insight:** *"GSAP uses a ticker (built on requestAnimationFrame) to update values every frame; by default it attempts 60fps"* (Source: 05-21-core-gsap-concepts.md)
+- This means smooth motion requires frame budget consideration
+- Duration should allow for smooth interpolation (not too fast for 60fps rendering)
+
+### 3.3: Timeline Coordination (If Multiple Elements)
+
+**Apply Deep-Research Section 2.2 timeline techniques for coordinated timing:**
+
+#### Timeline vs Individual Tweens Decision (Research-Backed):
+
+**Use Timeline When (Section 2.2):**
+- Multiple elements need coordination
+- Overlapping animations (start second tween before first finishes)
+- Complex sequencing (A → B → C with specific delays)
+- Need to control sequence as unit (pause, reverse, timeScale)
+
+**Timeline Pattern (Verbatim from Section 2.2):**
+*"Always consider using a gsap.timeline for multi-step animations. It provides far more readability and control than scattered tweens with delays."* (Source: 05-21-core-gsap-concepts.md)
+
+**Relative Positioning Syntax (Section 2.2):**
+```javascript
+const tl = gsap.timeline();
+
+tl.to(".element1", { x: 100, duration: 1 })         // Step 1: Move element1
+  .to(".element2", { x: 100, duration: 1 }, "<")    // "<" starts with previous (simultaneous)
+  .to(".element3", { x: 100, duration: 1 }, "<0.5") // Start 0.5s after element2's start (overlap)
+  .to(".element4", { x: 100, duration: 1 }, "+=0.3"); // Start 0.3s after element3 finishes (delay)
 ```
-Smooth & Subtle: power1.out, power2.inOut, sine.inOut
-Dramatic & Bold: power4.out, expo.out, circ.inOut
-Bouncy & Playful: back.out(1.2-1.7), elastic.out(1, 0.3), bounce.out
-Quick & Snappy: power2.out, expo.out (short duration)
-Slow & Cinematic: power2.inOut, power3.out (long duration)
+
+**Key Insight from Section 2.2:**
+*"Represent a multi-step animation as a timeline rather than a disjoint set of tweens - this results in code that mirrors an animator's thought process (first this, then that, meanwhile this other thing, etc.)"* (Source: 06-22-mastering-gsap-timeline-techniques.md)
+
+#### Stagger Patterns for Multiple Elements:
+
+**Simple Stagger (Section 2.1):**
+```javascript
+gsap.from(".list-item", {
+  y: 20,
+  opacity: 0,
+  stagger: 0.1 // Each element starts 0.1s after previous
+});
 ```
 
-### 3.2: Duration Recommendations
-
-Based on research and animation type:
-
-**Animation Type Duration Guidelines (from Archon KB):**
-```
-Micro-interactions: 0.2s - 0.4s (instant feedback)
-Button hovers: 0.15s - 0.3s (responsive, not laggy)
-Scroll reveals: 0.6s - 1.2s (noticeable but not slow)
-Page load sequences: 0.8s - 1.5s per element (orchestrated)
-Hero animations: 1.5s - 3s (cinematic, storytelling)
-Physics-based: Variable (depends on spring/bounce parameters)
-```
-
-**Adjust based on:**
-- User expectations (faster for interactions, slower for storytelling)
-- Brand personality (luxury = slower, tech = snappier)
-- Context (mobile may need faster for perceived performance)
-
-### 3.3: Timing Charts (Film Principle Application)
-
-Apply film editing principles to timing:
-
-**Walter Murch's "Rule of Six" (adapted for web):**
-1. **Emotion** - Does timing convey right feeling?
-2. **Story** - Does timing support narrative flow?
-3. **Rhythm** - Does timing create visual rhythm?
-4. **Eye Trace** - Does timing guide viewer's eye?
-5. **2D Space** - Does timing respect screen layout?
-6. **3D Space** - Does timing create depth illusion?
-
-**Frame-by-Frame Breakdown Example:**
-```
-Example: 1.0s animation with power2.out easing
-- Frame 0 (0%): Start - Element at initial state
-- Frame 6 (25%): Fast initial movement (ease-out acceleration)
-- Frame 12 (50%): Slowing down (halfway there, decelerating)
-- Frame 18 (75%): Slow crawl to final position
-- Frame 24 (100%): Settle - Element at final state
+**Advanced Stagger (Section 2.1):**
+```javascript
+gsap.from(".grid-item", {
+  y: 50,
+  opacity: 0,
+  stagger: {
+    each: 0.2,           // 0.2s between each element
+    from: "center",      // Start from center, radiate outward
+    grid: "auto",        // Auto-detect grid layout
+    ease: "power1.in"    // Ease the stagger timing itself
+  }
+});
 ```
 
-### 3.4: Custom Bezier Recommendations (If Needed)
+**When to Use Staggers:**
+- Gallery/grid reveals (visual interest, guides eye)
+- Text line reveals (reading rhythm)
+- List animations (sequential appearance)
+- Navigation items (orchestrated entrance)
 
-If standard easings insufficient, recommend CustomEase:
+### 3.4: Timing Charts - Frame-by-Frame Analysis (Film Principle Application)
 
-**From Archon research, provide:**
-- Bezier curve values (x1, y1, x2, y2)
-- Visual representation (text-based curve chart)
-- GSAP CustomEase.create() code
-- When to use vs. standard easing
+**Apply film editing principles to timing using Walter Murch's "Rule of Six":**
+
+#### Walter Murch's Rule of Six (Adapted for Web Animation):
+
+1. **Emotion (51%)** - Does timing convey the right feeling?
+   - Fast timing = excitement, urgency, energy
+   - Slow timing = weight, luxury, contemplation
+   - Match timing to emotional intent
+
+2. **Story (23%)** - Does timing support narrative flow?
+   - Sequenced reveals guide user through story
+   - Overlapping animations create connections
+   - Timing supports information hierarchy
+
+3. **Rhythm (10%)** - Does timing create visual rhythm?
+   - Consistent timing creates predictability
+   - Varied timing creates interest
+   - Stagger timing creates rhythm patterns
+
+4. **Eye Trace (7%)** - Does timing guide viewer's eye?
+   - Animations direct attention sequentially
+   - Motion attracts eye faster than static
+   - Timing controls viewing order
+
+5. **2D Space (5%)** - Does timing respect screen layout?
+   - Elements closer in space can have shorter delays
+   - Elements farther apart need timing separation
+   - Timing reinforces spatial relationships
+
+6. **3D Space (4%)** - Does timing create depth illusion?
+   - Foreground elements move faster (parallax)
+   - Background elements move slower
+   - Layered timing creates depth perception
+
+#### Frame-by-Frame Breakdown Framework:
+
+**For power2.out easing (common ease-out curve):**
+
+```
+1.0s animation with power2.out easing (60fps = 60 frames)
+
+Frame 0 (0.0s, 0%):   Initial state - Element at starting position
+                      Motion: None yet (tween just starting)
+
+Frame 15 (0.25s, 25%): Fast initial movement (ease-out acceleration phase)
+                       Motion: Moved ~44% of total distance (faster than linear)
+                       Visual: Noticeable momentum, element "launches"
+
+Frame 30 (0.5s, 50%):  Slowing down (deceleration phase begins)
+                       Motion: Moved ~75% of total distance (well past halfway)
+                       Visual: Speed decreasing, approaching target
+
+Frame 45 (0.75s, 75%): Slow crawl (strong deceleration)
+                       Motion: Moved ~94% of total distance (almost there)
+                       Visual: Gentle approach, settling motion
+
+Frame 60 (1.0s, 100%): Final state - Element at target position
+                       Motion: Complete, no overshoot (ease-out settles perfectly)
+                       Visual: Smooth stop, no jank
+```
+
+**Disney Animation Principle #6: Ease In and Ease Out (Applied):**
+*"Nothing in nature starts or stops instantaneously. Acceleration and deceleration create natural, believable motion."* (Referenced in Section 2.1)
+
+- **Ease-out (power2.out):** Fast start → slow stop (most common for UI)
+- **Ease-in (power2.in):** Slow start → fast stop (less common, feels unnatural for entrances)
+- **Ease-in-out (power2.inOut):** Slow start → fast middle → slow stop (smooth, cinematic)
+
+**Disney Animation Principle #8: Timing (Applied):**
+*"The speed of an action defines its weight and size. Fast actions feel light, slow actions feel heavy."* (Referenced in Section 2.1)
+
+- Hero title (slow, 2s): Conveys importance, weight, significance
+- Button hover (fast, 0.2s): Conveys lightness, responsiveness
+- Match timing to perceived weight of element
+
+### 3.5: Custom Bezier Curves (Advanced - If Standard Easings Insufficient)
+
+**From Archon research, recommend CustomEase when:**
+- Need very specific timing curve (match reference animation exactly)
+- Standard easings don't match desired feel
+- Mimicking real-world physics (custom spring curves)
+- Matching brand motion guidelines (specific bezier values)
+
+**CustomEase Pattern:**
+```javascript
+// Register custom easing curve
+gsap.registerPlugin(CustomEase);
+CustomEase.create("myCustomEase", "M0,0 C0.4,0 0.2,1 1,1");
+
+// Use in animation
+gsap.to(".element", {
+  x: 100,
+  ease: "myCustomEase",
+  duration: 1
+});
+```
+
+**Bezier Curve Values (x1, y1, x2, y2):**
+- **Gentle ease-out:** (0.25, 0.1, 0.25, 1) - Similar to power2.out
+- **Dramatic ease-out:** (0.16, 1, 0.3, 1) - Similar to expo.out
+- **Custom overshoot:** (0.68, -0.55, 0.27, 1.55) - Back overshoot
+
+**Visual Bezier Curve Tools:**
+- cubic-bezier.com - Visual bezier editor
+- GSAP CustomEase Builder - Official GSAP tool
+- Matthew Lein's Ceaser - Easing comparison tool
+
+**When to Use Standard vs Custom:**
+- **Standard (95% of cases):** GSAP's built-in easings cover most needs
+- **Custom (5% of cases):** Specific brand requirements, exact timing match, unique feel
 
 <template-output>
 easing_name,
@@ -390,7 +612,15 @@ how_speed_duration_supports_motion,
 how_acceleration_deceleration_feels_natural,
 why_this_curve_matches_desired_feel,
 why_this_length_feels_right,
-if_multiple_elements_how_timing_coordinates
+if_multiple_elements_how_timing_coordinates,
+disney_principle_6_ease_in_out_applied,
+disney_principle_8_timing_weight_applied,
+murch_rule_of_six_emotion_percent,
+murch_rule_of_six_story_percent,
+murch_rule_of_six_rhythm_percent,
+section_2_1_easing_category_used,
+section_2_2_timeline_technique_if_applicable,
+frame_by_frame_breakdown_if_complex
 </template-output>
 </step>
 

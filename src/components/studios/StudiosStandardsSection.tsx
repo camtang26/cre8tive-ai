@@ -1,4 +1,17 @@
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+
 export function StudiosStandardsSection() {
+  // REFINED: Standard cinematic timing (1.0s, power3.out)
+  // Quality standards should feel stable, authoritative, not rushed
+  useSectionReveal({
+    selector: '[data-reveal-standard]',
+    stagger: 0.05,  // Standard 50ms
+    duration: 1.0,  // REFINED: Was 0.8s, now 1.0s for cinematic consistency
+    distance: 60,
+    ease: "power3.out",
+    start: "top 80%"
+  });
+
   return (
     <section
       id="studios-standards"
@@ -17,6 +30,7 @@ export function StudiosStandardsSection() {
             <div className="absolute inset-0 bg-gradient-to-br from-black/45 via-transparent to-black/55 opacity-70" aria-hidden />
             <div className="relative z-10 space-y-8 px-8 py-20 md:space-y-10 md:px-14">
               <h2
+                data-reveal-standard
                 id="studios-standards-title"
                 className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.2rem] md:leading-[1.08]"
                 data-motion="standards-title"
@@ -24,14 +38,14 @@ export function StudiosStandardsSection() {
                 This Isn't for Everyone
               </h2>
               <div className="space-y-6 text-lg leading-relaxed text-studios-body md:text-[1.2rem]" data-motion="standards-body">
-                <p>
-                  If you need broadcast-grade work that meets real production standards, we're one of the few studios that can deliver. If you need it rushed and cheap, we're not the right fit.
+                <p data-reveal-standard>
+                  If you need broadcast-quality work that meets real production standards, we're one of the few studios that can deliver. If you need it rushed and cheap, we're not the right fit.
                 </p>
-                <p>
+                <p data-reveal-standard>
                   We work with agencies serving premium clients. Directors managing complex productions. Businesses that can't compromise on output quality.
                 </p>
-                <p>
-                  Quality takes mastery, time, and iteration. Cre8tive Studios has been refining this since 2023.
+                <p data-reveal-standard>
+                  Quality takes mastery, time, and iteration. So does security. We don't compromise on either. Cre8tive Studios has been refining both since 2023.
                 </p>
               </div>
             </div>

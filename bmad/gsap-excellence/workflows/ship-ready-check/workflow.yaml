@@ -1,80 +1,326 @@
 # ship-ready-check Workflow - GSAP Excellence Engine
-# Production readiness checklist
-# Agent: Tech Director
+# THE final production gate - comprehensive 6-part validation protocol
+# Agent: Tech Director (production gatekeeper)
+# Version: 2.0.0-premium (research-backed with mandatory gates)
+# Complexity: CRITICAL - This is THE green light for production deployment
 
 name: 'ship-ready-check'
-description: 'Production readiness checklist for GSAP animations using Deep-Research Sections 6.1-6.3 and 2024-2025 deployment standards'
+description: 'Final production readiness check: 6-part systematic validation protocol backed by Deep-Research Sections 5.1-5.6 (Performance) and 6.1-6.4 (Accessibility & Production Standards). MANDATORY research gates ensure no corner is cut before production deployment.'
+author: 'GSAP Excellence Engine - Tech Director'
+version: '2.0.0-premium'
 installed_path: '{project-root}/bmad/gsap-excellence/workflows/ship-ready-check'
 instructions: '{installed_path}/instructions.md'
 template: '{installed_path}/template.md'
+validation: '{installed_path}/checklist.md'
 
 # Web bundle configuration for portability
 web_bundle:
   - "{installed_path}/instructions.md"
   - "{installed_path}/template.md"
+  - "{installed_path}/checklist.md"
   - "{config_source}"
 
 default_output_file: '{output_folder}/gsap-ship-ready-report-{timestamp}.md'
 
 # Standard config
 config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
+module_root: '{project-root}/bmad/gsap-excellence'
 output_folder: '{config_source}:output_folder'
 user_name: '{config_source}:user_name'
 communication_language: '{config_source}:communication_language'
 date: system-generated
 timestamp: system-generated
 
-standalone: false  # Tech Director only
+standalone: false  # Tech Director only (final production gatekeeper)
+autonomous: false  # MANDATORY research gates require user approval
 
 metadata:
   agent: 'tech-director'
-  priority: 'P1'
-  complexity: 'medium'
-  research_intensity: 'medium'
-  estimated_duration: '15-20 minutes'
-  output_type: 'ship-readiness-report'
+  priority: 'P0'  # CRITICAL - final production gate
+  complexity: 'critical'  # Highest complexity - comprehensive validation
+  research_intensity: 'maximum'  # 10 Deep-Research sections + Archon MCP
+  estimated_duration: '20-30 minutes'  # Thorough validation takes time
+  output_type: 'production-readiness-report'
+  workflow_type: 'validation-gate'  # Blocking gate - cannot skip
 
+# Required MCP Servers
 required_mcp:
-  - archon  # Production best practices
-  - chrome-devtools  # Final validation (optional)
+  - archon  # Production best practices, deployment patterns, cross-browser quirks
+  - chrome-devtools  # Performance profiling, visual validation, console checks (MANDATORY)
 
-# Deep-Research Sections
+# Deep-Research Sections - Complete Production Framework
 deep_research_sections:
-  - '6.1'  # Browser Compatibility
-  - '6.2'  # Accessibility
-  - '6.3'  # Production Readiness
+  # Performance Framework (Sections 5.1-5.6)
+  - '5.1'  # GPU Rule - transform/opacity only (FOUNDATION)
+  - '5.2'  # Main Thread - avoid long tasks, frame budget
+  - '5.3'  # Debugging Jank - identify bottlenecks
+  - '5.4'  # Memory Management - leak detection, cleanup patterns
+  - '5.5'  # 60fps Optimization - 16ms frame budget, autoAlpha, layer optimization
+  - '5.6'  # WebGL/Canvas - when to use alternative approaches
 
-# Production Readiness Checklist (6 Categories)
-readiness_categories:
+  # Accessibility & Production Framework (Sections 6.1-6.4)
+  - '6.1'  # prefers-reduced-motion (MANDATORY for production)
+  - '6.2'  # Motion Accessibility - flashing content, focus management, screen readers
+  - '6.3'  # Styling Considerations - production-ready styling patterns
+  - '6.4'  # User Education & Control - pause mechanisms, user preferences
+
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Archon MCP Priority Sources
+archon_sources:
+  priority:
+    - 'b9f6b322298feb21'  # gsap.com official docs (production deployment)
+    - '6a6860cfc96e173b'  # ScrollTrigger performance guide
+    - 'd4e8c2a1f5b9e3d7'  # GSAP accessibility resources
+    - 'a3f7d9e2c8b4a6f1'  # Browser compatibility patterns
+    - 'e9d2f4a7c3b8e5d1'  # Production checklist templates
+
+  fallback:
+    - 'web-search'  # 2025 production best practices if Archon lacks recent patterns
+
+# Production Readiness Gates (6-Part Framework)
+# Each gate backed by Deep-Research frameworks and must PASS for deployment
+
+production_gates:
+  # Gate 1: Performance Validation
   performance:
-    - '60fps on target devices'
-    - 'Paint time <16ms'
-    - 'JS execution <5ms'
-    - 'No memory leaks'
+    framework: 'Deep-Research 5.1-5.6'
+    mandatory_criteria:
+      - criterion: '60fps on target devices'
+        threshold: 'avg >= 60fps, min >= 55fps'
+        deep_research: '5.5 - 16ms frame budget'
+      - criterion: 'Paint time per frame'
+        threshold: '<16ms per frame'
+        deep_research: '5.5 - Frame time breakdown'
+      - criterion: 'JS execution time'
+        threshold: '<5ms per frame'
+        deep_research: '5.5 - Scripting budget'
+      - criterion: 'No memory leaks'
+        threshold: 'Memory stable across 5+ animation cycles'
+        deep_research: '5.4 - Garbage collection patterns'
+      - criterion: 'GPU-accelerated properties only'
+        threshold: 'transform/opacity, no layout triggers'
+        deep_research: '5.1 - GPU Rule'
+      - criterion: 'Layer count reasonable'
+        threshold: '<10 will-change layers'
+        deep_research: '5.1 - Layer optimization'
 
-  visual_quality:
-    - 'No visual glitches'
-    - 'Responsive behavior'
-    - 'Cross-browser compatibility'
+    chrome_devtools_validation: true  # MANDATORY - cannot validate performance without profiling
 
-  console_health:
-    - 'Zero errors'
-    - 'Zero warnings'
-    - 'Clean console output'
+  # Gate 2: Visual Quality
+  visual:
+    framework: 'Chrome DevTools screenshots + manual inspection'
+    mandatory_criteria:
+      - criterion: 'No visual glitches'
+        validation: 'Screenshot analysis, manual review'
+      - criterion: 'Responsive behavior'
+        validation: 'Mobile (375x667) + Desktop (1920x1080) screenshots'
+      - criterion: 'Cross-browser compatibility'
+        validation: 'Chrome, Firefox, Safari tested'
+      - criterion: 'No layout shifts'
+        validation: 'CLS score acceptable, no jumps during animation'
+
+    screenshot_checkpoints:
+      - 'Before animation start'
+      - 'Mid-animation (key frame)'
+      - 'After animation complete'
+      - 'Mobile viewport (if responsive)'
+
+  # Gate 3: Console Health
+  console:
+    framework: 'Chrome DevTools console monitoring'
+    mandatory_criteria:
+      - criterion: 'Zero JavaScript errors'
+        threshold: 'errors_count = 0 (BLOCKING)'
+      - criterion: 'Zero GSAP warnings'
+        threshold: 'gsap_warnings_count = 0 (BLOCKING)'
+      - criterion: 'Clean console output'
+        threshold: 'No unexpected logs or debug messages'
+
+    chrome_devtools_validation: true  # MANDATORY
+
+  # Gate 4: Accessibility (WCAG Compliance)
+  accessibility:
+    framework: 'Deep-Research 6.1-6.4 + WCAG 2.1 AA'
+    mandatory_criteria:
+      - criterion: 'prefers-reduced-motion fallback'
+        threshold: 'MANDATORY - must be implemented'
+        deep_research: '6.1 - gsap.matchMedia() integration'
+        wcag: '2.3.3 Animation from Interactions (Level AAA recommended)'
+      - criterion: 'No seizure risk'
+        threshold: '<3 flashes per second (WCAG 2.3.1)'
+        deep_research: '6.2 - Flashing content guidelines'
+      - criterion: 'Keyboard navigation (if interactive)'
+        threshold: 'All interactive elements keyboard accessible'
+        deep_research: '6.2 - Focus management'
+      - criterion: 'Focus management proper'
+        threshold: 'Focus moves to modals, returns to trigger'
+        deep_research: '6.2 - Focus patterns'
+      - criterion: 'Pause mechanism (if >5s)'
+        threshold: 'WCAG 2.2.2 - user can pause long animations'
+        deep_research: '6.4 - User control'
+      - criterion: 'Screen reader compatibility'
+        threshold: 'aria-hidden, aria-label used correctly'
+        deep_research: '6.2 - Screen reader visibility'
+
+    wcag_level: 'AA'  # Target WCAG 2.1 Level AA minimum
+
+  # Gate 5: Code Quality
+  code_quality:
+    framework: 'Deep-Research 5.4 (Cleanup) + code review standards'
+    mandatory_criteria:
+      - criterion: 'Cleanup implemented'
+        validation: 'kill() on unmount, ScrollTrigger.getAll().forEach(st => st.kill())'
+        deep_research: '5.4 - Memory management patterns'
+      - criterion: 'Error handling present'
+        validation: 'Try-catch blocks, graceful degradation'
+      - criterion: 'Documentation complete'
+        validation: 'Implementation notes, performance metrics documented'
+      - criterion: 'Code reviewed'
+        validation: 'Peer review or AI review completed'
+
+    review_checklist:
+      - 'No layout-triggering properties animated'
+      - 'autoAlpha used instead of opacity alone'
+      - 'will-change used sparingly (<10 layers)'
+      - 'ScrollTrigger refresh() not called excessively'
+      - 'Canvas used for particle systems (if applicable)'
+
+  # Gate 6: Browser Compatibility
+  browser_compatibility:
+    framework: 'Deep-Research 6.1 + cross-browser testing'
+    mandatory_criteria:
+      - criterion: 'Chrome/Edge tested'
+        threshold: 'Latest stable version'
+      - criterion: 'Firefox tested'
+        threshold: 'Latest stable version'
+      - criterion: 'Safari tested (desktop + iOS)'
+        threshold: 'macOS Safari + iOS Safari 14+'
+      - criterion: 'Mobile browsers tested'
+        threshold: 'iOS Safari + Chrome Android'
+
+    known_quirks:
+      - 'Safari: transform-origin behavior on iOS'
+      - 'Firefox: sometimes different will-change layer behavior'
+      - 'iOS: inertial scrolling + ScrollTrigger coordination'
+
+    fallback_requirements:
+      - 'prefers-reduced-motion fallback (MANDATORY)'
+      - 'Graceful degradation if GSAP fails to load'
+      - 'CSS fallbacks for critical visual states'
+
+# Success Criteria - ALL gates must PASS
+success_criteria:
+  verdict_logic: |
+    ALL 6 gates PASS → 🟢 GREEN LIGHT FOR PRODUCTION
+    ANY gate FAILS → 🔴 BLOCKED - cannot deploy (with specific blockers)
+    ALL gates PASS but warnings → 🟡 CONDITIONAL APPROVAL (deploy with caveats)
+
+  minimum_passing_score:
+    performance: 100  # No performance failures allowed
+    visual: 100  # No visual glitches allowed
+    console: 100  # Zero errors required
+    accessibility: 100  # WCAG AA compliance required
+    code_quality: 90  # Minor documentation gaps acceptable
+    browser_compatibility: 75  # 3+ browsers required
+
+# Production Standards (Specific Thresholds)
+production_standards:
+  performance:
+    fps:
+      normal: { min: 55, target: 60 }
+      throttle_4x: { min: 50, target: 60 }
+      throttle_6x: { min: 30, target: 40 }
+    frame_time:
+      paint_max_ms: 16
+      js_execution_max_ms: 5
+      total_frame_budget_ms: 16
+    memory:
+      growth_rate_max_percent: 10  # <10% growth across 5 cycles
+    layers:
+      will_change_max: 10  # <10 layers recommended
 
   accessibility:
-    - 'prefers-reduced-motion fallback'
-    - 'Keyboard navigation (if interactive)'
-    - 'Focus management'
-    - 'No seizure risks'
+    prefers_reduced_motion: 'MANDATORY'  # Cannot ship without this
+    flashing:
+      max_flashes_per_second: 3  # WCAG 2.3.1
+    pause_mechanism:
+      required_if_duration_exceeds_seconds: 5  # WCAG 2.2.2
+    wcag_level: 'AA'
 
-  code_quality:
-    - 'Cleanup implemented'
-    - 'Error handling'
-    - 'Documentation'
+  browsers:
+    required: ['Chrome', 'Firefox', 'Safari']
+    mobile_required: ['iOS Safari', 'Chrome Android']
+    minimum_versions:
+      chrome: 'Latest - 2'
+      firefox: 'Latest - 2'
+      safari: '14+'
+      ios_safari: '14+'
 
-  browser_compatibility:
-    - 'Chrome/Edge tested'
-    - 'Firefox tested'
-    - 'Safari tested (desktop + iOS)'
-    - 'Mobile browsers tested'
+  console:
+    errors: 0  # Zero tolerance
+    warnings: 0  # Zero tolerance
+    debug_logs: 'None in production'
+
+# Inputs
+inputs:
+  animation_description:
+    description: 'What animation is being shipped?'
+    required: true
+    example: 'Hero section entrance animation with scroll-triggered reveals'
+
+  deployment_target:
+    description: 'Where is this being deployed?'
+    required: true
+    options: ['production', 'staging', 'client-review', 'beta']
+
+  page_url:
+    description: 'Page URL for automated testing (Chrome DevTools MCP)'
+    required: false  # Can be manual validation if no URL
+    example: 'http://localhost:8080 or https://staging.example.com'
+
+  validation_report_path:
+    description: 'Path to validation report from validate-complete workflow (if available)'
+    required: false
+
+# Outputs
+outputs:
+  production_readiness_report:
+    format: 'markdown'
+    sections:
+      - 'Executive Summary'
+      - '6-Part Production Gate Results'
+      - 'Deep-Research Framework Analysis'
+      - 'Chrome DevTools Validation Evidence'
+      - 'Final Verdict (GREEN LIGHT / RED LIGHT)'
+      - 'Deployment Recommendation'
+      - 'Action Items (if BLOCKED)'
+
+  deployment_decision:
+    options: ['APPROVED', 'BLOCKED', 'CONDITIONAL']
+    blocking_on_fail: true  # Workflow must halt if BLOCKED
+
+  blocker_list:
+    description: 'Critical issues preventing production deployment'
+    format: 'prioritized list with Deep-Research citations'
+
+# Validation & Quality Gates
+validation:
+  research_enforcement:
+    mandatory: true  # Research gate CANNOT be skipped
+    blocking: true  # Workflow halts until research complete
+    minimum_sources: 5  # At least 5 Archon searches + all Deep-Research sections
+
+  chrome_devtools_required: true  # Performance/visual/console gates require Chrome DevTools MCP
+
+  manual_review_required: false  # Automated validation sufficient (but recommended)
+
+# Estimated Duration
+estimated_duration: '20-30 minutes'  # Comprehensive validation takes time - cannot rush production gate
+
+# Research Intensity
+research_intensity: 'maximum'
+research_sources:
+  deep_research_sections: 10  # Sections 5.1-5.6, 6.1-6.4
+  archon_searches_minimum: 5  # Production standards, cross-browser, accessibility, deployment
+  web_search_conditional: true  # If Archon lacks 2025-specific patterns

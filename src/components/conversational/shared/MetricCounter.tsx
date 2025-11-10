@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface MetricCounterProps {
   end: number
@@ -34,46 +40,35 @@ export function MetricCounter({
   className = "",
 }: MetricCounterProps) {
   const [count, setCount] = useState(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
-  useEffect(() => {
-    // Only animate once
-    if (hasAnimated) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasAnimated(true)
-
-          // Animation with elastic easing
-          const steps = 60
-          const increment = end / steps
-          let current = 0
-          const stepDuration = duration / steps
-
-          const timer = setInterval(() => {
-            current += increment
-            if (current >= end) {
-              setCount(end)
-              clearInterval(timer)
-            } else {
-              setCount(current)
-            }
-          }, stepDuration)
-
-          return () => clearInterval(timer)
-        }
-      },
-      { threshold: 0.3 }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
+  // 🎬 PREMIUM GSAP COUNTING ANIMATION (replaces setInterval!)
+  useGSAP(() => {
+    if (prefersReducedMotion) {
+      setCount(end) // Show final value immediately
+      return
     }
 
-    return () => observer.disconnect()
-  }, [end, duration, hasAnimated])
+    // Create a counter object to animate
+    const counter = { value: 0 }
+
+    // Animate counter.value from 0 to end
+    gsap.to(counter, {
+      value: end,
+      duration: duration / 1000, // Convert to seconds
+      ease: "power2.out",
+      onUpdate: () => {
+        setCount(counter.value) // Update React state on each frame
+      },
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 80%", // Start when element is 80% down viewport
+        toggleActions: "play none none none", // Play once, don't repeat
+        once: true // Only trigger once
+      }
+    })
+  }, { scope: ref, dependencies: [end, duration, prefersReducedMotion] })
 
   const formattedValue = decimals > 0 ? count.toFixed(decimals) : Math.floor(count).toLocaleString()
 

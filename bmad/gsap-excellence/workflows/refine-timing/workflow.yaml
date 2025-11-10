@@ -1,20 +1,54 @@
 # Refine Timing Workflow - GSAP Excellence Engine
-# Polish animation timing and easing curves
+# Polish animation timing and easing curves with research-backed recommendations
 # Agent: Editor
-# Complexity: Simple
+# Complexity: Medium (Research-intensive)
 
 name: refine-timing
-description: "Polish animation timing, adjust easing curves, perfect choreography"
-author: "GSAP Excellence Engine"
-version: "1.0.0-alpha"
-complexity: "simple"
+description: "Polish animation timing, adjust easing curves, perfect choreography using KB-powered motion analysis"
+author: "GSAP Excellence Engine - The Editor"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from Editor agent menu)
 
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
+
+# Workflow Metadata
+metadata:
+  agent: 'gsap-editor'
+  priority: 'P1'
+  research_intensity: 'high'
+  estimated_duration: '15-25 minutes'
+  persona: 'film-editor-perfectionist'
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources) - PRIMARY for timing/easing patterns
+  - context7  # Latest GSAP API (optional verification)
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '2.1'  # Core GSAP Concepts: Tween, Timeline, Stagger, Ease
+  - '2.2'  # Mastering Timeline Techniques → Timing coordination
+  - '8.3'  # immediateRender timing pitfall (from() tweens flicker prevention)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY)
+  - '1e5cc3bd5125be3c'  # Codrops tutorials
+  - '90c2ef5e8fa816b7'  # FreeFrontend examples
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Note: Sidecar pitfalls-knowledge.md is for debug-animation workflow (10-point framework)
+# This workflow uses specific Deep-Research sections for timing/easing guidance
 
 agents:
   primary: "gsap-editor"
@@ -22,33 +56,61 @@ agents:
 installed_path: "{module_root}/workflows/refine-timing"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false
+validation: "{installed_path}/checklist.md"
 
-default_output_file: "{output_folder}/gsap-timing-refinement-{{date}}.md"
+default_output_file: "{output_folder}/timing-refinement-{timestamp}.md"
 
 inputs:
   animation_code:
-    description: "Animation code to refine"
+    description: "Animation code to refine (GSAP timeline or tween)"
     required: true
+    type: "code"
 
-  timing_issues:
-    description: "What feels wrong? (too fast, too slow, robotic, awkward)"
+  animation_type:
+    description: "Type of animation (scroll reveal, micro-interaction, hero sequence, etc.)"
+    required: true
+    type: "classification"
+
+  current_timing:
+    description: "Current duration and easing (if known)"
     required: false
+    type: "technical_details"
+
+  desired_feel:
+    description: "Desired emotional quality (smooth & subtle, dramatic & bold, bouncy & playful, etc.)"
+    required: true
+    type: "design_intent"
+
+  brand_context:
+    description: "Brand personality and constraints"
+    required: false
+    type: "context"
 
 outputs:
   refined_code:
     format: "Animation with refined timing and easing"
+    type: "code"
 
   timing_analysis:
-    format: "Analysis of timing improvements"
+    format: "Frame-by-frame breakdown and motion analysis"
+    type: "analysis"
 
-estimated_duration: "10-15 minutes"
+  research_citations:
+    format: "Archon sources and Deep-Research sections consulted"
+    type: "documentation"
+
+  easing_recommendations:
+    format: "Primary recommendation + 2-3 alternatives with trade-offs"
+    type: "recommendations"
+
+estimated_duration: "15-25 minutes"
 
 web_bundle:
   name: 'refine-timing'
-  description: 'Polish animation timing, adjust easing curves, perfect choreography'
+  description: 'Polish animation timing, adjust easing curves, perfect choreography using KB-powered motion analysis'
   path: 'bmad/gsap-excellence/workflows/refine-timing'
   web_bundle_files:
     - 'bmad/gsap-excellence/workflows/refine-timing/workflow.yaml'
     - 'bmad/gsap-excellence/workflows/refine-timing/instructions.md'
     - 'bmad/gsap-excellence/workflows/refine-timing/template.md'
+    - 'bmad/gsap-excellence/workflows/refine-timing/checklist.md'

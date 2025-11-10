@@ -15,7 +15,7 @@ export const StudiosHero = () => {
   const heroRef = useRef<HTMLElement>(null)
 
   const [isVideoReady, setIsVideoReady] = useState(false)
-  const [pointerActive, setPointerActive] = useState(false)
+  const [pointerActive, setPointerActive] = useState(true)
 
   const isMobile = useIsMobile()
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -37,16 +37,15 @@ export const StudiosHero = () => {
       const y = ((event.clientY - rect.top) / rect.height) * 100
       heroRef.current.style.setProperty("--pointer-x", `${x}%`)
       heroRef.current.style.setProperty("--pointer-y", `${y}%`)
-      setPointerActive(true)
+    if (!pointerActive) setPointerActive(true)
     },
-    []
+    [pointerActive]
   )
 
   const handleHeroPointerLeave = useCallback(() => {
     if (!heroRef.current) return
     heroRef.current.style.setProperty("--pointer-x", "50%")
     heroRef.current.style.setProperty("--pointer-y", "50%")
-    setPointerActive(false)
   }, [])
 
   const handlePrimaryPointerMove = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {
@@ -110,9 +109,8 @@ export const StudiosHero = () => {
       {/* Atmospheric overlays */}
       <div className="pointer-events-none absolute inset-0 -z-30" style={{ transform: 'translate3d(0, 0, 0)', willChange: 'auto' }}>
         <div className="absolute inset-0 bg-studios-hero-base" />
-        <div className="absolute inset-0 bg-studios-hero-spotlight opacity-70 md:opacity-80" />
-        <div className="absolute inset-0 bg-studios-hero-rim blur-[80px] opacity-70" />
-        <div className="hero-aperture-overlay" aria-hidden />
+        <div className="absolute inset-0 bg-studios-hero-spotlight opacity-35 md:opacity-45" />
+        <div className="absolute inset-0 bg-studios-hero-rim blur-[80px] opacity-28" />
         <div className="studios-hero-particles" />
         <div className="studios-hero-noise" />
       </div>
@@ -122,29 +120,24 @@ export const StudiosHero = () => {
       </div>
 
       <div className="relative z-10">
-        <div className="container mx-auto flex min-h-[90vh] flex-col justify-center gap-12 px-4 py-24 xl:min-h-[94vh]">
-          <div className="hero-curve-mask flex flex-col gap-8 max-w-3xl lg:self-end lg:mr-[27vw]" data-motion="hero.copy">
-            <div className="inline-flex w-fit items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-studios-body" data-motion="hero-badge">
-              <span className="h-2 w-2 rounded-full bg-studios-accent shadow-[0_0_12px_rgba(49,196,255,0.6)]" />
-              Mastering AI Production Since 2023
-            </div>
-
-            <div className="space-y-6">
+        <div className="container mx-auto flex min-h-[90vh] flex-col justify-center gap-12 px-4 py-16 xl:min-h-[94vh]">
+          <div className="hero-curve-mask flex flex-col gap-10 max-w-4xl lg:self-end lg:mr-[27vw]" data-motion="hero.copy">
+            <div className="space-y-8">
               <h1
                 id="studios-hero-title"
-                className="text-4xl font-black tracking-tight text-studios-headline sm:text-5xl md:text-[3.75rem] md:leading-[1.08] lg:text-[4.75rem]"
+                className="text-5xl font-black tracking-tight text-studios-headline sm:text-6xl md:text-[4.5rem] md:leading-[1.08] lg:text-[5.5rem]"
               >
                 <span className="headline-premium">Premium Video. Without Premium Budgets.</span>
               </h1>
               <p
-                className="hero-subhead max-w-xl text-lg leading-relaxed text-studios-body md:text-[1.35rem]"
+                className="hero-subhead max-w-2xl text-xl leading-relaxed text-studios-body md:text-[1.5rem]"
                 data-motion="hero-tagline"
               >
-                Broadcast-grade work shouldn&apos;t require broadcast-size budgets. AI mastery changes the equation—when done right.
+                Broadcast-quality work shouldn&apos;t require broadcast-size budgets. Secure AI production, mastered since 2023, changes the equation.
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center" data-motion="hero-cta">
+            <div className="flex" data-motion="hero-cta">
               <a
                 href="#studios-portfolio"
                 className={cn(
@@ -163,22 +156,6 @@ export const StudiosHero = () => {
                   <ArrowRight className="h-4 w-4" />
                 </span>
                 <span className="pointer-events-none absolute inset-0 rounded-full border border-white/20 opacity-30 transition group-hover:opacity-60" aria-hidden />
-              </a>
-
-              <a
-                href="/contact"
-                className={cn(
-                  "group inline-flex items-center gap-3 rounded-full border border-white/18 bg-white/8 px-8 py-3 text-sm font-semibold uppercase tracking-[0.24em] text-studios-body transition-all duration-300",
-                  "hover:-translate-y-[4px] hover:border-studios-accent/50 hover:text-studios-headline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-studios-accent focus-visible:ring-offset-2 focus-visible:ring-offset-studios-background",
-                  "cta-secondary-trail"
-                )}
-                data-motion="hero.cta.secondary"
-                data-reduced-motion={prefersReducedMotion ? "true" : "false"}
-                onPointerMove={handleSecondaryPointerMove}
-                onPointerLeave={handleSecondaryPointerLeave}
-              >
-                Start a Conversation
-                <span className="cta-trail-dot relative flex h-3 w-3 items-center justify-center rounded-full bg-studios-accent/50 transition duration-300 group-hover:bg-studios-accent" />
               </a>
             </div>
           </div>
@@ -201,7 +178,7 @@ const HeroVideoBackdrop = ({ playerRef, isVideoReady, setIsVideoReady, isMobile 
 
   return (
     <div className="absolute inset-0 -z-40" style={{ transform: 'translate3d(0, 0, 0)' }}>
-      <div className="absolute inset-0 bg-studios-background opacity-75" aria-hidden style={{ willChange: 'auto' }} />
+      <div className="absolute inset-0 bg-studios-background/2" aria-hidden style={{ willChange: 'auto' }} />
       <div className="absolute inset-0 opacity-0 transition-opacity duration-700 ease-out data-[ready=true]:opacity-100" data-ready={isVideoReady} style={{ willChange: 'opacity' }}>
         <MuxPlayer
           ref={playerRef}
@@ -230,7 +207,7 @@ const HeroVideoBackdrop = ({ playerRef, isVideoReady, setIsVideoReady, isMobile 
           onError={() => setIsVideoReady(true)}
         />
       </div>
-      {!isVideoReady && <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(5,6,13,0.95)0%,rgba(12,18,32,0.92)45%,rgba(12,18,32,0.98)100%)]" aria-hidden />}
+      <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(5,6,13,0.85)0%,rgba(12,18,32,0.78)55%,rgba(12,18,32,0.9)100%)]" aria-hidden />
     </div>
   )
 }

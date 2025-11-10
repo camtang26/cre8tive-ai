@@ -231,9 +231,9 @@ export default {
         'gradient-radial-at-b': 'radial-gradient(ellipse at bottom, var(--tw-gradient-stops))',
         'gradient-radial-at-l': 'radial-gradient(ellipse at left, var(--tw-gradient-stops))',
         'gradient-radial-at-r': 'radial-gradient(ellipse at right, var(--tw-gradient-stops))',
-        'studios-hero-base': 'linear-gradient(145deg, rgba(15,20,35,0.92) 0%, rgba(22,32,52,0.88) 38%, rgba(28,40,62,0.85) 70%, rgba(18,28,45,0.90) 100%)',
-        'studios-hero-spotlight': 'radial-gradient(75% 95% at 20% 35%, rgba(49,196,255,0.6) 0%, rgba(49,196,255,0.15) 50%, rgba(5,6,13,0) 100%)',
-        'studios-hero-rim': 'radial-gradient(60% 70% at 80% 40%, rgba(225,179,65,0.5) 0%, rgba(225,179,65,0.18) 55%, rgba(225,179,65,0) 100%)',
+        'studios-hero-base': 'linear-gradient(145deg, rgba(15,20,35,0.08) 0%, rgba(22,32,52,0.06) 38%, rgba(28,40,62,0.05) 70%, rgba(18,28,45,0.08) 100%)',
+        'studios-hero-spotlight': 'radial-gradient(75% 95% at 20% 35%, rgba(49,196,255,0.18) 0%, rgba(49,196,255,0.05) 50%, rgba(5,6,13,0) 100%)',
+        'studios-hero-rim': 'radial-gradient(60% 70% at 80% 40%, rgba(225,179,65,0.16) 0%, rgba(225,179,65,0.05) 55%, rgba(225,179,65,0) 100%)',
         'studios-hero-noise': 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\' preserveAspectRatio=\'none\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.6\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.9\'/%3E%3C/svg%3E")',
       }
     }

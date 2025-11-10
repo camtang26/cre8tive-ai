@@ -1,59 +1,161 @@
 # Optimize Performance Workflow - GSAP Excellence Engine
-# Profile and optimize animations for 60fps
+# Systematic performance profiling with Chrome DevTools + Research-backed optimization
 # Agent: Tech Director
-# Complexity: Standard
+# Complexity: Medium (Research-intensive performance analysis)
 
 name: optimize-performance
-description: "Profile animation performance, identify bottlenecks, optimize for 60fps"
-author: "GSAP Excellence Engine"
-version: "1.0.0-alpha"
-complexity: "standard"
+description: "Profile animation performance, identify bottlenecks, optimize for 60fps using Chrome DevTools + KB-powered analysis"
+author: "GSAP Excellence Engine - The Tech Director"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from Tech Director agent menu)
 
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
 
-mcp_servers:
-  chrome_devtools:
-    tools: ["performance_start_trace", "performance_stop_trace", "emulate_cpu"]
-    purpose: "Performance profiling and throttling tests"
+# Workflow Metadata
+metadata:
+  agent: 'gsap-tech-director'
+  priority: 'P1'
+  research_intensity: 'high'
+  estimated_duration: '20-30 minutes'
+  persona: 'performance-engineer'
+  optimization_approach: 'systematic-profiling-with-research'
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources) - Performance patterns
+  - chrome_devtools  # CRITICAL: Performance profiling, CPU throttling, jank detection
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '2.4'  # Performance Patterns and Optimization Techniques (comprehensive overview)
+  - '5.1'  # Animate Efficient Properties: The GPU Rule (transform/opacity only)
+  - '5.3'  # Debugging Jank (forced reflows, layout thrashing detection)
+  - '5.5'  # Optimize Animations for 60fps (frame budget, paint time)
+  - '8.2'  # Pitfall: Animating Wrong Properties (no GPU acceleration)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - performance guides)
+  - '6a6860cfc96e173b'  # ScrollTrigger performance (scrub optimization)
+  - '1e5cc3bd5125be3c'  # Codrops tutorials (performance patterns)
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Performance-specific Deep-Research files:
+# - 08-24-performance-patterns-and-optimization-techniques.md (Section 2.4)
+# - 18-51-animate-efficient-properties-the-gpu-rule.md (Section 5.1)
+# - 20-53-debugging-jank.md (Section 5.3)
+# - 22-55-optimize-animations-for-60fps.md (Section 5.5)
+# - 35-pitfall-82-animating-the-wrong-properties-no-gpu-acceleration.md (Pitfall 8.2)
+
+# Chrome DevTools Integration (CRITICAL for this workflow)
+chrome_devtools_capabilities:
+  - take_screenshot  # Visual state capture
+  - list_console_messages  # Performance warnings detection
+  - list_network_requests  # GSAP CDN loading verification
+  - evaluate_script  # Runtime FPS measurement
+  - performance_start_trace  # Begin performance recording
+  - performance_stop_trace  # End performance recording
+  - emulate_cpu  # CPU throttling (4x slowdown for mid-range device simulation)
+  - take_snapshot  # DOM inspection for will-change audit
 
 agents:
   primary: "gsap-tech-director"
+  supporting: "gsap-editor"  # For timing refinement post-optimization
 
 installed_path: "{module_root}/workflows/optimize-performance"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false
+validation: "{installed_path}/checklist.md"
 
-default_output_file: "{output_folder}/gsap-performance-report-{{date}}.md"
+default_output_file: "{output_folder}/performance-report-{timestamp}.md"
 
 inputs:
-  page_url:
-    description: "Dev server URL for profiling"
+  animation_code:
+    description: "Complete animation implementation (GSAP code with context)"
     required: true
+    type: "code"
+
+  page_url:
+    description: "Dev server URL for Chrome DevTools profiling"
+    required: true
+    type: "url"
 
   animation_trigger:
-    description: "How to trigger the animation"
+    description: "How to trigger animation (scroll position, click selector, page load, etc.)"
     required: true
+    type: "interaction"
+
+  performance_symptoms:
+    description: "Specific jank symptoms (stuttering, lag, frame drops, etc.)"
+    required: true
+    type: "symptom_description"
+
+  target_devices:
+    description: "Target device profile (desktop-only, mobile-first, both)"
+    required: true
+    type: "classification"
+
+  framework_context:
+    description: "Framework (React/Next.js/Vue/Vanilla) and version, SSR considerations"
+    required: true
+    type: "environment"
+
+  current_fps:
+    description: "Current FPS measurements if known (or 'unknown')"
+    required: false
+    type: "metrics"
 
 outputs:
-  performance_report:
-    format: "FPS analysis, bottlenecks, optimizations"
+  performance_analysis:
+    format: "FPS metrics, bottleneck categorization, jank identification"
+    type: "analysis"
 
-  optimized_recommendations:
-    format: "Specific optimization strategies"
+  chrome_devtools_findings:
+    format: "Console errors, performance trace, CPU throttle results"
+    type: "diagnostic_data"
 
-estimated_duration: "15-25 minutes"
+  optimized_code:
+    format: "Refactored animation with GPU-friendly properties"
+    type: "code"
+
+  optimization_strategy:
+    format: "Research-backed fixes with before/after comparison"
+    type: "recommendations"
+
+  research_citations:
+    format: "Archon sources and Deep-Research sections consulted"
+    type: "documentation"
+
+  validation_results:
+    format: "60fps achievement confirmation, jank elimination verification"
+    type: "test_results"
+
+success_criteria:
+  - "60fps sustained (minimum FPS ≥ 55fps across all frames)"
+  - "CPU throttled performance acceptable (4x slowdown: FPS ≥ 50fps)"
+  - "Zero forced reflows (no layout thrashing detected)"
+  - "GPU-accelerated properties only (transform/opacity)"
+  - "Paint time <10ms per frame (well under 16ms budget)"
+  - "Optimizations are research-backed (not trial-and-error)"
+
+estimated_duration: "20-30 minutes"
 
 web_bundle:
   name: 'optimize-performance'
-  description: 'Profile animation performance, identify bottlenecks, optimize for 60fps'
+  description: 'Profile animation performance, identify bottlenecks, optimize for 60fps using Chrome DevTools + KB-powered analysis'
   path: 'bmad/gsap-excellence/workflows/optimize-performance'
   web_bundle_files:
     - 'bmad/gsap-excellence/workflows/optimize-performance/workflow.yaml'
     - 'bmad/gsap-excellence/workflows/optimize-performance/instructions.md'
     - 'bmad/gsap-excellence/workflows/optimize-performance/template.md'
+    - 'bmad/gsap-excellence/workflows/optimize-performance/checklist.md'

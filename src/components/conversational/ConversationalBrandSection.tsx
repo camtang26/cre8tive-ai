@@ -1,7 +1,13 @@
-import { useState, useEffect, useRef } from "react"
+import { useRef } from "react"
 import { Upload, TestTube, Rocket } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface ProcessStep {
   number: number
@@ -55,35 +61,51 @@ const PROCESS_STEPS: ProcessStep[] = [
 ]
 
 export function ConversationalBrandSection() {
-  const [activeStep, setActiveStep] = useState(0)
-  const [progressWidth, setProgressWidth] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
+  const progressBarRef = useRef<HTMLDivElement>(null)
+  const step1Ref = useRef<HTMLDivElement>(null)
+  const step2Ref = useRef<HTMLDivElement>(null)
+  const step3Ref = useRef<HTMLDivElement>(null)
+  const cardsContainerRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Animate progress line on scroll into view
-          setTimeout(() => {
-            setProgressWidth(100)
-            // Activate steps sequentially
-            PROCESS_STEPS.forEach((_, index) => {
-              setTimeout(() => {
-                setActiveStep(index)
-              }, index * 800)
-            })
-          }, 300)
-        }
-      },
-      { threshold: 0.3 }
+  // 🎬 PREMIUM GSAP TIMELINE SEQUENCE
+  useGSAP(() => {
+    if (prefersReducedMotion) return
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 60%",
+        toggleActions: "play none none none"
+      }
+    })
+
+    // Animate progress bar width (0 to 100%)
+    tl.fromTo(progressBarRef.current,
+      { width: "0%" },
+      { width: "100%", duration: 2, ease: "power2.out" }
     )
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
+    // Activate step indicators sequentially
+    .to([step1Ref.current, step2Ref.current, step3Ref.current], {
+      scale: 1.1,
+      opacity: 1,
+      duration: 0.6,
+      stagger: 0.8, // 800ms between each step (matches original)
+      ease: "back.out(1.4)"
+    }, 0.3) // Start 300ms after progress bar starts
 
-    return () => observer.disconnect()
-  }, [])
+    // Animate cards in with stagger
+    .from(cardsContainerRef.current?.children || [], {
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out"
+    }, 0.6) // Start overlapping with steps
+
+  }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
 
   return (
     <section
@@ -124,55 +146,36 @@ export function ConversationalBrandSection() {
             <div className="relative h-2 rounded-full bg-white/10">
               {/* Animated progress fill */}
               <div
-                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-conversational-primary via-conversational-accent to-conversational-primary-soft transition-all duration-2000 ease-out"
-                style={{ width: `${progressWidth}%` }}
+                ref={progressBarRef}
+                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-conversational-primary via-conversational-accent to-conversational-primary-soft"
               />
 
               {/* Step indicators */}
               <div className="absolute inset-0 flex justify-between px-4">
-                {PROCESS_STEPS.map((step, index) => (
-                  <div key={index} className="relative flex items-center justify-center">
-                    <div
-                      className={cn(
-                        "relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 transition-all duration-500",
-                        index <= activeStep
-                          ? "border-white/20 bg-gradient-to-br shadow-[0_0_24px_rgba(16,185,129,0.6)] scale-110"
-                          : "border-white/10 bg-white/5 scale-100"
-                      )}
-                      style={{
-                        backgroundImage:
-                          index <= activeStep
-                            ? `linear-gradient(135deg, ${step.accentColor}, ${step.accentColor}CC)`
-                            : undefined,
-                      }}
-                    >
-                      <span className="text-2xl font-black text-white">{step.number}</span>
-                    </div>
-
-                    {/* Pulse animation for active step */}
-                    {index === activeStep && (
+                {PROCESS_STEPS.map((step, index) => {
+                  const stepRef = index === 0 ? step1Ref : index === 1 ? step2Ref : step3Ref
+                  return (
+                    <div key={index} className="relative flex items-center justify-center">
                       <div
-                        className="absolute inset-0 flex items-center justify-center"
+                        ref={stepRef}
+                        className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white/20 bg-gradient-to-br shadow-[0_0_24px_rgba(16,185,129,0.6)] opacity-30"
                         style={{
-                          animation: "pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                          backgroundImage: `linear-gradient(135deg, ${step.accentColor}, ${step.accentColor}CC)`
                         }}
                       >
-                        <div
-                          className="h-20 w-20 rounded-full border-2 opacity-75"
-                          style={{ borderColor: step.accentColor }}
-                        />
+                        <span className="text-2xl font-black text-white">{step.number}</span>
                       </div>
-                    )}
-                  </div>
-                ))}
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
 
           {/* Step Cards - Desktop Grid */}
-          <div className="grid grid-cols-3 gap-8">
+          <div ref={cardsContainerRef} className="grid grid-cols-3 gap-8">
             {PROCESS_STEPS.map((step, index) => (
-              <ProcessStepCard key={index} step={step} isActive={index <= activeStep} delay={index * 200} />
+              <ProcessStepCard key={index} step={step} />
             ))}
           </div>
         </div>
@@ -185,62 +188,23 @@ export function ConversationalBrandSection() {
         </div>
       </div>
 
-      {/* Animations */}
-      <style jsx>{`
-        @keyframes pulse-ring {
-          0% {
-            transform: scale(1);
-            opacity: 1;
-          }
-          50% {
-            transform: scale(1.1);
-            opacity: 0.5;
-          }
-          100% {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-
-        .duration-2000 {
-          transition-duration: 2000ms;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div[style*="animation"] {
-            animation: none !important;
-          }
-          .duration-2000 {
-            transition-duration: 300ms;
-          }
-        }
-      `}</style>
+      {/* GSAP handles all animations now - no CSS keyframes needed! */}
     </section>
   )
 }
 
 interface ProcessStepCardProps {
   step: ProcessStep
-  isActive: boolean
-  delay: number
 }
 
-function ProcessStepCard({ step, isActive, delay }: ProcessStepCardProps) {
+function ProcessStepCard({ step }: ProcessStepCardProps) {
   const Icon = step.icon
 
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden rounded-[24px] border p-8 transition-all duration-500",
-        isActive ? "border-white/18 bg-white/[0.05]" : "border-white/10 bg-white/[0.02]"
-      )}
-      style={{
-        animation: `step-card-fade-in 600ms cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms both`,
-      }}
-    >
+    <div className="relative overflow-hidden rounded-[24px] border border-white/18 bg-white/[0.05] p-8">
       {/* Gradient overlay */}
       <div
-        className={cn("absolute inset-0 opacity-0 transition-opacity duration-500", isActive && "opacity-100")}
+        className="absolute inset-0 opacity-100"
         style={{
           background: `radial-gradient(circle at top left, ${step.accentColor}20, transparent 60%)`,
         }}
@@ -249,13 +213,13 @@ function ProcessStepCard({ step, isActive, delay }: ProcessStepCardProps) {
       <div className="relative">
         {/* Icon */}
         <div
-          className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 transition-colors duration-500"
+          className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl border"
           style={{
-            backgroundColor: isActive ? `${step.accentColor}20` : undefined,
-            borderColor: isActive ? `${step.accentColor}40` : undefined,
+            backgroundColor: `${step.accentColor}20`,
+            borderColor: `${step.accentColor}40`,
           }}
         >
-          <Icon className="h-7 w-7" style={{ color: isActive ? step.accentColor : "#ffffff60" }} />
+          <Icon className="h-7 w-7" style={{ color: step.accentColor }} />
         </div>
 
         {/* Title */}
@@ -277,25 +241,6 @@ function ProcessStepCard({ step, isActive, delay }: ProcessStepCardProps) {
           ))}
         </ul>
       </div>
-
-      <style jsx>{`
-        @keyframes step-card-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div {
-            animation: none !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }

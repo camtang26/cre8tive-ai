@@ -77,7 +77,7 @@ export function StudiosPortfolioSection() {
               Judge Yourself
             </h2>
             <p className="max-w-3xl text-lg leading-relaxed text-studios-body">
-              Your clients won’t compromise on quality. Neither do we. Every campaign ships with broadcast polish across six platforms from a single pipeline.
+              Your clients won't compromise on quality. Neither do we. Every campaign ships with broadcast-quality polish across six platforms from a single pipeline.
             </p>
           </div>
         </div>

@@ -1,0 +1,59 @@
+# GSAP Workflow Status - Universal Router and Progress Tracker
+name: workflow-status
+description: 'Answers "what should I do now?" for any GSAP Excellence agent. Tracks 29 workflows across 5 agents with category-based recommendations. Universal entry point for workflow navigation.'
+author: "BMad Builder"
+version: "2.0.0-premium"
+
+# Critical variables from config
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+output_folder: "{config_source}:output_folder"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+document_output_language: "{config_source}:document_output_language"
+date: system-generated
+
+# Module context
+module_root: "{project-root}/bmad/gsap-excellence"
+
+# Workflow components
+installed_path: "{module_root}/workflows/workflow-status"
+instructions: "{installed_path}/instructions.md"
+
+# Template for status file creation (used when initializing)
+template: "{installed_path}/template.md"
+
+# Output configuration - reads/writes existing status
+default_output_file: "{output_folder}/gsap-workflow-status.md"
+
+# Master plan reference (for workflow categorization)
+master_plan: "{module_root}/WORKFLOW-REBUILD-MASTER-PLAN.md"
+quick_ref: "{module_root}/WORKFLOW-REBUILD-QUICK-REF.md"
+
+# Execution mode
+standalone: true
+autonomous: true  # No user approval needed for status checks
+
+# No MCP servers required (pure routing logic)
+required_mcp: []
+
+# No Deep-Research sections (routing workflow)
+deep_research_sections: []
+
+# Notes
+notes: |
+  This workflow is adapted from BMM core's pristine workflow-status implementation.
+
+  Multi-mode service architecture:
+  - interactive: Show status and suggest next workflow
+  - validate: Check if calling workflow should proceed
+  - data: Extract specific information for other workflows
+  - init-check: Simple existence check
+  - update: Centralized status file updates
+
+  GSAP-specific adaptations:
+  - Tracks 29 workflows across 5 agents (Director, Cinematographer, VFX, Editor, Tech Director)
+  - Category-based progression (A: Version Bump, B: Enhancement, C: Full Rebuild)
+  - Completion tracking: 21/29 complete (72%), 8/29 remaining (28%)
+  - Suggests next workflow based on category priority
+
+  Reference implementation: bmad/bmm/workflows/workflow-status/

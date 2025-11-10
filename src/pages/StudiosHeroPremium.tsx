@@ -1,5 +1,5 @@
 import React from "react"
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet-async"
 import StudioHero_PremiumGoldenGobo from "./prototypes/studios-hero/StudioHero_PremiumGoldenGobo"
 
 const StudiosHeroPremium: React.FC = () => {

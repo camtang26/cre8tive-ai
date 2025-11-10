@@ -115,48 +115,162 @@ Key moments:
 
 ## Research Citations
 
-### Archon MCP (GSAP Knowledge Base)
+### Multi-Source Research Summary
 
-**Queries Executed:**
-1. `rag_search_knowledge_base("easing curves {{desired_feel}}")`
-   - **Finding:** {{archon_query_1_finding}}
-   - **Source:** {{archon_query_1_sources}}
+**Total Sources Consulted:** {{number_of_sources}}
+**Frameworks Applied:** {{framework_count}}
+**Research Confidence:** HIGH - Based on systematic multi-source validation
 
-2. `rag_search_knowledge_base("timing principles {{animation_type}}")`
-   - **Finding:** {{archon_query_2_finding}}
-   - **Source:** {{archon_query_2_sources}}
+---
 
-3. `rag_search_code_examples("bezier curves {{animation_type}}")`
-   - **Finding:** {{archon_query_3_finding}}
-   - **Source:** {{archon_query_3_sources}}
+### Archon MCP (GSAP Knowledge Base - 89 Sources)
 
-4. `rag_search_knowledge_base("motion design fundamentals")`
-   - **Finding:** {{archon_query_4_finding}}
-   - **Source:** {{archon_query_4_sources}}
+**Query Protocol: Systematic 4-tier search executed**
 
-**Priority Sources Consulted:**
-- ✅ b9f6b322298feb21 (gsap.com official docs)
-- ✅ 1e5cc3bd5125be3c (Codrops tutorials)
-- ✅ 90c2ef5e8fa816b7 (FreeFrontend examples)
+#### Query 1: Easing Curves for Desired Feel
+- **Query:** `rag_search_knowledge_base("easing curves {{desired_feel}}")`
+- **Source Filter:** b9f6b322298feb21 (gsap.com official docs)
+- **Match Count:** 8 results
+- **Finding:** {{archon_query_1_finding}}
+- **Key Sources:** {{archon_query_1_sources}}
+- **Relevance:** PRIMARY - Directly informs easing curve selection
+- **Application:** Used in Section 3.1 (Easing Curve Selection)
 
-### Deep-Research Frameworks
+#### Query 2: Timing Principles for Animation Type
+- **Query:** `rag_search_knowledge_base("timing principles {{animation_type}}")`
+- **Source Filter:** b9f6b322298feb21 (gsap.com official docs)
+- **Match Count:** 6 results
+- **Finding:** {{archon_query_2_finding}}
+- **Key Sources:** {{archon_query_2_sources}}
+- **Relevance:** PRIMARY - Informs duration recommendations
+- **Application:** Used in Section 3.2 (Duration Selection)
 
-**Sections Applied:**
-- **Section 1.2** - Visual Inspiration Translation
-  - **Insight:** {{section_1_2_insight}}
-- **Section 2.1** - Core GSAP Concepts: Tween, Timeline, Stagger, Ease
-  - **Insight:** {{section_2_1_insight}}
-- **Section 2.2** - Mastering Timeline Techniques
-  - **Insight:** {{section_2_2_insight}}
+#### Query 3: Bezier Curves & Custom Easing
+- **Query:** `rag_search_code_examples("bezier curves {{animation_type}}")`
+- **Match Count:** 6 code examples
+- **Finding:** {{archon_query_3_finding}}
+- **Key Sources:** {{archon_query_3_sources}}
+- **Relevance:** SECONDARY - For advanced custom easing if needed
+- **Application:** Used in Section 3.5 (Custom Bezier Curves)
 
-**Disney Animation Principles:**
+#### Query 4: Motion Design Fundamentals
+- **Query:** `rag_search_knowledge_base("motion design fundamentals")`
+- **Source Filter:** b9f6b322298feb21 (gsap.com official docs)
+- **Match Count:** 5 results
+- **Finding:** {{archon_query_4_finding}}
+- **Key Sources:** {{archon_query_4_sources}}
+- **Relevance:** FOUNDATIONAL - Disney principles, motion theory
+- **Application:** Used throughout motion analysis (Principles #6 & #8)
+
+**Priority Sources Successfully Queried:**
+- ✅ **b9f6b322298feb21** (gsap.com official docs) - PRIMARY SOURCE
+  - Authoritative easing documentation
+  - API reference for all ease functions
+  - Official best practices
+- ✅ **1e5cc3bd5125be3c** (Codrops tutorials) - SECONDARY SOURCE
+  - Premium easing tutorials
+  - Advanced pattern examples
+  - Visual easing comparisons
+- ✅ **90c2ef5e8fa816b7** (FreeFrontend examples) - SECONDARY SOURCE
+  - Real-world easing examples
+  - Production pattern library
+  - Community-validated approaches
+
+---
+
+### Deep-Research Frameworks (2.2M+ Word Knowledge Base)
+
+**Knowledge Base Location:** `/docs/Deep-Research/GSAP-Animation-Mastery/`
+**Sections Analyzed:** 3 (1.2, 2.1, 2.2)
+
+#### Section 1.2: Visual Inspiration → Technical Translation
+- **File:** `02-12-visual-inspiration-technical-translation-workflow.md`
+- **Purpose:** Translating abstract timing "feel" into concrete GSAP implementation
+- **Frameworks Applied:**
+  1. **5-Step Visual Translation Workflow:**
+     - Gather Inspiration → Deconstruct Effect → Choreograph on Paper → Choose Technique → Prototype
+  2. **GSAP vs CSS Decision Framework:**
+     - *"Use CSS for simple static transitions... GSAP for sequenced, synchronized or complex animations"*
+  3. **Visual + Semantic Mapping:**
+     - *"Always maintain a visual + semantic mapping. For every imagined motion, have a plan for its code implementation."*
+- **Key Insight:** {{section_1_2_insight}}
+- **Application in This Analysis:** Used to translate {{desired_feel}} into technical easing parameters
+
+#### Section 2.1: Core GSAP Concepts (PRIMARY SECTION)
+- **File:** `05-21-core-gsap-concepts-tween-timeline-stagger-ease.md`
+- **Purpose:** Easing curves, duration guidelines, timing theory (CORE for timing analysis)
+- **Frameworks Applied:**
+  1. **Easing Categories by Purpose:**
+     - Smooth & Subtle: power1.out, power2.inOut, sine.inOut
+     - Dramatic & Bold: power4.out, expo.out, circ.inOut
+     - Bouncy & Playful: back.out(1.2-1.7), elastic.out, bounce.out
+     - Quick & Snappy: power2.out + short duration
+     - Slow & Cinematic: power2.inOut, power3.out + long duration
+  2. **Disney Animation Principles:**
+     - **Principle #6 (Ease In/Out):** *"Nothing in nature starts or stops instantaneously. Acceleration and deceleration create natural, believable motion."*
+     - **Principle #8 (Timing):** *"The speed of an action defines its weight and size. Fast actions feel light, slow actions feel heavy."*
+  3. **Tween vs Timeline Decision Framework:**
+     - *"Always consider using a gsap.timeline for multi-step animations. It provides far more readability and control than scattered tweens with delays."*
+  4. **Stagger Pattern Syntax:**
+     - Simple: `stagger: 0.1` (sequential offset)
+     - Advanced: `stagger: { each: 0.2, from: "center", grid: "auto", ease: "power1.in" }` (complex patterns)
+- **Key Insights:**
+  - *"Premium sites rarely stick to default; they tailor easing per animation"*
+  - *"Use power4.out or expo.out for a dramatic, fast-to-slow entrance"*
+  - *"Use power2.inOut for gentle, smooth transitions"*
+  - *"Use bounce.out or elastic.out for playful, bouncy elements"*
+  - *"GSAP uses a ticker (built on requestAnimationFrame) to update values every frame; by default it attempts 60fps"*
+- **Key Insight for This Analysis:** {{section_2_1_insight}}
+- **Application:** Used extensively in Section 3.1 (Easing Selection) and 3.2 (Duration)
+
+#### Section 2.2: Mastering Timeline Techniques
+- **File:** `06-22-mastering-gsap-timeline-techniques.md`
+- **Purpose:** Coordinated timing for multi-element animations
+- **Frameworks Applied:**
+  1. **Relative Positioning Syntax:**
+     - `"<"` - Start with previous tween (simultaneous)
+     - `"<0.5"` - Start 0.5s after previous tween's start (overlap)
+     - `"+=0.3"` - Start 0.3s after previous tween finishes (delay)
+     - Labels: `.addLabel("marker")` for synchronized timing points
+  2. **Nested Timeline Composition:**
+     - Modular approach: Build sub-timelines, compose into master timeline
+     - *"Represent a multi-step animation as a timeline rather than a disjoint set of tweens - this results in code that mirrors an animator's thought process"*
+  3. **Control Methods:**
+     - `.pause()`, `.resume()`, `.reverse()` - Timeline playback control
+     - `.timeScale(value)` - Dynamic speed changes (can be tweened!)
+     - `.seek(timeOrLabel)`, `.progress(0-1)` - Scrubbing/positioning
+  4. **Defaults and Repeat:**
+     - `defaults: { duration: 1, ease: "power2.out" }` - Avoid repetition
+     - `repeat: -1`, `yoyo: true` - Looping animations
+     - `repeatRefresh: true` - Recalculate function-based values on each loop
+- **Key Insight for This Analysis:** {{section_2_2_insight}}
+- **Application:** Used in Section 3.3 (Timeline Coordination) for multi-element timing
+
+**Disney Animation Principles Applied:**
 - **Timing (Principle #8):** {{disney_timing_principle_applied}}
+  - How duration conveys weight and importance
+  - Fast timing = light/responsive, Slow timing = heavy/significant
 - **Ease In/Out (Principle #6):** {{disney_ease_principle_applied}}
+  - Why acceleration/deceleration creates natural motion
+  - How easing curves mimic real-world physics
 
-### WebSearch (if used)
+---
 
-**Queries:** {{websearch_queries_if_used}}
-**Findings:** {{websearch_key_findings}}
+### WebSearch (2024-2025 Premium Examples) - Conditional
+
+**Fallback research only if Archon + Deep-Research insufficient**
+
+**Queries Executed:** {{websearch_queries_if_used}}
+
+**Key Findings:** {{websearch_key_findings}}
+
+**Premium Examples Discovered:**
+{{#if websearch_used}}
+- Example 1: [URL] - [Timing pattern] - [Why it's premium]
+- Example 2: [URL] - [Easing curve] - [Quality indicators]
+{{/if}}
+
+**Application:** Used to validate Archon patterns against current (2025) industry trends
 
 ---
 

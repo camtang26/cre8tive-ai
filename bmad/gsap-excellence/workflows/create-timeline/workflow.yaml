@@ -2,6 +2,7 @@
 # VFX - KB-powered GSAP timeline creation with systematic research
 
 name: 'create-timeline'
+version: '2.0.0-premium'
 description: 'Create sophisticated GSAP timeline choreography using KB-powered pattern matching, Deep-Research frameworks, and framework integration best practices'
 installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-timeline'
 instructions: '{installed_path}/instructions.md'
@@ -28,22 +29,24 @@ metadata:
 
 # Required MCP Servers
 required_mcp:
-  - archon  # GSAP knowledge base (91 sources) - PRIMARY
+  - archon  # GSAP knowledge base (89 sources) - PRIMARY
   - context7  # Latest GSAP API docs (fallback)
+  - perplexity  # Framework-specific patterns (fallback)
 
 # Deep-Research Sections Referenced
 deep_research_sections:
   - '2.2'  # Mastering Timeline Techniques (PRIMARY - advanced choreography)
-  - '2.1'  # Core GSAP Concepts: Tweens, Staggers, Easing (CORRECTED from 2.3)
+  - '2.3'  # Understanding Tweens and Staggers (fundamentals)
   - '3.1'  # Page Load Sequence (intro timeline patterns)
   - '3.7'  # Cleanup and Reinitialization (lifecycle management)
   - '2.5'  # React/Next.js Integration (if framework needed)
 
 # Archon Priority Sources
 archon_sources:
-  - 'b9f6b322298feb21'  # gsap.com official docs (442K words)
-  - '1e5cc3bd5125be3c'  # Codrops timeline tutorials (42K words)
-  - '90c2ef5e8fa816b7'  # FreeFrontend timeline examples (207K words)
+  - 'b9f6b322298feb21'  # gsap.com official docs
+  - '1e5cc3bd5125be3c'  # Codrops timeline tutorials
+  - '90c2ef5e8fa816b7'  # FreeFrontend timeline examples
+  - 'premium-patterns'   # Timeline choreography patterns
 
 # Framework Support
 frameworks:
@@ -55,8 +58,124 @@ frameworks:
 # Premium Plugin Support (FREE in GSAP 3.13+)
 premium_plugins:
   enabled: true
-  note: 'MorphSVG, SplitText, DrawSVG, ScrambleText, InertiaPlugin, etc. are FREE in GSAP 3.13+'
+  note: 'MorphSVG, SplitText, DrawSVG, ScrambleText, etc. are FREE in GSAP 3.13+'
   reference: 'https://gsap.com/blog/gsap-3-13-0-release'
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Timeline-specific Deep-Research files:
+# - 06-22-mastering-gsap-timeline-techniques.md (Section 2.2 - PRIMARY)
+# - 05-21-core-gsap-concepts-tween-timeline-stagger-ease.md (Section 2.3)
+# - 11-31-pattern-smooth-page-load-sequence-intro-timeline.md (Section 3.1)
+# - 17-37-pattern-cleanup-and-reinitialization-fullpage-transitions.md (Section 3.7)
+# - 09-25-integration-patterns-gsap-react-nextjs-other-frameworks.md (Section 2.5)
+
+agents:
+  primary: "gsap-vfx"
+  supporting: "gsap-cinematographer"  # For pattern research
+
+inputs:
+  elements_to_animate:
+    description: "Elements that need animation (selectors, types, quantity)"
+    required: true
+    type: "element_list"
+    examples:
+      - "Hero heading, 3 feature cards, CTA button"
+      - ".timeline-item elements (5 total)"
+      - "Logo, navigation links, hero image"
+
+  animation_sequence:
+    description: "Animation order and timing relationship"
+    required: true
+    type: "sequence_description"
+    options:
+      - "Sequential (one after another)"
+      - "Overlapping (start next before previous finishes)"
+      - "Simultaneous (all at once)"
+      - "Custom timing pattern"
+
+  timing_specifications:
+    description: "Durations, delays, and stagger amounts"
+    required: true
+    type: "timing_config"
+    format: "Overall duration, individual durations, delays, staggers"
+
+  animation_effects:
+    description: "Visual effects for each element"
+    required: true
+    type: "effects_list"
+    effects:
+      - "Fade (opacity changes)"
+      - "Slide (x/y movement)"
+      - "Scale (size changes)"
+      - "Rotate (rotation effects)"
+      - "Morph (shape transitions - MorphSVG)"
+      - "Custom properties"
+
+  framework_context:
+    description: "Development environment and framework details"
+    required: true
+    type: "environment"
+    supported_frameworks:
+      - "React (with useGSAP hook)"
+      - "Next.js (version + SSR considerations)"
+      - "Vue (Composition API or Options API)"
+      - "Vanilla JavaScript"
+    language_options:
+      - "TypeScript"
+      - "JavaScript"
+
+outputs:
+  timeline_code:
+    format: "Production-ready GSAP timeline implementation"
+    type: "code"
+    includes:
+      - "Imports and plugin registration"
+      - "Timeline configuration with options"
+      - "Tween sequence with position parameters"
+      - "Framework integration (if applicable)"
+      - "Cleanup handlers"
+      - "Inline comments with KB citations"
+
+  research_findings:
+    format: "Documentation of patterns and frameworks applied"
+    type: "documentation"
+    sections:
+      - "Archon KB patterns found (with source IDs)"
+      - "Deep-Research framework applications"
+      - "Framework integration strategy"
+      - "Premium plugin usage (if applicable)"
+
+  testing_checklist:
+    format: "Validation checklist for user testing"
+    type: "qa_checklist"
+    categories:
+      - "Functional tests (sequence, timing, effects)"
+      - "Performance tests (60fps, no jank)"
+      - "Framework tests (lifecycle, cleanup)"
+      - "Cross-browser tests (Chrome, Firefox, Safari)"
+
+  implementation_notes:
+    format: "Framework-specific considerations and recommendations"
+    type: "guidance"
+    includes:
+      - "Premium plugin requirements (FREE in 3.13+)"
+      - "Browser compatibility notes"
+      - "Performance optimizations"
+      - "Common issue solutions"
+
+success_criteria:
+  - "All research queries executed (Archon KB + Deep-Research sections)"
+  - "Timeline pattern justified with KB citations"
+  - "Production-ready code with framework integration"
+  - "Comments reference specific Archon sources and Deep-Research sections"
+  - "Testing checklist provided"
+  - "No guesswork - every technique backed by research"
+  - "Cleanup handlers prevent memory leaks"
+  - "Code follows framework best practices (if applicable)"
+
+estimated_duration: "15-25 minutes"
 
 # Web bundle configuration
 web_bundle:
@@ -66,3 +185,4 @@ web_bundle:
   web_bundle_files:
     - 'bmad/gsap-excellence/workflows/create-timeline/workflow.yaml'
     - 'bmad/gsap-excellence/workflows/create-timeline/instructions.md'
+    - 'bmad/gsap-excellence/workflows/create-timeline/checklist.md'

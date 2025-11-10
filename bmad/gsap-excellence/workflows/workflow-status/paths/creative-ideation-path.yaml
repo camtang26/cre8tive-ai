@@ -1,0 +1,41 @@
+# Creative Ideation Path
+# Generate premium animation concepts
+
+scenario_type: "creative-ideation"
+description: "Generate 3-5 premium animation concepts backed by research"
+
+phases:
+  - phase: 1
+    name: "Concept Generation"
+    required: true
+    workflows:
+      - id: "creative-ideation"
+        required: true
+        agent: "gsap-director"
+        command: "plan"
+        output: "3-5 premium animation concepts with research citations"
+        next_action: "Director generates concepts using Archon + Context7 + Perplexity"
+
+      - id: "plan-narrative"
+        optional: true
+        agent: "gsap-director"
+        command: "narrative"
+        output: "Visual narrative using Pixar Story Spine framework"
+        note: "Use if animation tells a story"
+
+  - phase: 2
+    name: "Implementation (Optional)"
+    optional: true
+    workflows:
+      - id: "animation-production"
+        recommended: true
+        agent: "gsap-director"
+        command: "production"
+        output: "Complete production pipeline for selected concept"
+        note: "RECOMMENDED: Full pipeline from concept to production-ready"
+
+      - id: "implement-from-pattern"
+        optional: true
+        agent: "gsap-vfx"
+        command: "implement"
+        output: "Quick implementation if concept matches existing pattern"

@@ -1,4 +1,6 @@
 import { useId, type SVGProps } from "react"
+import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { useDirectionalReveal } from '@/hooks/useDirectionalReveal';
 
 const PLATFORM_GLYPHS = [
   {
@@ -46,6 +48,31 @@ const PLATFORM_GLYPHS = [
 ] as const
 
 export function StudiosProductionStackSection() {
+  // REFINED: Standard cinematic for text content (1.0s, power3.out)
+  useSectionReveal({
+    selector: '[data-reveal-stack]',
+    stagger: 0.05,
+    duration: 1.0,  // REFINED: Was 0.8s, now 1.0s
+    distance: 60,
+    ease: "power3.out",
+    start: "top 80%"
+  });
+
+  // REFINED: HERO LUXURY for platform cards (1.6s, expo.out)
+  // Even cards (YouTube, Instagram, X) slide from LEFT
+  // Odd cards (TikTok, LinkedIn, Facebook) slide from RIGHT
+  // Creates visual wave effect (Cinematographer research - Codrops Oct 2024)
+  // Dramatic luxury timing: explosive start → hard brake → feather settle
+  useDirectionalReveal({
+    selector: '[data-reveal-platform]',
+    stagger: 0.15,     // 150ms - wave effect timing
+    duration: 1.6,     // REFINED: Was 1.2s, now 1.6s for maximum cinematic drama
+    distance: 60,      // Horizontal movement
+    initialScale: 0.95, // Subtle scale-up effect
+    ease: "expo.out",  // REFINED: Was power4.out, now expo.out for luxury
+    start: "top 75%"
+  });
+
   return (
     <section
       id="studios-production-stack"
@@ -61,24 +88,25 @@ export function StudiosProductionStackSection() {
 
       <div className="container relative mx-auto flex flex-col gap-16 px-4 md:px-6 lg:flex-row lg:items-start lg:gap-24 xl:px-0">
         <div className="max-w-3xl space-y-8 text-white" data-motion="production-stack.copy">
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/6 px-5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.36em] text-white/60">
+          <div data-reveal-stack className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/6 px-5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.36em] text-white/60">
             What You Actually Get
           </div>
           <div className="space-y-6">
             <h2
+              data-reveal-stack
               id="studios-production-stack-title"
               className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.3rem] md:leading-[1.08]"
             >
-              Complete Production. One Partner.
+              Complete Production. Secure Infrastructure. One Partner.
             </h2>
             <div className="space-y-5 text-lg leading-relaxed text-studios-body md:text-[1.25rem]">
-              <p>
-                You need more than video generation. You need storyboarding that works. Scripts that land. Sound design that feels professional. Editing that matches broadcast standards. Platform delivery for six formats.
+              <p data-reveal-stack>
+                You need more than video generation. You need storyboarding that works. Scripts that land. Sound design that feels professional. Editing that matches broadcast quality standards. Platform delivery for six formats.
               </p>
-              <p>
+              <p data-reveal-stack>
                 Most AI tools stop at generation—leaving you with raw footage and no path to polish. Most agencies charge separately for every layer.
               </p>
-              <div className="space-y-6">
+              <div data-reveal-stack className="space-y-6">
                 <p>Our Studios handles the complete stack:</p>
                 <div
                   className="flex flex-wrap gap-3 text-studios-headline"
@@ -109,8 +137,11 @@ export function StudiosProductionStackSection() {
                 <p className="sr-only">
                   Video. Sound. Dialogue. Score. Editing. Upscaling. Platform export.
                 </p>
-                <p className="mt-4">Everything required for broadcast-grade delivery.</p>
+                <p className="mt-4">Everything required for broadcast-quality delivery.</p>
               </div>
+              <p data-reveal-stack>
+                Your creative assets never leave our secure production environment. While other solutions force you across fragmented platforms, everything happens on infrastructure we control—from storyboard to final delivery.
+              </p>
             </div>
           </div>
         </div>
@@ -122,6 +153,7 @@ export function StudiosProductionStackSection() {
           >
             {PLATFORM_GLYPHS.map((platform, index) => (
               <div
+                data-reveal-platform
                 key={platform.id}
                 className="group relative flex aspect-square w-full max-w-[160px] items-center justify-center rounded-[24px] border border-white/12 bg-white/[0.07] p-3 shadow-[0_36px_150px_-95px_rgba(9,18,36,0.9)] transition-transform duration-400 ease-out hover:-translate-y-1.5 hover:border-white/24 md:max-w-[180px] md:p-3.5"
                 data-motion="production-stack.platform"

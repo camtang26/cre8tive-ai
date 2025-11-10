@@ -1,5 +1,12 @@
+import { useRef } from "react"
 import { MetricCounter } from "./shared/MetricCounter"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 const METRICS = [
   {
@@ -35,8 +42,47 @@ const METRICS = [
 ]
 
 export function ConversationalScaleSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const metricsContainerRef = useRef<HTMLDivElement>(null)
+  const benefitsContainerRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
+
+  // 🎬 GSAP Scroll Animations for cards
+  useGSAP(() => {
+    if (prefersReducedMotion) return
+
+    // Animate metric cards with stagger
+    gsap.from(metricsContainerRef.current?.children || [], {
+      opacity: 0,
+      x: 60,
+      duration: 0.8,
+      stagger: 0.2, // 200ms between each metric card
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: metricsContainerRef.current,
+        start: "top 75%",
+        toggleActions: "play none none none"
+      }
+    })
+
+    // Animate benefit cards with stagger
+    gsap.from(benefitsContainerRef.current?.children || [], {
+      opacity: 0,
+      y: 30,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: "back.out(1.2)",
+      scrollTrigger: {
+        trigger: benefitsContainerRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none"
+      }
+    })
+  }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
+
   return (
     <section
+      ref={sectionRef}
       id="conversational-scale"
       aria-labelledby="conversational-scale-title"
       className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_15%_18%,rgba(16,185,129,0.18),transparent_55%),radial-gradient(circle_at_85%_22%,rgba(20,241,149,0.16),transparent_58%),linear-gradient(148deg,rgba(4,18,30,0.99)0%,rgba(6,32,47,0.97)52%,rgba(4,19,31,0.99)100%)] py-24 md:py-32"
@@ -92,7 +138,7 @@ export function ConversationalScaleSection() {
               </div>
 
               {/* Key Benefits */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-4">
+              <div ref={benefitsContainerRef} className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-4">
                 <BenefitCard
                   title="24/7 Availability"
                   description="Never miss a conversation, even at 3 AM on Sunday"
@@ -119,14 +165,9 @@ export function ConversationalScaleSection() {
 
           {/* Right Column: Metrics */}
           <div className="lg:col-span-2">
-            <div className="sticky top-24 space-y-6">
+            <div ref={metricsContainerRef} className="sticky top-24 space-y-6">
               {METRICS.map((metric, index) => (
-                <div
-                  key={index}
-                  style={{
-                    animation: `metric-slide-in 600ms cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 150 + 300}ms both`,
-                  }}
-                >
+                <div key={index}>
                   <GlassmorphicCard
                     accentColor={metric.accentColor}
                     accentGradient={metric.accentGradient}
@@ -155,27 +196,7 @@ export function ConversationalScaleSection() {
         </div>
       </div>
 
-      {/* Animations */}
-      <style jsx>{`
-        @keyframes metric-slide-in {
-          from {
-            opacity: 0;
-            transform: translateX(60px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div[style*="animation"] {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-          }
-        }
-      `}</style>
+      {/* GSAP handles all animations now - no CSS keyframes needed! */}
     </section>
   )
 }
@@ -188,12 +209,7 @@ interface BenefitCardProps {
 
 function BenefitCard({ title, description, delay }: BenefitCardProps) {
   return (
-    <div
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-conversational-primary/30 hover:bg-white/[0.05]"
-      style={{
-        animation: `benefit-fade-in 400ms cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms both`,
-      }}
-    >
+    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-conversational-primary/30 hover:bg-white/[0.05]">
       {/* Gradient accent on hover */}
       <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div className="absolute inset-0 bg-gradient-to-br from-conversational-primary/10 via-transparent to-transparent" />
@@ -203,25 +219,6 @@ function BenefitCard({ title, description, delay }: BenefitCardProps) {
         <h4 className="mb-2 font-bold text-conversational-headline">{title}</h4>
         <p className="text-sm text-conversational-body-muted">{description}</p>
       </div>
-
-      <style jsx>{`
-        @keyframes benefit-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          div {
-            animation: none !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }

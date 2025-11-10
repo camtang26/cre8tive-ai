@@ -10,6 +10,41 @@
 
 ## 2025-11-03 — Studios Section 4 Kickoff
 
+## 2025-11-08 — Studios Hero Mask Iteration
+- Cameron wants the hero video to breathe more; current `.hero-curve-mask` radial gradient darkens a large rectangle and hides the Mux footage.
+- Plan: test five premium alternatives sequentially (glass scrim, rim-lit frame, spotlight clamp, animated sweep, copy-only emphasis). After each implementation, capture notes + screenshots before deciding to keep or revert.
+- Priorities for each iteration: preserve copy deck fidelity, keep CTA legibility, maintain GSAP hooks, log CSS deltas + rationale here, and update `/.codex/REPORT.md` with any motion guidance that emerges.
+- **Iteration 1 — Glass scrim (2025-11-08 10:45 PT):** Replaced heavy radial mask with translucent glass layer + backdrop blur (`src/styles/utilities.css`). Added subtle cyan/gold rim gradients via `::after`, border radius, and inset glow so video plays through with 20–50 % opacity while copy remains legible. No markup changes. **Outcome:** look felt too frosted; removed per Cameron’s feedback.
+
+- **Iteration 2 — Rim-lit frame (2025-11-08 11:05 PT):** New `::before`/`::after` stack creates edge-focused darkening plus cyan/gold rim glows while center stays mostly transparent (video visible). `mix-blend-mode: hard-light` keeps copy contrast without heavy blur. **Outcome:** reviewed, then removed to continue exploration.
+
+- **Iteration 3 — Spotlight clamp (2025-11-08 11:20 PT):** Rebuilt `.hero-curve-mask` pseudo-elements so the darkening hugs only the text block using `mask-image` radial spotlight + constrained widths (`min(92vw, 56rem)`). Center remains nearly clear, edges carry a vignette + cyan/gold highlight. No markup changes. **Outcome:** client wants to continue exploring; reverted in favor of animated sweep.
+
+- **Iteration 4 — Animated gradient sweep (2025-11-08 11:35 PT):** Converted pseudo-elements into a moving gradient scrim that drifts left (`@keyframes heroMaskSweep`), starting more opaque so copy lands readable, then revealing more of the Mux footage after ~2.6s. Added cyan/gold wash layer for rim light; overflow hidden keeps the sweep clean. Markup untouched. **Outcome:** stakeholder wants final option, so reverted sweep.
+
+- **Iteration 5 — Copy-only emphasis (2025-11-08 11:45 PT):** Removed `.hero-curve-mask` overlays entirely so video sits fully exposed; leaned on enhanced `headline-premium` shadows/drop-shadows to keep copy readable without any blocking box. Essentially hero now relies on typography glow + CTA styling for contrast.
+  - Subheader readability boost: added `hero-subhead` styling (soft cyan glow + drop-shadow) so the supporting paragraph holds contrast without reintroducing any background block.
+
+## 2025-11-08 — Hero Background Aperture Pass
+- Need to showcase more of the looping footage without simply lowering opacity. Cameron wants premium background refinements; we’ll cycle through five techniques (aperture mask, parallax haze, specular wash, pointer vignette, CTA fog) similar to the mask iteration playbook.
+- **Background Option 1 — Layered aperture mask (2025-11-08 12:05 PT):** Added `hero-aperture-overlay` (absolute layer with masked radial gradients) so two “cutouts” open over the headline + CTA cluster while the rest of the canvas stays atmospheric. Keeps base gradients intact but exposes more video motion in focal zones. **Outcome:** felt too forced—removed after review.
+- **Background Option 2 — Parallax haze strips (2025-11-08 12:20 PT):** Introduced `hero-haze-strips` with vertical coverage + linear gradient bands, `mix-blend-mode: screen`, and `heroHazeDrift` animation so translucent cyan/gold haze sweeps slowly across the hero, revealing more raw video while adding motion-ready atmosphere. **Outcome:** direction felt off, so removed.
+- **Background Option 3 — Specular wash (2025-11-08 12:35 PT):** Layered a second muted MuxPlayer feed via `HeroSpecularWash` that boosts highlights (brightness/contrast/saturation + blur) with `mix-blend-mode: screen`. Adds luminous sheen over brighter regions while leaving darker areas untouched so more of the original video shows through without dimming the copy cluster. **Outcome:** too glowy; removed to pursue pointer vignette.
+- **Background Option 4 — Pointer vignette (2025-11-08 12:50 PT):** Added `hero-pointer-vignette` overlay tied to `--pointer-x/y` so a soft halo follows the cursor, subtly brightening focus areas while a surrounding vignette darkens periphery to keep copy legible. Uses existing pointerActive state + `mix-blend-mode: overlay` so video remains visible everywhere else. **Outcome:** effect felt distracting; replaced with CTA fog treatment.
+- **Background Option 5 — CTA fog (2025-11-08 13:05 PT):** Introduced `hero-cta-fog` gradient cluster hugging the CTA stack (radial cyan/gold glow + soft noir base) so the rest of the hero stays fully transparent while the CTA area gets atmospheric depth. Includes `ctaFogPulse` animation for slow breathing glow. **Outcome:** request to return to base overlays; fog removed and hero background reset to original gradient + particle stack.
+- **Baseline tweak (2025-11-08 13:20 PT):** Softened `bg-studios-hero-base` gradient opacity in `tailwind.config.ts` (alphas 0.92→0.72 range) so full-screen blue wash feels lighter while keeping tone consistent.
+- **Baseline tweak v2 (2025-11-08 13:25 PT):** Further reduced the same gradient to ~0.55–0.62 alpha so the video remains clearly visible even before future treatments are finalized.
+- **Baseline tweak v3 (2025-11-08 13:30 PT):** Dropped `bg-studios-hero-base` again to ~0.42–0.48 alpha for an even lighter wash while keeping the palette intact.
+- **Baseline tweak v4 (2025-11-08 13:34 PT):** Reduced the gradient once more to ~0.32–0.36 alpha so the hero background is now barely-there, giving the video near-full prominence.
+- **Baseline tweak v5 (2025-11-08 13:38 PT):** Dropped gradient alphas to ~0.21–0.24, leaving only a whisper of midnight tint so the footage essentially owns the hero while preserving palette continuity.
+- **Hero video overlay fix (2025-11-08 13:45 PT):** Removed the conditional fallback scrim in `HeroVideoBackdrop` so the dark gradient no longer disappears when `MuxPlayer` reports `loadeddata` (which often happens right after the first scroll/wheel interaction). Base overlay now stays at a constant ~80 % tint, so perceived background opacity stays consistent while the video plays underneath.
+- **Hero overlay lightening (2025-11-08 13:50 PT):** Reduced the persistent overlay to ~45 % opacity and added a softer gradient pass so video shines through more without reintroducing the flicker issue.
+- **Hero overlay lightening v2 (2025-11-08 13:55 PT):** Dropped the overlay to ~30 % + gentler gradient so the video is now the dominant visual even before future treatments.
+- **Hero overlay lightening v3 (2025-11-08 14:05 PT):** Pulled persistent tint down to ~20 % and reduced spotlight/rim opacities plus pointer highlight intensity so the video reads almost fully exposed while keeping minimal structure for the copy.
+- **Gradient mesh attenuation (2025-11-08 14:10 PT):** Lowered the alpha values for `bg-studios-hero-base`, `spotlight`, and `rim` in `tailwind.config.ts` (~0.08–0.28 range) so the residual cyan/gold mesh stops obscuring the footage while retaining a hint of color direction.
+- **Gradient mesh attenuation v2 (2025-11-08 14:20 PT):** Re-applied the lighter (~0.05–0.18 alpha) mesh treatment after regression so the hero retains the more translucent cyan/gold wash Cameron preferred earlier.
+
+
 - **Context:** Returning to the Studios page with Section 3 handled by the parallel session; our scope advances to Section 4 “What You Actually Get,” anchored to the copy in `docs/prototypes/studios-copy-final-2025-11-04.md`.
 - **New directives:** Cameron reiterated a zero-tolerance rule for filler copy/components and introduced a mandatory post-implementation audit to ensure no stray text or badges slip in—only approved copy allowed.
 - **Parallel work:** Another Codex agent is actively shaping Section 3; avoid conflicting edits and surface any shared token changes promptly.

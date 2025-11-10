@@ -26,7 +26,7 @@ export function StudiosContactCTASection() {
               animation: "cta-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 0ms both",
             }}
           >
-            Ready for Broadcast-Grade AI Production?
+            Ready for Secure, Broadcast-Quality AI Production?
           </h2>
 
           {/* Subhead */}
@@ -57,7 +57,7 @@ export function StudiosContactCTASection() {
               animation: "cta-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 700ms both",
             }}
           >
-            Comprehensive AI Production Since 2023
+            Secure, Comprehensive AI Production Since 2023
           </p>
         </div>
       </div>

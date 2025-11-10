@@ -1,0 +1,62 @@
+# Debug & Fix Path
+# For broken or underperforming animations
+
+scenario_type: "debug-fix"
+description: "Diagnose and fix animation issues (jank, timing, visual bugs, errors)"
+
+phases:
+  - phase: 1
+    name: "Diagnosis"
+    required: true
+    workflows:
+      - id: "debug-animation"
+        required: true
+        agent: "gsap-editor"
+        command: "debug"
+        output: "Root cause analysis and fixes"
+        next_action: "Editor diagnoses issues using Chrome DevTools and GSAP expertise"
+
+      - id: "analyze-animation"
+        optional: true
+        agent: "gsap-editor"
+        command: "analyze"
+        output: "Systematic 10-point pitfalls analysis"
+        note: "Use if root cause is unclear - deep systematic analysis"
+
+  - phase: 2
+    name: "Fix & Optimize"
+    required: true
+    workflows:
+      - id: "refine-timing"
+        optional: true
+        agent: "gsap-editor"
+        command: "refine"
+        output: "Fixed timing and easing issues"
+
+      - id: "optimize-animation"
+        optional: true
+        agent: "gsap-editor"
+        command: "optimize"
+        output: "Performance optimization recommendations"
+
+      - id: "optimize-performance"
+        optional: true
+        agent: "gsap-tech-director"
+        command: "profile"
+        output: "Performance profiling and 60fps optimization"
+
+  - phase: 3
+    name: "Validation"
+    required: true
+    workflows:
+      - id: "validate-complete"
+        required: true
+        agent: "gsap-tech-director"
+        command: "validate"
+        output: "Comprehensive validation to confirm fixes"
+
+      - id: "validate-60fps"
+        required: true
+        agent: "gsap-tech-director"
+        command: "fps"
+        output: "60fps validation @ 4x CPU throttle"

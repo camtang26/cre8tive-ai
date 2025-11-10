@@ -1,49 +1,60 @@
-# ScrollTrigger Animation Workflow
-# VFX - KB-powered ScrollTrigger implementation with systematic research
+# ScrollTrigger Animation Workflow - GSAP Excellence Engine
+# Systematic ScrollTrigger implementation with Deep-Research frameworks
+# Agent: VFX Specialist
+# Complexity: Medium-High (Research-intensive ScrollTrigger mastery)
 
-name: 'create-scroll-animation'
-description: 'Create sophisticated ScrollTrigger animations using KB-powered pattern matching, Deep-Research frameworks (Sections 3.2, 3.3), and proven scroll effect implementations'
-installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-scroll-animation'
-instructions: '{installed_path}/instructions.md'
-template: null  # Generates code directly
-default_output_file: null
+name: create-scroll-animation
+description: "Create sophisticated ScrollTrigger animations using KB-powered pattern matching, Deep-Research frameworks (Sections 3.2, 3.3), and proven scroll effect implementations"
+author: "GSAP Excellence Engine - The VFX Specialist"
+version: "2.0.0-premium"
+complexity: "medium-high"
+standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
 
 # Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
-config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
-output_folder: '{config_source}:output_folder'
-user_name: '{config_source}:user_name'
-communication_language: '{config_source}:communication_language'
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
 date: system-generated
-
-standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
+timestamp: system-generated
 
 # Workflow Metadata
 metadata:
-  agent: 'vfx'
+  agent: 'gsap-vfx'
   priority: 'P1'
-  complexity: 'medium-high'
   research_intensity: 'high'
   estimated_duration: '12-20 minutes'
-  output_type: 'code'
+  persona: 'scroll-animation-specialist'
+  scroll_approach: 'research-backed-scrolltrigger-patterns'
 
 # Required MCP Servers
 required_mcp:
-  - archon  # GSAP knowledge base - PRIMARY for ScrollTrigger patterns
+  - archon  # GSAP knowledge base (89 sources) - ScrollTrigger patterns PRIMARY
   - context7  # Latest ScrollTrigger API (fallback)
 
 # Deep-Research Sections Referenced
 deep_research_sections:
-  - '3.2'  # Scroll-Based Reveals (PRIMARY - reveal patterns)
-  - '3.3'  # Parallax and Depth Effects (PRIMARY - parallax/pin patterns)
-  - '2.5'  # React/Next.js Integration (if framework needed)
+  - '3.2'  # Scroll-Based Reveals (PRIMARY - reveal patterns, trigger strategies)
+  - '3.3'  # Parallax and Depth Effects (PRIMARY - pin/parallax/scrub patterns)
+  - '2.5'  # React/Next.js Integration (framework patterns, SSR safety)
   - '3.7'  # Cleanup and Reinitialization (ScrollTrigger lifecycle)
 
 # Archon Priority Sources
 archon_sources:
-  - 'b9f6b322298feb21'  # gsap.com official docs (442K words)
-  - '6a6860cfc96e173b'  # ScrollTrigger docs (526K words)
+  - 'b9f6b322298feb21'  # gsap.com official docs (442K words - PRIMARY)
+  - '6a6860cfc96e173b'  # ScrollTrigger docs (526K words - scroll patterns)
   - '1e5cc3bd5125be3c'  # Codrops ScrollTrigger tutorials (42K words)
   - '90c2ef5e8fa816b7'  # FreeFrontend scroll examples (207K words)
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# ScrollTrigger-specific Deep-Research files:
+# - 12-32-pattern-content-reveal-on-scroll-scrolltrigger-basics.md (Section 3.2)
+# - 13-33-pattern-sticky-scroll-triggered-animation-pinning-parallax.md (Section 3.3)
+# - 09-25-integration-patterns-gsap-react-nextjs-other-frameworks.md (Section 2.5)
+# - 17-37-pattern-cleanup-and-reinitialization-fullpage-transitions.md (Section 3.7)
 
 # ScrollTrigger Effect Types
 effect_types:
@@ -60,7 +71,75 @@ frameworks:
   - 'vue'        # Vue 3 patterns
   - 'vanilla'    # Pure JavaScript
 
-# Web Bundle Configuration (for workflow portability)
+agents:
+  primary: "gsap-vfx"
+  supporting: "gsap-cinematographer"  # For pattern research
+
+installed_path: "{module_root}/workflows/create-scroll-animation"
+template: null  # Generates code directly
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+default_output_file: null  # Code output provided inline
+
+inputs:
+  effect_type:
+    description: "Scroll effect type (reveal, parallax, scrub, pin, horizontal)"
+    required: true
+    type: "classification"
+
+  elements:
+    description: "Elements and selectors needing ScrollTrigger animations"
+    required: true
+    type: "dom_selection"
+
+  trigger_points:
+    description: "When animations should activate (start/end positions)"
+    required: true
+    type: "scroll_configuration"
+
+  animation_details:
+    description: "Visual effects for each element (fade, slide, scale, parallax speed)"
+    required: true
+    type: "animation_spec"
+
+  scrub_options:
+    description: "Scrub/pin configuration if applicable (smooth scrub, pin during scrub, markers)"
+    required: false
+    type: "scrolltrigger_config"
+
+  framework:
+    description: "Framework context (React, Next.js, Vue, Vanilla)"
+    required: true
+    type: "environment"
+
+outputs:
+  scrolltrigger_code:
+    format: "Production-ready ScrollTrigger implementation"
+    type: "code"
+
+  research_citations:
+    format: "Archon sources and Deep-Research sections consulted"
+    type: "documentation"
+
+  pattern_justification:
+    format: "Why this ScrollTrigger configuration was chosen (research-backed)"
+    type: "rationale"
+
+  testing_checklist:
+    format: "ScrollTrigger-specific validation (trigger points, smooth scrolling, cleanup)"
+    type: "validation"
+
+success_criteria:
+  - "ScrollTrigger activates at correct scroll position (tested with markers)"
+  - "Smooth 60fps scrolling (no jank during scroll)"
+  - "Proper cleanup (no lingering ScrollTriggers on unmount)"
+  - "Research-backed configuration (Deep-Research Sections 3.2, 3.3 applied)"
+  - "Framework integration correct (useGSAP/context cleanup if React)"
+  - "Mobile-responsive trigger points (viewport differences handled)"
+
+estimated_duration: "12-20 minutes"
+
 web_bundle:
   name: 'create-scroll-animation'
   description: 'Create sophisticated ScrollTrigger animations using KB-powered pattern matching, Deep-Research frameworks (Sections 3.2, 3.3), and proven scroll effect implementations'
@@ -68,8 +147,9 @@ web_bundle:
   web_bundle_files:
     - 'bmad/gsap-excellence/workflows/create-scroll-animation/workflow.yaml'
     - 'bmad/gsap-excellence/workflows/create-scroll-animation/instructions.md'
-    # Deep-Research dependencies (Step 2 Research Gate - MANDATORY)
+    - 'bmad/gsap-excellence/workflows/create-scroll-animation/checklist.md'
+    # Deep-Research dependencies (MANDATORY research gate)
     - 'docs/Deep-Research/GSAP-Animation-Mastery/12-32-pattern-content-reveal-on-scroll-scrolltrigger-basics.md'
     - 'docs/Deep-Research/GSAP-Animation-Mastery/13-33-pattern-sticky-scroll-triggered-animation-pinning-parallax.md'
-    - 'docs/Deep-Research/GSAP-Animation-Mastery/17-37-pattern-cleanup-and-reinitialization-fullpage-transitions.md'
     - 'docs/Deep-Research/GSAP-Animation-Mastery/09-25-integration-patterns-gsap-react-nextjs-other-frameworks.md'
+    - 'docs/Deep-Research/GSAP-Animation-Mastery/17-37-pattern-cleanup-and-reinitialization-fullpage-transitions.md'

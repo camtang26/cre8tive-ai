@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react"
 import MuxPlayer from "@mux/mux-player-react/lazy"
+import { useSectionReveal, SectionRevealPresets } from '@/hooks/useSectionReveal';
 
 // Mux Playback IDs for platform-specific demo videos
 const PLAYBACK_IDS = {
@@ -33,6 +34,13 @@ const FRAMES = [
 ] as const
 
 export function StudiosPlatformDemoSection() {
+  // REFINED: HERO LUXURY timing - maximum cinematic drama for key marketing moment
+  // expo.out creates "Apple product reveal" feel: explosive start → dramatic brake → feather settle
+  useSectionReveal({
+    selector: '[data-reveal-feature]',
+    ...SectionRevealPresets.hero,  // REFINED: 60ms, 1.6s, expo.out (was luxury: 1.2s, power4.out)
+  });
+
   return (
     <section
       id="studios-platform-demo"
@@ -47,19 +55,20 @@ export function StudiosPlatformDemoSection() {
       <div className="container relative mx-auto max-w-6xl px-4 md:px-6 xl:px-0">
         <div className="mx-auto max-w-3xl space-y-6 text-center text-white" data-motion="platform-demo-copy">
           <h2
+            data-reveal-feature
             id="studios-platform-demo-title"
             className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.2rem] md:leading-[1.08]"
           >
             Six Formats. One Production.
           </h2>
-          <p className="text-base font-medium uppercase tracking-[0.32em] text-white/60 md:text-[0.95rem]">
-            YouTube 16:9. TikTok 9:16. Instagram 1:1, 4:5, Reels. LinkedIn. X. Facebook. Platform-native delivery without six separate productions.
+          <p data-reveal-feature className="text-base font-medium uppercase tracking-[0.32em] text-white/60 md:text-[0.95rem]">
+            YouTube 16:9. TikTok 9:16. Instagram 1:1, 4:5, Reels. LinkedIn. X. Facebook. Secure, platform-native delivery without six separate productions.
           </p>
           <div className="space-y-5 text-lg leading-relaxed text-studios-body md:text-[1.2rem]">
-            <p>
+            <p data-reveal-feature>
               Most agencies repurpose one video across platforms—audiences notice. Pure AI tools generate separately—budgets explode.
             </p>
-            <p>
+            <p data-reveal-feature>
               Our Studios delivers platform-optimized work from a single production process. Your clients get native content everywhere.
             </p>
           </div>
@@ -78,6 +87,7 @@ export function StudiosPlatformDemoSection() {
                 playbackId={frame.playbackId}
                 order={index + 1}
                 className="mx-auto w-full max-w-[26rem]"
+                reveal={true}
               />
             ))}
           </div>
@@ -114,6 +124,7 @@ export function StudiosPlatformDemoSection() {
                   opacity: 0.9,
                   zIndex: 2,
                 }}
+                reveal={true}
               />
 
               {/* TikTok 9:16 - left middle, angled */}
@@ -132,6 +143,7 @@ export function StudiosPlatformDemoSection() {
                   opacity: 0.9,
                   zIndex: 2,
                 }}
+                reveal={true}
               />
 
               {/* YouTube 16:9 - center bottom, front */}
@@ -151,6 +163,7 @@ export function StudiosPlatformDemoSection() {
                   zIndex: 3,
                   width: "37.5rem",
                 }}
+                reveal={true}
               />
             </div>
           </div>
@@ -169,11 +182,13 @@ type MediaFrameProps = {
   order: number
   className?: string
   style?: CSSProperties
+  reveal?: boolean
 }
 
-function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, className, style }: MediaFrameProps) {
+function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, className, style, reveal }: MediaFrameProps) {
   return (
     <div
+      {...(reveal ? { 'data-reveal-feature': true } : {})}
       className={`group relative overflow-hidden rounded-[32px] border border-white/12 bg-white/[0.02] p-[1.5px] shadow-[0_80px_200px_-110px_rgba(8,15,32,0.92)] transition-all duration-500 ease-out hover:border-white/18 hover:shadow-[0_120px_260px_-120px_rgba(9,18,36,0.95)] ${className ?? ""}`}
       data-motion="platform-demo-frame"
       data-motion-order={order}

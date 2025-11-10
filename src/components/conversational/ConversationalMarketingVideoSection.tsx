@@ -2,6 +2,12 @@ import { useState, useRef } from "react"
 import { Play, CheckCircle2 } from "lucide-react"
 import MuxPlayer from "@mux/mux-player-react/lazy"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 const MARKETING_VIDEO_PLAYBACK_ID = "FFH4ldVB00HBEO1iLXm9xWmBNvK501vBQ6Fj9PixEHcJA"
 
@@ -15,6 +21,29 @@ export function ConversationalMarketingVideoSection() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const playerRef = useRef<HTMLVideoElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const videoCardRef = useRef<HTMLDivElement>(null)
+  const metadataCardRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
+
+  // 🎬 Progressive Video Reveal
+  useGSAP(() => {
+    if (prefersReducedMotion) return
+
+    gsap.from([videoCardRef.current, metadataCardRef.current], {
+      opacity: 0,
+      y: 50,
+      scale: 0.95,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 70%",
+        toggleActions: "play none none none"
+      }
+    })
+  }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
 
   const handlePlayClick = async () => {
     if (playerRef.current) {
@@ -29,6 +58,7 @@ export function ConversationalMarketingVideoSection() {
 
   return (
     <section
+      ref={sectionRef}
       id="conversational-marketing-video"
       aria-labelledby="conversational-marketing-video-title"
       className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_18%_12%,rgba(20,241,149,0.2),transparent_60%),radial-gradient(circle_at_82%_20%,rgba(16,185,129,0.18),transparent_62%),linear-gradient(150deg,rgba(4,18,30,0.98)0%,rgba(6,32,47,0.96)48%,rgba(4,19,31,0.98)100%)] py-24 md:py-32"
@@ -61,7 +91,7 @@ export function ConversationalMarketingVideoSection() {
         {/* Video + Metadata Layout */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Video Player - Takes 2 columns on desktop */}
-          <div className="lg:col-span-2">
+          <div ref={videoCardRef} className="lg:col-span-2">
             <GlassmorphicCard
               accentColor="#10B981"
               accentGradient="from-[rgba(16,185,129,0.36)] via-[rgba(16,185,129,0.12)] to-transparent"
@@ -122,7 +152,7 @@ export function ConversationalMarketingVideoSection() {
           </div>
 
           {/* Video Metadata Card - Takes 1 column on desktop */}
-          <div className="lg:col-span-1">
+          <div ref={metadataCardRef} className="lg:col-span-1">
             <GlassmorphicCard
               accentColor="#14F195"
               accentGradient="from-[rgba(20,241,149,0.36)] via-[rgba(20,241,149,0.12)] to-transparent"

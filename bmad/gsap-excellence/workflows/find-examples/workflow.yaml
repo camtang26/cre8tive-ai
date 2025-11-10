@@ -2,10 +2,12 @@
 # Cinematographer - CodePen/Awwwards example finding with quality analysis
 
 name: 'find-examples'
+version: '2.0.0-premium'
 description: 'Find premium CodePen/Awwwards GSAP examples with quality analysis using combined Archon + WebSearch research protocol'
 installed_path: '{project-root}/bmad/gsap-excellence/workflows/find-examples'
 instructions: '{installed_path}/instructions.md'
 template: '{installed_path}/template.md'
+validation: '{installed_path}/checklist.md'
 default_output_file: '{output_folder}/premium-examples-{timestamp}.md'
 
 # Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
@@ -32,8 +34,16 @@ required_mcp:
   - archon  # GSAP knowledge base (CodePen, Awwwards, FreeFrontend archives)
   - perplexity  # WebSearch for current examples
 
-# Deep-Research Framework Path
-deep_research_decision_framework: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery/04-14-deciding-between-gsap-and-alternatives.md'
+# Deep-Research Knowledge Base
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '1.1'  # The Animator's Mindset - "Great animations are meaningful, not just decorative"
+
+# Deep-Research Framework Paths (contextual reference)
+deep_research_decision_framework: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery/04-14-deciding-between-gsap-and-alternatives.md'  # Tool selection context
+deep_research_animators_mindset: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery/01-11-the-animators-mindset-vs-code-generator.md'  # Quality principle
 
 # Archon Priority Sources
 archon_sources:

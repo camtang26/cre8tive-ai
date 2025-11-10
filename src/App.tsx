@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { MainLayout } from "./components/layout/MainLayout";
 import { CookieConsent } from "./components/analytics/CookieConsent";
 import { ScrollToTop } from "./components/core/ScrollToTop";
@@ -54,12 +54,13 @@ const App = () => {
   const baseUrl = import.meta.env.BASE_URL;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SEO />
-      <TooltipProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <SEO />
+        <TooltipProvider>
         <Helmet>
-          {/* Security Headers */}
-          <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.elevenlabs.io https://player.vimeo.com https://f.vimeocdn.com https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com https://*.google.com https://*.spline.design https://prod.spline.design https://spline.design https://va.vercel-scripts.com https://unpkg.com; script-src-elem 'self' 'unsafe-inline' blob: https://*.elevenlabs.io https://elevenlabs.io https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.googleadservices.com https://*.google.com https://www.gstatic.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://*.spline.design https://prod.spline.design https://va.vercel-scripts.com https://unpkg.com; frame-src 'self' https://*.elevenlabs.io https://player.vimeo.com https://*.vimeo.com https://f.vimeocdn.com https://convai.elevenlabs.io https://www.googletagmanager.com https://*.google.com; connect-src 'self' https://getform.io https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io https://*.vimeo.com https://f.vimeocdn.com https://stream.mux.com https://*.mux.com https://inferred.litix.io https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com https://www.google.com https://www.google.co.nz https://www.google.com.au https://www.google.co.uk https://www.google.ca https://*.google.com https://*.doubleclick.net https://api.elevenlabs.io https://*.spline.design https://prod.spline.design https://spline.design https://unpkg.com; img-src 'self' data: blob: https://*.elevenlabs.io https://i.vimeocdn.com https://image.mux.com https://*.mux.com https://www.google-analytics.com https://www.googleadservices.com https://*.google.com https://www.google.co.nz https://www.google.com.au https://www.google.co.uk https://www.google.ca https://googleads.g.doubleclick.net https://*.doubleclick.net https://www.googletagmanager.com https://fonts.gstatic.com https://storage.googleapis.com https://*.spline.design https://prod.spline.design; media-src 'self' data: blob: https://stream.mux.com https://*.mux.com; child-src 'self' https://*.elevenlabs.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.googletagmanager.com https://*.google.com https://*.spline.design https://prod.spline.design; font-src 'self' data: https://fonts.gstatic.com https://*.spline.design https://prod.spline.design;" />
+          {/* Security Headers - Note: http://www.gstatic.com allowed for Vimeo Cast SDK (loaded by player) */}
+          <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.elevenlabs.io https://player.vimeo.com https://f.vimeocdn.com https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com https://*.google.com https://*.spline.design https://prod.spline.design https://spline.design https://va.vercel-scripts.com https://unpkg.com; script-src-elem 'self' 'unsafe-inline' blob: https://*.elevenlabs.io https://elevenlabs.io https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.googleadservices.com https://*.google.com https://www.gstatic.com http://www.gstatic.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://*.spline.design https://prod.spline.design https://va.vercel-scripts.com https://unpkg.com; frame-src 'self' https://*.elevenlabs.io https://player.vimeo.com https://*.vimeo.com https://f.vimeocdn.com https://convai.elevenlabs.io https://www.googletagmanager.com https://*.google.com; connect-src 'self' https://getform.io https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io https://*.vimeo.com https://f.vimeocdn.com https://stream.mux.com https://*.mux.com https://inferred.litix.io https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com https://www.google.com https://www.google.co.nz https://www.google.com.au https://www.google.co.uk https://www.google.ca https://*.google.com https://*.doubleclick.net https://api.elevenlabs.io https://*.spline.design https://prod.spline.design https://spline.design https://unpkg.com; img-src 'self' data: blob: https://*.elevenlabs.io https://i.vimeocdn.com https://image.mux.com https://*.mux.com https://www.google-analytics.com https://www.googleadservices.com https://*.google.com https://www.google.co.nz https://www.google.com.au https://www.google.co.uk https://www.google.ca https://googleads.g.doubleclick.net https://*.doubleclick.net https://www.googletagmanager.com https://fonts.gstatic.com https://storage.googleapis.com https://*.spline.design https://prod.spline.design; media-src 'self' data: blob: https://stream.mux.com https://*.mux.com; child-src 'self' https://*.elevenlabs.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.googletagmanager.com https://*.google.com https://*.spline.design https://prod.spline.design; font-src 'self' data: https://fonts.gstatic.com https://*.spline.design https://prod.spline.design;" />
           <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
           <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
           <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
@@ -94,6 +95,7 @@ const App = () => {
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
+    </HelmetProvider>
   );
 };
 

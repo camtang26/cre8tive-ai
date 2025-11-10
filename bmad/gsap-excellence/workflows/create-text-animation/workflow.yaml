@@ -1,49 +1,205 @@
-# Text Animation Workflow
-# VFX - SplitText plugin implementation with KB patterns
+# Text Animation Workflow - GSAP Excellence Engine
+# Systematic SplitText implementation with research-backed typography patterns
+# Agent: VFX Artist
+# Complexity: Medium (Research-intensive typography animation)
 
-name: 'create-text-animation'
-description: 'Create sophisticated text animations using SplitText plugin (FREE in GSAP 3.13+) with KB-powered pattern matching: char-by-char, word reveals, line animations, advanced effects'
-installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-text-animation'
-instructions: '{installed_path}/instructions.md'
-template: null
-default_output_file: null
-
-# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
-config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
-output_folder: '{config_source}:output_folder'
-user_name: '{config_source}:user_name'
-communication_language: '{config_source}:communication_language'
-date: system-generated
-
+name: create-text-animation
+description: "Create sophisticated text animations using SplitText plugin (FREE in GSAP 3.13+) with KB-powered pattern matching: char-by-char, word reveals, line animations, advanced effects, accessibility-first implementation"
+author: "GSAP Excellence Engine - The VFX Artist"
+version: "2.0.0-premium"
+complexity: "medium"
 standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
 
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
+date: system-generated
+timestamp: system-generated
+
+# Workflow Metadata
 metadata:
-  agent: 'vfx'
+  agent: 'gsap-vfx'
   priority: 'P2'
-  complexity: 'medium'
-  research_intensity: 'medium'
-  estimated_duration: '10-15 minutes'
-  output_type: 'code'
+  research_intensity: 'high'
+  estimated_duration: '15-20 minutes'
+  persona: 'typography-specialist'
+  optimization_approach: 'accessibility-first-splittext-mastery'
 
+# Required MCP Servers
 required_mcp:
-  - archon  # SplitText examples
-  - context7  # SplitText API docs
+  - archon  # GSAP knowledge base (89 sources, 2.2M+ words) - SplitText patterns
+  - context7  # Latest GSAP API docs (fallback for version-specific features)
+  - chrome_devtools  # CRITICAL: Visual testing, accessibility validation, reduced-motion verification
 
+# Deep-Research Sections Referenced (13 sections - comprehensive in-depth coverage)
 deep_research_sections:
-  - '2.1'  # Core GSAP Concepts: Tweens, Staggers, Easing (CORRECTED from 2.3)
-  - '3.5'  # Text Split and Reveal - SplitText (CORRECTED from 4.4)
-  - '2.3'  # The 2024 GSAP Plugin Ecosystem - All FREE (SplitText status)
+  # CORE SPLITTEXT (3 sections)
+  - '2.1'  # Core GSAP Concepts: Stagger fundamentals (0.02-0.1s timing, complex stagger objects)
+  - '2.3'  # The 2024 GSAP Plugin Ecosystem - All FREE (SplitText availability, masking in 3.13+)
+  - '3.5'  # Pattern: Text Split and Reveal - SplitText (PRIMARY - word flip, char-by-char, revert())
 
-# IMPORTANT: SplitText is FREE in GSAP 3.13+
+  # IN-DEPTH ADDITIONS (10 sections)
+  - '1.2'  # Visual Inspiration → Technical Translation (Typography as visual art)
+  - '2.4'  # Performance Patterns and Optimization Techniques (Performance overview)
+  - '2.5'  # Integration Patterns: GSAP + React/Next.js (Framework integration, useGSAP hook)
+  - '3.4'  # Pattern: Staggered Grid Reveal (Complex stagger patterns: grid, center, random)
+  - '5.1'  # Animate Efficient Properties: The GPU Rule (GPU-accelerated text transforms)
+  - '6.1'  # Respecting Prefers-Reduced-Motion (MANDATORY accessibility with gsap.matchMedia)
+  - '6.2'  # Other Motion Accessibility Considerations (Screen readers, ARIA, user controls)
+  - '7.5'  # Notable Agencies & Patterns (Industry typography patterns from premium sites)
+  - '8.1'  # Pitfall: Forgetting to Clean Up (ctx.revert(), split.revert(), memory leaks)
+  - '8.2'  # Pitfall: Animating Wrong Properties (GPU acceleration for text)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - SplitText documentation)
+  - '6a6860cfc96e173b'  # GSAP Community Forum (SplitText examples, troubleshooting)
+  - 'd715f5f9c606aeb7'  # Codrops GSAP tips (SplitText masking, advanced patterns)
+  - '90c2ef5e8fa816b7'  # FreeFrontend text animations (Typography galleries)
+  - '32ca3c574d6635a8'  # Codrops text block transitions (Inspiration patterns)
+  - '80a3ee12854455ca'  # Motion.dev split-text (Alternative patterns)
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# SplitText-specific Deep-Research files:
+# - 05-21-core-gsap-concepts-tween-timeline-stagger-ease.md (Section 2.1)
+# - 07-23-the-2024-gsap-plugin-ecosystem-all-free.md (Section 2.3)
+# - 15-35-pattern-text-split-and-reveal-splittext-fancy-effect.md (Section 3.5)
+# - 02-12-visual-inspiration-technical-translation-workflow.md (Section 1.2)
+# - 08-24-performance-patterns-and-optimization-techniques.md (Section 2.4)
+# - 09-25-integration-patterns-gsap-react-nextjs-other-frameworks.md (Section 2.5)
+# - 14-34-pattern-staggered-grid-reveal-with-advanced-staggering-grid-from-options.md (Section 3.4)
+# - 18-51-animate-efficient-properties-the-gpu-rule.md (Section 5.1)
+# - 24-61-respecting-prefers-reduced-motion.md (Section 6.1)
+# - 25-62-other-motion-accessibility-considerations.md (Section 6.2)
+# - 32-75-notable-agencies-patterns.md (Section 7.5)
+# - 34-pitfall-81-forgetting-to-clean-up-memory-leaks-double-animations.md (Pitfall 8.1)
+# - 35-pitfall-82-animating-the-wrong-properties-no-gpu-acceleration.md (Pitfall 8.2)
+
+# Chrome DevTools Integration (CRITICAL for this workflow)
+chrome_devtools_capabilities:
+  - take_screenshot  # Visual verification of text animations
+  - list_console_messages  # Accessibility warnings detection
+  - evaluate_script  # Test prefers-reduced-motion detection
+  - take_snapshot  # DOM inspection for SplitText structure audit
+
+agents:
+  primary: "gsap-vfx"
+  supporting: "gsap-cinematographer"  # For stagger timing refinement
+
+installed_path: "{module_root}/workflows/create-text-animation"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+default_output_file: "{output_folder}/text-animation-report-{timestamp}.md"
+
+# IMPORTANT: SplitText is FREE in GSAP 3.13+ (was paid before Webflow acquisition)
 plugin_status:
   name: 'SplitText'
-  availability: 'FREE in GSAP 3.13+ (was paid before Webflow acquisition)'
+  availability: 'FREE in GSAP 3.13+ (was paid before Webflow acquisition in October 2024)'
   reference: 'https://gsap.com/blog/gsap-3-13-0-release'
-  note: 'Section 2.3 documents the FREE plugin ecosystem, Section 3.5 has SplitText patterns'
+  note: 'Section 2.3 documents the FREE plugin ecosystem transformation'
+  masking_feature: 'Built-in masking support in 3.13+ (Section 3.5 patterns)'
+  accessibility: 'ARIA-compatible by default (Section 6.2 guidance)'
 
-# Text Animation Types
+# Text Animation Types (Detailed)
 animation_types:
-  - 'chars'    # Character-by-character animations
-  - 'words'    # Word-by-word reveals
-  - 'lines'    # Line-by-line animations
-  - 'advanced' # Scramble, wave, 3D rotation
+  chars:
+    label: 'Character-by-character animations'
+    stagger_range: '0.02-0.05s (natural reading rhythm)'
+    use_cases: 'Headlines, logo reveals, dramatic text entrances'
+    accessibility: 'Reduced stagger for prefers-reduced-motion users'
+
+  words:
+    label: 'Word-by-word reveals'
+    stagger_range: '0.1s (comfortable reading pace)'
+    use_cases: 'Paragraphs, subtitles, sequential messaging'
+    accessibility: 'Instant appearance alternative for reduced-motion'
+
+  lines:
+    label: 'Line-by-line animations'
+    stagger_range: '0.1-0.15s'
+    use_cases: 'Typewriter effects, content reveals, poetry'
+    accessibility: 'Fade-only alternative for vestibular sensitivities'
+
+  advanced:
+    label: 'Advanced effects (scramble, wave, 3D rotation)'
+    examples: 'Scramble text, morphing characters, 3D character rotation, grid patterns'
+    use_cases: 'Premium hero sections, interactive experiences'
+    accessibility: 'MUST provide reduced-motion fallback (instant or simple fade)'
+
+inputs:
+  animation_type:
+    description: "Text animation type (chars, words, lines, advanced)"
+    required: true
+    type: "selection"
+
+  text_element:
+    description: "Text element selector and content (.hero-title, h1, etc.)"
+    required: true
+    type: "selector"
+
+  animation_style:
+    description: "Animation properties (fade, slide, scale, rotate, stagger amount, easing)"
+    required: true
+    type: "animation_config"
+
+  framework_context:
+    description: "Framework (React/Next.js/Vue/Vanilla) and version, SSR considerations"
+    required: true
+    type: "environment"
+
+  accessibility_priority:
+    description: "Accessibility approach (standard, high-priority, WCAG-AAA)"
+    required: true
+    type: "classification"
+
+outputs:
+  splittext_implementation:
+    format: "Production-ready SplitText code with masking, stagger, cleanup"
+    type: "code"
+
+  accessibility_compliance:
+    format: "prefers-reduced-motion handling, ARIA preservation, screen reader compatibility"
+    type: "compliance_report"
+
+  research_citations:
+    format: "Archon sources and Deep-Research sections consulted (13+ sections)"
+    type: "documentation"
+
+  performance_validation:
+    format: "document.fonts.ready integration, revert() cleanup, memory leak prevention"
+    type: "validation_report"
+
+  visual_demo:
+    format: "Chrome DevTools screenshot + reduced-motion comparison"
+    type: "screenshot"
+
+success_criteria:
+  - "SplitText plugin registered correctly (FREE in GSAP 3.13+)"
+  - "Font loading handled (document.fonts.ready BEFORE SplitText)"
+  - "Cleanup implemented (split.revert() or ctx.revert())"
+  - "Stagger timing feels natural (0.02-0.1s based on type)"
+  - "Accessibility MANDATORY: prefers-reduced-motion alternative provided"
+  - "ARIA compatibility preserved (SplitText default behavior maintained)"
+  - "GPU-accelerated properties used (transform, opacity only)"
+  - "Research-backed patterns applied (not trial-and-error)"
+  - "Masking leveraged where appropriate (3.13+ feature)"
+  - "Framework integration follows best practices (React: useGSAP/context)"
+
+estimated_duration: "15-20 minutes"
+
+web_bundle:
+  name: 'create-text-animation'
+  description: 'Create sophisticated text animations using SplitText plugin (FREE in GSAP 3.13+) with KB-powered pattern matching'
+  path: 'bmad/gsap-excellence/workflows/create-text-animation'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/create-text-animation/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/create-text-animation/instructions.md'
+    - 'bmad/gsap-excellence/workflows/create-text-animation/template.md'
+    - 'bmad/gsap-excellence/workflows/create-text-animation/checklist.md'

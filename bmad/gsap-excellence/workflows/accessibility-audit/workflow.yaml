@@ -8,6 +8,7 @@ description: "Validate WCAG compliance for GSAP animations. Checks prefers-reduc
 author: "GSAP Excellence Engine"
 version: "1.0.0"
 complexity: "simple"
+standalone: true
 
 # Critical variables from module config
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"

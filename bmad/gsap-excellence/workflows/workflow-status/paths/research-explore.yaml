@@ -1,0 +1,58 @@
+# Research & Exploration Path
+# Deep dive into GSAP techniques and premium examples
+
+scenario_type: "research-explore"
+description: "Deep research and exploration of GSAP techniques and trends"
+
+phases:
+  - phase: 1
+    name: "Research"
+    required: true
+    workflows:
+      - id: "research-gsap-pattern"
+        recommended: true
+        agent: "gsap-cinematographer"
+        command: "research"
+        output: "Multi-source research report (Archon + Context7 + Web)"
+        next_action: "Cinematographer researches specific GSAP technique/pattern"
+
+      - id: "research-trends"
+        optional: true
+        agent: "gsap-cinematographer"
+        command: "trends"
+        output: "Latest premium animation trends (2025)"
+
+      - id: "find-examples"
+        optional: true
+        agent: "gsap-cinematographer"
+        command: "examples"
+        output: "Curated premium GSAP examples with analysis"
+
+      - id: "analyze-timing"
+        optional: true
+        agent: "gsap-cinematographer"
+        command: "timing"
+        output: "Timing and easing curve analysis and recommendations"
+
+      - id: "analyze-motion"
+        optional: true
+        agent: "gsap-cinematographer"
+        command: "motion"
+        output: "Visual inspiration translated to GSAP specifications"
+
+  - phase: 2
+    name: "Implementation (Optional)"
+    optional: true
+    workflows:
+      - id: "implement-from-pattern"
+        optional: true
+        agent: "gsap-vfx"
+        command: "implement"
+        output: "Implement what you discovered"
+        note: "Apply your research findings"
+
+      - id: "creative-ideation"
+        optional: true
+        agent: "gsap-director"
+        command: "plan"
+        output: "Generate concepts based on research findings"

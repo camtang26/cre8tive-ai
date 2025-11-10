@@ -1,0 +1,111 @@
+# Complete Animation Production - Full Pipeline
+# Vision → Research → Implementation → Polish → Validation
+# Uses all 5 studio crew agents
+
+scenario_type: "complete-production"
+description: "Complete production pipeline from concept to production-ready delivery"
+
+phases:
+  - phase: 1
+    name: "Planning & Vision"
+    optional: false
+    workflows:
+      - id: "creative-ideation"
+        recommended: true
+        agent: "gsap-director"
+        command: "plan"
+        output: "Generates 3-5 premium animation concepts"
+        next_action: "Select your favorite concept and proceed to full production"
+
+      - id: "plan-narrative"
+        optional: true
+        agent: "gsap-director"
+        command: "narrative"
+        output: "Creates visual narrative using Pixar Story Spine framework"
+
+  - phase: 2
+    name: "Research & Discovery"
+    required: true
+    workflows:
+      - id: "research-gsap-pattern"
+        optional: true
+        agent: "gsap-cinematographer"
+        command: "research"
+        output: "Multi-source research report (Archon + Context7 + Web)"
+
+      - id: "research-trends"
+        optional: true
+        agent: "gsap-cinematographer"
+        command: "trends"
+        output: "Latest premium animation trends and examples"
+
+      - id: "find-examples"
+        optional: true
+        agent: "gsap-cinematographer"
+        command: "examples"
+        output: "Curated premium GSAP examples with analysis"
+
+  - phase: 3
+    name: "Production"
+    required: true
+    workflows:
+      - id: "animation-production"
+        required: true
+        agent: "gsap-director"
+        command: "production"
+        output: "Complete production package - all 5 agents collaborate"
+        next_action: "Run flagship workflow that orchestrates Vision → Research → Implementation → Polish → Validation"
+        note: "This is the RECOMMENDED path - runs all phases automatically"
+
+      # Alternative: Manual production (if user wants control over each step)
+      - id: "implement-from-pattern"
+        optional: true
+        agent: "gsap-vfx"
+        command: "implement"
+        output: "Implementation from pattern library"
+        note: "Alternative to animation-production if you want manual control"
+
+      - id: "refine-timing"
+        optional: true
+        agent: "gsap-editor"
+        command: "refine"
+        output: "Polished timing and easing"
+
+  - phase: 4
+    name: "Quality & Validation"
+    required: true
+    workflows:
+      - id: "validate-complete"
+        required: true
+        agent: "gsap-tech-director"
+        command: "validate"
+        output: "Comprehensive validation: 60fps + visual + console + accessibility"
+
+      - id: "validate-60fps"
+        required: true
+        agent: "gsap-tech-director"
+        command: "fps"
+        output: "60fps validation @ 4x CPU throttle (MANDATORY for production)"
+
+      - id: "accessibility-audit"
+        required: true
+        agent: "gsap-tech-director"
+        command: "accessibility"
+        output: "WCAG compliance validation"
+
+      - id: "ship-ready-check"
+        required: true
+        agent: "gsap-tech-director"
+        command: "ship-ready"
+        output: "6-part production readiness checklist - final green light"
+
+  - phase: 5
+    name: "Finalization"
+    optional: true
+    workflows:
+      - id: "harvest-patterns"
+        optional: true
+        agent: "gsap-director"
+        command: "harvest"
+        output: "Extracts successful animation as reusable pattern for library"
+        note: "Recommended if animation is exceptional - grows the pattern library"

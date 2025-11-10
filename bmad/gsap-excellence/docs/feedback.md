@@ -1,0 +1,1 @@
+cinematographic - research-gsap-patterns workflow: having dicated sources for archon mcp research is both good and bad - I reckon it should not be told what sources or how many - just keep going until a ton of high quality research is gathered

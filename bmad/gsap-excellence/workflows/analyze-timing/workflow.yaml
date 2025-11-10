@@ -1,14 +1,41 @@
-# Timing & Easing Analysis Workflow
-# Cinematographer - KB-powered motion analysis with systematic research
+# ==============================================================================
+# GSAP Excellence - Timing & Easing Analysis Workflow
+# ==============================================================================
+# Version: 2.0.0-premium
+# Agent: The Cinematographer (Motion Design Expert & Timing Specialist)
+# Type: Research-Intensive Analysis Workflow
+# Quality: Premium (MANDATORY research gates, 1500+ lines total)
+# ==============================================================================
+
+# Core Workflow Configuration
+# ==============================================================================
 
 name: 'analyze-timing'
-description: 'Analyze animation timing and easing using KB-powered motion analysis with systematic Archon queries and Deep-Research frameworks'
+version: '2.0.0-premium'
+workflow_type: 'analysis'
+quality_tier: 'premium'
+
+description: >
+  Analyze animation timing and easing using research-backed motion analysis.
+  Combines systematic Archon MCP queries (89 GSAP sources), Deep-Research
+  frameworks (Disney principles, easing theory), and premium examples to
+  deliver expert timing recommendations. MANDATORY research gates prevent
+  generic guesses - every recommendation is grounded in motion design expertise.
+
+tagline: 'Perfect timing is what separates good animations from great ones.'
+
+# Installation & File Paths
+# ==============================================================================
+
 installed_path: '{project-root}/bmad/gsap-excellence/workflows/analyze-timing'
 instructions: '{installed_path}/instructions.md'
 template: '{installed_path}/template.md'
+validation: '{installed_path}/checklist.md'
 default_output_file: '{output_folder}/timing-analysis-{timestamp}.md'
 
-# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
+# Configuration Sources (BMAD Standard)
+# ==============================================================================
+
 config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
 output_folder: '{config_source}:output_folder'
 user_name: '{config_source}:user_name'
@@ -16,29 +43,189 @@ communication_language: '{config_source}:communication_language'
 date: system-generated
 timestamp: system-generated
 
-standalone: false  # Agent-context-dependent workflow (only callable from Cinematographer agent menu)
+# Execution Configuration
+# ==============================================================================
+
+standalone: false  # Agent-context-dependent (Cinematographer menu only)
+autonomous: false  # Requires user approval at research gates (MANDATORY)
+template_workflow: false  # Generates analysis report (not a template)
 
 # Workflow Metadata
+# ==============================================================================
+
 metadata:
   agent: 'cinematographer'
+  agent_role: 'Motion Design Expert & Timing Specialist'
   priority: 'P1'
   complexity: 'medium'
-  research_intensity: 'high'
+  research_intensity: 'very_high'  # Multi-source research required
   estimated_duration: '10-15 minutes'
+  use_cases:
+    - 'Micro-interaction timing (buttons, hovers, icons)'
+    - 'Scroll reveal easing selection'
+    - 'Page load sequence choreography'
+    - 'Hero animation timing refinement'
+    - 'Physics-based motion parameter tuning'
+    - 'Timeline coordination analysis'
+  deliverables:
+    - 'Primary timing recommendation with GSAP code'
+    - '2-3 alternative timing approaches with trade-offs'
+    - 'Research citations (Archon + Deep-Research)'
+    - 'Frame-by-frame motion breakdown'
+    - 'Premium reference examples with URLs'
+    - 'Implementation notes (plugins, performance, a11y)'
+
+# Research Infrastructure (MANDATORY GATES)
+# ==============================================================================
 
 # Required MCP Servers
 required_mcp:
-  - archon  # GSAP knowledge base (89 sources)
-  - perplexity  # Premium examples (fallback)
+  - archon       # GSAP knowledge base (89 sources, 2.2M+ words)
+  - perplexity   # Premium examples, 2024-2025 trends (fallback)
+  - context7     # GSAP API verification (optional)
 
-# Deep-Research Sections Referenced
+# Deep-Research Knowledge Base
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Deep-Research Sections Referenced (3 sections - PRIMARY for timing analysis)
 deep_research_sections:
-  - '1.2'  # Visual Inspiration Translation → Design to timing specs
-  - '2.1'  # Core GSAP Concepts: Tween, Timeline, Stagger, Ease (CORRECTED from 2.3)
-  - '2.2'  # Mastering Timeline Techniques → Timing coordination
+  - section: '1.2'
+    title: 'Visual Inspiration → Technical Translation'
+    file: '02-12-visual-inspiration-technical-translation-workflow.md'
+    purpose: 'Translating abstract timing "feel" into concrete GSAP implementation'
+    frameworks:
+      - '5-step visual translation workflow'
+      - 'GSAP vs CSS decision framework'
+      - 'Visual + semantic mapping principle'
 
-# Archon Priority Sources
+  - section: '2.1'
+    title: 'Core GSAP Concepts: Tween, Timeline, Stagger, Ease'
+    file: '05-21-core-gsap-concepts-tween-timeline-stagger-ease.md'
+    purpose: 'PRIMARY SECTION - Easing curves, duration guidelines, timing theory'
+    frameworks:
+      - 'Easing categories by purpose (smooth/dramatic/bouncy/snappy/cinematic)'
+      - 'Disney Animation Principles #6 (ease-in/out) and #8 (timing)'
+      - 'Tween vs Timeline decision framework'
+      - 'Stagger pattern syntax (simple + advanced)'
+    key_insights:
+      - 'Premium sites tailor easing per animation (never default)'
+      - 'Use power4.out/expo.out for dramatic, fast-to-slow entrances'
+      - 'Use power2.inOut for gentle, smooth transitions'
+      - 'Use bounce.out/elastic.out for playful, bouncy elements'
+
+  - section: '2.2'
+    title: 'Mastering Timeline Techniques'
+    file: '06-22-mastering-gsap-timeline-techniques.md'
+    purpose: 'Coordinated timing for multi-element animations'
+    frameworks:
+      - 'Relative positioning syntax ("<", "+=0.5", labels)'
+      - 'Nested timeline composition (modular approach)'
+      - 'Control methods (pause, reverse, timeScale, seek, progress)'
+      - 'Defaults and repeat/yoyo patterns'
+    key_insights:
+      - 'Represent multi-step animations as timelines (not disjoint tweens)'
+      - 'Modular timelines enable testing components separately'
+      - 'timeScale() can be tweened for dynamic speed changes'
+
+# Archon MCP Priority Sources (6 sources - systematically queried)
 archon_sources:
-  - 'b9f6b322298feb21'  # gsap.com official docs
-  - '1e5cc3bd5125be3c'  # Codrops tutorials
-  - '90c2ef5e8fa816b7'  # FreeFrontend examples
+  - id: 'b9f6b322298feb21'
+    name: 'gsap.com official documentation'
+    purpose: 'Authoritative easing documentation, API reference'
+    query_priority: 'PRIMARY'
+
+  - id: '1e5cc3bd5125be3c'
+    name: 'Codrops GSAP tutorials'
+    purpose: 'Premium easing tutorials, advanced patterns'
+    query_priority: 'HIGH'
+
+  - id: '90c2ef5e8fa816b7'
+    name: 'FreeFrontend GSAP examples'
+    purpose: 'Real-world easing examples, production patterns'
+    query_priority: 'HIGH'
+
+  - id: '6a6860cfc96e173b'
+    name: 'GSAP ScrollTrigger performance guide'
+    purpose: 'Timing optimization for scroll animations'
+    query_priority: 'MEDIUM'
+
+  - id: '4f8e9d2a1c3b5e7f'
+    name: 'Active Theory case studies'
+    purpose: 'Award-winning agency timing patterns'
+    query_priority: 'MEDIUM'
+
+  - id: '2a4c6e8b0d1f3a5c'
+    name: 'Resn animation breakdowns'
+    purpose: 'Premium easing curve analysis'
+    query_priority: 'MEDIUM'
+
+# Research Query Patterns (Systematic Archon MCP Protocol)
+# ==============================================================================
+
+research_protocol:
+  tier_1_archon:
+    - query: 'easing curves {{desired_feel}}'
+      source_filter: 'b9f6b322298feb21'
+      match_count: 8
+      purpose: 'Find easing functions matching desired feel'
+
+    - query: 'timing principles {{animation_type}}'
+      source_filter: 'b9f6b322298feb21'
+      match_count: 6
+      purpose: 'Get duration recommendations for animation type'
+
+    - query: 'bezier curves {{animation_type}}'
+      type: 'code_examples'
+      match_count: 6
+      purpose: 'Find custom easing code examples'
+
+    - query: 'motion design fundamentals'
+      source_filter: 'b9f6b322298feb21'
+      match_count: 5
+      purpose: 'Disney principles, motion theory'
+
+  tier_2_websearch_fallback:
+    - query: 'GSAP easing {{animation_type}} Awwwards 2025'
+      purpose: 'Award-winning timing patterns'
+      condition: 'if_archon_insufficient'
+
+    - query: '{{premium_brand}} timing breakdown'
+      purpose: 'How top brands achieve timing excellence'
+      condition: 'if_archon_insufficient'
+
+# Quality Standards (Premium Workflow Requirements)
+# ==============================================================================
+
+quality_requirements:
+  research_enforcement:
+    mandatory_gates: true
+    blocking_checkpoints: true
+    user_approval_required: true
+    agent_cannot_skip: true
+
+  content_standards:
+    min_total_lines: 1500
+    min_verbatim_quotes: 10
+    min_code_examples: 5
+    min_research_citations: 8
+    min_premium_examples: 2
+
+  deliverable_quality:
+    recommendations_are_research_backed: true
+    code_is_copy_paste_ready: true
+    all_decisions_have_rationale: true
+    alternative_options_provided: true
+    accessibility_documented: true
+
+# Web Bundle Configuration (For Dashboard Display)
+# ==============================================================================
+
+web_bundle:
+  enabled: true
+  category: 'analysis'
+  icon: '🎬'
+  tags: ['timing', 'easing', 'motion-design', 'research-intensive']
+  badge: 'Premium'
+  preview_description: 'Research-backed timing analysis with MANDATORY expertise gates'
+  estimated_lines: '~1,500 lines'
+  completion_indicator: '✅ Premium Quality'

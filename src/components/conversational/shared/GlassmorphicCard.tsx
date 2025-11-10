@@ -95,7 +95,7 @@ export function GlassmorphicCard({
       </div>
 
       {/* Inline styles for GPU acceleration and reduced motion */}
-      <style jsx>{`
+      <style>{`
         /* GPU acceleration */
         .group {
           transform: translateZ(0);

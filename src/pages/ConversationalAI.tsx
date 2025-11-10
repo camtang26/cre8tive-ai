@@ -82,9 +82,6 @@ const ConversationalAI = () => {
           <ConversationalContactCTASection />
         </main>
       </PageLayout>
-
-      {/* ElevenLabs Conversational AI Widget */}
-      <elevenlabs-convai agent-id="agent_7901k75veexyeanar9ervcwsaz5m"></elevenlabs-convai>
     </div>
   )
 }

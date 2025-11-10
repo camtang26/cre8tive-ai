@@ -1,8 +1,17 @@
 import MuxPlayer from "@mux/mux-player-react/lazy"
+import { useSectionReveal } from '@/hooks/useSectionReveal';
 
 const WORKFLOW_VIDEO_PLAYBACK_ID = "4NnXGTRPk600YHQcWNp02txb01yZ3jMHXRqFQMpOimXCQE"
 
 export function StudiosWorkflowSection() {
+  // Slightly slower timing - users need time to read workflow description
+  useSectionReveal({
+    selector: '[data-reveal-workflow]',
+    stagger: 0.06,  // 60ms - slower for content-heavy section
+    duration: 1.0,  // Slightly longer duration
+    distance: 60,
+    start: "top 80%"
+  });
   return (
     <section
       id="studios-workflow"
@@ -19,22 +28,23 @@ export function StudiosWorkflowSection() {
           <div className="order-2 max-w-3xl space-y-8 text-white lg:order-1" data-motion="workflow-copy">
             <div className="space-y-6">
               <h2
+                data-reveal-workflow
                 id="studios-workflow-title"
                 className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.1rem] md:leading-[1.08]"
               >
               Start Anywhere. Finish Strong.
             </h2>
-            <p className="text-lg leading-relaxed text-studios-body md:text-[1.2rem]">
-              Storyboards ready? Perfect. Starting from scratch? We've built creative tools for that. Our Studios delivers broadcast-grade work from any starting line.
+            <p data-reveal-workflow className="text-lg leading-relaxed text-studios-body md:text-[1.2rem]">
+              Storyboards ready? Perfect. Starting from scratch? We've built creative tools for that. Our Studios delivers broadcast-quality work from any starting line—all within our secure production environment.
             </p>
           </div>
 
           <div className="space-y-4 text-base leading-relaxed text-studios-body md:text-lg">
-            <p>
-              Most agencies bring storyboards—we execute them to broadcast standards. Some directors need full creative development—our BriefingEngine handles brief-to-storyboard in minutes, then Our Studios brings it to life.
+            <p data-reveal-workflow>
+              Most agencies bring storyboards—we execute them to broadcast quality standards. Some directors need full creative development—our BriefingEngine handles brief-to-storyboard in minutes, then Our Studios brings it to life.
             </p>
-            <p>Your process. Your timeline. Your standards.</p>
-            <p>
+            <p data-reveal-workflow>Your process. Your timeline. Your standards. Our secure infrastructure.</p>
+            <p data-reveal-workflow>
               This video shows our full workflow when clients need everything. But you don't need all of it. Cre8tive Studios adapts to where you are.
             </p>
           </div>
@@ -42,7 +52,7 @@ export function StudiosWorkflowSection() {
 
           <div className="order-1 flex w-full justify-center lg:order-2" data-motion="workflow-visual">
             <figure className="relative w-full max-w-[72rem]">
-              <div className="group relative overflow-hidden rounded-[36px] border border-white/12 bg-white/[0.02] p-[2px] shadow-[0_140px_280px_-120px_rgba(8,15,32,0.94)] transition-all duration-500 ease-out hover:border-white/18 hover:shadow-[0_180px_320px_-140px_rgba(9,18,36,0.95)]" data-motion="workflow-video">
+              <div data-reveal-workflow className="group relative overflow-hidden rounded-[36px] border border-white/12 bg-white/[0.02] p-[2px] shadow-[0_140px_280px_-120px_rgba(8,15,32,0.94)] transition-all duration-500 ease-out hover:border-white/18 hover:shadow-[0_180px_320px_-140px_rgba(9,18,36,0.95)]" data-motion="workflow-video">
                 <div className="relative overflow-hidden rounded-[32px] bg-white/[0.06] backdrop-blur-[22px]">
                   <div className="absolute inset-0 rounded-[32px] opacity-80 mix-blend-screen [background-image:radial-gradient(circle_at_18%_24%,rgba(49,196,255,0.38),rgba(49,196,255,0)_62%),radial-gradient(circle_at_82%_76%,rgba(225,179,65,0.28),rgba(225,179,65,0)_65%)]" aria-hidden />
                   <div className="relative aspect-[16/9] overflow-hidden rounded-[32px]">
@@ -69,7 +79,7 @@ export function StudiosWorkflowSection() {
                 </div>
               </div>
 
-              <figcaption className="mt-5 text-center text-sm leading-relaxed text-studios-body" data-motion="workflow-caption">
+              <figcaption data-reveal-workflow className="mt-5 text-center text-sm leading-relaxed text-studios-body" data-motion="workflow-caption">
                 Full creative workflow: BriefingEngine (brief analysis) → Our Studios (production execution) → Platform-native delivery. Use all or part.
               </figcaption>
             </figure>

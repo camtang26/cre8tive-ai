@@ -1,52 +1,183 @@
-# Physics Animation Workflow
-# VFX - KB-powered physics-based animation implementation
+# Physics Animation Workflow - GSAP Excellence Engine
+# Systematic physics-based animation implementation with research-backed patterns
+# Agent: VFX Artist
+# Complexity: Medium (Research-intensive physics simulation)
 
-name: 'create-physics-animation'
-description: 'Create realistic physics-based animations using KB-powered pattern matching: springs, elasticity, drag-and-throw, gravity effects, and custom physics simulations'
-installed_path: '{project-root}/bmad/gsap-excellence/workflows/create-physics-animation'
-instructions: '{installed_path}/instructions.md'
-template: null
-default_output_file: null
+name: create-physics-animation
+description: "Create realistic physics-based animations using research-backed patterns: spring/elastic motion, drag-and-throw with InertiaPlugin (FREE in 3.13+), gravity/falling effects, and custom physics simulations using gsap.ticker"
+author: "GSAP Excellence Engine - The VFX Artist"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from VFX Artist agent menu)
 
 # Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
-config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
-output_folder: '{config_source}:output_folder'
-user_name: '{config_source}:user_name'
-communication_language: '{config_source}:communication_language'
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
 
-standalone: false  # Agent-context-dependent workflow (only callable from VFX agent menu)
-
+# Workflow Metadata
 metadata:
-  agent: 'vfx'
+  agent: 'gsap-vfx'
   priority: 'P2'
-  complexity: 'medium'
-  research_intensity: 'medium-high'
-  estimated_duration: '10-15 minutes'
-  output_type: 'code'
+  research_intensity: 'high'
+  estimated_duration: '15-25 minutes'
+  persona: 'physics-animator'
+  animation_approach: 'research-backed-physics-simulation'
 
+# Required MCP Servers
 required_mcp:
-  - archon  # PRIMARY - Physics animation patterns
-  - context7  # Draggable/Inertia API docs
+  - archon  # GSAP knowledge base (89 sources) - Physics animation patterns
+  - context7  # Latest GSAP/Draggable/Inertia API docs verification
 
+# Deep-Research Sections Referenced (5 sections for comprehensive physics expertise)
 deep_research_sections:
-  - '2.1'  # Core GSAP Concepts: Tweens, Staggers, Easing (CORRECTED from 2.3)
+  - '2.1'  # Core GSAP Concepts: Tween, Timeline, Stagger, Ease (elastic, bounce, back easing)
+  - '2.3'  # The 2024 GSAP Plugin Ecosystem (Draggable, InertiaPlugin FREE, Physics plugins)
+  - '2.6'  # Additional Advanced Techniques (gsap.ticker, Three.js/Canvas integration)
+  - '5.2'  # Keep Main Thread Free (performance for custom physics loops, onUpdate optimization)
+  - '5.5'  # Optimize Animations for 60fps (frame budget, autoAlpha, performance targets)
 
+# Archon Priority Sources
 archon_sources:
-  - 'b9f6b322298feb21'  # gsap.com official docs (442K words)
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - easing, plugins, ticker)
+  - '6a6860cfc96e173b'  # GSAP cheat sheet (easing visualizer, pattern reference)
+  - '80a3ee12854455ca'  # motion.dev tutorials (spring physics with stiffness/damping)
 
-# IMPORTANT: InertiaPlugin is FREE in GSAP 3.13+
-# Documentation only - not dynamically referenced in instructions
-# Information is hardcoded in instructions.md lines 171-172
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Physics-specific Deep-Research files:
+# - 05-21-core-gsap-concepts-tween-timeline-stagger-ease.md (Section 2.1)
+# - 07-23-the-2024-gsap-plugin-ecosystem-all-free.md (Section 2.3)
+# - 10-26-additional-advanced-techniques.md (Section 2.6)
+# - 19-52-keep-the-main-thread-free-avoid-long-tasks.md (Section 5.2)
+# - 22-55-optimize-animations-for-60fps.md (Section 5.5)
+
+# Physics Type Classification
+physics_types:
+  spring:
+    description: "Bouncy, spring-like motion using elastic/back easing"
+    easing_functions: ["elastic.out", "elastic.inOut", "back.out", "back.inOut"]
+    use_cases: ["button interactions", "modal animations", "playful UI elements"]
+
+  drag_throw:
+    description: "Draggable elements with momentum (InertiaPlugin - FREE in 3.13+)"
+    plugins_required: ["Draggable", "InertiaPlugin"]
+    use_cases: ["swipeable cards", "drag-to-reorder lists", "flick-scrolling interfaces"]
+
+  gravity:
+    description: "Acceleration and bounce effects simulating gravity"
+    easing_functions: ["power2.in", "bounce.out"]
+    use_cases: ["falling objects", "drop animations", "realistic physics"]
+
+  custom_ticker:
+    description: "Frame-by-frame physics simulation using gsap.ticker"
+    performance_notes: "16ms frame budget, <8ms scripting target"
+    use_cases: ["complex physics", "particle systems", "game-like animations"]
+
+# InertiaPlugin Status (CRITICAL - emphasize FREE availability)
 plugin_status:
   name: 'InertiaPlugin'
   availability: 'FREE in GSAP 3.13+'
   reference: 'https://gsap.com/blog/gsap-3-13-0-release'
+  previous_status: 'Previously Club GreenSock only (now universally free)'
+  related_plugins: ['Draggable', 'Physics2D', 'PhysicsProps']
 
-# Documentation only - not dynamically referenced in instructions
-# Physics types are hardcoded in instructions.md lines 28-33
-physics_types:
-  - 'spring'      # elastic.out, back.out easing
-  - 'inertia'     # Draggable with throw (InertiaPlugin - FREE in 3.13+!)
-  - 'gravity'     # Acceleration, bounce on land
-  - 'custom'      # gsap.ticker frame-by-frame
+agents:
+  primary: "gsap-vfx"
+  supporting: "gsap-tech-director"  # For performance optimization post-implementation
+
+installed_path: "{module_root}/workflows/create-physics-animation"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+default_output_file: "{output_folder}/physics-animation-implementation-{timestamp}.md"
+
+inputs:
+  physics_type:
+    description: "Type of physics animation (spring, drag_throw, gravity, custom_ticker)"
+    required: true
+    type: "classification"
+
+  elements:
+    description: "Target elements for physics behavior (selectors, element references)"
+    required: true
+    type: "selector_list"
+
+  parameters:
+    description: "Physics parameters (spring strength, throw velocity, gravity coefficient, damping, friction)"
+    required: true
+    type: "physics_config"
+
+  interaction_trigger:
+    description: "How physics is triggered (scroll, click, drag, page load, continuous)"
+    required: true
+    type: "trigger_type"
+
+  framework_context:
+    description: "Framework (React/Next.js/Vue/Vanilla) and version for proper integration"
+    required: true
+    type: "environment"
+
+  performance_target:
+    description: "Performance requirements (60fps desktop, 30fps mobile, battery-conscious)"
+    required: false
+    type: "performance_profile"
+
+  visual_references:
+    description: "Reference animations or desired feel (bouncy, realistic, exaggerated)"
+    required: false
+    type: "creative_direction"
+
+outputs:
+  physics_implementation:
+    format: "Production-ready code with research citations"
+    type: "code"
+
+  research_findings:
+    format: "Deep-Research insights and Archon pattern matches"
+    type: "documentation"
+
+  easing_configuration:
+    format: "Easing functions with parameters (strength, oscillations, overshoot)"
+    type: "config"
+
+  plugin_setup:
+    format: "Plugin registration and InertiaPlugin FREE status documentation"
+    type: "setup_guide"
+
+  performance_analysis:
+    format: "Frame budget analysis, onUpdate optimization notes"
+    type: "performance_report"
+
+  testing_checklist:
+    format: "Physics feel validation, 60fps verification, cross-browser testing"
+    type: "validation"
+
+success_criteria:
+  - "Motion feels natural and physics-accurate (not robotic)"
+  - "Spring/bounce parameters feel realistic (not over-dampened or over-bouncy)"
+  - "Drag-and-throw has natural momentum (InertiaPlugin properly configured)"
+  - "Gravity acceleration feels correct (power2.in easing or custom ticker)"
+  - "60fps sustained (minimum FPS ≥ 55fps across all frames)"
+  - "Performance optimized (onUpdate <8ms, no forced reflows)"
+  - "All implementations cite research sources (Deep-Research sections + Archon patterns)"
+  - "InertiaPlugin FREE status clearly documented"
+  - "Code follows GSAP best practices (no CSS transitions conflict, proper cleanup)"
+
+estimated_duration: "15-25 minutes"
+
+web_bundle:
+  name: 'create-physics-animation'
+  description: 'Create realistic physics-based animations using research-backed patterns: spring/elastic motion, drag-and-throw with InertiaPlugin (FREE in 3.13+), gravity/falling effects, and custom physics simulations'
+  path: 'bmad/gsap-excellence/workflows/create-physics-animation'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/create-physics-animation/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/create-physics-animation/instructions.md'
+    - 'bmad/gsap-excellence/workflows/create-physics-animation/template.md'
+    - 'bmad/gsap-excellence/workflows/create-physics-animation/checklist.md'

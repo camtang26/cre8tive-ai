@@ -60,6 +60,120 @@
 </step>
 
 <!-- ============================================================ -->
+<!-- DIRECTOR: MANDATORY CREATIVE FOUNDATIONS GATE -->
+<!-- ============================================================ -->
+
+<step n="2.5" goal="MANDATORY CREATIVE FOUNDATIONS - Deep-Research Framework">
+<critical>RESEARCH ENFORCEMENT: Director MUST consult creative foundations before research phase</critical>
+
+<!-- ========== RESEARCH GATE (MANDATORY) ========== -->
+<research-gate enforcement="MANDATORY" blocking="true">
+  <mandate>The Director has defined creative vision. Now apply Deep-Research creative foundations to ensure excellence standards are understood before multi-source research begins.</mandate>
+
+  <!-- Deep-Research Creative Frameworks -->
+  <phase n="1" title="Deep-Research Creative Foundation" required="true">
+    <action>Read ALL 4 creative foundation sections:
+
+    **Section 1.1: Animator's Mindset vs Code Generator**
+    Read: {deep_research_base}/01-11-the-animators-mindset-vs-code-generator.md
+
+    Extract and apply:
+    - **Think Like Storyteller, Not Coder**: *"Great animations are meaningful, not just decorative"*
+    - **Design Intent First**: Choreograph elements in time, not random effects
+    - **Purpose-Driven Motion**: Every animation must serve the narrative
+
+    **Section 1.2: Visual Inspiration → Technical Translation**
+    Read: {deep_research_base}/02-12-visual-inspiration-technical-translation-workflow.md
+
+    Extract and apply:
+    - **Brand Personality Mapping**: Map {{brand_personality}} to motion design system
+      - Playful → Bouncy easing (elastic.out, back.out)
+      - Professional → Smooth easing (power2.inOut, expo.out)
+      - Edgy → Sharp easing (power4.inOut, circ.inOut)
+      - Minimal → Subtle easing (sine.inOut, power1.out)
+    - **Choreography on Paper First**: Plan before coding
+
+    **Section 1.3: Storyboarding Complex Sequences**
+    Read: {deep_research_base}/03-13-storyboarding-complex-sequences.md
+
+    Extract and apply:
+    - **Temporal Landmarks**: Define start, middle, end beats
+    - **Parallel vs Sequential Motion**: Which elements move together vs. in sequence
+    - **Ease and Intensity Planning**: Emotional pacing through easing curves
+
+    **Section 4.1: Pixar Story Spine Framework**
+    Read: {deep_research_base}/15-41-pixar-story-spine-for-animation-narratives.md
+
+    Extract and apply:
+    - **5-Act Narrative Structure**:
+      - Once upon a time... (establish context)
+      - Every day... (status quo)
+      - Until one day... (introduce change)
+      - Because of that... (show consequences)
+      - Until finally... (resolution/CTA)
+    - **Map Story Spine to Animation Beats**: Apply framework to {{animation_request}}
+    </action>
+
+    <evidence required="true">
+      **CREATIVE FOUNDATIONS APPLIED:**
+
+      **Animator's Mindset (Section 1.1):**
+      - Story focus: [How {{animation_request}} tells meaningful story]
+      - Design intent: [Purpose of each animation beat]
+
+      **Brand Translation (Section 1.2):**
+      - {{brand_personality}} → [Recommended easing curves]
+      - Motion design system: [Approach defined]
+
+      **Storyboarding (Section 1.3):**
+      - Temporal landmarks: [Start/middle/end beats identified]
+      - Choreography plan: [Parallel/sequential motion mapped]
+
+      **Pixar Story Spine (Section 4.1):**
+      - Once upon a time: [Context beat]
+      - Every day: [Status quo]
+      - Until one day: [Change/trigger]
+      - Because of that: [Consequences]
+      - Until finally: [Resolution]
+    </evidence>
+  </phase>
+
+  <!-- MANDATORY CHECKPOINT -->
+  <checkpoint type="approval-gate" blocking="true">
+    <output format="structured">
+      **🎬 CREATIVE FOUNDATIONS COMPLETE - Excellence Framework Loaded**
+
+      **Deep-Research Frameworks Applied:**
+      - Section 1.1: Animator's Mindset ✓
+      - Section 1.2: Brand Personality Mapping ✓
+      - Section 1.3: Storyboarding Structure ✓
+      - Section 4.1: Pixar Story Spine ✓
+
+      **Creative Framework Summary:**
+      [Present brand personality → easing mapping, story spine structure, choreography approach]
+
+      **These frameworks will guide all subsequent phases:**
+      - Cinematographer research (what to look for)
+      - VFX implementation (how to build)
+      - Editor polish (what excellence looks like)
+      - Tech Director validation (standards to meet)
+    </output>
+
+    <halt>🚨 STOP. Creative foundations loaded. Proceeding to multi-source research phase...</halt>
+  </checkpoint>
+</research-gate>
+<!-- ========== END CREATIVE FOUNDATIONS GATE ========== -->
+
+<template-output>
+creative_foundations_animator_mindset,
+brand_personality_easing_mapping,
+storyboard_structure,
+pixar_story_spine_beats,
+creative_framework_summary
+</template-output>
+</step>
+
+<!-- ============================================================ -->
 <!-- PHASE 2: CINEMATOGRAPHER - MULTI-SOURCE RESEARCH -->
 <!-- ============================================================ -->
 
@@ -120,32 +234,44 @@ rag_search_code_examples("MotionPath {{path_animation_type}}", match_count=6)
 <!-- TIER 1B: DEEP-RESEARCH FRAMEWORK (Cameron's Synthesized Wisdom)        -->
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 
-**TIER 1B: Deep-Research Framework Application**
+**TIER 1B: Deep-Research Implementation Frameworks**
 
-**Section 1.1: Animator's Mindset**
-- Think like storyteller, not coder
-- Design narrative beats, not just "effects"
-- Ask: "What story does this animation tell?"
+<critical>Cinematographer references implementation Deep-Research for VFX Artist handoff</critical>
 
-**Section 1.2: Visual Inspiration → Technical Translation**
-- Map brand personality to motion design systems:
-  - **Playful** → Bouncy easing (`elastic.out(1, 0.5)`, `back.out(1.7)`), physics-based
-  - **Professional** → Smooth easing (`power2.inOut`, `expo.out`), controlled precision
-  - **Edgy** → Sharp easing (`power4.inOut`, `circ.inOut`), dramatic contrast
-  - **Minimal** → Subtle easing (`sine.inOut`, `power1.out`), refined elegance
+**Section 2.1: Core GSAP Concepts (Tween, Timeline, Stagger, Ease)**
+Read: {deep_research_base}/05-21-core-gsap-concepts-tween-timeline-stagger-ease.md
 
-**Section 1.3: Storyboarding Complex Sequences**
-- Apply Pixar Story Spine to animation narrative:
-  - Once upon a time... (establish context)
-  - Every day... (show status quo)
-  - Until one day... (introduce change/trigger)
-  - Because of that... (show consequences)
-  - Until finally... (resolution/CTA)
+- **Tween vs Timeline**: When to use individual tweens vs. coordinated timelines
+- **Stagger Patterns**: Sequential, random, grid-based staggers for rhythm
+- **Easing Fundamentals**: power/expo/circ/back/elastic families
 
 **Section 2.2: Mastering Timeline Techniques**
-- Coordinate multiple elements for cohesive story
-- Plan stagger patterns (sequential, random, grid-based)
-- Use label-based timelines for maintainability
+Read: {deep_research_base}/06-22-mastering-gsap-timeline-techniques.md
+
+- **Relative Positioning**: Create rhythm with overlaps (`"-=0.4"`, `"<0.5"`)
+- **Labels**: Named narrative beats for maintainability
+- **Nesting Timelines**: Modular animation architecture
+- **Control Methods**: Play, pause, reverse, scrub
+
+**Section 2.3: FREE Plugin Ecosystem**
+Read: {deep_research_base}/07-23-the-free-gsap-plugin-ecosystem.md
+
+<critical>🎉 ALL PREMIUM PLUGINS FREE in GSAP 3.13+!</critical>
+
+- **ScrollSmoother**: Buttery smooth scrolling (was $99/year)
+- **MorphSVG**: Icon transformations (was $99/year)
+- **SplitText**: Advanced text choreography (was $99/year)
+- **DrawSVG**: SVG line drawing reveals (was $99/year)
+- **MotionPath**: Complex path animations (was $99/year)
+
+**Default to premium solutions** - no cost barrier anymore!
+
+**Section 2.5: Framework Integration**
+Read: {deep_research_base}/09-25-gsap-in-react-vue-svelte-angular.md
+
+- **{{target_framework}} Best Practices**: Lifecycle integration
+- **useGSAP Hook** (React): Automatic cleanup
+- **Cleanup Patterns**: Prevent memory leaks on unmount
 
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 <!-- TIER 2: WEBSEARCH (For 2024-2025 Trends & Gaps)                        -->
@@ -363,12 +489,19 @@ Sources:
 <!-- PHASE 4: EDITOR - POLISH & REFINEMENT (DEEP-RESEARCH GUIDED) -->
 <!-- ============================================================ -->
 
-<step n="7" goal="Editor: Systematic Implementation Review (ALL 10 Pitfalls)">
-<action>Editor receives implementation for comprehensive systematic review</action>
+<step n="7" goal="Editor: MANDATORY Systematic Pitfall Review (ALL 10 Deep-Research Pitfalls)">
+<critical>RESEARCH ENFORCEMENT: Editor CANNOT skip pitfall analysis - MANDATORY for production readiness</critical>
 
-**✂️ "Running systematic pitfall analysis using Deep-Research 8.1-8.10..."**
+<!-- ========== RESEARCH GATE (MANDATORY) ========== -->
+<research-gate enforcement="MANDATORY" blocking="true">
+  <mandate>VFX Artist has delivered implementation. Editor MUST perform systematic pitfall analysis against Deep-Research Sections 8.1-8.10 before code can proceed to validation.</mandate>
 
-<critical>Editor checks implementation against ALL 10 common pitfalls from Deep-Research</critical>
+  <phase n="1" title="Deep-Research Pitfalls Analysis (8.1-8.10)" required="true">
+    <action>Editor receives implementation for comprehensive systematic review</action>
+
+    **✂️ "Running systematic pitfall analysis using Deep-Research 8.1-8.10..."**
+
+    <critical>Editor checks implementation against ALL 10 common pitfalls from Deep-Research</critical>
 
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 <!-- DEEP-RESEARCH PITFALLS CHECKLIST (8.1-8.10)                            -->
@@ -462,7 +595,62 @@ Sources:
 - [ ] No awkward pauses or rushes
 - [ ] Code is clean and readable
 
-<action>Compile findings from systematic pitfall analysis</action>
+    <action>Compile findings from systematic pitfall analysis</action>
+
+    <evidence required="true">
+      **PITFALL ANALYSIS COMPLETE:**
+
+      **Pitfalls Checked:** 10/10 (8.1-8.10 from Deep-Research)
+
+      **HIGH Severity Issues Found:** {{high_severity_count}}
+      - 8.1 (Cleanup/Memory): {{pitfall_8_1_status}}
+      - 8.2 (GPU Acceleration): {{pitfall_8_2_status}}
+      - 8.9 (Cross-Device Testing): {{pitfall_8_9_status}}
+
+      **MEDIUM Severity Issues Found:** {{medium_severity_count}}
+      - 8.3 (immediateRender): {{pitfall_8_3_status}}
+      - 8.4 (ScrollTrigger Conflicts): {{pitfall_8_4_status}}
+      - 8.5 (overwrite Mode): {{pitfall_8_5_status}}
+      - 8.6 (refresh() Calls): {{pitfall_8_6_status}}
+      - 8.10 (from vs fromTo): {{pitfall_8_10_status}}
+
+      **LOW Severity Issues Found:** {{low_severity_count}}
+      - 8.7 (Deprecated Syntax): {{pitfall_8_7_status}}
+      - 8.8 (Infinite Loop Cleanup): {{pitfall_8_8_status}}
+
+      **TOTAL ISSUES DETECTED:** {{total_pitfalls_detected}}
+    </evidence>
+  </phase>
+
+  <!-- MANDATORY CHECKPOINT -->
+  <checkpoint type="approval-gate" blocking="true">
+    <output format="structured">
+      **✂️ PITFALL ANALYSIS COMPLETE - Deep-Research 8.1-8.10 Verified**
+
+      **Systematic Review Results:**
+      - All 10 pitfalls checked ✓
+      - HIGH severity issues: {{high_severity_count}}
+      - MEDIUM severity issues: {{medium_severity_count}}
+      - LOW severity issues: {{low_severity_count}}
+      - **TOTAL ISSUES:** {{total_pitfalls_detected}}
+
+      <check if="issues_found">
+      **⚠️ ISSUES DETECTED - Proceeding to refinement step...**
+
+      Editor will address issues in Step 8 (Polish & Refinement).
+      </check>
+
+      <check if="no_issues">
+      **✅ ZERO PITFALLS DETECTED - Implementation is clean!**
+
+      Skipping refinement step - code is pitfall-free and ready for validation.
+      </check>
+    </output>
+
+    <halt>🚨 STOP. Pitfall analysis complete. Implementation status: {{implementation_status}}</halt>
+  </checkpoint>
+</research-gate>
+<!-- ========== END EDITOR PITFALLS GATE ========== -->
 
 <template-output>pitfalls_checked, issues_identified, severity_breakdown, editor_review_report</template-output>
 </step>
@@ -517,13 +705,20 @@ Sources:
 <!-- PHASE 5: TECH DIRECTOR - VALIDATION & OPTIMIZATION (DEEP-RESEARCH GUIDED) -->
 <!-- ============================================================ -->
 
-<step n="9" goal="Tech Director: Performance Profiling & Deep-Research Validation">
-<check if="page_url_provided">
-<critical>Tech Director uses Chrome DevTools MCP + Deep-Research performance/accessibility frameworks</critical>
+<step n="9" goal="Tech Director: MANDATORY Performance & Accessibility Validation">
+<critical>RESEARCH ENFORCEMENT: Tech Director CANNOT skip Deep-Research validation - MANDATORY for production</critical>
 
-<action>Tech Director profiles animation performance with Deep-Research benchmarks</action>
+<!-- ========== RESEARCH GATE (MANDATORY) ========== -->
+<research-gate enforcement="MANDATORY" blocking="true">
+  <mandate>Editor has polished implementation. Tech Director MUST validate against Deep-Research performance benchmarks (5.1-5.6) and accessibility standards (6.1-6.4) before production approval.</mandate>
 
-**🔧 "Running comprehensive performance validation using Deep-Research 5.1-5.6..."**
+  <phase n="1" title="Deep-Research Performance & Accessibility Validation" required="true">
+    <check if="page_url_provided">
+    <critical>Tech Director uses Chrome DevTools MCP + Deep-Research performance/accessibility frameworks</critical>
+
+    <action>Tech Director profiles animation performance with Deep-Research benchmarks</action>
+
+    **🔧 "Running comprehensive performance validation using Deep-Research 5.1-5.6..."**
 
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 <!-- CHROME DEVTOOLS MCP PROFILING                                          -->
@@ -680,7 +875,79 @@ Sources:
 - Section 6.4: User control for long animations
 
 <template-output>code_review_results, deep_research_code_compliance</template-output>
-</check>
+    </check>
+
+    <evidence required="true">
+      **DEEP-RESEARCH VALIDATION COMPLETE:**
+
+      **Performance Validation (Sections 5.1-5.6):**
+      - Section 5.1 (GPU Rule): {{gpu_compliance_status}}
+      - Section 5.2 (Main Thread): {{main_thread_status}}
+      - Section 5.3 (Jank-Free): {{jank_free_status}}
+      - Section 5.4 (Memory Management): {{memory_status}}
+      - Section 5.5 (60fps Optimization): {{fps_optimization_status}}
+      - Section 5.6 (WebGL Assessment): {{webgl_decision}}
+
+      **Accessibility Validation (Sections 6.1-6.4):**
+      - Section 6.1 (prefers-reduced-motion): {{reduced_motion_status}} - **MANDATORY**
+      - Section 6.2 (Other Considerations): {{accessibility_other_status}}
+      - Section 6.3 (Accessible Styling): {{styling_status}}
+      - Section 6.4 (User Control): {{user_control_status}}
+
+      **Validation Method:**
+      <check if="page_url_provided">
+      - Chrome DevTools MCP profiling completed ✓
+      - Live performance metrics captured ✓
+      - Console validation performed ✓
+      </check>
+
+      <check if="no_page_url">
+      - Code review validation completed ✓
+      - Deep-Research compliance verified ✓
+      </check>
+    </evidence>
+  </phase>
+
+  <!-- MANDATORY CHECKPOINT -->
+  <checkpoint type="approval-gate" blocking="true">
+    <output format="structured">
+      **🔧 VALIDATION COMPLETE - Deep-Research Benchmarks Verified**
+
+      **Performance Status (5.1-5.6):**
+      - GPU Acceleration: {{gpu_compliance}}
+      - Main Thread Efficiency: {{main_thread_compliance}}
+      - 60fps Achievement: {{fps_compliance}}
+      - Memory Management: {{memory_compliance}}
+      - **Performance Verdict:** {{performance_verdict}}
+
+      **Accessibility Status (6.1-6.4):**
+      - prefers-reduced-motion: {{reduced_motion_compliance}} (CRITICAL)
+      - WCAG Compliance: {{wcag_compliance}}
+      - User Control: {{user_control_compliance}}
+      - **Accessibility Verdict:** {{accessibility_verdict}}
+
+      **VALIDATION SUMMARY:**
+      <check if="all_validations_pass">
+      **✅ ALL DEEP-RESEARCH BENCHMARKS MET**
+
+      Animation meets production-ready standards. Proceeding to final quality gate...
+      </check>
+
+      <check if="validations_failed">
+      **⚠️ VALIDATION FAILURES DETECTED**
+
+      **Blockers:** {{validation_blockers}}
+
+      Animation requires fixes before production approval.
+      </check>
+    </output>
+
+    <halt>🚨 STOP. Deep-Research validation complete. Status: {{validation_status}}</halt>
+  </checkpoint>
+</research-gate>
+<!-- ========== END TECH DIRECTOR VALIDATION GATE ========== -->
+
+<template-output>performance_metrics, console_status, visual_screenshots, deep_research_performance_validation, deep_research_accessibility_validation</template-output>
 </step>
 
 <step n="10" goal="QUALITY GATE: Tech Director Production Readiness Assessment">

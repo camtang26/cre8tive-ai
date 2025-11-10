@@ -1,13 +1,19 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState, useRef } from "react"
 import type { PointerEvent as ReactPointerEvent } from "react"
 import { ArrowRight } from "lucide-react"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 import { cn } from "@/lib/utils"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+
+gsap.registerPlugin(useGSAP)
 
 export function ConversationalContactCTASection() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([])
+  const primaryCTARef = useRef<HTMLAnchorElement>(null)
 
+  // 🎬 GSAP Magnetic Hover (better physics than CSS!)
   const handlePrimaryPointerMove = useCallback(
     (event: ReactPointerEvent<HTMLAnchorElement>) => {
       if (prefersReducedMotion) return
@@ -15,18 +21,28 @@ export function ConversationalContactCTASection() {
       const rect = target.getBoundingClientRect()
       const offsetX = ((event.clientX - (rect.left + rect.width / 2)) / rect.width) * 18
       const offsetY = ((event.clientY - (rect.top + rect.height / 2)) / rect.height) * 12
-      target.style.setProperty("--cta-offset-x", `${offsetX}px`)
-      target.style.setProperty("--cta-offset-y", `${offsetY}px`)
-      target.style.setProperty("--cta-scale", "1.02")
+
+      // Use GSAP for smoother movement
+      gsap.to(target, {
+        x: offsetX,
+        y: offsetY,
+        scale: 1.02,
+        duration: 0.3,
+        ease: "power2.out"
+      })
     },
     [prefersReducedMotion]
   )
 
   const handlePrimaryPointerLeave = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {
     const target = event.currentTarget
-    target.style.setProperty("--cta-offset-x", "0px")
-    target.style.setProperty("--cta-offset-y", "0px")
-    target.style.setProperty("--cta-scale", "1")
+    gsap.to(target, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      duration: 0.5,
+      ease: "elastic.out(1, 0.5)"  // Elastic bounce back!
+    })
   }, [])
 
   const handlePrimaryClick = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {
@@ -107,20 +123,18 @@ export function ConversationalContactCTASection() {
           >
             {/* Primary CTA - Magnetic */}
             <a
+              ref={primaryCTARef}
               href="/contact"
               className={cn(
                 "group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-10 py-4 text-base font-semibold uppercase tracking-[0.24em]",
-                "bg-white text-conversational-primary shadow-[0_32px_90px_-45px_rgba(255,255,255,0.9)] transition-all duration-300",
-                "hover:-translate-y-[6px] hover:shadow-[0_40px_110px_-50px_rgba(255,255,255,1)]",
+                "bg-white text-conversational-primary shadow-[0_32px_90px_-45px_rgba(255,255,255,0.9)] transition-shadow duration-300",
+                "hover:shadow-[0_40px_110px_-50px_rgba(255,255,255,1)]",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-conversational-primary"
               )}
               data-reduced-motion={prefersReducedMotion ? "true" : "false"}
               onPointerMove={handlePrimaryPointerMove}
               onPointerLeave={handlePrimaryPointerLeave}
               onClick={handlePrimaryClick}
-              style={{
-                transform: `translate(var(--cta-offset-x, 0px), var(--cta-offset-y, 0px)) scale(var(--cta-scale, 1))`,
-              }}
             >
               Start Free Trial
               <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-conversational-primary/10 transition duration-300 group-hover:bg-conversational-primary/20">

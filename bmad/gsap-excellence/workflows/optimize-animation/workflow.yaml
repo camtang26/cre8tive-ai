@@ -1,13 +1,15 @@
 # optimize-animation Workflow - GSAP Excellence Engine
-# Performance optimization using Deep-Research 5.1-5.6 frameworks
-# Agent: Tech Director
+# Animation FEEL optimization using easing refinement and timing polish
+# Agent: Editor
+# Version: 2.0.0-premium
 
 name: 'optimize-animation'
-description: 'Optimize GSAP animation performance using KB-powered optimization frameworks from Deep-Research Sections 5.1-5.6 and latest 2024-2025 techniques'
+description: 'Refine animation FEEL through systematic easing selection, timing polish, and motion quality enhancement. Uses Deep-Research Sections 2.1-2.2 for artistic optimization (NOT technical performance - use optimize-performance for 60fps/GPU).'
 installed_path: '{project-root}/bmad/gsap-excellence/workflows/optimize-animation'
 instructions: '{installed_path}/instructions.md'
 template: '{installed_path}/template.md'
-default_output_file: '{output_folder}/gsap-optimization-plan-{timestamp}.md'
+validation: '{installed_path}/checklist.md'
+default_output_file: '{output_folder}/gsap-animation-polish-report-{timestamp}.md'
 
 # Standard config
 config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
@@ -17,66 +19,113 @@ communication_language: '{config_source}:communication_language'
 date: system-generated
 timestamp: system-generated
 
-standalone: false  # Tech Director only
+standalone: false  # Editor only
+
+version: '2.0.0-premium'
+created_date: '2025-11-09'
+last_updated: '2025-11-09'
 
 metadata:
-  agent: 'tech-director'
-  priority: 'P1'
-  complexity: 'high'
-  research_intensity: 'very-high'
-  estimated_duration: '25-35 minutes'
-  output_type: 'optimization-plan'
+  agent: 'editor'
+  priority: 'P2'
+  complexity: 'medium-high'
+  research_intensity: 'high'
+  estimated_duration: '20-30 minutes'
+  output_type: 'animation-polish-report'
+  focus: 'artistic-refinement'  # NOT technical performance
 
 required_mcp:
-  - archon  # PRIMARY - optimization patterns from 2M+ words
-  - chrome-devtools  # Performance profiling (optional but recommended)
-  - context7  # Latest GSAP optimization APIs
+  - archon  # Easing patterns, timing examples, animation polish techniques
+  - context7  # Latest GSAP API docs (CustomEase, Ease Visualizer)
 
-# Deep-Research Sections (PRIMARY)
+# Deep-Research Sections (ANIMATION FEEL - NOT PERFORMANCE)
 deep_research_sections:
-  - '5.1'  # GPU-Efficient Properties (transforms vs layout)
-  - '5.2'  # Keep Main Thread Free
-  - '5.3'  # Debugging Jank
-  - '5.4'  # Memory Management
-  - '5.5'  # 60fps Optimization
-  - '5.6'  # Testing & Validation
+  - '2.1'  # Core GSAP Concepts - Easing fundamentals
+  - '2.2'  # Mastering Timeline Techniques - Timing choreography
 
-# Latest 2024-2025 Optimization Techniques
-optimization_techniques_2025:
-  gpu_acceleration:
-    - 'Use x, y, scale, rotation (GPU-accelerated)'
-    - 'Avoid left, top, width, height (triggers layout recalculation)'
-    - 'force3D: "auto" (default) - switches to 3D during animation'
-    - 'force3D: true - maintains 3D throughout (use sparingly)'
-    - 'will-change: transform (browser optimization hint)'
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
 
-  performance_features:
-    - 'requestAnimationFrame default (syncs with refresh rate)'
-    - 'Animation packing (groups duplicate animations)'
-    - 'Timeline batching (reduces reflows)'
-    - 'Hardware acceleration (transform, opacity offload to GPU)'
+# Archon Priority Sources (Animation Polish)
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (Eases, CustomEase, Ease Visualizer)
+  - '6a6860cfc96e173b'  # Codrops tutorials (timing patterns, animation feel)
+  - '1e5cc3bd5125be3c'  # Premium animation examples
 
-  best_practices:
-    - 'GSAP animates up to 20x faster than jQuery'
-    - 'Transforms use GPU, not main thread'
-    - 'scaleX/scaleY instead of width/height'
-    - 'WebGL with GSAP for heavy transformations'
-
-# Optimization Categories
+# Animation Polish Categories
 optimization_categories:
-  - 'Property Selection (transforms vs layout)'
-  - 'GPU Acceleration (force3D, will-change)'
-  - 'Timeline Batching (reduce reflows)'
-  - 'Memory Management (cleanup, leaks)'
-  - 'Main Thread Efficiency (reduce JS execution)'
-  - 'Jank Elimination (smooth 60fps)'
+  easing_refinement:
+    - 'Easing curve selection (matching motion personality)'
+    - 'CustomEase for precision curves'
+    - 'Ease Visualizer usage'
+    - 'Power vs elastic vs bounce selection'
+  timing_polish:
+    - 'Duration optimization (too fast/slow)'
+    - 'Delay pattern refinement'
+    - 'Overlap strategy (sequential vs simultaneous)'
+    - 'Timeline choreography improvements'
+  stagger_optimization:
+    - 'Stagger intervals (each value tuning)'
+    - 'Stagger origin (from: start/center/end/edges)'
+    - 'Grid staggers for layout animations'
+    - 'Amount vs each tradeoffs'
+  motion_quality:
+    - 'Natural movement feel'
+    - 'Overshoot/snap effects (back.out)'
+    - 'Bounce/elastic appropriateness'
+    - 'Animation personality matching brand'
+
+# Easing Personality Framework (from Deep-Research 2.1)
+easing_personality:
+  dramatic:
+    eases: ['power4.out', 'expo.out']
+    use_case: 'Fast-to-slow entrances, dramatic reveals'
+    feel: 'Impactful, premium, bold'
+  gentle:
+    eases: ['power2.inOut', 'power1.out']
+    use_case: 'Smooth transitions, subtle changes'
+    feel: 'Elegant, refined, understated'
+  playful:
+    eases: ['bounce.out', 'elastic.out']
+    use_case: 'Cartoonish UI, fun interactions'
+    feel: 'Energetic, whimsical, lighthearted'
+  precise:
+    eases: ['linear', 'none']
+    use_case: 'Continuous movement, scrubbing'
+    feel: 'Mechanical, precise, controlled'
+  custom:
+    eases: ['CustomEase.create()', 'Ease Visualizer curves']
+    use_case: 'Matching specific motion feel, physics simulation'
+    feel: 'World-class polish, branded motion'
+
+# Timing Refinement Patterns (from Deep-Research 2.2)
+timing_patterns:
+  sequential:
+    pattern: 'One after another (default timeline behavior)'
+    when: 'Step-by-step reveals, guided narratives'
+  simultaneous:
+    pattern: 'All at once (position parameter "<")'
+    when: 'Coordinated group movements, synchronized effects'
+  overlapping:
+    pattern: 'Partial overlap ("+=" or "<0.5")'
+    when: 'Smooth transitions, cascading sequences'
+  gapped:
+    pattern: 'Intentional pauses (delay or "+=1")'
+    when: 'Breathing room, emphasis, pacing control'
+
+# Critical Distinction (MUST UNDERSTAND)
+critical_distinction:
+  this_workflow: 'optimize-animation (Editor) - ARTISTIC polish (easing, timing, feel)'
+  other_workflow: 'optimize-performance (Tech Director) - TECHNICAL optimization (60fps, GPU, memory)'
+  when_to_use_this: 'Animation runs smoothly but FEELS wrong (too fast, wrong ease, awkward timing)'
+  when_to_use_other: 'Animation is janky, drops frames, causes layout thrashing, memory leaks'
 
 # Web bundle configuration for portability
 web_bundle:
   name: 'optimize-animation'
-  description: 'Optimize GSAP animation performance using KB-powered optimization frameworks from Deep-Research Sections 5.1-5.6 and latest 2024-2025 techniques'
+  description: 'Refine animation FEEL through systematic easing selection, timing polish, and motion quality enhancement (Editor - Artistic optimization)'
   path: 'bmad/gsap-excellence/workflows/optimize-animation'
   web_bundle_files:
     - 'bmad/gsap-excellence/workflows/optimize-animation/workflow.yaml'
     - 'bmad/gsap-excellence/workflows/optimize-animation/instructions.md'
     - 'bmad/gsap-excellence/workflows/optimize-animation/template.md'
+    - 'bmad/gsap-excellence/workflows/optimize-animation/checklist.md'

@@ -1,88 +1,162 @@
 # Debug Animation Workflow - GSAP Excellence Engine
-# Fix broken or underperforming GSAP animations
-# Agent: Editor (lead) + Tech Director (validation)
-# Complexity: Standard
+# Systematic debugging using 10-point pitfalls framework
+# Agent: Editor (lead debugger)
+# Complexity: Medium (Research-intensive systematic diagnosis)
 
 name: debug-animation
-description: "Diagnose and fix animation issues (jank, timing problems, visual glitches, console errors)"
-author: "GSAP Excellence Engine"
-version: "1.0.0-alpha"
-complexity: "standard"
+description: "Diagnose and fix animation issues using systematic root cause analysis with 10-point pitfalls framework"
+author: "GSAP Excellence Engine - The Editor"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from Editor agent menu)
 
+# Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
 module_root: "{project-root}/bmad/gsap-excellence"
 user_name: "{config_source}:user_name"
 communication_language: "{config_source}:communication_language"
 output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
 
-# MCP integration
-mcp_servers:
-  chrome_devtools:
-    tools: ["take_screenshot", "list_console_messages"]
-    purpose: "Visual analysis and console error detection"
+# Workflow Metadata
+metadata:
+  agent: 'gsap-editor'
+  priority: 'P1'
+  research_intensity: 'high'
+  estimated_duration: '20-40 minutes'
+  persona: 'film-editor-systematic-debugger'
+  debugging_approach: 'systematic-root-cause-tracing'
 
-  archon:
-    tools: ["rag_search_knowledge_base"]
-    purpose: "GSAP debugging techniques and solutions"
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources) - DEBUGGING patterns
+  - chrome_devtools  # Visual analysis, console errors, performance profiling
 
-# Multi-agent coordination
+# Deep-Research Sections Referenced (10-Point Pitfalls Framework)
+deep_research_sections:
+  - '8.1'  # Cleanup/Memory Leaks (HIGH severity)
+  - '8.2'  # Wrong Properties (HIGH severity - layout thrashing)
+  - '8.3'  # immediateRender issues (MEDIUM severity - flicker)
+  - '8.4'  # Multiple ScrollTriggers (MEDIUM severity - conflicts)
+  - '8.5'  # Missing overwrite mode (MEDIUM severity - animation conflicts)
+  - '8.6'  # Missing refresh() (MEDIUM severity - positioning bugs)
+  - '8.7'  # Deprecated syntax (LOW severity - GSAP 2.x in 3.x)
+  - '8.8'  # Infinite loops without cleanup (LOW severity)
+  - '8.9'  # Not tested on mobile (HIGH severity - iOS issues)
+  - '8.10' # from() vs fromTo() confusion (MEDIUM severity)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (debugging guides)
+  - '6a6860cfc96e173b'  # ScrollTrigger specific debugging
+  - '1e5cc3bd5125be3c'  # Codrops tutorials (debugging patterns)
+  - 'debugging-patterns'  # GSAP debugging solutions
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Pitfall-specific Deep-Research files (Sections 8.1-8.10):
+# - 34-pitfall-81-forgetting-to-clean-up-memory-leaks-double-animations.md
+# - 35-pitfall-82-animating-the-wrong-properties-no-gpu-acceleration.md
+# - 36-pitfall-83-ignoring-in-from-tweens.md
+# - 37-pitfall-84-multiple-scrolltriggers-on-the-same-elements-property.md
+# - 38-pitfall-85-not-using-leading-to-conflict.md
+# - 39-pitfall-86-overlooking-refresh-after-content-load.md
+# - 40-pitfall-87-use-of-deprecated-or-old-syntax.md
+# - 41-pitfall-88-uncontrolled-infinite-loops.md
+# - 42-pitfall-89-not-testing-on-different-devices.md
+# - 43-pitfall-810-misusing-vs-causing-flicker.md
+#
+# Note: Workflow uses conditional file reading based on identified pitfall
+
+# Chrome DevTools Integration
+chrome_devtools_capabilities:
+  - take_screenshot  # Visual bug analysis
+  - list_console_messages  # Error detection
+  - list_network_requests  # GSAP CDN loading check
+  - evaluate_script  # Runtime inspection
+  - performance_trace  # Jank detection
+
 agents:
-  editor: "gsap-editor"  # Lead debugger
-  tech_director: "gsap-tech-director"  # Validation support
-  cinematographer: "gsap-cinematographer"  # Research if needed
+  primary: "gsap-editor"
+  supporting: "gsap-tech-director"  # Performance validation
 
 installed_path: "{module_root}/workflows/debug-animation"
 template: "{installed_path}/template.md"
 instructions: "{installed_path}/instructions.md"
-validation: false
+validation: "{installed_path}/checklist.md"
 
-default_output_file: "{output_folder}/gsap-debug-report-{{date}}.md"
+default_output_file: "{output_folder}/debug-report-{timestamp}.md"
 
-# Inputs
 inputs:
   animation_code:
-    description: "Current animation implementation code"
+    description: "Current animation implementation code (complete, not snippets)"
     required: true
+    type: "code"
 
   issues_description:
-    description: "What's wrong? (jank, timing, visual bugs, errors)"
+    description: "What's wrong? (jank, timing, visual bugs, console errors, flicker, etc.)"
     required: true
+    type: "symptom_description"
 
   expected_behavior:
-    description: "What should the animation do?"
+    description: "What should the animation do correctly?"
     required: true
+    type: "specification"
+
+  framework_context:
+    description: "Framework (React/Next.js/Vue/Vanilla) and version"
+    required: true
+    type: "environment"
 
   page_url:
-    description: "Dev server URL for testing (optional)"
+    description: "Dev server URL for Chrome DevTools testing (optional)"
     required: false
+    type: "url"
 
-# Outputs
+  mobile_tested:
+    description: "Has this been tested on mobile (especially iOS Safari)?"
+    required: false
+    type: "boolean"
+
 outputs:
+  root_cause:
+    format: "Identified pitfall from 10-point framework"
+    type: "diagnosis"
+
   debug_report:
-    format: "Diagnosis with root cause analysis"
+    format: "Systematic diagnosis with research citations"
+    type: "analysis"
 
   fixed_code:
-    format: "Corrected animation implementation"
+    format: "Corrected animation implementation with explanations"
+    type: "code"
 
-  validation_results:
-    format: "Before/after comparison and validation"
+  prevention_tips:
+    format: "How to avoid this pitfall in future (research-backed)"
+    type: "recommendations"
 
-# Success criteria
+  archon_citations:
+    format: "Debugging patterns and solutions from Archon KB"
+    type: "research"
+
 success_criteria:
-  - "Root cause identified"
-  - "Fix implemented and tested"
-  - "Console errors resolved"
-  - "Performance acceptable (60fps)"
-  - "Visual issues corrected"
+  - "Root cause identified from 10-point pitfalls framework"
+  - "Archon research consulted for debugging patterns"
+  - "Fix implemented with explanation"
+  - "Console errors resolved (if applicable)"
+  - "Performance validated (60fps target)"
+  - "Prevention tips based on pitfall category"
 
-estimated_duration: "15-30 minutes"
+estimated_duration: "20-40 minutes"
 
 web_bundle:
   name: 'debug-animation'
-  description: 'Diagnose and fix animation issues (jank, timing problems, visual glitches, console errors)'
+  description: 'Diagnose and fix animation issues using systematic root cause analysis with 10-point pitfalls framework'
   path: 'bmad/gsap-excellence/workflows/debug-animation'
   web_bundle_files:
     - 'bmad/gsap-excellence/workflows/debug-animation/workflow.yaml'
     - 'bmad/gsap-excellence/workflows/debug-animation/instructions.md'
     - 'bmad/gsap-excellence/workflows/debug-animation/template.md'
+    - 'bmad/gsap-excellence/workflows/debug-animation/checklist.md'

@@ -5,6 +5,7 @@ import MuxPlayer from "@mux/mux-player-react/lazy"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
+import { useHeroIntro } from "@/hooks/useHeroIntro"
 
 const HERO_VIDEO_PLAYBACK_ID = "FFH4ldVB00HBEO1iLXm9xWmBNvK501vBQ6Fj9PixEHcJA"
 
@@ -15,6 +16,9 @@ export const ConversationalHero = () => {
   const [pointerActive, setPointerActive] = useState(false)
   const isMobile = useIsMobile()
   const prefersReducedMotion = usePrefersReducedMotion()
+
+  // Activate cinematic hero intro animation (Ultra-epic 3D GSAP)
+  useHeroIntro()
 
   useEffect(() => {
     if (!heroRef.current) return
@@ -156,35 +160,32 @@ export const ConversationalHero = () => {
       </div>
 
       <div className="relative z-10">
-        <div className="container mx-auto flex min-h-[90vh] flex-col justify-center gap-12 px-4 py-24 xl:min-h-[94vh]">
-          <div className="flex flex-col gap-8 max-w-3xl lg:self-end lg:mr-[27vw]" data-motion="hero.copy">
-            {/* Trust badge */}
-            <div className="inline-flex w-fit items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-conversational-body">
-              <span className="h-2 w-2 rounded-full bg-conversational-accent shadow-[0_0_12px_rgba(20,241,149,0.6)] animate-pulse" />
-              Enterprise-Grade Conversational AI
-            </div>
-
-            <div className="space-y-6">
-              {/* Headline with text shimmer */}
+        <div className="container mx-auto flex min-h-[90vh] flex-col justify-center gap-12 px-4 py-16 xl:min-h-[94vh]">
+          <div className="hero-curve-mask flex flex-col gap-10 max-w-4xl lg:self-end lg:mr-[27vw]" data-motion="hero.copy">
+            <div className="space-y-8">
+              {/* Headline with ULTRA-EPIC 3D animation - SCALED UP */}
               <h1
                 id="conversational-hero-title"
-                className="text-4xl font-black tracking-tight sm:text-5xl md:text-[3.75rem] md:leading-[1.08] lg:text-[4.75rem] headline-shimmer"
+                className="headline-premium text-5xl font-black tracking-tight sm:text-6xl md:text-[4.5rem] md:leading-[1.08] lg:text-[5.5rem]"
               >
-                <span className="block text-conversational-headline">Scale Support</span>
-                <span className="block bg-gradient-to-r from-conversational-primary via-conversational-accent to-conversational-primary bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x">
-                  Without Headcount
-                </span>
+                Scale Support Without Headcount
               </h1>
 
-              <p className="max-w-xl text-lg leading-relaxed text-conversational-body md:text-[1.35rem]">
+              <p
+                className="hero-subhead max-w-2xl text-xl leading-relaxed md:text-[1.5rem]"
+                data-motion="hero-tagline"
+              >
                 Deploy authentic, on-brand conversations across every channel. Break the hiring bottleneck with AI that truly understands your voice.
               </p>
             </div>
 
-            {/* Dual CTAs */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center" data-motion="hero.cta">
+            {/* Single Primary CTA */}
+            <div
+              className="flex"
+              data-motion="hero-cta"
+            >
               <a
-                href="#conversational-demo"
+                href="#conversational-marketing-video"
                 className={cn(
                   "group relative inline-flex items-center gap-3 rounded-full px-8 py-3 text-sm font-semibold uppercase tracking-[0.24em]",
                   "bg-conversational-primary text-black shadow-[0_32px_90px_-45px_rgba(16,185,129,0.95)] transition-all duration-300 ease-smooth",
@@ -211,36 +212,10 @@ export const ConversationalHero = () => {
                 </span>
                 <span className="pointer-events-none absolute inset-0 rounded-full border border-white/20 opacity-30 transition group-hover:opacity-60" aria-hidden />
               </a>
-
-              <a
-                href="#conversational-roi"
-                className={cn(
-                  "group inline-flex items-center gap-3 rounded-full border border-white/18 bg-white/8 px-8 py-3 text-sm font-semibold uppercase tracking-[0.24em] text-conversational-body transition-all duration-300",
-                  "hover:-translate-y-[4px] hover:border-conversational-accent/50 hover:text-conversational-headline",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-conversational-accent focus-visible:ring-offset-2 focus-visible:ring-offset-conversational-background"
-                )}
-                data-motion="hero.cta.secondary"
-              >
-                Calculate ROI
-                <span className="relative flex h-3 w-3 items-center justify-center rounded-full bg-conversational-accent/50 transition duration-300 group-hover:bg-conversational-accent" />
-              </a>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Styles for magnetic effect and animations */}
-      <style>{`
-        .cta-magnetic {
-          transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .cta-magnetic {
-            transform: none !important;
-          }
-        }
-      `}</style>
     </section>
   )
 }

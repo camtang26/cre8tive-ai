@@ -1,0 +1,63 @@
+# Validation Only Path
+# For animations already implemented, need quality gate before shipping
+
+scenario_type: "validation-only"
+description: "Quality gate and production readiness validation"
+
+phases:
+  - phase: 1
+    name: "Performance Validation"
+    required: true
+    workflows:
+      - id: "validate-60fps"
+        required: true
+        agent: "gsap-tech-director"
+        command: "fps"
+        output: "60fps validation @ 4x CPU throttle (MANDATORY)"
+        next_action: "Validate sustained 60fps on mid-range devices"
+
+      - id: "optimize-performance"
+        optional: true
+        agent: "gsap-tech-director"
+        command: "profile"
+        output: "Performance profiling and optimization"
+        note: "Use if 60fps validation fails"
+
+      - id: "memory-profiling"
+        optional: true
+        agent: "gsap-tech-director"
+        command: "memory"
+        output: "Memory leak detection (important for SPAs)"
+
+  - phase: 2
+    name: "Quality Validation"
+    required: true
+    workflows:
+      - id: "validate-complete"
+        required: true
+        agent: "gsap-tech-director"
+        command: "validate"
+        output: "Comprehensive validation: 60fps + visual + console + accessibility"
+
+      - id: "accessibility-audit"
+        required: true
+        agent: "gsap-tech-director"
+        command: "accessibility"
+        output: "WCAG compliance (prefers-reduced-motion MANDATORY)"
+
+      - id: "validate-modern"
+        optional: true
+        agent: "gsap-tech-director"
+        command: "modern"
+        output: "GSAP 3.13+ compliance scan (deprecated syntax check)"
+
+  - phase: 3
+    name: "Production Readiness"
+    required: true
+    workflows:
+      - id: "ship-ready-check"
+        required: true
+        agent: "gsap-tech-director"
+        command: "ship-ready"
+        output: "6-part production checklist - final green light"
+        next_action: "Final approval for production deployment"

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import '@fontsource/outfit/900.css' // Black weight for headlines
+import 'lenis/dist/lenis.css' // Lenis smooth scroll styles
 
 const container = document.getElementById('root')
 

@@ -6,9 +6,10 @@
 name: animation-production
 description: "Complete animation production pipeline from vision to production-ready delivery using all 5 studio crew agents"
 author: "GSAP Excellence Engine"
-version: "1.0.0-alpha"
+version: "2.0.0-premium"
 complexity: "complex"
 signature_workflow: true  # This is the flagship demonstration workflow
+standalone: true
 
 # Critical variables from module config
 config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
@@ -38,6 +39,57 @@ mcp_servers:
   chrome_devtools:
     tools: ["take_screenshot", "list_console_messages", "performance_start_trace", "performance_stop_trace", "emulate_cpu"]
     purpose: "Visual validation, console checking, performance profiling"
+
+# Deep-Research Knowledge Base Integration (ALL 5 DOMAINS)
+deep_research_base: "{project-root}/docs/Deep-Research/GSAP-Animation-Mastery"
+
+# Deep-Research Sections Referenced (25 sections across all 5 crew domains)
+deep_research_sections:
+  # DIRECTOR - Creative Foundation (4 sections)
+  - '1.1'  # Animator's Mindset vs Code Generator
+  - '1.2'  # Visual Inspiration → Technical Translation Workflow
+  - '1.3'  # Storyboarding Complex Sequences
+  - '4.1'  # Pixar Story Spine Framework (Narrative Structure)
+
+  # VFX ARTIST - Implementation (4 sections)
+  - '2.1'  # Core GSAP Concepts (Tween, Timeline, Stagger, Ease)
+  - '2.2'  # Mastering GSAP Timeline Techniques
+  - '2.3'  # FREE Plugin Ecosystem (MorphSVG, SplitText, etc.)
+  - '2.5'  # Framework Integration (React, Vue, Svelte)
+
+  # EDITOR - Pitfalls Prevention (10 sections)
+  - '8.1'  # Pitfall: Forgetting Cleanup (Memory Leaks)
+  - '8.2'  # Pitfall: Animating Wrong Properties (No GPU Acceleration)
+  - '8.3'  # Pitfall: Ignoring immediateRender
+  - '8.4'  # Pitfall: Multiple ScrollTriggers on Same Element
+  - '8.5'  # Pitfall: Not Using overwrite Mode
+  - '8.6'  # Pitfall: Missing refresh() After Content Load
+  - '8.7'  # Pitfall: Deprecated Syntax (2.x vs 3.x)
+  - '8.8'  # Pitfall: Uncontrolled Infinite Loops
+  - '8.9'  # Pitfall: Not Testing on Different Devices
+  - '8.10' # Pitfall: Misusing from() vs fromTo()
+
+  # TECH DIRECTOR - Performance (6 sections)
+  - '5.1'  # GPU Rule (Transform/Opacity ONLY)
+  - '5.2'  # Keep Main Thread Free (Avoid Long Tasks)
+  - '5.3'  # Debugging Jank
+  - '5.4'  # Memory Management & Garbage Collection
+  - '5.5'  # Optimize Animations for 60fps
+  - '5.6'  # When to Use WebGL/Canvas
+
+  # TECH DIRECTOR - Accessibility (4 sections)
+  - '6.1'  # prefers-reduced-motion (MANDATORY)
+  - '6.2'  # Other Accessibility Considerations
+  - '6.3'  # Accessible Styling (Color Contrast, Readability)
+  - '6.4'  # User Control Over Animations
+
+# Archon MCP Priority Sources (GSAP knowledge base)
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY)
+  - '1e5cc3bd5125be3c'  # Tympanus/Codrops tutorials (Premium quality)
+  - '90c2ef5e8fa816b7'  # FreeFrontend examples
+  - '020e9f31a8c5cdb7'  # CodePen collections
+  - '77ae0ef68a867aa9'  # Lenis smooth scroll integration
 
 # Multi-agent coordination (ALL 5 AGENTS)
 agents:

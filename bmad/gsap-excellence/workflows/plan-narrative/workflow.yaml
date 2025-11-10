@@ -1,15 +1,143 @@
-name: 'plan-narrative'
-description: 'Create visual narrative plan using Pixar Story Spine framework and KB-powered research'
-installed_path: '{project-root}/bmad/gsap-excellence/workflows/plan-narrative'
-instructions: '{installed_path}/instructions.md'
-template: '{installed_path}/template.md'
-default_output_file: '{output_folder}/animation-narrative-plan.md'
+# Plan Narrative Workflow - GSAP Excellence Engine
+# Visual narrative planning using Pixar Story Spine 7-beat framework
+# Agent: Director
+# Complexity: Medium (Research-intensive narrative design)
+
+name: plan-narrative
+description: "Create visual narrative plan using Pixar Story Spine 7-beat framework with KB-powered research and timeline choreography"
+author: "GSAP Excellence Engine - The Director"
+version: "2.0.0-premium"
+complexity: "medium"
+standalone: false  # Agent-context-dependent workflow (only callable from Director agent menu)
 
 # Standard config block (REQUIRED - provides communication_language, user_name, date, output_folder)
-config_source: '{project-root}/bmad/gsap-excellence/config.yaml'
-output_folder: '{config_source}:output_folder'
-user_name: '{config_source}:user_name'
-communication_language: '{config_source}:communication_language'
+config_source: "{project-root}/bmad/gsap-excellence/config.yaml"
+module_root: "{project-root}/bmad/gsap-excellence"
+user_name: "{config_source}:user_name"
+communication_language: "{config_source}:communication_language"
+output_folder: "{config_source}:output_folder"
 date: system-generated
+timestamp: system-generated
 
-standalone: false  # Agent-context-dependent workflow (only callable from Director agent menu)
+# Workflow Metadata
+metadata:
+  agent: 'gsap-director'
+  priority: 'P1'
+  research_intensity: 'high'
+  estimated_duration: '25-35 minutes'
+  persona: 'film-director'
+  narrative_approach: 'pixar-story-spine-7-beat'
+
+# Required MCP Servers
+required_mcp:
+  - archon  # GSAP knowledge base (89 sources) - Narrative patterns, storytelling examples
+
+# Deep-Research Sections Referenced
+deep_research_sections:
+  - '4.1'  # Pixar Story Spine Framework for GSAP (PRIMARY - 7-beat structure)
+  - '2.2'  # Mastering GSAP Timeline Techniques (choreography, overlaps, labels)
+  - '1.3'  # Storyboarding Complex Sequences (temporal landmarks, parallel vs sequential)
+  - '4.2'  # Alternative Narrative Structures (Three-Act, Five-Act, Hero's Journey, etc.)
+  - '1.2'  # Visual Inspiration → Technical Translation Workflow (5-step translation)
+
+# Archon Priority Sources
+archon_sources:
+  - 'b9f6b322298feb21'  # gsap.com official docs (PRIMARY - ScrollTrigger narrative patterns)
+  - '6a6860cfc96e173b'  # ScrollTrigger performance (scrub optimization for user-controlled pacing)
+  - '1e5cc3bd5125be3c'  # Codrops tutorials (scroll narrative examples)
+  - 'f8a3c9e5b1d74a29'  # CSS-Tricks GSAP guides (storytelling patterns)
+
+# Deep-Research Knowledge Base (GSAP Animation Mastery - 43 sections)
+deep_research_base: '{project-root}/docs/Deep-Research/GSAP-Animation-Mastery'
+
+# Narrative-specific Deep-Research files:
+# - 04-41-pixar-story-spine-framework-for-gsap.md (Section 4.1 - PRIMARY)
+# - 06-22-mastering-gsap-timeline-techniques.md (Section 2.2)
+# - 03-13-storyboarding-complex-sequences.md (Section 1.3)
+# - 04-42-alternative-narrative-structures.md (Section 4.2)
+# - 02-12-visual-inspiration-technical-translation-workflow.md (Section 1.2)
+
+agents:
+  primary: "gsap-director"
+  supporting: "gsap-cinematographer"  # For follow-up research if needed
+
+installed_path: "{module_root}/workflows/plan-narrative"
+template: "{installed_path}/template.md"
+instructions: "{installed_path}/instructions.md"
+validation: "{installed_path}/checklist.md"
+
+default_output_file: "{output_folder}/narrative-plan-{timestamp}.md"
+
+inputs:
+  component_or_page:
+    description: "What component or page needs animation (hero section, about page, product showcase, full site, etc.)"
+    required: true
+    type: "component_identification"
+
+  story_to_tell:
+    description: "What story should it tell (user journey, value proposition, feature reveal, brand narrative, transformation story, etc.)"
+    required: true
+    type: "narrative_intent"
+
+  key_moments:
+    description: "Key moments to emphasize (3-5 specific beats or transitions)"
+    required: true
+    type: "beat_list"
+
+  desired_emotion:
+    description: "What should users FEEL during this animation (inspired, confident, curious, delighted, empowered, etc.)"
+    required: true
+    type: "emotional_goal"
+
+  interaction_type:
+    description: "Interaction type (scroll-driven, auto-play on load, user-triggered, hybrid)"
+    required: true
+    type: "interaction_classification"
+
+outputs:
+  narrative_plan:
+    format: "Complete 7-beat Story Spine narrative mapped to animation sequence"
+    type: "structured_narrative"
+
+  visual_storyboard:
+    format: "Beat-by-beat visual descriptions with timing, easing, GSAP techniques"
+    type: "storyboard"
+
+  timeline_technical_spec:
+    format: "GSAP timeline structure with labels, overlaps, code examples"
+    type: "technical_implementation"
+
+  archon_narrative_patterns:
+    format: "10-15 premium narrative patterns discovered from knowledge base"
+    type: "research_findings"
+
+  deep_research_frameworks:
+    format: "Extracted frameworks from Sections 4.1, 2.2, 1.3, 4.2, 1.2 with citations"
+    type: "framework_analysis"
+
+  implementation_roadmap:
+    format: "Step-by-step build sequence with testing checkpoints"
+    type: "execution_plan"
+
+success_criteria:
+  - "7 Story Spine beats clearly mapped to user's component/story"
+  - "Emotional arc defined (start → peak → climax → resolution)"
+  - "Timing reflects emotion (slow intro, fast climax, calm resolution)"
+  - "Climax (Beat 6) designated for premium animations/effects"
+  - "User control via scroll scrubbing considered (scrub: true)"
+  - "No random effects (all animations serve narrative purpose)"
+  - "Varied pacing across beats (not uniform timing)"
+  - "Clear payoff delivered (Beat 6 resolution moment)"
+  - "Research citations present (Archon + Deep-Research)"
+
+estimated_duration: "25-35 minutes"
+
+web_bundle:
+  name: 'plan-narrative'
+  description: 'Create visual narrative plan using Pixar Story Spine 7-beat framework with KB-powered research and timeline choreography'
+  path: 'bmad/gsap-excellence/workflows/plan-narrative'
+  web_bundle_files:
+    - 'bmad/gsap-excellence/workflows/plan-narrative/workflow.yaml'
+    - 'bmad/gsap-excellence/workflows/plan-narrative/instructions.md'
+    - 'bmad/gsap-excellence/workflows/plan-narrative/template.md'
+    - 'bmad/gsap-excellence/workflows/plan-narrative/checklist.md'

@@ -10,8 +10,18 @@ import { StudiosTestimonialsSection } from "@/components/studios/StudiosTestimon
 import { StudiosContactCTASection } from "@/components/studios/StudiosContactCTASection";
 import { FadeIn } from "@/components/shared/FadeIn";
 import { PageLayout } from "@/components/layouts/PageLayout";
+import { useLenisSmooth } from "@/hooks/useLenisSmooth";
 
 const Studios = () => {
+  // PREMIUM: Buttery-smooth scrolling across entire Studios page
+  // Provides Mac-like smooth scroll feel on all platforms
+  // Syncs with GSAP ScrollTrigger for perfect animation timing
+  // Source: Cinematographer research - GitHub DAY_015 (2025), FreeFrontend (2025)
+  useLenisSmooth({
+    duration: 1.2,      // Standard smooth duration
+    smoothWheel: true,  // Mouse wheel scrolling
+    smoothTouch: false, // Keep native mobile scrolling (better UX)
+  });
   return (
     <div className="relative min-h-screen">
       {/* Unified Page Background - Studios Orange/Teal Theme */}
@@ -30,24 +40,13 @@ const Studios = () => {
         <Navigation />
         <main className="pt-20">
           <StudiosHero />
-          <FadeIn>
-            <StudiosChallengeSection />
-          </FadeIn>
-          <FadeIn>
-            <StudiosPortfolioSection />
-          </FadeIn>
-          <FadeIn>
-            <StudiosProductionStackSection />
-          </FadeIn>
-          <FadeIn>
-            <StudiosWorkflowSection />
-          </FadeIn>
-          <FadeIn>
-            <StudiosStandardsSection />
-          </FadeIn>
-          <FadeIn>
-            <StudiosPlatformDemoSection />
-          </FadeIn>
+          {/* Sections now use GSAP scroll reveals - FadeIn wrappers removed */}
+          <StudiosChallengeSection />
+          <StudiosPortfolioSection />
+          <StudiosProductionStackSection />
+          <StudiosWorkflowSection />
+          <StudiosStandardsSection />
+          <StudiosPlatformDemoSection />
           <StudiosTestimonialsSection />
           <StudiosContactCTASection />
         </main>
