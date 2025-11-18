@@ -35,6 +35,13 @@
 - Production deploys automatically when `master` on origin updates; we must ensure the GitHub Actions job defined in `.github/workflows/deploy.yml` still succeeds under the merged code.
 - Two worktrees are involved: current repo path for the feature branch and `/home/cameronai/projects/cre8tive-website-master` checked out to `master`. The merge plan should account for syncing both trees and keeping them clean.
 
+## 2025-11-18 — Production Merge Execution
+- Ran `git fetch --all --prune` on both worktrees, recorded the delta (`git log master..studios/...`, `git diff master...studios/... --stat`) so the release scope (GSAP refactors, GSAP audit dirs, local poster assets, docs) is documented.
+- Rebased `studios/conversational-redesign` onto `origin/master`; resolved the single conflict in `src/components/studios/StudiosTestimonialsSection.tsx` by keeping the GSAP `useSectionReveal` timeline and dropping the legacy inline animation CSS. Branch head now includes `9d2cafb` (refactor commit) plus `9940f75` (merge plan docs).
+- Validation cadence: `npm run build` passes on the feature branch and again after the master fast-forward. `npm run lint` still fails from legacy issues (archived files missing unicorn plugin + Conversational `any` types); accepted as known debt pending lint config clean-up.
+- Fast-forwarded `/home/cameronai/projects/cre8tive-website-master` to the rebased branch, reran `npm run build`, and pushed `master` (commit `9940f75`) to origin. GitHub Actions run `Deploy to GitHub Pages` [19457199155] succeeded in ~55 s; production deploy is in flight for Cameron to smoke-test on `cre8tive.ai`.
+- Next: capture MCP screenshots/perf traces against production once verified, then summarize the release and risks in `.codex/REPORT.md`.
+
 ## 2025-11-17 — Session Primer & Gemini Canvas Research Prep
 - Re-opened SPEC.md, ARCHITECTURE.md, README.md, CONTRIBUTING.md, docs/MCPs.md, TASK.md, `.codex/PLAN.md`, `.codex/REPORT.md`, and the locked copy/palette docs to ensure this session references the November 3 canon before any changes.
 - Active focus remains the Studios page rebuild (Sections S3-03 through S3-08 in TASK.md); Conversational AI work stays queued until Studios sign-off.

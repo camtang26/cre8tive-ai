@@ -329,3 +329,24 @@
 
 ## Follow-ups
 - Document intended animation sequencing (stagger order, parallax ideas) in `_MEMO`/GSAP brief after viewport QA.
+
+# 2025-11-18 – Production Merge (Studios + Conversational)
+
+## Summary
+- Delivered the `studios/conversational-redesign` → `master` release: rebased the feature branch onto `origin/master`, resolved the lone conflict in `src/components/studios/StudiosTestimonialsSection.tsx` by retaining the GSAP `useSectionReveal` variant, then fast-forwarded the `/home/cameronai/projects/cre8tive-website-master` worktree.
+- Captured the scope (GSAP refactors, ScrollSmoother swap, Conversational rewires, local Vimeo posters, Gemini audit assets, plan/memo docs) via `git diff master...studios/... --stat` and logged it in `_MEMO`.
+- Pushed `master` (commit `9940f75`) to origin; GitHub Actions workflow “Deploy to GitHub Pages” run **#19457199155** completed in ~55 s, so production deployment is in progress.
+
+## Verification
+- `npm run build` (feature branch) ✅
+- `npm run build` (`/home/cameronai/projects/cre8tive-website-master`) ✅
+- `npm run lint` ❌ (legacy errors in archived files + Conversational `any` types; no new lint violations introduced by this merge)
+- GitHub Actions Deploy to GitHub Pages (#19457199155) ✅
+
+## Risks
+- Lint remains red due to historical issues; enforce lint-gated deploys only after disabling unicorn rules for archived dirs and tightening Conversational typings.
+- Need live-site validation (Studios + Conversational) to ensure ScrollSmoother + GSAP optimizations behave under production CSP/cache.
+
+## Follow-ups
+- Run Chrome DevTools MCP against production once DNS/CDN updates propagate; capture metrics/screenshots for Studios + Conversational.
+- Update `TASK.md` to reflect that the GSAP refactor deployment is live once stakeholders sign off.
