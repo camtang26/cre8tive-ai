@@ -25,6 +25,16 @@
 - **Target User:** Cameron (project owner) plus collaborating engineers/PMs who are onboarding and need high-level architecture context quickly.
 - **Success Signal:** Deliver a written overview that cites the definitive repo docs, covers runtime/tooling/framework/hosting choices, and highlights deployment + integration infrastructure so stakeholders confirm understanding without requesting follow-ups.
 
+### AI Product Charter — Production Merge Plan (2025-11-18)
+- **Problem:** The optimized `studios/conversational-redesign` branch contains GSAP performance fixes required in production, but `master` (the deployment branch) does not include these changes; we need a safe merge strategy that preserves history, passes all quality gates, and triggers the GitHub Actions deploy without regressions.
+- **Target User:** Cameron (release owner) who needs confidence that the live site reflects the latest Studios + Conversational fixes, plus any teammate verifying production stability via the GitHub Actions pipeline.
+- **Success Signal:** Master receives the verified merge commit(s), CI/CD runs cleanly, and we provide a documented, repeatable checklist (plan + validation steps) so Cameron can confirm production is updated without surprises.
+
+#### Merge Context Notes
+- `studios/conversational-redesign` is ahead of `master` by commit `2088fd8` (GSAP refactors) while `master` has `106470b` (lint fixes) not present on the feature branch; fast-forward is impossible, so a merge or rebase is required.
+- Production deploys automatically when `master` on origin updates; we must ensure the GitHub Actions job defined in `.github/workflows/deploy.yml` still succeeds under the merged code.
+- Two worktrees are involved: current repo path for the feature branch and `/home/cameronai/projects/cre8tive-website-master` checked out to `master`. The merge plan should account for syncing both trees and keeping them clean.
+
 ## 2025-11-17 — Session Primer & Gemini Canvas Research Prep
 - Re-opened SPEC.md, ARCHITECTURE.md, README.md, CONTRIBUTING.md, docs/MCPs.md, TASK.md, `.codex/PLAN.md`, `.codex/REPORT.md`, and the locked copy/palette docs to ensure this session references the November 3 canon before any changes.
 - Active focus remains the Studios page rebuild (Sections S3-03 through S3-08 in TASK.md); Conversational AI work stays queued until Studios sign-off.

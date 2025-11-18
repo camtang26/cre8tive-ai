@@ -37,3 +37,49 @@
 ## Archived / Completed Plans
 - **Documentation Realignment (Completed 2025-11-03):** `.codex` knowledge artifacts now synced with the November 3 documentation canon.
 - **Hero & Prototype Experiments (Completed 2025-11-03):** Prior hero/video placeholder exploratory work remains available for reference but no longer dictates delivery cadence.
+
+---
+
+## 2025-11-18 – Production Merge Checklist (studios/conversational-redesign → master)
+
+**Goal:** Deliver a safe, well-documented merge of `studios/conversational-redesign` into `master` (production) so GitHub Actions deploys the GSAP refactors to cre8tive.ai without regressions.
+
+**Impact Set:** `studios/conversational-redesign` branch, `/home/cameronai/projects/cre8tive-website-master` worktree (`master`), CI workflow `.github/workflows/deploy.yml`, npm lockfiles, docs in `.codex/*` summarizing the release.
+
+**Prereqs:** Ensure both worktrees have the same Node/npm versions installed (Node 20+/npm 9+). Confirm GitHub CLI auth (if tagging release) and that `npm run build` already passes on the feature branch (commit `2088fd8`).
+
+### Steps
+1. **S1 – Sync Remotes + Inventory Branch State**  
+   - Commands: `git fetch --all --prune` (both worktrees), `git status -sb`, `git branch -vv`.  
+   - Purpose: verify the feature branch tip (`2088fd8`) and `master` tip (`106470b`) plus confirm no untracked work.
+
+2. **S2 – Summarize Delta**  
+   - Commands: `git log --oneline master..studios/conversational-redesign`, `git log --oneline studios/conversational-redesign..master`, `git diff master...studios/conversational-redesign --stat`.  
+   - Capture summary in `.codex/_MEMO.md` for auditing; note touched areas (GSAP hooks, thumbnails, matchMedia, ScrollSmoother, CTA rewires).
+
+3. **S3 – Validate Feature Branch Build**  
+   - Commands: `npm run lint`, `npm run test` (if suite defined), `npm run build`, spot-check key pages via `npm run dev` if needed.  
+   - Artifact: paste pass/fail notes + timestamps in `_MEMO` and ensure `/Screenshots` or MCP captures exist for Studios + Conversational.
+
+4. **S4 – Update Master Worktree**  
+   - Workdir: `/home/cameronai/projects/cre8tive-website-master`.  
+   - Commands: `git checkout master` (already), `git pull --ff-only origin master`, `npm install` (if lockfile changed), `npm run build` to verify baseline.  
+   - Goal: guarantee `master` is clean and in sync with origin before merging.
+
+5. **S5 – Merge Strategy Execution**  
+   - Option A (preferred): Rebase feature branch onto master (`git rebase origin/master`) within feature worktree, resolve conflicts, run tests, then fast-forward master via `git merge --ff-only studios/conversational-redesign` from the master worktree.  
+   - Option B: Merge commit on master (`git merge --no-ff studios/conversational-redesign`) if we need to preserve branch context. Document chosen path + conflicts in `_MEMO`.
+
+6. **S6 – Post-Merge Validation**  
+   - Commands (on master worktree post-merge): `npm install` (if package-lock changed), `npm run lint`, `npm run build`, targeted smoke tests (e.g., `npm run test -- studios` if available).  
+   - Trigger Chrome DevTools MCP to capture Studios & Conversational metrics (same 1707×898 + mobile) and log to `.codex/REPORT.md`.
+
+7. **S7 – Push + Monitor CI**  
+   - Commands: `git push origin master`.  
+   - Monitor `.github/workflows/deploy.yml` run on GitHub; capture run URL + outcome in `_MEMO` and, once successful, note deployment timestamp.
+
+8. **S8 – Production Verification & Wrap-up**  
+   - Validate live site (cre8tive.ai/studios + /conversational) matches expectations (thumbnails, GSAP smoothing, removed magnetic cards).  
+   - Update `.codex/REPORT.md` with release summary, capture any risks (e.g., dependency drift), and close relevant TASK.md items or note follow-ups for other pages.
+
+**Rollback Plan:** If CI fails or regressions surface, reset master worktree to `origin/master` (`git reset --hard origin/master`), reopen bug in `_MEMO`, and keep feature branch untouched for fixes.
