@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react"
+import { useRef } from "react"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
 import { Headset, Target, TrendingUp, Rocket, Users, MessageSquare } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
@@ -6,8 +6,6 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
-
-gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface UseCase {
   id: string
@@ -17,7 +15,6 @@ interface UseCase {
   accentColor: string
   accentGradient: string
   accentGlow: string
-  gridArea: string
   animationDelay: number
 }
 
@@ -31,7 +28,6 @@ const USE_CASES: UseCase[] = [
     accentColor: "#10B981",
     accentGradient: "from-[rgba(16,185,129,0.36)] via-[rgba(16,185,129,0.12)] to-transparent",
     accentGlow: "rgba(16,185,129,0.28)",
-    gridArea: "1 / 1 / 3 / 3", // Large card, 2x2
     animationDelay: 0,
   },
   {
@@ -43,7 +39,6 @@ const USE_CASES: UseCase[] = [
     accentColor: "#14F195",
     accentGradient: "from-[rgba(20,241,149,0.36)] via-[rgba(20,241,149,0.12)] to-transparent",
     accentGlow: "rgba(20,241,149,0.28)",
-    gridArea: "1 / 3 / 4 / 4", // Tall card, spans 3 rows
     animationDelay: 150,
   },
   {
@@ -55,7 +50,6 @@ const USE_CASES: UseCase[] = [
     accentColor: "#34D399",
     accentGradient: "from-[rgba(52,211,153,0.36)] via-[rgba(52,211,153,0.12)] to-transparent",
     accentGlow: "rgba(52,211,153,0.28)",
-    gridArea: "3 / 1 / 4 / 2", // Standard card
     animationDelay: 300,
   },
   {
@@ -67,7 +61,6 @@ const USE_CASES: UseCase[] = [
     accentColor: "#6EE7B7",
     accentGradient: "from-[rgba(110,231,183,0.36)] via-[rgba(110,231,183,0.12)] to-transparent",
     accentGlow: "rgba(110,231,183,0.28)",
-    gridArea: "3 / 2 / 4 / 3", // Standard card
     animationDelay: 450,
   },
 ]
@@ -83,52 +76,70 @@ export function ConversationalUseCasesSection() {
   useGSAP(() => {
     if (prefersReducedMotion) return
 
-    // Animate desktop grid with random stagger
-    gsap.from(desktopGridRef.current?.children || [], {
-      opacity: 0,
-      y: 60,
-      scale: 0.9,
-      duration: 0.8,
-      stagger: {
-        amount: 0.6, // Total stagger time
-        from: "random", // Random order (not sequential!)
-        ease: "power2.out"
+    const mm = gsap.matchMedia()
+
+    mm.add(
+      {
+        isDesktop: "(min-width: 1024px)",
+        isTablet: "(min-width: 768px) and (max-width: 1023px)",
+        isMobile: "(max-width: 767px)"
       },
-      ease: "back.out(1.2)",
-      scrollTrigger: {
-        trigger: desktopGridRef.current,
-        start: "top 75%",
-        toggleActions: "play none none none"
-      }
-    })
+      (context) => {
+        const conditions = context.conditions as { isDesktop: boolean; isTablet: boolean; isMobile: boolean }
 
-    // Tablet grid
-    gsap.from(tabletGridRef.current?.children || [], {
-      opacity: 0,
-      y: 50,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: tabletGridRef.current,
-        start: "top 75%",
-        toggleActions: "play none none none"
-      }
-    })
+        if (conditions.isDesktop && desktopGridRef.current) {
+          gsap.from(desktopGridRef.current.children, {
+            opacity: 0,
+            y: 60,
+            scale: 0.9,
+            duration: 0.8,
+            stagger: {
+              amount: 0.6,
+              from: "random",
+              ease: "power2.out"
+            },
+            ease: "back.out(1.2)",
+            scrollTrigger: {
+              trigger: desktopGridRef.current,
+              start: "top 75%",
+              toggleActions: "play none none none"
+            }
+          })
+        }
 
-    // Mobile grid
-    gsap.from(mobileGridRef.current?.children || [], {
-      opacity: 0,
-      x: -30,
-      duration: 0.6,
-      stagger: 0.12,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: mobileGridRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none"
+        if (conditions.isTablet && tabletGridRef.current) {
+          gsap.from(tabletGridRef.current.children, {
+            opacity: 0,
+            y: 50,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: tabletGridRef.current,
+              start: "top 75%",
+              toggleActions: "play none none none"
+            }
+          })
+        }
+
+        if (conditions.isMobile && mobileGridRef.current) {
+          gsap.from(mobileGridRef.current.children, {
+            opacity: 0,
+            x: -30,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: mobileGridRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none"
+            }
+          })
+        }
       }
-    })
+    )
+
+    return () => mm.revert()
   }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
 
   return (
@@ -167,7 +178,7 @@ export function ConversationalUseCasesSection() {
         </div>
 
         {/* Bento Grid - Desktop */}
-        <div ref={desktopGridRef} className="hidden lg:grid lg:grid-cols-3 lg:grid-rows-3 lg:gap-8">
+        <div ref={desktopGridRef} className="hidden lg:grid lg:grid-cols-3 lg:gap-8">
           {USE_CASES.map((useCase) => (
             <UseCaseCard key={useCase.id} useCase={useCase} />
           ))}
@@ -196,47 +207,16 @@ interface UseCaseCardProps {
 }
 
 function UseCaseCard({ useCase }: UseCaseCardProps) {
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 })
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget
-      const rect = card.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      const centerX = rect.width / 2
-      const centerY = rect.height / 2
-      const rotateX = ((y - centerY) / centerY) * 18 // Max 18deg (Studios pattern)
-      const rotateY = ((x - centerX) / centerX) * -48 // Max 48deg (premium depth)
-
-      setTilt({ rotateX, rotateY })
-    },
-    []
-  )
-
-  const handleMouseLeave = useCallback(() => {
-    setTilt({ rotateX: 0, rotateY: 0 })
-  }, [])
-
   const Icon = useCase.icon
 
   return (
     <GlassmorphicCard
-      className="h-full"
+      className="h-full transition-transform duration-500 hover:-translate-y-2"
       accentColor={useCase.accentColor}
       accentGradient={useCase.accentGradient}
       accentGlow={useCase.accentGlow}
-      style={{
-        gridArea: useCase.gridArea,
-        transform: `perspective(1400px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translateZ(0)`,
-        transition: "transform 0.2s ease-out",
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
     >
       <div className="p-12">
-        {/* Premium icon container - 80x80 with depth */}
         <div className="mb-8 inline-flex">
           <div
             className="relative h-20 w-20 overflow-hidden rounded-3xl"
@@ -245,20 +225,14 @@ function UseCaseCard({ useCase }: UseCaseCardProps) {
               boxShadow: `0 8px 32px ${useCase.accentGlow}, inset 0 1px 2px rgba(255,255,255,0.15)`,
             }}
           >
-            {/* Inner highlight for depth */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/12 via-transparent to-transparent" />
-
-            {/* Icon centered and large */}
             <div className="absolute inset-0 flex items-center justify-center">
               <Icon className="h-10 w-10 text-white" style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))' }} />
             </div>
           </div>
         </div>
 
-        {/* Title - bolder and more space */}
         <h3 className="mb-5 text-2xl font-black text-conversational-headline">{useCase.title}</h3>
-
-        {/* Description - trimmed and line-clamped */}
         <p className="text-base leading-relaxed text-conversational-body line-clamp-3">{useCase.description}</p>
       </div>
     </GlassmorphicCard>

@@ -1,13 +1,11 @@
-import { useState, useRef } from "react"
-import { Play, CheckCircle2 } from "lucide-react"
+import { useRef } from "react"
+import { CheckCircle2 } from "lucide-react"
 import MuxPlayer from "@mux/mux-player-react/lazy"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
-
-gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 const MARKETING_VIDEO_PLAYBACK_ID = "FFH4ldVB00HBEO1iLXm9xWmBNvK501vBQ6Fj9PixEHcJA"
 
@@ -18,8 +16,6 @@ const KEY_TAKEAWAYS = [
 ]
 
 export function ConversationalMarketingVideoSection() {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
   const playerRef = useRef<HTMLVideoElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const videoCardRef = useRef<HTMLDivElement>(null)
@@ -44,17 +40,6 @@ export function ConversationalMarketingVideoSection() {
       }
     })
   }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
-
-  const handlePlayClick = async () => {
-    if (playerRef.current) {
-      try {
-        playerRef.current.play()
-        setIsPlaying(true)
-      } catch (error) {
-        console.error("Failed to play video:", error)
-      }
-    }
-  }
 
   return (
     <section
@@ -103,7 +88,8 @@ export function ConversationalMarketingVideoSection() {
                   ref={playerRef}
                   playbackId={MARKETING_VIDEO_PLAYBACK_ID}
                   loading="viewport"
-                  preload="none"
+                  preload="metadata"
+                  autoPlay={"visible" as any}
                   metadata={{
                     video_title: "Conversational AI Marketing Video",
                     viewer_user_id: "anonymous"
@@ -117,36 +103,7 @@ export function ConversationalMarketingVideoSection() {
                     '--media-object-fit': 'cover',
                     '--media-object-position': 'center',
                   } as React.CSSProperties}
-                  onLoadedData={() => setIsLoading(false)}
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
                 />
-
-                {/* Custom Play Button Overlay */}
-                {!isPlaying && (
-                  <button
-                    onClick={handlePlayClick}
-                    className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity hover:opacity-90 group"
-                    aria-label="Play video"
-                  >
-                    <div className="relative">
-                      {/* Outer glow ring */}
-                      <div className="absolute inset-0 -m-4 rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.4)_0%,transparent_70%)] blur-2xl opacity-60 group-hover:opacity-100 transition-opacity" />
-
-                      {/* Play button */}
-                      <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-[12px] shadow-[0_0_24px_rgba(16,185,129,0.6)] transition-all duration-300 group-hover:scale-110 group-hover:border-conversational-primary group-hover:shadow-[0_0_36px_rgba(16,185,129,0.8)]">
-                        <Play className="ml-1 h-10 w-10 fill-current text-white" />
-                      </div>
-                    </div>
-                  </button>
-                )}
-
-                {/* Loading Skeleton */}
-                {isLoading && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-conversational-surface to-conversational-background">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-conversational-primary/10 to-transparent animate-shimmer" />
-                  </div>
-                )}
               </div>
             </GlassmorphicCard>
           </div>

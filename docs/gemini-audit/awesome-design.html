@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cre8tive.ai - The New Creative Partner</title>
+    
+    <!-- We are NOT using Tailwind, as all styling is custom for this 3D scene -->
+    
+    <!-- Google Fonts: DM Serif Display (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --text-color: #E5E5E5;
+            --bg-color: #0A0A0A;
+            --font-body: 'Inter', sans-serif;
+            --font-heading: 'DM Serif Display', serif;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            
+            /* CRITICAL: No scrollbars, as scroll is hijacked */
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* This container holds both renderers */
+        #scene-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* The WebGL canvas (particles, bloom) is in the back */
+        #webgl-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        /* The CSS3D renderer (HTML content) is on top */
+        #css-renderer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        /* Header (sits on top of everything) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 32px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+        }
+        
+        header .logo {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+        
+        header .cta-button {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 99px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        header .cta-button:hover {
+            background-color: #ccc;
+        }
+        
+        /* This holds the HTML templates we will clone into 3D */
+        #content-templates {
+            display: none;
+        }
+        
+        /* Styling for the HTML elements *after* they are in 3D */
+        .content-element {
+            /* Sizing is set in JS, but we define the look */
+            background: rgba(10, 10, 10, 0.5); /* Semi-transparent panel */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 16px;
+        }
+        
+        .hero-panel {
+            width: 800px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            backdrop-filter: none;
+        }
+        
+        .hero-panel h1 {
+            font-family: var(--font-heading);
+            font-size: 110px;
+            font-weight: 400;
+            color: white;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .hero-panel p {
+            font-size: 18px;
+            color: var(--text-color);
+            max-width: 500px;
+            margin: 0 auto 32px auto;
+            line-height: 1.6;
+        }
+        
+        .hero-panel .cta {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 500;
+            color: black;
+            background-color: white;
+            padding: 16px 32px;
+            border-radius: 99px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .hero-panel .cta:hover {
+             background-color: #ccc;
+        }
+
+        .gallery-item {
+            width: 400px;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05) !important; /* !important to override 3D transform */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+        
+        .gallery-item .subtitle {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ddd;
+        }
+        .gallery-item h3 {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            color: white;
+            margin: 4px 0 0 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+        
+        .text-panel {
+            width: 700px;
+        }
+        
+        .text-panel h2 {
+            font-family: var(--font-heading);
+            font-size: 72px;
+            color: white;
+            margin: 0 0 24px 0;
+        }
+        
+        .text-panel p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-color);
+            margin-bottom: 24px;
+        }
+        
+        /* Close button for when we focus an item */
+        #close-button {
+            position: fixed;
+            top: 24px;
+            right: 32px;
+            z-index: 101;
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 99px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        
+        #close-button.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Loading indicator */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            transition: opacity 0.5s ease;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- This container holds the 3D renderers -->
+    <div id="scene-container">
+        <div id="webgl-canvas"></div>
+        <div id="css-renderer"></div>
+    </div>
+
+    <!-- Fixed UI elements -->
+    <header>
+        <a href="#" class="logo">cre8tive.ai</a>
+        <a href="#" class="cta-button" id="header-cta">Book a Consultation</a>
+    </header>
+    
+    <div id="close-button">Close</div>
+    <div id="loader">Loading Masterpiece...</div>
+
+    <!-- 
+      These are the HTML templates we will copy into the 3D scene.
+      They are hidden by default.
+    -->
+    <div id="content-templates">
+    
+        <!-- Hero Panel -->
+        <div id="hero" class="hero-panel">
+            <h1>The New Creative Partner</h1>
+            <p>We build AI partners that empower your team to create at the speed of imagination.</p>
+            <a class="cta" id="hero-cta">Enter The Gallery</a>
+        </div>
+        
+        <!-- Gallery Title -->
+        <div id="gallery-title" class="text-panel" style="width: 500px; background: transparent; border: none; backdrop-filter: none;">
+            <h2 style="font-size: 90px;">The Gallery.</h2>
+        </div>
+        
+        <!-- Gallery Items -->
+        <div id="item1" class="gallery-item" style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%), url('https://placehold.co/600x800/E5874A/FFFFFF?text=Cyberspace');">
+            <span class="subtitle">Tech / Keynote Opener</span>
+            <h3>Cyberspace</h3>
+        </div>
+        
+        <div id="item2" class="gallery-item" style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%), url('https://placehold.co/600x800/3B82F6/FFFFFF?text=Echoes');">
+            <span class="subtitle">Fashion / Brand Film</span>
+            <h3>Project Echoes</h3>
+        </div>
+        
+        <div id="item3" class="gallery-item" style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%), url('https://placehold.co/600x800/10B981/FFFFFF?text=Biome');">
+            <span class="subtitle">Documentary / VFX</span>
+            <h3>Biome</h3>
+        </div>
+
+        <!-- Platform Section -->
+        <div id="platform" class="text-panel">
+            <h2>Our Platform.<br>Your Vision.</h2>
+            <p>We provide the tools and the talent to scale your creative output, from bespoke video to intelligent conversational agents.</p>
+            <p style="font-weight: 700;">Cre8tive AI Studios<br>AI Creative Agents<br>Conversational AI</p>
+        </div>
+        
+        <!-- Contact Section -->
+        <div id="contact" class="text-panel hero-panel">
+            <h1>Book a Consultation</h1>
+            <p>Let's discuss what our AI partners can build for you. Book a free, no-obligation consultation with our strategy team today.</p>
+            <a class="cta">Get Started</a>
+        </div>
+
+    </div>
+
+    <!-- Three.js and modules -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/"
+      }
+    }
+    </script>
+
+    <!-- Main JS Application -->
+    <script type="module">
+        import * as THREE from 'three';
+        import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+        let scene, camera, webGLRenderer, cssRenderer, composer;
+        let particles, clock;
+        let scrollProgress = 0;
+        let targetScroll = 0;
+        let cameraPath;
+        let isFocusing = false;
+        let originalCameraState = { pos: new THREE.Vector3(), lookAt: new THREE.Vector3() };
+        let focusTarget = null;
+        
+        const contentObjects = [];
+        const galleryItems = [];
+        const closeButton = document.getElementById('close-button');
+        const loader = document.getElementById('loader');
+
+        function init() {
+            // --- Basic Setup ---
+            clock = new THREE.Clock();
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x0A0A0A, 1, 3000); // Fog for depth
+            
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
+            
+            // --- WebGL Renderer (Particles & Bloom) ---
+            const webGLCanvas = document.getElementById('webgl-canvas');
+            webGLRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+            webGLRenderer.setPixelRatio(window.devicePixelRatio);
+            webGLCanvas.appendChild(webGLRenderer.domElement);
+
+            // --- Post-processing (Bloom) ---
+            const renderScene = new RenderPass(scene, camera);
+            const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.0, 0.4, 0.85);
+            composer = new EffectComposer(webGLRenderer);
+            composer.addPass(renderScene);
+            composer.addPass(bloomPass);
+
+            // --- CSS3D Renderer (HTML Content) ---
+            const cssContainer = document.getElementById('css-renderer');
+            cssRenderer = new CSS3DRenderer();
+            cssRenderer.setSize(window.innerWidth, window.innerHeight);
+            cssContainer.appendChild(cssRenderer.domElement);
+
+            // --- Camera Path (The "Journey") ---
+            cameraPath = new THREE.CatmullRomCurve3([
+                new THREE.Vector3(0, 0, 1000),      // Start (behind hero)
+                new THREE.Vector3(0, 0, 0),         // Hero
+                new THREE.Vector3(0, 0, -1000),     // Gallery Title
+                new THREE.Vector3(0, 0, -2000),     // Gallery Items
+                new THREE.Vector3(0, 50, -3500),    // Platform
+                new THREE.Vector3(0, 0, -5000)      // Contact
+            ]);
+
+            // --- Create Scene Content ---
+            createParticles();
+            createContentDOM();
+            
+            // --- Event Listeners ---
+            window.addEventListener('resize', onWindowResize, false);
+            window.addEventListener('wheel', onMouseWheel, { passive: false });
+            closeButton.addEventListener('click', unfocusItem);
+            
+            // --- Link CTAs ---
+            document.getElementById('hero-cta').addEventListener('click', () => smoothScrollTo(0.25));
+            document.getElementById('header-cta').addEventListener('click', () => smoothScrollTo(1.0));
+
+            // Hide loader
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 500);
+
+            // Start animation loop
+            animate();
+        }
+
+        function createParticles() {
+            const particleCount = 10000;
+            const positions = new Float32Array(particleCount * 3);
+            const geometry = new THREE.BufferGeometry();
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 4000;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 4000;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 5000; // Stretched along Z
+            }
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const material = new THREE.PointsMaterial({
+                color: 0x666666,
+                size: 2,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+        }
+
+        function createContentDOM() {
+            const templates = document.getElementById('content-templates');
+            
+            // Hero
+            const heroEl = document.getElementById('hero');
+            const heroObj = new CSS3DObject(heroEl);
+            heroObj.position.set(0, 0, 0); // Position from camera path
+            scene.add(heroObj);
+            
+            // Gallery Title
+            const galTitleEl = document.getElementById('gallery-title');
+            const galTitleObj = new CSS3DObject(galTitleEl);
+            galTitleObj.position.set(0, 100, -1000);
+            scene.add(galTitleObj);
+            
+            // Gallery Items
+            const item1El = document.getElementById('item1');
+            const item1Obj = new CSS3DObject(item1El);
+            item1Obj.position.set(-500, -50, -2000);
+            item1Obj.rotation.y = 0.5;
+            scene.add(item1Obj);
+            
+            const item2El = document.getElementById('item2');
+            const item2Obj = new CSS3DObject(item2El);
+            item2Obj.position.set(0, 0, -2000);
+            scene.add(item2Obj);
+            
+            const item3El = document.getElementById('item3');
+            const item3Obj = new CSS3DObject(item3El);
+            item3Obj.position.set(500, -50, -2000);
+            item3Obj.rotation.y = -0.5;
+            scene.add(item3Obj);
+            
+            galleryItems.push(item1Obj, item2Obj, item3Obj);
+            
+            // Add click listeners to focus
+            item1El.addEventListener('click', () => focusOnItem(item1Obj));
+            item2El.addEventListener('click', () => focusOnItem(item2Obj));
+            item3El.addEventListener('click', () => focusOnItem(item3Obj));
+            
+            // Platform
+            const platformEl = document.getElementById('platform');
+            const platformObj = new CSS3DObject(platformEl);
+            platformObj.position.set(0, 0, -3500);
+            scene.add(platformObj);
+            
+            // Contact
+            const contactEl = document.getElementById('contact');
+            const contactObj = new CSS3DObject(contactEl);
+            contactObj.position.set(0, 0, -5000);
+            scene.add(contactObj);
+        }
+        
+        function focusOnItem(targetObject) {
+            isFocusing = true;
+            focusTarget = targetObject;
+            
+            // Save current camera state
+            cameraPath.getPointAt(scrollProgress, originalCameraState.pos);
+            const lookAtTarget = cameraPath.getPointAt(scrollProgress + 0.01);
+            originalCameraState.lookAt.copy(lookAtTarget);
+            
+            closeButton.classList.add('visible');
+        }
+        
+        function unfocusItem() {
+            isFocusing = false;
+            closeButton.classList.remove('visible');
+            // The animation loop will naturally lerp back to the scroll-driven path
+        }
+
+        function onMouseWheel(event) {
+            event.preventDefault();
+            if (isFocusing) return; // Don't scroll while focused
+            
+            const delta = event.deltaY * 0.0002;
+            targetScroll += delta;
+            targetScroll = Math.max(0, Math.min(1, targetScroll)); // Clamp between 0 and 1
+        }
+        
+        function smoothScrollTo(target) {
+            if (isFocusing) unfocusItem();
+            targetScroll = target;
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            
+            webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+            cssRenderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const delta = clock.getDelta();
+            
+            // Animate particles
+            if (particles) {
+                particles.rotation.y += delta * 0.01;
+            }
+            
+            if (isFocusing && focusTarget) {
+                // --- Focusing Logic ---
+                // Target position: 500 units in front of the object
+                const targetPos = new THREE.Vector3();
+                focusTarget.getWorldPosition(targetPos);
+                targetPos.z += 500; 
+                
+                // Target look-at: the object's center
+                const lookAtPos = new THREE.Vector3();
+                focusTarget.getWorldPosition(lookAtPos);
+                
+                // Smoothly animate camera to these new targets
+                camera.position.lerp(targetPos, delta * 2.0);
+                
+                // We need a dummy object to lerp the lookAt
+                const tempLookAt = new THREE.Object3D();
+                tempLookAt.position.copy(camera.position).lerp(lookAtPos, 1.0); // look at it
+                camera.lookAt(lookAtPos);
+
+            } else {
+                // --- Normal Scroll-Path Logic ---
+                // Smoothly lerp the *current* scroll progress to the *target* scroll
+                scrollProgress = THREE.MathUtils.lerp(scrollProgress, targetScroll, delta * 3.0);
+                
+                // Get the new camera position from the spline
+                const cameraPos = cameraPath.getPointAt(scrollProgress);
+                
+                // Get the point to look at (slightly ahead on the path)
+                const lookAtPos = cameraPath.getPointAt(Math.min(scrollProgress + 0.01, 1));
+
+                camera.position.copy(cameraPos);
+                camera.lookAt(lookAtPos);
+            }
+
+            // Render both scenes
+            composer.render(delta); // Renders WebGL scene with bloom
+            cssRenderer.render(scene, camera); // Renders HTML content
+        }
+
+        init();
+
+    </script>
+</body>
+</html>

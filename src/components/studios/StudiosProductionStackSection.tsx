@@ -51,6 +51,7 @@ export function StudiosProductionStackSection() {
   // REFINED: Standard cinematic for text content (1.0s, power3.out)
   useSectionReveal({
     selector: '[data-reveal-stack]',
+    trigger: '#studios-production-stack',
     stagger: 0.05,
     duration: 1.0,  // REFINED: Was 0.8s, now 1.0s
     distance: 60,
@@ -65,6 +66,7 @@ export function StudiosProductionStackSection() {
   // Dramatic luxury timing: explosive start → hard brake → feather settle
   useDirectionalReveal({
     selector: '[data-reveal-platform]',
+    trigger: '[data-motion="production-stack.platforms"]',
     stagger: 0.15,     // 150ms - wave effect timing
     duration: 1.6,     // REFINED: Was 1.2s, now 1.6s for maximum cinematic drama
     distance: 60,      // Horizontal movement

@@ -16,12 +16,18 @@ export const StudiosHero = () => {
 
   const [isVideoReady, setIsVideoReady] = useState(false)
   const [pointerActive, setPointerActive] = useState(true)
+  const [isIntroAnimationComplete, setIsIntroAnimationComplete] = useState(false)
 
   const isMobile = useIsMobile()
   const prefersReducedMotion = usePrefersReducedMotion()
 
   // Activate cinematic hero intro animation
-  useHeroIntro()
+  const handleHeroIntroComplete = useCallback(() => {
+    setIsIntroAnimationComplete(true)
+    console.log('[StudiosHero] Intro animation complete, enabling hero video.')
+  }, [])
+
+  useHeroIntro(handleHeroIntroComplete)
 
   useEffect(() => {
     if (!heroRef.current) return
@@ -104,10 +110,11 @@ export const StudiosHero = () => {
         isVideoReady={isVideoReady}
         setIsVideoReady={setIsVideoReady}
         isMobile={isMobile}
+        isIntroAnimationComplete={isIntroAnimationComplete}
       />
 
       {/* Atmospheric overlays */}
-      <div className="pointer-events-none absolute inset-0 -z-30" style={{ transform: 'translate3d(0, 0, 0)', willChange: 'auto' }}>
+      <div className="pointer-events-none absolute inset-0 -z-30" style={{ transform: 'translate3d(0, 0, 0)' }}>
         <div className="absolute inset-0 bg-studios-hero-base" />
         <div className="absolute inset-0 bg-studios-hero-spotlight opacity-35 md:opacity-45" />
         <div className="absolute inset-0 bg-studios-hero-rim blur-[80px] opacity-28" />
@@ -171,41 +178,43 @@ interface HeroVideoBackdropProps {
   isVideoReady: boolean
   setIsVideoReady: (ready: boolean) => void
   isMobile: boolean
+  isIntroAnimationComplete: boolean
 }
 
-const HeroVideoBackdrop = ({ playerRef, isVideoReady, setIsVideoReady, isMobile }: HeroVideoBackdropProps) => {
+const HeroVideoBackdrop = ({ playerRef, isVideoReady, setIsVideoReady, isMobile, isIntroAnimationComplete }: HeroVideoBackdropProps) => {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
     <div className="absolute inset-0 -z-40" style={{ transform: 'translate3d(0, 0, 0)' }}>
-      <div className="absolute inset-0 bg-studios-background/2" aria-hidden style={{ willChange: 'auto' }} />
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-700 ease-out data-[ready=true]:opacity-100" data-ready={isVideoReady} style={{ willChange: 'opacity' }}>
-        <MuxPlayer
-          ref={playerRef}
-          playbackId={HERO_VIDEO_PLAYBACK_ID}
-          loading="viewport"
-          preload="none"
-          autoPlay={!isMobile && !prefersReducedMotion}
-          loop
-          muted
-          playsInline
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            aspectRatio: '16/9',
-            objectFit: 'cover',
-            transform: 'scale(1.17) translate3d(0, 0, 0)',
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            '--controls': 'none',
-            '--media-object-fit': 'cover',
-            '--media-object-position': 'center',
-          } as React.CSSProperties}
-          onLoadedData={() => setIsVideoReady(true)}
-          onError={() => setIsVideoReady(true)}
-        />
+      <div className="absolute inset-0 bg-studios-background/2" aria-hidden />
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-700 ease-out data-[ready=true]:opacity-100" data-ready={isVideoReady}>
+        {isIntroAnimationComplete && (
+          <MuxPlayer
+            ref={playerRef}
+            playbackId={HERO_VIDEO_PLAYBACK_ID}
+            loading="viewport"
+            preload="none"
+            autoPlay={!isMobile && !prefersReducedMotion}
+            loop
+            muted
+            playsInline
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              aspectRatio: '16/9',
+              objectFit: 'cover',
+              transform: 'scale(1.17) translate3d(0, 0, 0)',
+              backfaceVisibility: 'hidden',
+              '--controls': 'none',
+              '--media-object-fit': 'cover',
+              '--media-object-position': 'center',
+            } as React.CSSProperties}
+            onLoadedData={() => setIsVideoReady(true)}
+            onError={() => setIsVideoReady(true)}
+          />
+        )}
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(5,6,13,0.85)0%,rgba(12,18,32,0.78)55%,rgba(12,18,32,0.9)100%)]" aria-hidden />
     </div>

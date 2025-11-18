@@ -39,6 +39,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface UseSectionRevealOptions {
   selector?: string;
+  trigger?: string;
   stagger?: number;
   duration?: number;
   distance?: number;
@@ -51,6 +52,7 @@ interface UseSectionRevealOptions {
 export function useSectionReveal(options: UseSectionRevealOptions = {}) {
   const {
     selector = '[data-reveal]',
+    trigger,
     stagger = 0.05,
     duration = 0.8,
     distance = 60,
@@ -122,82 +124,50 @@ export function useSectionReveal(options: UseSectionRevealOptions = {}) {
       });
     }
 
-    // Batch reveal on scroll (ScrollTrigger.batch is already optimal!)
-    // Source: Archon MCP confirmed this pattern is best practice
-    ScrollTrigger.batch(elements, {
-      onEnter: (batch) => {
-        // ✅ OPTIMIZATION: Add willChange RIGHT BEFORE animation starts
-        // Source: Deep-Research 5.1 - "Add will-change immediately before animation, remove after"
-        // This is the OPTIMAL pattern for will-change usage!
+    const triggerElement = trigger ? document.querySelector(trigger) : elements[0];
 
-        gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          duration,
-          stagger,
-          ease,
+    if (!triggerElement) {
+      console.warn(`[useSectionReveal] Trigger element not found: "${trigger ?? 'default'}"`);
+      return;
+    }
 
-          // ✅ OPTIMIZATION: Automatically remove willChange when animation completes
-          // Source: Deep-Research 5.1 + 5.4
-          // clearProps runs AFTER animation finishes for each element
-          // This frees the GPU layer immediately
-          clearProps: "willChange",
-
-          overwrite: "auto",  // Prevent conflicts (Deep-Research 8.5)
-
-          // ✅ OPTIMIZATION: Set willChange at animation START
-          onStart: function() {
-            // Add GPU hint right before animation begins
-            gsap.set(batch, { willChange: 'transform, opacity' });
-
-            if (debug) {
-              console.log('[useSectionReveal] ✅ willChange added to batch', {
-                batchSize: batch.length,
-                gpuLayersCreated: batch.length,
-                timing: 'Right before animation start'
-              });
-            }
-          },
-
-          onComplete: function() {
-            if (debug) {
-              console.log('[useSectionReveal] ✅ willChange cleared from batch', {
-                batchSize: batch.length,
-                gpuLayersFreed: batch.length,
-                timing: 'Immediately after animation complete'
-              });
-            }
-          }
-        });
+    gsap.to(elements, {
+      opacity: 1,
+      y: 0,
+      duration,
+      stagger,
+      ease,
+      clearProps: "willChange",
+      overwrite: "auto",
+      onStart: function() {
+        gsap.set(elements, { willChange: 'transform, opacity' });
 
         if (debug) {
-          console.log('[useSectionReveal] Batch revealed', {
-            batchSize: batch.length,
-            totalAnimationTime: `${duration + (stagger * (batch.length - 1))}s`,
-            willChangeStrategy: 'Dynamic - added onStart, cleared onComplete'
+          console.log('[useSectionReveal] ✅ willChange added', {
+            count: elements.length,
+            trigger: triggerElement,
           });
         }
       },
-      start,
-      once
+      onComplete: function() {
+        if (debug) {
+          console.log('[useSectionReveal] ✅ willChange cleared', {
+            count: elements.length,
+          });
+        }
+      },
+      scrollTrigger: {
+        trigger: triggerElement,
+        start,
+        once,
+      }
     });
 
     if (debug) {
-      console.log('[useSectionReveal] ScrollTrigger.batch created (OPTIMIZED)', {
+      console.log('[useSectionReveal] ScrollTrigger created', {
         triggerCount: elements.length,
-        batchMode: 'onEnter',
         once,
-        optimizations: [
-          'willChange managed dynamically (not permanent)',
-          'clearProps removes GPU hint after animation',
-          'Estimated 80% GPU memory reduction',
-          'Mobile-friendly (prevents low-memory crashes)'
-        ],
-        researchSources: [
-          'Deep-Research 5.1 (GPU Rule)',
-          'Deep-Research 5.4 (Memory Management)',
-          'Archon MCP (ScrollTrigger.batch pattern confirmed optimal)'
-        ]
+        triggerElement,
       });
     }
 
@@ -208,7 +178,7 @@ export function useSectionReveal(options: UseSectionRevealOptions = {}) {
       }
     };
   }, {
-    dependencies: [prefersReducedMotion, selector, stagger, duration, distance, start, ease, once],
+    dependencies: [prefersReducedMotion, selector, trigger, stagger, duration, distance, start, ease, once],
     scope: typeof window !== 'undefined' ? document.body : undefined
   });
 }

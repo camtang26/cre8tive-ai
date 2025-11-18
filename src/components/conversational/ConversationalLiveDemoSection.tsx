@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react"
-import { Play, Clock } from "lucide-react"
+import { Clock } from "lucide-react"
 import MuxPlayer from "@mux/mux-player-react/lazy"
 import { GlassmorphicCard } from "./shared/GlassmorphicCard"
 import { cn } from "@/lib/utils"
+import { DynamicConvaiWidget } from "./DynamicConvaiWidget"
 
 const DEMO_VIDEO_PLAYBACK_ID = "FFH4ldVB00HBEO1iLXm9xWmBNvK501vBQ6Fj9PixEHcJA"
 const VIDEO_DURATION = 600 // 10 minutes in seconds
@@ -45,6 +46,7 @@ export function ConversationalLiveDemoSection() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [activeChapter, setActiveChapter] = useState(0)
+  const [loadWidget, setLoadWidget] = useState(false)
   const playerRef = useRef<HTMLVideoElement>(null)
 
   // Update active chapter based on current time
@@ -57,17 +59,6 @@ export function ConversationalLiveDemoSection() {
       setActiveChapter(chapterIndex)
     }
   }, [currentTime])
-
-  const handlePlayClick = async () => {
-    if (playerRef.current) {
-      try {
-        playerRef.current.play()
-        setIsPlaying(true)
-      } catch (error) {
-        console.error("Failed to play video:", error)
-      }
-    }
-  }
 
   const handleChapterClick = async (time: number) => {
     if (playerRef.current) {
@@ -90,7 +81,8 @@ export function ConversationalLiveDemoSection() {
   const progress = VIDEO_DURATION > 0 ? (currentTime / VIDEO_DURATION) * 100 : 0
 
   return (
-    <section
+    <>
+      <section
       id="conversational-live-demo"
       aria-labelledby="conversational-live-demo-title"
       className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_22%_16%,rgba(20,241,149,0.18),transparent_56%),radial-gradient(circle_at_78%_24%,rgba(16,185,129,0.16),transparent_60%),linear-gradient(146deg,rgba(4,18,30,0.99)0%,rgba(6,32,47,0.98)50%,rgba(4,19,31,0.99)100%)] py-24 md:py-32"
@@ -119,6 +111,20 @@ export function ConversationalLiveDemoSection() {
             A 10-minute deep dive into platform capabilities, from training to deployment to analytics. Skip ahead to any
             chapter.
           </p>
+
+          <div className="mt-6 flex flex-col items-center gap-3 text-center">
+            <button
+              type="button"
+              onClick={() => setLoadWidget(true)}
+              disabled={loadWidget}
+              className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white transition-all duration-300 hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {loadWidget ? "Interactive Demo Ready" : "Launch Interactive Demo"}
+            </button>
+            <p className="text-sm text-conversational-body-muted">
+              Loads the Convai widget only when you need the interactive experience.
+            </p>
+          </div>
         </div>
 
         {/* Video Player */}
@@ -133,7 +139,8 @@ export function ConversationalLiveDemoSection() {
                 ref={playerRef}
                 playbackId={DEMO_VIDEO_PLAYBACK_ID}
                 loading="viewport"
-                preload="none"
+                preload="metadata"
+                autoPlay={"visible" as any}
                 metadata={{
                   video_title: "Conversational AI Live Demo - 10 Minutes",
                   viewer_user_id: "anonymous"
@@ -152,21 +159,7 @@ export function ConversationalLiveDemoSection() {
                 onTimeUpdate={(e) => setCurrentTime((e.target as HTMLVideoElement).currentTime)}
               />
 
-              {/* Custom Play Button Overlay */}
-              {!isPlaying && (
-                <button
-                  onClick={handlePlayClick}
-                  className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity hover:opacity-90 group"
-                  aria-label="Play demo video"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 -m-4 rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.4)_0%,transparent_70%)] blur-2xl opacity-60 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-[12px] shadow-[0_0_24px_rgba(16,185,129,0.6)] transition-all duration-300 group-hover:scale-110 group-hover:border-conversational-primary group-hover:shadow-[0_0_36px_rgba(16,185,129,0.8)]">
-                      <Play className="ml-1 h-10 w-10 fill-current text-white" />
-                    </div>
-                  </div>
-                </button>
-              )}
+              {/* Play/Pause handled automatically by Mux when visible */}
             </div>
 
             {/* Progress Bar with Chapter Markers */}
@@ -318,6 +311,8 @@ export function ConversationalLiveDemoSection() {
           }
         }
       `}</style>
-    </section>
+      </section>
+      {loadWidget && <DynamicConvaiWidget />}
+    </>
   )
 }

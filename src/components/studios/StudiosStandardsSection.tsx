@@ -5,6 +5,7 @@ export function StudiosStandardsSection() {
   // Quality standards should feel stable, authoritative, not rushed
   useSectionReveal({
     selector: '[data-reveal-standard]',
+    trigger: '#studios-standards',
     stagger: 0.05,  // Standard 50ms
     duration: 1.0,  // REFINED: Was 0.8s, now 1.0s for cinematic consistency
     distance: 60,

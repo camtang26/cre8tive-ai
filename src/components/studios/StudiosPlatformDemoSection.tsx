@@ -38,6 +38,7 @@ export function StudiosPlatformDemoSection() {
   // expo.out creates "Apple product reveal" feel: explosive start → dramatic brake → feather settle
   useSectionReveal({
     selector: '[data-reveal-feature]',
+    trigger: '#studios-platform-demo',
     ...SectionRevealPresets.hero,  // REFINED: 60ms, 1.6s, expo.out (was luxury: 1.2s, power4.out)
   });
 
@@ -206,7 +207,7 @@ function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, classNam
             playbackId={playbackId}
             loading="viewport"
             preload="none"
-            autoPlay
+            autoPlay="visible"
             loop
             muted
             playsInline

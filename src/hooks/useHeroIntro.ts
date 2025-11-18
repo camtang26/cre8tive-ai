@@ -34,13 +34,10 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
  * - 4x CPU throttle: <5s page load
  */
 
-// Register GSAP plugins at module level
-gsap.registerPlugin(SplitText);
-
 // Strict mode guard - prevents double initialization in React 18
 const initializedPages = new Set<string>();
 
-export function useHeroIntro() {
+export function useHeroIntro(onComplete?: () => void) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useGSAP(() => {
@@ -56,6 +53,7 @@ export function useHeroIntro() {
         scale: 1
       });
       console.log('[HeroIntro] Instant reveal (prefers-reduced-motion)');
+      onComplete?.();
       return;
     }
 
@@ -81,10 +79,10 @@ export function useHeroIntro() {
 
     document.fonts.ready.then(() => {
       console.log('[HeroIntro] ✅ Fonts loaded, starting OPTIMIZED animation');
-      initializeOptimizedAnimation();
+      initializeOptimizedAnimation(onComplete);
     }).catch((err) => {
       console.warn('[HeroIntro] ⚠️ Font loading error, proceeding anyway:', err);
-      initializeOptimizedAnimation();
+      initializeOptimizedAnimation(onComplete);
     });
 
     // Cleanup
@@ -93,11 +91,11 @@ export function useHeroIntro() {
       initializedPages.delete(pageId);
     };
 
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, onComplete]);
 }
 
 // ✅ OPTIMIZED: Separate function using autoSplit + onSplit() callback
-function initializeOptimizedAnimation() {
+function initializeOptimizedAnimation(onComplete?: () => void) {
   // Set initial invisible state
   gsap.set('[data-motion="hero-tagline"]', { opacity: 0, y: 20 });
   gsap.set('[data-motion="hero-cta"]', { opacity: 0, scale: 0.94 });
@@ -195,7 +193,11 @@ function initializeOptimizedAnimation() {
         opacity: 1,
         scale: 1,
         duration: 1.2,
-        ease: 'expo.out'
+        ease: 'expo.out',
+        onComplete: () => {
+          console.log('[HeroIntro] Timeline complete.');
+          onComplete?.();
+        }
       }, '-=0.8');
 
       console.log('[HeroIntro] ✅ OPTIMIZED Animation initialized (~3.9s total, ZERO forced reflows!)');

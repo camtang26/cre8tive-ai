@@ -7,8 +7,6 @@ import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 
-gsap.registerPlugin(useGSAP, ScrollTrigger)
-
 interface EnterpriseFeature {
   id: string
   icon: LucideIcon
@@ -111,33 +109,65 @@ export function ConversationalEnterpriseSection() {
   useGSAP(() => {
     if (prefersReducedMotion) return
 
-    // Desktop asymmetric grid
-    gsap.from(desktopGridRef.current?.children || [], {
-      opacity: 0,
-      y: 50,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: desktopGridRef.current,
-        start: "top 75%",
-        toggleActions: "play none none none"
-      }
-    })
+    const mm = gsap.matchMedia()
 
-    // Tablet/mobile grids
-    gsap.from([...tabletGridRef.current?.children || [], ...mobileGridRef.current?.children || []], {
-      opacity: 0,
-      y: 40,
-      duration: 0.6,
-      stagger: 0.12,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: tabletGridRef.current || mobileGridRef.current,
-        start: "top 75%",
-        toggleActions: "play none none none"
+    mm.add(
+      {
+        isDesktop: "(min-width: 1024px)",
+        isTablet: "(min-width: 768px) and (max-width: 1023px)",
+        isMobile: "(max-width: 767px)"
+      },
+      (context) => {
+        const conditions = context.conditions as { isDesktop: boolean; isTablet: boolean; isMobile: boolean }
+
+        if (conditions.isDesktop && desktopGridRef.current) {
+          gsap.from(desktopGridRef.current.children, {
+            opacity: 0,
+            y: 50,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: desktopGridRef.current,
+              start: "top 75%",
+              toggleActions: "play none none none"
+            }
+          })
+        }
+
+        if (conditions.isTablet && tabletGridRef.current) {
+          gsap.from(tabletGridRef.current.children, {
+            opacity: 0,
+            y: 40,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: tabletGridRef.current,
+              start: "top 75%",
+              toggleActions: "play none none none"
+            }
+          })
+        }
+
+        if (conditions.isMobile && mobileGridRef.current) {
+          gsap.from(mobileGridRef.current.children, {
+            opacity: 0,
+            x: -30,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: mobileGridRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none"
+            }
+          })
+        }
       }
-    })
+    )
+
+    return () => mm.revert()
   }, { scope: sectionRef, dependencies: [prefersReducedMotion] })
 
   return (

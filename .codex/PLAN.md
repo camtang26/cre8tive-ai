@@ -10,6 +10,7 @@
 - Document every major decision in `/.codex/_MEMO.md` and capture handoff guidance for the motion team in `/.codex/REPORT.md` at completion.
 
 ## Steps
+- ✅ **S0 – Gemini Canvas Recon (2025-11-17):** Mobile Canvas research logged in `_MEMO` with citations plus implications for Studios workflows. Next action: package page files for Gemini upload (see `gemini-audit/studios`).
 - ✅ **S1 – Intake & Alignment:** Reviewed `docs/prototypes/studios-copy-final-2025-11-04.md` and `.archive/codex-redesign-2025-11-04/Studios/components`. Logged narrative beats, palette cues, and layout references in `_MEMO`; confirmed nine-section structure and premium midnight/cyan/gold scheme.
 - ⏳ **S2 – Token & Foundation Update:** Map archived palette tokens (`studios-primary`, `studios-accent`, gradient recipes) into current Tailwind/theme setup. Audit typography scale, clamp utilities, and spacing tokens; introduce any missing CSS vars while guarding other routes.
 - ⏳ **S3 – Studios Static Build (Section Cadence):**

@@ -7,6 +7,7 @@ export function StudiosWorkflowSection() {
   // Slightly slower timing - users need time to read workflow description
   useSectionReveal({
     selector: '[data-reveal-workflow]',
+    trigger: '#studios-workflow',
     stagger: 0.06,  // 60ms - slower for content-heavy section
     duration: 1.0,  // Slightly longer duration
     distance: 60,

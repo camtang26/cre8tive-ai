@@ -93,35 +93,6 @@ export function GlassmorphicCard({
           <div className="relative">{children}</div>
         </div>
       </div>
-
-      {/* Inline styles for GPU acceleration and reduced motion */}
-      <style>{`
-        /* GPU acceleration */
-        .group {
-          transform: translateZ(0);
-          will-change: transform;
-          backface-visibility: hidden;
-        }
-
-        /* Mobile blur optimization */
-        @media (max-width: 767px) {
-          .backdrop-blur-\\[18px\\] {
-            backdrop-filter: blur(8px);
-          }
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-          .group {
-            animation: none !important;
-            transition: all 150ms ease-out !important;
-          }
-
-          .group:hover {
-            transform: translateY(-2px) !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }

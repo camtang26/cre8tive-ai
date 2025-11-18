@@ -8,20 +8,31 @@ import { StudiosStandardsSection } from "@/components/studios/StudiosStandardsSe
 import { StudiosPlatformDemoSection } from "@/components/studios/StudiosPlatformDemoSection";
 import { StudiosTestimonialsSection } from "@/components/studios/StudiosTestimonialsSection";
 import { StudiosContactCTASection } from "@/components/studios/StudiosContactCTASection";
-import { FadeIn } from "@/components/shared/FadeIn";
 import { PageLayout } from "@/components/layouts/PageLayout";
-import { useLenisSmooth } from "@/hooks/useLenisSmooth";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const Studios = () => {
-  // PREMIUM: Buttery-smooth scrolling across entire Studios page
-  // Provides Mac-like smooth scroll feel on all platforms
-  // Syncs with GSAP ScrollTrigger for perfect animation timing
-  // Source: Cinematographer research - GitHub DAY_015 (2025), FreeFrontend (2025)
-  useLenisSmooth({
-    duration: 1.2,      // Standard smooth duration
-    smoothWheel: true,  // Mouse wheel scrolling
-    smoothTouch: false, // Keep native mobile scrolling (better UX)
-  });
+  useGSAP(() => {
+    const smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1.2,
+      normalizeScroll: true,
+      effects: true,
+    });
+
+    console.log("[ScrollSmoother] Initialized");
+
+    return () => {
+      smoother.kill();
+      console.log("[ScrollSmoother] Killed");
+    };
+  }, []);
   return (
     <div className="relative min-h-screen">
       {/* Unified Page Background - Studios Orange/Teal Theme */}
@@ -36,21 +47,25 @@ const Studios = () => {
         }}
       />
 
-      <PageLayout>
-        <Navigation />
-        <main className="pt-20">
-          <StudiosHero />
-          {/* Sections now use GSAP scroll reveals - FadeIn wrappers removed */}
-          <StudiosChallengeSection />
-          <StudiosPortfolioSection />
-          <StudiosProductionStackSection />
-          <StudiosWorkflowSection />
-          <StudiosStandardsSection />
-          <StudiosPlatformDemoSection />
-          <StudiosTestimonialsSection />
-          <StudiosContactCTASection />
-        </main>
-      </PageLayout>
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <PageLayout>
+            <Navigation />
+            <main className="pt-20">
+              <StudiosHero />
+              {/* Sections now use GSAP scroll reveals - FadeIn wrappers removed */}
+              <StudiosChallengeSection />
+              <StudiosPortfolioSection />
+              <StudiosProductionStackSection />
+              <StudiosWorkflowSection />
+              <StudiosStandardsSection />
+              <StudiosPlatformDemoSection />
+              <StudiosTestimonialsSection />
+              <StudiosContactCTASection />
+            </main>
+          </PageLayout>
+        </div>
+      </div>
     </div>
   );
 };

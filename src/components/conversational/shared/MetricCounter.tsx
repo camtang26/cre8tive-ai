@@ -4,8 +4,6 @@ import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion"
 
-gsap.registerPlugin(useGSAP, ScrollTrigger)
-
 interface MetricCounterProps {
   end: number
   duration?: number

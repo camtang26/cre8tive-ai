@@ -56,6 +56,10 @@ interface UseDirectionalRevealOptions {
    * @default '[data-reveal]'
    */
   selector?: string;
+  /**
+   * Optional ScrollTrigger trigger selector
+   */
+  trigger?: string;
 
   /**
    * Stagger delay between elements in seconds
@@ -98,6 +102,12 @@ interface UseDirectionalRevealOptions {
    * @default false
    */
   debug?: boolean;
+
+  /**
+   * Play animation only once
+   * @default true
+   */
+  once?: boolean;
 }
 
 export function useDirectionalReveal(options: UseDirectionalRevealOptions | string = {}) {
@@ -106,13 +116,15 @@ export function useDirectionalReveal(options: UseDirectionalRevealOptions | stri
 
   const {
     selector = '[data-reveal]',
+    trigger,
     stagger = 0.15,
     duration = 1.2,
     distance = 60,
     start = "top 75%",
     initialScale = 0.95,
     ease = "power4.out",
-    debug = false
+    debug = false,
+    once = true
   } = opts;
 
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -158,85 +170,72 @@ export function useDirectionalReveal(options: UseDirectionalRevealOptions | stri
       });
     }
 
-    // Set initial hidden states with GPU hints
-    // Even cards start from LEFT
     gsap.set(evenCards, {
       opacity: 0,
       x: -distance,
-      scale: initialScale,
-      willChange: 'transform, opacity'
+      scale: initialScale
     });
 
-    // Odd cards start from RIGHT
     gsap.set(oddCards, {
       opacity: 0,
       x: distance,
-      scale: initialScale,
-      willChange: 'transform, opacity'
+      scale: initialScale
     });
 
-    // Even cards from LEFT (slide right + scale up)
-    ScrollTrigger.batch(evenCards, {
-      onEnter: (elements) => {
-        gsap.to(elements, {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration,
-          stagger,
-          ease,
-          clearProps: "willChange",
-          overwrite: "auto"
-        });
+    const triggerElement = trigger ? document.querySelector(trigger) : cards[0];
 
-        if (debug) {
-          console.log('[useDirectionalReveal] Even cards revealed (LEFT)', {
-            count: elements.length
-          });
-        }
-      },
-      start
+    if (!triggerElement) {
+      console.warn(`[useDirectionalReveal] Trigger element not found: "${trigger ?? 'default'}"`);
+      return;
+    }
+
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: triggerElement,
+        start,
+        once,
+      }
     });
 
-    // Odd cards from RIGHT (slide left + scale up)
-    ScrollTrigger.batch(oddCards, {
-      onEnter: (elements) => {
-        gsap.to(elements, {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration,
-          stagger,
-          ease,
-          clearProps: "willChange",
-          overwrite: "auto"
-        });
+    timeline.to(evenCards, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      duration,
+      stagger,
+      ease,
+      clearProps: 'willChange',
+      overwrite: 'auto',
+      onStart: () => gsap.set(evenCards, { willChange: 'transform, opacity' })
+    }, 0);
 
-        if (debug) {
-          console.log('[useDirectionalReveal] Odd cards revealed (RIGHT)', {
-            count: elements.length
-          });
-        }
-      },
-      start
-    });
+    timeline.to(oddCards, {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      duration,
+      stagger,
+      ease,
+      clearProps: 'willChange',
+      overwrite: 'auto',
+      onStart: () => gsap.set(oddCards, { willChange: 'transform, opacity' })
+    }, 0.12);
 
     if (debug) {
-      console.log('[useDirectionalReveal] ScrollTrigger.batch created', {
-        evenBatch: evenCards.length,
-        oddBatch: oddCards.length,
-        totalAnimationTime: `${duration + (stagger * Math.max(evenCards.length, oddCards.length) - 1)}s`
+      console.log('[useDirectionalReveal] Timeline created', {
+        triggerElement,
+        evenCards: evenCards.length,
+        oddCards: oddCards.length,
       });
     }
 
-    // CRITICAL: Cleanup on unmount (Deep-Research 8.1)
     return () => {
       if (debug) {
         console.log('[useDirectionalReveal] Cleanup - killing ScrollTriggers');
       }
     };
   }, {
-    dependencies: [prefersReducedMotion, selector, stagger, duration, distance, start, initialScale, ease],
+    dependencies: [prefersReducedMotion, selector, trigger, stagger, duration, distance, start, initialScale, ease, once],
     scope: typeof window !== 'undefined' ? document.body : undefined
   });
 }

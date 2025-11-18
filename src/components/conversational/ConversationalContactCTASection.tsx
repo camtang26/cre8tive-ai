@@ -6,32 +6,47 @@ import { cn } from "@/lib/utils"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 
-gsap.registerPlugin(useGSAP)
-
 export function ConversationalContactCTASection() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([])
   const primaryCTARef = useRef<HTMLAnchorElement>(null)
+  const [quickMoves, setQuickMoves] = useState<{
+    x: (value: number) => void
+    y: (value: number) => void
+    scale: (value: number) => void
+  } | null>(null)
+
+  useGSAP(() => {
+    if (!primaryCTARef.current || prefersReducedMotion) return
+
+    gsap.set(primaryCTARef.current, { willChange: 'transform' })
+
+    setQuickMoves({
+      x: gsap.quickTo(primaryCTARef.current, 'x', { duration: 0.3, ease: 'power2.out' }),
+      y: gsap.quickTo(primaryCTARef.current, 'y', { duration: 0.3, ease: 'power2.out' }),
+      scale: gsap.quickTo(primaryCTARef.current, 'scale', { duration: 0.3, ease: 'power2.out' })
+    })
+
+    return () => {
+      if (!primaryCTARef.current) return
+      gsap.killTweensOf(primaryCTARef.current)
+      gsap.set(primaryCTARef.current, { clearProps: 'willChange,x,y,scale' })
+    }
+  }, { dependencies: [prefersReducedMotion] })
 
   // 🎬 GSAP Magnetic Hover (better physics than CSS!)
   const handlePrimaryPointerMove = useCallback(
     (event: ReactPointerEvent<HTMLAnchorElement>) => {
-      if (prefersReducedMotion) return
-      const target = event.currentTarget
-      const rect = target.getBoundingClientRect()
+      if (prefersReducedMotion || !quickMoves) return
+      const rect = event.currentTarget.getBoundingClientRect()
       const offsetX = ((event.clientX - (rect.left + rect.width / 2)) / rect.width) * 18
       const offsetY = ((event.clientY - (rect.top + rect.height / 2)) / rect.height) * 12
 
-      // Use GSAP for smoother movement
-      gsap.to(target, {
-        x: offsetX,
-        y: offsetY,
-        scale: 1.02,
-        duration: 0.3,
-        ease: "power2.out"
-      })
+      quickMoves.x(offsetX)
+      quickMoves.y(offsetY)
+      quickMoves.scale(1.02)
     },
-    [prefersReducedMotion]
+    [prefersReducedMotion, quickMoves]
   )
 
   const handlePrimaryPointerLeave = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {

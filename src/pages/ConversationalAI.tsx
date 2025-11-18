@@ -1,7 +1,5 @@
 import { Navigation } from "@/components/Navigation"
-import { useEffect } from "react"
 import { PageLayout } from "@/components/layouts/PageLayout"
-import { FadeIn } from "@/components/shared/FadeIn"
 import { ConversationalHero } from "@/components/conversational/ConversationalHero"
 import { ConversationalUseCasesSection } from "@/components/conversational/ConversationalUseCasesSection"
 import { ConversationalMarketingVideoSection } from "@/components/conversational/ConversationalMarketingVideoSection"
@@ -12,21 +10,6 @@ import { ConversationalEnterpriseSection } from "@/components/conversational/Con
 import { ConversationalContactCTASection } from "@/components/conversational/ConversationalContactCTASection"
 
 const ConversationalAI = () => {
-  useEffect(() => {
-    const script = document.createElement("script")
-    script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed"
-    script.async = true
-    script.type = "text/javascript"
-    document.body.appendChild(script)
-
-    return () => {
-      // Cleanup script on unmount
-      if (document.body.contains(script)) {
-        document.body.removeChild(script)
-      }
-    }
-  }, [])
-
   return (
     <div className="relative min-h-screen">
       {/* Unified Page Background - Conversational AI Abyssal Emerald Theme */}
@@ -49,34 +32,22 @@ const ConversationalAI = () => {
           <ConversationalHero />
 
           {/* Section 2: Use Cases (COPY) */}
-          <FadeIn>
-            <ConversationalUseCasesSection />
-          </FadeIn>
+          <ConversationalUseCasesSection />
 
           {/* Section 3: Full Marketing Video (VIDEO) */}
-          <FadeIn>
-            <ConversationalMarketingVideoSection />
-          </FadeIn>
+          <ConversationalMarketingVideoSection />
 
           {/* Section 4: Scale Without Headcount (COPY) */}
-          <FadeIn>
-            <ConversationalScaleSection />
-          </FadeIn>
+          <ConversationalScaleSection />
 
           {/* Section 5: Live Demo (~10min video with chapters) (VIDEO) */}
-          <FadeIn>
-            <ConversationalLiveDemoSection />
-          </FadeIn>
+          <ConversationalLiveDemoSection />
 
           {/* Section 6: Brand Consistency (COPY) */}
-          <FadeIn>
-            <ConversationalBrandSection />
-          </FadeIn>
+          <ConversationalBrandSection />
 
           {/* Section 7: Enterprise Features (COPY) */}
-          <FadeIn>
-            <ConversationalEnterpriseSection />
-          </FadeIn>
+          <ConversationalEnterpriseSection />
 
           {/* Section 8: Contact CTA (CTA) */}
           <ConversationalContactCTASection />

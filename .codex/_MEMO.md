@@ -10,6 +10,52 @@
 
 ## 2025-11-03 — Studios Section 4 Kickoff
 
+## 2025-11-18 — Session Primer & Charter (Codex Session 2)
+- Reopened SPEC.md, ARCHITECTURE.md, README.md, CONTRIBUTING.md, `.codex/_MEMO.md`, `.codex/PLAN.md`, `.codex/REPORT.md`, `docs/MCPs.md`, and TASK.md at session start so this pass references the November 3 canon before answering documentation questions.
+- Key references refreshed:
+  - README.md reiterates the marketing site’s React 18 + TypeScript + Vite core, Tailwind/Shadcn UI system, Framer Motion + GSAP animation stack, and integrations like Vercel Analytics, GTM, getform.io, Cal.com, ElevenLabs, Vimeo, and Spline.
+  - ARCHITECTURE.md documents the JAMstack deployment to GitHub Pages, Node 20 dev tooling, manual code splitting guidelines, animation and 3D libraries, and the reliance on third-party APIs instead of a custom backend.
+  - SPEC.md restates personas (business decision makers, marketing teams) and the flagship sections (Studios, AI Briefing Engine, Agents, Conversational AI) while reaffirming analytics, SEO, and security expectations.
+  - CONTRIBUTING.md locks the Node 20 + npm 9 toolchain, lint/test commands, Tailwind + Shadcn patterns, and hooks for plan/memo alignment before coding.
+  - `.codex/PLAN.md` keeps the Studios & Conversational overhaul roadmap (currently mid S3, sections 3–8 partially complete), `.codex/REPORT.md` logs latest completed sections, and TASK.md shows S3-03 through S3-08 plus documentation realignment tasks as in-progress.
+  - `docs/MCPs.md` reminds us Archon MCP research and Chrome DevTools MCP visual validation are mandatory before large implementation steps; noted for future motion but not needed for today’s read-only doc synthesis.
+
+### AI Product Charter — Documentation Overview (2025-11-18)
+- **Problem:** Cameron needs a concise, trustworthy summary of the project’s current tech stack and hosting infrastructure straight from repo documentation so stakeholders can orient without digging through multiple files.
+- **Target User:** Cameron (project owner) plus collaborating engineers/PMs who are onboarding and need high-level architecture context quickly.
+- **Success Signal:** Deliver a written overview that cites the definitive repo docs, covers runtime/tooling/framework/hosting choices, and highlights deployment + integration infrastructure so stakeholders confirm understanding without requesting follow-ups.
+
+## 2025-11-17 — Session Primer & Gemini Canvas Research Prep
+- Re-opened SPEC.md, ARCHITECTURE.md, README.md, CONTRIBUTING.md, docs/MCPs.md, TASK.md, `.codex/PLAN.md`, `.codex/REPORT.md`, and the locked copy/palette docs to ensure this session references the November 3 canon before any changes.
+- Active focus remains the Studios page rebuild (Sections S3-03 through S3-08 in TASK.md); Conversational AI work stays queued until Studios sign-off.
+- Stakeholder request: perform detailed research on the reported “Gemini 3.0” stealth release inside the mobile Gemini app (Canvas mode) so we can speak confidently before applying any direction.
+- Outstanding questions: need verifiable intel on Canvas-specific capabilities, rollout timeline, feature gating/eligibility, and how it might influence Studios storytelling or tooling. Awaiting clarification after research synthesis.
+
+### Research Capsule — Gemini 3.0 via Canvas (Mobile) — 2025-11-17
+- **Baseline Canvas UX (Mar–May 2025)**: Mobile Canvas arrived alongside the redesigned plus menu (Camera/Gallery/Files/Drive) and shortcut chips for Deep Research + Canvas; editing requires closing drafts and re-prompting (no split view or inline selection). Sources: 9to5Google Mar 18 + Mar 20 coverage, gAgadget recap.
+- **Workspace vs consumer divergence**: Google Workspace update (Mar 2025) positioned Canvas as desktop-first for business/education tenants, with mobile “planned later,” signaling why today’s stealthy mobile lift is surprising.
+- **Stealth-release signals (Nov 13 2025)**: AndroidSage + WinBuzzer documented a sudden leap in Canvas quality on iOS/Android while the UI still labels responses as “Gemini 2.5 Pro.” Power users (Reddit/X) are seeing richer SVG animation, voxel scenes, and full website scaffolding from single prompts, outperforming desktop Canvas.
+- **Model attribution uncertainty**: Both reports emphasize that Google hasn’t bumped the visible model picker; hypothesis is the Canvas backend quietly swapped to Gemini 3.0 while the front-end + API names lag.
+- **Official hints**: Sundar Pichai’s recent “thinking” emoji reply to Polymarket wagers plus Yahoo Finance coverage suggests Google is nudging expectations for a late-November Gemini 3 announcement even though no release blog exists yet.
+- **Implications**: If mobile Canvas is already tapping Gemini 3 class weights, Studios storytelling or experimentation could showcase “prototype on-phone” workflows before desktop parity, but we must caveat that it’s undocumented and could revert.
+
+### 2025-11-17 — Studios Audit Bundle Prep
+- Created `gemini-audit/studios` with all current Studios route files (`src/pages/Studios.tsx`, hero + 7 sections, CTA) plus required hooks (`useLenisSmooth`, `useSectionReveal`, `useDirectionalReveal`, `usePortfolioAnimation`, `useHeroIntro`, `use-mobile`, `usePrefersReducedMotion`, `useGestures`), shared utilities, and Tailwind + CSS token files.
+- Added supporting media components (`src/components/core/VimeoPlayer.tsx`, `VideoModal.tsx`) so Gemini can inspect autoplay behavior and modal lifecycle. `Navigation` intentionally excluded; documented in bundle README.
+- Authored `gemini-audit/studios/README.md` outlining structure, GSAP hook map, data attributes, and known perf watchpoints so Gemini 3.0 can jump straight into diagnosing ScrollTrigger load, Lenis integration, and video decode pressure.
+
+### 2025-11-17 — Conversational AI Audit Bundle Prep
+- Mirrored the Studios process for the Conversational AI route: created `gemini-audit/conversational` with `src/pages/ConversationalAI.tsx`, all conversational section components (hero → CTA, plus legacy sections), shared glassmorphic primitives, and every hook used by this page (`useHeroIntro`, `usePrefersReducedMotion`, `use-mobile`, `useFadeIn`).
+- Included `FadeIn`/`useFadeIn` because the route wraps six sections in that IntersectionObserver layer before applying GSAP, plus `tailwind.config.ts` and `utilities.css` for the emerald palette + CTA keyframes.
+- Authored a dedicated README capturing route graph, GSAP timelines per section, external integrations (Mux players + ElevenLabs Convai widget), and perf watchpoints (duplicate ScrollTriggers, FadeIn overlap, CTA pointer tweens). Bundle is zip-ready for Gemini.
+
+### 2025-11-17 — Studios Performance Refactor (P1–P4)
+- **Scroll system:** Removed the bespoke `useLenisSmooth` hook and wrapped `PageLayout` in `#smooth-wrapper/#smooth-content` so GSAP `ScrollSmoother` now governs Studios. Registered `ScrollTrigger/ScrollSmoother` at page scope and cleaned up Lenis CSS refs.
+- **Media deferrals:** Hero video now mounts only after `useHeroIntro` completes; the hook accepts an `onComplete` callback (with reduced-motion fallbacks) so we can flip `isIntroAnimationComplete` and then render `MuxPlayer`. Portfolio cards no longer mount hidden Vimeo iframes—the modal still streams when users click. Platform demo frames now use `autoPlay="visible"` so only in-view Mux instances decode.
+- **Observer strategy:** Rewrote `useSectionReveal` and `useDirectionalReveal` to accept a `trigger` selector and create a single timeline per section instead of dozens of `ScrollTrigger.batch` observers. Updated Challenge, Stack, Workflow, Standards, Platform Demo, and Testimonials sections with explicit `trigger` targets; platform glyphs now use one timeline for even/odd cards.
+- **Will-change cleanup:** Removed stray `will-change` inline styles from the hero overlays/video. Testimonials drop custom keyframes/will-change styles and now rely on the refactored `useSectionReveal` with `[data-motion="testimonial-card"]` selectors so GPU layers spin up only during the reveal stagger.
+- **Validation:** `npm run build` passes (Vite 5.4.10). Vendor bundle remains 340 kb / 900 kb. Remaining warnings: stale Browserslist data + >1 MB chunk on legacy assets (pre-existing).
+
 ## 2025-11-08 — Studios Hero Mask Iteration
 - Cameron wants the hero video to breathe more; current `.hero-curve-mask` radial gradient darkens a large rectangle and hides the Mux footage.
 - Plan: test five premium alternatives sequentially (glass scrim, rim-lit frame, spotlight clamp, animated sweep, copy-only emphasis). After each implementation, capture notes + screenshots before deciding to keep or revert.

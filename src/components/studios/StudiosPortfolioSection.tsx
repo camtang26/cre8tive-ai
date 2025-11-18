@@ -1,7 +1,6 @@
 import { useState } from "react"
 
 import VideoModal from "@/components/core/VideoModal"
-import VimeoPlayer from "@/components/core/VimeoPlayer"
 import { usePortfolioAnimation } from '@/hooks/usePortfolioAnimation'
 
 type PortfolioItem = {
@@ -9,6 +8,7 @@ type PortfolioItem = {
   videoId: string
   srLabel: string
   backdrop: string
+  poster: string
 }
 
 const PORTFOLIO_ITEMS: PortfolioItem[] = [
@@ -18,6 +18,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     srLabel: "Play Cre8tive AI DHM video",
     backdrop:
       "linear-gradient(135deg, rgba(49,196,255,0.18) 0%, rgba(70,116,221,0.28) 18%, rgba(225,179,65,0.42) 100%), radial-gradient(circle at 22% 18%, rgba(142,220,255,0.65) 0%, rgba(142,220,255,0) 52%), radial-gradient(circle at 80% 82%, rgba(225,179,65,0.55) 0%, rgba(225,179,65,0) 65%)",
+    poster: "/portfolio/cre8tive-dhm.jpg",
   },
   {
     id: "kotia-skincare",
@@ -25,6 +26,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     srLabel: "Play Kotia Skincare video",
     backdrop:
       "linear-gradient(160deg, rgba(8,22,60,0.9) 0%, rgba(24,43,92,0.8) 42%, rgba(221,172,72,0.45) 100%), radial-gradient(circle at 15% 30%, rgba(49,196,255,0.5) 0%, rgba(49,196,255,0) 55%), radial-gradient(circle at 76% 68%, rgba(225,179,65,0.6) 0%, rgba(225,179,65,0) 60%)",
+    poster: "/portfolio/kotia.jpg",
   },
   {
     id: "automotive-demo",
@@ -32,6 +34,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     srLabel: "Play Cre8tive AI Automotive Demo video",
     backdrop:
       "linear-gradient(140deg, rgba(26,56,104,0.82) 0%, rgba(15,31,63,0.94) 52%, rgba(49,196,255,0.32) 100%), radial-gradient(circle at 18% 72%, rgba(225,179,65,0.65) 0%, rgba(225,179,65,0) 62%), radial-gradient(circle at 82% 24%, rgba(142,220,255,0.6) 0%, rgba(142,220,255,0) 60%)",
+    poster: "/portfolio/automotive.jpg",
   },
   {
     id: "cre8tive-demo",
@@ -39,6 +42,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     srLabel: "Play Cre8tive AI Demo video",
     backdrop:
       "linear-gradient(150deg, rgba(13,28,50,0.92) 0%, rgba(8,15,28,0.88) 45%, rgba(49,196,255,0.35) 100%), radial-gradient(circle at 70% 28%, rgba(225,179,65,0.6) 0%, rgba(225,179,65,0) 65%), radial-gradient(circle at 24% 78%, rgba(142,220,255,0.55) 0%, rgba(142,220,255,0) 62%)",
+    poster: "/portfolio/cre8tive-demo.jpg",
   },
   {
     id: "marina-project",
@@ -46,6 +50,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     srLabel: "Play Cre8tive AI Marina Project video",
     backdrop:
       "linear-gradient(140deg, rgba(8,16,36,0.88) 0%, rgba(12,25,52,0.92) 56%, rgba(225,179,65,0.36) 100%), radial-gradient(circle at 80% 18%, rgba(49,196,255,0.55) 0%, rgba(49,196,255,0) 58%), radial-gradient(circle at 18% 82%, rgba(225,179,65,0.58) 0%, rgba(225,179,65,0) 64%)",
+    poster: "/portfolio/marina.jpg",
   },
   {
     id: "liminal",
@@ -53,6 +58,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     srLabel: "Play LIMINAL video",
     backdrop:
       "linear-gradient(135deg, rgba(49,196,255,0.32) 0%, rgba(16,38,78,0.86) 45%, rgba(9,14,28,0.94) 100%), radial-gradient(circle at 32% 30%, rgba(225,179,65,0.55) 0%, rgba(225,179,65,0) 60%), radial-gradient(circle at 70% 74%, rgba(142,220,255,0.6) 0%, rgba(142,220,255,0) 64%)",
+    poster: "/portfolio/liminal.jpg",
   },
 ]
 
@@ -127,14 +133,11 @@ function PortfolioCard({ item, order }: PortfolioCardProps) {
             <div className="absolute inset-[1.5px] rounded-[28px] bg-white/4 backdrop-blur-[14px]" />
             <div className="absolute inset-[3px] rounded-[26px] overflow-hidden">
               <div className="relative h-full w-full">
-                <VimeoPlayer
-                  videoId={item.videoId}
-                  autoplay={false}
-                  loop={false}
-                  muted={true}
-                  controls={false}
-                  isBackground={true}
-                  className="rounded-[26px]"
+                <img
+                  src={item.poster}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-[radial-gradient(circle_at_18%_24%,rgba(49,196,255,0.38),rgba(49,196,255,0)_58%),radial-gradient(circle_at_74%_72%,rgba(225,179,65,0.35),rgba(225,179,65,0)_62%)] opacity-80 transition-opacity duration-700 ease-out group-hover:opacity-100" />
                 <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-[0.16] mix-blend-screen [background-image:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 160 160\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.7\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.75\'/%3E%3C/svg%3E')]" />

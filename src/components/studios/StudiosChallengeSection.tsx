@@ -24,6 +24,7 @@ export function StudiosChallengeSection() {
   // Cinematic upgrade: 0.8s → 1.0s for luxury brand weight
   useSectionReveal({
     selector: '[data-reveal-challenge]',
+    trigger: '#studios-challenge',
     stagger: 0.05,  // 50ms - research-backed sweet spot
     duration: 1.0,  // REFINED: Was 0.8s, now 1.0s for cinematic consistency
     distance: 60,   // Standard movement
