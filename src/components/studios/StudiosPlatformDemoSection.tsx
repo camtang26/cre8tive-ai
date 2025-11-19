@@ -1,11 +1,13 @@
 import type { CSSProperties } from "react"
 import { useRef } from "react"
 import MuxPlayer from "@mux/mux-player-react/lazy"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useInView } from "framer-motion"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { cn } from "@/lib/utils"
+import { StatusBadge } from "./ui/StatusBadge"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,177 +23,214 @@ const FRAMES = [
     id: "youtube",
     srLabel: "YouTube 16:9",
     aspect: "aspect-[16/9]",
-    gradient: "from-[rgba(49,196,255,0.36)] via-[rgba(49,196,255,0.12)] to-transparent",
+    gradient: "from-[rgba(255,0,0,0.2)] via-[rgba(255,0,0,0.05)] to-transparent",
+    accent: "#FF0000",
     playbackId: PLAYBACK_IDS.youtube,
   },
   {
     id: "instagram",
     srLabel: "Instagram 1:1",
     aspect: "aspect-square",
-    gradient: "from-[rgba(225,179,65,0.32)] via-[rgba(225,179,65,0.12)] to-transparent",
+    gradient: "from-[rgba(225,48,108,0.2)] via-[rgba(225,48,108,0.05)] to-transparent",
+    accent: "#E1306C",
     playbackId: PLAYBACK_IDS.instagram,
   },
   {
     id: "tiktok",
     srLabel: "TikTok 9:16",
     aspect: "aspect-[9/16]",
-    gradient: "from-[rgba(142,220,255,0.32)] via-[rgba(49,196,255,0.14)] to-transparent",
+    gradient: "from-[rgba(0,242,234,0.2)] via-[rgba(0,242,234,0.05)] to-transparent",
+    accent: "#00F2EA",
     playbackId: PLAYBACK_IDS.tiktok,
   },
 ] as const
 
 export function StudiosPlatformDemoSection() {
   const isMobile = useIsMobile()
+  const containerRef = useRef<HTMLElement>(null)
+  const rigRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray<HTMLElement>('[data-platform-reveal]')
-      if (!items.length) return
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 70%",
+        once: true
+      }
+    });
 
-      ScrollTrigger.batch(items, {
-        start: 'top 85%',
-        once: true,
-        onEnter: batch => {
-          gsap.fromTo(
-            batch,
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' }
-          )
+    // 1. Reveal Copy (Explicit targeting)
+    tl.fromTo(containerRef.current?.querySelectorAll('[data-platform-reveal]') || [],
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" }
+    );
+
+    if (!isMobile) {
+      // 2. Desktop Entrance: The "Deployment"
+      tl.fromTo(".holo-screen", 
+        { 
+          z: -500, 
+          opacity: 0, 
+          rotationX: 30,
+          y: 50
+        }, 
+        { 
+          z: 0, 
+          opacity: 1, 
+          rotationX: 0,
+          y: 0,
+          duration: 1.2, 
+          stagger: 0.15, 
+          ease: "power3.out" 
+        },
+        "-=0.4"
+      );
+
+      // 3. Continuous Float
+      gsap.to(".holo-screen", {
+        y: "-=10",
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: {
+          each: 0.8,
+          from: "center"
         }
-      })
-    })
+      });
+    }
 
-    return () => ctx.revert()
-  }, [])
+  }, { scope: containerRef })
+
+  // Mouse Parallax Logic
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isMobile || !rigRef.current) return;
+
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    
+    const xPos = (clientX / innerWidth) - 0.5;
+    const yPos = (clientY / innerHeight) - 0.5;
+
+    gsap.to(rigRef.current, {
+      rotationY: xPos * 8, 
+      rotationX: -yPos * 8,
+      duration: 1.2,
+      ease: "power2.out"
+    });
+  };
 
   return (
     <section
+      ref={containerRef}
       id="studios-platform-demo"
       aria-labelledby="studios-platform-demo-title"
       data-motion-group="platform-demo"
-      className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_18%_12%,rgba(49,196,255,0.2),transparent_60%),radial-gradient(circle_at_82%_20%,rgba(225,179,65,0.18),transparent_62%),linear-gradient(150deg,rgba(6,9,18,0.98) 0%,rgba(8,16,32,0.96) 48%,rgba(6,10,24,0.98) 100%)] py-24 md:py-32"
+      className="relative isolate overflow-hidden bg-studios-void py-24 md:py-32 perspective-[2000px]"
+      onMouseMove={handleMouseMove}
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.1] [background-image:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.7\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.8\'/%3E%3C/svg%3E')]" />
-      <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(49,196,255,0.28)_0%,rgba(49,196,255,0)_70%)] blur-[120px]" aria-hidden />
-      <div className="pointer-events-none absolute -right-24 bottom-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(225,179,65,0.26)_0%,rgba(225,179,65,0)_72%)] blur-[130px]" aria-hidden />
+      {/* Background Elements */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-noise opacity-[0.03] mix-blend-overlay" />
+        
+        {/* Floor Grid */}
+        <div 
+          className="absolute bottom-[-20%] left-1/2 -translate-x-1/2 w-[200vw] h-[100vh] opacity-30 origin-bottom"
+          style={{ transform: "rotateX(85deg)" }}
+        >
+           <div className="w-full h-full bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_0%,transparent_80%)]" />
+        </div>
+      </div>
 
-      <div className="container relative mx-auto max-w-6xl px-4 md:px-6 xl:px-0">
+      <div className="container relative mx-auto max-w-6xl px-4 md:px-6 xl:px-0 z-20">
         <div className="mx-auto max-w-3xl space-y-6 text-center text-white" data-motion="platform-demo-copy">
+          <div data-platform-reveal className="flex justify-center mb-8 opacity-0">
+            <StatusBadge label="DEVICE LAB" status="processing" />
+          </div>
+          
           <h2
             data-platform-reveal
             id="studios-platform-demo-title"
-            className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.2rem] md:leading-[1.08]"
+            className="font-outfit text-4xl font-black tracking-tight text-white md:text-[3.2rem] md:leading-[1.08] opacity-0"
           >
             Six Formats. One Production.
           </h2>
-          <p data-platform-reveal className="text-base font-medium uppercase tracking-[0.32em] text-white/60 md:text-[0.95rem]">
+          <p data-platform-reveal className="text-base font-medium uppercase tracking-[0.32em] text-white/60 md:text-[0.95rem] opacity-0">
             YouTube 16:9. TikTok 9:16. Instagram 1:1, 4:5, Reels. LinkedIn. X. Facebook. Secure, platform-native delivery without six separate productions.
           </p>
-          <div className="space-y-5 text-lg leading-relaxed text-studios-body md:text-[1.2rem]">
-            <p data-platform-reveal>
+          <div className="space-y-5 text-lg leading-relaxed text-white/70 md:text-[1.2rem]">
+            <p data-platform-reveal className="opacity-0">
               Most agencies repurpose one video across platforms—audiences notice. Pure AI tools generate separately—budgets explode.
             </p>
-            <p data-platform-reveal>
+            <p data-platform-reveal className="opacity-0">
               Our Studios delivers platform-optimized work from a single production process. Your clients get native content everywhere.
             </p>
           </div>
         </div>
 
-        <div className="mt-16 space-y-10" data-motion="platform-demo-grid">
-          {/* Mobile: Simple stacked grid - Only rendered on mobile */}
+        {/* THE HOLO-DECK */}
+        <div className="mt-24 h-[40rem] w-full flex items-center justify-center relative" style={{ perspective: "1500px" }}>
+          
+          {/* Mobile Stack */}
           {isMobile && (
-            <div className="grid gap-8 md:hidden">
-              {FRAMES.map((frame, index) => (
+            <div className="grid gap-8 md:hidden w-full">
+              {FRAMES.map((frame) => (
                 <MediaFrame
                   key={frame.id}
-                  id={frame.id}
-                  aspect={frame.aspect}
-                  gradient={frame.gradient}
-                  srLabel={frame.srLabel}
-                  playbackId={frame.playbackId}
-                  order={index + 1}
+                  frame={frame}
                   className="mx-auto w-full max-w-[26rem]"
-                  reveal={true}
                 />
               ))}
             </div>
           )}
 
-          {/* Desktop: Static 3-format display - Only rendered on desktop */}
+          {/* Desktop 3D Rig */}
           {!isMobile && (
-            <div
-              className="relative hidden w-full md:block"
-              data-motion="platform-demo-display"
-              style={{
-                perspective: "1400px",
-                perspectiveOrigin: "50% 50%",
-                height: "60rem",
-              }}
+            <div 
+              ref={rigRef}
+              className="relative w-full h-full preserve-3d"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <div
-                className="relative mx-auto w-full"
-                style={{
-                  transformStyle: "preserve-3d",
+              {/* 1. Instagram (Right Wing - Tightened) */}
+              <div 
+                className="absolute top-10 left-1/2 holo-screen"
+                style={{ 
+                  width: '380px',
+                  // Moved X from 500px -> 350px to bring closer
+                  transform: 'translateX(350px) translateY(40px) translateZ(-100px) rotateY(-25deg)'
                 }}
               >
-                {/* Instagram 1:1 - upper right, angled */}
-                <MediaFrame
-                  id="instagram"
-                  aspect="aspect-square"
-                  gradient="from-[rgba(225,179,65,0.32)] via-[rgba(225,179,65,0.12)] to-transparent"
-                  srLabel="Instagram 1:1"
-                  playbackId={PLAYBACK_IDS.instagram}
-                  order={1}
-                  className="absolute max-w-[26rem]"
-                  style={{
-                    top: "-5rem",
-                    left: "41rem",
-                    transform: "rotateY(-60deg) translateZ(-400px) scale(1.0)",
-                    opacity: 0.9,
-                    zIndex: 2,
-                  }}
-                  reveal={true}
-                />
-
-                {/* TikTok 9:16 - left middle, angled */}
-                <MediaFrame
-                  id="tiktok"
-                  aspect="aspect-[9/16]"
-                  gradient="from-[rgba(142,220,255,0.32)] via-[rgba(49,196,255,0.14)] to-transparent"
-                  srLabel="TikTok 9:16"
-                  playbackId={PLAYBACK_IDS.tiktok}
-                  order={2}
-                  className="absolute max-w-[22rem]"
-                  style={{
-                    top: "-30rem",
-                    left: "10rem",
-                    transform: "rotateY(60deg) translateZ(-400px) scale(1.0)",
-                    opacity: 0.9,
-                    zIndex: 2,
-                  }}
-                  reveal={true}
-                />
-
-                {/* YouTube 16:9 - center bottom, front */}
-                <MediaFrame
-                  id="youtube"
-                  aspect="aspect-[16/9]"
-                  gradient="from-[rgba(49,196,255,0.36)] via-[rgba(49,196,255,0.12)] to-transparent"
-                  srLabel="YouTube 16:9"
-                  playbackId={PLAYBACK_IDS.youtube}
-                  order={3}
-                  className="absolute"
-                  style={{
-                    top: "-65rem",
-                    left: "43%",
-                    transform: "translateX(calc(-50% + 6rem)) rotateY(0deg) translateZ(-200px) scale(1.2)",
-                    opacity: 0.9,
-                    zIndex: 3,
-                    width: "37.5rem",
-                  }}
-                  reveal={true}
-                />
+                <MediaFrame frame={FRAMES[1]} />
+                <HoloEmitter accent={FRAMES[1].accent} />
               </div>
+
+              {/* 2. TikTok (Left Wing - Tightened) */}
+              <div 
+                className="absolute top-0 left-1/2 holo-screen"
+                style={{ 
+                  width: '300px',
+                  // Moved X from -850px -> -700px to bring closer
+                  transform: 'translateX(-700px) translateY(0px) translateZ(-50px) rotateY(20deg)'
+                }}
+              >
+                <MediaFrame frame={FRAMES[2]} />
+                <HoloEmitter accent={FRAMES[2].accent} />
+              </div>
+
+              {/* 3. YouTube (Center Hero - Scaled & Centered) */}
+              <div 
+                className="absolute top-20 left-1/2 holo-screen"
+                style={{ 
+                  width: '640px', // Increased width
+                  // Centered better
+                  transform: 'translateX(-320px) translateZ(80px)',
+                  zIndex: 10
+                }}
+              >
+                <MediaFrame frame={FRAMES[0]} scaleVideo={1.35} /> {/* Increased scale to 1.35 */}
+                <HoloEmitter accent={FRAMES[0].accent} />
+              </div>
+
             </div>
           )}
         </div>
@@ -200,75 +239,62 @@ export function StudiosPlatformDemoSection() {
   )
 }
 
-type MediaFrameProps = {
-  id: string
-  aspect: string
-  gradient: string
-  srLabel: string
-  playbackId: string
-  order: number
-  className?: string
-  style?: CSSProperties
-  reveal?: boolean
-}
-
-function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, className, style, reveal }: MediaFrameProps) {
+function MediaFrame({ frame, className, scaleVideo = 1.0 }: { frame: typeof FRAMES[number], className?: string, scaleVideo?: number }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, {
-    once: true,
-    margin: "200px 0px" // Load 200px before entering viewport
-  })
+  const isInView = useInView(ref, { once: true, margin: "200px" })
 
   return (
     <div
       ref={ref}
-      {...(reveal ? { 'data-platform-reveal': true } : {})}
-      className={`group relative overflow-hidden rounded-[32px] border border-white/12 bg-white/[0.02] p-[1.5px] shadow-[0_80px_200px_-110px_rgba(8,15,32,0.92)] transition-all duration-500 ease-out hover:border-white/18 hover:shadow-[0_120px_260px_-120px_rgba(9,18,36,0.95)] ${className ?? ""}`}
-      data-motion="platform-demo-frame"
-      data-motion-order={order}
-      data-frame-id={id}
-      style={style}
+      className={cn(
+        "relative overflow-hidden rounded-[20px] border border-white/10 bg-studios-steel/40 shadow-2xl backdrop-blur-md",
+        className
+      )}
+      style={{
+        boxShadow: `0 0 40px -10px ${frame.accent}20`
+      }}
     >
-      <span className="sr-only">{srLabel}</span>
-      <div className="relative overflow-hidden rounded-[28px] bg-white/[0.05] backdrop-blur-[18px]">
-        <div className={`absolute inset-0 rounded-[28px] opacity-80 mix-blend-screen bg-gradient-to-br ${gradient}`} aria-hidden />
-        <div
-          className={`relative ${aspect} overflow-hidden rounded-[28px]`}
-          data-motion="platform-demo-video"
-        >
-          {isInView ? (
-            <MuxPlayer
-              playbackId={playbackId}
-              loading="viewport"
-              preload="none"
-              autoPlay
-              loop
-              muted
-              playsInline
-              metadata={{
-                video_title: `${srLabel} Platform Demo`,
-                viewer_user_id: "anonymous"
-              }}
-              streamType="on-demand"
-              style={{
-                width: '100%',
-                height: '100%',
-                aspectRatio: aspect === 'aspect-[16/9]' ? '16/9' : aspect === 'aspect-square' ? '1/1' : '9/16',
-                objectFit: 'cover',
-                '--controls': 'none',
-                '--media-object-fit': 'cover',
-                '--media-object-position': 'center',
-              } as React.CSSProperties}
-            />
-          ) : (
-            // Placeholder while waiting for viewport
-            <div className="absolute inset-0 bg-black/10" />
-          )}
-          {/* Subtle overlay for depth and polish */}
-          <div className="absolute inset-0 rounded-[28px] bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" aria-hidden />
-          <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/14" aria-hidden />
-        </div>
+      <div className={`relative ${frame.aspect} overflow-hidden rounded-[20px]`}>
+        <div className={`absolute inset-0 z-10 bg-gradient-to-br ${frame.gradient} mix-blend-overlay pointer-events-none`} />
+        
+        {isInView ? (
+          <MuxPlayer
+            playbackId={frame.playbackId}
+            loading="viewport"
+            preload="none"
+            autoPlay
+            loop
+            muted
+            playsInline
+            streamType="on-demand"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transform: `scale(${scaleVideo})`, // Use scale prop to remove black bars
+              '--controls': 'none',
+            } as React.CSSProperties}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-black/20" />
+        )}
+        
+        {/* Gloss Shine */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent z-20 pointer-events-none" />
       </div>
     </div>
+  )
+}
+
+function HoloEmitter({ accent }: { accent: string }) {
+  return (
+    <div 
+      className="absolute top-full left-0 right-0 h-8 pointer-events-none"
+      style={{ 
+        background: `radial-gradient(ellipse at top, ${accent}40 0%, transparent 70%)`,
+        filter: 'blur(10px)',
+        transform: 'scaleX(0.8)'
+      }}
+    />
   )
 }

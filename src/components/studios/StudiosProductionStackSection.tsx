@@ -1,176 +1,159 @@
-import { useId, type SVGProps } from "react"
-import { useSectionReveal } from '@/hooks/useSectionReveal';
-import { useDirectionalReveal } from '@/hooks/useDirectionalReveal';
+import { useId, type SVGProps, useRef } from "react"
+import { useInView } from "framer-motion"
+import { cn } from "@/lib/utils"
+import { StatusBadge } from "./ui/StatusBadge";
+import { TechnicalBorder } from "./ui/TechnicalBorder";
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const PLATFORM_GLYPHS = [
   {
     id: "youtube",
     name: "YouTube",
-    gradient:
-      "bg-[radial-gradient(circle_at_30%_28%,rgba(255,0,0,0.7),transparent_60%),radial-gradient(circle_at_78%_72%,rgba(225,179,65,0.45),transparent_58%)]",
+    color: "#FF0000",
     Icon: YouTubeIcon,
   },
   {
     id: "tiktok",
     name: "TikTok",
-    gradient:
-      "bg-[radial-gradient(circle_at_24%_24%,rgba(0,242,234,0.65),transparent_60%),radial-gradient(circle_at_76%_68%,rgba(254,44,85,0.55),transparent_58%)]",
+    color: "#00F2EA",
     Icon: TikTokIcon,
   },
   {
     id: "instagram",
     name: "Instagram",
-    gradient:
-      "bg-[radial-gradient(circle_at_20%_20%,rgba(255,220,128,0.7),transparent_62%),radial-gradient(circle_at_80%_70%,rgba(255,48,108,0.55),transparent_58%),radial-gradient(circle_at_40%_80%,rgba(88,81,219,0.55),transparent_58%)]",
+    color: "#E1306C",
     Icon: InstagramIcon,
   },
   {
     id: "linkedin",
     name: "LinkedIn",
-    gradient:
-      "bg-[radial-gradient(circle_at_22%_22%,rgba(40,103,178,0.75),transparent_60%),radial-gradient(circle_at_78%_74%,rgba(30,66,118,0.55),transparent_58%)]",
+    color: "#0A66C2",
     Icon: LinkedInIcon,
   },
   {
     id: "x",
     name: "X",
-    gradient:
-      "bg-[radial-gradient(circle_at_24%_28%,rgba(255,255,255,0.35),transparent_55%),radial-gradient(circle_at_76%_68%,rgba(121,134,203,0.28),transparent_58%)]",
+    color: "#FFFFFF",
     Icon: XIcon,
   },
   {
     id: "facebook",
     name: "Facebook",
-    gradient:
-      "bg-[radial-gradient(circle_at_24%_24%,rgba(24,119,242,0.7),transparent_60%),radial-gradient(circle_at_78%_74%,rgba(0,53,128,0.6),transparent_58%)]",
+    color: "#1877F2",
     Icon: FacebookIcon,
   },
 ] as const
 
 export function StudiosProductionStackSection() {
-  // REFINED: Standard cinematic for text content (1.0s, power3.out)
-  useSectionReveal({
-    selector: '[data-reveal-stack]',
-    stagger: 0.05,
-    duration: 1.0,  // REFINED: Was 0.8s, now 1.0s
-    distance: 60,
-    ease: "power3.out",
-    start: "top 80%"
-  });
+  const containerRef = useRef<HTMLElement>(null)
 
-  // REFINED: HERO LUXURY for platform cards (1.6s, expo.out)
-  // Even cards (YouTube, Instagram, X) slide from LEFT
-  // Odd cards (TikTok, LinkedIn, Facebook) slide from RIGHT
-  // Creates visual wave effect (Cinematographer research - Codrops Oct 2024)
-  // Dramatic luxury timing: explosive start → hard brake → feather settle
-  useDirectionalReveal({
-    selector: '[data-reveal-platform]',
-    stagger: 0.15,     // 150ms - wave effect timing
-    duration: 1.6,     // REFINED: Was 1.2s, now 1.6s for maximum cinematic drama
-    distance: 60,      // Horizontal movement
-    initialScale: 0.95, // Subtle scale-up effect
-    ease: "expo.out",  // REFINED: Was power4.out, now expo.out for luxury
-    start: "top 75%"
-  });
+  useGSAP(() => {
+    // --- 4. PRODUCTION STACK: The Monolith ---
+    // Text sequence + The Obsidian Deck reveal
+    const stackTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 70%",
+        once: true
+      }
+    });
+
+    stackTl
+      .fromTo(containerRef.current?.querySelectorAll('[data-reveal-stack]') || [],
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" }
+      )
+      // The Obsidian Slab rotates up
+      .fromTo('.transform-style-3d-slab', 
+        { rotationX: 45, opacity: 0, y: 100 },
+        { rotationX: 20, opacity: 1, y: 0, duration: 1.4, ease: "power3.out" },
+        "-=0.6"
+      );
+  }, { scope: containerRef })
 
   return (
     <section
+      ref={containerRef}
       id="studios-production-stack"
       aria-labelledby="studios-production-stack-title"
       data-motion-group="production-stack"
-      className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_16%_10%,rgba(49,196,255,0.2),transparent_62%),radial-gradient(circle_at_84%_18%,rgba(225,179,65,0.24),transparent_58%),linear-gradient(150deg,rgba(8,12,26,0.98) 0%,rgba(7,14,30,0.95) 55%,rgba(8,16,36,0.96) 100%)] py-24 md:py-32"
+      className="relative isolate overflow-hidden bg-studios-void py-24 md:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 -z-20 opacity-[0.14] [background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 160 160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%221.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.85%22/%3E%3C/svg%3E')]" />
-      <div className="pointer-events-none absolute inset-0 -z-30">
-        <div className="absolute -left-24 top-1/4 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(49,196,255,0.35)_0%,rgba(49,196,255,0)_70%)] blur-[100px]" />
-        <div className="absolute -right-24 bottom-12 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(225,179,65,0.32)_0%,rgba(225,179,65,0)_72%)] blur-[110px]" />
-      </div>
-
-      <div className="container relative mx-auto flex flex-col gap-16 px-4 md:px-6 lg:flex-row lg:items-start lg:gap-24 xl:px-0">
-        <div className="max-w-3xl space-y-8 text-white" data-motion="production-stack.copy">
-          <div data-reveal-stack className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/6 px-5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.36em] text-white/60">
-            What You Actually Get
+      {/* Background Tech Elements */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      
+      <div className="container relative mx-auto flex flex-col gap-16 px-4 md:px-6 lg:flex-row lg:items-center lg:gap-24 xl:px-0">
+        
+        {/* Left: The Monolith Text */}
+        <div className="max-w-2xl space-y-8 text-white" data-motion="production-stack.copy">
+          <div data-reveal-stack className="flex items-center gap-4 opacity-0">
+            <StatusBadge label="INFRASTRUCTURE" status="online" />
+            <span className="text-[10px] font-mono text-white/40 tracking-widest uppercase">Full Stack</span>
           </div>
-          <div className="space-y-6">
+          
+          <div className="space-y-8">
             <h2
               data-reveal-stack
               id="studios-production-stack-title"
-              className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.3rem] md:leading-[1.08]"
+              className="font-outfit text-4xl font-bold tracking-tighter text-white md:text-6xl leading-[0.95] opacity-0"
             >
-              Complete Production. Secure Infrastructure. One Partner.
+              Complete Production.<br />
+              <span className="text-white/60">Secure Infrastructure.</span><br />
+              One Partner.
             </h2>
-            <div className="space-y-5 text-lg leading-relaxed text-studios-body md:text-[1.25rem]">
-              <p data-reveal-stack>
+            
+            <div className="space-y-6 font-sans text-lg leading-relaxed text-white/70 md:text-xl">
+              <p data-reveal-stack className="opacity-0">
                 You need more than video generation. You need storyboarding that works. Scripts that land. Sound design that feels professional. Editing that matches broadcast quality standards. Platform delivery for six formats.
               </p>
-              <p data-reveal-stack>
-                Most AI tools stop at generation—leaving you with raw footage and no path to polish. Most agencies charge separately for every layer.
-              </p>
-              <div data-reveal-stack className="space-y-6">
-                <p>Our Studios handles the complete stack:</p>
-                <div
-                  className="flex flex-wrap gap-3 text-studios-headline"
-                  aria-hidden="true"
-                >
-                  <span className="rounded-full border border-white/18 bg-white/8 px-5 py-2.5 text-lg font-semibold tracking-[0.3em] md:px-6 md:py-3 md:text-[1.1rem]">
-                    Video.
-                  </span>
-                  <span className="rounded-full border border-white/18 bg-white/8 px-5 py-2.5 text-lg font-semibold tracking-[0.3em] md:px-6 md:py-3 md:text-[1.1rem]">
-                    Sound.
-                  </span>
-                  <span className="rounded-full border border-white/18 bg-white/8 px-5 py-2.5 text-lg font-semibold tracking-[0.3em] md:px-6 md:py-3 md:text-[1.1rem]">
-                    Dialogue.
-                  </span>
-                  <span className="rounded-full border border-white/18 bg-white/8 px-5 py-2.5 text-lg font-semibold tracking-[0.3em] md:px-6 md:py-3 md:text-[1.1rem]">
-                    Score.
-                  </span>
-                  <span className="rounded-full border border-white/18 bg-white/8 px-5 py-2.5 text-lg font-semibold tracking-[0.3em] md:px-6 md:py-3 md:text-[1.1rem]">
-                    Editing.
-                  </span>
-                  <span className="rounded-full border border-white/18 bg-white/8 px-5 py-2.5 text-lg font-semibold tracking-[0.3em] md:px-6 md:py-3 md:text-[1.1rem]">
-                    Upscaling.
-                  </span>
-                  <span className="rounded-full border border-white/18 bg-white/8 px-5 py-2.5 text-lg font-semibold tracking-[0.3em] md:px-6 md:py-3 md:text-[1.1rem]">
-                    Platform export.
-                  </span>
+              
+              <TechnicalBorder className="p-6 my-8" intensity="low">
+                <div className="space-y-4">
+                  <div className="text-[10px] font-mono text-studios-primary uppercase tracking-widest mb-4">Production Layers</div>
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-8" data-reveal-stack>
+                    {['Video', 'Sound', 'Dialogue', 'Score', 'Editing', 'Upscaling', 'Platform Export'].map((item) => (
+                      <div key={item} className="flex items-center gap-3 group">
+                        <div className="h-1 w-1 rounded-full bg-white/20 group-hover:bg-studios-accent transition-colors" />
+                        <span className="font-mono text-sm text-white/80 group-hover:text-white transition-colors uppercase tracking-wider">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <p className="sr-only">
-                  Video. Sound. Dialogue. Score. Editing. Upscaling. Platform export.
-                </p>
-                <p className="mt-4">Everything required for broadcast-quality delivery.</p>
-              </div>
-              <p data-reveal-stack>
+              </TechnicalBorder>
+
+              <p data-reveal-stack className="text-sm font-mono text-white/50 opacity-0">
                 Your creative assets never leave our secure production environment. While other solutions force you across fragmented platforms, everything happens on infrastructure we control—from storyboard to final delivery.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="relative w-full max-w-[760px] mt-32 lg:mt-36" data-motion="production-stack.visual">
-          <div
-            className="relative grid grid-cols-3 gap-6 rounded-[26px] bg-white/[0.02] px-6 py-6 shadow-[0_70px_200px_-110px_rgba(8,12,26,0.9)] backdrop-blur-[18px]"
-            data-motion="production-stack.platforms"
-          >
-            {PLATFORM_GLYPHS.map((platform, index) => (
-              <div
-                data-reveal-platform
-                key={platform.id}
-                className="group relative flex aspect-square w-full max-w-[160px] items-center justify-center rounded-[24px] border border-white/12 bg-white/[0.07] p-3 shadow-[0_36px_150px_-95px_rgba(9,18,36,0.9)] transition-transform duration-400 ease-out hover:-translate-y-1.5 hover:border-white/24 md:max-w-[180px] md:p-3.5"
-                data-motion="production-stack.platform"
-                data-motion-order={index + 1}
-              >
-                <span
-                  className={`pointer-events-none absolute inset-0 rounded-[24px] opacity-95 transition-opacity duration-500 group-hover:opacity-100 ${platform.gradient}`}
-                  aria-hidden
+        {/* Right: The Obsidian Platform Deck */}
+        <div className="relative w-full flex justify-center lg:justify-end h-[600px] perspective-[1200px]">
+          <div className="transform-style-3d-slab relative w-full max-w-[650px] transform-style-3d rotate-x-20 rotate-y-[-20deg] hover:rotate-y-[-15deg] transition-transform duration-700 ease-out opacity-0">
+            
+            {/* Base Slab */}
+            <div className="absolute inset-0 bg-studios-steel/90 border border-white/5 rounded-[32px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] transform-style-3d">
+               <div className="absolute inset-0 bg-noise opacity-[0.05] rounded-[32px] mix-blend-overlay" />
+               {/* Scanline Laser */}
+               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-studios-primary/10 to-transparent h-[20%] w-full animate-scan pointer-events-none" />
+            </div>
+
+            {/* Platform Chips Grid */}
+            <div className="absolute inset-4 grid grid-cols-2 gap-4 transform-style-3d translate-z-[20px]">
+              {PLATFORM_GLYPHS.map((platform, i) => (
+                <PlatformChip 
+                  key={platform.id} 
+                  platform={platform} 
+                  index={i} 
                 />
-                <span
-                  className="pointer-events-none absolute inset-[2.2px] rounded-[21px] bg-black/32 backdrop-blur-xl before:absolute before:inset-0 before:rounded-[21px] before:bg-white/18"
-                  aria-hidden
-                />
-                <span className="sr-only">{platform.name}</span>
-                <platform.Icon className="relative h-[72%] w-[72%] text-white drop-shadow-[0_0_18px_rgba(255,255,255,0.24)] md:h-[75%] md:w-[75%]" />
-              </div>
-            ))}
+              ))}
+            </div>
+
           </div>
         </div>
       </div>
@@ -178,91 +161,100 @@ export function StudiosProductionStackSection() {
   )
 }
 
+function PlatformChip({ platform, index }: { platform: any, index: number }) {
+  const ref = useRef(null)
+  // Removing local useInView for now to let GSAP control parent, or we can keep it for interaction
+  // Keeping simple CSS transition based hover effects
+
+  return (
+    <div 
+      ref={ref}
+      className={cn(
+        "group relative h-full w-full min-h-[160px] rounded-3xl bg-black/60 border-2 border-white/10 backdrop-blur-xl flex items-center justify-center overflow-visible",
+        "transition-all duration-500 ease-out hover:-translate-y-4 hover:border-white/30 hover:bg-white/10",
+        // Default visible state because parent animates opacity of the container
+        "translate-y-0 opacity-100"
+      )}
+      style={{
+        boxShadow: '0 20px 40px -10px rgba(0,0,0,0.6)'
+      }}
+    >
+      {/* Internal Glow Blob */}
+      <div 
+        className="absolute inset-4 rounded-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 blur-2xl"
+        style={{ background: platform.color }}
+      />
+      
+      {/* Icon */}
+      <div className="relative z-10 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+        <platform.Icon 
+          className="w-24 h-24 transition-all duration-300 drop-shadow-2xl" 
+          style={{ 
+            color: platform.color,
+            filter: `drop-shadow(0 0 20px ${platform.color}40)`
+          }}
+        />
+      </div>
+
+      {/* Label Tag */}
+      <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-black/80 border border-white/20 rounded-full px-3 py-1 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 whitespace-nowrap z-20">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-white font-bold">
+          {platform.name}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+// --- ICONS ---
+
 function YouTubeIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <path
-        fill="#FF0000"
-        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814Z"
-      />
-      <path fill="#FFFFFF" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568Z" />
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814Z" />
+      <path fill="white" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568Z" />
     </svg>
   )
 }
 
 function TikTokIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 291.379 291.379" aria-hidden="true" {...props}>
-      <path
-        fill="#FF004F"
-        d="M191.102 105.182c18.814 13.442 41.862 21.351 66.755 21.351V78.656a63.81 63.81 0 0 1-14.019-1.466v37.686c-24.891 0-47.936-7.909-66.755-21.35v97.703c0 48.876-39.642 88.495-88.54 88.495-18.245 0-35.203-5.513-49.29-14.968 16.078 16.431 38.5 26.624 63.306 26.624 48.901 0 88.545-39.619 88.545-88.497v-97.701H191.102zm17.294-48.302c-9.615-10.499-15.928-24.067-17.294-39.067V11.655h-13.285c3.344 19.065 14.75 35.353 30.579 45.225zM70.181 227.25c-5.372-7.04-8.275-15.652-8.262-24.507 0-22.354 18.132-40.479 40.502-40.479a52.67 52.67 0 0 1 12.286 1.897v-48.947a154.61 154.61 0 0 0-14.013-.807v38.098a52.36 52.36 0 0 0-12.292-1.896c-22.37 0-40.501 18.123-40.501 40.48.002 17.902 9.065 31.588 22.282 38.255z"
-      />
-      <path
-        fill="#010101"
-        d="M177.083 93.525c18.819 13.441 41.864 21.35 66.755 21.35V77.189c-13.894-2.958-26.194-10.215-35.442-20.309-15.83-9.873-27.235-26.161-30.579-45.225h-34.896v191.226c-.079 22.293-18.18 40.344-40.502 40.344-13.154 0-24.84-6.267-32.241-15.975-13.216-6.667-22.279-20.354-22.279-36.16 0-22.355 18.131-40.48 40.501-40.48 4.286 0 8.417.667 12.292 1.896V114.9c-48.039.992-86.674 40.224-86.674 88.474 0 24.086 9.621 45.921 25.236 61.875 14.087 9.454 31.045 14.968 49.29 14.968 48.899 0 88.54-39.621 88.54-88.496V93.525z"
-      />
-      <path
-        fill="#00F2EA"
-        d="M243.838 77.189V66.999c-12.529.019-24.812-3.488-35.442-10.12a88.57 88.57 0 0 0 35.442 20.31zM177.817 11.655c-.319-1.822-.564-3.656-.734-5.497V0h-48.182v191.228c-.077 22.29-18.177 40.341-40.501 40.341-6.554 0-12.742-1.555-18.222-4.318 7.401 9.707 19.087 15.973 32.241 15.973 22.32 0 40.424-18.049 40.502-40.342V11.655h34.896zM100.694 114.408V103.56a155.5 155.5 0 0 0-12.149-.824C39.642 102.735 0 142.356 0 191.228c0 30.64 15.58 57.643 39.255 73.527-15.615-15.953-25.236-37.789-25.236-61.874.003-48.249 38.637-87.481 86.675-88.473z"
-      />
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.67c0 2.827-2.335 5.12-5.212 5.12-2.877 0-5.212-2.293-5.212-5.12 0-2.827 2.335-5.12 5.212-5.12.97 0 1.877.265 2.658.725V6.722a8.775 8.775 0 0 0-2.658-.417c-4.817 0-8.727 3.843-8.727 8.57 0 4.727 3.91 8.57 8.727 8.57 4.817 0 8.727-3.843 8.727-8.57V8.753c1.49.992 3.276 1.569 5.192 1.569v-3.636Z" />
     </svg>
   )
 }
 
 function InstagramIcon(props: SVGProps<SVGSVGElement>) {
-  const gradientId = useId()
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <defs>
-        <radialGradient id={gradientId} cx="30%" cy="0%" r="120%">
-          <stop offset="0%" stopColor="#FFDF8B" />
-          <stop offset="35%" stopColor="#FF6F61" />
-          <stop offset="70%" stopColor="#C425E0" />
-          <stop offset="100%" stopColor="#3A5AE5" />
-        </radialGradient>
-      </defs>
-      <rect x="0.75" y="0.75" width="22.5" height="22.5" rx="6" fill={`url(#${gradientId})`} />
-      <rect x="3.8" y="3.8" width="16.4" height="16.4" rx="5.6" stroke="#FFFFFF" strokeWidth="1.5" fill="none" />
-      <circle cx="12" cy="12" r="4" stroke="#FFFFFF" strokeWidth="1.5" fill="none" />
-      <circle cx="17.3" cy="6.7" r="1.1" fill="#FFFFFF" />
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069ZM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0Z" />
+      <path d="M12 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" />
+      <circle cx="18.406" cy="5.594" r="1.44" />
     </svg>
   )
 }
 
 function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <rect width="24" height="24" rx="5" fill="#0A66C2" />
-      <rect x="6.3" y="9.1" width="2.4" height="8.9" fill="#FFFFFF" />
-      <circle cx="7.5" cy="6.6" r="1.2" fill="#FFFFFF" />
-      <path
-        fill="#FFFFFF"
-        d="M7.5 7.7c-.92 0-1.55-.63-1.55-1.48 0-.87.66-1.49 1.6-1.49.94 0 1.55.62 1.56 1.49 0 .85-.62 1.48-1.61 1.48ZM10.98 9.1h2.29v1.16h.03c.34-.63 1.18-1.34 2.56-1.34 2.44 0 3.1 1.58 3.1 3.86v5.22h-2.4v-4.86c0-1.16-.02-2.65-1.62-2.65-1.62 0-1.86 1.26-1.86 2.56v4.95h-2.1V9.1Z"
-      />
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   )
 }
 
 function XIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <rect width="24" height="24" rx="5" fill="#000000" />
-      <path
-        fill="#FFFFFF"
-        d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"
-      />
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   )
 }
 
 function FacebookIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <rect width="24" height="24" rx="5" fill="#1877F2" />
-      <path
-        fill="#FFFFFF"
-        d="M13.5 21.6v-7.25h2.44l.38-3.02H13.5V9.4c0-.86.28-1.52 1.52-1.52h1.64V5.12c-.28-.04-1.27-.12-2.41-.12-2.38 0-4.01 1.45-4.01 4.12v2.25H7.7v3.02h2.54v7.21h3.26Z"
-      />
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036c-2.148 0-2.971.956-2.971 3.594v.376h3.817l-.371 3.667h-3.446v7.98c-.002.069-.002.137-.002.206A11.981 11.981 0 0 1 12 24c-.982 0-1.932-.122-2.827-.35-.025-.052-.049-.105-.072-.159Z" />
     </svg>
   )
 }

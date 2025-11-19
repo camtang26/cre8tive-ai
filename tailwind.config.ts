@@ -22,6 +22,7 @@ export default {
       fontFamily: {
         sans: ['Geist', 'system-ui', 'sans-serif'],
         geist: ['Geist', 'system-ui', 'sans-serif'],
+        mono: ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
         inter: ['Inter', 'system-ui', 'sans-serif'],
         outfit: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
       },
@@ -71,6 +72,8 @@ export default {
         studios: {
           background: '#0A0F1A',
           'background-accent': '#0F1826',
+          void: '#030305',
+          steel: '#0A0A12',
           surface: 'rgba(9, 13, 23, 0.75)',
           'surface-strong': 'rgba(12, 18, 32, 0.88)',
           primary: '#E1B341',
@@ -235,6 +238,7 @@ export default {
         'studios-hero-spotlight': 'radial-gradient(75% 95% at 20% 35%, rgba(49,196,255,0.18) 0%, rgba(49,196,255,0.05) 50%, rgba(5,6,13,0) 100%)',
         'studios-hero-rim': 'radial-gradient(60% 70% at 80% 40%, rgba(225,179,65,0.16) 0%, rgba(225,179,65,0.05) 55%, rgba(225,179,65,0) 100%)',
         'studios-hero-noise': 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\' preserveAspectRatio=\'none\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.6\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.9\'/%3E%3C/svg%3E")',
+        'noise': 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\' preserveAspectRatio=\'none\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.6\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.9\'/%3E%3C/svg%3E")',
       }
     }
   },

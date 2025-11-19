@@ -1,16 +1,42 @@
 import { useState, useRef } from "react"
 import { Link } from "react-router-dom"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function StudiosContactCTASection() {
+  const containerRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    gsap.fromTo(containerRef.current?.querySelectorAll('.cta-animate') || [],
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+          once: true
+        }
+      }
+    );
+  }, { scope: containerRef })
+
   return (
     <section
+      ref={containerRef}
       id="studios-contact-cta"
       aria-labelledby="studios-contact-cta-title"
       data-motion-group="contact-cta"
       className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_25%_20%,rgba(49,196,255,0.22),transparent_60%),radial-gradient(circle_at_75%_80%,rgba(225,179,65,0.2),transparent_58%),linear-gradient(148deg,rgba(6,9,18,0.98) 0%,rgba(8,16,32,0.96) 52%,rgba(6,10,24,0.98) 100%)] py-32 md:py-48"
     >
       {/* Noise texture overlay */}
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.1] [background-image:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.7\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.8\'/%3E%3C/svg%3E')]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.1] [background-image:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.7\' numOctaves=\'3\' stitchTiles=\'stitch\'%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.8\'%3E%3C/svg%3E')]" />
 
       {/* Large glow orbs */}
       <div className="pointer-events-none absolute -left-32 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(49,196,255,0.3)_0%,rgba(49,196,255,0)_70%)] blur-[140px]" aria-hidden />
@@ -21,30 +47,21 @@ export function StudiosContactCTASection() {
           {/* Headline */}
           <h2
             id="studios-contact-cta-title"
-            className="text-5xl font-black tracking-tight text-studios-headline md:text-6xl md:leading-[1.1]"
-            style={{
-              animation: "cta-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 0ms both",
-            }}
+            className="text-5xl font-black tracking-tight text-studios-headline md:text-6xl md:leading-[1.1] cta-animate opacity-0"
           >
             Ready for Secure, Broadcast-Quality AI Production?
           </h2>
 
           {/* Subhead */}
           <p
-            className="max-w-3xl text-xl leading-relaxed text-studios-body md:text-2xl"
-            style={{
-              animation: "cta-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 200ms both",
-            }}
+            className="max-w-3xl text-xl leading-relaxed text-studios-body md:text-2xl cta-animate opacity-0"
           >
             Discuss your next project with a studio that's mastered AI production since 2023. Your clients demand quality—deliver it without traditional budgets through Cre8tive Studios.
           </p>
 
           {/* CTA Buttons */}
           <div
-            className="flex flex-col items-center gap-4 sm:flex-row"
-            style={{
-              animation: "cta-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 400ms both",
-            }}
+            className="flex flex-col items-center gap-4 sm:flex-row cta-animate opacity-0"
           >
             <PrimaryCTAButton />
             <SecondaryCTAButton />
@@ -52,36 +69,12 @@ export function StudiosContactCTASection() {
 
           {/* Trust signal */}
           <p
-            className="text-sm font-medium uppercase tracking-wider text-white/50"
-            style={{
-              animation: "cta-fade-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 700ms both",
-            }}
+            className="text-sm font-medium uppercase tracking-wider text-white/50 cta-animate opacity-0"
           >
             Secure, Comprehensive AI Production Since 2023
           </p>
         </div>
       </div>
-
-      {/* Animation keyframes */}
-      <style>{`
-        @keyframes cta-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          * {
-            animation: none !important;
-            transition: all 150ms ease-out !important;
-          }
-        }
-      `}</style>
     </section>
   )
 }

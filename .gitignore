@@ -28,3 +28,4 @@ dist-ssr
 # Testing artifacts and temporary files
 Screenshots/StudiosConversation_Overhauls/
 *.tgz
+.env

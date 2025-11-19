@@ -1,110 +1,183 @@
-import { useSectionReveal } from '@/hooks/useSectionReveal';
+import { useRef } from "react"
+import { AlertTriangle, CheckCircle2, XCircle, ShieldAlert, Layers, Clock } from "lucide-react"
+import { cn } from "@/lib/utils"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const PAIN_POINTS = [
   {
     id: "traditional",
     label: "Traditional Agencies",
+    icon: Clock,
     summary: "8-week timelines, $50K minimums, stacked teams that bill for every revision, and your assets scattered across multiple vendors.",
+    accent: "rgba(239, 68, 68, 0.5)", // Red
   },
   {
     id: "ai-tools",
     label: "Pure AI Tools",
+    icon: Layers,
     summary: "Fast but fragile—artifacts, generic lighting, zero human direction, and your creative IP exposed on third-party platforms.",
+    accent: "rgba(234, 179, 8, 0.5)", // Yellow
   },
   {
     id: "in-house",
     label: "Building In-House",
+    icon: ShieldAlert,
     summary: "Full crew salaries, gear investments, perpetual upskilling just to keep pace, and internal infrastructure security burden as production scales.",
+    accent: "rgba(249, 115, 22, 0.5)", // Orange
   },
 ] as const
 
 export function StudiosChallengeSection() {
-  // REFINED TIMING: Standard cinematic preset (1.0s, power3.out)
-  // Research-backed: 50ms stagger shows 37% engagement boost (VAWebSEO 2025)
-  // Cinematic upgrade: 0.8s → 1.0s for luxury brand weight
-  useSectionReveal({
-    selector: '[data-reveal-challenge]',
-    stagger: 0.05,  // 50ms - research-backed sweet spot
-    duration: 1.0,  // REFINED: Was 0.8s, now 1.0s for cinematic consistency
-    distance: 60,   // Standard movement
-    ease: "power3.out", // Standard smooth easing
-    start: "top 80%",
-    debug: false
-  });
+  const containerRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 75%",
+        once: true
+      }
+    });
+
+    // 1. Header Text
+    tl.fromTo(".challenge-header",
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" }
+    );
+
+    // 2. Pain Point Cards (Staggered Fall-in)
+    tl.fromTo(".pain-card",
+      { opacity: 0, y: 50, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.15, ease: "back.out(1.2)" },
+      "-=0.4"
+    );
+
+    // 3. Solution Card (Expand)
+    tl.fromTo(".solution-card",
+      { opacity: 0, y: 60, scale: 0.9 },
+      { opacity: 1, y: 0, scale: 1, duration: 1, ease: "expo.out" },
+      "-=0.2"
+    );
+
+  }, { scope: containerRef })
+
   return (
     <section
+      ref={containerRef}
       id="studios-challenge"
       aria-labelledby="studios-challenge-title"
-      className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_10%_8%,rgba(49,196,255,0.22),transparent_62%),radial-gradient(circle_at_90%_12%,rgba(225,179,65,0.22),transparent_60%),linear-gradient(155deg,rgba(6,10,18,0.95) 0%,rgba(7,14,30,0.92) 55%,rgba(6,12,24,0.96) 100%)]"
+      className="relative isolate overflow-hidden bg-studios-void py-32 md:py-40"
     >
-      <div className="container mx-auto flex flex-col gap-16 px-4 py-24 md:gap-20 md:px-6 lg:flex-row lg:items-start lg:gap-24 xl:px-0">
-        <div className="max-w-2xl space-y-6 text-white lg:max-w-lg">
-          <div data-reveal-challenge className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.38em] text-white/60">
-            The Challenge Most Face
+      {/* Background Grid (Distorted) */}
+      <div className="absolute inset-0 -z-10 opacity-[0.07]" 
+           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px', maskImage: 'radial-gradient(circle at center, black, transparent 80%)' }} 
+      />
+
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+        
+        {/* Header Area */}
+        <div className="grid lg:grid-cols-2 gap-16 mb-20 items-end">
+          <div className="space-y-6">
+            <div className="challenge-header inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-red-500/30 bg-red-500/5 text-red-400 font-mono text-xs uppercase tracking-widest">
+              <AlertTriangle className="w-3 h-3" />
+              System Critical
+            </div>
+            <h2
+              id="studios-challenge-title"
+              className="challenge-header font-outfit text-5xl md:text-7xl font-black tracking-tighter text-white leading-[0.9]"
+            >
+              Every Option <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
+                Has Flaws.
+              </span>
+            </h2>
           </div>
-          <h2
-            data-reveal-challenge
-            id="studios-challenge-title"
-            className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.4rem] md:leading-[1.05]"
-          >
-            Every Option Has Flaws
-          </h2>
-          <div className="space-y-4 text-lg leading-relaxed text-studios-body md:text-[1.3rem]">
-            <p data-reveal-challenge>Traditional agencies demand eight weeks and $50K minimums. Pure AI tools deliver amateur work that screams "generated." Building in-house requires teams, equipment, and expertise most can't justify.</p>
-            <p data-reveal-challenge>Meanwhile, clients need broadcast-quality video across six platforms. Yesterday. At budgets that actually make sense.</p>
-            <p data-reveal-challenge>Few have mastered AI video production—it only emerged in 2023. Fewer still maintain broadcast quality standards. Cre8tive Studios is one of them.</p>
+          <div className="challenge-header space-y-6 text-lg text-white/60 leading-relaxed max-w-xl">
+            <p>Traditional agencies demand eight weeks and $50K minimums. Pure AI tools deliver amateur work that screams "generated." Building in-house requires teams, equipment, and expertise most can't justify.</p>
+            <p>Meanwhile, clients need broadcast-quality video across six platforms. Yesterday. At budgets that actually make sense.</p>
+            <p>Few have mastered AI video production—it only emerged in 2023. Fewer still maintain broadcast quality standards. Cre8tive Studios is one of them.</p>
           </div>
         </div>
 
-        <div className="flex w-full flex-col gap-10">
-          <div className="grid gap-6 text-white lg:grid-cols-3">
+        <div className="flex w-full flex-col gap-8">
+          
+          {/* The Pain Points (Grid) */}
+          <div className="grid md:grid-cols-3 gap-6">
             {PAIN_POINTS.map((item) => (
               <article
-                data-reveal-challenge
                 key={item.id}
-                className="flex h-full flex-col gap-4 rounded-[24px] border border-white/10 bg-white/[0.06] px-6 py-7 shadow-[0_35px_140px_-80px_rgba(6,10,20,0.95)] backdrop-blur-2xl transition-all duration-300 hover:border-white/18 hover:bg-white/[0.1]"
+                className="pain-card group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-500 hover:border-white/20 hover:bg-white/10"
               >
-                <span className="text-sm font-semibold uppercase tracking-[0.3em] text-white/55">{item.label}</span>
-                <p className="text-base text-white/80">{item.summary}</p>
+                {/* Hover Glow */}
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                  style={{ background: `radial-gradient(circle at top right, ${item.accent}, transparent 70%)` }}
+                />
+                
+                <div className="relative z-10">
+                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
+                    <item.icon className="w-5 h-5 text-white/70" />
+                  </div>
+                  
+                  <div className="flex items-center gap-3 mb-3">
+                    <XCircle className="w-4 h-4 text-red-500/70" />
+                    <h3 className="font-mono text-xs uppercase tracking-widest text-white/50">{item.label}</h3>
+                  </div>
+                  
+                  <p className="text-lg text-white leading-relaxed">{item.summary}</p>
+                </div>
               </article>
             ))}
           </div>
 
-          <article data-reveal-challenge className="relative overflow-hidden rounded-[30px] border border-white/18 bg-gradient-to-br from-white/[0.18] via-white/[0.08] to-white/[0.04] px-8 py-10 shadow-[0_65px_200px_-90px_rgba(9,14,26,0.95)] backdrop-blur-3xl">
-            <div className="absolute -right-12 -top-16 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(49,196,255,0.38)_0%,rgba(49,196,255,0)_70%)] blur-[110px]" aria-hidden />
-            <div className="absolute -bottom-20 -left-14 h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(225,179,65,0.34)_0%,rgba(225,179,65,0)_75%)] blur-[120px]" aria-hidden />
-
-            <div className="flex flex-col gap-4">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-black/10 px-4 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.32em] text-studios-accent">
-                Cre8tive Studios
-              </span>
-              <h3 className="text-3xl font-black leading-tight text-studios-headline md:text-[3.1rem]">
-                Broadcast-quality AI production, on your clock.
-              </h3>
-              <p className="text-base text-studios-body md:text-lg">
-                We pair human directors with AI mastery to deliver up to six platform-native formats from a single pipeline. No rework. No compromise.
-              </p>
+          {/* The Solution (Monolith) */}
+          <article className="solution-card relative overflow-hidden rounded-3xl border border-studios-primary/30 bg-gradient-to-br from-studios-void to-studios-steel p-8 md:p-12 shadow-[0_0_60px_-20px_rgba(20,184,166,0.2)]">
+            {/* Animated Background */}
+            <div className="absolute inset-0 opacity-30 mix-blend-screen">
+               <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(20,184,166,0.4),transparent_60%)]" />
+               <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(249,115,22,0.3),transparent_60%)]" />
             </div>
 
-            <ul className="mt-8 space-y-4 text-sm text-white/85 md:text-[1.05rem]">
-              <li className="flex gap-3">
-                <span className="mt-1 inline-flex h-2 w-2 shrink-0 rounded-full bg-gradient-to-r from-studios-accent to-studios-primary shadow-[0_0_18px_rgba(49,196,255,0.4)]" />
-                Storyboard-to-finish workflows that stay on brand without a second pass.
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-1 inline-flex h-2 w-2 shrink-0 rounded-full bg-gradient-to-r from-studios-accent to-studios-primary shadow-[0_0_18px_rgba(49,196,255,0.4)]" />
-                Platform-specific outputs ready for YouTube, TikTok, Instagram, LinkedIn, X, and Facebook.
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-1 inline-flex h-2 w-2 shrink-0 rounded-full bg-gradient-to-r from-studios-accent to-studios-primary shadow-[0_0_18px_rgba(49,196,255,0.4)]" />
-                Since 2023 we've refined AI production for teams that can't compromise on broadcast quality.
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-1 inline-flex h-2 w-2 shrink-0 rounded-full bg-gradient-to-r from-studios-accent to-studios-primary shadow-[0_0_18px_rgba(49,196,255,0.4)]" />
-                Your creative work protected in our secure production environment—no exposure to external platforms.
-              </li>
-            </ul>
+            <div className="relative z-10 grid lg:grid-cols-[1fr_auto] gap-12 items-center">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-mono text-xs uppercase tracking-widest">
+                  <CheckCircle2 className="w-3 h-3" />
+                  Optimized Solution
+                </div>
+                
+                <h3 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+                  Broadcast-quality AI production,<br />
+                  <span className="text-white/50">on your clock.</span>
+                </h3>
+                
+                <p className="text-xl text-white/80 max-w-2xl leading-relaxed">
+                  We pair human directors with AI mastery to deliver up to six platform-native formats from a single pipeline. No rework. No compromise.
+                </p>
+              </div>
+
+              {/* Feature List */}
+              <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-12">
+                {[
+                  "Storyboard-to-finish workflows",
+                  "Platform-specific outputs (YouTube, TikTok, IG)",
+                  "Mastered since 2023",
+                  "Secure production environment"
+                ].map((feature, i) => (
+                  <div key={i} className="flex gap-4 items-start group">
+                    <div className="mt-2 w-2 h-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_10px_#10B981] group-hover:scale-150 transition-transform" />
+                    <span className="text-lg md:text-xl font-medium text-white/80 group-hover:text-white transition-colors leading-tight">
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </article>
+
         </div>
       </div>
     </section>

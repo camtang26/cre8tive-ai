@@ -127,7 +127,6 @@ export default defineConfig(({ mode }) => ({
             'react-router-dom',
             '@tanstack/react-query',
             'framer-motion',
-            'three',
             '@vimeo/player'
           ],
           'ui': [

@@ -22,23 +22,23 @@ export function useHeroIntro(onComplete?: () => void) {
       return
     }
 
-    gsap.set('.headline-premium', { opacity: 0, y: 40 })
-    gsap.set('[data-motion="hero-tagline"]', { opacity: 0, y: 20 })
-    gsap.set('[data-motion="hero-cta"]', { opacity: 0, scale: 0.9 })
+    gsap.set('.headline-premium', { y: 40 })
+    gsap.set('[data-motion="hero-tagline"]', { y: 20 })
+    gsap.set('[data-motion="hero-cta"]', { scale: 0.9 })
 
     const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
 
     tl.to('.headline-premium', {
       opacity: 1,
       y: 0,
-      duration: 0.9
+      duration: 0.9,
     })
       .to(
         '[data-motion="hero-tagline"]',
         {
           opacity: 1,
           y: 0,
-          duration: 0.8
+          duration: 0.8,
         },
         '-=0.4'
       )
@@ -48,7 +48,6 @@ export function useHeroIntro(onComplete?: () => void) {
           opacity: 1,
           scale: 1,
           duration: 0.8,
-          clearProps: 'all'
         },
         '-=0.3'
       )

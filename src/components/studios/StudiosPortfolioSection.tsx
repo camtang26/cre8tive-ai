@@ -1,12 +1,23 @@
 import { useState, useRef } from "react"
+import { Play } from "lucide-react"
 import VideoModal from "@/components/core/VideoModal"
-import { usePortfolioAnimation } from '@/hooks/usePortfolioAnimation'
+import { cn } from "@/lib/utils"
+import { StatusBadge } from "./ui/StatusBadge"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 type PortfolioItem = {
   id: string
   videoId: string
   srLabel: string
-  backdrop: string
+  client: string
+  format: string
+  duration: string
+  backdropGradient: string
+  thumbnail: string
 }
 
 const PORTFOLIO_ITEMS: PortfolioItem[] = [
@@ -14,75 +25,141 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     id: "cre8tive-dhm",
     videoId: "1051824336",
     srLabel: "Play Cre8tive AI DHM video",
-    backdrop:
-      "linear-gradient(135deg, rgba(49,196,255,0.18) 0%, rgba(70,116,221,0.28) 18%, rgba(225,179,65,0.42) 100%), radial-gradient(circle at 22% 18%, rgba(142,220,255,0.65) 0%, rgba(142,220,255,0) 52%), radial-gradient(circle at 80% 82%, rgba(225,179,65,0.55) 0%, rgba(225,179,65,0) 65%)",
+    client: "DHM",
+    format: "16:9 / 4K",
+    duration: "00:45",
+    backdropGradient: "linear-gradient(135deg, rgba(49,196,255,0.18) 0%, rgba(70,116,221,0.28) 18%, rgba(225,179,65,0.42) 100%)",
+    thumbnail: "https://i.vimeocdn.com/video/1976697280-4f3a86dbe33f618bbca1e2aec70838932907744f874ef691faa7422c6683d38d-d_1280x720",
   },
   {
     id: "kotia-skincare",
     videoId: "1055446411",
     srLabel: "Play Kotia Skincare video",
-    backdrop:
-      "linear-gradient(160deg, rgba(8,22,60,0.9) 0%, rgba(24,43,92,0.8) 42%, rgba(221,172,72,0.45) 100%), radial-gradient(circle at 15% 30%, rgba(49,196,255,0.5) 0%, rgba(49,196,255,0) 55%), radial-gradient(circle at 76% 68%, rgba(225,179,65,0.6) 0%, rgba(225,179,65,0) 60%)",
+    client: "Kotia",
+    format: "9:16 / HD",
+    duration: "00:30",
+    backdropGradient: "linear-gradient(160deg, rgba(8,22,60,0.9) 0%, rgba(24,43,92,0.8) 42%, rgba(221,172,72,0.45) 100%)",
+    thumbnail: "https://i.vimeocdn.com/video/1981019062-ebed3221ab1ce19b5914996a8e70838932907744f874ef691faa7422c6683d38d-d_1280x720",
   },
   {
     id: "automotive-demo",
     videoId: "1051820049",
     srLabel: "Play Cre8tive AI Automotive Demo video",
-    backdrop:
-      "linear-gradient(140deg, rgba(26,56,104,0.82) 0%, rgba(15,31,63,0.94) 52%, rgba(49,196,255,0.32) 100%), radial-gradient(circle at 18% 72%, rgba(225,179,65,0.65) 0%, rgba(225,179,65,0) 62%), radial-gradient(circle at 82% 24%, rgba(142,220,255,0.6) 0%, rgba(142,220,255,0) 60%)",
+    client: "Auto Concept",
+    format: "21:9 / 4K",
+    duration: "01:15",
+    backdropGradient: "linear-gradient(140deg, rgba(26,56,104,0.82) 0%, rgba(15,31,63,0.94) 52%, rgba(49,196,255,0.32) 100%)",
+    thumbnail: "https://i.vimeocdn.com/video/1976690068-71234555e3fb50eda298a48e05cb0fde0d0106ec8537f5a7d1582f80d9663f4f-d_1280x720",
   },
   {
     id: "cre8tive-demo",
     videoId: "1051819670",
     srLabel: "Play Cre8tive AI Demo video",
-    backdrop:
-      "linear-gradient(150deg, rgba(13,28,50,0.92) 0%, rgba(8,15,28,0.88) 45%, rgba(49,196,255,0.35) 100%), radial-gradient(circle at 70% 28%, rgba(225,179,65,0.6) 0%, rgba(225,179,65,0) 65%), radial-gradient(circle at 24% 78%, rgba(142,220,255,0.55) 0%, rgba(142,220,255,0) 62%)",
+    client: "Showreel",
+    format: "Mixed",
+    duration: "02:00",
+    backdropGradient: "linear-gradient(150deg, rgba(13,28,50,0.92) 0%, rgba(8,15,28,0.88) 45%, rgba(49,196,255,0.35) 100%)",
+    thumbnail: "https://i.vimeocdn.com/video/1976689613-73eab7ca0d3ecf48b869583186d5cb79f5e92ca248d5eb6fb21ce706cc248cd1-d_1280x720",
   },
   {
     id: "marina-project",
     videoId: "1052203361",
     srLabel: "Play Cre8tive AI Marina Project video",
-    backdrop:
-      "linear-gradient(140deg, rgba(8,16,36,0.88) 0%, rgba(12,25,52,0.92) 56%, rgba(225,179,65,0.36) 100%), radial-gradient(circle at 80% 18%, rgba(49,196,255,0.55) 0%, rgba(49,196,255,0) 58%), radial-gradient(circle at 18% 82%, rgba(225,179,65,0.58) 0%, rgba(225,179,65,0) 64%)",
+    client: "Marina",
+    format: "16:9 / 4K",
+    duration: "01:00",
+    backdropGradient: "linear-gradient(140deg, rgba(8,16,36,0.88) 0%, rgba(12,25,52,0.92) 56%, rgba(225,179,65,0.36) 100%)",
+    thumbnail: "https://i.vimeocdn.com/video/1977142855-5acf99d2d0d226ffec133786a4f7c7e52c641ba255132e2ecb8c315ea9ed81f6-d_1280x720",
   },
   {
     id: "liminal",
     videoId: "1052204241",
     srLabel: "Play LIMINAL video",
-    backdrop:
-      "linear-gradient(135deg, rgba(49,196,255,0.32) 0%, rgba(16,38,78,0.86) 45%, rgba(9,14,28,0.94) 100%), radial-gradient(circle at 32% 30%, rgba(225,179,65,0.55) 0%, rgba(225,179,65,0) 60%), radial-gradient(circle at 70% 74%, rgba(142,220,255,0.6) 0%, rgba(142,220,255,0) 64%)",
+    client: "Liminal",
+    format: "1:1 / HD",
+    duration: "00:50",
+    backdropGradient: "linear-gradient(135deg, rgba(49,196,255,0.32) 0%, rgba(16,38,78,0.86) 45%, rgba(9,14,28,0.94) 100%)",
+    thumbnail: "https://i.vimeocdn.com/video/1977145787-f939e8fd6d70494a66049fe064de5562103e5de253901f9967f0d4de4bea4a8b-d_1280x720",
   },
 ]
 
 export function StudiosPortfolioSection() {
-  usePortfolioAnimation();
+  const containerRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    // --- 2. PORTFOLIO: The Gallery (Bento Reveal) ---
+    // Reveal the header first
+    ScrollTrigger.batch(containerRef.current?.querySelectorAll('[data-reveal-portfolio-header]') || [], {
+      start: "top 85%",
+      once: true,
+      onEnter: (batch) => {
+        gsap.fromTo(batch,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" }
+        );
+      }
+    });
+    
+    // Then the cards
+    ScrollTrigger.batch(containerRef.current?.querySelectorAll('[data-motion="portfolio-card"]') || [], {
+      start: "top 85%",
+      once: true,
+      onEnter: (batch) => {
+        gsap.fromTo(batch, 
+          { opacity: 0, y: 60, scale: 0.95 }, 
+          { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
+        );
+      }
+    });
+  }, { scope: containerRef })
 
   return (
     <section
+      ref={containerRef}
       id="studios-portfolio"
       aria-labelledby="studios-portfolio-title"
       data-motion-group="portfolio"
-      className="relative isolate overflow-hidden bg-[radial-gradient(circle_at_12%_10%,rgba(49,196,255,0.18),transparent_58%),radial-gradient(circle_at_82%_8%,rgba(225,179,65,0.14),transparent_60%),linear-gradient(160deg,rgba(5,6,13,0.98) 0%,rgba(6,12,24,0.96) 38%,rgba(9,18,36,0.97) 100%)]"
+      className="relative isolate overflow-hidden bg-studios-void py-24 md:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 opacity-[0.08] mix-blend-plus-lighter [background-image:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.2\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.8\'/%3E%3C/svg%3E')]" />
-      <div className="mx-auto max-w-[1200px] px-4 py-24 sm:px-6 md:py-28 lg:px-10 xl:px-0">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 text-studios-headline">
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/55">
-            Our Work
+      <div className="mx-auto max-w-[1200px] px-4 lg:px-10 xl:px-0">
+        <div className="mx-auto flex max-w-5xl flex-col gap-10 text-center mb-24">
+          <div data-reveal-portfolio-header className="flex justify-center opacity-0">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-studios-primary animate-pulse shadow-[0_0_10px_#E1B341]" />
+              <span className="text-xs font-mono font-bold uppercase tracking-[0.3em] text-white/80">Proof of Execution</span>
+            </div>
           </div>
-          <div className="space-y-5">
-            <h2 id="studios-portfolio-title" className="text-balance text-4xl font-black tracking-tight md:text-5xl">
-              Judge Yourself
+          
+          <div className="space-y-8">
+            <h2 
+              data-reveal-portfolio-header 
+              id="studios-portfolio-title" 
+              className="text-balance font-outfit text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9] opacity-0"
+            >
+              Judge <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50">Yourself.</span>
             </h2>
-            <p className="max-w-3xl text-lg leading-relaxed text-studios-body">
-              Your clients won't compromise on quality. Neither do we. Every campaign ships with broadcast-quality polish across six platforms from a single pipeline.
-            </p>
+            
+            <div className="relative inline-block">
+              <p 
+                data-reveal-portfolio-header 
+                className="max-w-3xl mx-auto font-sans text-xl md:text-2xl leading-relaxed text-white/70 font-light opacity-0"
+              >
+                Your clients won't compromise on quality. <span className="text-white font-medium border-b border-studios-primary/50 pb-0.5">Neither do we.</span> Every campaign ships with broadcast-quality polish across six platforms from a single pipeline.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 xl:grid-cols-3" data-motion="portfolio-grid">
+        {/* Bento Grid Layout */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[300px_300px]" data-motion="portfolio-grid">
           {PORTFOLIO_ITEMS.map((item, index) => (
-            <PortfolioCard key={item.id} item={item} order={index + 1} />
+            <PortfolioCard 
+              key={item.id} 
+              item={item} 
+              order={index + 1} 
+              // First item spans 2x2 on desktop for Bento effect
+              className={index === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2 h-full min-h-[300px]" : "h-full min-h-[300px]"}
+            />
           ))}
         </div>
       </div>
@@ -93,9 +170,10 @@ export function StudiosPortfolioSection() {
 type PortfolioCardProps = {
   item: PortfolioItem
   order: number
+  className?: string
 }
 
-function PortfolioCard({ item, order }: PortfolioCardProps) {
+function PortfolioCard({ item, order, className }: PortfolioCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const ref = useRef(null)
 
@@ -105,53 +183,79 @@ function PortfolioCard({ item, order }: PortfolioCardProps) {
         ref={ref}
         data-motion="portfolio-card"
         data-motion-order={order}
-        className="group relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-white/[0.02] p-[1.5px] transition-all duration-500 ease-out hover:border-white/[0.16] hover:bg-white/[0.04] hover:shadow-[0_70px_160px_-80px_rgba(9,18,36,0.85)]"
+        className={cn(
+          "group relative overflow-hidden rounded-xl bg-studios-steel/40 border border-white/5 hover:border-studios-primary/50 transition-colors duration-300 opacity-0",
+          className
+        )}
       >
         <button
           type="button"
           aria-label={item.srLabel}
           onClick={() => setIsModalOpen(true)}
-          className="relative block w-full overflow-hidden rounded-[30px] transition-transform duration-500 ease-out focus-visible:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-studios-accent/70 group-hover:-translate-y-1"
-          data-motion="portfolio-card-media"
-          data-motion-order={order}
+          className="relative block h-full w-full overflow-hidden"
         >
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[30px]">
-            <div
-              className="absolute inset-0 rounded-[30px] opacity-80"
-              style={{
-                backgroundImage: item.backdrop,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
-            <div className="absolute inset-[1.5px] rounded-[28px] bg-white/4 backdrop-blur-[14px]" />
-            <div className="absolute inset-[3px] rounded-[26px] overflow-hidden">
-              <div className="relative h-full w-full">
-                {/* Static Facade - Video loads in modal only */}
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-[radial-gradient(circle_at_18%_24%,rgba(49,196,255,0.38),rgba(49,196,255,0)_58%),radial-gradient(circle_at_74%_72%,rgba(225,179,65,0.35),rgba(225,179,65,0)_62%)] opacity-80 transition-opacity duration-700 ease-out group-hover:opacity-100" />
-                <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-[0.16] mix-blend-screen [background-image:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 160 160\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.7\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.75\'/%3E%3C/svg%3E')]" />
-                <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-b from-black/45 via-transparent to-black/60 opacity-75 transition-opacity duration-700 ease-out group-hover:opacity-55" />
-                <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-inset ring-white/12 transition duration-500 ease-out group-hover:ring-white/25" />
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/35 via-white/10 to-transparent opacity-80" />
-                  <svg className="relative ml-1 h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M9.5 7.5v9l6.5-4.5z" />
-                  </svg>
-                </div>
+          {/* Background: Thumbnail with Gradient Overlay */}
+          <div className="absolute inset-0">
+             {/* Real Thumbnail (fades in) */}
+             <img 
+               src={item.thumbnail} 
+               alt="" 
+               className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-all duration-500 scale-100 group-hover:scale-105"
+               loading="lazy"
+             />
+             
+             {/* Gradient Overlay for Tint/Readability */}
+             <div 
+               className="absolute inset-0 opacity-60 mix-blend-overlay" 
+               style={{ background: item.backdropGradient }} 
+             />
+             
+             {/* Tech Noir Vignette */}
+             <div className="absolute inset-0 bg-gradient-to-t from-studios-steel/90 via-transparent to-transparent" />
+          </div>
+          
+          {/* Noise Texture */}
+          <div className="absolute inset-0 bg-noise opacity-[0.04] mix-blend-overlay pointer-events-none" />
+
+          {/* Viewfinder Corners (Tech Noir) */}
+          <div className="absolute inset-4 pointer-events-none opacity-0 scale-95 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100">
+            <div className="absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 border-studios-primary shadow-[0_0_10px_rgba(225,179,65,0.5)]" />
+            <div className="absolute top-0 right-0 h-4 w-4 border-t-2 border-r-2 border-studios-primary shadow-[0_0_10px_rgba(225,179,65,0.5)]" />
+            <div className="absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-studios-primary shadow-[0_0_10px_rgba(225,179,65,0.5)]" />
+            <div className="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-studios-primary shadow-[0_0_10px_rgba(225,179,65,0.5)]" />
+          </div>
+
+          {/* Play Icon (Center) */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white/5 backdrop-blur-sm border border-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-studios-primary group-hover:border-transparent shadow-2xl">
+              {/* Pulse Ring */}
+              <div className="absolute inset-0 rounded-full border border-white/20 opacity-0 scale-100 transition-all duration-700 group-hover:scale-150 group-hover:opacity-0 animation-ping" />
+              <Play className="h-8 w-8 text-white ml-1 group-hover:text-black transition-colors fill-current" />
+            </div>
+          </div>
+
+          {/* Metadata Overlay (Slide Up) */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            <div className="flex items-end justify-between">
+              <div className="space-y-1 text-left">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-studios-primary">Client</div>
+                <div className="font-outfit text-2xl font-bold text-white">{item.client}</div>
+              </div>
+              <div className="text-right space-y-1">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-white/50">Format</div>
+                <div className="font-mono text-xs text-white bg-white/10 px-2 py-1 rounded">{item.format}</div>
               </div>
             </div>
           </div>
-        </div>
-      </button>
-    </article >
-      { isModalOpen && (
+        </button>
+      </article>
+
+      {isModalOpen && (
         <VideoModal
           videoId={item.videoId}
           onClose={() => setIsModalOpen(false)}
         />
-      )
-}
+      )}
     </>
   )
 }

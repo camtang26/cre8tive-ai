@@ -1,32 +1,18 @@
 import { Navigation } from "@/components/Navigation"
-import { useEffect } from "react"
 import { PageLayout } from "@/components/layouts/PageLayout"
-import { FadeIn } from "@/components/shared/FadeIn"
-import { ConversationalHero } from "@/components/conversational/ConversationalHero"
-import { ConversationalUseCasesSection } from "@/components/conversational/ConversationalUseCasesSection"
-import { ConversationalMarketingVideoSection } from "@/components/conversational/ConversationalMarketingVideoSection"
-import { ConversationalScaleSection } from "@/components/conversational/ConversationalScaleSection"
-import { ConversationalLiveDemoSection } from "@/components/conversational/ConversationalLiveDemoSection"
-import { ConversationalBrandSection } from "@/components/conversational/ConversationalBrandSection"
-import { ConversationalEnterpriseSection } from "@/components/conversational/ConversationalEnterpriseSection"
-import { ConversationalContactCTASection } from "@/components/conversational/ConversationalContactCTASection"
+import { SentientHero } from "@/components/conversational/redesign/SentientHero"
+import { Suspense, lazy } from "react"
+
+// Lazy load below-the-fold components
+const AudioIntelligenceStream = lazy(() => import("@/components/conversational/redesign/AudioIntelligenceStream").then(module => ({ default: module.AudioIntelligenceStream })))
+const HolographicVideo = lazy(() => import("@/components/conversational/redesign/HolographicVideo").then(module => ({ default: module.HolographicVideo })))
+const NeuralHive = lazy(() => import("@/components/conversational/redesign/NeuralHive").then(module => ({ default: module.NeuralHive })))
+const TacticalDemo = lazy(() => import("@/components/conversational/redesign/TacticalDemo").then(module => ({ default: module.TacticalDemo })))
+const ResonanceBrand = lazy(() => import("@/components/conversational/redesign/ResonanceBrand").then(module => ({ default: module.ResonanceBrand })))
+const TheVault = lazy(() => import("@/components/conversational/redesign/TheVault").then(module => ({ default: module.TheVault })))
+const SecureUplink = lazy(() => import("@/components/conversational/redesign/SecureUplink").then(module => ({ default: module.SecureUplink })))
 
 const ConversationalAI = () => {
-  useEffect(() => {
-    const script = document.createElement("script")
-    script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed"
-    script.async = true
-    script.type = "text/javascript"
-    document.body.appendChild(script)
-
-    return () => {
-      // Cleanup script on unmount
-      if (document.body.contains(script)) {
-        document.body.removeChild(script)
-      }
-    }
-  }, [])
-
   return (
     <div className="relative min-h-screen">
       {/* Unified Page Background - Conversational AI Abyssal Emerald Theme */}
@@ -44,42 +30,32 @@ const ConversationalAI = () => {
 
       <PageLayout variant="custom">
         <Navigation />
-        <main className="pt-20">
-          {/* Section 1: Hero (VIDEO) */}
-          <ConversationalHero />
+        <main className="pt-0"> {/* Removed top padding to let hero hit top */}
+          {/* Section 1: Sentient Hero (Redesign) */}
+          <SentientHero />
 
-          {/* Section 2: Use Cases (COPY) */}
-          <FadeIn>
-            <ConversationalUseCasesSection />
-          </FadeIn>
+          <Suspense fallback={<div className="h-screen bg-black" />}>
+            {/* Section 2: Audio Intelligence Stream (Redesign) */}
+            <AudioIntelligenceStream />
 
-          {/* Section 3: Full Marketing Video (VIDEO) */}
-          <FadeIn>
-            <ConversationalMarketingVideoSection />
-          </FadeIn>
+            {/* Section 3: The Holographic Theater (Redesign) */}
+            <HolographicVideo />
 
-          {/* Section 4: Scale Without Headcount (COPY) */}
-          <FadeIn>
-            <ConversationalScaleSection />
-          </FadeIn>
+            {/* Section 4: The Neural Hive (Redesign) */}
+            <NeuralHive />
 
-          {/* Section 5: Live Demo (~10min video with chapters) (VIDEO) */}
-          <FadeIn>
-            <ConversationalLiveDemoSection />
-          </FadeIn>
+            {/* Section 5: Tactical Ops Center (Redesign) */}
+            <TacticalDemo />
 
-          {/* Section 6: Brand Consistency (COPY) */}
-          <FadeIn>
-            <ConversationalBrandSection />
-          </FadeIn>
+            {/* Section 6: Resonance Alignment (Redesign) */}
+            <ResonanceBrand />
 
-          {/* Section 7: Enterprise Features (COPY) */}
-          <FadeIn>
-            <ConversationalEnterpriseSection />
-          </FadeIn>
+            {/* Section 7: The Vault (Redesign) */}
+            <TheVault />
 
-          {/* Section 8: Contact CTA (CTA) */}
-          <ConversationalContactCTASection />
+            {/* Section 8: Secure Uplink (Redesign) */}
+            <SecureUplink />
+          </Suspense>
         </main>
       </PageLayout>
     </div>
