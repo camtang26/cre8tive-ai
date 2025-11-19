@@ -1,27 +1,26 @@
+import { Suspense, lazy } from "react";
 import { Navigation } from "@/components/Navigation";
 import { StudiosHero } from "@/components/studios/StudiosHero";
-import { StudiosChallengeSection } from "@/components/studios/StudiosChallengeSection";
-import { StudiosPortfolioSection } from "@/components/studios/StudiosPortfolioSection";
-import { StudiosProductionStackSection } from "@/components/studios/StudiosProductionStackSection";
-import { StudiosWorkflowSection } from "@/components/studios/StudiosWorkflowSection";
-import { StudiosStandardsSection } from "@/components/studios/StudiosStandardsSection";
-import { StudiosPlatformDemoSection } from "@/components/studios/StudiosPlatformDemoSection";
-import { StudiosTestimonialsSection } from "@/components/studios/StudiosTestimonialsSection";
-import { StudiosContactCTASection } from "@/components/studios/StudiosContactCTASection";
-import { FadeIn } from "@/components/shared/FadeIn";
 import { PageLayout } from "@/components/layouts/PageLayout";
-import { useLenisSmooth } from "@/hooks/useLenisSmooth";
+
+// Lazy load below-the-fold sections to improve initial load performance
+const StudiosChallengeSection = lazy(() => import("@/components/studios/StudiosChallengeSection").then(module => ({ default: module.StudiosChallengeSection })));
+const StudiosPortfolioSection = lazy(() => import("@/components/studios/StudiosPortfolioSection").then(module => ({ default: module.StudiosPortfolioSection })));
+const StudiosProductionStackSection = lazy(() => import("@/components/studios/StudiosProductionStackSection").then(module => ({ default: module.StudiosProductionStackSection })));
+const StudiosWorkflowSection = lazy(() => import("@/components/studios/StudiosWorkflowSection").then(module => ({ default: module.StudiosWorkflowSection })));
+const StudiosStandardsSection = lazy(() => import("@/components/studios/StudiosStandardsSection").then(module => ({ default: module.StudiosStandardsSection })));
+const StudiosPlatformDemoSection = lazy(() => import("@/components/studios/StudiosPlatformDemoSection").then(module => ({ default: module.StudiosPlatformDemoSection })));
+const StudiosTestimonialsSection = lazy(() => import("@/components/studios/StudiosTestimonialsSection").then(module => ({ default: module.StudiosTestimonialsSection })));
+const StudiosContactCTASection = lazy(() => import("@/components/studios/StudiosContactCTASection").then(module => ({ default: module.StudiosContactCTASection })));
+
+// Loading fallback component
+const SectionLoader = () => (
+  <div className="w-full h-96 flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-studios-orange/30 border-t-studios-orange rounded-full animate-spin" />
+  </div>
+);
 
 const Studios = () => {
-  // PREMIUM: Buttery-smooth scrolling across entire Studios page
-  // Provides Mac-like smooth scroll feel on all platforms
-  // Syncs with GSAP ScrollTrigger for perfect animation timing
-  // Source: Cinematographer research - GitHub DAY_015 (2025), FreeFrontend (2025)
-  useLenisSmooth({
-    duration: 1.2,      // Standard smooth duration
-    smoothWheel: true,  // Mouse wheel scrolling
-    smoothTouch: false, // Keep native mobile scrolling (better UX)
-  });
   return (
     <div className="relative min-h-screen">
       {/* Unified Page Background - Studios Orange/Teal Theme */}
@@ -36,19 +35,42 @@ const Studios = () => {
         }}
       />
 
-      <PageLayout>
+      <PageLayout variant="custom">
         <Navigation />
         <main className="pt-20">
           <StudiosHero />
-          {/* Sections now use GSAP scroll reveals - FadeIn wrappers removed */}
-          <StudiosChallengeSection />
-          <StudiosPortfolioSection />
-          <StudiosProductionStackSection />
-          <StudiosWorkflowSection />
-          <StudiosStandardsSection />
-          <StudiosPlatformDemoSection />
-          <StudiosTestimonialsSection />
-          <StudiosContactCTASection />
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosChallengeSection />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosPortfolioSection />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosProductionStackSection />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosWorkflowSection />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosStandardsSection />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosPlatformDemoSection />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosTestimonialsSection />
+          </Suspense>
+          
+          <Suspense fallback={<SectionLoader />}>
+            <StudiosContactCTASection />
+          </Suspense>
         </main>
       </PageLayout>
     </div>

@@ -329,3 +329,19 @@
 
 ## Follow-ups
 - Document intended animation sequencing (stagger order, parallax ideas) in `_MEMO`/GSAP brief after viewport QA.
+
+# 2025-11-18 – Studios & Conversational Stabilization
+
+## Summary
+- Replaced the SplitText-based hero intro with a lightweight GSAP timeline so the Studios hero text is visible even when React double-mounts; added a best-effort autoplay retry for the hero Mux video, removed Lenis, and dropped the magnetic CTA pointer math.
+- Simplified Conversational’s "Where Conversational AI Excels" grid by removing tilt effects and using a single `ScrollTrigger.batch` reveal; background load is reduced by opting both pages into `PageLayout variant="custom"` so we no longer stack multiple gradient/noise layers.
+- Portfolio animations now run once without permanent `will-change`, keeping GPU memory lower after scroll.
+
+## Verification
+- `npm run build`
+
+## Risks
+- Without Lenis, GSAP scrolling hooks rely on native scroll; verify ScrollTrigger refreshes still align with design expectations across devices.
+
+## Follow-ups
+- Re-run Chrome DevTools MCP traces once deployed to confirm hero LCP drops and scroll smoothness improves.

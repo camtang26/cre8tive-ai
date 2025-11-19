@@ -1,6 +1,13 @@
 import type { CSSProperties } from "react"
+import { useRef } from "react"
 import MuxPlayer from "@mux/mux-player-react/lazy"
-import { useSectionReveal, SectionRevealPresets } from '@/hooks/useSectionReveal';
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useInView } from "framer-motion"
+import { useIsMobile } from "@/hooks/use-mobile"
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Mux Playback IDs for platform-specific demo videos
 const PLAYBACK_IDS = {
@@ -34,12 +41,28 @@ const FRAMES = [
 ] as const
 
 export function StudiosPlatformDemoSection() {
-  // REFINED: HERO LUXURY timing - maximum cinematic drama for key marketing moment
-  // expo.out creates "Apple product reveal" feel: explosive start → dramatic brake → feather settle
-  useSectionReveal({
-    selector: '[data-reveal-feature]',
-    ...SectionRevealPresets.hero,  // REFINED: 60ms, 1.6s, expo.out (was luxury: 1.2s, power4.out)
-  });
+  const isMobile = useIsMobile()
+
+  useGSAP(() => {
+    const ctx = gsap.context(() => {
+      const items = gsap.utils.toArray<HTMLElement>('[data-platform-reveal]')
+      if (!items.length) return
+
+      ScrollTrigger.batch(items, {
+        start: 'top 85%',
+        once: true,
+        onEnter: batch => {
+          gsap.fromTo(
+            batch,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' }
+          )
+        }
+      })
+    })
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section
@@ -55,118 +78,122 @@ export function StudiosPlatformDemoSection() {
       <div className="container relative mx-auto max-w-6xl px-4 md:px-6 xl:px-0">
         <div className="mx-auto max-w-3xl space-y-6 text-center text-white" data-motion="platform-demo-copy">
           <h2
-            data-reveal-feature
+            data-platform-reveal
             id="studios-platform-demo-title"
             className="text-4xl font-black tracking-tight text-studios-headline md:text-[3.2rem] md:leading-[1.08]"
           >
             Six Formats. One Production.
           </h2>
-          <p data-reveal-feature className="text-base font-medium uppercase tracking-[0.32em] text-white/60 md:text-[0.95rem]">
+          <p data-platform-reveal className="text-base font-medium uppercase tracking-[0.32em] text-white/60 md:text-[0.95rem]">
             YouTube 16:9. TikTok 9:16. Instagram 1:1, 4:5, Reels. LinkedIn. X. Facebook. Secure, platform-native delivery without six separate productions.
           </p>
           <div className="space-y-5 text-lg leading-relaxed text-studios-body md:text-[1.2rem]">
-            <p data-reveal-feature>
+            <p data-platform-reveal>
               Most agencies repurpose one video across platforms—audiences notice. Pure AI tools generate separately—budgets explode.
             </p>
-            <p data-reveal-feature>
+            <p data-platform-reveal>
               Our Studios delivers platform-optimized work from a single production process. Your clients get native content everywhere.
             </p>
           </div>
         </div>
 
         <div className="mt-16 space-y-10" data-motion="platform-demo-grid">
-          {/* Mobile: Simple stacked grid */}
-          <div className="grid gap-8 md:hidden">
-            {FRAMES.map((frame, index) => (
-              <MediaFrame
-                key={frame.id}
-                id={frame.id}
-                aspect={frame.aspect}
-                gradient={frame.gradient}
-                srLabel={frame.srLabel}
-                playbackId={frame.playbackId}
-                order={index + 1}
-                className="mx-auto w-full max-w-[26rem]"
-                reveal={true}
-              />
-            ))}
-          </div>
+          {/* Mobile: Simple stacked grid - Only rendered on mobile */}
+          {isMobile && (
+            <div className="grid gap-8 md:hidden">
+              {FRAMES.map((frame, index) => (
+                <MediaFrame
+                  key={frame.id}
+                  id={frame.id}
+                  aspect={frame.aspect}
+                  gradient={frame.gradient}
+                  srLabel={frame.srLabel}
+                  playbackId={frame.playbackId}
+                  order={index + 1}
+                  className="mx-auto w-full max-w-[26rem]"
+                  reveal={true}
+                />
+              ))}
+            </div>
+          )}
 
-          {/* Desktop: Static 3-format display */}
-          <div
-            className="relative hidden w-full md:block"
-            data-motion="platform-demo-display"
-            style={{
-              perspective: "1400px",
-              perspectiveOrigin: "50% 50%",
-              height: "60rem",
-            }}
-          >
+          {/* Desktop: Static 3-format display - Only rendered on desktop */}
+          {!isMobile && (
             <div
-              className="relative mx-auto w-full"
+              className="relative hidden w-full md:block"
+              data-motion="platform-demo-display"
               style={{
-                transformStyle: "preserve-3d",
+                perspective: "1400px",
+                perspectiveOrigin: "50% 50%",
+                height: "60rem",
               }}
             >
-              {/* Instagram 1:1 - upper right, angled */}
-              <MediaFrame
-                id="instagram"
-                aspect="aspect-square"
-                gradient="from-[rgba(225,179,65,0.32)] via-[rgba(225,179,65,0.12)] to-transparent"
-                srLabel="Instagram 1:1"
-                playbackId={PLAYBACK_IDS.instagram}
-                order={1}
-                className="absolute max-w-[26rem]"
+              <div
+                className="relative mx-auto w-full"
                 style={{
-                  top: "-5rem",
-                  left: "41rem",
-                  transform: "rotateY(-60deg) translateZ(-400px) scale(1.0)",
-                  opacity: 0.9,
-                  zIndex: 2,
+                  transformStyle: "preserve-3d",
                 }}
-                reveal={true}
-              />
+              >
+                {/* Instagram 1:1 - upper right, angled */}
+                <MediaFrame
+                  id="instagram"
+                  aspect="aspect-square"
+                  gradient="from-[rgba(225,179,65,0.32)] via-[rgba(225,179,65,0.12)] to-transparent"
+                  srLabel="Instagram 1:1"
+                  playbackId={PLAYBACK_IDS.instagram}
+                  order={1}
+                  className="absolute max-w-[26rem]"
+                  style={{
+                    top: "-5rem",
+                    left: "41rem",
+                    transform: "rotateY(-60deg) translateZ(-400px) scale(1.0)",
+                    opacity: 0.9,
+                    zIndex: 2,
+                  }}
+                  reveal={true}
+                />
 
-              {/* TikTok 9:16 - left middle, angled */}
-              <MediaFrame
-                id="tiktok"
-                aspect="aspect-[9/16]"
-                gradient="from-[rgba(142,220,255,0.32)] via-[rgba(49,196,255,0.14)] to-transparent"
-                srLabel="TikTok 9:16"
-                playbackId={PLAYBACK_IDS.tiktok}
-                order={2}
-                className="absolute max-w-[22rem]"
-                style={{
-                  top: "-30rem",
-                  left: "10rem",
-                  transform: "rotateY(60deg) translateZ(-400px) scale(1.0)",
-                  opacity: 0.9,
-                  zIndex: 2,
-                }}
-                reveal={true}
-              />
+                {/* TikTok 9:16 - left middle, angled */}
+                <MediaFrame
+                  id="tiktok"
+                  aspect="aspect-[9/16]"
+                  gradient="from-[rgba(142,220,255,0.32)] via-[rgba(49,196,255,0.14)] to-transparent"
+                  srLabel="TikTok 9:16"
+                  playbackId={PLAYBACK_IDS.tiktok}
+                  order={2}
+                  className="absolute max-w-[22rem]"
+                  style={{
+                    top: "-30rem",
+                    left: "10rem",
+                    transform: "rotateY(60deg) translateZ(-400px) scale(1.0)",
+                    opacity: 0.9,
+                    zIndex: 2,
+                  }}
+                  reveal={true}
+                />
 
-              {/* YouTube 16:9 - center bottom, front */}
-              <MediaFrame
-                id="youtube"
-                aspect="aspect-[16/9]"
-                gradient="from-[rgba(49,196,255,0.36)] via-[rgba(49,196,255,0.12)] to-transparent"
-                srLabel="YouTube 16:9"
-                playbackId={PLAYBACK_IDS.youtube}
-                order={3}
-                className="absolute"
-                style={{
-                  top: "-65rem",
-                  left: "43%",
-                  transform: "translateX(calc(-50% + 6rem)) rotateY(0deg) translateZ(-200px) scale(1.2)",
-                  opacity: 0.9,
-                  zIndex: 3,
-                  width: "37.5rem",
-                }}
-                reveal={true}
-              />
+                {/* YouTube 16:9 - center bottom, front */}
+                <MediaFrame
+                  id="youtube"
+                  aspect="aspect-[16/9]"
+                  gradient="from-[rgba(49,196,255,0.36)] via-[rgba(49,196,255,0.12)] to-transparent"
+                  srLabel="YouTube 16:9"
+                  playbackId={PLAYBACK_IDS.youtube}
+                  order={3}
+                  className="absolute"
+                  style={{
+                    top: "-65rem",
+                    left: "43%",
+                    transform: "translateX(calc(-50% + 6rem)) rotateY(0deg) translateZ(-200px) scale(1.2)",
+                    opacity: 0.9,
+                    zIndex: 3,
+                    width: "37.5rem",
+                  }}
+                  reveal={true}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>
@@ -186,9 +213,16 @@ type MediaFrameProps = {
 }
 
 function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, className, style, reveal }: MediaFrameProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "200px 0px" // Load 200px before entering viewport
+  })
+
   return (
     <div
-      {...(reveal ? { 'data-reveal-feature': true } : {})}
+      ref={ref}
+      {...(reveal ? { 'data-platform-reveal': true } : {})}
       className={`group relative overflow-hidden rounded-[32px] border border-white/12 bg-white/[0.02] p-[1.5px] shadow-[0_80px_200px_-110px_rgba(8,15,32,0.92)] transition-all duration-500 ease-out hover:border-white/18 hover:shadow-[0_120px_260px_-120px_rgba(9,18,36,0.95)] ${className ?? ""}`}
       data-motion="platform-demo-frame"
       data-motion-order={order}
@@ -202,29 +236,34 @@ function MediaFrame({ id, aspect, gradient, srLabel, playbackId, order, classNam
           className={`relative ${aspect} overflow-hidden rounded-[28px]`}
           data-motion="platform-demo-video"
         >
-          <MuxPlayer
-            playbackId={playbackId}
-            loading="viewport"
-            preload="none"
-            autoPlay
-            loop
-            muted
-            playsInline
-            metadata={{
-              video_title: `${srLabel} Platform Demo`,
-              viewer_user_id: "anonymous"
-            }}
-            streamType="on-demand"
-            style={{
-              width: '100%',
-              height: '100%',
-              aspectRatio: aspect === 'aspect-[16/9]' ? '16/9' : aspect === 'aspect-square' ? '1/1' : '9/16',
-              objectFit: 'cover',
-              '--controls': 'none',
-              '--media-object-fit': 'cover',
-              '--media-object-position': 'center',
-            } as React.CSSProperties}
-          />
+          {isInView ? (
+            <MuxPlayer
+              playbackId={playbackId}
+              loading="viewport"
+              preload="none"
+              autoPlay
+              loop
+              muted
+              playsInline
+              metadata={{
+                video_title: `${srLabel} Platform Demo`,
+                viewer_user_id: "anonymous"
+              }}
+              streamType="on-demand"
+              style={{
+                width: '100%',
+                height: '100%',
+                aspectRatio: aspect === 'aspect-[16/9]' ? '16/9' : aspect === 'aspect-square' ? '1/1' : '9/16',
+                objectFit: 'cover',
+                '--controls': 'none',
+                '--media-object-fit': 'cover',
+                '--media-object-position': 'center',
+              } as React.CSSProperties}
+            />
+          ) : (
+            // Placeholder while waiting for viewport
+            <div className="absolute inset-0 bg-black/10" />
+          )}
           {/* Subtle overlay for depth and polish */}
           <div className="absolute inset-0 rounded-[28px] bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" aria-hidden />
           <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/14" aria-hidden />

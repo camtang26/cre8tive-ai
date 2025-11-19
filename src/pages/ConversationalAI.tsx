@@ -42,7 +42,7 @@ const ConversationalAI = () => {
         }}
       />
 
-      <PageLayout>
+      <PageLayout variant="custom">
         <Navigation />
         <main className="pt-20">
           {/* Section 1: Hero (VIDEO) */}

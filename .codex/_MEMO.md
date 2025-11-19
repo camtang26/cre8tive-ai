@@ -800,3 +800,13 @@ npm run deploy     # Pushes dist/ to GitHub Pages (master branch is production)
 - Section 7 carousel now uses a 3D depth layout: active 16:9 lead frame centered, inactive formats staged with lower opacity/translateZ and carousel controls (icon-only buttons) for cycling. Mobile fallback stacks frames vertically; all visible text remains copy-deck only.
 - Carousel interaction updated: cards now sit on a horizontal depth rail with click-to-focus behavior; inactive frames slide back with rotateY/translateZ while mobile keeps stacked view. No navigation buttons or extra copy added.
 - Platform carousel refactored to rotate the frame order (stateful array) so the clicked card rotates to the lead; desktop layout keeps the centered 16:9 with the other two offset horizontally into the background, no vertical shift.
+
+## 2025-11-18 — Rollback to Pre-Gemini Refactors
+- Created `backup/gemini-refactor` from commit `bdcfee2` to preserve the prior work.
+- Hard-reset `master` (and the studios/conversational worktree) to `106470b`, reran `npm run build`, and force-pushed so production reflects the stable baseline again.
+- Next: rebuild the optimization plan with staged testing before attempting another deploy.
+
+## 2025-11-18 — Studios/Conversational Stabilization
+- Replaced the SplitText hero intro with a lightweight GSAP timeline and added a best-effort autoplay loop/visibility retry for the Mux hero so stakeholders no longer see frozen hero text/video.
+- Removed Lenis from the Studios route, stripped the magnetic CTA/pointer math, and simplified Conversational use-case cards (no tilt, no per-breakpoint ScrollTriggers—now a single `ScrollTrigger.batch`).
+- Opted into `PageLayout variant="custom"` for both pages to avoid stacking duplicate gradient/noise layers and trimmed `usePortfolioAnimation` so reveals run once without permanent `will-change` hints.

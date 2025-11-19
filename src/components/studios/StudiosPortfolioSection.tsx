@@ -1,7 +1,5 @@
-import { useState } from "react"
-
+import { useState, useRef } from "react"
 import VideoModal from "@/components/core/VideoModal"
-import VimeoPlayer from "@/components/core/VimeoPlayer"
 import { usePortfolioAnimation } from '@/hooks/usePortfolioAnimation'
 
 type PortfolioItem = {
@@ -99,10 +97,12 @@ type PortfolioCardProps = {
 
 function PortfolioCard({ item, order }: PortfolioCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const ref = useRef(null)
 
   return (
     <>
       <article
+        ref={ref}
         data-motion="portfolio-card"
         data-motion-order={order}
         className="group relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-white/[0.02] p-[1.5px] transition-all duration-500 ease-out hover:border-white/[0.16] hover:bg-white/[0.04] hover:shadow-[0_70px_160px_-80px_rgba(9,18,36,0.85)]"
@@ -127,33 +127,31 @@ function PortfolioCard({ item, order }: PortfolioCardProps) {
             <div className="absolute inset-[1.5px] rounded-[28px] bg-white/4 backdrop-blur-[14px]" />
             <div className="absolute inset-[3px] rounded-[26px] overflow-hidden">
               <div className="relative h-full w-full">
-                <VimeoPlayer
-                  videoId={item.videoId}
-                  autoplay={false}
-                  loop={false}
-                  muted={true}
-                  controls={false}
-                  isBackground={true}
-                  className="rounded-[26px]"
-                />
+                {/* Static Facade - Video loads in modal only */}
+                <div className="absolute inset-0 bg-black/20" />
                 <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-[radial-gradient(circle_at_18%_24%,rgba(49,196,255,0.38),rgba(49,196,255,0)_58%),radial-gradient(circle_at_74%_72%,rgba(225,179,65,0.35),rgba(225,179,65,0)_62%)] opacity-80 transition-opacity duration-700 ease-out group-hover:opacity-100" />
                 <div className="pointer-events-none absolute inset-0 rounded-[26px] opacity-[0.16] mix-blend-screen [background-image:url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 160 160\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'1.7\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.75\'/%3E%3C/svg%3E')]" />
                 <div className="pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-b from-black/45 via-transparent to-black/60 opacity-75 transition-opacity duration-700 ease-out group-hover:opacity-55" />
                 <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-inset ring-white/12 transition duration-500 ease-out group-hover:ring-white/25" />
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_0_35px_rgba(49,196,255,0.25)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:shadow-[0_0_55px_rgba(49,196,255,0.55)]">
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/35 via-white/10 to-transparent opacity-80" />
-                    <svg className="relative ml-1 h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M9.5 7.5v9l6.5-4.5z" />
-                    </svg>
-                  </div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/35 via-white/10 to-transparent opacity-80" />
+                  <svg className="relative ml-1 h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M9.5 7.5v9l6.5-4.5z" />
+                  </svg>
                 </div>
               </div>
             </div>
           </div>
-        </button>
-      </article>
-      {isModalOpen ? <VideoModal videoId={item.videoId} onClose={() => setIsModalOpen(false)} /> : null}
+        </div>
+      </button>
+    </article >
+      { isModalOpen && (
+        <VideoModal
+          videoId={item.videoId}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )
+}
     </>
   )
 }

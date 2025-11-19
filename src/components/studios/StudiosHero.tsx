@@ -11,11 +11,10 @@ import { useHeroIntro } from "@/hooks/useHeroIntro"
 const HERO_VIDEO_PLAYBACK_ID = "PGPc0001LBGwUIP009V7xc02de6Z01udAE8dbetAQ2XlrOIY"
 
 export const StudiosHero = () => {
-  const playerRef = useRef<HTMLVideoElement>(null)
+  const playerRef = useRef<any>(null)
   const heroRef = useRef<HTMLElement>(null)
 
   const [isVideoReady, setIsVideoReady] = useState(false)
-  const [pointerActive, setPointerActive] = useState(true)
 
   const isMobile = useIsMobile()
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -24,68 +23,60 @@ export const StudiosHero = () => {
   useHeroIntro()
 
   useEffect(() => {
+    if (!isVideoReady || isMobile || prefersReducedMotion) {
+      return
+    }
+
+    const videoEl = playerRef.current
+    if (!videoEl) {
+      return
+    }
+
+    const attemptPlayback = () => {
+      try {
+        const playPromise = (videoEl as HTMLVideoElement).play()
+        if (playPromise?.catch) {
+          playPromise.catch(() => { })
+        }
+      } catch (error) {
+        console.warn('[StudiosHero] Autoplay attempt failed', error)
+      }
+    }
+
+    attemptPlayback()
+
+    const handleVisibility = () => {
+      if (!document.hidden) {
+        attemptPlayback()
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibility)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
+  }, [isVideoReady, isMobile, prefersReducedMotion])
+
+  useEffect(() => {
     if (!heroRef.current) return
     heroRef.current.style.setProperty("--pointer-x", "50%")
     heroRef.current.style.setProperty("--pointer-y", "50%")
   }, [])
 
-  const handleHeroPointerMove = useCallback(
-    (event: ReactPointerEvent<HTMLElement>) => {
-      if (!heroRef.current) return
-      const rect = heroRef.current.getBoundingClientRect()
-      const x = ((event.clientX - rect.left) / rect.width) * 100
-      const y = ((event.clientY - rect.top) / rect.height) * 100
-      heroRef.current.style.setProperty("--pointer-x", `${x}%`)
-      heroRef.current.style.setProperty("--pointer-y", `${y}%`)
-    if (!pointerActive) setPointerActive(true)
-    },
-    [pointerActive]
-  )
+  const handleHeroPointerMove = useCallback((event: ReactPointerEvent<HTMLElement>) => {
+    if (!heroRef.current) return
+    const rect = heroRef.current.getBoundingClientRect()
+    const x = ((event.clientX - rect.left) / rect.width) * 100
+    const y = ((event.clientY - rect.top) / rect.height) * 100
+    heroRef.current.style.setProperty("--pointer-x", `${x}%`)
+    heroRef.current.style.setProperty("--pointer-y", `${y}%`)
+  }, [])
 
   const handleHeroPointerLeave = useCallback(() => {
     if (!heroRef.current) return
     heroRef.current.style.setProperty("--pointer-x", "50%")
     heroRef.current.style.setProperty("--pointer-y", "50%")
-  }, [])
-
-  const handlePrimaryPointerMove = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {
-    if (prefersReducedMotion) return
-    const target = event.currentTarget
-    const rect = target.getBoundingClientRect()
-    const offsetX = ((event.clientX - (rect.left + rect.width / 2)) / rect.width) * 18
-    const offsetY = ((event.clientY - (rect.top + rect.height / 2)) / rect.height) * 12
-    target.style.setProperty("--cta-offset-x", `${offsetX}px`)
-    target.style.setProperty("--cta-offset-y", `${offsetY}px`)
-    target.style.setProperty("--cta-scale", "1.02")
-    target.style.setProperty("--cta-arrow-offset-x", `${offsetX * 0.4}px`)
-    target.style.setProperty("--cta-arrow-offset-y", `${offsetY * 0.4}px`)
-    target.style.setProperty("--cta-arrow-rotate", `${offsetX * 0.8}deg`)
-  }, [prefersReducedMotion])
-
-  const handlePrimaryPointerLeave = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {
-    const target = event.currentTarget
-    target.style.setProperty("--cta-offset-x", "0px")
-    target.style.setProperty("--cta-offset-y", "0px")
-    target.style.setProperty("--cta-scale", "1")
-    target.style.setProperty("--cta-arrow-offset-x", "0px")
-    target.style.setProperty("--cta-arrow-offset-y", "0px")
-    target.style.setProperty("--cta-arrow-rotate", "0deg")
-  }, [])
-
-  const handleSecondaryPointerMove = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {
-    if (prefersReducedMotion) return
-    const target = event.currentTarget
-    const rect = target.getBoundingClientRect()
-    const offsetX = ((event.clientX - (rect.left + rect.width / 2)) / rect.width) * 10
-    const offsetY = ((event.clientY - (rect.top + rect.height / 2)) / rect.height) * 8
-    target.style.setProperty("--trail-offset-x", `${offsetX}px`)
-    target.style.setProperty("--trail-offset-y", `${offsetY}px`)
-  }, [prefersReducedMotion])
-
-  const handleSecondaryPointerLeave = useCallback((event: ReactPointerEvent<HTMLAnchorElement>) => {
-    const target = event.currentTarget
-    target.style.setProperty("--trail-offset-x", "0px")
-    target.style.setProperty("--trail-offset-y", "0px")
   }, [])
 
   return (
@@ -116,7 +107,7 @@ export const StudiosHero = () => {
       </div>
 
       <div className="pointer-events-none absolute inset-0 -z-20" aria-hidden style={{ transform: 'translate3d(0, 0, 0)' }}>
-        <div className="hero-pointer-highlight" data-active={pointerActive} />
+        <div className="hero-pointer-highlight" />
       </div>
 
       <div className="relative z-10">
@@ -148,8 +139,6 @@ export const StudiosHero = () => {
                 )}
                 data-motion="hero.cta.primary"
                 data-reduced-motion={prefersReducedMotion ? "true" : "false"}
-                onPointerMove={handlePrimaryPointerMove}
-                onPointerLeave={handlePrimaryPointerLeave}
               >
                 See Our Work
                 <span className="cta-arrow relative flex h-9 w-9 items-center justify-center rounded-full bg-black/10 transition duration-300 group-hover:bg-black/20 group-hover:shadow-[0_0_25px_rgba(225,179,65,0.4)]">
@@ -183,12 +172,13 @@ const HeroVideoBackdrop = ({ playerRef, isVideoReady, setIsVideoReady, isMobile 
         <MuxPlayer
           ref={playerRef}
           playbackId={HERO_VIDEO_PLAYBACK_ID}
-          loading="viewport"
-          preload="none"
+          preload="metadata"
           autoPlay={!isMobile && !prefersReducedMotion}
           loop
           muted
           playsInline
+          maxResolution="720p"
+          poster="/portfolio/cre8tive-demo.jpg"
           style={{
             position: 'absolute',
             inset: 0,
